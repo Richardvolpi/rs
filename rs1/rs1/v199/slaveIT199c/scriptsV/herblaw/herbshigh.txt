@@ -1,0 +1,234 @@
+gotoifcoordsin(@walkback,585,576,577,572)
+gotoifcoordsin(@main,615,555,620,550)
+gotoifcoordsin(@pickdoor,619,556,615,557)
+
+start at chaos druids
+@main:
+gotoifbagfull(@leave)
+gotoiffighting(@wait)
+setvarfatigue(%f)
+gotoifnum1equalnum2(@sleep,%f,100)
+gotoifnpcnearbyname(@attack,chaos druid)
+goto(@findherbs2)
+
+@attack:
+fightmode(1)
+attacknearestbyname(chaos druid,false)
+wait(300)
+goto(@main)
+e.eb[438] = "Herb: Ranarr Weed";
+		    	e.eb[439] = "Herb: Irit Leaf";
+		    	e.eb[440] = "Herb: Avantoe";
+		    	e.eb[441] = "Herb: Kwuarm";
+		    	e.eb[442] = "Herb: Cadantine";
+@wait:
+wait(50)
+gotoiffighting(@wait)
+@findherbs:
+gotoifitemwithindistname(@takeherbr,Herb: Ranarr Weed,0)
+gotoifitemwithindistname(@takeherbi,Herb: Irit Leaf,0)
+gotoifitemwithindistname(@takeherbk,Herb: Kwuarm,0)
+gotoifitemwithindistname(@takeherbc,Herb: Cadantine,0)
+gotoifitemwithindistname(@takelaws,law-rune,0)
+goto(@main)
+@takeherbr:
+takenearestbyname(Herb: Ranarr Weed)
+wait(500)
+goto(@findherbs)
+@takeherbi:
+takenearestbyname(Herb: Irit Leaf)
+wait(500)
+goto(@findherbs)
+@takeherk:
+takenearestbyname(Herb: Kwuarm)
+wait(500)
+goto(@findherbs)
+@takeherbc:
+takenearestbyname(Herb: Cadantine)
+wait(500)
+goto(@findherbs)
+@takelaws:
+takenearestbyname(law-rune)
+wait(500)
+goto(@findherbs)
+
+@findherbs2:
+gotoifitemwithindistname(@takeherbr2,Herb: Ranarr Weed,10)
+gotoifitemwithindistname(@takeherbi2,Herb: Irit Leaf,10)
+gotoifitemwithindistname(@takeherbk2,Herb: Kwuarm,10)
+gotoifitemwithindistname(@takeherbc2,Herb: Cadantine,10)
+gotoifitemwithindistname(@takelaws2,law-rune,10)
+idherbs()
+gotoifcoordsin(@main,617,553,619,554)
+wait(500)
+walknopeople(618,554)
+wait(500)
+goto(@main)
+@takeherbr2:
+takenearestbyname(Herb: Ranarr Weed)
+wait(500)
+goto(@main)
+@takeherbi2:
+takenearestbyname(Herb: Irit Leaf)
+wait(500)
+goto(@main)
+@takeherk2:
+takenearestbyname(Herb: Kwuarm)
+wait(500)
+goto(@main)
+@takeherbc2:
+takenearestbyname(Herb: Cadantine)
+wait(500)
+goto(@main)
+@takelaws2:
+takenearestbyname(law-rune)
+wait(500)
+goto(@main)
+
+@leave:
+opendoor(617,556,open)
+wait(500)
+setvarmyy(%y)
+gotoifnum1abovenum2(@walkbank,%y,554)
+goto(@leave)
+
+@walkbank:
+walkwait(609,567)
+walkwait(593,603)
+walkwait(587,574)
+goto(@bank)
+
+@bank:
+idherbs()
+repeatnextcommanduntilquestmenu(4000)
+talktonearestnpc(95)
+answer(0)
+waitforbank(8000)
+wait(1000)
+@checkherbs:
+gotoifininventory(@herb0,165)
+gotoifininventory(@herb1,435)
+gotoifininventory(@herb2,436)
+gotoifininventory(@herb3,437)
+gotoifininventory(@herb4,438)
+gotoifininventory(@herb5,439)
+gotoifininventory(@herb6,440)
+gotoifininventory(@herb7,441)
+gotoifininventory(@herb8,442)
+gotoifininventory(@herb9,443)
+gotoifininventory(@herb10,444)
+gotoifininventory(@herb11,445)
+gotoifininventory(@herb12,446)
+gotoifininventory(@herb13,447)
+gotoifininventory(@herb14,448)
+gotoifininventory(@herb15,449)
+gotoifininventory(@herb16,450)
+gotoifininventory(@herb17,451)
+gotoifininventory(@herb18,452)
+gotoifininventory(@herb19,453)
+goto(@closebank)
+@herb0:
+deposit(165,1)
+wait(100)
+goto(@checkherbs)
+@herb1:
+deposit(435,1)
+wait(100)
+goto(@checkherbs)
+@herb2:
+deposit(436,1)
+wait(100)
+goto(@checkherbs)
+@herb3:
+deposit(437,1)
+wait(100)
+goto(@checkherbs)
+@herb4:
+deposit(438,1)
+wait(100)
+goto(@checkherbs)
+@herb5:
+deposit(439,1)
+wait(100)
+goto(@checkherbs)
+@herb6:
+deposit(440,1)
+wait(100)
+goto(@checkherbs)
+@herb7:
+deposit(441,1)
+wait(100)
+goto(@checkherbs)
+@herb8:
+deposit(442,1)
+wait(100)
+goto(@checkherbs)
+@herb9:
+deposit(443,1)
+wait(100)
+goto(@checkherbs)
+@herb10:
+deposit(444,1)
+wait(100)
+goto(@checkherbs)
+@herb11:
+deposit(445,1)
+wait(100)
+goto(@checkherbs)
+@herb12:
+deposit(446,1)
+wait(100)
+goto(@checkherbs)
+@herb13:
+deposit(447,1)
+wait(100)
+goto(@checkherbs)
+@herb14:
+deposit(448,1)
+wait(100)
+goto(@checkherbs)
+@herb15:
+deposit(449,1)
+wait(100)
+goto(@checkherbs)
+@herb16:
+deposit(450,1)
+wait(100)
+goto(@checkherbs)
+@herb17:
+deposit(451,1)
+wait(100)
+goto(@checkherbs)
+@herb18:
+deposit(452,1)
+wait(100)
+goto(@checkherbs)
+@herb19:
+deposit(453,1)
+wait(100)
+goto(@checkherbs)
+
+@closebank:
+closebank()
+goto(@walkback)
+
+@walkback:
+walkwait(594,603)
+walkwait(609,567)
+walkwait(617,556)
+goto(@pickdoor)
+
+@pickdoor:
+closedoor(617,556)
+wait(200)
+setvarmyy(%y)
+gotoifnum1belownum2(@main,%y,556)
+goto(@pickdoor)
+
+@sleep:
+wait(2000)
+useitembyid(1263)
+wait(2000)
+waitforwakeup(28000)
+gotoifsleeping(@sleep)
+goto(@main)

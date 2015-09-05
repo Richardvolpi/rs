@@ -1,0 +1,4 @@
+prayeron(0)
+wait(100)
+prayeroff(0)
+wait(2000)

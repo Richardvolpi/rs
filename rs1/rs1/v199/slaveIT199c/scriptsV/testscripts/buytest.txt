@@ -1,0 +1,27 @@
+@buy1:
+wait(50)
+buyitem(31)
+gotoifinshop(@buy1,31)
+@buy2:
+wait(50)
+buyitem(32)
+gotoifinshop(@buy2,32)
+@buy3:
+wait(50)
+buyitem(33)
+gotoifinshop(@buy3,33)
+@buy4:
+wait(50)
+buyitem(34)
+gotoifinshop(@buy4,34)
+@buy5:
+wait(50)
+buyitem(35)
+gotoifinshop(@buy5,35)
+debugrs(@ran@nO runes)
+goto(@empty)
+
+@empty:
+wait(50)
+gotoifinshop(@buy1,31)
+goto(@empty)

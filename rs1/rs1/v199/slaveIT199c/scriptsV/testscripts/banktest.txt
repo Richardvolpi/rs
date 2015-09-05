@@ -1,0 +1,6 @@
+@main:
+talktonearestnpc(95)
+wait(1000)
+goto(@main)
+
+debugrs(g)

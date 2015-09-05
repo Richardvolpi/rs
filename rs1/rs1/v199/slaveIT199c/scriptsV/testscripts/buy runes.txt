@@ -1,0 +1,11 @@
+@buy:
+wait(200)
+buyitem(32)
+gotoifinshop(@buy,32)
+debugrs(no runes)
+goto(@empty)
+
+@empty:
+wait(50)
+gotoifinshop(@buy,32)
+goto(@empty)

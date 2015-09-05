@@ -1,0 +1,8 @@
+@sleep:
+wait(2000)
+useitembyid(1263)
+wait(200)
+useitembyid(1263)
+wait(2000)
+waitforwakeup(28000)
+gotoifsleeping(@sleep)

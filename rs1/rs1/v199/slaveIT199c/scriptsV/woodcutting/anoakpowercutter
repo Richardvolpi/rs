@@ -1,0 +1,16 @@
+@blah:
+setvarfatigue(%f)
+gotoifnum1equalnum2(@sleep,%f,100)
+objcmd1(718,509)
+wait(200)
+objcmd1(721,509)
+wait(200)
+goto(@blah)
+
+@sleep:
+wait(2000)
+useitembyid(1263)
+wait(2000)
+waitforwakeup(28000)
+gotoifsleeping(@sleep)
+goto(@blah)

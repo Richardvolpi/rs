@@ -1,0 +1,7 @@
+debugrs( *                           *)
+debugrs( *             _    ___ ___ *)
+debugrs( *\        /  /_\      |      |     *)
+debugrs( * \  /\  /  /    \     |      |      *)
+debugrs( *  \/  \/  /      \  _|_    |     *)
+debugrs( *                                    *)
+wait(1000)

@@ -1,0 +1,4 @@
+setvar(%type,11)
+setvar(%spell,6)
+magenearest(%type,%spell)
+sleep(400)

@@ -1,0 +1,9 @@
+@main:
+wait(500)
+gotoifcoordsin(@inarea,209,625,208,623)
+goto(@main)
+
+@inarea:
+wait(5000)
+debugrs(in area)
+goto(@main)

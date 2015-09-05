@@ -1,0 +1,2 @@
+talkrs(@whi@text to say here)
+wait(3500)

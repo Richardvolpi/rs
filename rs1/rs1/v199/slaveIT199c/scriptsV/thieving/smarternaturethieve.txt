@@ -1,0 +1,8 @@
+@main:
+gotoifobjectwithindist(@grab,335,4)
+goto(@main)
+
+@grab:
+objcmd2(582,1527)
+wait(50)
+goto(@main)
