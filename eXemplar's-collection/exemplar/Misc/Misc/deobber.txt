@@ -1,0 +1,24 @@
+Since this project was not initially created for distribution, many of the files have to be in specific path unless changed.
+
+1. Extract contents of "Rs deobber help files.zip" to C:\aivars\rs\
+2. Extract RSParser to wherever you want it
+
+Deobfuscation process.
+1. Download the applet you want to deobfuscate, for an example http://uk2.runescape.com/runescape1809674664.jar to C:\aivars\rs\
+2. Open c:\aivars\rs\zkm\testy.txt and change the first line (open        "C:\Aivars\rs\runescapeXXX.jar";) to contain the correct file name (open        "C:\Aivars\rs\runescape1809674664.jar";)
+3. Run "C:\Aivars\rs\zkm\deobfuscate testy.bat"
+4. A new archive will be created in C:\Aivars\rs\runescape2_zelixed\. This contains classes with renamed field/method names. Extract this archive to wherever you wish.
+5. Run RSParser.exe (the one from RSParser2.zip)
+6. Click Disassemble and select the folder you extracted the archive to in 4.th point
+7. Click Check
+8. CLick Unprotect
+9. Click Assemble
+10. Click DeJAD
+
+Well, that's all.
+
+Support e-mail: aivars@serveris.lv
+All source code is included and you are allowed to modify or do whatever you wish to/with it except claim you've written it.
+
+
+Aivars Irmejs

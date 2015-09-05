@@ -1,0 +1,352 @@
+UID 	Username 	Status 	E-Mail: 	Site: 	Location: 	Registered: 	Posts:
+1 	raw 	Super Administrator 	  	Visit User's Homepage 	  	1-1-1970 	32767
+3 	Oblivion 	Member 	  	  	  	1-1-1970 	0
+4 	harry 	Administrator 	  	  	  	1-1-1970 	-3535
+53 	barbazzz 	Member 	  	  	  	1-1-1970 	16
+54 	xcathaderx 	Member 	  	  	  	1-1-1970 	74
+55 	duel shark 	Member 	E-Mail User 	  	Next to Pc 	1-1-1970 	11
+56 	j3ss3 	Member 	  	  	  	1-1-1970 	1
+57 	laze 	Member 	  	Visit User's Homepage 	SWEDEB 	1-1-1970 	18
+58 	ghostid 	Member 	  	  	  	1-1-1970 	0
+59 	Slay 	Member 	  	  	  	1-1-1970 	21
+60 	quick1234 	Member 	  	  	  	1-1-1970 	1
+61 	shabba 	Member 	  	  	  	1-1-1970 	0
+62 	091489 	Member 	  	  	  	1-1-1970 	1
+63 	PaCoU 	Member 	  	  	  	1-1-1970 	0
+64 	rubenowns 	Member 	  	  	sweden 	1-1-1970 	10
+65 	zonfar 	Member 	  	  	Trying to locate KoRn. 	1-1-1970 	8
+66 	honey 	Member 	  	  	  	1-1-1970 	30
+67 	putte86 	Member 	  	  	  	1-1-1970 	0
+68 	str8thuggin 	Member 	  	  	Kansas 	1-1-1970 	18
+69 	badez 	Member 	  	  	  	1-1-1970 	0
+70 	dameyezzz 	Member 	  	  	  	1-1-1970 	2
+71 	chris 	Member 	  	  	  	1-1-1970 	41
+72 	David 	Member 	  	  	  	1-1-1970 	28
+73 	trick 	Member 	  	  	  	1-1-1970 	0
+74 	s4nj 	Member 	  	  	  	1-1-1970 	0
+75 	xtraumax 	Member 	  	  	  	1-1-1970 	0
+76 	kolbasnik 	Member 	  	  	  	1-1-1970 	22
+77 	krazed 	Member 	  	Visit User's Homepage 	SJ, CALIFORNIA 	1-1-1970 	13
+78 	Glenndale 	Member 	  	  	  	1-1-1970 	12
+79 	gagaga 	Member 	  	  	  	1-1-1970 	0
+80 	d33 	Member 	  	  	  	1-1-1970 	8
+81 	AnbuNeji 	Member 	  	  	  	1-1-1970 	6
+82 	TheSaint 	Member 	  	  	  	1-1-1970 	11
+83 	National 	Member 	  	  	Mississippi 	1-1-1970 	22
+84 	devil113 	Member 	  	  	  	1-1-1970 	4
+85 	untouchablex 	Member 	E-Mail User 	  	finland 	1-1-1970 	107
+86 	nhawkes 	Member 	  	  	  	1-1-1970 	3
+87 	boggiebee 	Member 	  	  	  	1-1-1970 	4
+88 	lizard 	Member 	  	  	  	1-1-1970 	0
+89 	flamestoner 	Member 	  	  	  	1-1-1970 	0
+90 	jaaj 	Member 	  	  	  	1-1-1970 	0
+91 	jon 	Member 	  	  	Wilderness 	1-1-1970 	0
+92 	sm0ke 	Member 	  	Visit User's Homepage 	Dallas,Texas,USA 	1-1-1970 	86
+93 	belm0nt 	Member 	  	  	  	1-1-1970 	76
+94 	Rex 	Member 	  	  	  	1-1-1970 	0
+95 	ladiesman1 	Member 	  	  	  	1-1-1970 	2
+96 	purity 	Member 	  	  	  	1-1-1970 	1
+97 	og 	Member 	  	  	  	1-1-1970 	0
+98 	vlaams blok 	Member 	  	  	  	1-1-1970 	8
+99 	HyperPisoff 	Member 	  	  	  	1-1-1970 	17
+100 	wizofthenet 	Administrator 	  	  	  	1-1-1970 	2
+101 	julz1986 	Member 	  	  	Australia. 	1-1-1970 	32
+102 	bop 	Member 	  	  	  	1-1-1970 	0
+103 	h0lla 	Member 	  	  	  	1-1-1970 	0
+104 	r33di wons 	Member 	  	  	  	1-1-1970 	11
+105 	tarheel 	Member 	  	  	  	1-1-1970 	6
+106 	playar4lif33 	Member 	  	  	  	1-1-1970 	0
+107 	rulostorami 	Member 	  	  	  	1-1-1970 	0
+108 	Kossu 	Member 	  	  	  	1-1-1970 	0
+109 	Ducky 	Member 	  	  	  	1-1-1970 	35
+110 	rombow 	Member 	  	  	  	1-1-1970 	8
+111 	akura 	Member 	  	  	  	1-1-1970 	5
+112 	sparrow 	Member 	  	  	  	1-1-1970 	45
+113 	Dennis 	Member 	  	  	  	1-1-1970 	0
+114 	Phantom 	Member 	E-Mail User 	Visit User's Homepage 	  	1-1-1970 	20
+115 	blak 	Member 	  	  	  	1-1-1970 	2
+116 	kappa 	Member 	  	  	  	1-1-1970 	0
+117 	logitech 	Member 	  	  	  	1-1-1970 	10
+118 	harrythesir 	Moderator 	  	  	  	1-1-1970 	0
+119 	NightCrawler 	Member 	  	  	  	1-1-1970 	12
+120 	tylerB 	Member 	  	  	  	1-1-1970 	7
+121 	WWC 	Member 	  	  	  	1-1-1970 	98
+122 	deby1 	Member 	  	  	  	1-1-1970 	0
+123 	Webman 	Member 	  	  	California Pls. 	1-1-1970 	14
+124 	wiz 	Member 	  	  	  	1-1-1970 	0
+125 	tappi 	Member 	  	  	  	1-1-1970 	5
+126 	antttttti 	Member 	  	  	  	1-1-1970 	8
+127 	ownage 	Member 	  	  	  	1-1-1970 	0
+128 	sidler 	Member 	  	  	  	1-1-1970 	2
+129 	bonn 	Member 	  	  	  	1-1-1970 	3
+130 	pawnchicken 	Member 	  	  	Belgium 	1-1-1970 	5
+131 	deby8 	Member 	  	  	  	1-1-1970 	0
+132 	purepkwildy 	Member 	  	  	  	1-1-1970 	6
+133 	sicky 	Member 	  	  	Helsinki 	1-1-1970 	9
+134 	deby2 	Member 	  	  	  	1-1-1970 	25
+135 	deby3 	Member 	  	  	  	1-1-1970 	18
+136 	deby5 	Member 	  	  	  	1-1-1970 	0
+137 	deby6 	Member 	  	  	  	1-1-1970 	0
+138 	deby7 	Member 	  	  	  	1-1-1970 	1
+139 	deby9 	Member 	  	  	  	1-1-1970 	0
+140 	deby10 	Member 	  	  	  	1-1-1970 	0
+141 	deby12 	Member 	  	  	  	1-1-1970 	46
+142 	deby13 	Member 	  	  	  	1-1-1970 	0
+143 	deby14 	Member 	  	  	  	1-1-1970 	0
+144 	deby11 	Member 	  	  	  	1-1-1970 	24
+145 	Gort 	Member 	  	  	  	1-1-1970 	6
+146 	Tru 	Member 	  	  	  	1-1-1970 	0
+147 	Jo 	Member 	  	  	  	1-1-1970 	32
+148 	misto 	Member 	  	  	Florida 	1-1-1970 	34
+149 	xex 	Member 	  	  	  	1-1-1970 	5
+150 	wumppa 	Member 	  	  	  	1-1-1970 	0
+151 	atreyu 	Member 	  	  	  	1-1-1970 	0
+152 	brandon 	Member 	  	  	  	1-1-1970 	10
+153 	ilovear 	Member 	  	  	  	1-1-1970 	0
+154 	soez 	Member 	  	  	  	1-1-1970 	2
+155 	hitz 	Member 	  	  	autoing :) 	1-1-1970 	7
+156 	pezhero 	Member 	  	  	  	1-1-1970 	0
+157 	Muurari 	Member 	  	  	  	1-1-1970 	27
+158 	Dedicatedmachine 	Member 	  	  	  	1-1-1970 	14
+159 	master 	Member 	  	  	  	1-1-1970 	16
+160 	deby4 	Member 	  	  	  	1-1-1970 	2
+161 	Satan 	Member 	  	  	  	1-1-1970 	0
+162 	pepsi 	Member 	  	  	  	1-1-1970 	0
+163 	umm 	Member 	  	  	  	1-1-1970 	21
+164 	alevinson 	Member 	E-Mail User 	Visit User's Homepage 	Indianapolis, Indiana 	1-1-1970 	26
+165 	dakiller 	Member 	  	  	  	1-1-1970 	3
+166 	round 	Member 	  	  	  	1-1-1970 	10
+167 	sunjae 	Member 	  	  	  	1-1-1970 	0
+168 	reines 	Member 	  	  	  	1-1-1970 	0
+169 	Faketrix125 	Member 	  	Visit User's Homepage 	England 	1-1-1970 	19
+170 	xholox 	Member 	  	  	  	1-1-1970 	1
+171 	charles 	Member 	  	  	  	1-1-1970 	32
+172 	GodlyAcid 	Member 	  	  	  	1-1-1970 	39
+173 	monty500 	Member 	  	  	  	1-1-1970 	23
+174 	Hmjet 	Member 	  	  	  	1-1-1970 	3
+175 	00collinsona 	Member 	  	  	  	1-1-1970 	0
+176 	Casa 	Member 	  	  	  	1-1-1970 	0
+177 	phrozen 	Member 	  	Visit User's Homepage 	Finland 	1-1-1970 	11
+178 	emule 	Member 	  	  	  	1-1-1970 	13
+179 	tom 	Member 	  	  	  	1-1-1970 	4
+180 	HrPauk 	Member 	  	  	  	1-1-1970 	3
+181 	yzrida 	Member 	  	  	  	1-1-1970 	8
+182 	random 	Member 	  	  	  	1-1-1970 	2
+183 	rikky 	Member 	  	  	  	1-1-1970 	0
+184 	missiee 	Member 	  	  	  	1-1-1970 	8
+185 	brooklyn4lyfe 	Member 	  	  	  	1-1-1970 	5
+186 	shadi12 	Member 	  	  	  	1-1-1970 	4
+187 	xbrotherx 	Member 	  	  	  	1-1-1970 	40
+188 	Eric 	Banned 	  	  	  	1-1-1970 	0
+189 	tmike 	Member 	  	  	  	1-1-1970 	0
+190 	adam 	Member 	  	  	  	1-1-1970 	0
+191 	Dahbomb 	Member 	  	  	  	1-1-1970 	0
+192 	No One 	Member 	  	  	  	1-1-1970 	0
+193 	dessert 	Member 	  	  	  	1-1-1970 	16
+194 	bigboss 	Member 	  	  	  	1-1-1970 	6
+195 	-=PsY=- 	Member 	  	  	  	1-1-1970 	15
+196 	Rex 	Member 	  	  	  	1-1-1970 	0
+197 	Joelz 	Member 	  	  	  	1-1-1970 	0
+198 	funtime 	Member 	  	  	  	1-1-1970 	0
+199 	marko07 	Member 	  	  	  	1-1-1970 	0
+200 	Musse 	Member 	  	  	  	1-1-1970 	0
+201 	jolle 	Member 	  	  	  	1-1-1970 	0
+202 	profenix 	Member 	  	  	  	1-1-1970 	0
+203 	jeppez 	Member 	  	  	  	1-1-1970 	0
+204 	zezzy 	Member 	  	  	  	1-1-1970 	1
+205 	lundis 	Member 	  	  	Helsinki, Finland 	1-1-1970 	63
+206 	xvalmontx 	Member 	  	  	  	1-1-1970 	0
+207 	fandehgo521 	Member 	  	  	  	1-1-1970 	0
+208 	w4ffl3z 	Member 	  	  	  	1-1-1970 	18
+209 	b00m 	Member 	  	  	  	1-1-1970 	12
+210 	matt2 	Member 	  	  	  	1-1-1970 	0
+211 	dizzy pk 	Member 	  	  	dunno 	1-1-1970 	5
+212 	zeroeh 	Member 	  	  	  	1-1-1970 	2
+213 	beastye 	Member 	  	  	  	1-1-1970 	1
+214 	novosib 	Member 	  	  	  	1-1-1970 	14
+215 	make85 	Member 	  	  	  	1-1-1970 	0
+216 	SRCpayne 	Member 	  	  	  	1-1-1970 	5
+217 	sissy 	Member 	  	  	  	1-1-1970 	1
+218 	picker 	Member 	  	  	  	1-1-1970 	46
+337 	zsolt 	Super Administrator 	  	  	  	1-1-1970 	5
+338 	Knives 	Member 	  	  	  	1-1-1970 	0
+339 	hipyhop 	Member 	  	Visit User's Homepage 	Lincoln, England 	1-1-1970 	2
+340 	ac3 	Member 	  	  	  	1-1-1970 	0
+341 	Killerworm51 	Member 	  	  	  	1-1-1970 	12
+342 	tobb 	Member 	  	  	Sweden 	1-1-1970 	1
+343 	Wildhall 	Member 	  	  	  	1-1-1970 	0
+344 	Dgc2002 	Member 	E-Mail User 	  	  	1-1-1970 	44
+345 	bob123 	Member 	  	  	  	1-1-1970 	0
+346 	ericg 	Member 	  	  	  	1-1-1970 	0
+347 	Mofo 	Member 	  	  	  	1-1-1970 	2
+348 	surferboy86 	Member 	  	  	  	1-1-1970 	0
+349 	CozZ 	Member 	  	  	  	1-1-1970 	0
+350 	Memoblack 	Member 	  	  	  	1-1-1970 	8
+351 	filip 	Member 	  	  	  	1-1-1970 	0
+352 	Flop 	Member 	  	  	  	1-1-1970 	1
+353 	fight3r 	Member 	  	  	  	1-1-1970 	8
+354 	dawg 	Member 	  	  	  	1-1-1970 	1
+355 	Birchinio 	Member 	  	  	  	1-1-1970 	13
+356 	P_0_T 	Member 	  	  	  	1-1-1970 	10
+357 	lemonade 	Member 	  	  	  	1-1-1970 	5
+358 	amonkey55 	Member 	  	  	  	1-1-1970 	0
+359 	mikey 	Member 	  	  	  	1-1-1970 	0
+360 	Fighter 	Member 	  	  	  	1-1-1970 	6
+361 	juunaz 	Member 	  	  	  	1-1-1970 	0
+362 	buddy5001 	Member 	  	  	  	1-1-1970 	10
+363 	rizz 	Member 	  	  	  	1-1-1970 	0
+364 	Kynsisien111 	Member 	  	  	  	1-1-1970 	0
+365 	Pengo 	Member 	  	  	  	1-1-1970 	2
+366 	ryban43 	Member 	  	  	  	1-1-1970 	3
+367 	pig 	Member 	  	  	  	1-1-1970 	36
+368 	JLewis44 	Member 	  	  	  	1-1-1970 	0
+369 	kwiek 	Member 	  	  	  	1-1-1970 	2
+370 	Lormsby 	Member 	  	  	  	1-1-1970 	0
+371 	juunaz 	Member 	  	  	  	1-1-1970 	0
+372 	start 	Member 	  	  	  	1-1-1970 	0
+373 	badez 	Member 	  	  	  	1-1-1970 	0
+374 	reaper 	Member 	  	  	  	1-1-1970 	20
+375 	p-e-z 	Member 	  	  	  	1-1-1970 	8
+376 	snus 	Member 	  	  	  	1-1-1970 	0
+377 	Fusion 	Member 	  	  	  	1-1-1970 	28
+378 	Ital 	Member 	  	  	  	1-1-1970 	32
+379 	pacou 	Member 	  	  	  	1-1-1970 	0
+380 	boned 	Member 	  	  	  	1-1-1970 	5
+381 	limn 	Member 	  	  	  	1-1-1970 	0
+382 	kalamees 	Member 	  	  	  	1-1-1970 	1
+383 	Kristjan 	Member 	  	  	  	1-1-1970 	2
+384 	v1k4t 	Member 	  	  	  	1-1-1970 	0
+385 	adde 	Member 	  	  	  	1-1-1970 	22
+386 	ne0phyte 	Member 	  	  	  	1-1-1970 	4
+387 	steezy 	Member 	  	  	  	1-1-1970 	0
+388 	koer 	Member 	  	  	  	1-1-1970 	15
+389 	endoskelet0n 	Member 	  	  	  	1-1-1970 	10
+390 	Serbiax 	Member 	  	  	  	1-1-1970 	11
+391 	justix 	Member 	  	  	Finland o/ 	1-1-1970 	51
+392 	jockman 	Member 	  	  	  	1-1-1970 	0
+393 	caillan 	Member 	  	  	  	1-1-1970 	1
+394 	2laggy4life 	Member 	  	  	  	1-1-1970 	0
+395 	smack 	Member 	  	  	  	1-1-1970 	8
+396 	ladon 	Member 	  	  	  	1-1-1970 	0
+397 	catchme 	Member 	  	  	  	1-1-1970 	6
+398 	k3zzer 	Member 	  	  	  	1-1-1970 	36
+399 	etnies 	Member 	  	  	  	1-1-1970 	0
+400 	brett 	Member 	E-Mail User 	  	USA 	1-1-1970 	12
+401 	Scan 	Member 	  	  	  	1-1-1970 	0
+402 	xspeakit 	Member 	E-Mail User 	  	  	1-1-1970 	56
+403 	bigh140 	Member 	  	  	  	1-1-1970 	11
+404 	witte 	Member 	  	  	  	1-1-1970 	0
+405 	Super 	Member 	  	  	  	1-1-1970 	8
+406 	KavalKala 	Member 	  	  	  	1-1-1970 	0
+407 	Fergy 	Member 	  	  	Toronto (Canada) 	1-1-1970 	17
+408 	jamie 	Member 	  	  	  	1-1-1970 	2
+409 	sal 	Member 	  	  	  	1-1-1970 	0
+410 	Kossu 	Member 	  	  	  	1-1-1970 	0
+411 	nick-3 	Member 	E-Mail User 	  	  	1-1-1970 	10
+412 	sobomajor 	Member 	  	  	  	1-1-1970 	0
+413 	snus 	Member 	  	  	  	1-1-1970 	0
+414 	sobomajor 	Member 	  	  	  	1-1-1970 	0
+415 	asiF 	Member 	  	  	  	1-1-1970 	0
+416 	kelly 	Member 	  	  	  	1-1-1970 	8
+417 	talush1 	Member 	  	  	  	1-1-1970 	13
+418 	Rasmus 	Member 	  	  	  	1-1-1970 	4
+419 	zalfes 	Member 	  	Visit User's Homepage 	L A T V I A 	1-1-1970 	120
+420 	warthog 	Member 	  	  	  	1-1-1970 	0
+421 	czar 	Member 	  	  	  	1-1-1970 	1
+422 	onion 	Member 	  	  	  	1-1-1970 	0
+423 	tobbo 	Member 	E-Mail User 	  	Newcastle 	1-1-1970 	95
+424 	nick-4 	Member 	  	  	  	1-1-1970 	4
+425 	nofun 	Member 	  	  	  	1-1-1970 	3
+426 	guerilla 		  	  	  	1-1-1970 	9
+428 	xnplota 		  	  	  	1-1-1970 	0
+429 	eXosypher 		  	  	  	1-1-1970 	0
+430 	Zero 		  	  	  	1-1-1970 	3
+431 	luco 		  	  	  	1-1-1970 	0
+432 	TEST 		  	  	  	1-1-1970 	0
+433 	darkpker 		  	  	  	1-1-1970 	1
+434 	scump 		  	  	  	1-1-1970 	1
+435 	brian 		  	  	  	1-1-1970 	2
+436 	lazie 		  	  	  	1-1-1970 	5
+437 	xxironpkaxx 		  	  	  	1-1-1970 	5
+438 	juunaz 		  	  	  	1-1-1970 	0
+439 	juunaz2 		  	  	  	1-1-1970 	0
+440 	felix 		  	  	  	1-1-1970 	10
+441 	deathlink 		  	  	  	1-1-1970 	0
+442 	thrax 		  	  	  	1-1-1970 	13
+443 	deathlink 		  	  	  	1-1-1970 	0
+444 	Brooke 		  	  	  	1-1-1970 	0
+445 	eradic 		  	  	  	1-1-1970 	3
+446 	xl33ttheivrx 		  	  	  	1-1-1970 	1
+447 	Rex 		  	  	  	1-1-1970 	0
+448 	i r josh 		  	  	  	1-1-1970 	3
+449 	celebre 		  	  	  	1-1-1970 	0
+450 	allure 		  	  	  	1-1-1970 	4
+451 	3nvy 		  	  	  	1-1-1970 	0
+452 	arch3r 		  	  	  	1-1-1970 	4
+453 	joniownaa 		  	  	  	1-1-1970 	13
+454 	Faheem7 		  	  	  	1-1-1970 	13
+455 	mazter 		  	  	  	1-1-1970 	10
+456 	eva 		  	  	  	1-1-1970 	6
+457 	killerwes 		  	  	  	1-1-1970 	5
+458 	raizen 		  	  	  	1-1-1970 	0
+459 	dymond 		  	  	  	1-1-1970 	3
+460 	cr0nic 		  	Visit User's Homepage 	Canada 	1-1-1970 	1
+461 	ranged pimp 		E-Mail User 	Visit User's Homepage 	  	1-1-1970 	9
+462 	amcolex 		  	Visit User's Homepage 	Arizona 	1-1-1970 	3
+463 	deathlink 		  	  	  	1-1-1970 	0
+464 	pooter 		  	Visit User's Homepage 	Chicago 	1-1-1970 	19
+465 	ludacris 		  	  	  	1-1-1970 	0
+466 	kaiba12 		  	  	  	1-1-1970 	4
+467 	Svensson 		  	  	  	1-1-1970 	1
+468 	gizmo 		  	  	  	1-1-1970 	1
+469 	Oze 		  	  	  	1-1-1970 	9
+470 	Owned 		  	  	  	1-1-1970 	8
+471 	glremme 		  	  	  	1-1-1970 	0
+472 	nino 		  	  	  	1-1-1970 	0
+473 	friend 		  	  	  	1-1-1970 	1
+474 	munasygaja 		  	  	  	1-1-1970 	5
+475 	jacste07 		  	  	  	1-1-1970 	21
+476 	titanx 		  	  	  	1-1-1970 	2
+477 	usa 		E-Mail User 	  	Florida 	1-1-1970 	87
+478 	sup3rman 		E-Mail User 	Visit User's Homepage 	Sweden 	1-1-1970 	1
+479 	dj wazaaa 		  	  	  	1-1-1970 	0
+480 	PJCrusader 		  	  	  	1-1-1970 	1
+481 	goofyre 		  	  	  	1-1-1970 	0
+482 	Rabbitt 		  	  	  	1-1-1970 	1
+483 	rammer 		  	  	  	1-1-1970 	0
+484 	petu 		  	  	  	1-1-1970 	0
+485 	0v3rd053d 		  	  	  	1-1-1970 	0
+486 	matt 		  	  	  	1-1-1970 	0
+487 	oker 		  	  	  	1-1-1970 	1
+488 	colbey 		  	  	  	1-1-1970 	0
+489 	casso 		  	  	  	1-1-1970 	0
+490 	AndrewNP 		  	Visit User's Homepage 	  	1-1-1970 	10
+491 	apc 53 		  	  	  	1-1-1970 	3
+492 	joooeee 		  	  	  	1-1-1970 	0
+493 	chunk123 		  	  	  	1-1-1970 	2
+494 	daniel 		  	  	  	1-1-1970 	0
+495 	wyattklotz 		  	  	  	1-1-1970 	0
+496 	kolabottle 		  	  	  	1-1-1970 	0
+497 	canuckfan55 		  	  	  	1-1-1970 	1
+498 	cattle 		  	  	  	1-1-1970 	1
+499 	091489 		  	  	  	1-1-1970 	0
+500 	rozza 		E-Mail User 	  	MaNcHeStEr - EnGlAnD 	1-1-1970 	9
+501 	Mudvayne 		  	  	  	1-1-1970 	2
+502 	scriptmaker 		  	  	  	1-1-1970 	0
+503 	soulman 		  	  	illinois.usa 	1-1-1970 	9
+504 	Wicy Boy 		  	  	  	1-1-1970 	0
+505 	shadowdude92 		  	  	  	1-1-1970 	1
+506 	091489 		  	  	  	1-1-1970 	0
+507 	Daddyscape 		  	  	  	1-1-1970 	0
+508 	Tribal 		  	  	  	1-1-1970 	0
+509 	Tribal 		  	  	  	1-1-1970 	0
+510 	w000t 		  	  	  	1-1-1970 	0
+511 	Mirza 		  	  	  	1-1-1970 	6
+512 	pacou 		  	  	  	1-1-1970 	0
+513 	deathy 		  	  	  	1-1-1970 	5
+514 	aroker 		  	  	  	1-1-1970 	8
+515 	aqswd3 		  	  	  	1-1-1970 	3
+516 	LogiK 		  	  	  	1-1-1970 	0
+517 	Tobelius 		  	  	  	1-1-1970 	0
+518 	Kier 		  	  	  	1-1-1970 	1
+519 	teemuownz 		  	  	  	1-1-1970 	0

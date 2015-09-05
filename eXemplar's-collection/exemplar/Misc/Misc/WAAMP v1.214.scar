@@ -1,0 +1,1981 @@
+{                            <-=WAAMP v1.214=->
+
+          <-=Wallfire's Advance Auto-Mod Protection script=->
+
+
+-= Whats new with v1.13? =-
+-Better talking alogrithm.
+-Fixed the right clicking on Talking Npc's.
+-Added Aton's anti random procedures
+-Added Auto Login feature with disabling options.
+-Added Head pick find and attach By Khain.
+-Added Advanced forms for easy use of options.
+
+~Currently supports:
++All talking NPC's
++All attacking NPC's and NPCs while mining in guild
+
+
+~Upcoming Supports:
++Fix for mining steaming rocks
++WAAMP protection for Auto-Fighters
++Advanced fixing option for fixing hatchets,picks,fishing poles
++Hazard random event protection
+
+If you have any questions, suggestions, or want to add your own methods
+contact me and let me know:   AiM: WallfireUtp, or via forums
+
+Version 1.213 Made by Wallfire
+Thanks to: Khain, Scriptex, Aton, Nick...
+and a special thanks for all your 1on1 help: Dylock, & Kaitnieks
+GenoDemon: you sir get a sloppy hug. i wouldnt be scripting if it wasnt for you.
+thanks for all that you have done.
+
+I would also like to thank Phalanx even tho i have never talked to him, his older
+scripts have taught me alot of what i know today. expecially helpful when
+making these forms BY HAND!. [omg, never again!]
+}
+
+Program WAAMP_v213;
+const
+(*~~~~~~~~~~~~~~~~~~~~ Setup ~~~~~~~~~~~~~~~~~~~~*)
+
+Speed = 2;
+
+
+Pick = 1;
+{1 if you can't wield pickaxe.
+ 2 if you can wield pickaxe}
+
+username = 'Username';  //Enter Your Username
+password = 'Password';  //Enter Your Password
+
+(*~~~~~~~~~~~~ Colors On Main Screen ~~~~~~~~~~~~*)
+
+Bank = 1919070;      //Add Bank Color As Shown In Picture (www.angelfire.com/freak2/aton/Bank.jpg)
+LadderM = 808582;    //Add Ladder Color
+CoalOre1 = 1648937;  //Add Coal Rocks Colors
+CoalOre2 = 1911853;  //Add Coal Rocks Colors
+CoalOre3 = 2043952;  //Add Coal Rocks Colors
+CoalOre4 = 2373431;  //Add Coal Rocks Colors
+CoalOre5 = 1516580;  //Add Coal Rocks Colors
+
+(*~~~~~~~~~~~~~~ Colors On Minimap ~~~~~~~~~~~~~~*)
+
+BColor = 5035234;    //Add a yellow color of Bank simbol
+Walk1 = 7435131;     //Add the color of the statue (right next to the ladder when going down)
+Ladder = 208465;     //Add Ladder color
+Rocks = 5461581;     //Add Coal Rocks color in MINIMAP!
+GColor = 7632750;    //Add Guild simbol color(Pickaxe color)
+
+(*~~~~~~~~~~~~~~~~~ End Of Setup ~~~~~~~~~~~~~~~~*)
+
+var
+x,y, login, RCx,RCy,DwarfTalk,DwarfTalkY,ScreenCount,GenieTalkY, GenieTalk,GenTalk,MoMTalk,MoMTalkY,GenTalkY,
+DwarfCount,GenieCount,MoMCount,GenCount,TalkFailCount,{PickFixCount,PickFailCount,}
+AttackCount,CheckTime,LastTime,ProgReportTiming,C:integer;
+ST:LongInt;
+FoundTalkingMod,Run,AllowWAAMPAttackCheck,AllowWAAMPTalkCheck,AllowWAAMPFixCheck,
+Go,AllowAtonAttackCheck,AllowAtonTalkCheck,AllowWAAMPHazardCheck,AllowXXXWhirlPoolCheck,
+AllowScriptexTalkCheck,AllowWallfireTalkCheck,AllowWallfireAttackCheck,AllowWAAMPFix: boolean;
+
+CheckBox_Attack, CheckBox_Talk,CheckBox_Pick,CheckBox_Login,CheckBox_ProgR,CheckBox_Haz:TCheckBox;
+ComboBox_talk, ComboBox_run, ComboBox_Fix,ComboBox_Haz : TComboBox;
+Edt_ProgR: TEdit;
+
+
+ a, b, w1, w2, w4, w5, flag,  climb, ClimbYellow,
+ClimbUpYellow, ClimbUp,
+ L, Talk, TalkY, Talked, Ran:integer;
+Loged,Find,Fight:boolean;
+
+
+const {Form Constants: !!-NO TOUCH-!!}
+  TopPoint=15 ;
+  TopPointSpacing= 50;
+  LeftPoint=50 ;
+  LeftSpace=LeftPoint+ 20;
+  RightPoint=650;
+  MiddlePointFromLeft= (LeftPoint+RightPoint)/2;
+  MiddleSpace=MiddlePointFromLeft+20;
+  BottomPointFromTop=250;
+  VertHeight= BottomPointFromTop-TopPoint;
+  LengthOfComboBox=245;
+Type
+ TMainForm=TForm;
+Procedure OKClick(sender: TObject);
+var
+SomeTalk,SomeRun,SomeFix,SomeHaz:boolean;
+begin
+SomeTalk:=false;     SomeRun:=false;  SomeFix:=false;
+  AddToReport('-OK-');
+  if CheckBox_Talk.Checked then
+   begin
+     AllowWAAMPTalkCheck:=true;
+     AddToReport('Auto Talk to NPC Enabled...');
+    if (ComboBox_talk.Text ='Wallfire"s Method') then
+     begin
+      AddToReport('     Wallfire talk method selected')
+      AllowWallfireTalkCheck:=true;
+      SomeTalk:=true;
+    end else
+     begin
+      AddToReport('     Not using Wallfire talk method');
+      AllowWallfireTalkCheck:=false;
+    end;
+    if (ComboBox_talk.Text='Aton"s Method') then
+     begin
+      AddToReport('     Aton talk method selected')
+      AllowAtonTalkCheck:=true;
+      SomeRun:=true;
+    end else
+     begin
+      AddToReport('     Not using Aton talk method');
+      AllowAtonTalkCheck:=false;
+    end;
+
+    if (ComboBox_talk.Text ='Scriptex"s Method') then
+     begin
+      AddToReport('     Scriptex talk method selected')
+      AllowScriptexTalkCheck:=true;
+      SomeTalk:=true;
+    end else
+     begin
+      AddToReport('     Not using Scriptex talk method');
+      AllowScriptexTalkCheck:=false;
+      AddToReport('');
+     end;   //<--------add this
+  end else AllowWAAMPTalkCheck:=False;
+  if CheckBox_Attack.Checked then
+   begin
+    AddToReport('Auto Run Enabled...');
+    AllowWAAMPAttackCheck:=true;
+    if (ComboBox_run.Text= 'Wallfire"s Method') then
+    begin
+      AddToReport('     Wallfire run method selected');
+      AllowWallfireAttackCheck:=true;
+    end else
+     begin
+      AddToReport('     Not using Wallfire run method');
+      AllowWallfireAttackCheck:=false;
+    end;
+    if (ComboBox_run.Text= 'Aton"s Method  -ONLY FOR GUILDMINING USE-') then
+     begin
+      AddToReport('     Aton run method selected');
+      AllowAtonAttackCheck:=true;
+    end else
+     begin
+      AddToReport('     Not using Aton run method');
+      AllowAtonAttackCheck:=false;
+    end;
+   AddToReport('')
+  end else AllowWAAMPAttackCheck:=False;
+
+  if CheckBox_Pick.Checked then
+   begin
+    AllowWAAMPFixCheck:=true;
+    AddToReport('Auto Fix Enabled...');
+    AddToReport('     NOT SUPPORTED!,sorry bug Khain about it :P');
+    AddToReport('')
+  end else AllowWAAMPFixCheck:=false;
+
+    if CheckBox_Haz.Checked then
+   begin
+    AddToReport('Auto Avoid Hazard Enabled...');
+    AllowWAAMPAttackCheck:=true;
+    if (ComboBox_Haz.Text= 'Whirlpool by XXX') then
+    begin
+      AddToReport('     Whirlpool hazard detection enabled');
+      AllowXXXWhirlPoolCheck:=true;
+      //SomeHaz:=true;
+    end else
+     begin
+      AddToReport('     NOT enabling whirlpool hazard detection');
+      AllowXXXWhirlPoolCheck:=false;
+    end;
+
+    if (ComboBox_Haz.Text= 'Smoking rock -COMING SOON-') then
+     begin
+      AddToReport('     Smoking rock hazard detection enabled');
+      //AllowSRCheck:=true;
+      //SomeHaz:=true;
+    end else
+     begin
+      AddToReport('     NOT enabling smoking rock hazard detection');
+      //AllowSRCheck:=false;
+    end;
+
+    if (ComboBox_Haz.Text= 'Tangle vine -COMING SOON-') then
+     begin
+      AddToReport('     Enabling tangle vine hazard detection');
+      //AllowTVCheck:=true;
+      //SomeHaz:=true;
+    end else
+     begin
+      AddToReport('     NOT enabling tangle vine hazard detection');
+      //AllowTVCheck:=false;
+    end;
+
+    if (ComboBox_Haz.Text= 'Poison Plant -COMING SOON-') then
+     begin
+      AddToReport('     Enabling poison plant hazard detection');
+      //AllowPPCheck:=true;
+      //SomeHaz:=true;
+    end else
+     begin
+      AddToReport('     NOT enabling poison plant hazard detection');
+      //AllowPPCheck:=false;
+    end;
+
+   AddToReport('')
+
+
+  end else AllowWAAMPHazardCheck:=False;
+
+  if ( (SomeTalk) or (SomeRun) or (SomeFix) or (SomeHaz) ) then run:=true else run:=false;
+  ProgReportTiming:=strtoint(Edt_ProgR.text);
+end;
+
+
+procedure Qclose(sender:Tobject);
+begin
+AddToReport('Menu Closed.');
+end;
+
+Procedure CallQHazForm;
+var
+QfixForm : TMainForm;
+Btn_Qclose: Tbutton;
+Lbl_HelpTxt:Tlabel;
+begin
+  QfixForm := TMainForm.Create(nil);
+  QfixForm.Left                   := 250;
+  QfixForm.Top                    := 150;
+  QfixForm.Width                  := 500;
+  QfixForm.Height                 := 100;
+  QfixForm.HorzScrollBar.Visible  := false;
+  QfixForm.VertScrollBar.Visible  := false;
+  QfixForm.Caption                := 'About fix Help';
+  QfixForm.Color                  := 16221772;
+  QfixForm.Font.Color             := clWindowText;
+  QfixForm.Font.Height            := -11;
+  QfixForm.Font.Name              := 'Rockwell';
+  QfixForm.Font.Style             := [];
+
+  Lbl_HelpTxt                       := TLabel.Create(QfixForm);
+  Lbl_HelpTxt.Parent                := QfixForm;
+  Lbl_HelpTxt.Left                  := 10;
+  Lbl_HelpTxt.Top                   := 10;
+  Lbl_HelpTxt.Width                 := 300;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'WAAMP hazard detection system will identify and handle hazardus random events';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -13;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+
+
+  Lbl_HelpTxt                       := TLabel.Create(QfixForm);
+  Lbl_HelpTxt.Parent                := QfixForm;
+  Lbl_HelpTxt.Left                  := 10;
+  Lbl_HelpTxt.Top                   := 40;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'NOT CURRENTLY SUPPORTED';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -15;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+
+
+  Btn_Qclose                          := TButton.Create(QfixForm);
+  Btn_Qclose.Parent                   := QfixForm;
+  Btn_Qclose.Left                     :=450;
+  Btn_Qclose.Top                      := 50;
+  Btn_Qclose.Width                    := 30;
+  Btn_Qclose.Height                   := 15;
+  Btn_Qclose.Caption                  := 'Close';
+  Btn_Qclose.Default                  := true;
+  Btn_Qclose.Font.Color               := clWindowText;
+  Btn_Qclose.Font.Height              := -10;
+  Btn_Qclose.Font.Name                := 'times new roman';
+  Btn_Qclose.Font.Style               := [];
+  Btn_Qclose.ParentFont               := False;
+  Btn_Qclose.TabOrder                 := 7;
+  Btn_Qclose.OnClick                  := @Qclose;
+  Btn_Qclose.ModalResult              := mrOk;
+  QfixForm.ShowModal;
+  QfixForm.Free;
+end;
+
+
+Procedure QHazClick(sender: TObject);
+begin
+ CallQHazForm;
+end;
+
+Procedure CallQfixForm;
+var
+QfixForm : TMainForm;
+Btn_Qclose: Tbutton;
+Lbl_HelpTxt:Tlabel;
+begin
+  QfixForm := TMainForm.Create(nil);
+  QfixForm.Left                   := 250;
+  QfixForm.Top                    := 150;
+  QfixForm.Width                  := 300;
+  QfixForm.Height                 := 100;
+  QfixForm.HorzScrollBar.Visible  := false;
+  QfixForm.VertScrollBar.Visible  := false;
+  QfixForm.Caption                := 'About fix Help';
+  QfixForm.Color                  := 16221772;
+  QfixForm.Font.Color             := clWindowText;
+  QfixForm.Font.Height            := -11;
+  QfixForm.Font.Name              := 'Rockwell';
+  QfixForm.Font.Style             := [];
+
+  Lbl_HelpTxt                       := TLabel.Create(QfixForm);
+  Lbl_HelpTxt.Parent                := QfixForm;
+  Lbl_HelpTxt.Left                  := 10;
+  Lbl_HelpTxt.Top                   := 10;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'WAAMP auto fix option will detect a missing item ';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -13;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Lbl_HelpTxt                       := TLabel.Create(QfixForm);
+  Lbl_HelpTxt.Parent                := QfixForm;
+  Lbl_HelpTxt.Left                  := 10;
+  Lbl_HelpTxt.Top                   := 25;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'and attempt to find,fix, and re use it.';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -13;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Lbl_HelpTxt                       := TLabel.Create(QfixForm);
+  Lbl_HelpTxt.Parent                := QfixForm;
+  Lbl_HelpTxt.Left                  := 10;
+  Lbl_HelpTxt.Top                   := 40;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'NOT CURRENTLY SUPPORTED';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -15;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+
+
+  Btn_Qclose                          := TButton.Create(QfixForm);
+  Btn_Qclose.Parent                   := QfixForm;
+  Btn_Qclose.Left                     := 250;
+  Btn_Qclose.Top                      := 50;
+  Btn_Qclose.Width                    := 30;
+  Btn_Qclose.Height                   := 15;
+  Btn_Qclose.Caption                  := 'Close';
+  Btn_Qclose.Default                  := true;
+  Btn_Qclose.Font.Color               := clWindowText;
+  Btn_Qclose.Font.Height              := -10;
+  Btn_Qclose.Font.Name                := 'times new roman';
+  Btn_Qclose.Font.Style               := [];
+  Btn_Qclose.ParentFont               := False;
+  Btn_Qclose.TabOrder                 := 7;
+  Btn_Qclose.OnClick                   := @Qclose;
+  Btn_Qclose.ModalResult               := mrOk;
+  QfixForm.ShowModal;
+  QfixForm.Free;
+end;
+
+
+
+Procedure QfixClick(sender: TObject);
+begin
+ CallQfixForm;
+end;
+
+Procedure CallQtalkForm;
+var
+QtalkForm : TMainForm;
+Btn_Qclose: Tbutton;
+Lbl_HelpTxt:Tlabel;
+begin
+  QtalkForm := TMainForm.Create(nil);
+  QtalkForm.Left                   := 50;
+  QtalkForm.Top                    := 150;
+  QtalkForm.Width                  := 900;
+  QtalkForm.Height                 := 200;
+  QtalkForm.HorzScrollBar.Visible  := false;
+  QtalkForm.VertScrollBar.Visible  := false;
+  QtalkForm.Caption                := 'About talk Help';
+  QtalkForm.Color                  := 16221772;
+  QtalkForm.Font.Color             := clWindowText;
+  QtalkForm.Font.Height            := -11;
+  QtalkForm.Font.Name              := 'Rockwell';
+  QtalkForm.Font.Style             := [];
+
+  Lbl_HelpTxt                       := TLabel.Create(QtalkForm);
+  Lbl_HelpTxt.Parent                := QtalkForm;
+  Lbl_HelpTxt.Left                  := 150;
+  Lbl_HelpTxt.Top                   := 10;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'WAAMP auto talk options will search,'+
+                                    ' rightclick, and talk to talking NPCs.';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -20;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Lbl_HelpTxt                       := TLabel.Create(QtalkForm);
+  Lbl_HelpTxt.Parent                := QtalkForm;
+  Lbl_HelpTxt.Left                  := 10;
+  Lbl_HelpTxt.Top                   := 30;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'Wallfire"s Method:';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -16;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Lbl_HelpTxt                       := TLabel.Create(QtalkForm);
+  Lbl_HelpTxt.Parent                := QtalkForm;
+  Lbl_HelpTxt.Left                  := 15;
+  Lbl_HelpTxt.Top                   := 45;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'Wallfire"s method identifies Talking '+
+                                    'NPCs by looking for their in game text.'+
+                                    ' This method is more general and will work'+
+                                    ' for ANY type of NPC, as long as it talks.';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -13;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Lbl_HelpTxt                       := TLabel.Create(QtalkForm);
+  Lbl_HelpTxt.Parent                := QtalkForm;
+  Lbl_HelpTxt.Left                  := 10;
+  Lbl_HelpTxt.Top                   := 65;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'Aton"s Method:';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -16;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Lbl_HelpTxt                       := TLabel.Create(QtalkForm);
+  Lbl_HelpTxt.Parent                := QtalkForm;
+  Lbl_HelpTxt.Left                  := 15;
+  Lbl_HelpTxt.Top                   := 80;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'Aton"s method also identifies Talking '+
+                                    'NPCs by looking for their in game text. '+
+                                    'The Diffrence between these is Aton"s '+
+                                    'method will search only for specific';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -13;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Lbl_HelpTxt                       := TLabel.Create(QtalkForm);
+  Lbl_HelpTxt.Parent                := QtalkForm;
+  Lbl_HelpTxt.Left                  := 15;
+  Lbl_HelpTxt.Top                   := 90;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'colors of the NPCs which make it more'+
+                                    ' reliable, but easily foul-able.';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -13;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Btn_Qclose                          := TButton.Create(QtalkForm);
+  Btn_Qclose.Parent                   := QtalkForm;
+  Btn_Qclose.Left                     := 850;
+  Btn_Qclose.Top                      := 150;
+  Btn_Qclose.Width                    := 30;
+  Btn_Qclose.Height                   := 15;
+  Btn_Qclose.Caption                  := 'Close';
+  Btn_Qclose.Default                  := true;
+  Btn_Qclose.Font.Color               := clWindowText;
+  Btn_Qclose.Font.Height              := -10;
+  Btn_Qclose.Font.Name                := 'times new roman';
+  Btn_Qclose.Font.Style               := [];
+  Btn_Qclose.ParentFont               := False;
+  Btn_Qclose.TabOrder                 := 7;
+  AddToReport('Help menu opened.');
+  Btn_Qclose.OnClick                   := @Qclose;
+  Btn_Qclose.ModalResult               := mrOk;
+  QtalkForm.ShowModal;
+  QtalkForm.Free;
+end;
+
+Procedure QtalkClick(sender: TObject);
+begin
+ CallQtalkForm;
+end;
+
+Procedure CallQrunForm;
+var
+QrunForm : TMainForm;
+Btn_Qclose: Tbutton;
+Lbl_HelpTxt:Tlabel;
+begin
+  QrunForm := TMainForm.Create(nil);
+  QrunForm.Left                   := 50;
+  QrunForm.Top                    := 150;
+  QrunForm.Width                  := 900;
+  QrunForm.Height                 := 200;
+  QrunForm.HorzScrollBar.Visible  := false;
+  QrunForm.VertScrollBar.Visible  := false;
+  QrunForm.Caption                := 'About run Help';
+  QrunForm.Color                  := 16221772;
+  QrunForm.Font.Color             := clWindowText;
+  QrunForm.Font.Height            := -11;
+  QrunForm.Font.Name              := 'Rockwell';
+  QrunForm.Font.Style             := [];
+
+  Lbl_HelpTxt                       := TLabel.Create(QrunForm);
+  Lbl_HelpTxt.Parent                := QrunForm;
+  Lbl_HelpTxt.Left                  := 10;
+  Lbl_HelpTxt.Top                   := 10;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'WAAMP"s run from Attacking NPC"s only '+
+                                       'work for NON-autofighting scripts.';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -20;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Lbl_HelpTxt                       := TLabel.Create(QrunForm);
+  Lbl_HelpTxt.Parent                := QrunForm;
+  Lbl_HelpTxt.Left                  := 10;
+  Lbl_HelpTxt.Top                   := 30;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'Wallfire"s Method:';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -16;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Lbl_HelpTxt                       := TLabel.Create(QrunForm);
+  Lbl_HelpTxt.Parent                := QrunForm;
+  Lbl_HelpTxt.Left                  := 15;
+  Lbl_HelpTxt.Top                   := 45;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'Wallfire"s Method will detect the HPs'+
+                                    'bar and run up to get away from the NPC. '+
+                                    'You can adjust where you run to by'+
+                                    ' rotating the map.';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -13;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Lbl_HelpTxt                       := TLabel.Create(QrunForm);
+  Lbl_HelpTxt.Parent                := QrunForm;
+  Lbl_HelpTxt.Left                  := 10;
+  Lbl_HelpTxt.Top                   := 70;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'Aton"s Method:';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -16;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Lbl_HelpTxt                       := TLabel.Create(QrunForm);
+  Lbl_HelpTxt.Parent                := QrunForm;
+  Lbl_HelpTxt.Left                  := 15;
+  Lbl_HelpTxt.Top                   := 85;
+  Lbl_HelpTxt.Width                 := 200;
+  Lbl_HelpTxt.Height                := 15;
+  Lbl_HelpTxt.Caption               := 'Aton"s Method will detect the HPs bar '+
+                                    'and run out of the guild to avoid the NPC'+
+                                    '. This will ONLY work when guildmining.';
+  Lbl_HelpTxt.Font.Color            := clWindowText;
+  Lbl_HelpTxt.Font.Height           := -13;
+  Lbl_HelpTxt.Font.Name             := 'Times New Roman';
+  Lbl_HelpTxt.Font.Style            := [];
+  Lbl_HelpTxt.ParentFont            := False;
+
+  Btn_Qclose                          := TButton.Create(QrunForm);
+  Btn_Qclose.Parent                   := QrunForm;
+  Btn_Qclose.Left                     := 855;
+  Btn_Qclose.Top                      := 150;
+  Btn_Qclose.Width                    := 30;
+  Btn_Qclose.Height                   := 15;
+  Btn_Qclose.Caption                  := 'Close';
+  Btn_Qclose.Default                  := true;
+  Btn_Qclose.Font.Color               := clWindowText;
+  Btn_Qclose.Font.Height              := -10;
+  Btn_Qclose.Font.Name                := 'times new roman';
+  Btn_Qclose.Font.Style               := [];
+  Btn_Qclose.ParentFont               := False;
+  Btn_Qclose.TabOrder                 := 7;
+  Btn_Qclose.OnClick                   := @Qclose;
+  Btn_Qclose.ModalResult               := mrOk;
+  AddToReport('Help menu opened.');
+  QrunForm.ShowModal;
+  QrunForm.Free;
+end;
+
+Procedure QrunClick(sender: TObject);
+begin
+ CallQrunForm;
+end;
+
+Procedure SAVEClick(sender: TObject);
+begin
+end;
+
+Procedure CallMainForm;
+var
+  MainForm : TMainForm;
+  Btn_OK{,Btn_LoadATON},Btn_Qrun,Btn_Qtalk,Btn_Qfix,Btn_Qclose,Btn_QHaz : TButton;
+  Line1,Line2,Line3,Line4 : TBevel;
+  Lbl_WAAMP1,Lbl_WAAMP,Lbl_ProgR :TLabel;
+begin
+  AddToReport('Menu Open.')
+  MainForm := TMainForm.Create(nil);
+  {box location}
+  MainForm.Left                   := 50;
+  MainForm.Top                    := 50;
+  {box size}
+  MainForm.Width                  := 700;
+  MainForm.Height                 := 400;
+  MainForm.HorzScrollBar.Visible  := false;
+  MainForm.VertScrollBar.Visible  := false;
+  MainForm.Caption                := 'WAAMPv1.213  -By Wallfire-';
+  MainForm.Color                  := 16221772;
+  MainForm.Font.Height            := -11;
+  MainForm.Font.Name              := 'Rockwell';
+  MainForm.Font.Style             := [];
+
+  Lbl_WAAMP                       := TLabel.Create(MainForm);
+  Lbl_WAAMP.Parent                := MainForm;
+  Lbl_WAAMP.Left                  := LeftSpace-10;
+  Lbl_WAAMP.Top                   := TopPoint;
+  Lbl_WAAMP.Width                 := 170;
+  Lbl_WAAMP.Height                := 16;
+  Lbl_WAAMP.Caption               := 'Enter WAAMP Settings:';
+  Lbl_WAAMP.Font.Color            := 0;
+  Lbl_WAAMP.Font.Height           := -17;
+  Lbl_WAAMP.Font.Name             := 'Times New Roman';
+  Lbl_WAAMP.Font.Style            := [];
+  Lbl_WAAMP.ParentFont            := False;
+
+  Lbl_WAAMP1                       := TLabel.Create(MainForm);
+  Lbl_WAAMP1.Parent                := MainForm;
+  Lbl_WAAMP1.Left                  := MiddleSpace-10;
+  Lbl_WAAMP1.Top                   := TopPoint;
+  Lbl_WAAMP1.Width                 := 170;
+  Lbl_WAAMP1.Height                := 16;
+  Lbl_WAAMP1.Caption               := 'Additional WAAMP Options:';
+  Lbl_WAAMP1.Font.Color            := 0;
+  Lbl_WAAMP1.Font.Height           := -17;
+  Lbl_WAAMP1.Font.Name             := 'Times New Roman';
+  Lbl_WAAMP1.Font.Style            := [];
+  Lbl_WAAMP1.ParentFont            := False;
+
+  CheckBox_Talk                   := TCheckBox.Create(MainForm);
+  CheckBox_Talk.Parent            := MainForm;
+  CheckBox_Talk.Left              := LeftSpace;
+  CheckBox_Talk.Top               := TopPoint+20;
+  CheckBox_Talk.Width             := 273;
+  CheckBox_Talk.Height            := 17;
+  CheckBox_Talk.Caption           := 'Use WAAMP for talking to NPCs?';
+  CheckBox_Talk.Font.Color        := 0;
+  CheckBox_Talk.Font.Height       := -14;
+  CheckBox_Talk.Font.Name         := 'Times New Roman';
+  CheckBox_Talk.Font.Style        := [];
+  CheckBox_Talk.ParentFont        := False;
+
+  CheckBox_Attack                 := TCheckBox.Create(MainForm);
+  CheckBox_Attack.Parent          := MainForm;
+  CheckBox_Attack.Left            := LeftSpace;
+  CheckBox_Attack.Top             := (TopPoint+20)+TopPointSpacing;
+  CheckBox_Attack.Width           := 273;
+  CheckBox_Attack.Height          := 17;
+  CheckBox_Attack.Caption         := 'Use WAAMP to avoid attacking NPCs?';
+  CheckBox_Attack.Font.Color      :=0;
+  CheckBox_Attack.Font.Height     := -14;
+  CheckBox_Attack.Font.Name       := 'Times New Roman';
+  CheckBox_Attack.Font.Style      := [];
+  CheckBox_Attack.ParentFont      := False;
+
+  CheckBox_Pick                   := TCheckBox.Create(MainForm);
+  CheckBox_Pick.Parent            := MainForm;
+  CheckBox_Pick.Left              := LeftSpace;
+  CheckBox_Pick.Top               := (TopPoint+20)+2*TopPointSpacing;
+  CheckBox_Pick.Width             := 273;
+  CheckBox_Pick.Height            := 17;
+  CheckBox_Pick.Caption           := 'Use WAAMP to find and fix items?';
+  CheckBox_Pick.Font.Color        := clWhite;
+  CheckBox_Pick.Font.Height       := -14;
+  CheckBox_Pick.Font.Name         := 'times new roman';
+  CheckBox_Pick.Font.Style        := [];
+  CheckBox_Pick.ParentFont        := False;
+
+  CheckBox_Haz                   := TCheckBox.Create(MainForm);
+  CheckBox_Haz.Parent            := MainForm;
+  CheckBox_Haz.Left              := LeftSpace;
+  CheckBox_Haz.Top               := (TopPoint+20)+3*TopPointSpacing;
+  CheckBox_Haz.Width             := 273;
+  CheckBox_Haz.Height            := 17;
+  CheckBox_Haz.Caption           := 'Use WAAMP to avoid hazards?';
+  CheckBox_Haz.Font.Color        := clWhite;
+  CheckBox_Haz.Font.Height       := -14;
+  CheckBox_Haz.Font.Name         := 'times new roman';
+  CheckBox_Haz.Font.Style        := [];
+  CheckBox_Haz.ParentFont        := False;
+
+  CheckBox_ProgR                  := TCheckBox.Create(MainForm);
+  CheckBox_ProgR.Parent           := MainForm;
+  CheckBox_ProgR.Left             :=  MiddleSpace;
+  CheckBox_ProgR.Top              := (TopPoint+20)+TopPointSpacing;
+  CheckBox_ProgR.Width            := 275;
+  CheckBox_ProgR.Height           := 17;
+  CheckBox_ProgR.Caption          := 'Run a WAAMP progress report?';
+  CheckBox_ProgR.Font.Color       := 0;
+  CheckBox_ProgR.Font.Height      := -14;
+  CheckBox_ProgR.Font.Name        := 'times new roman';
+  CheckBox_ProgR.Font.Style       := [];
+  CheckBox_ProgR.ParentFont       := False;
+
+  Lbl_ProgR                       := TLabel.Create(MainForm);
+  Lbl_ProgR.Parent                := MainForm;
+  Lbl_ProgR.Left                  := LeftPoint+350;
+  Lbl_ProgR.Top                   := TopPoint+95;
+  Lbl_ProgR.Width                 := 273;
+  Lbl_ProgR.Height                := 17;
+  Lbl_ProgR.Caption               := 'Run report every        minutes';
+  Lbl_ProgR.Font.Color            := 0;
+  Lbl_ProgR.Font.Height           := -16;
+  Lbl_ProgR.Font.Name             := 'Times New Roman';
+  Lbl_ProgR.Font.Style            := [];
+  Lbl_ProgR.ParentFont            := False;
+
+  Edt_ProgR                       := TEdit.Create(MainForm);
+  Edt_ProgR.Parent                := MainForm;
+  Edt_ProgR.Left                  := LeftPoint+455;
+  Edt_ProgR.Top                   := TopPoint+95;
+  Edt_ProgR.Width                 := 25;
+  Edt_ProgR.Height                := 17;
+  Edt_ProgR.Font.Color            := clBlack;
+  Edt_ProgR.Font.Height           := -10;
+  Edt_ProgR.Font.Name             := 'Times New Roman';
+  Edt_ProgR.Font.Style            := [];
+  Edt_ProgR.MaxLength             := 10;
+  Edt_ProgR.ParentFont            := False;
+  Edt_ProgR.TabOrder              := 5;
+  Edt_ProgR.text                  :=inttostr(60);
+
+
+   ComboBox_talk                  := TComboBox.Create(mainform);
+   ComboBox_talk.Top              := (TopPoint+40);
+   ComboBox_talk.Left             := LeftPoint+50;
+   ComboBox_talk.Width            := LengthOfComboBox;
+   ComboBox_talk.Parent           := MainForm;
+   ComboBox_talk.DropDownCount    := 4;
+   ComboBox_talk.Items.Add        ('Select WAAMP talk style:');
+   ComboBox_talk.Items.Add        ('Wallfire"s Method');
+   ComboBox_talk.Items.Add        ('Aton"s Method');
+   ComboBox_talk.Items.Add        ('Scriptex"s Method');
+   ComboBox_talk.Font.Name        := 'times new roman';
+   ComboBox_talk.ItemIndex        := 0;
+
+   ComboBox_run                  := TComboBox.Create(mainform);
+   ComboBox_run.Top              := (TopPoint+40)+TopPointSpacing;
+   ComboBox_run.Left             := LeftPoint+50;
+   ComboBox_run.Width            := LengthOfComboBox;
+   ComboBox_run.Parent           := MainForm;
+   ComboBox_run.DropDownCount    := 3;
+   ComboBox_run.Items.Add        ('Select WAAMP run style:');
+   ComboBox_run.Items.Add        ('Wallfire"s Method');
+   ComboBox_run.Items.Add        ('Aton"s Method  -ONLY FOR GUILDMINING USE-');
+   ComboBox_run.Font.Name        := 'times new roman';
+   ComboBox_run.ItemIndex        := 0;
+
+   ComboBox_Fix                  := TComboBox.Create(mainform);
+   ComboBox_Fix.Top              := (TopPoint+40)+2*TopPointSpacing;
+   ComboBox_Fix.Left             := LeftPoint+50;
+   ComboBox_Fix.Width            := LengthOfComboBox;
+   ComboBox_Fix.Parent           := MainForm;
+   ComboBox_Fix.DropDownCount    := 4;
+   ComboBox_Fix.Items.Add        ('Select WAAMP fix style:');
+   ComboBox_Fix.Items.Add        ('Pick Fix');
+   ComboBox_Fix.Items.Add        ('Fishing Pole Fix');
+   ComboBox_Fix.Items.Add        ('Hatchet Fix');
+   ComboBox_Fix.Font.Name        := 'times new roman';
+   ComboBox_Fix.ItemIndex        := 0;
+
+   ComboBox_Haz                  := TComboBox.Create(mainform);
+   ComboBox_Haz.Top              := (TopPoint+40)+3*TopPointSpacing;
+   ComboBox_Haz.Left             := LeftPoint+50;
+   ComboBox_Haz.Width            := LengthOfComboBox;
+   ComboBox_Haz.Parent           := MainForm;
+   ComboBox_Haz.DropDownCount    := 5;
+   ComboBox_Haz.Items.Add        ('Select WAAMP hazard avoid style:');
+   ComboBox_Haz.Items.Add        ('Whirlpool by XXX');
+   ComboBox_Haz.Items.Add        ('Smoking rock -COMING SOON-');
+   ComboBox_Haz.Items.Add        ('Tangle vine -COMING SOON-');
+   ComboBox_Haz.Items.Add        ('Poison Plant -COMING SOON-');
+   ComboBox_Haz.Font.Name        := 'times new roman';
+   ComboBox_Haz.ItemIndex        := 0;
+
+
+  CheckBox_Login                  := TCheckBox.Create(MainForm);
+  CheckBox_Login.Parent           := MainForm;
+  CheckBox_Login.Left             := MiddleSpace;
+  CheckBox_Login.Top              := TopPoint+20;
+  CheckBox_Login.Width            := 273;
+  CheckBox_Login.Height           := 17;
+  CheckBox_Login.Caption          := 'Use AutoLogin Procedure?';
+  CheckBox_Login.Font.Color       := 0;
+  CheckBox_Login.Font.Height      := -14;
+  CheckBox_Login.Font.Name        := 'times new roman';
+  CheckBox_Login.Font.Style       := [];
+  CheckBox_Login.ParentFont       := False;
+
+  Btn_OK                          := TButton.Create(MainForm);
+  Btn_OK.Parent                   := MainForm;
+  Btn_OK.Left                     := LeftPoint;
+  Btn_OK.Top                      := TopPoint+VertHeight+10;
+  Btn_OK.Width                    := 600;
+  Btn_OK.Height                   := 90;
+  Btn_OK.Caption                  := 'Run WAAMP';
+  Btn_OK.Default                  := false;
+  Btn_OK.Font.Color               := clred;
+  Btn_OK.Font.Height              := -48;
+  Btn_OK.Font.Name                := 'Brush Script';
+  Btn_OK.Font.Style               := [];
+  Btn_OK.ParentFont               := False;
+  Btn_OK.TabOrder                 := 7;
+
+  Btn_Qrun                          := TButton.Create(MainForm);
+  Btn_Qrun.Parent                   := MainForm;
+  Btn_Qrun.Left                     := LeftPoint+30;
+  Btn_Qrun.Top                      := (TopPoint+40)+1*TopPointSpacing;
+  Btn_Qrun.Width                    :=20;
+  Btn_Qrun.Height                   := 20;
+  Btn_Qrun.Caption                  := '?';
+  Btn_Qrun.Default                  := false;
+  Btn_Qrun.Font.Color               := clWindowText;
+  Btn_Qrun.Font.Height              := -15;
+  Btn_Qrun.Font.Name                := 'Times New Roman';
+  Btn_Qrun.Font.Style               := [];
+  Btn_Qrun.ParentFont               := False;
+  Btn_Qrun.TabOrder                 := 8;
+
+  Btn_Qtalk                          := TButton.Create(MainForm);
+  Btn_Qtalk.Parent                   := MainForm;
+  Btn_Qtalk.Left                     := LeftPoint+30;
+  Btn_Qtalk.Top                      := (TopPoint+40);
+  Btn_Qtalk.Width                    :=20;
+  Btn_Qtalk.Height                   := 20;
+  Btn_Qtalk.Caption                  := '?';
+  Btn_Qtalk.Default                  := false;
+  Btn_Qtalk.Font.Color               := clWindowText;
+  Btn_Qtalk.Font.Height              := -15;
+  Btn_Qtalk.Font.Name                := 'Times New Roman';
+  Btn_Qtalk.Font.Style               := [];
+  Btn_Qtalk.ParentFont               := False;
+  Btn_Qtalk.TabOrder                 := 8;
+
+  Btn_Qfix                          := TButton.Create(MainForm);
+  Btn_Qfix.Parent                   := MainForm;
+  Btn_Qfix.Left                     := LeftPoint+30;
+  Btn_Qfix.Top                      := (TopPoint+40)+2*TopPointSpacing;
+  Btn_Qfix.Width                    :=20;
+  Btn_Qfix.Height                   := 20;
+  Btn_Qfix.Caption                  := '?';
+  Btn_Qfix.Default                  := false;
+  Btn_Qfix.Font.Color               := clWindowText;
+  Btn_Qfix.Font.Height              := -15;
+  Btn_Qfix.Font.Name                := 'Times New Roman';
+  Btn_Qfix.Font.Style               := [];
+  Btn_Qfix.ParentFont               := False;
+  Btn_Qfix.TabOrder                 := 8;
+
+  Btn_QHaz                          := TButton.Create(MainForm);
+  Btn_QHaz.Parent                   := MainForm;
+  Btn_QHaz.Left                     := LeftPoint+30;
+  Btn_QHaz.Top                      := (TopPoint+40)+3*TopPointSpacing;
+  Btn_QHaz.Width                    :=20;
+  Btn_QHaz.Height                   := 20;
+  Btn_QHaz.Caption                  := '?';
+  Btn_QHaz.Default                  := false;
+  Btn_QHaz.Font.Color               := clWindowText;
+  Btn_QHaz.Font.Height              := -15;
+  Btn_QHaz.Font.Name                := 'Times New Roman';
+  Btn_QHaz.Font.Style               := [];
+  Btn_QHaz.ParentFont               := False;
+  Btn_QHaz.TabOrder                 := 8;
+
+//makes the lines
+  {left}
+  Line1                           := TBevel.Create(MainForm);
+  Line1.Parent                    := MainForm;
+  Line1.Left                      := LeftPoint;
+  Line1.Top                       := TopPoint;
+  Line1.Width                     := 2;
+  Line1.Height                    := VertHeight;
+  {top}
+  Line2                           := TBevel.Create(MainForm);
+  Line2.Parent                    := MainForm;
+  Line2.Left                      := LeftPoint;
+  Line2.Top                       := TopPoint;
+  Line2.Width                     := 600;
+  Line2.Height                    := 2;
+  //Line2.Color:=clBtnFace;
+  {middle}
+  Line3                           := TBevel.Create(MainForm);
+  Line3.Parent                    := MainForm;
+  Line3.Left                      := LeftPoint+300;
+  Line3.Top                       := TopPoint;
+  Line3.Width                     := 2;
+  Line3.Height                    := VertHeight;
+    {right}
+  Line3                           := TBevel.Create(MainForm);
+  Line3.Parent                    := MainForm;
+  Line3.Left                      := LeftPoint+600;
+  Line3.Top                       := TopPoint;
+  Line3.Width                     := 2;
+  Line3.Height                    := VertHeight;
+  {bottom}
+  Line4                           := TBevel.Create(MainForm);
+  Line4.Parent                    := MainForm;
+  Line4.Left                      := LeftPoint;
+  Line4.Top                       := TopPoint+VertHeight;
+  Line4.Width                     := 600;
+  Line4.Height                    := 2;
+
+  Btn_Qclose                          := TButton.Create(MainForm);
+  Btn_Qclose.Parent                   := MainForm;
+  Btn_Qclose.Left                     := 655;
+  Btn_Qclose.Top                      := 350;
+  Btn_Qclose.Width                    := 30;
+  Btn_Qclose.Height                   := 15;
+  Btn_Qclose.Caption                  := 'Close';
+  Btn_Qclose.Default                  := true;
+  Btn_Qclose.Font.Color               := clWindowText;
+  Btn_Qclose.Font.Height              := -10;
+  Btn_Qclose.Font.Name                := 'times new roman';
+  Btn_Qclose.Font.Style               := [];
+  Btn_Qclose.ParentFont               := False;
+  Btn_Qclose.TabOrder                 := 7;
+  Btn_Qclose.OnClick                  := @Qclose;
+  Btn_Qclose.ModalResult              := mrOk;
+
+  Btn_Qrun.OnClick                   := @QrunClick;
+  Btn_Qtalk.OnClick                  := @QtalkClick;
+  Btn_Qfix.OnClick                   := @QfixClick;
+  Btn_QHaz.OnClick                   := @QHazClick;
+  Btn_OK.OnClick                     := @OKClick;
+  Btn_OK.ModalResult                 := mrOk;
+  MainForm.ShowModal;
+  MainForm.Free;
+end;
+
+
+procedure ClickMouseSmooth(x,y:integer; style:boolean);
+begin
+MoveMouseSmooth(x,y);
+sleep(10);
+ClickMouse(x,y,style);
+end;
+
+procedure PauseMainScript;
+var
+cont:boolean;
+begin
+writeln('pausing main script...');
+SendInterScarMessage('WAAMP','SCRIPT:PAUSE');
+repeat
+wait(50)
+if (ReadInterSCARMessage('WAAMP')=('SCRIPT:PAUSE:OK')) then cont:=true else cont:=false;
+until (cont)
+writeln('Main script has been paused, now taking care of event(s).');
+sleep(100)
+end;
+
+procedure UnPauseMainScript;
+begin
+writeln('un-pausing main script');
+SendInterScarMessage('WAAMP','SCRIPT:RUN');
+sleep(500)
+end;
+
+procedure CheckCommunication;   {WAAMP side version}
+var
+cont:boolean;
+begin
+  if (ReadInterSCARMessage('WAAMP')=('WAAMP:PAUSE')) then
+   begin
+     wait(50);
+     SendInterScarMessage('WAAMP','WAAMP:PAUSE:OK');
+     writeln('Paused by main script. Waiting for the main script to continue...');
+     repeat
+     wait(50)
+     if (ReadInterSCARMessage('WAAMP')=('WAAMP:RUN')) then  cont:=true else cont:=false;
+    until (cont);
+    writeln('UnPaused by main script. WAAMP is continuing...');
+  end;
+end;
+
+procedure Load;
+begin
+ LastTime :=0;
+ ScreenCount:=0;
+
+ Login := BitmapFromString(11, 7,
+       '000000000000FFFF00000000000000000000000000000000000000' +
+       '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00FFFF00000000000000FFFF00000000000000000000' +
+       '000000FFFF00000000000000000000FFFF00000000FFFF00000000' +
+       '000000000000000000FFFF00000000000000000000FFFF00000000' +
+       'FFFF00000000000000000000000000FFFF00000000000000000000' +
+       'FFFF00000000FFFF00000000000000000000000000FFFF00000000' +
+       '000000000000FFFF00000000000000FFFF00FFFF00000000000000' +
+       '000000FFFF00FFFF00FFFF00000000');
+
+  DwarfTalk := BitmapFromString(101, 2,
+       'FFFFFFFFFFFF0000005D54475D54475D5447FFFFFFFFFFFFFFFFFF' +
+       'FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF0000005D5447FFFFFF' +
+       'FFFFFFFFFFFF0000000000005D54475D54475D5447000000000000' +
+       '0000000000000000005D5447FFFFFFFFFFFF0000005D54475D5447' +
+       '5D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF0000005D5447' +
+       '5D54475D54475D54475D5447FFFF00FFFF000000005D5447FFFF00' +
+       'FFFF000000005D5447FFFF00FFFF000000000000005D54475D5447' +
+       'FFFF00FFFF000000005D5447FFFF00FFFF000000005D5447FFFF00' +
+       'FFFF00000000000000FFFF00FFFF000000005D5447FFFF00FFFF00' +
+       'FFFF000000000000005D54475D5447FFFF00FFFF000000005D5447' +
+       'FFFF00FFFF000000005D5447FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00000000FFFFFFFFFFFF0000005D54475D5447FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFFFFFFFFFFFFFF5D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D5447FFFFFFFFFFFF000000' +
+       '5D54475D54475D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+       '0000005D54475D54475D54475D54475D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF000000005D5447FFFF00FFFF000000005D5447' +
+       '5D54475D5447FFFF00FFFF000000005D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF000000005D5447FFFF00FFFF000000005D5447' +
+       'FFFF00FFFF00FFFF00FFFF005D54475D54475D5447FFFF00FFFF00' +
+       'FFFF00FFFF00FFFF000000000000005D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF00000000');
+  DwarfTalkY := BitmapFromString(101, 2,
+       'FFFF00FFFF000000005D54475D54475D5447FFFF00FFFF00FFFF00' +
+       'FFFF00FFFF000000005D5447FFFF00FFFF000000005D5447FFFF00' +
+       'FFFF00FFFF000000000000005D54475D54475D5447000000000000' +
+       '0000000000000000005D5447FFFF00FFFF000000005D54475D5447' +
+       '5D5447FFFF00FFFF000000005D5447FFFF00FFFF000000005D5447' +
+       '5D54475D54475D54475D5447FFFF00FFFF000000005D5447FFFF00' +
+       'FFFF000000005D5447FFFF00FFFF000000000000005D54475D5447' +
+       'FFFF00FFFF000000005D5447FFFF00FFFF000000005D5447FFFF00' +
+       'FFFF00000000000000FFFF00FFFF000000005D5447FFFF00FFFF00' +
+       'FFFF000000000000005D54475D5447FFFF00FFFF000000005D5447' +
+       'FFFF00FFFF000000005D5447FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00000000FFFF00FFFF000000005D54475D5447FFFF00FFFF00' +
+       '000000000000FFFF00FFFF000000005D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF00FFFF00FFFF005D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D5447FFFF00FFFF00000000' +
+       '5D54475D54475D5447FFFF00FFFF000000005D5447FFFF00FFFF00' +
+       '0000005D54475D54475D54475D54475D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF000000005D5447FFFF00FFFF000000005D5447' +
+       '5D54475D5447FFFF00FFFF000000005D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF000000005D5447FFFF00FFFF000000005D5447' +
+       'FFFF00FFFF00FFFF00FFFF005D54475D54475D5447FFFF00FFFF00' +
+       'FFFF00FFFF00FFFF000000000000005D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF00000000');
+   GenieTalk := BitmapFromString(86, 3,
+       'FFFFF4FFFFF1040100000000000000000000000000000000000000' +
+       '000000000000000000000000FFFEF7FFFBF5000000000000FFFBF7' +
+       'FFFEFA000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000FFFEF6FFFFF4000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000FFFF00FFFF000F1100000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000FFFF00FFFF00000000000000000000000000000000' +
+       '000000000000000000000000000000F4F0E5FFFFF11F1D0E000000' +
+       '000000000000FFFFF4FFFFF3F3F0E7FFFFF6000000000000000000' +
+       'FFFCF7FFFFFA030000000000FFFFFDFFFEFD0D0908FFFEFDE9E5E2' +
+       '000000000000000000000000000000000000000000000000000000' +
+       'FAF5EFFAF7EEF6F6ECFFFFF8000000000000000000FFFDFDF8F2F2' +
+       'E8E2E2FFFEFB000000000000000000000000000000000000000000' +
+       'FFFF00FFFF000F1100FFFF00FFFF00FFFF00000000000000000000' +
+       '000000FFFF00FFFF00FFFF00FFFF00000000000000000000FFFF00' +
+       'FFFF00FFFF00FFFF00FFFF00000000000000000000000000000000' +
+       '000000000000000000FFFF00FFFF00FFFF00FFFF00000000000000' +
+       '000000FFFFF6F9F7EB030000000000000000FFFFF6F4F1EA030000' +
+       '030000FFFFFAFFFEFB000000000000ECE8E7F8F4F3181413000000' +
+       'FFFBF8F3EFECF8F4F1F9F5F2120F0A040000000000FFFEFAFBF6F0' +
+       'FFFBF5FFFEF8FDF4EF000000000000FFFAF2FFFFF60D0A01050200' +
+       '050200000000FBF7F4FEF9F615100D110C09FFFEFBFFFDFA000000' +
+       '000000000000000000000000000000FFFF00FFFF00181600000000' +
+       '0F0500FFFF00FFFF00000000000000FFFF00FFFF001307000F0400' +
+       'FFFF00FFFF00000000000000FFFF00FFFF00FFFF00191400FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '1711000B0A00FFFF00FFFF00000000000000');
+
+   GenieTalkY :=GenieTalk;
+
+   GenTalk := BitmapFromString(43, 2,
+       'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFF' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF');
+
+  GenTalkY:=GenTalk;
+
+  MoMTalk := BitmapFromString(121, 3,
+       'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+       '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000FFFFFFFFFFFF000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000FFFF00FFFF00FFFF00FFFF00FFFF00' +
+       'FFFF00FFFF00FFFF00000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000FFFF00FFFF00000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000FFFF00FFFF00000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000FFFFFFFFFFFF000000000000000000' +
+       '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+       '000000000000000000000000000000000000000000000000FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF000000000000000000000000000000000000000000FFFF00' +
+       'FFFF00000000FFFF00FFFF00000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+       'FFFF00FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00' +
+       'FFFF00FFFF00000000000000000000FFFF00FFFF00FFFF00FFFF00' +
+       '000000000000000000FFFF00FFFF00FFFF00FFFF00000000000000' +
+       '000000000000000000000000000000FFFF00FFFF00FFFF00FFFF00' +
+       '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '000000000000000000FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF' +
+       'FFFFFF000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+       '000000000000000000FFFF00FFFF00000000000000000000000000' +
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000000000000000' +
+       '000000000000FFFF00FFFF00000000000000000000000000FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       'FFFF00000000000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+       '000000000000000000');
+
+       MoMTalkY :=MoMTalk;
+
+
+      ST:=GetSystemTime;
+end;
+
+
+procedure XXXWhirlPoolCheck;
+begin
+writeln('whirled');
+wait(1000);
+end;
+
+procedure GetScreenShot(reason:string);
+begin
+  //SaveScreenshot(AppPath+reason+inttostr(ScreenCount)'+.bmp');
+  writeln(AppPath+'WAAMP\'+reason+inttostr(ScreenCount)+'.bmp');
+  ScreenCount:=ScreenCount+1;
+  if ScreenCount>10 then ScreenCount:=0;
+end;
+
+procedure OneAnswerTalk;
+ var
+ yellowtext:boolean ; //locals
+ LTx,LTy,loop:Integer;
+  begin
+  loop:=0;
+  sleep(1500)
+  yellowtext:=true;
+  MoveMouseSmooth(10,10)
+  sleep(500)
+ repeat
+  LTx:=random(375) + 25;
+  LTy:=random(375) + 100;
+  if (GetColor(LTx,LTy)=16711680) then      // mod to find the mask ['here']
+  begin
+   MoveMouse(LTx,LTy);
+   sleep(50)
+    GetScreenShot('WallTW');
+    ClickMouse(LTx,LTy,true);
+    wait(500);
+  ///////////////////////
+  UnPauseMainScript////
+  ////////////////////
+  yellowtext:=false;
+  end;
+  loop:=loop+1;
+  if (loop>500) and (yellowtext=true) then
+  begin
+   yellowtext:=false;
+   writeln('could not find clickable response,exiting OneAnswerTalk Proc')
+   GetScreenShot('WallTF');
+  ///////////////////////
+  UnPauseMainScript;////
+  /////////////////////
+  end;
+ until(yellowtext=false)
+end; //Proc:OneAnswerTalk
+
+
+//////////////////////////////////////////////////
+////////EDIT THE FOLLOWONG TALK PATTERNS//////////
+//////////////////////////////////////////////////
+procedure Talk2MOM;                           ////
+begin                                         ////
+    ClickMouse(RCx,RCy,true)                  ////
+    sleep(100)                                ////
+    OneAnswerTalk;                            ////
+    MoMCount:=MoMCount+1;                     ////
+    sleep(500)                                ////
+end;//Proc:Talk2Mod                           ////
+                                              ////
+                                              ////
+procedure Talk2Dwarf;                         ////
+begin                                         ////
+    ClickMouse(RCx,RCy,true)                  ////
+    sleep(100)                                ////
+    OneAnswerTalk;                            ////
+    DwarfCount:=DwarfCount+1;                 ////
+    sleep(500)                                ////
+end;//Proc:Talk2Mod                           ////
+                                              ////
+procedure Talk2Genie;                         ////
+begin                                         ////
+    ClickMouseSmooth(RCx,RCy,true)            ////
+    sleep(100)                                ////
+    OneAnswerTalk;                            ////
+    GenieCount:=GenieCount+1;                 ////
+    sleep(500)                                ////
+    //select menu? to retrive lamp?           ////
+end;//Proc:Talk2Genie                         ////
+                                              ////
+procedure Talk2GenNPC;                        ////
+begin                                         ////
+    ClickMouseSmooth(RCx,RCy,true)            ////
+    sleep(100)                                ////
+    OneAnswerTalk;                            ////
+    GenCount:=GenCount+1;                     ////
+    sleep(500)                                ////
+end;//Proc:Talk2GeneralNPC;                   ////
+                                              ////
+//////////////////////////////////////////////////
+
+procedure Check4Battle;
+begin
+sleep(50)
+if (FindColorSpiral(x,y,65280,160,100,400,250))then //rezise
+begin
+  ///////////////////////
+  PauseMainScript;//////
+  /////////////////////
+  writeln('Running away. Danger found at: x='+inttostr(x)+'y='+inttostr(y));
+  MoveMouse(655,35);
+  sleep(500);
+  ClickMouseSmooth(655,35,true)
+  GetScreenShot('WallfireRun');
+  sleep(15000);
+  MoveMouse(655,145);
+  sleep(1000);
+  ClickMouseSmooth(655,145,true);
+  sleep(15000);
+  ///////////////////////
+  UnPauseMainScript;////
+  ////////////////////
+  end;
+end;//proc:Check4Battle
+
+
+
+
+  {  this is what Scriptex added, but i dont like it :P so its commented out. }
+  {decided to use it, its unique :D I had to make some alogrithm mods to it}
+
+Procedure ScriptexTalkToGenie;
+var
+a,b:integer;
+begin
+ C:=1;
+ repeat
+  Status('Finding Genie '+inttostr(c)+'/100');
+  ///////////////////////
+  x:= 190+random(110); //
+  y:= 115+random(85);  //
+  ///////////////////////
+  MoveMouseSmooth(x,y);
+  wait(100);
+  ClickMouseSmooth(x,y,false);
+  Wait(100)
+  C:= C+1;
+ //////////////////////////////////////////////////////////////////////////////////////////////////////
+ until(FindBitmapIn(GenieTalk,a,b,0,0,100,30))or(FindBitmapIn(GenieTalkY,a,b,0,0,100,30))or(C>100); ///
+ If(FindBitmapIn(GenieTalk,a,b,0,0,100,30))or(FindBitmapIn(GenieTalkY,a,b,0,0,100,30))then          ///
+ //////////////////////////////////////////////////////////////////////////////////////////////////////
+ Begin
+  MoveMouse(a,b);
+  Wait(100);
+  ClickMouseSmooth(a,b,true);
+ end;
+ if (C>=100) then MoveMouseSmooth(random(5),random(5));
+end;
+
+
+Procedure ScriptexTalkToMoM;
+var
+a,b:integer;
+begin
+C:=1;
+repeat
+Status('Finding Mysterious Old Man '+inttostr(c)+'/100');
+//////////////////////
+x:= 190+random(110);//
+y:= 115+random(85); //
+//////////////////////
+MoveMouseSmooth(x,y);
+wait(100);
+ClickMouseSmooth(x,y,false);
+Wait(100)
+C:= C+1;
+//////////////////////////////////////////////////////////////////////////////////////////////////
+until(FindBitmapIn(MoMTalk,a,b,0,0,100,30))or(FindBitmapIn(MoMTalkY,a,b,0,0,100,30))or(C>100); ///
+If(FindBitmapIn(MoMTalk,a,b,0,0,100,30))or(FindBitmapIn(MoMTalkY,a,b,0,0,100,30))then          ///
+//////////////////////////////////////////////////////////////////////////////////////////////////
+Begin
+MoveMouse(a,b);
+Wait(100);
+ClickMouseSmooth(a,b,true);
+end;
+if (C>=100) then MoveMouseSmooth(random(5),random(5));
+end;
+
+Procedure ScriptexTalkToDrunkDwarf;
+
+var
+a,b:integer;
+begin
+C:=1;
+repeat
+Status('Finding Drunken Dwarf '+inttostr(c)+'/50');
+///////////////////////
+x:= 190+random(110); //
+y:= 115+random(85);  //
+///////////////////////
+MoveMouseSmooth(Random(150),Random(100));
+sleep(100)
+MoveMouseSmooth(x,y);
+wait(100);
+ClickMouseSmooth(x,y,false);
+Wait(100)
+C:= C+1;
+////////////////////////////////////////////////////////////////////////////
+until(FindBitmap(DwarfTalk,a,b))or(FindBitmap(DwarfTalkY,x,y))or(C>50);  ///
+If(FindBitmap(DwarfTalk,a,b))or(FindBitmap(DwarfTalkY,x,y))then          ///
+////////////////////////////////////////////////////////////////////////////
+Begin
+MoveMouse(a,b);
+Wait(100);
+ClickMouseSmooth(a,b,true);
+end;
+If(c>50) then MoveMouseSmooth(random(5),random(5));
+end;
+
+
+Procedure PrintProgressReport; { Modified From Phalanx}
+var
+ RHours,Minutes,Seconds,RMinutes,RSeconds:LongInt;
+ Time:String;
+begin
+ if (GetSystemTime-LastTime) > (CheckTime*60000) then
+ begin
+ Seconds:=(GetSystemTime-ST) div 1000;
+ Minutes:=Seconds div 60;
+ RHours:=Minutes div 60;
+ Time:=inttostr(Seconds)+' Seconds';
+ if Minutes<>0 then
+ begin
+  RSeconds:=Seconds Mod (Minutes*60);
+  Time:=inttostr(Minutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+ end;
+ if RHours<>0 then
+ begin
+  RMinutes:=Minutes Mod (RHours*60);
+  RSeconds:=Seconds Mod (Minutes*60);
+  Time:=inttostr(RHours)+' Hours, '+inttostr(RMinutes)+
+                          ' Minutes and '+inttostr(RSeconds)+' Seconds';
+ end;
+ begin
+ writeln('Progress Report:');
+ writeln('Worked for '+Time+'.');
+ writeln('Number of Drunken Dwarf(s) Avoided: ('+inttostr(DwarfCount)+').');
+ writeln('Number of Genie(s) Avoided: ('+inttostr(GenieCount)+').');
+ writeln('Number of Mysterious Old Man(s) Avoided: ('+inttostr(MoMCount)+').');
+ writeln('Number of Unknown NPC(s) Avoided: ('+inttostr(GenCount)+').');
+ writeln('Number of failed attempts to talk: ('+inttostr(TalkFailCount)+').');
+ //writeln('Number of pick(s) fixed: ('+inttostr(PickFixCount)+').');
+ //writeln('Number of pick()s failed to fix(droped): ('+inttostr(PickFailCount)+').');
+ writeln('Number of attacking NPC(s) Avoided: ('+inttostr(AttackCount)+').');
+ end;
+ LastTime:=GetSystemTime;
+ end;
+end;
+
+//Aton's procedures from here down:
+procedure GoUp;
+begin
+C:=0;
+Go:=false;
+begin
+repeat
+Status('Going up '+inttostr(c)+'/50');
+If(FindColorSpiral(x,y,LadderM,10,10,515,340))then
+MoveMouseSmooth(x,y);
+ClickMouseSmooth(x,y,false);
+Wait(w1+random(10));
+C:=c+1;
+if(FindBitmap(ClimbUp,x,y))or
+   (FindBitmap(ClimbUpYellow,x,y))or(C>=50)then break;
+   MoveMouseSmooth(x+random(10),y-50-random(10));
+   wait(50+random(5));
+until(False);
+end;
+if(FindBitmap(ClimbUp,x,y))or
+   (FindBitmap(ClimbUpYellow,x,y))then
+   begin
+   Go:=true;
+   MoveMouseSmooth(x,y);
+   ClickMouseSmooth(x,y,true);
+   Wait(w4+random(100));
+end;
+if(go)then
+begin
+L:=0;
+repeat
+L:= L+5;
+Status('Finding Bank '+inttostr(L)+'/100');
+Wait(500);
+Until(FindColorSpiral2(x,y,(walk1),550,5,750,177))or(l>=100);
+end;
+end;
+
+procedure SetRunOff;
+begin
+   Wait(50+random(5));
+   ClickMouseSmooth(713,497,true);
+   Wait(100+random(10));
+   ClickMouseSmooth(575,280,true);
+   Wait(100+random(10));
+   ClickMouseSmooth(640,200,true);
+   Wait(100+random(10));
+end;
+
+procedure SetRunOn;
+begin
+   Wait(50+random(5));
+   ClickMouseSmooth(713,497,true);
+   Wait(100+random(100));
+   ClickMouseSmooth(620,280,true);
+   Wait(100+random(10));
+   ClickMouseSmooth(640,200,true);
+   Wait(100+random(10));
+end;
+
+
+procedure LoginIfNeeded;
+var o,p:integer;
+begin
+    if((GetColor(405,120)=1842201)and(GetColor(364,121)=1842201))and(Not Loged)then
+ begin
+  repeat
+      Status('Trying to Loggin...')
+      Wait(100+random(10));
+
+      ClickMouseSmooth(410,335,true);
+      Wait(500+random(50));
+
+      ClickMouseSmooth(410,295,true);
+      Wait(1000+random(100));
+      if((Getcolor(284,234)=65535)and(GetColor(326,336)=16777215))then
+      begin
+
+        ClickMouseSmooth(390,270,true);
+        Wait(500+random(50));
+        SendKeysSilent(username);
+        Wait(500+random(50));
+
+        ClickMouseSmooth(395,285,true);
+        Wait(500+random(50));
+        SendKeysSilent(password);
+        Wait(500+random(50));
+        if(GetColor(317,339)=16777215)then
+          begin
+          o:=0;
+            repeat
+            o:=o+1;
+            wait(100+random(10));
+
+            ClickMouseSmooth(250+3,325,true);
+            Wait(2700+random(300));
+            until(Not (GetColor(317,339)=16777215))or(o=20+random(3));
+            if(o>=20)then
+              begin
+              p:=p+1;
+              if(p>=20)then break;
+              end;
+              if(not(o>=20))then
+                repeat
+               Wait(500+random(50));
+                until(FindBitmap(Login,x,y));
+               if(FindBitmap(Login,x,y))and(not(o>=20))then
+                repeat
+               Wait(500+random(50));                   //250 103
+
+               ClickMouseSmooth(x+200,y-3,true);
+               Wait(500);
+                until(not FindBitmap(LogIn,x,y))or(p>=3);
+            end;
+      end;
+   until(not(GetColor(362,121)=1842201));
+   if(p>=20)then
+     begin
+     p:=0;
+     Writeln('Log in Failed');
+     Loged:=true;
+     end
+  end;
+end;
+
+Procedure MapFlag;
+begin
+  Wait(w2);
+  C:=0;
+  if(FindBitmapIn(flag,x,y,550,5,750,177))then
+  begin
+   repeat
+    wait(500);
+    C:=c+1;
+   until(FindBitmapIn(flag,x,y,645,70,666,96))or
+   (not FindBitmapIn(flag,x,y,550,5,750,177))and(C=10);
+   Wait(w1);
+  end;
+end;
+
+
+procedure GoDown;
+begin
+C:=0;
+Go:=false;
+begin
+repeat
+If(findColorSpiral(x,y,(Rocks),550,5,750,177))then break;
+Status('Going Down '+inttostr(c)+'/50');
+If(FindColorSpiral(x,y,(LadderM),10,10,515,340))then
+MoveMouseSmooth(x,y);
+ClickMouseSmooth(x,y,false);
+Wait(w1+random(10));
+C:=c+1;
+if(FindBitmap(Climb,x,y))or(FindBitmap(ClimbYellow,x,y))or(C>=50)then break;
+MoveMouseSmooth(x+random(10),y-50-random(10));
+Wait(50+random(5));
+until(False);
+end;
+if (FindBitmap(Climb,x,y))or
+   (FindBitmap(ClimbYellow,x,y))then
+begin
+Go:=true;
+MoveMouseSmooth(x,y);
+ClickMouseSmooth(x,y,true);
+Wait(w4+random(100));
+end;
+if(go)then
+begin
+L:=0;
+repeat
+L:= L+5;
+Status('Cheking are we in Guild '+inttostr(L)+'/100');
+Wait(500);
+Until((FindColorSpiral2(x,y,(rocks),550,5,750,177))or(L>=100));
+end;
+if(go)and(FindColorSpiral2(x,y,(rocks),550,5,750,177))then
+begin
+Status('We are in Guild!');
+SetRunOn;
+MoveMouseSmooth(x-8,y);
+ClickMouseSmooth(x-8,y,true);
+Wait(w4+random(100));
+Mapflag;
+Wait(1000);
+end;
+end;
+
+procedure ToLadder;
+begin
+c:=0;
+Find:=false;
+if(Not Loged)then
+begin
+If (FindColorSpiral2(x,y,(Ladder),550,5,750,177))then
+begin
+Find:=True;
+Status('Ladder Found!');
+
+ClickMouseSmooth(x,y,true);
+Wait(w5+random(200));
+Mapflag;
+GoUp;
+end;
+If (FindColorSpiral2(x,y,(Gcolor),550,5,750,177))and(Not Find)then
+begin
+Status('Finding Middlepoint');
+
+ClickMouseSmooth(x,y,true);
+wait(w1+random(10));
+MapFlag;
+end;
+If (FindColorSpiral2(x,y,(Rocks),590,70,605,110))and(Not Find)then
+begin
+repeat
+if(FindColorSpiral2(x,y,(Rocks),590,70,605,110))then
+Status('Going To Ladder 1/2');
+
+ClickMouseSmooth(x,y,true);
+Wait(w1+random(10));
+Mapflag;
+until(not FindColorSpiral2(x,y,(Rocks),590,70,605,110))or
+       (FindColorSpiral(x,y,(Ladder),550,5,750,177));
+end;
+If (FindColorSpiral2(x,y,(Ladder),550,5,750,177))and(Not Find)then
+begin
+Find:=True;
+Status('Going To Ladder 2/2');
+
+ClickMouseSmooth(x,y,true);
+Wait(w5+random(200));
+Mapflag;
+GoUp;
+end;
+if(Not Go)and(Not FindColorSpiral(x,y,(walk1),550,5,750,177))or
+(Not Find)and(Not FindColorSpiral(x,y,(walk1),550,5,750,177))then
+begin
+//login if needed
+ToLadder;
+end;
+If(L>=100)then
+begin
+Status('Bank Not Found!');
+LogInIfNeeded;
+ToLadder;
+end;
+end;
+End;
+
+Procedure AtonGuildRunAway;
+begin
+If(FindColorSpiral(x,y,65280,160,100,400,250))then Wait(3000);
+If(FindColorSpiral(x,y,65280,160,100,400,250))then
+begin
+Status('Random Event Found');
+GetScreenShot('AtonAttackFound');
+Fight:=True;
+Ran:=Ran+1
+SetRunOn;
+ToLadder;
+Status('Waiting 10 sec...');
+Wait(10000);
+GoDown;
+end;
+END;
+
+procedure AtonTalkToEve;
+var FindTalk:boolean; i,ax:integer;
+begin
+FindTalk:=false;
+Fight:=false;
+C:=0;
+i:=1;
+if(FindColorSpiral(x,y,65535,0,0,500,375))then
+begin
+GetScreenShot('AtonTalkFound');
+repeat
+c:=c+1;
+Status('Searching For Random Event '+inttostr(c)+'/50');
+case i of
+ 1: begin ax:=x+random(75); i:=i+1; end;
+ 2: begin ax:=x-random(75); i:=1;   end;
+end;
+MoveMouseSmooth(ax,y+30);
+ClickMouseSmooth(ax,y+30,false);
+wait(100+random(10));
+///////////////////////////////////////////////////////////
+If(FindColorSpiral(x,y,65280,160,100,400,250))then     ////
+begin                                                  ////
+if (AllowWallfireAttackCheck) then Check4Battle;       ////
+if (AllowAtonAttackCheck)    then AtonGuildRunAway     ////
+end;                                                   ////
+///////////////////////////////////////////////////////////
+If(Fight)then break;
+if(FindBitmap(Talk,x,y))or(FindBitmap(TalkY,x,y))then begin FindTalk:=true; break; end;
+if(C>=30)then break;
+if(FindColorSpiral(x,y,65535,0,0,500,375))then begin AtonTalkToEve; break; end;
+MoveMouseSmooth(x+75+random(10),y-50-random(10))
+Wait(50+random(10));
+until(false);
+end;
+end;
+
+procedure AtonGuildRunCheck;
+
+begin
+If(FindColorSpiral(x,y,65280,160,100,400,250))then AtonGuildRunAway;
+end;
+
+procedure AtonTalkCheck;
+var FindTalk:boolean;
+begin
+ If(Not Fight)then
+  begin
+   If(findColorSpiral(a,b,65535,0,0,500,375))then
+    begin
+     AtonTalkToEve;
+     Wait(50+random(5));
+      If(FindTalk)then
+       begin
+        ClickMouseSmooth(x,y,true);
+        wait(3000+random(300));
+        Talked:=Talked+1;
+      end;
+   end;
+ end;
+End;
+
+procedure FindTextLocation;
+var
+ExitCond,NoMoreYellow :boolean;
+Yint,Xmin,diff,difflast,Xmax,XmidRec,Xmid : integer;
+begin
+sleep(1000)
+ //if NoMoreYellow=true then
+  //begin
+   x:=0;
+   y:=0;
+   Xmid:=0;
+   Xmin:=0;
+   Xmax:=0;
+   FoundTalkingMod:=false;
+   NoMoreYellow:=false;
+   //writeln('stats reset');
+   //MoveMouseSmooth(x,y);
+
+  if FindColorSpiral(x,y,65535,90,90,400,200)then  wait(50);
+  if ( GetColor(x,y)=65535 )then
+   begin  //if we found the colors of Auto Mod Text
+   writeln('yellowtext found');
+   GetScreenShot('WallfireYellowFound');
+   wait(10);
+   ///////////////////////////////////////////////////////////////////
+   if  (AllowWallfireAttackCheck=true) then Check4Battle;         ////
+   if  (AllowAtonAttackCheck=true)     then AtonGuildRunCheck;    ////
+   ///////////////////////////////////////////////////////////////////
+   NoMoreYellow:=false;
+   Yint:=0;
+   repeat
+    Yint:=Yint+1;
+    y:=y+Yint;
+    x:=0;
+    repeat //locate Xmin untill we get to 65536
+     ExitCond:=false;
+     x:=x+1;
+     Xmin:=x;
+     if GetColor(x,y)=65535 then ExitCond:=true;
+     if x>500 then
+      begin
+      x:=0;
+      ExitCond:=true;
+      NoMoreYellow:=true;
+     end;
+    until(ExitCond=true);
+    ExitCond:=false;
+
+    // locate Xmax untill we get to  65535
+    x:=520;
+    while (NoMoreYellow=false) and (ExitCond=false) do
+     begin
+     x:=x-1;
+     Xmax:=x;
+     if (GetColor(x,y)=65535) then ExitCond:=true;
+
+    end; //while loop
+    //find Xmid
+    //diff:=0;
+    diff:=(Xmax-Xmin);
+    if (diff>difflast) and (diff>25) then
+     begin
+     XmidRec:=((diff/2)+Xmin);
+    end;
+    difflast:=diff;
+
+   until(NoMoreYellow=true)
+
+
+  x:=XmidRec;
+
+  /////////////////////////
+  PauseMainScript; ///////
+  ///////////////////////
+
+  x:=XmidRec;
+  sleep(2500)
+  writeln('Moving mouse to base of text XmidRec='+inttostr(XmidRec));
+  ClickMouseSmooth(x,y,false);
+  FoundTalkingMod:=true;
+  sleep(100)
+
+
+  end; //if loop for x,y=65535
+
+
+END; //Proc:FindTextLocation
+
+
+Procedure Look4TalkingMod;
+begin
+sleep(1000)
+ FindTextLocation;
+ if (FoundTalkingMod) then
+ begin
+
+  if (FindBitmap(GenieTalk,RCx,RCy)  or
+    FindBitmap(GenieTalkY,RCx,RCy)) then Talk2Genie;
+  wait(10)
+  if(FindBitmap(MoMTalk,RCx,RCy) or
+     FindBitmap(MoMTalkY,RCx,RCy)) then Talk2MoM;
+  wait(10)
+  if(FindBitmap(DwarfTalk,RCx,RCy) or
+     FindBitmap(DwarfTalkY,RCx,RCy))then Talk2Dwarf;
+  wait(10)
+  if(FindBitmap(GenTalk,RCx,RCy) or
+     FindBitmap(GenTalkY,RCx,RCy))then Talk2GenNPC;
+  ///////////////////////
+  UnPauseMainScript;////
+  /////////////////////
+end;
+end;//proc:Look4TalkingMod
+
+
+
+procedure WAAMPAttackCheck;
+begin
+CheckCommunication;
+wait(75+random(100))
+if  (AllowWallfireAttackCheck) then Check4Battle;
+if  (AllowAtonAttackCheck)     then AtonGuildRunCheck;
+wait(75+random(100))
+end;
+
+procedure WAAMPTalkCheck;
+begin
+CheckCommunication;
+wait(75+random(100))
+if (AllowWallfireTalkCheck)    then Look4TalkingMod;
+if (AllowAtonTalkCheck)        then AtonTalkCheck;
+wait(75+random(100))
+end;
+
+
+procedure WAAMPFixCheck;
+begin
+CheckCommunication;
+wait(75+random(100))
+{
+if (AllowKHAINPickFix) then
+if (AllowKHAINHatchetFix) then    COMING SOON!  Khain, you are the man!
+if (AllowKHAINPoleFix) then
+}
+wait(75+random(100))
+end;
+
+procedure WAAMPHazCheck;
+begin
+CheckCommunication;
+wait(75+random(100))
+if (AllowXXXWhirlPoolCheck)    then  XXXWhirlPoolCheck;
+{
+if (AllowXXXHazCheck)    then  SmokingRockCheck;
+if (AllowXXXHazCheck)    then  PoisonPlantCheck;  MORE TO COME!!
+if (AllowXXXHazCheck)    then  TangleVineCheck;
+}
+wait(75+random(100))
+end;
+
+
+begin //Program~Setup//
+ run:=false;
+ ClearReport;
+ CallMainForm;
+ if (run=true) then
+ begin
+  Load;
+  writeln('WAAMP has started...')
+  repeat  { Main Cycling }
+   if AllowWAAMPAttackCheck  then WAAMPAttackCheck;
+   if AllowWAAMPTalkCheck    then WAAMPTalkCheck;
+   if AllowWAAMPFix          then WAAMPFixCheck;
+   if AllowWAAMPHazardCheck  then WAAMPHazCheck;
+  until(false) { End of Main Cycleing }
+ end;
+writeln('End of Script-- !WAAMP WASN"T STARTED!');
+AddtoReport('Script Stoped.');
+end. //Program~END// :^)
+
+{                            <-=WAAMP v1.13=->
+          <-=Wallfire's Advance Auto-Mod Protection script=->
+}

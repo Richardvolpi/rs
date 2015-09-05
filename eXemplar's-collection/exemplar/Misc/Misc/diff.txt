@@ -1,0 +1,160 @@
+init:
+deps-jar:
+Compiling 1 source file to /home/chris/java/projects/diff/build/classes
+Note: /home/chris/java/projects/diff/src/org/saev/diff/DiffAlgorithm.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+compile:
+run:
+matched client.a.(BI)V and client.a.(BI)V with 2.6% certainty
+matched client.a.(JB)V and client.a.(JB)V with 25.6% certainty
+matched client.d.(Z)V and client.n.(Z)V with 42.5% certainty
+matched client.a.(Lab;IIII)V and client.a.(IIIILab;)V with 87.3% certainty
+matched client.a.(Llb;BI)V and client.a.(ILlb;B)V with 76.6% certainty
+matched client.e.(Z)V and client.l.(Z)V with 30.9% certainty
+matched client.f.(Z)V and client.o.(Z)V with 15.6% certainty
+matched client.a.(Ljava/lang/String;)Ljava/io/DataInputStream; and client.a.(Ljava/lang/String;)Ljava/io/DataInputStream; with 100.0% certainty
+matched client.c.(I)V and client.u.(I)V with 21.6% certainty
+matched client.d.(I)V and client.q.(I)V with 44.8% certainty
+matched client.b.(Z)V and client.n.(Z)V with 17.1% certainty
+matched client.b.(B)V and client.h.(B)V with 40.3% certainty
+matched client.b.(IIZ)V and client.a.(ZZI)V with 73.8% certainty
+matched client.c.(B)V and client.h.(B)V with 71.4% certainty
+matched client.a.(ILy;)V and client.a.(Ly;I)V with 72.6% certainty
+matched client.a.(Ly;I)V and client.b.(Ly;I)V with 88.0% certainty
+matched client.a.(BLy;)V and client.a.(Ly;B)V with 74.8% certainty
+matched client.b.(BLy;)V and client.a.(BLy;)V with 22.9% certainty
+matched client.e.(I)V and client.m.(I)V with 74.2% certainty
+matched client.g.(Z)V and client.h.(Z)V with 95.7% certainty
+matched client.a.(IIIIIII)V and client.a.(IIIIIII)V with 86.3% certainty
+matched client.b.(II)V and client.g.(II)V with 33.8% certainty
+matched client.h.(Z)V and client.n.(Z)V with 23.8% certainty
+matched client.a.(IIIIII)V and client.a.(IIIIII)V with 61.3% certainty
+matched client.f.(I)V and client.y.(I)V with 38.6% certainty
+matched client.g.(I)V and client.E.(I)V with 72.4% certainty
+matched client.getCodeBase.()Ljava/net/URL; and client.getCodeBase.()Ljava/net/URL; with 100.0% certainty
+matched client.d.(B)V and client.n.(B)V with 60.7% certainty
+matched client.a.(ILlb;B)V and client.a.(BLlb;I)V with 5.8% certainty
+matched client.a.(ZJ)V and client.a.(JZ)V with 31.9% certainty
+matched client.b.(Llb;BI)V and client.a.(BLlb;I)V with 20.2% certainty
+matched client.i.(Z)Ljava/lang/String; and client.k.(Z)Ljava/lang/String; with 83.3% certainty
+matched client.main.([Ljava/lang/String;)V and client.main.([Ljava/lang/String;)V with 92.7% certainty
+matched client.e.(B)V and client.r.(B)V with 77.2% certainty
+matched client.h.(I)V and client.t.(I)V with 20.1% certainty
+matched client.a.(ILlb;I)V and client.b.(IILlb;)V with 83.3% certainty
+matched client.c.(II)V and client.c.(II)V with 78.4% certainty
+matched client.d.(II)V and client.e.(II)V with 92.2% certainty
+matched client.c.(Z)V and client.l.(Z)V with 25.6% certainty
+matched client.j.(Z)V and client.l.(Z)V with 38.6% certainty
+matched client.e.(II)V and client.d.(II)V with 69.7% certainty
+matched client.f.(B)V and client.i.(B)V with 72.2% certainty
+matched client.b.(ILlb;I)V and client.a.(Llb;II)V with 63.9% certainty
+matched client.g.(B)V and client.r.(B)V with 18.2% certainty
+matched client.i.(I)V and client.o.(I)V with 82.0% certainty
+matched client.a.(IIILgc;I)V and client.a.(IILgc;II)V with 89.9% certainty
+matched client.j.(I)V and client.F.(I)V with 89.7% certainty
+matched client.a.(ILd;)Z and client.a.(ILd;)Z with 76.0% certainty
+matched client.k.(I)V and client.n.(I)V with 80.0% certainty
+matched client.a.(Ld;Z)Z and client.a.(ZLd;)Z with 91.1% certainty
+matched client.l.(I)V and client.k.(I)V with 36.8% certainty
+matched client.b.(Ljava/lang/String;)V and client.b.(Ljava/lang/String;)V with 100.0% certainty
+matched client.m.(I)V and client.y.(I)V with 43.4% certainty
+matched client.a.(ZB)V and client.a.(BZ)V with 71.5% certainty
+matched client.a.(Ljava/lang/String;Ljava/lang/String;Z)V and client.a.(Ljava/lang/String;Ljava/lang/String;Z)V with 93.1% certainty
+matched client.a.(Ld;B)Z and client.a.(BLd;)Z with 91.1% certainty
+matched client.k.(Z)V and client.l.(Z)V with 35.2% certainty
+matched client.n.(I)V and client.w.(I)V with 24.1% certainty
+matched client.l.(Z)I and client.b.(Z)I with 14.5% certainty
+matched client.h.(B)V and client.f.(B)V with 23.6% certainty
+matched client.b.(I)Ljava/awt/Component; and client.e.(I)Ljava/awt/Component; with 70.0% certainty
+matched client.c.(ILlb;I)V and client.a.(IILlb;)V with 20.7% certainty
+matched client.o.(I)V and client.t.(I)V with 22.7% certainty
+matched client.a.(IBLy;)V and client.a.(ILy;B)V with 15.5% certainty
+matched client.a.(IIII)V and client.a.(IIII)V with 87.1% certainty
+matched client.p.(I)V and client.I.(I)V with 76.1% certainty
+matched client.q.(I)Ljava/net/Socket; and client.v.(I)Ljava/net/Socket; with 100.0% certainty
+matched client.b.(III)V and client.d.(III)V with 97.7% certainty
+matched client.m.(Z)V and client.n.(Z)V with 36.8% certainty
+matched client.r.(I)V and client.y.(I)V with 81.9% certainty
+matched client.n.(Z)V and client.i.(Z)V with 16.4% certainty
+matched client.f.(II)Ljava/lang/String; and client.f.(II)Ljava/lang/String; with 92.3% certainty
+matched client.s.(I)V and client.w.(I)V with 25.8% certainty
+matched client.i.(B)V and client.n.(B)V with 11.2% certainty
+matched client.a.(IJ)V and client.a.(IJ)V with 26.3% certainty
+matched client.g.(II)V and client.g.(II)V with 97.2% certainty
+matched client.a.(ILjb;)V and client.a.(ILjb;)V with 92.7% certainty
+matched client.t.(I)V and client.g.(I)V with 75.2% certainty
+matched client.a.(IILlb;)V and client.a.(IILlb;)V with 55.4% certainty
+matched client.a.(IIIILd;)V and client.a.(ILd;III)V with 74.7% certainty
+matched client.a.(IIIIIIIIIIZI)Z and client.a.(IIIZIIIZIIII)Z with 91.3% certainty
+matched client.getParameter.(Ljava/lang/String;)Ljava/lang/String; and client.getParameter.(Ljava/lang/String;)Ljava/lang/String; with 100.0% certainty
+matched client.a.(IZ)V and client.a.(ZI)V with 14.9% certainty
+matched client.init.()V and client.init.()V with 90.0% certainty
+matched client.u.(I)V and client.x.(I)V with 92.0% certainty
+matched client.v.(I)V and client.B.(I)V with 90.0% certainty
+matched client.o.(Z)V and client.g.(Z)V with 75.7% certainty
+matched client.getAppletContext.()Ljava/applet/AppletContext; and client.getAppletContext.()Ljava/applet/AppletContext; with 100.0% certainty
+matched client.p.(Z)V and client.l.(Z)V with 78.3% certainty
+matched client.q.(Z)V and client.i.(Z)V with 19.3% certainty
+matched client.a.(IIIIIIIIII)V and client.a.(IIIIIIIIII)V with 69.7% certainty
+matched client.w.(I)V and client.q.(I)V with 75.4% certainty
+matched client.x.(I)V and client.j.(I)V with 98.7% certainty
+matched client.a.(Llb;IZ)V and client.a.(ILlb;Z)V with 31.8% certainty
+matched client.y.(I)V and client.p.(I)V with 22.1% certainty
+matched client.z.(I)V and client.h.(I)V with 15.2% certainty
+matched client.a.(IILib;I)V and client.a.(Lib;III)V with 49.7% certainty
+matched client.a.(IZLlb;)V and client.a.(ZILlb;)V with 64.9% certainty
+matched client.r.(Z)V and client.e.(Z)V with 62.5% certainty
+matched client.s.(Z)V and client.i.(Z)V with 80.4% certainty
+matched client.A.(I)V and client.D.(I)V with 66.1% certainty
+matched client.t.(Z)V and client.p.(Z)V with 88.4% certainty
+matched client.B.(I)V and client.p.(I)V with 72.6% certainty
+matched client.C.(I)I and client.f.(I)I with 14.5% certainty
+matched client.D.(I)I and client.f.(I)I with 81.3% certainty
+matched client.j.(B)V and client.g.(B)V with 93.6% certainty
+matched client.d.(III)Ljava/lang/String; and client.c.(III)Ljava/lang/String; with 87.5% certainty
+matched client.k.(B)V and client.g.(B)V with 18.9% certainty
+matched client.l.(B)V and client.d.(B)V with 71.3% certainty
+matched client.E.(I)V and client.G.(I)V with 69.3% certainty
+matched client.b.(IZ)V and client.a.(ZI)V with 11.6% certainty
+matched client.a.(Ljava/lang/Runnable;I)V and client.a.(Ljava/lang/Runnable;I)V with 100.0% certainty
+matched client.a.(JI)V and client.a.(IJ)V with 34.6% certainty
+matched client.u.(Z)V and client.l.(Z)V with 30.9% certainty
+matched client.m.(B)V and client.o.(B)V with 36.1% certainty
+matched client.h.(II)Z and client.a.(II)Z with 75.5% certainty
+matched client.F.(I)Z and client.r.(I)Z with 78.6% certainty
+matched client.a.(Z)V and client.l.(Z)V with 34.1% certainty
+matched client.a.()V and client.a.()V with 84.0% certainty
+matched client.v.(Z)V and client.i.(Z)V with 22.1% certainty
+matched client.d.(ILlb;I)V and client.a.(IILlb;)V with 30.5% certainty
+matched client.run.()V and client.run.()V with 90.0% certainty
+matched client.G.(I)V and client.A.(I)V with 66.7% certainty
+matched client.<init>.()V and client.<init>.()V with 49.7% certainty
+matched client.<clinit>.()V and client.<clinit>.()V with 68.3% certainty
+
+unmatched: 
+client.a.(ZLib;II)V
+client.a.(Ly;IZ)V
+client.a.(ZLy;)V
+client.a.(IBLjava/lang/String;)V
+client.a.(IIIIIZII)V
+client.a.(IZILd;BIIII)V
+client.a.(BILd;)I
+client.a.(ZLd;)V
+client.a.(IB)Ljava/lang/String;
+client.a.(IIIB)I
+client.a.(BLjava/lang/String;Ljava/lang/String;I)V
+client.a.(ILlb;ZILab;)V
+client.a.(ZZ)V
+client.a.(ZLjava/lang/String;)Z
+client.c.(III)Z
+client.a.(Z[BZ)V
+client.a.(Lnb;I)V
+client.a.(ZILjava/lang/String;Ljava/lang/String;II)Lxb;
+client.a.(IIBI)I
+client.a.(IIIII)Z
+client.a.(BIIIII)V
+client.a.(ILd;BIIII)V
+client.a.(BI[B)Z
+client.n.(B)Z
+client.b.(IB)Ljava/lang/String;
+BUILD SUCCESSFUL (total time: 1 minute 35 seconds)

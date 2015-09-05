@@ -1,0 +1,65 @@
+Ok, first open mudclient.java
+
+and declare an int
+
+CODE 
+
+public int MapZoom;
+ 
+
+
+Under
+
+CODE 
+
+public final class mudclient extends b
+{
+ 
+
+
+Then find
+
+CODE 
+
+int j1 = 192 + dkc;
+ 
+
+
+And replace with
+
+CODE 
+
+int j1 = 192 + MapZoom;
+ 
+
+
+Then find
+
+CODE 
+
+int k1 = 192 + dkc;
+ 
+
+
+And replace with
+
+CODE 
+
+int k1 = 192 + MapZoom;
+ 
+
+
+Then Find
+
+CODE 
+
+   protected final void fcf(int l)
+   {
+ 
+
+CODE 
+
+if(l == 1000) 
+MapZoom -= 25;
+if(l == 1001)
+MapZoom += 25;

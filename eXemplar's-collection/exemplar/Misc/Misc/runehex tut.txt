@@ -1,0 +1,343 @@
+Sf ^first-array^
+Tf ^second-array^
+Zh ^third-array^
+ai ^fourth-array^
+bi ^fifth-array^
+Cg ^sixth-array^
+super.l ^logout-var^
+te ^npc-array^
+Vh ^npc-number^
+Mg ^player-object^
+Ng ^first-x^
+Og ^first-y^
+Jd ^second-y^
+Id ^second-x^
+wf ^mob2loc-val^
+Yc ^is-sleeping^
+e.B ^npc-attack^
+e.E ^npc-def^
+e.C ^npc-str^
+e.D ^npc-hp^
+e.F ^attackable-array^
+ye ^fatigue^
+Hh ^object-id-array^
+Ih ^object-send-id-array^
+Fh ^object-x-loc-array^
+Gh ^object-y-loc-array^
+Rg ^item-count-ground^
+Lc ^ground-item-x-loc-array^
+Mc ^ground-item-y-loc-array^
+Nc ^ground-item-id-array^
+Uh ^is-choice^
+185 ^choice-code^
+ve ^combat-style^
+165 ^combat-code^
+X.a ^magic-number-meth^
+251 ^deposit-code^
+19 ^withdraw-code^
+X.e ^sup-param-code^
+X.i() ^sup-call-meth^
+20 ^use-item-code^
+185 ^make-choice-code^
+X.f ^super-param-code2^
+lg ^inventory-array^
+kg ^inventory-count^
+Me ^cur-stat-array^
+ag ^max-stat-array^
+Ne ^object-count^
+12 ^mr-code^
+ze ^sleep-fat^
+e.Z ^is-Cgable-array^
+lc ^player-count^
+fg ^player-array^
+Kf ^bank-array^
+bg ^bank-count^
+pg ^bank-visable^
+e.X ^item-name^
+e.h ^stackable-array^
+e.Bb ^npc-name^
+e.w ^object-cmd^
+e.x ^object-cmd2^
+e.x ^object-cmd2^
+N ^autologout-overide^
+c ^main-meth^
+b ^display-meth^
+d ^count-meth^
+a ^walk-meth^
+d ^pick-disp-meth^
+
+
+Thats some of the vars you will need for a bot, its for mudclient193 btw. (Sorry accidently used 191 earlier, the updated version is 193((this version now)))
+
+Basically what you want to do is use runehex to make this all simple for you guys. The mudclient works off of arrays and
+main method which you pass the index of the information in the arrays you want to send to the server. So for fighting you
+would look at mudclient, search for "attack" and find this
+                    
+                    Vd[Gf] = "Attack";
+                    Qg[Gf] = "@yel@" + e.Bb[te[i3].g] + s2;
+                    if(l4 >= 0)
+                    {
+                        Cg[Gf] = 715;
+                        if(l5 == 0)
+                            break label6;
+                    }
+                    Cg[Gf] = 2715;
+
+notice that Cg gets set to two different values there, the value used depends on the npc level
+It does not matter which one you use as if you look in the main method of the client you will find this.. (The main method
+is c(int) btw)
+
+        int i2 = Cg[arg0];
+
+        .......
+
+        if(i2 == 715 || i2 == 2715)
+        {
+            int j3 = (l - 64) / wf;
+            int j5 = (i1 - 64) / wf;
+            b(Ng, Og, j3, j5, true);
+            super.X.a(114);
+            super.X.e(j1);
+            super.X.i();
+        }
+The number 715 or 2715 is sometimes refered to as the action identifier, it represents _what_ you are doing, 715/2715 is
+to attack an npc... now if we look back at the mudclient to where we found the action identifier we also find this...
+
+                Sf[Gf] = te[i3].e;
+                Tf[Gf] = te[i3].f;
+                Zh[Gf] = te[i3].c;
+
+Now if we look at our variable list at the top we will see that te is the npc array. Npcs in the client are instances
+of f (the class) and the npc array is an array of class f (obviously). So we can make two methods fairly easily to attack
+an npc.. the first one attacks an npc by the index of it in the array
+
+       public void attackNpcByIndex(int index) {
+             Cg[20] = 715;
+             Sf[20] = te[index].e;
+             Tf[20] = te[index].f;
+             Zh[20] = te[index].c;
+             c(20);
+       }
+
+Now for the second one you pass an instance of f....
+     
+     public void attackNpc(f npc) {
+            Cg[20] = 715;
+            Sf[20] = npc.e;
+            Tf[20] = npc.f;
+            Zh[20] = npc.c;
+            c(20);
+     }
+
+Now you may wonder why we have two methods like this, it is a bit pointless so it would be wiser to make attackNpcByIndex(int)
+more like this now that we have attackNpc(f)
+         
+    public void attackNpcByIndex(int index) { attackNpc(te[index]); }
+
+Going to talk about how to make it scriptable now....You basically have a couple of options here...you can go with java macros(scripts/simple apps using 
+an api) whatever you want to call them OR you can create a scripting system like richyt did. Personally i prefer the java macro/script option myself (beware
+this opeion can lead to people creating malicious code and handing it out. I will focus on the java macro aspect for now.
+
+There are many options for how you want your macros to function,you could loop the macro (in it) using sleeps for pauses, this 
+method has been used on many occasions but i wouldnt recomend it.
+
+There is a far better method but i wont go into it as i didnt think it up and i feel it would be unfair for me to 
+share it with you all.
+
+There are a couple of ways to allow the macro access to access your methods. One is by forcing to user to access all of the methods via a referance
+to the client/main/your main file where the methods are contained like so.
+
+public abstract class Script {
+   private main rs;
+   public abstract String[] getCommands();
+   public abstract void start(String macro,String[] params);
+}
+
+So thats your basic script class, now heres where you have an option. You can seperate your scripts into another directory which is not
+in your classpath so that you can reload the scripts, its the best option tbh. To do this you need to create a custom class loader like this...
+ (i edited an example classloader for ease btw)
+ 
+import java.util.Hashtable;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.*;
+
+public class SimpleClassLoader extends ClassLoader {
+    private Hashtable classes = new Hashtable();
+    public SimpleClassLoader() {
+    }
+    private byte getClassImplFromDataBase(String className)[] {
+    	byte result[];
+    	try {
+    	    FileInputStream fi = new FileInputStream(new File(".","/scripts/"+className+".class"));
+    	    result = new byte[fi.available()];
+    	    fi.read(result);
+    	    return result;
+    	} catch (Exception e) {
+
+    	    return null;
+    	}
+    }
+    public Class loadClass(String className) throws ClassNotFoundException {
+        return (loadClass(className, true));
+    }
+
+    public synchronized Class loadClass(String className, boolean resolveIt)
+    	throws ClassNotFoundException {
+        Class result;
+        byte  classData[];
+        result = (Class)classes.get(className);
+        if (result != null) {
+            return result;
+        }
+
+        try {
+            result = super.findSystemClass(className);
+            return result;
+        } catch (ClassNotFoundException e) {
+        }
+        classData = getClassImplFromDataBase(className);
+        if (classData == null) {
+            throw new ClassNotFoundException();
+        }
+        result = defineClass(className, classData, 0, classData.length);
+        if (result == null) {
+            throw new ClassFormatError();
+        }
+
+        if (resolveIt) {
+            resolveClass(result);
+        }
+
+        classes.put(className, result);
+        return result;
+    }
+}
+
+You do not need to worry about how it works, all you need to know is that you put your scripts in a folder called scripts in your
+bots directory. Now to make things even easier ill show some example code of how to load scripts using this class loader.
+
+    public Hashtable Scripts = new Hashtable();
+
+    public void loadScripts() {
+        System.out.println("load scripts");
+        SimpleClassLoader sc = new SimpleClassLoader(); 
+        File f = new File(".","/scripts/");
+        String[] files = f.list();
+        for(int i = 0; i < files.length;i++) {
+            if (files[i].endsWith(".class") && files[i].indexOf("$") == -1) {
+                System.out.println("loading script file " + files[i].substring(0,files[i].length()-6));
+                try {
+                    Script s = (Script)sc.loadClass(files[i].substring(0,files[i].length()-6)).newInstance();
+                    s.rs = this;
+                    String[] commands = s.getCommands();
+                    for(int j = 0; j < commands.length;j++)
+                        {
+                            System.out.println("Script command loaded::"+commands[j]);
+                            Scripts.put(commands[j],s);
+                        }
+                }
+                catch(Exception e) {
+                    System.out.println(e);
+                }
+            }
+        }
+    }
+
+Now that you have a classloader, a script class and a method to load the scripts ill show you exactly how to make a custom script
+from the template you have at hand
+
+   public class walkTest extends Script {
+       public void String[] getCommands() { return new String[] { "walkTest" }; }
+
+       public void Start(String macro, String[] params) {
+           rs.walkTo(rs.getMyXPosition()+1,rs.getMyXPosition()+1);
+       }
+   }
+
+As you can see im calling methods in class main from the script which is one of the ways of doing it, another way however would be to put all of 
+your commands in your script class and make them access the vars/methods they use via a referance to main (which extends mudclient i should of pointed
+that out earlier)
+
+For an example lets go back to the attackNpc method we made earlier.
+
+
+public abstract class Script {
+   public main rs;
+   public abstract String[] getCommands();
+   public abstract void start(String macro,String[] params);
+   
+   public void attackNpc(f npc) {
+     rs.Cg[20] = 715;
+     rs.Sf[20] = npc.e;
+     rs.Tf[20] = npc.f;
+     rs.Zh[20] = npc.c;
+     rs.c(20);
+   }
+
+   public void attackNpcByIndex(int index) { 
+      attackNpc(getNpcByIndex(index));
+   }
+
+   public f getNpcByIndex(int index) {
+      return rs.te[index]; 
+   }
+
+}
+
+So for a simple macro that attacks the first npc in the array (or atleast tries to it may not be successful due to the npc being in combat or not being
+able to attack it etc) you would do...
+
+
+   public class fightTest extends Script {
+       public void String[] getCommands() { return new String[] { "fightTest" }; }
+
+       public void Start(String macro, String[] params) {
+           attackNpcByIndex(0); // remember arrays start a 0 
+       }
+   }
+
+What method you use is really up to you, its all about preferance after awhile i find prefixing everything with rs gets annoying.
+
+Now that you have everything for a bot i guess i will be even NICER to you all and even give you a method to start a macro/script.
+
+    public void startMacro(String macro) {
+        macro=macro.trim();
+        System.out.println(macro);
+        try { 
+            if (!macro.equals("")) {
+                String macroName;
+                String[] params;
+                if (macro.indexOf(" ") == -1) {
+                    macroName=macro;
+                    params=new String[0];
+                }
+                else {
+                    macroName=macro.substring(0,macro.indexOf(" "));
+                    StringTokenizer st = new StringTokenizer(macro.substring(macro.indexOf(" ")));
+                    params = new String[st.countTokens()];
+                    for (int x=0; st.hasMoreTokens();)
+                        params[x++]=st.nextToken();
+                }
+                Script s = (Script)Scripts.get(macroName);
+                Thread thread = new Thread(new Runnable()
+                    {
+                        public void run()
+                        {
+                            s.start(macroName,params);
+                        }
+                    });
+                thread.start();
+            }
+        }
+        catch(Exception e) {
+            System.out.println("our code caused an error");
+            System.out.println("Excep::" + e);
+        }
+    }        
+
+I really dont think i could make this much easier for you..but i might extend this tutorial anyways...but for now...cya
+
+
+
+Thanks to subanark, without him i wouldnt know half of this (ok alot >_< ). (And to saevion for calling me a newb whenever i quit :p)

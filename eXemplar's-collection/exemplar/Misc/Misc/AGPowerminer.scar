@@ -1,0 +1,527 @@
+{///////////////////////Wallfire's PowerMiner v2.24/////////////////////////////
+//Compatible With SCAR v1.13(http://www.kaitnieks.com) & Rs2 as of 07/19/04
+//This script will select its own rock colors, works on ANY rocks!
+//Works on ANY brightness settings.
+//Includes Smart Inv Droper made by Wallfire,you can customize what items to drop.
+//
+//To operate:
+//1) Run the script with SILENT MODE OFF!!
+//2) Make sure the RS client is on top of all of the other windows.
+//and every part of the screen can be seen. if anything is covering up the
+//upper text or the rock it will not work.
+//3) SLOWLY move the mouse over the rock you want to mine. Once the upper text
+// says 'Rock' DO NO MOVE YOUR MOUSE! let it calc what colors it needs to use.
+//Once the script starts right clicking the rock to mine you can move your mouse.
+//4) If for some reason you specify the rock you want to mine and it spits out
+//what colors it is going to use and sill does not mine any rocks, stop the
+//script and try again. Sometimes it picks up the color of the dirt around the
+//rock and does nothing but locate the color of the dirt around the rock.
+//
+//~Versions~
+//2.24  -Changed a few procedures so that WAAMPv113 can work with 'smart pausing'
+//
+//2.23  - Added load RS2 chars, even tho i dont know why you need2 thx,Nick77634
+//      - Added SetMouseMode(false), thanks Joolz
+//      - Fixed it so that it works with the latest RS2 update
+//      - Slowed down the DropInv to make it more accurate
+//      - Added more randomness to the mouse moving/clicking
+//      - Almost have the Debug box working...trying to figure out why it zooms
+//      - Fixed a MAJOR bug with the Color collecting, wow. works good now!
+//      - Commented several debugging lines, i leave them so that you can learn
+//         how this script works! i also removed a few un-need vars.
+//
+//2.13 - basicly 1.1 but with SCAR 1.13 features to make the script work again
+//         and to allow better WAAMP communication.
+//     - added a few more features. I increased the color pool of 'BestColors'
+//         so that you are not always clicking on the same color and so it
+//         does not miss-calc any dirt colors as much.
+//     - hmm... ideas keep on coming :D, i change the mining feature to randomly
+//         select one of the 6 best colors. Which also reduces redundant color
+//         clicking. Hell i have added so much, im calling it 2.13 now.  :D
+//
+//1.1 -made modifications to allow WAAMP support
+//    -modified the color finding alogrithm to reduce bad color selecting
+//    -fixed known bug about inv droping when gaining mining levels and removed
+//         the need forsome bitmaps to help reduce 'RUNTIME' errors.
+//    -cleaned up script by removing left over test variables and debuging lines
+//
+//1.0 first public release
+///////////////////////////////////////////////////////////////////////////////}
+
+program PowerMiner;
+type
+ItemArray=array [1..100] of integer;
+ColorArray=array [1..6] of integer;
+var
+x,y,RxMin,RyMin,RxMax,RyMax,
+Rx,Ry,ColorPop,bestcolor,bestcolor2,bestcolor3,bestcolor4,bestcolor5,bestcolor6,
+minerock,yellowminerock,Drop,YellowDrop,letterR,Lettero:integer;
+
+const
+Tx=9;
+Ty=9;
+
+Function MaskCheck:boolean;
+var
+resutl:boolean;
+Ix,Iy:integer;
+begin
+sleep(100)
+if(FindBitmapMaskTolerance(letterR, Ix, Iy, 30, 10, 60, 60, 40, 20))then
+  begin
+    //Status('ROCK')
+    //Writeln('The mask (R) was found at ' + IntToStr(Tx) + ', ' + IntToStr(Ty));
+    resutl:=true;
+  end else  resutl:=false;
+  result:=resutl;
+  //writeln('no');
+end;
+
+
+procedure AutoRockFinder;
+var
+ClientCanvas, DebugCanvas: TCanvas;
+boola,RxMinFound,RyMinFound,RxMaxFound,RyMaxFound,done: boolean;
+progress:integer;
+begin
+ WriteLn('Move your mouse to desired rock');
+ RxMinFound:=false;   RyMinFound:=false;
+ RxMaxFound:=false;   RyMaxFound:=false;
+ done:=false;         progress:=0;
+ boola:=false;
+
+ repeat
+   GetMousePos(x,y);
+   Status('Move your mouse to the rock you wish to mine.');
+   sleep(50)
+
+   if (IsTextAt2(Tx,Ty,'M',60)) then boola:=true;
+ until(boola)
+ 
+   writeln(inttostr(x)+','+inttostr(y))
+   Writeln('Found Rock. Please wait...');
+   Status('Good work!! Now gathering the rock colors... ('+inttostr(progress)+'/4');
+
+ 
+  repeat
+  
+      if (RxMinFound=false)  then  //find the min Rx for the rock
+       begin
+        MoveMouseSmooth(x,y);
+        Rx:=x;
+        Ry:=y;
+        while(IsTextAt2(Tx,Ty,'Mine ',60)) do
+         begin
+          MoveMouseSmooth(Rx,Ry);
+          sleep(30);
+          Rx:=Rx-1;
+          RxMin:=Rx+5;
+          //writeln('Rx:='+inttostr(Rx))
+        end;
+    writeln('RxMin exit');
+    RxMinFound:=true;
+    progress:=progress+1;
+    end;
+    
+
+
+   Status('Good work!! Now gathering the rock colors... ('+inttostr(progress)+'/4')
+
+
+  if (RyMinFound=false) then //find the min Ry for the rock
+  begin
+    Rx:=x;
+    Ry:=y;
+    MoveMouseSmooth(x,y);
+    sleep(100);
+
+    while(IsTextAt2(Tx,Ty,'Mine ',60)) do
+     begin
+      MoveMouseSmooth(Rx,Ry);
+      sleep(30);
+      Ry:=Ry-1;
+      RyMin:=Ry+10;
+      //writeln('Ry:='+inttostr(Ry))
+    end;
+    RyMinFound:=true;
+    progress:=progress+1;
+
+  writeln('RyMin exit');
+  Status('Good work!! Now gathering the rock colors... ('+ inttostr(progress)+'/4')
+  end;
+  
+  if (RxMaxFound=false) then //find the max Rx for the rock
+  begin
+    Rx:=x;
+    Ry:=y;
+    MoveMouseSmooth(x,y);
+    sleep(100);
+    while(IsTextAt2(Tx,Ty,'Mine ',60))  do
+     begin
+      MoveMouseSmooth(Rx,Ry);
+      sleep(30);
+      Rx:=Rx+1;
+      RxMax:=Rx-1;
+      //writeln('Rx:='+inttostr(Rx))
+    end;
+    RxMaxFound:=true;
+    progress:=progress+1;
+    writeln(' RxMax exit');
+    Status('Good work!! Now gathering the rock colors... ('+ inttostr(progress)+'/4')
+  end;
+
+
+    if (RyMaxFound=false) then
+    begin
+    Rx:=x;
+    Ry:=y;
+    MoveMouseSmooth(x,y);
+    sleep(100);
+    //find the max Ry for the rock
+    while(IsTextAt2(Tx,Ty,'Mine ',60)) do
+     begin
+      MoveMouseSmooth(Rx,Ry);
+      //Writeln('moving mouse') ;
+      sleep(30);
+
+      Ry:=Ry+1;
+      RyMax:=Ry-1;
+      //writeln(' Ry:='+inttostr(Ry))
+    end;
+    RyMaxFound:=true;
+    writeln(' RyMax exit');
+    end;
+
+    if (RxMinFound=true) and (RyMinFound=true) and
+       (RxMaxFound=true) and (RyMaxFound=true) then
+     begin
+      {if (not RxMin=0) or (not RxMax=0) or (not RyMin=0) or (not RyMax=0)  then
+       begin }
+        Writeln('Min Rx has been found: '+inttostr(RxMin));
+        Writeln('Min Ry has been found: '+inttostr(RyMin));
+        Writeln('Max Rx has been found: '+inttostr(RxMax));
+        Writeln('Max Ry has been found: '+inttostr(RyMax));
+        Writeln('Rock Dimensions found.');
+        
+          //display debug image window
+  DisplayDebugImgWindow(RxMax-RxMin+125, RyMax-Rymin+125)
+  DebugCanvas:= GetDebugCanvas;
+  ClientCanvas:= GetClientCanvas;
+  CopyCanvas(ClientCanvas, DebugCanvas, RxMin, RyMin, RxMax, RyMax, 5, 5, RxMax+5, RyMax+5);
+  sleep(7000) {<-- lets user look at the box before closing}
+        
+     { end else Writeln('Rock Dimensions NOT found.');       }
+     done:=true;
+    end;
+ until(done)
+end;
+
+procedure FindColors;
+var
+ColorArray:ItemArray;
+Xiter,Yiter,n,s,Ax,Ay,count,bestcount,bestcount2,bestcount3,
+bestcount4,bestcount5,bestcount6 :integer;
+begin
+ ColorPop:=100;
+ Xiter:=RxMax-RxMin;
+ Yiter:=RyMax-RyMin;
+
+ for n:= 1 to ColorPop do
+ begin
+  Ax:=random(Xiter)+RxMin;
+  Ay:=random(Yiter)+RyMin;
+  ColorArray[n]:=GetColor(Ax,Ay);
+ end;
+ //find MODE
+ for n:= 1 to ColorPop do
+ begin
+  count:=0;
+  for s:= 1 to ColorPop do
+  begin
+   If ColorArray[s] = ColorArray[n] then
+   begin
+    count:=count+1;
+   end;//end if statement
+  end;//end 's' for
+  if count > BestCount then
+  begin
+   BestColor:=ColorArray[n];
+   BestCount:=count;
+  end;//end if statement
+  if (count > BestCount2) and (count <BestCount) then
+  begin
+   BestColor2:=ColorArray[n];
+   BestCount2:=count;
+  end;//end if statement
+  if (count < BestCount2) and (count > BestCount3) and (count <BestCount) then
+  begin
+   BestColor3:=ColorArray[n];
+   BestCount3:=count;
+  end;//end if statement
+  if (count < BestCount2) and (count < BestCount3) and (count < BestCount) and
+     (count > BestCount4) then
+  begin
+   BestColor4:=ColorArray[n];
+   BestCount4:=count;
+  end;//end if statement
+  if (count < BestCount2) and (count < BestCount3) and (count < BestCount) and
+     (count < BestCount4) and (count > BestCount5) then
+  begin
+   BestColor5:=ColorArray[n];
+   BestCount5:=count;
+  end;//end if statement
+  if (count < BestCount2) and (count < BestCount3) and (count < BestCount) and
+     (count < BestCount4) and (count < BestCount5) and (count > BestCount6) then
+  begin
+   BestColor6:=ColorArray[n];
+   BestCount6:=count;
+  end;//end if statement
+ end;//end 'n' for
+
+//for
+//BestColorArray
+writeln('Using the following Best colors:')
+writeln('[1]'+inttostr(BestColor )+'     [3]'+inttostr(BestColor3)+'     [5]'+inttostr(BestColor5));
+writeln('[2]'+inttostr(BestColor2)+'     [4]'+inttostr(BestColor4)+'     [6]'+inttostr(BestColor6));
+end;
+
+procedure CheckCommunication;
+var
+cont:boolean;
+begin
+ cont:=true;
+  if (ReadInterSCARMessage('WAAMP')=('SCRIPT:PAUSE')) then
+   begin
+   wait(10)
+    SendInterScarMessage('WAAMP','SCRIPT:PAUSE:OK');
+    repeat
+    wait(50)
+     if (cont) then writeln('Paused By WAAMP. Waiting for WAAMP to continue...');
+     if (ReadInterSCARMessage('WAAMP')=('SCRIPT:RUN')) then cont:=true else cont:=false;
+    until (cont);
+  end;
+end;
+
+procedure PauseWAAMPScript;
+begin
+writeln('pausing WAAMP script...');
+SendInterScarMessage('WAAMP','WAAMP:PAUSE');
+sleep(50)
+end;
+procedure UnPauseWAAMPScript;
+begin
+writeln('un-pausing WAAMP script');
+SendInterScarMessage('WAAMP','WAAMP:RUN');
+sleep(50)
+end;
+
+procedure DropInv;
+var //all locals
+Row,Col,Ix,Iy,InvLoc: integer;
+DropThisInv: boolean;
+begin
+MoveMouseSmooth(710+random(10),445+random(10));
+Sleep(75)
+//find item in last inv location
+if(FindBitmapMaskTolerance(lettero, Ix, Iy, 0, 0, 150, 40, 40, 20)) then
+begin
+ InvLoc:=1;  Col:=1; Row:=1;
+  sleep(100);
+ repeat //590,260 start point
+    MoveMouseSmooth(640+random(20),175+random(25))
+  sleep(20);
+  ClickMouse(640+random(20),175+random(25),true)
+  sleep(10);
+  Ix:=(Col-1)*44+580;
+  Iy:=(Row-1)*38+230;
+  DropThisInv:=true;
+  //Enter below what item loctaions you do NOT want droped...
+  If (InvLoc=1) or
+  (InvLoc=2) or
+  (InvLoc=3) or
+  (InvLoc=4) or
+  (InvLoc=5) then //add/delete more spots as needed.
+  begin
+  DropThisInv:=false;
+  end;
+  if DropThisInv=true then
+  begin
+   MoveMouseSmooth(Ix,Iy);
+   sleep(50);
+   ClickMouse(Ix,Iy,false);
+   sleep(300);//adjust this if it skips some items, slower comps need higher #s
+   if FindBitmapIn(drop,Ix,Iy,550,220,740,460)or FindBitmapIn(YellowDrop,Ix,Iy,550,220,740,460) then
+   begin;
+    MoveMouseSmooth(Ix,Iy);
+    sleep(200)
+    ClickMouse(Ix+random(10),Iy,true);
+    sleep(400);
+   end; //find drop
+  end; //drop inv lov
+  InvLoc:=InvLoc+1;
+  Col:=Col+1;
+  if(Col>4)then
+  begin
+   Col:=1;
+   Row:=Row+1;
+  end;
+ until(InvLoc>28)
+end; //found item in inv
+end;
+
+procedure DoMining;
+var
+RCx,RCy,color,z:integer;
+Exitcond:boolean;
+begin
+  repeat
+    status('Mining');
+    x:= 274+random(15);
+    y:= 180+random(15);
+    z:= random(5)+1;
+    case z of
+    1 : Color:=BestColor
+    2 : Color:=BestColor2
+    3 : Color:=BestColor3
+    4 : Color:=BestColor4
+    5 : Color:=BestColor5
+    6 : Color:=BestColor6
+    end;
+    
+    Wait(50);
+    if(FindColorSpiral(x,y,Color,x-250,y-160,x+250,y+160)) then
+    begin
+      MoveMouseSmooth(x,y);
+      Wait(100);
+      if (IsTextAt2(Tx,Ty,'Mine ',60)) then
+      begin
+        Wait(200);
+        ClickMouse(x,y,false);
+        wait(100);
+        if(FindBitmapIn(minerock,RCx,RCy,30,40,500,300))or
+        (FindBitmapIn(yellowminerock,RCx,RCy,30,40,500,300))then
+        begin
+          MoveMouseSmooth(RCx,RCy);
+          ClickMouse(RCx, RCy, true);
+          Writeln('Succesfully mined with:'+inttostr(Color));
+          Wait(3000 + Random(1000));
+          CheckCommunication;
+          ExitCond:=true;
+        end else //If found 'mine' text
+        begin
+        MoveMouseSmooth(100+random(100),100+random(100));
+        end;
+      end; //if upper text='rock'
+    end;//if found best color
+  until(ExitCond=true);
+end;
+
+begin // Main program loop (while 1)
+
+letterR:= LoadBitmap(AppPath + 'Charsrs2\44.bmp');
+lettero:= LoadBitmap(AppPath + 'Charsrs2\15.bmp');
+minerock := BitmapFromString(52, 3,
+       '000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFF' +
+       'FFFFFF000000000000000000000000000000000000FFFFFFFFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFF' +
+       'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+       '00FFFF00FFFF00000000FFFF00FFFF000000000000000000000000' +
+       '00FFFF00FFFF00FFFF00FFFF000000000000000000000000000000' +
+       'FFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFF000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF00000000000000000000000000000000000000FFFF00FFFF' +
+       '00FFFF00FFFF00000000000000000000000000FFFF00FFFF000000' +
+       '00000000FFFF00FFFF000000000000000000000000FFFFFFFFFFFF' +
+       '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '00000000000000000000000000000000FFFF00FFFF00FFFF00FFFF' +
+       '00000000000000000000000000FFFF00FFFF00000000000000FFFF' +
+       '00FFFF000000000000');
+  yellowminerock := BitmapFromString(35, 3,
+       'FFFF00FFFF00000000FFFF00FFFF00000000FFFF00FFFF00000000' +
+       '000000000000000000000000000000FFFF00FFFF00FFFF00FFFF00' +
+       'FFFF00000000000000000000000000FFFF00FFFF00FFFF00FFFF00' +
+       '00000000000000000000000000000000000000000000FFFFFFFF00' +
+       'FFFF00000000000000000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00000000000000FFFF00FFFF00FFFF00000000FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '00000000000000000000000000000000000000FFFFFFFF00FFFF00' +
+       '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+       '00000000000000000000000000000000FFFF');
+
+  drop := BitmapFromString(26, 9,
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000FFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFF000000' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+       '000000FFFFFFFFFFFF000000000000000000000000000000FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000FFFFFFFFFFFF000000000000000000' +
+       '');
+  YellowDrop := BitmapFromString(26, 9,
+       'FFFF00000000000000FFFF00FFFF00000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000FFFF00' +
+       '000000000000FFFF00FFFF00000000000000FFFF00FFFF00FFFF00' +
+       'FFFF00000000000000000000FFFF00FFFF00FFFF00FFFF00000000' +
+       '000000000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00FFFF00000000' +
+       '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000000000000000' +
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '000000000000FFFF00FFFF00000000000000000000000000FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+       '000000FFFF00FFFF00000000000000000000000000000000FFFF00' +
+       'FFFF00FFFF00FFFF00000000000000000000FFFF00FFFF00FFFF00' +
+       'FFFF00FFFF00000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000FFFF00FFFF00000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000FFFF00FFFF00000000000000000000' +
+       '');
+   LoadChars('')
+   SetMouseMode(False);
+   //main prog:
+   AutoRockFinder;
+   //ManualRockFinder; <- from old version, might be coming back!!
+   FindColors;
+   repeat      //main repeat loop
+    sleep(500);
+    DoMining;
+    CheckCommunication;
+    DropInv;
+    CheckCommunication;
+    Wait(3000 + Random(1000));     {<-- adjust for diffrent picks!   }
+    CheckCommunication;
+  until(False); //main repeat loop
+end. //main prog. :)
