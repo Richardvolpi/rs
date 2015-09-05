@@ -1,0 +1,131 @@
+~~CONSTANTS~~
+$fatigue$ -returns your fatigue
+$countinv$ -returns number of items in inv
+$maxattacklvl$ -returns max attack level
+$maxdefenselvl$ -returns max defense level
+$maxstrengthlvl$ -returns max strenght level
+$maxhitslvl$ -returns max hits level
+$maxrangelvl$ -returns max range level
+$maxpraylvl$ -returns max pray level
+$maxmagelvl$ -returns max mage level
+$maxcookinglvl$ -returns max cooking level
+$maxwoodcutlvl$ -returns max woodcut level
+$maxfletchinglvl$ -returns max fletching level
+$maxfishinglvl$ -returns max fishing level
+$maxfiremakinglvl$ -returns max firemaking level
+$maxcraftinglvl$ -returns max crafting level
+$maxsmithinglvl$ -returns max smithing level
+$maxmininglvl$ -returns max mining level
+$maxherblawlvl$ -returns max herblaw level
+$maxagilitylvl$ -returns max agility level
+$maxthievinglvl$ -returns max thieving level
+$curattacklvl$ -returns current attack level
+$curdefenselvl$ -returns current defense level
+$curstrengthlvl$ -returns current strenght level
+$curhitslvl$ -returns current hits level
+$curranglvl$ -returns current range level
+$curpraylvl$ -returns current pray level
+$curmagelvl$ -returns current mage level
+$curcookinglvl$ -returns current cooking level
+$curwoodcutlvl$ -returns current woodcut level
+$curfletchinglvl$ -returns current fletching level
+$curfishinglvl$ -returns current fishing level
+$curfiremakinglvl$ -returns current firemaking level
+$curcraftinglvl$ -returns current crafting level
+$cursmithinglvl$ -returns current smithing level
+$curmininglvl$ -returns current mining level
+$curherblawlvl$ -returns current herblaw level
+$curagilitylvl$ -returns current agility level
+$curthievinglvl$ -returns current thieving level
+$xcoord$ -returns current x coordinate
+$ycoord$ -returns current y coordinate
+
+~~COMMANDS~~
+goto([label]) -goes to a specified label E.X. goto([penis]) goes to [penis] label in script.
+gotoifsleeping([label]) -goes to a specified label if your sleeping.
+gotoifnotsleeping([label]) -goes to a specified label if your not sleeping.
+gotoifincombat([label]) -goes to a specified label if your in combat.
+gotoifnotincombat([label]) -goes to a specified label if your not in combat.
+gotoifequals(amount1,amount2,[label]) -goes to specified label if amount1 is equal to amount2
+gotoifover(amount1,amount2,[label]) -goes to sepcified label if amount1 is greater than amount2
+gotoifunder(amount1,amount2,[label]) -goes to specified label if amount1 is less than amount2
+gotoifinvfull([label]) -goes to specified label if inventory is full
+gotoifcountinvover(amount,[goto]) -goes to specified label if count inventory is grather than amount
+gotoifcountinvunder(amount,[goto]) -goest to specified label if count inventory is less than amount
+gotoifcountinvis(amount,[goto]) -goes to specified label if count inventory equals amount
+gotoifitemcountinvis(id,amount,[goto]) -goes to specified label if count inventory for item id equals amount
+gotoifitemcountinvover(itemid,amount,[goto]) -goes to specified label if count inventory for that item is grather than amount
+gotoifitemcountinvunder(itemid,amount,[goto]) -goest to specified label if count inventory for that item is less than amount
+gotoifmaxstatunder(lvlid,lvl,[goto]) goes to specified label if id for max stat is under lvl 
+gotoifmaxstatover(lvlid,lvl,[goto]) goes to specified label if id for max stat is over lvl
+gotoifcurstatunder(lvlid,lvl,[goto]) goes to specified label if id for cur stat is under lvl
+gotoifcurstatover(lvlid,lvl,[goto]) goes to specified label if id for cur stat is over lvl
+gotoifcountinvis(amount,[goto]) goes to specified label if count inventory equals amount
+gotoifcountinvitemis(id,amount,[goto]) goes to specified label if count inventory for id = amount
+gotoifquestmenu([goto]) -if questmenu is open, goes to specified label
+gotoifatcoords(x,y,[goto]) -if your at coords x,y goes to specified label
+gotoifatxcoord(x,[goto]) -if your at the x coord goes to specified label
+gotoifatycoord(y,[goto]) -if your at the y coord goes to specified label
+gotoifxcoordisover(amount,[goto]) -if x coord is over amount it goes to specified label
+gotoifycoordisover(amount,[goto]) -if y coord is over amount it goes to specified label
+gotoifxcoordisunder(amount,[goto]) -if x coord is under amount it goes to specified label
+gotoifycoordisunder(amount,[goto]) -if y coord is under amount it goes to specified label
+gotoifnotreachable(x,y,[goto]) -if coords x,y arnt reachable goes to specified label
+setvar(#varname#,value) sets a variable by the varname to the value, (the var must have the # on both sides
+setvarbygetinput(#varname#,input question) sets a varible by asking a question in rs.
+setvarbyarg(#varname#,argpos) - sets variable by using args, use args by typing /start TextScript(arg0,arg1,arg2) etc
+display(message) -displays specified message to bot user only, message will appear as chat to you.
+wait(ms) -waits specified amount of time in ms, (1000 = 1 second)
+walkto(x,y) -walks to x and y coords
+walktowait(x,y) -walks to x and y coords, and continues walking till it reaches them
+forcewalkto(x,y) -forces walk to x and y coords, (it will force its way on that area)
+forcewalktowait(x,y) -forces walk will continue till it reaches the x and y coords
+sleep(fatigue) -sleeps if over specified fatigue
+startscanformods() -starts scan for mods
+stopscanformods() -stops scan for mods
+closepopup() -if there is a pop up, it closes
+showmessage(message) -shows a message to user in a popup box
+autologin(true or false) -sets autologin to true or false
+hopserv(true) -hops to the next server, true to skip to every 2nd (to keep either on or off members)
+attacknpcbyid(id) -attacks an npc by id you specify
+attackallnpcbyid(id) -attacks all npcs by id, even ones in combat (for ranging|maging)
+thievenpc(id) -thieves specified npc by id.
+talktonpc(id) -talks to npc that isnt already talking by id
+tradewith(playername) -trades with player by player name (case sensitive)
+offer(id,amount) - offers in trade amount of the id specified.
+accept1() - accpets first trade screen
+accept2() - accepts second trade screen
+declinetrade() - declines trade
+castonnpc(spell,id) -cast specified spell on specified npc id (spells are by id as well)
+castonitem(spell,id) -cast specified spell on specified item(in inventory) id (spells are by id as well)
+castongrounditem(spell,id) -casts spell on item on ground by ids
+castonself(spell) -casts spell on self by id (teleport spells etc)
+answer(id) -answers an npc by questmenu id
+withdraw(id,amount) -withdraws an item by id by amount from bank (doesnt work 100% after 36k)
+deposit(id,amount) -deposits an item by id by amount to bank (doesnt work 100% after 36k)
+closebank() -if bank window open, it closes it
+closeshop() -if shop window is open, it closes it
+buyitem(id) -buys an item from shop by id
+sellitem(id) -sells an item from shop by id
+setfightmode(mode) -sets fight mode by id (1 = str 2 = attac 3 = def 0 = controled)
+prayeron(id) -turns prayer on by id
+prayeroff(id) -turns prayer off by id
+useitem(id) -uses first option of item by id (eat lob etc...)
+useitem2(id) -uses second option of item by id 
+useitemwithitem(id1,id2) -uses item with another item in inventory by id
+useitemwithgrounditem(id1,id2) -uses item in inventory with ground item
+useonobject(inv id,object id) -uses item in inventory with object
+dropitem(id) -drops item by id
+wearitem(id) -wears item in inventory
+removeitem(id) -if currently wearing, it removes the item
+atwallobjectbyid(id) -uses first option of wall object
+atwallobjectbyid2(id) -uses second option of wall object
+atobjectbyid(id) -uses first option of object
+atobjectbyid2(id) -uses second option of object
+pickupitembyid(id) -picks up item by id
+unlockmode() -unlocks fightmode
+lockmode(id) -locks fightmode by fmode id
+speak(message) -says the message for every one to hear|see
+chatfilter(true or false) -toggles chatfilter ona nd off.. true = on|false = off
+end(message) -stops script and displays message (message is optional)
+die() -kills bot
