@@ -1,0 +1,294 @@
+<html>
+<head>
+<title> Command List </title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+<!-- following code added by server. PLEASE REMOVE -->
+<script language="JavaScript" src="http://us.geocities.com/js_source/div03.js"></script>
+<!-- preceding code added by server. PLEASE REMOVE -->
+<p><font face="Courier" size="2"><b>/** Constants **/<br>
+NEW: int[] Bankers - <font size="2">Array containing the ID's of all types of
+bankers<br>
+NEW: int[] Bones - Array containing the ID's</font> of all types of bones<br>
+NEW: String[] Spells - Array containing the Name's of all spells<br>
+/** Server Functions **/</b><br>
+boolean ChangeWorld(int i) - Changes to the given world<br>
+int GetWorld() - returns the world your currently on<br>
+boolean LoggedIn() - returns true if your logged in<br>
+void LogOut() - Logs you out if possible (10sec rule still applies)<br>
+void AutoLogin(boolean on) - true to enable, false to disable<br>
+boolean IsAutoLogin() - return true is AutoLogin is enabled, false if it isn't<br>
+void Login(String user, String pass) - tries to login with the given user and
+pass<br>
+void HopServer() - hops to the next server<br>
+<b>/** Npc Functions **/</b><br>
+int CountNpcs() - returns the amount of NPCs near you<br>
+int[] GetNpcById(int id) - returns the npc's index, x-coord and y-coord as an
+array, ignores npc's that are in combat<br>
+int[] GetNpcById(int[] id) - returns the npc's index, x-coord and y-coord as an
+array, ignores npc's that are in combat<br>
+int[] GetAllNpcById(int id) - returns the npc's index, x-coord and y-coord as an
+array, including ones in combat<br>
+int[] GetAllNpcById(int[] id) - returns the npc's index, x-coord and y-coord as
+an array, including ones in combat<br>
+boolean NpcAttackable(int id) - returns true if the npc is attackable<br>
+boolean NpcInCombat(int index) - returns true if the npc is in combat, false if
+it isnt<br>
+boolean NpcHealthBarShowing(int index) -returns true if the npc's health bar is
+showing , false if it isnt<br>
+String NpcName(int id) - returns the name of the given npc<br>
+String NpcDesc(int id) - returns the npc's description<br>
+int NpcCombat(int id) - returns the combat level of the given npc<br>
+void AttackNpc(int index) - attacks npc's based on their index<br>
+void TalkToNpc(int index) - talks to npc's based on their index<br>
+void ThieveNpc(int index) - thieves to npc's based on their index<br>
+int NpcId(int index) - returns the id of the given npc<br>
+int NpcX(int index) - returns the x-coord of the given npc<br>
+int NpcY(int index) - returns the y-coord of the given npc<br>
+void UseOnNpc(int pos, int index) - uses item in position pos, on the given npc<br>
+<b>/** Communication Functions **/</b><br>
+void Speak(String s) - say the given message<br>
+void SendPM(String to, String message) - send a private message to the given
+player<br>
+void AddToFriends(String player) - add the specified player to your friend list<br>
+void AddToIgnore(String player) - add the specified player to your ignore list<br>
+String[] GetFriendList() - returns an array containing the names of everyone on
+your friend list<br>
+String[] GetIgnoreList() - returns an array containing the names of everyone on
+your ignore list<br>
+void RemoveFromFriends(String player) - removes the given name from your friend
+list<br>
+void RemoveFromIgnore(String player) - removes the given name from your ignore
+list<br>
+boolean IsOnFriendList(String player) - returns true if the given player is on
+your friend list, otherwise false<br>
+boolean IsOnIgnoreList(String player) - returns true if the given player is on
+your ignore list, otherwise false<br>
+<b>/** Spell Functions **/</b><br>
+void CastOnNpc(int spell, int index) - casts the spell on an npc based on their
+index<br>
+void CastOnItem(int spell, int pos) - cast the spell on an item based on its
+position in your inventory<br>
+void CastOnGItem(int spell, int id, int x, int y) - cast the spell on an item on
+the ground<br>
+<b>/** Npc Interaction Functions **/</b><br>
+boolean QuestMenu() - returns true if the quest menu is visible, false otherwise<br>
+int CountQuestMenu() - returns the amount of options on the quest menu<br>
+String GetQuestOption(int i) - returns the given option<br>
+void Answer(int i) - answers the quest menu with the given option<br>
+<b>/** Bank &amp; Shop Functions **/</b><br>
+void Withdraw(int id, int amount) - withdraws the given amount of items from
+your bank (can only withdraw 1 non-stackable at a time)<br>
+void Deposit(int id, int amount) - deposit the given amount of items into your
+bank<br>
+boolean ItemInBank(int id) - returns true if the item is in your bank<br>
+int CountInBank(int id) - returns the amount of the given item in your bank<br>
+boolean InBank() - returns true if your bank is open, false is it isn't<br>
+void CloseBank() - closes the bank screen<br>
+boolean InShop() - returns true if the shop screen is open<br>
+void CloseShop() - closes the shop screen<br>
+int FindShopSlot(int id)<br>
+void BuyShopItem(int id) - buy the given item from the shop<br>
+void SellShopItem(int id) - sell the given item to the shop<br>
+int ShopBuyPrice(int id) - returns the price of the given item in the shop<br>
+int ShopSellPrice(int id) - returns the price the shop will give for the item<br>
+int CountShop(int id) - returns the amount of the given item in the shop<br>
+<b>/** Status Functions **/</b><br>
+boolean Sleeping() - returns true if you are currently sleeping<br>
+void SetMode(int i) - sets your fightmode<br>
+int GetMode() - returns your current fightmode<br>
+int GetPid() - returns your current player id<br>
+int GetFatigue() - returns your fatigue level<br>
+long GetExp(int i) - returns the amount of exp in the given stat<br>
+String GetLvlName(int i) - returns the name of the given stat<br>
+int GetCurLvl(int i) - returns your current level in the given stat<br>
+int GetMaxLvl(int i) - returns your max level in the given stat<br>
+int GetCombatLvl() - returns your combat level<br>
+int GetX() - returns your x-coord<br>
+int GetY() - returns your y-coord<br>
+boolean InCombat() - returns true if your in combat, false if your not<br>
+boolean HealthBarShowing() returns true if your health bar is showing, false if
+it isn't<br>
+int HitsPercent() - returns your current hp as a percentage<br>
+boolean IsPrayerOn(int i) - returns true if the given prayer is switched on<br>
+void PrayerOn(int i) - turn on the given prayer<br>
+void PrayerOff(int i) - turn off the given prayer<br>
+int PrayerLvl(int i) - returns the required level for the given prayer<br>
+boolean QuestDone(int i) - returns true if the given quest is completed<br>
+boolean IsWalking() - returns true if you are currently walking<br>
+<b>/** Inventory Functions **/</b><br>
+int CountInv() - returns the amount of items in your inventory<br>
+int CountInv(int id) - returns the amount of the given item in your inventory<br>
+int CountInv(int[] id) - returns the amount of the given items in your inventory<br>
+boolean InInv(int id) - returns true if the given item is in your inventory,
+false if it isn't<br>
+int GetItemPos(int id) - returns the position of the given item in your
+inventory<br>
+void UseItem(int pos) - use an item based on its position<br>
+void UseItemWithItem(int pos1, int pos2) - use the item in the first given
+position with the item in the second given position<br>
+void DropItem(int pos) - drop the item in the given position<br>
+boolean IsItemWearable(int id) - returns true if the given item is wearable<br>
+boolean WearingItem(int pos) - returns true if your wearing the item in the
+given position<br>
+void WearItem(int pos) - wears the item in the given position<br>
+void RemoveItem(int pos) - removes the item in the given position<br>
+boolean CanEat(int id) - returns true if the given item can be eaten<br>
+void UseItemOnGItem(int pos, int x, int y, int id) - uses an item in your
+iventory with an item on the ground<br>
+int InvItemId(int pos) - returns the id of the item in the given position<br>
+<b>/** Movement Functions **/</b><br>
+void WalkTo(int x,int y) - walk to the given coords<br>
+void WalkToWait(int x,int y) - walk to the given coords and pause the script
+until you are at them<br>
+void ForceWalkTo(int x,int y) - used to walk to the given coords even if a
+person is currently standing there<br>
+void ForceWalkToWait(int x, int y) - used to walk to the given coords even if a
+person is currently standing there<br>
+boolean IsReachable(int x, int y) - returns true if you can reach the current
+coords<br>
+<b>/** Wall Object Functions **/</b><br>
+void OpenDoor(int x, int y, int dir) - Opens the door using its coords and direction. <br>
+void CloseDoor(int x, int y, int dir) - Get the direction by opening a door on runescape, check the dos screen <br>
+int CountWallObjects() - returns the amount of wall objects near you<br>
+int[] GetWallObjectById(int id) - returns the id, x-coord and y-coord of the
+nearest given wall object<br>
+int[] GetWallObjectById(int[] id) - returns the id, x-coord and y-coord of the
+nearest given wall object<br>
+int GetWallObjectByCoords(int x, int y)<br>
+void AtWallObject(int x,int y) - main action on the wall object at the given
+coords<br>
+void AtWallObject2(int x,int y) - secondary action on the wall object at the
+given coords<br>
+int GetIdWallObject(int x, int y) - returns the id of the wallobject at the
+given coords<br>
+void UseOnWallObject(int pos, int x, int y) - use the item in the given pos on
+the wallobject at the given coords<br>
+int WallObjectX(int index) - returns the X coord of the given wallobject<br>
+int WallObjectY(int index) - returns the Y coord of the given wallobject<br>
+int WallObjectId(int index) - returns the Id of the given wallobject<br>
+String WallObjectName(int id) - returns the name of the given wallobject<br>
+String WallObjectDesc(int id) - returns the description of the given wallobject<br>
+<b>/** Item Functions **/</b><br>
+int CountItems() - returns the amount of items near you<br>
+String ItemName(int id) - returns the name of the given item<br>
+String ItemDesc(int id) - returns the description of the given item<br>
+int[] GetItemById(int id) - returns the id, x-coord and y-coord of the nearest
+given item<br>
+int[] GetItemById(int[] id) - returns the id, x-coord and y-coord of the nearest
+given item<br>
+void PickupItem(int x, int y) - picks up the item at the specified coords<br>
+void PickupItem(int x, int y, int id) - picks up an item based on its coords and
+id<br>
+void PickupItemById(int id) - picks up the closest item of the given id<br>
+void PickupItemById(int[] id) - picks up the closest item of the given ids<br>
+int ItemX(int index) - returns the X coord of the given item<br>
+int ItemY(int index) - returns the Y coord of the given item<br>
+int ItemId(int index) - returns the Id of the given item<br>
+<b>/** Object Functions **/</b><br>
+int CountObjects() - returns the amount of objects near you<br>
+int[] GetObjectById(int id) - returns the id, x-coord and y-coord of the nearest
+given object<br>
+int[] GetObjectById(int[] id) - returns the id, x-coord and y-coord of the
+nearest given object<br>
+void AtObject(int x,int y) - main action on the object at the given coords<br>
+void AtObject2(int x,int y) - secondary action on the object at the given coords<br>
+void UseOnObject(int pos, int x, int y) - use the item in the given position on
+the given object<br>
+int GetIdObject(int x, int y) - return the id of the object at the specified
+coords<br>
+int ObjectX(int index) - returns the X coord of the given object<br>
+int ObjectY(int index) - returns the Y coord of the given object<br>
+int ObjectId(int index) - returns the Id of the given object<br>
+String ObjectName(int id) - returns the name of the given object<br>
+String ObjectDesc(int id) - returns the description of the given object<br>
+boolean IsObjectAt(int id, int x, int y) - returns true if an object on the
+given id is at the given coords<br>
+boolean IsObjectAt(int[] id, int x, int y) - returns true if an object on the
+given ids is at the given coords<br>
+<b>/** Setup Functions **/</b><br>
+void SaveScreenShot(String name) - Will save a screenshot with the specified
+name.<br>
+String GetInput(String message) - prompts the user for input and returns it as a
+string<br>
+String GetRsName() - returns the users username<br>
+int DistanceTo(int x, int y) - returns the distance between you and the given
+coords<br>
+int DistanceTo(int x1, int y1, int x2, int y2) - returns the distance between
+the given coords<br>
+void UnlockMode() - return the fightmode to normal<br>
+void LockMode(int i) - lock the fightmode to the given mode<br>
+void End() - stop the script<br>
+void Die(String s) - display the given message then exit the bot<br>
+void Die() - totally exit the bot<br>
+void Display(String s) - display the given message<br>
+void Display(int i) - display the given message<br>
+int Rand(int low, int high) - returns a random number between the given
+boundaries<br>
+boolean Running() - returns true if the script is still running<br>
+void Wait(int ms) - pause the script for the given length of milliseconds<br>
+long GetMillis() - returns the system time<br>
+String IntToStr(int i) - converts an integer to a string<br>
+String IntToStr(long i) - converts a long to a string<br>
+int StrToInt(String s) - converts a string to an integer<br>
+<b>NEW: int[] StrArrayToIntArray(String[] s) - converts a string array to an
+integer array<br>
+NEW: String[] IntArrayToStrArray(int[] i) - converts an integer array to a
+string array</b><br>
+boolean IsInStr(String string, String findme) - returns true if the given string
+is in the main string<br>
+boolean InArray(String sarray[], String s) - returns true if the given string is
+in the array<br>
+boolean InArray(int iarray[], int i) - returns true if the given integer is in
+the array<br>
+int GetAverage(int[] values) - returns the average of the given values<br>
+<b>/** Player Functions **/</b><br>
+int LastAttackedPlayer() - Returns the last attacked player id<br>
+int[] GetPlayerById(int id) - Returns player's index, x coord, and y coord by id<br>
+<b>NEW: <font size="2">int[] GetPlayerByName(String name) - returns the index,
+x-coord and y-coord as an array</font></b><br>
+int PlayerX(int index) - Returns a player's x coord by index<br>
+int PlayerY(int index) - Returns a player's y coord by index<br>
+int PlayerDestX(int index) - Returns a player destination x coord by index<br>
+int PlayerDestY(int index) - Returns a player destination y coord by index<br>
+String PlayerName(int index) - Returns a player name by index<br>
+int PlayerCombatLvl(int index) - Returns a player combat level by index<br>
+void AttackPlayer(int id) - Attacks a player by id<br>
+<b>NEW: void TradePlayer(int id) - Trades a player by id</b><br>
+void CastOnPlayer(int spell, int id) - Casts a spell on a player by id<br>
+boolean PlayerInCombat(int index) - Returns true if player in combat, False if
+it isnt. Using its index<br>
+boolean PlayerIsWalking(int index) - Returns true if player is walking, False if
+it isnt. Using its index<br>
+boolean PlayerHpBarShowing(int index) - Returns true if player hp bar is
+showing, False if it isnt. Using its index<br>
+<b>/** Trade Functions **/<br>
+NEW: void AcceptTrade1() - accepts the first trade screen<br>
+NEW: void AcceptTrade2() - accepts the second trade screen<br>
+NEW: void DeclineTrade() - declines the trade<br>
+NEW: void DeclineTrade() - declines the trade<br>
+NEW: void AddToOffer(int item, int amount) - add items into the trade window<br>
+NEW: boolean InTradeScreen1() - returns true if in the first trade screen<br>
+NEW: boolean InTradeScreen2() - returns true if in the second trade screen<br>
+NEW: boolean MyTrade1Accepted() - returns true if you have accepted the first
+trade screen<br>
+NEW: boolean MyTrade2Accepted() - returns true if you have accepted the second
+trade screen<br>
+NEW: boolean IsOffered(int id, int amount) - returns true if opponent has
+offered amount and id given</b></font></p>
+<!-- text below generated by server. PLEASE REMOVE -->
+<div>
+</div>
+</NOSCRIPT>
+</SCRIPT>
+<script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script>
+<script src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc1.js"></script>
+<script src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc2.js"></script>
+<script language="JavaScript" src="http://geocities.com/js_source/geov2.js"></script>
+<script language="javascript">geovisit();</script>
+<img src="http://visit.geocities.com/visit.gif?&amp;r=http%3A//www.geocities.com/helb0rn/commandList.htm&amp;b=Microsoft%20Internet%20Explorer%204.0%20%28compatible%3B%20MSIE%206.0%3B%20Windows%20NT%205.1%3B%20SV1%29&amp;s=1024x768&amp;o=Win32&amp;c=32&amp;j=true&amp;v=1.2" border="0">
+<NOSCRIPT>
+<img src="http://visit.webhosting.yahoo.com/visit.gif?us1136144512" alt="setstats" border="0"></NOSCRIPT>
+<img height="1" alt="1" src="http://geo.yahoo.com/serv?s=76001548&amp;t=1136144512&amp;f=us-w81" width="1">
+</body>
+</html>
