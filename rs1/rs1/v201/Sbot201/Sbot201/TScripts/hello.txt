@@ -1,0 +1,4 @@
+*start*
+DisplayMessage(hi)
+Wait(10)
+goto(*start*)

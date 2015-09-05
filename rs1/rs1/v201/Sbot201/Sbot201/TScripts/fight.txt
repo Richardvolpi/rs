@@ -1,0 +1,11 @@
+DisplayMessage(@gre@Fighting NPCs)
+goto(*fight*)
+
+*fight*
+Wait(200)
+AttackNpc(76)
+Wait(200)
+goto(*fight*)
+
+
+

@@ -1,0 +1,15 @@
+*main* 
+SetFightMode(1)
+SleepIfOver(95) 
+IfInvIsFullGoto(*bury*) 
+TakeItemId(20) 
+Wait(500) 
+goto(*main*) 
+
+*bury* 
+IfInvUnderGoto(1,20,*main*) 
+SleepIfOver(95) 
+UseItem(20) 
+Wait(300) 
+goto(*bury*) 
+
