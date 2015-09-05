@@ -1,0 +1,15 @@
+Prayer ID - Prayer Name - Prayer Level - Description
+0 - Thick skin - 1 - Increases your defense by 5%
+1 - Burst of strength - 4 - Increases your strength by 5%
+2 - Clarity of thought - 7 - Increases your attack by 5%
+3 - Rock skin - 10 - Increases your defense by 10%
+4 - Superhuman strength - 13 - Increases your strength by 10%
+5 - Improved reflexes - 16 - Increases your attack by 10%
+6 - Rapid restore - 19 - 2x restore rate for all stats except hits
+7 - Rapid heal - 22 - 2x restore rate for hitpoints stat
+8 - Protect items - 25 - Keep 1 extra item if you die
+9 - Steel skin - 28 - Increases your defense by 15%
+10 - Ultimate strength - 31 - Increases your strength by 15%
+11 - Incredible reflexes - 34 - Increases your attack by 15%
+12 - Paralyze monster - 37 - Stops monsters from fighting back
+13 - Protect from missiles - 40 - 100% protection from ranged attack
