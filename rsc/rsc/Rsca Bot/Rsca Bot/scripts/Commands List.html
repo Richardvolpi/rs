@@ -1,0 +1,200 @@
+<font face="Courier New, Courier" color=#000000 style=font-size:90%><font color=#0033CC>public</font> <font color=#0033CC>void</font> start(<font color=#000099>String</font>[] args) <font color=#009933>// Main body. Starts the script (args aren't used atm)</font><br>
+<br>
+/** TRIGGERS **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> handleLogin(<font color=#000099>String</font> user, <font color=#0033CC>boolean</font> login) <font color=#009933>// Triggers a friends list action (true = login. false = logout)</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> handlePM(<font color=#000099>String</font> user, <font color=#000099>String</font> msg) <font color=#009933>// Handles any PMs sent to you from the given user.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> handleKeyPress(<font color=#0033CC>int</font> key) <font color=#009933>// Handles a key press with the given key id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> getInfo() <font color=#009933>// Used to relay script info to the bot client</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> stop() <font color=#009933>// Invoked when the script is stopped</font><br>
+<br>
+/** FRIENDS **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> sendPM(<font color=#000099>String</font> to, <font color=#000099>String</font> msg) <font color=#009933>// Sends a private message in-game to the given player 'to'</font><br>
+<br>
+/** GUI **/<br>
+<font color=#0033CC>public</font> GameFrame getFrame() <font color=#009933>// Returns the game java.awt.Frame object.</font><br>
+<br>
+/** UTILS **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> random(<font color=#0033CC>int</font> min, <font color=#0033CC>int</font> max) <font color=#009933>// Returns a random number between the two given values.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> distanceTo(<font color=#0033CC>int</font> x1, <font color=#0033CC>int</font> y1, <font color=#0033CC>int</font> x2, <font color=#0033CC>int</font> y2) <font color=#009933>// Return the distance from the first coords to the second coords</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> distanceTo(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Return the distance from our current coords to the given ones</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> pr<font color=#0033CC>int</font>ln(<font color=#000099>Object</font> o) <font color=#009933>// System.out.pr<font color=#0033CC>int</font>ln's the given object</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> display(<font color=#000099>Object</font> o) <font color=#009933>// Displays the given object ingame</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> addDisplayText(<font color=#000099>String</font> s) <font color=#009933>// * Deprecated. Doesn't work at the moment.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> removeDisplayText(<font color=#000099>String</font> s) <font color=#009933>// * Deprecated.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> removeDisplayText() <font color=#009933>// * Deprecated.</font><br>
+<br>
+/** SCRIPT **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> exit(<font color=#000099>String</font> message) <font color=#009933>// Pr<font color=#0033CC>int</font>s the message then exits the bot.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> setThread(Thread scriptThread) <font color=#009933>// Don't ever use this.</font><br>
+<font color=#0033CC>public</font> Thread getThread() <font color=#009933>// Returns this script's Thread.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> isRunning() <font color=#009933>// Returns if this script is running or not</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> sleep(<font color=#0033CC>int</font> ms) <font color=#009933>// Pauses the script for the given milliseconds</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> sleep(<font color=#0033CC>int</font> min, <font color=#0033CC>int</font> max) <font color=#009933>// Pauses for a random amt of time between the two values</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> caution() <font color=#009933>// Waits while new areas load/you're logged out/are sleeping etc</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> isLoading() <font color=#009933>// Return if a new area is loading</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getGameType() <font color=#009933>// Return what server we're logged in to</font><br>
+<font color=#0033CC>public</font> ScriptManager getScriptManager() <font color=#009933>// Returns the script manager</font><br>
+<font color=#0033CC>public</font> mudclient getClient() <font color=#009933>// Returns our mudclient</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> runStartupScripts() <font color=#009933>// If returns false, the startup scripts won't run when this script runs</font><br>
+<font color=#0033CC>public</font> Info getDisplayInfo() <font color=#009933>// Returns the Info object to display in the client.</font><br>
+<br>
+/** PRAYER **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> isPrayerOn(<font color=#0033CC>int</font> idx) <font color=#009933>// Returns if the given prayer index is activated</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> setPrayer(<font color=#0033CC>int</font> idx, <font color=#0033CC>boolean</font> on) <font color=#009933>// Sets the prayer on or off, depending on the given <font color=#0033CC>boolean</font></font><br>
+<br>
+/** OUR PLAYER **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getCurPrayer() <font color=#009933>// Return your current prayer level</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getCurHits() <font color=#009933>// Return your current hits level</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getMaxHits() <font color=#009933>// Return your max hits level</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> isLoggedIn() <font color=#009933>// Return if you're currently logged in</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> isSleeping() <font color=#009933>// Return if you're currently sleeping</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getX() <font color=#009933>// Returns this player's current X coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getY() <font color=#009933>// Returns this player's current Y coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> setAutologin(<font color=#0033CC>boolean</font> on) <font color=#009933>// Sets autologin on/off</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> walkTo(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Sends the walk command to the given coords once</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> walkToWait(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Walks to the given coords until you reach them</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> isReachable(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Returns if the given coords are reachable</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getAreaX() <font color=#009933>// Return the current area x offset</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getAreaY() <font color=#009933>// Return the current area y offset</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getSectionX() <font color=#009933>// Return the current section x offset</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getSectionY() <font color=#009933>// Return the current section y offset</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> inCombat() <font color=#009933>// Return if we're in combat</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getFightMode() <font color=#009933>// Return our fight mode</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> setFightMode(<font color=#0033CC>int</font> mode) <font color=#009933>// Sets our current fight mode to the given one</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getCurStat(<font color=#0033CC>int</font> index) <font color=#009933>// Return our current stat with the given stat index</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getMaxStat(<font color=#0033CC>int</font> index) <font color=#009933>// Return our max stat with the given stat index</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getFatigue() <font color=#009933>// Return our fatigue</font><br>
+<font color=#0033CC>public</font> Mob getOurPlayer() <font color=#009933>// Returns our player's Mob object</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> logout() <font color=#009933>// Logs out immediately</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> say(<font color=#000099>String</font> s) <font color=#009933>// Makes our player say the given message</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> logout(<font color=#0033CC>boolean</font> legit) <font color=#009933>// Logs out (<font color=#0033CC>boolean</font> legit = whether to logout normally or force logout).</font><br>
+<font color=#0033CC>public</font> Mob getOpponent() <font color=#009933>// Returns the last player Mob we sent the attack command to</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> attackPlayer(Mob player) <font color=#009933>// Attacks the given player</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> inWild() <font color=#009933>// Returns if we're in the wilderness</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getWildLevel() <font color=#009933>// Returns our current wildy level</font><br>
+<font color=#0033CC>public</font> double getHitsPercent() <font color=#009933>// Returns our hits as a percentage (eg. 0.5 = 50%)</font><br>
+<br>
+/** INVENTORY **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> useSlot(<font color=#0033CC>int</font> slot) <font color=#009933>// Uses the item if the given slot</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> useItem(<font color=#0033CC>int</font> id) <font color=#009933>// Uses the given item id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> countItem(<font color=#0033CC>int</font> id) <font color=#009933>// Returns the number of items you have of the given id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> hasItem(<font color=#0033CC>int</font> id) <font color=#009933>// Returns if our player has the given item id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getSlot(<font color=#0033CC>int</font> id) <font color=#009933>// Returns the slot of the given item id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getInvCount() <font color=#009933>// Returns our total inventory count</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> drop(<font color=#0033CC>int</font> slot) <font color=#009933>// Drops the item in the given slot</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> dropItem(<font color=#0033CC>int</font> id) <font color=#009933>// Drops the item with the given id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getSlotId(<font color=#0033CC>int</font> slot) <font color=#009933>// Returns the id of the item in the given slot.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> useSlotOnSlot(<font color=#0033CC>int</font> slot1, <font color=#0033CC>int</font> slot2) <font color=#009933>// Uses the first slot on the second slot.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> useItemOnItem(<font color=#0033CC>int</font> item1, <font color=#0033CC>int</font> item2) <font color=#009933>// Uses the first item on the second item (by ID).</font><br>
+<br>
+/** BANK **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> inBank() <font color=#009933>// Returns if we're in the bank or not</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getBankItem(<font color=#0033CC>int</font> index) <font color=#009933>// Returns the given bank item at the given index</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getBankSlot(<font color=#0033CC>int</font> itemId) <font color=#009933>// Returns which slot the given item id is in</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> countBank(<font color=#0033CC>int</font> id) <font color=#009933>// Returns how many of the given item we have in our bank</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getBankCount() <font color=#009933>// Returns our current bank count</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> withdraw(<font color=#0033CC>int</font> id, <font color=#0033CC>int</font> amt) <font color=#009933>// Withdraws the given bank item id and amount</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> deposit(<font color=#0033CC>int</font> id, <font color=#0033CC>int</font> amt) <font color=#009933>// Deposits the given bank item id and amount</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> bankAction(<font color=#0033CC>int</font> id, <font color=#0033CC>int</font> amount, <font color=#0033CC>boolean</font> widthdraw) <font color=#009933>// Sends a bank action with the given information</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> closeBank() <font color=#009933>// Closes the bank</font><br>
+<br>
+/** SHOPS **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> inShop() <font color=#009933>// Returns if we're currently in a shop</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font>[] getShopItems() <font color=#009933>// Returns the current shop items array</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getShopCount() <font color=#009933>// Returns the current total shop item count</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getShopStock(<font color=#0033CC>int</font> id) <font color=#009933>// Returns the current shop stock of the given item id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getShopIndex(<font color=#0033CC>int</font> id) <font color=#009933>// Returns the shop item index with the given item id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getShopId(<font color=#0033CC>int</font> index) <font color=#009933>// Returns the given shop item index's item id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> buyItemIndex(<font color=#0033CC>int</font> idx) <font color=#009933>// Buys the given item index</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> buyItem(<font color=#0033CC>int</font> id) <font color=#009933>// Buys the given item id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> sellItemIndex(<font color=#0033CC>int</font> idx) <font color=#009933>// Sells the given item index</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> sellItem(<font color=#0033CC>int</font> id) <font color=#009933>// Sells the given item id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> closeShop() <font color=#009933>// Closes the shop </font><br>
+<br>
+/** QUESTION MENUS **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getQuestMenuItemCount() <font color=#009933>// Return how many question options there are</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getQuestMenuOptionIndex(<font color=#000099>String</font> reply) <font color=#009933>// Return which index the given reply is</font><br>
+<font color=#0033CC>public</font> <font color=#000099>String</font> getQuestMenuOption(<font color=#0033CC>int</font> index) <font color=#009933>// Returns the given option index's <font color=#000099>String</font> sentence</font><br>
+<font color=#0033CC>public</font> <font color=#000099>String</font>[] getQuestMenuOptions() <font color=#009933>// Returns the question menu options array</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> sendQuestMenuReply(<font color=#0033CC>int</font> idx) <font color=#009933>// Answers the question menu with the given index reply</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> snedQuestMenuReply(<font color=#000099>String</font> reply) <font color=#009933>// Answers the question menu with the index of the given reply sentence</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> inQuestMenu() <font color=#009933>// Returns if we have a question menu open</font><br>
+<br>
+/** GROUND ITEMS **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getGroundItemCount() <font color=#009933>// Returns the number of ground items in your area</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getItemIndex(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y, <font color=#0033CC>int</font> id) <font color=#009933>// Returns an item index of an item at the given coords with the given id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> take(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y, <font color=#0033CC>int</font> id) <font color=#009933>// Takes the item from the given coords with the given id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> take(<font color=#0033CC>int</font>[] item) <font color=#009933>// Takes the item, using the given item info array</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font>[] getItemById(<font color=#0033CC>int</font> id) <font color=#009933>// Returns the item info of the nearest item with the given id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getItemX(<font color=#0033CC>int</font> index) <font color=#009933>// Returns the given item's x coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getItemY(<font color=#0033CC>int</font> index) <font color=#009933>// Returns the given item's y coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> useItemGround(<font color=#0033CC>int</font> slot, <font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y, <font color=#0033CC>int</font> item) <font color=#009933>// * Deprecated. Uses the given item slot on the given item at the given coords (useless?)</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> useItemGround(<font color=#0033CC>int</font> slot, <font color=#0033CC>int</font>[] item) <font color=#009933>// *Deprecated. Uses the given slot on the given item info.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> useOn<font color=#000099>Object</font>(<font color=#0033CC>int</font> slot, <font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Uses the given item slot on the object at the given coords</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font>[] getItemById(<font color=#0033CC>int</font>[] ids) <font color=#009933>// Returns item info based on multiple item ids.</font><br>
+<br>
+/** PLAYERS **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getPlayerX(Mob player) <font color=#009933>// Return the given player's x coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getPlayerY(Mob player) <font color=#009933>// Return the given player's y coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getPlayerIndex(<font color=#0033CC>int</font> serverIdx) <font color=#009933>// Return the given player's array index from his server index</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getPlayerX(<font color=#0033CC>int</font> arrayIndex) <font color=#009933>// Return the given player's x coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getPlayerY(<font color=#0033CC>int</font> arrayIndex) <font color=#009933>// Return the given player's y coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getPlayerCount() <font color=#009933>// Returns the number of players in our area</font><br>
+<font color=#0033CC>public</font> Mob getPlayer(<font color=#0033CC>int</font> index) <font color=#009933>// Returns the Mob object of the given player</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> walkToPlayer(Mob player) <font color=#009933>// Sends the walk command to the given player</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> inWild(Mob player) <font color=#009933>// Returns if the given player is in the wild</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> isPlayerAttackable(Mob player) <font color=#009933>// Returns if we can attack the given player</font><br>
+<br>
+/** NPCS **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> attackNpc(<font color=#0033CC>int</font> index) <font color=#009933>// Attacks the given npc</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> attackNearestNpc(<font color=#0033CC>int</font> id) <font color=#009933>// Attacks the nearest npc with the given ID</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> talkToNpc(<font color=#0033CC>int</font> index) <font color=#009933>// Talks to the nearest npc with the given index</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> thieveNpc(<font color=#0033CC>int</font> index) <font color=#009933>// Thieves the given NPC</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> castOnNpc(<font color=#0033CC>int</font> spell, <font color=#0033CC>int</font> index) <font color=#009933>// Casts the given spell on the given NPC</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> talkToNearestNpc(<font color=#0033CC>int</font> id) <font color=#009933>// Talks to the nearest npc with the given ID.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> getNpcServerIndex(<font color=#0033CC>int</font> arrayIndex) <font color=#009933>// Return the given NPC array index's server index</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getNpcX(<font color=#0033CC>int</font> index) <font color=#009933>// Return the NPC's x coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getNpcY(<font color=#0033CC>int</font> index) <font color=#009933>// Return the NPC's y coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getNpcIdByIndex(<font color=#0033CC>int</font> index) <font color=#009933>// Return the given npc's id from array index</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getNpcIndexById(<font color=#0033CC>int</font> id) <font color=#009933>// Return the nearest non-busy NPC with the given ID.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getNpcIndexById(<font color=#0033CC>int</font>[] id) <font color=#009933>// Return the nearest non-busy NPC with the given ID from the given array</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getNpcByAttackable() <font color=#009933>// Return the nearest attackable NPC</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getNpcCount() <font color=#009933>// Return the number of NPCs in your area</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> walkToNpc(<font color=#0033CC>int</font> idx) <font color=#009933>// Sends the walk command to the given npc's location</font><br>
+<br>
+/** ACTIONS **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> fakeAction(<font color=#0033CC>int</font> id, <font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Fakes a menu click with the given args</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> fakeAction(<font color=#0033CC>int</font> id, <font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y, <font color=#0033CC>int</font> type) <font color=#009933>// Fakes a menu click with the given args</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> fakeAction(<font color=#0033CC>int</font> id, <font color=#0033CC>int</font> type) <font color=#009933>// Fakes a menu click with the given args</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> fakeObjAction(<font color=#0033CC>int</font> id, <font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y, <font color=#0033CC>int</font> type, <font color=#0033CC>int</font> var) <font color=#009933>// Fakes a menu click on the given object info</font><br>
+<br>
+/** OBJECTS **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> get<font color=#000099>Object</font>Index(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Returns the object's index at the given coords</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> get<font color=#000099>Object</font>Id(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Returns the object at the given coord's ID</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> at<font color=#000099>Object</font>(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Acts on the object at the given coords</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> at<font color=#000099>Object</font>2(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Acts secondary on the object at the given coords</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> at<font color=#000099>Object</font>(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y, <font color=#0033CC>boolean</font> first) <font color=#009933>// Acts on the given object, specifying first or second option</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> get<font color=#000099>Object</font>X(<font color=#0033CC>int</font> index) <font color=#009933>// Returns the given object's x coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> get<font color=#000099>Object</font>Y(<font color=#0033CC>int</font> index) <font color=#009933>// Returns the given object's y coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getNearest<font color=#000099>Object</font>ById(<font color=#0033CC>int</font> id) <font color=#009933>// Returns the nearest object index with the given id</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getNearest<font color=#000099>Object</font>ById(<font color=#0033CC>int</font>[] id) <font color=#009933>// Returns the nearest object index with the given id from the list of ids</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> get<font color=#000099>Object</font>Count() <font color=#009933>// Returns the number of objects in your area</font><br>
+<br>
+/** DOORS **/<br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getDoorIndex(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Returns the door at the given coord's index</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getDoorId(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Returns the door's id at the given coords</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getDoorX(<font color=#0033CC>int</font> index) <font color=#009933>// Return the given door's x coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getDoorY(<font color=#0033CC>int</font> index) <font color=#009933>// Return the given door's y coord</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getDoorCount() <font color=#009933>// Returns the number of doors in your area</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> atDoor(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Acts on the door at the given coords</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> atDoor2(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y) <font color=#009933>// Acts secondary on the door at the given coords</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>void</font> atDoor(<font color=#0033CC>int</font> x, <font color=#0033CC>int</font> y, <font color=#0033CC>boolean</font> first) <font color=#009933>// Acts on the door at the given coords, specifying first or second option</font><br>
+<br>
+/** INPUT **/<br>
+<font color=#0033CC>public</font> <font color=#000099>String</font> getInput(<font color=#000099>Object</font> question) <font color=#009933>// Returns the text input reply from the user.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getInputInt(<font color=#000099>Object</font> question) <font color=#009933>// Returns a number input reply from the user.</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> getSelection(<font color=#000099>Object</font> question, <font color=#000099>Object</font>[] options) <font color=#009933>// Returns which option index the user selected</font><br>
+<font color=#0033CC>public</font> <font color=#000099>Object</font> getSelected(<font color=#000099>Object</font> question, <font color=#000099>Object</font>[] options) <font color=#009933>// Returns which object was selected by the user</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>int</font> showOptions(<font color=#000099>Object</font> question, <font color=#000099>Object</font>[] options) <font color=#009933>// Returns which option was selected out of the given options</font><br>
+<font color=#0033CC>public</font> <font color=#0033CC>boolean</font> showYesNo(<font color=#000099>Object</font> question) <font color=#009933>// Returns if the user clicked Yes when the option was displayed</font><br>
+</font>
