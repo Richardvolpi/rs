@@ -1,0 +1,5 @@
+// autofishing in fishing guild
+// Currently only support for sharks
+// get a sleepingbag + harpoon and start the script with ##guildfish
+// have fun watching. report any errors or strange behaviour please
+// make sure you can fish and cook sharks ;)

@@ -1,0 +1,261 @@
+// design your character...
+		au.kg(i1 - 32 - 55, j1, 64, 102, q.llb[ihb], ohb[lhb]);
+        au.uf(i1 - 32 - 55, j1, 64, 102, q.llb[hhb], ohb[khb], qhb[mhb], 0, false);
+        au.uf(i1 - 32 - 55, j1, 64, 102, q.llb[ghb], phb[jhb], qhb[mhb], 0, false);
+        au.kg(i1 - 32, j1, 64, 102, q.llb[ihb] + 6, ohb[lhb]);
+        au.uf(i1 - 32, j1, 64, 102, q.llb[hhb] + 6, ohb[khb], qhb[mhb], 0, false);
+        au.uf(i1 - 32, j1, 64, 102, q.llb[ghb] + 6, phb[jhb], qhb[mhb], 0, false);
+        au.kg((i1 - 32) + 55, j1, 64, 102, q.llb[ihb] + 12, ohb[lhb]);
+        au.uf((i1 - 32) + 55, j1, 64, 102, q.llb[hhb] + 12, ohb[khb], qhb[mhb], 0, false);
+        au.uf((i1 - 32) + 55, j1, 64, 102, q.llb[ghb] + 12, phb[jhb], qhb[mhb], 0, false);
+        au.vg(0, fu, hu + 22);
+
+
+// to display player in game:
+                    int l6 = k6 + q.llb[i5];
+                    l5 = (l5 * k1) / ((jagex.client.i) (au)).ok[l6];
+                    j6 = (j6 * l1) / ((jagex.client.i) (au)).pk[l6];
+                    int i7 = (k1 * ((jagex.client.i) (au)).ok[l6]) / ((jagex.client.i) (au)).ok[q.llb[i5]];
+                    l5 -= (i7 - k1) / 2;
+                    int j7 = q.hlb[i5];
+                    int k7 = qhb[l2.cs];
+                    if(j7 == 1)
+                        j7 = phb[l2.zr];
+                    else
+                    if(j7 == 2)
+                        j7 = ohb[l2.as];
+                    else
+                    if(j7 == 3)
+                        j7 = ohb[l2.bs];
+                    au.uf(i1 + l5, j1 + j6, i7, l1, l6, j7, k7, j2, flag);
+
+
+[0]  name=head1; hlb=1; ilb=13; jlb=1; klb=0; llb=0
+[1]  name=body1; hlb=2; ilb=6; jlb=1; klb=0; llb=27
+[2]  name=legs1; hlb=3; ilb=15; jlb=1; klb=0; llb=54
+[3]  name=fhead1; hlb=1; ilb=13; jlb=1; klb=0; llb=81
+[4]  name=fbody1; hlb=2; ilb=10; jlb=1; klb=0; llb=108
+[5]  name=head2; hlb=1; ilb=13; jlb=1; klb=0; llb=135
+[6]  name=head3; hlb=1; ilb=5; jlb=1; klb=0; llb=162
+[7]  name=head4; hlb=1; ilb=13; jlb=1; klb=0; llb=189
+[8]  name=chefshat; hlb=16777215; ilb=0; jlb=1; klb=0; llb=216
+[9]  name=apron; hlb=16777215; ilb=0; jlb=1; klb=0; llb=243
+[10]  name=apron; hlb=9789488; ilb=0; jlb=1; klb=0; llb=243
+[11]  name=boots; hlb=5592405; ilb=0; jlb=1; klb=0; llb=270
+[12]  name=fullhelm; hlb=16737817; ilb=0; jlb=1; klb=0; llb=297
+[13]  name=fullhelm; hlb=15654365; ilb=0; jlb=1; klb=0; llb=297
+[14]  name=fullhelm; hlb=15658734; ilb=0; jlb=1; klb=0; llb=297
+[15]  name=fullhelm; hlb=10072780; ilb=0; jlb=1; klb=0; llb=297
+[16]  name=fullhelm; hlb=11717785; ilb=0; jlb=1; klb=0; llb=297
+[17]  name=fullhelm; hlb=65535; ilb=0; jlb=1; klb=0; llb=297
+[18]  name=fullhelm; hlb=3158064; ilb=0; jlb=1; klb=0; llb=297
+[19]  name=fullhelm; hlb=16777215; ilb=0; jlb=1; klb=0; llb=297
+[20]  name=chainmail; hlb=16737817; ilb=0; jlb=1; klb=0; llb=324
+[21]  name=chainmail; hlb=15654365; ilb=0; jlb=1; klb=0; llb=324
+[22]  name=chainmail; hlb=15658734; ilb=0; jlb=1; klb=0; llb=324
+[23]  name=chainmail; hlb=10072780; ilb=0; jlb=1; klb=0; llb=324
+[24]  name=chainmail; hlb=11717785; ilb=0; jlb=1; klb=0; llb=324
+[25]  name=chainmail; hlb=65535; ilb=0; jlb=1; klb=0; llb=324
+[26]  name=chainmail; hlb=3158064; ilb=0; jlb=1; klb=0; llb=324
+[27]  name=platemailtop; hlb=16737817; ilb=0; jlb=1; klb=0; llb=351
+[28]  name=platemailtop; hlb=15654365; ilb=0; jlb=1; klb=0; llb=351
+[29]  name=platemailtop; hlb=15658734; ilb=0; jlb=1; klb=0; llb=351
+[30]  name=platemailtop; hlb=10072780; ilb=0; jlb=1; klb=0; llb=351
+[31]  name=platemailtop; hlb=11717785; ilb=0; jlb=1; klb=0; llb=351
+[32]  name=platemailtop; hlb=3158064; ilb=0; jlb=1; klb=0; llb=351
+[33]  name=platemailtop; hlb=65535; ilb=0; jlb=1; klb=0; llb=351
+[34]  name=platemailtop; hlb=16777215; ilb=0; jlb=1; klb=0; llb=351
+[35]  name=platemailtop; hlb=10083839; ilb=0; jlb=1; klb=0; llb=351
+[36]  name=platemaillegs; hlb=16737817; ilb=0; jlb=1; klb=0; llb=378
+[37]  name=platemaillegs; hlb=15654365; ilb=0; jlb=1; klb=0; llb=378
+[38]  name=platemaillegs; hlb=15658734; ilb=0; jlb=1; klb=0; llb=378
+[39]  name=platemaillegs; hlb=10072780; ilb=0; jlb=1; klb=0; llb=378
+[40]  name=platemaillegs; hlb=11717785; ilb=0; jlb=1; klb=0; llb=378
+[41]  name=platemaillegs; hlb=65535; ilb=0; jlb=1; klb=0; llb=378
+[42]  name=platemaillegs; hlb=4210752; ilb=0; jlb=1; klb=0; llb=378
+[43]  name=platemaillegs; hlb=16777215; ilb=0; jlb=1; klb=0; llb=378
+[44]  name=platemaillegs; hlb=10083839; ilb=0; jlb=1; klb=0; llb=378
+[45]  name=leatherarmour; hlb=0; ilb=0; jlb=1; klb=0; llb=405
+[46]  name=leathergloves; hlb=0; ilb=0; jlb=1; klb=0; llb=432
+[47]  name=sword; hlb=16737817; ilb=0; jlb=1; klb=0; llb=459
+[48]  name=sword; hlb=15654365; ilb=0; jlb=1; klb=0; llb=459
+[49]  name=sword; hlb=15658734; ilb=0; jlb=1; klb=0; llb=459
+[50]  name=sword; hlb=10072780; ilb=0; jlb=1; klb=0; llb=459
+[51]  name=sword; hlb=11717785; ilb=0; jlb=1; klb=0; llb=459
+[52]  name=sword; hlb=65535; ilb=0; jlb=1; klb=0; llb=459
+[53]  name=sword; hlb=3158064; ilb=0; jlb=1; klb=0; llb=459
+[54]  name=fplatemailtop; hlb=16737817; ilb=0; jlb=1; klb=0; llb=486
+[55]  name=fplatemailtop; hlb=15654365; ilb=0; jlb=1; klb=0; llb=486
+[56]  name=fplatemailtop; hlb=15658734; ilb=0; jlb=1; klb=0; llb=486
+[57]  name=fplatemailtop; hlb=10072780; ilb=0; jlb=1; klb=0; llb=486
+[58]  name=fplatemailtop; hlb=11717785; ilb=0; jlb=1; klb=0; llb=486
+[59]  name=fplatemailtop; hlb=65535; ilb=0; jlb=1; klb=0; llb=486
+[60]  name=fplatemailtop; hlb=3158064; ilb=0; jlb=1; klb=0; llb=486
+[61]  name=apron; hlb=16777215; ilb=0; jlb=1; klb=0; llb=243
+[62]  name=cape; hlb=16711680; ilb=0; jlb=1; klb=0; llb=513
+[63]  name=cape; hlb=2434341; ilb=0; jlb=1; klb=0; llb=513
+[64]  name=cape; hlb=4210926; ilb=0; jlb=1; klb=0; llb=513
+[65]  name=cape; hlb=4246592; ilb=0; jlb=1; klb=0; llb=513
+[66]  name=cape; hlb=15658560; ilb=0; jlb=1; klb=0; llb=513
+[67]  name=cape; hlb=15636736; ilb=0; jlb=1; klb=0; llb=513
+[68]  name=cape; hlb=11141341; ilb=0; jlb=1; klb=0; llb=513
+[69]  name=mediumhelm; hlb=16737817; ilb=0; jlb=1; klb=0; llb=540
+[70]  name=mediumhelm; hlb=15654365; ilb=0; jlb=1; klb=0; llb=540
+[71]  name=mediumhelm; hlb=15658734; ilb=0; jlb=1; klb=0; llb=540
+[72]  name=mediumhelm; hlb=10072780; ilb=0; jlb=1; klb=0; llb=540
+[73]  name=mediumhelm; hlb=11717785; ilb=0; jlb=1; klb=0; llb=540
+[74]  name=mediumhelm; hlb=65535; ilb=0; jlb=1; klb=0; llb=540
+[75]  name=mediumhelm; hlb=3158064; ilb=0; jlb=1; klb=0; llb=540
+[76]  name=wizardsrobe; hlb=255; ilb=0; jlb=1; klb=0; llb=567
+[77]  name=wizardshat; hlb=255; ilb=0; jlb=1; klb=0; llb=594
+[78]  name=wizardshat; hlb=4210752; ilb=0; jlb=1; klb=0; llb=594
+[79]  name=necklace; hlb=15658734; ilb=0; jlb=1; klb=0; llb=621
+[80]  name=necklace; hlb=16763980; ilb=0; jlb=1; klb=0; llb=621
+[81]  name=skirt; hlb=255; ilb=0; jlb=1; klb=0; llb=648
+[82]  name=wizardsrobe; hlb=4210752; ilb=0; jlb=1; klb=0; llb=567
+[83]  name=Wizardsrobe; hlb=10510400; ilb=0; jlb=1; klb=0; llb=567
+[84]  name=wizardsrobe; hlb=15609904; ilb=0; jlb=1; klb=0; llb=567
+[85]  name=Wizardsrobe; hlb=16777215; ilb=0; jlb=1; klb=0; llb=567
+[86]  name=skirt; hlb=16777215; ilb=0; jlb=1; klb=0; llb=648
+[87]  name=skirt; hlb=10510400; ilb=0; jlb=1; klb=0; llb=648
+[88]  name=skirt; hlb=4210752; ilb=0; jlb=1; klb=0; llb=648
+[89]  name=skirt; hlb=16036851; ilb=0; jlb=1; klb=0; llb=648
+[90]  name=skirt; hlb=15609904; ilb=0; jlb=1; klb=0; llb=648
+[91]  name=Skirt; hlb=8400921; ilb=0; jlb=1; klb=0; llb=648
+[92]  name=skirt; hlb=7824998; ilb=0; jlb=1; klb=0; llb=648
+[93]  name=skirt; hlb=7829367; ilb=0; jlb=1; klb=0; llb=648
+[94]  name=skirt; hlb=2245205; ilb=0; jlb=1; klb=0; llb=648
+[95]  name=skirt; hlb=4347170; ilb=0; jlb=1; klb=0; llb=648
+[96]  name=skirt; hlb=26214; ilb=0; jlb=1; klb=0; llb=648
+[97]  name=squareshield; hlb=16737817; ilb=0; jlb=1; klb=0; llb=675
+[98]  name=squareshield; hlb=15654365; ilb=0; jlb=1; klb=0; llb=675
+[99]  name=squareshield; hlb=15658734; ilb=0; jlb=1; klb=0; llb=675
+[100]  name=squareshield; hlb=10072780; ilb=0; jlb=1; klb=0; llb=675
+[101]  name=squareshield; hlb=11717785; ilb=0; jlb=1; klb=0; llb=675
+[102]  name=squareshield; hlb=56797; ilb=0; jlb=1; klb=0; llb=675
+[103]  name=squareshield; hlb=3158064; ilb=0; jlb=1; klb=0; llb=675
+[104]  name=squareshield; hlb=16750896; ilb=0; jlb=1; klb=0; llb=675
+[105]  name=squareshield; hlb=11363121; ilb=0; jlb=1; klb=0; llb=675
+[106]  name=crossbow; hlb=0; ilb=0; jlb=0; klb=0; llb=702
+[107]  name=longbow; hlb=0; ilb=0; jlb=0; klb=0; llb=729
+[108]  name=battleaxe; hlb=16737817; ilb=0; jlb=1; klb=0; llb=756
+[109]  name=battleaxe; hlb=15654365; ilb=0; jlb=1; klb=0; llb=756
+[110]  name=battleaxe; hlb=15658734; ilb=0; jlb=1; klb=0; llb=756
+[111]  name=battleaxe; hlb=10072780; ilb=0; jlb=1; klb=0; llb=756
+[112]  name=battleaxe; hlb=11717785; ilb=0; jlb=1; klb=0; llb=756
+[113]  name=battleaxe; hlb=65535; ilb=0; jlb=1; klb=0; llb=756
+[114]  name=battleaxe; hlb=3158064; ilb=0; jlb=1; klb=0; llb=756
+[115]  name=mace; hlb=16737817; ilb=0; jlb=1; klb=0; llb=783
+[116]  name=mace; hlb=15654365; ilb=0; jlb=1; klb=0; llb=783
+[117]  name=mace; hlb=15658734; ilb=0; jlb=1; klb=0; llb=783
+[118]  name=mace; hlb=10072780; ilb=0; jlb=1; klb=0; llb=783
+[119]  name=mace; hlb=11717785; ilb=0; jlb=1; klb=0; llb=783
+[120]  name=mace; hlb=65535; ilb=0; jlb=1; klb=0; llb=783
+[121]  name=mace; hlb=3158064; ilb=0; jlb=1; klb=0; llb=783
+[122]  name=staff; hlb=0; ilb=0; jlb=1; klb=0; llb=810
+[123]  name=rat; hlb=4805259; ilb=0; jlb=1; klb=0; llb=837
+[124]  name=demon; hlb=16384000; ilb=0; jlb=1; klb=0; llb=864
+[125]  name=spider; hlb=13408576; ilb=0; jlb=1; klb=0; llb=891
+[126]  name=spider; hlb=16728144; ilb=0; jlb=1; klb=0; llb=891
+[127]  name=camel; hlb=0; ilb=0; jlb=1; klb=0; llb=918
+[128]  name=cow; hlb=0; ilb=0; jlb=1; klb=0; llb=945
+[129]  name=sheep; hlb=0; ilb=0; jlb=0; klb=0; llb=972
+[130]  name=unicorn; hlb=0; ilb=0; jlb=1; klb=0; llb=999
+[131]  name=bear; hlb=0; ilb=0; jlb=1; klb=0; llb=1026
+[132]  name=chicken; hlb=0; ilb=0; jlb=1; klb=0; llb=1053
+[133]  name=skeleton; hlb=0; ilb=0; jlb=1; klb=0; llb=1080
+[134]  name=skelweap; hlb=0; ilb=0; jlb=1; klb=1; llb=1107
+[135]  name=zombie; hlb=0; ilb=0; jlb=1; klb=0; llb=1134
+[136]  name=zombweap; hlb=0; ilb=0; jlb=1; klb=1; llb=1161
+[137]  name=ghost; hlb=0; ilb=0; jlb=1; klb=0; llb=1188
+[138]  name=bat; hlb=0; ilb=0; jlb=1; klb=0; llb=1215
+[139]  name=goblin; hlb=8969727; ilb=0; jlb=1; klb=0; llb=1242
+[140]  name=goblin; hlb=16711680; ilb=0; jlb=1; klb=0; llb=1242
+[141]  name=goblin; hlb=47872; ilb=0; jlb=1; klb=0; llb=1242
+[142]  name=gobweap; hlb=65535; ilb=0; jlb=1; klb=1; llb=1269
+[143]  name=scorpion; hlb=0; ilb=0; jlb=1; klb=0; llb=1296
+[144]  name=dragon; hlb=65280; ilb=0; jlb=1; klb=0; llb=1323
+[145]  name=dragon; hlb=16711680; ilb=0; jlb=1; klb=0; llb=1323
+[146]  name=dragon; hlb=21981; ilb=0; jlb=1; klb=0; llb=1323
+[147]  name=Wolf; hlb=0; ilb=0; jlb=1; klb=0; llb=1350
+[148]  name=Wolf; hlb=10066329; ilb=0; jlb=1; klb=0; llb=1350
+[149]  name=partyhat; hlb=16711680; ilb=0; jlb=1; klb=0; llb=1377
+[150]  name=partyhat; hlb=16776960; ilb=0; jlb=1; klb=0; llb=1377
+[151]  name=partyhat; hlb=255; ilb=0; jlb=1; klb=0; llb=1377
+[152]  name=partyhat; hlb=65280; ilb=0; jlb=1; klb=0; llb=1377
+[153]  name=partyhat; hlb=16711935; ilb=0; jlb=1; klb=0; llb=1377
+[154]  name=partyhat; hlb=16777215; ilb=0; jlb=1; klb=0; llb=1377
+[155]  name=leathergloves; hlb=11202303; ilb=0; jlb=1; klb=0; llb=432
+[156]  name=chicken; hlb=16711680; ilb=0; jlb=1; klb=0; llb=1053
+[157]  name=fplatemailtop; hlb=10083839; ilb=0; jlb=1; klb=0; llb=486
+[158]  name=skirt; hlb=1118481; ilb=0; jlb=1; klb=0; llb=648
+[159]  name=Wolf; hlb=9789488; ilb=0; jlb=1; klb=0; llb=1350
+[160]  name=spider; hlb=65535; ilb=0; jlb=1; klb=0; llb=891
+[161]  name=battleaxe; hlb=16711748; ilb=0; jlb=1; klb=0; llb=756
+[162]  name=sword; hlb=16711748; ilb=0; jlb=1; klb=0; llb=459
+[163]  name=eyepatch; hlb=0; ilb=0; jlb=1; klb=1; llb=1404
+[164]  name=demon; hlb=3158064; ilb=0; jlb=1; klb=0; llb=864
+[165]  name=dragon; hlb=3158064; ilb=0; jlb=1; klb=0; llb=1323
+[166]  name=spider; hlb=14535680; ilb=0; jlb=1; klb=0; llb=891
+[167]  name=Wolf; hlb=2236962; ilb=0; jlb=1; klb=0; llb=1350
+[168]  name=unicorn; hlb=2236962; ilb=0; jlb=1; klb=0; llb=999
+[169]  name=demon; hlb=6291456; ilb=0; jlb=1; klb=0; llb=864
+[170]  name=spider; hlb=2236962; ilb=0; jlb=1; klb=0; llb=891
+[171]  name=necklace; hlb=3158064; ilb=0; jlb=1; klb=0; llb=621
+[172]  name=rat; hlb=11184810; ilb=0; jlb=1; klb=0; llb=837
+[173]  name=mediumhelm; hlb=11250603; ilb=0; jlb=1; klb=0; llb=540
+[174]  name=chainmail; hlb=11250603; ilb=0; jlb=1; klb=0; llb=324
+[175]  name=wizardshat; hlb=16711680; ilb=0; jlb=1; klb=0; llb=594
+[176]  name=legs1; hlb=9785408; ilb=0; jlb=1; klb=0; llb=54
+[177]  name=gasmask; hlb=0; ilb=0; jlb=1; klb=0; llb=1431
+[178]  name=mediumhelm; hlb=16711748; ilb=0; jlb=1; klb=0; llb=540
+[179]  name=spider; hlb=3852326; ilb=0; jlb=1; klb=0; llb=891
+[180]  name=spear; hlb=0; ilb=0; jlb=1; klb=0; llb=1458
+[181]  name=halloweenmask; hlb=52224; ilb=0; jlb=1; klb=0; llb=1485
+[182]  name=wizardsrobe; hlb=1052688; ilb=0; jlb=1; klb=0; llb=567
+[183]  name=skirt; hlb=1052688; ilb=0; jlb=1; klb=0; llb=648
+[184]  name=halloweenmask; hlb=16711680; ilb=0; jlb=1; klb=0; llb=1485
+[185]  name=halloweenmask; hlb=255; ilb=0; jlb=1; klb=0; llb=1485
+[186]  name=skirt; hlb=16755370; ilb=15; jlb=1; klb=0; llb=648
+[187]  name=skirt; hlb=11206570; ilb=15; jlb=1; klb=0; llb=648
+[188]  name=skirt; hlb=11184895; ilb=15; jlb=1; klb=0; llb=648
+[189]  name=skirt; hlb=16777164; ilb=15; jlb=1; klb=0; llb=648
+[190]  name=skirt; hlb=13434879; ilb=15; jlb=1; klb=0; llb=648
+[191]  name=wizardshat; hlb=16755370; ilb=0; jlb=1; klb=0; llb=594
+[192]  name=wizardshat; hlb=11206570; ilb=0; jlb=1; klb=0; llb=594
+[193]  name=wizardshat; hlb=11184895; ilb=0; jlb=1; klb=0; llb=594
+[194]  name=wizardshat; hlb=16777164; ilb=0; jlb=1; klb=0; llb=594
+[195]  name=wizardshat; hlb=13434879; ilb=0; jlb=1; klb=0; llb=594
+[196]  name=wizardsrobe; hlb=16755370; ilb=0; jlb=1; klb=0; llb=567
+[197]  name=wizardsrobe; hlb=11206570; ilb=0; jlb=1; klb=0; llb=567
+[198]  name=wizardsrobe; hlb=11184895; ilb=0; jlb=1; klb=0; llb=567
+[199]  name=wizardsrobe; hlb=16777164; ilb=0; jlb=1; klb=0; llb=567
+[200]  name=wizardsrobe; hlb=13434879; ilb=0; jlb=1; klb=0; llb=567
+[201]  name=Wizardsrobe; hlb=3978097; ilb=0; jlb=1; klb=0; llb=567
+[202]  name=skirt; hlb=3978097; ilb=0; jlb=1; klb=0; llb=648
+[203]  name=boots; hlb=16755370; ilb=0; jlb=1; klb=0; llb=270
+[204]  name=boots; hlb=11206570; ilb=0; jlb=1; klb=0; llb=270
+[205]  name=boots; hlb=11184895; ilb=0; jlb=1; klb=0; llb=270
+[206]  name=boots; hlb=16777164; ilb=0; jlb=1; klb=0; llb=270
+[207]  name=boots; hlb=13434879; ilb=0; jlb=1; klb=0; llb=270
+[208]  name=santahat; hlb=0; ilb=0; jlb=1; klb=0; llb=1512
+[209]  name=ibanstaff; hlb=0; ilb=0; jlb=1; klb=0; llb=1539
+[210]  name=souless; hlb=0; ilb=0; jlb=1; klb=0; llb=1566
+[211]  name=boots; hlb=16777215; ilb=0; jlb=1; klb=0; llb=270
+[212]  name=legs1; hlb=16777215; ilb=0; jlb=1; klb=0; llb=54
+[213]  name=Wizardsrobe; hlb=8421376; ilb=0; jlb=1; klb=0; llb=567
+[214]  name=skirt; hlb=8421376; ilb=0; jlb=1; klb=0; llb=648
+[215]  name=cape; hlb=16777215; ilb=0; jlb=1; klb=0; llb=513
+[216]  name=Wolf; hlb=13420580; ilb=0; jlb=1; klb=0; llb=1350
+[217]  name=bunnyears; hlb=0; ilb=0; jlb=1; klb=0; llb=1593
+[218]  name=saradominstaff; hlb=0; ilb=0; jlb=1; klb=0; llb=1620
+[219]  name=spear; hlb=56797; ilb=0; jlb=1; klb=0; llb=1458
+[220]  name=skirt; hlb=1392384; ilb=0; jlb=1; klb=0; llb=648
+[221]  name=wizardsrobe; hlb=1392384; ilb=0; jlb=1; klb=0; llb=567
+[222]  name=wolf; hlb=5585408; ilb=0; jlb=1; klb=0; llb=1350
+[223]  name=chicken; hlb=6893315; ilb=0; jlb=1; klb=0; llb=1053
+[224]  name=squareshield; hlb=13500416; ilb=0; jlb=1; klb=0; llb=675
+[225]  name=cape; hlb=16777215; ilb=0; jlb=1; klb=0; llb=513
+[226]  name=boots; hlb=1118481; ilb=0; jlb=1; klb=0; llb=270
+[227]  name=wizardsrobe; hlb=1118481; ilb=0; jlb=1; klb=0; llb=567
+[228]  name=Scythe; hlb=0; ilb=0; jlb=1; klb=0; llb=1647
