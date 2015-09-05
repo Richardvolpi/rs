@@ -1,0 +1,13 @@
+Base of bot is vortex's
+
+Right click set target for acer & autocast
+F3 - Autocatch target
+F4 - Autocast target (spell id in config.ini)
+F5 -> F8 - walk diagnals
+F9 - Toggle defense and attack prayers
+
+You can configure the hp that it eats at, the timers 
+that the autocatcher uses and the auto cast spell id 
+in the config file.
+
+<3 RLN
