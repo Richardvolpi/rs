@@ -1,0 +1,5 @@
+@Main:
+SetVarsNearestItem(%X,%Y,20,50)
+TakeItemVarVarVar(%X,%Y,%ID)
+Wait(2)
+GoTo(@Main)

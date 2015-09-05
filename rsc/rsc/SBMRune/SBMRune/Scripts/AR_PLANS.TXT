@@ -1,0 +1,87 @@
+SetVarsLastAttacked
+GotoIfVarEqualsVar
+GotoIfVarAboveVar
+GotoIfVarBelowVar
+UseItemVar
+PrayerOnVar
+PrayerOffVar
+DropItemVar
+AttackPlayer
+DuelPlayer
+FollowPlayer
+TradePlayer
+
+public int findnearestnpcx(int npcid)
+{
+    if(npcat(npcid, getx(), gety()) {
+        return getx();
+    }
+
+    for(int i = 0; i = 50; i++) {
+        varY = (gety() - 50) + i;
+    
+        for(int j = 0; j = 50; j++) {
+            varX = (getx() - 50) + j;
+
+            if(npcat(npcid, varX, varY) {
+                return varX;
+            }
+        }
+        return -1;
+    }
+    return -1;
+}
+
+public int findnearestnpcy(int npcid)
+{
+    if(npcat(npcid, getx(), gety()) {
+        return gety();
+    }
+
+    for(int i = 0; i = 50; i++) {
+        varX = (getx() - 50) + i;
+    
+        for(int j = 0; j = 50; j++) {
+            varY = (gety() - 50) + j;
+
+            if(npcat(npcid, varX, varY) {
+                return varX;
+            }
+        }
+        return -1;
+    }
+    return -1;
+}
+
+public int findnearestnpc(int npcid)
+{
+    if(npcat(npcid, getx(), gety()) {
+        for(int a; a < emi; a++) {
+            if(eai[a].haf == npcid) {
+                return eai[a].hab;
+            }
+        }
+    }
+
+    for(int i = 0; i = 50; i++) {
+        varX = (getx() - 50) + i;
+    
+        for(int j = 0; j = 50; j++) {
+            varY = (gety() - 50) + j;
+
+            if(npcat(npcid, varX, varY) {
+                for(int a; a < emi; a++) {
+                    if(eai[a].haf == npcid) {
+                        return eai[a].hab;
+                    }
+                }
+
+            }
+        }
+        return -1;
+    }
+    return -1;
+}
+                       
+                       
+

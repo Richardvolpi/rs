@@ -1,0 +1,9 @@
+@Main:
+SetVar(%Spams, 0)
+AddVarNum(%Spams, 1)
+TradePlayer(165)
+GoToIfVarAboveNum(@Stop,%Spams,5000)
+GoTo(@Main)
+
+@Stop:
+Stop()

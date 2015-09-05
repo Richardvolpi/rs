@@ -1,0 +1,3 @@
+@main:
+AttackPlayer(869)
+stop()
