@@ -1,0 +1,25 @@
+// Decompiled by DJ v3.5.5.77 Copyright 2003 Atanas Neshkov  Date: 4/16/04 7:26:31 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   f.java
+
+
+public class f
+{
+
+    public f()
+    {
+    }
+
+    public static int a = 185;
+    public static int b = 185;
+    public static int c = 85;
+    public static int d = 63;
+    public static int e = 58;
+    public static int f = 36;
+    public static int g = 17;
+    public static int h = 24;
+    public static int i = 1;
+    public static int j = 2;
+
+}
