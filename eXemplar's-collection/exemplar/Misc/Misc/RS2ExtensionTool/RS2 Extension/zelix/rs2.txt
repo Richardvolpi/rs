@@ -1,0 +1,8 @@
+open ".\rs.jar";
+exclude *.client
+        and sign.
+        and *.signlink *(*)
+        and *.signlink *
+        and *.* main(*);
+unobfuscate;
+saveAll archiveCompression=all ".";

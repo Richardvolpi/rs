@@ -1,0 +1,382 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<body bgcolor="#FFFFFF">
+
+<h1>"Obfuscate Options" Window</h1>
+Contents:
+<ul>
+<li><a href="#Overview">Overview</a>
+<li><a href="#inputLogBox">"Use input change log file" box</a>
+<li><a href="#inputLogField">"Use input change log file" field</a>
+<li><a href="#inputLogList">Use input change log file ". . ." button</a>
+<li><a href="#outputLogBox">"Produce a change log file" box</a>
+<li><a href="#outputLogField">"Produce a change log file" field</a>
+<li><a href="#outputLogList">Produce a change log file ". . ." button</a>
+<li><a href="#obfuscateFlow">"Obfuscate control flow" list</a>
+<li><a href="#encrypt">"Encrypt String Literals" list</a>
+<li><a href="#collapse">"Collapse packages" box</a>
+<li><a href="#defaultPackage">"Default name" field</a>
+<li><a href="#innerClass">"Keep inner class information" box</a>
+<li><a href="#lineNumbers">"Line number tables" box</a>
+</ul>
+
+<h2><a name="<a name="Overview">Overview</a></h2>
+The Zelix KlassMaster<sup><font size=-2>TM</font></sup> "Obfuscate" tool renames classes, fields and methods to make your bytecode smaller 
+and to reduce the meaningfulness of source code produced by a decompiler. 
+It can also obfuscate the control flow and encrypt the String literals in your bytecode to give added protection against decompilation.
+However, flow obfuscation and String encryption will slightly increase your bytecode size and slightly slow your bytecode.
+<p>
+<table border="1">
+<caption>
+<b>Options to use</b>
+</caption>
+<th>
+Objective
+</th>
+<th>
+Name obfuscation
+</th>
+<th>
+Flow obfuscation
+</th>
+<th>
+String encryption
+</th>
+</tr>
+<tr>
+<td>
+Mimimum bytecode size
+</td>
+<td align="center">
+yes
+</td>
+<td align="center">
+no
+</td>
+<td align="center">
+no
+</td>
+</tr>
+<tr>
+<td>
+Balance between size<br>and protection
+</td>
+<td align="center">
+yes
+</td>
+<td align="center">
+yes
+</td>
+<td align="center">
+no
+</td>
+</tr>
+<tr>
+<td>
+Maximum protection
+</td>
+<td align="center">
+yes
+</td>
+<td align="center">
+yes
+</td>
+<td align="center">
+yes
+</td>
+</tr>
+</table>
+
+<h2><a name="inputLogBox">"Use input change log file" box</a></h2>
+Select this box if you want Zelix KlassMaster to use an input change log. 
+Zelix KlassMaster will use the name mappings in the input change log as a definitive guide when renaming package, class, field and method names.
+It can be very useful to have Zelix KlassMaster rename your classes, fields and methods to match the previous release if you intend to distribute 
+only the changed portion of your application in the form of a patch.
+
+<h2><a name="inputLogField">"Use input change log file" field</a></h2>
+You can enter the name of the input change log into this field. If you enter an unqualified file name then Zelix KlassMaster will look for it
+in the folder from which Zelix KlassMaster was started. You can also enter a relative or absolute path.
+
+<h2><a name="inputLogList">Use input change log file ". . ." button</a></h2>
+Click this button to open a file selection dialog to find and select the input change log that you wish to use.  
+The selected file name will appear in the <b>"use input change log file"</b> field.
+
+<h2><a name="outputLogBox">"Produce a change log file" box</a></h2>
+Select this box if you want Zelix KlassMaster to produce a change log. 
+The change log will record the mappings of original package, class, field and method names to new obfuscated names.
+It is highly recommended that you select this option and keep the change log produced in a safe place. 
+You will need it to translate stack traces produced by your obfuscated bytecode using the <a href="035.html">Stack Trace Translate tool</a>.
+You can also use it as an input change log to ensure compatible renaming in future releases.
+
+<h2><a name="outputLogField">"Produce a change log file" field</a></h2>
+You can enter the name of the output change log into this field. If you enter an unqualified file name then Zelix KlassMaster will create it
+in the folder from which Zelix KlassMaster was started. You can also enter a relative or absolute path.
+<p>
+If the specified file already exists then it will be overwritten. Note that you should keep the change log produced when you obfuscate your final release in a safe place.
+
+<h2><a name="outputLogList">Produce a change log file ". . ." button</a></h2>
+Click this button to open a file selection dialog to find and select an output change log that you wish to overwrite.  
+The selected file name will appear in the <b>"Produce a change log file"</b> field.
+
+<h2><a name="obfuscateFlow">"Obfuscate control flow" list</a></h2>
+This list determines whether Zelix KlassMaster will obfuscate the control flow of your methods.  
+Flow obfuscation can provide extra protection against decompliation. 
+You should see the Zelix KlassMaster documentation for more detail.
+<p>
+<table border=1>
+<tr>
+<td>
+<b>List&nbsp;item</b>
+</td>
+<td>
+<b>Explanation</b>
+</td>
+</tr>
+<tr>
+<td valign="top">
+none
+</td>
+<td valign="top">
+Select this setting if you don't want to use flow obfuscation.
+</td>
+</tr>
+<tr>
+<td valign="top">
+light
+</td>
+<td valign="top">
+Select this setting if your classes must run in the widest variety of JVMs. 
+"Light" flow obfuscation works around a number of JIT compiler bugs that can cause some flow obfuscated bytecode to fail.
+</td>
+</tr>
+<tr>
+<td valign="top">
+normal
+</td>
+<td valign="top">
+This setting performs a more thorough obfuscation than the "light" setting. 
+However, it increases the risk that your bytecode will not run on some buggy JIT compilers. 
+</td>
+</tr>
+<tr>
+<td valign="top">
+aggressive
+</td>
+<td valign="top">
+This setting performs a more thorough obfuscation than the "light" and "normal" settings. 
+However, it increases the risk that your bytecode will not run on some buggy JIT compilers. 
+</td>
+</tr>
+</table>
+
+<h2><a name="encrypt">"Encrypt String Literals" list</a></h2>
+This list determines whether Zelix KlassMaster will encrypt the String literals in your classes.  
+String encryption can provide extra protection against decompilation.
+Zelix KlassMaster changes the values of your String literals to equivalent encrypted values and 
+then adds a decrypt method to each effected class to decrypt the literal at runtime.
+You should see the Zelix KlassMaster documentation for more detail.
+<p>
+<table border=1>
+<tr>
+<td>
+<b>List&nbsp;item</b>
+</td>
+<td>
+<b>Explanation</b>
+</td>
+</tr>
+<tr>
+<td valign="top">
+none
+</td>
+<td valign="top">
+Select this setting if you don't want to use String encryption.
+</td>
+</tr>
+<tr>
+<td valign="top">
+normal
+</td>
+<td valign="top">
+Select this setting if you want Zelix KlassMaster to encrypt your String literals in the most basic fashion. 
+This setting will leave String literals in interfaces unencrytpted.
+</td>
+</tr>
+<tr>
+<td valign="top">
+aggressive
+</td>
+<td valign="top">
+This setting encrypts your String literals as with the "normal" setting but Zelix KlassMaster will attempt to use a more sophisticated approach that 
+allows the encryption of Strings in interfaces.
+However, for runtime performance reasons, this more sophisticated approach will not be used in the case of interfaces with many (ie. 500 or more) String literals.
+In these cases the Constant Value Attributes associated with the interface "static" String fields will be cleared and
+Zelix KlassMaster will output a warning.  The clearing of the fields is only a problem if the "static" String fields 
+need to be accessed at runtime by classes outside of your application or if you need to compile other classes against your obfuscated classes.
+</td>
+</tr>
+<tr>
+<td valign="top">
+flow obfuscate
+</td>
+<td valign="top">
+This setting encrypts your String literals as with the "aggressive" setting but it will also add a flow obfuscated version of the
+special decrypt instructions to your classes. As with the "aggressive" setting, in interfaces with many String literals,
+the Constant Value Attributes associated with the interface "static" String fields may be cleared.
+</td>
+</tr>
+</table>
+
+<h2><a name="collapse">"Collapse packages" box</a></h2>
+Select this box if you want Zelix KlassMaster to recursively collapse subpackages into their superpackages. 
+Effectively, classes in subpackages will be moved into their superpackages.  
+By reducing the overall length of the package names, <b>this option reduces the length of fully qualified class names and therefore reduces the size of the bytecode.</b>
+<p>
+<b>Packages whose names have been excluded from being changed are never collapsed.</b>  
+So packages with excluded superpackages will be collapsed into the nearest excluded superpackage.
+If a package has no excluded superpackage then it will be collapsed into the package specified in the <b>"Default name"</b> field 
+that appears to the immediate right of the <b>"Collapse packages"</b> box. 
+If the the <b>"Default name"</b> field is empty then packages with no excluded superpackage will be collapsed into the Java default package "" (which is no package at all).
+<p>
+Remember that one of the purposes served by package names is to ensure that fully qualified class names are unique. 
+If you collapse your packages into the Java default package (ie. no package) then Zelix KlassMaster will ensure that your class names are unique within your application.
+However, you must be sure that there will be no <u>runtime</u> name clashes with other default package classes in the runtime classpath. 
+<p>
+Take as an example the following set of packages.
+<br>
+<table border=1><tr><td>
+<code>
+com<br>
+com.mycompany<br>
+com.mycompany.package1<br>
+com.mycompany.package2<br>
+com.yourcompany<br>
+com.yourcompany.package1
+</code>
+</td></tr></table>
+<p>
+If you<br> 
+1. select the <b>"Collapse packages"</b> box<br>
+2. exclude the <code>com.mycompany</code> package name from being excluded<br>
+3. enter <code>foo</code> into the <b>"Default name"</b> field<br>
+<p>
+then the packages will be collapsed as follows
+<br>
+<table border=0>
+<tr><td><code>com</code></td><td><code>=></code></td><td><code>com</code></tr>
+<tr><td><code>com.mycompany</code></td><td><code>=></code></td><td><code>com.mycompany</code></tr>
+<tr><td><code>com.mycompany.package1</code></td><td><code>=></code></td><td><code>com.mycompany</code></tr>
+<tr><td><code>com.mycompany.package2</code></td><td><code>=></code></td><td><code>com.mycompany</code></tr>
+<tr><td><code>com.yourcompany</code></td><td><code>=></code></td><td><code>foo</code></tr>
+<tr><td><code>com.yourcompany.package1</code></td><td><code>=></code></td><td><code>foo</code></tr>
+</table>
+<p>
+giving the result
+<br>
+<table border=1><tr><td>
+<code>
+com<br>
+com.mycompany<br>
+foo
+</code>
+</td></tr></table>
+<p>
+Typically you would only collapse the package structure if your obfuscated classes were self contained.  
+The following settings are typical for the different application types.
+<br>
+<table border=1>
+<tr>
+<td>
+<b>Application type</b>
+</td>
+<td>
+<b>Ok to collapse packages?</b>
+</td>
+</tr>
+<tr>
+<td>Non-extensible library</td>
+<td valign="top">No</td>
+</tr>
+<tr>
+<td>Extensible&nbsp;framework</td>
+<td>No</td>
+</tr>
+<tr>
+<td>J2ME MIDlet</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Self contained application or applet</td>
+<td>Yes</td>
+</tr>
+</table>
+
+<h2><a name="defaultPackage">"Default name" field</a></h2>
+This field specifies the name of the package into which your existing packages will be collapsed by default if you have selected the <b>"Collapse packages"</b> box.
+Packages will only be collapsed into the specified package if they do not have a superpackge that has been excluded from being renamed.
+If the <b>"Default name"</b> field is empty then the packages will be collapsed into the Java default package "" (which is no package at all).
+Please see the help on <a href="#collapse">"Collapse packages"</a> box above for more detail on the collapse package functionality.
+
+<h2><a name="innerClass">"Keep inner class information" box</a></h2>
+Select this box if you wish Zelix KlassMaster to retain the special Inner Class attributes that may be present in your bytecode. 
+It is these Inner Class attributes that make one class the inner class of another.
+<p>
+Generally, Inner Class attributes are not used at runtime so, removing them can reduce your bytecode size.  
+However, Inner Class attributes are used by some debuggers and by compilers.  
+If you need to compile other classes against your obfuscated inner classes then you should not select this option.
+
+<h2><a name="lineNumbers">"Line number tables"</a></h2>
+This list determines what Zelix KlassMaster will do to the Line Number tables that may exist within your bytecode.
+Line Number tables are optional structures that hold debugging information.
+They allow the JVM to determine which source file line number is associated with any particular compiled instruction.
+This information is used to display line numbers in stack traces.
+<p>
+<table border=1>
+<tr>
+<td>
+<b><nobr>List&nbsp;item</nobr></b>
+</td>
+<td>
+<b>Explanation</b>
+</td>
+</tr>
+<tr>
+<td valign="top">
+delete
+</td>
+<td valign="top">
+This setting instructs Zelix KlassMaster to delete all Line Number table information. 
+It reduces the size of bytecode that contains Line Number tables but it means that stack traces produced by the bytecode cannot contain line numbers.
+</td>
+</tr>
+<tr>
+<td valign="top">
+scramble
+</td>
+<td valign="top">
+This setting instructs Zelix KlassMaster to scramble all Line Number table information.
+There is no size reduction but the JVM will be able to produce stack traces containing line numbers. 
+However, because the line numbers will be scrambled, you would have to use a tool like the inbuilt Zelix KlassMaster Change Log Translate tool to convert them back to the original line numbers.
+Most importantly, it would be very difficult for a decompiler to make use of the scrambled line number information to improve the quality of the source code it produces.
+</td>
+</tr>
+<tr>
+<td valign="top">
+keep
+</td>
+<td valign="top">
+This setting instructs Zelix KlassMaster to keep all Line Number table information in its original form.
+There is no size reduction and there is a risk that the original line number information could be used by a decompiler to improve the quality of the source code it produces.
+However, any stack trace line numbers will map directly to the original source code.
+</td>
+</tr>
+</table>
+
+
+
+<p>
+<hr>
+<font size=-2>&copy; 2003 Zelix Pty Ltd</font>
+</body>
+</html>
+
