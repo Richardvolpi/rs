@@ -1,0 +1,104 @@
+//test new color tolerant functions
+program VariousFunctionTest;
+var
+  ClientCanvas, DebugCanvas, BMapCanvas: TCanvas;
+  bmap: Integer;
+  b4, letterP: Integer;
+  xx, yy, x, y: Integer;
+begin
+  //display debug image window
+  DisplayDebugImgWindow(500, 300);
+  //obtain canvas of debug window
+  DebugCanvas:= GetDebugCanvas;
+  //bmap:= LoadBitmap('c:\temp\scr.bmp');
+  BMapCanvas:= GetClientCanvas;
+  CopyCanvas(BMapCanvas, DebugCanvas, 0, 0, 500, 300, 0, 0, 500, 300);
+  //Use Debug Image window as if it's RS client window
+//  FindWindow('Debug Image');
+  ClientCanvas:= GetClientCanvas;
+
+  //test SimilarColors
+  if(SimilarColors(15360, 17920, 10))then
+    Writeln('Colors 15360 and 17920 are similar by 10')
+  else
+    Writeln('Colors 15360 and 17920 are not similar by 10');
+  if(SimilarColors(15360, 17920, 5))then
+    Writeln('Colors 15360 and 17920 are similar by 5')
+  else
+    Writeln('Colors 15360 and 17920 are not similar by 5');
+  DebugCanvas.Brush.Color:= 15360;
+  DebugCanvas.Rectangle(10, 50, 100, 140);
+  DebugCanvas.TextOut(30, 80, '15370');
+  DebugCanvas.Brush.Color:= 17920;
+  DebugCanvas.Rectangle(110, 50, 200, 140);
+  DebugCanvas.TextOut(130, 80, '17920');
+  
+  //Test FindBitmapSpiralTolerance
+  b4 := BitmapFromString(7, 10, //picture of yellow 4
+       'DEDD12DEDD12000000000000000000000000000000DEDD12DEDD12' +
+       '140C01000000000000000000000000DEDD12DEDD12140C01000000' +
+       '000000000000000000DEDD12DEDD12140C01000000000000000000' +
+       '000000DEDD12DEDD12140C01DEDD12DEDD12000000000000DEDD12' +
+       'DEDD12140C01DEDD12DEDD12140C01000000DEDD12DEDD12140C01' +
+       'DEDD12DEDD12140C01000000DEDD12DEDD12DEDD12DEDD12DEDD12' +
+       'DEDD12DEDD12000000140C01140C01DEDD12DEDD12140C01140C01' +
+       '000000000000000000DEDD12DEDD12140C01000000');
+  x:= 193;
+  y:= 16;
+  if(FindBitmapSpiralTolerance(b4, x, y, 0, 0, 500, 300, 40))then
+  begin
+    Writeln('Yellow 4 was found at ' + IntToStr(x) + ', ' + IntToStr(y));
+    DebugCanvas.Brush.Style:= bsClear;
+    DebugCanvas.Pen.Color:= clWhite;
+    DebugCanvas.Rectangle(x, y, x+8, Y+11);
+    DebugCanvas.Pen.Color:= clBlack;
+    DebugCanvas.Rectangle(x-1, y-1, x+9, Y+12);
+  end else
+  begin
+    Writeln('Yellow 4 was not found :(((');
+  end;
+  
+  //Test findcolortolerance
+  if(FindColorTolerance(x, y, 6919882, 10, 10, 500, 300, 5))then
+  begin
+    Writeln('The color was found at ' + IntToStr(x) + ', ' + IntToStr(y));
+  end else
+  begin
+    Writeln('The color was not found :(((');
+  end;
+  
+  //test findcoloredarea
+  if(FindColoredAreaTolerance(x, y, 6788298, 10, 10, 500, 300, 50, 40))then
+  begin
+    Writeln('The colored area was found at ' + IntToStr(x) + ', ' + IntToStr(y));
+    //let's color all similar pixels aroud that place red
+    //so that we see where this area exactly is
+    for xx:= x-30 to x+30 do
+      for yy:= y-30 to y+30 do
+      begin
+        if(SimilarColors(6788298, ClientCanvas.Pixels[xx, yy], 40))then
+        begin
+          DebugCanvas.Pixels[xx, yy]:= clRed;
+        end;
+      end;
+    DebugCanvas.Brush.Style:= bsClear;
+    DebugCanvas.Rectangle(x-30, y-30, x+30, y+ 30);
+  end else
+  begin
+    Writeln('The colored area was not found :(((');
+  end;
+  
+  //test findbitmapmasktolerance
+  //load bitmap of capital P character
+  letterP:= LoadBitmap(AppPAth + 'Charsrs2\42.bmp');
+  if(FindBitmapMaskTolerance(letterP, x, y, 10, 10, 500, 300, 40, 20))then
+  begin
+    Writeln('The mask was found at ' + IntToStr(x) + ', ' + IntToStr(y));
+    //Let's mark it's location
+    CopyCanvas(GetBitmapCanvas(letterP), DebugCanvas, 0, 0, 8, 15, x, y, x+8, y+15);
+  end else
+  begin
+    Writeln('The mask was not found :(((');
+  end;
+
+end.

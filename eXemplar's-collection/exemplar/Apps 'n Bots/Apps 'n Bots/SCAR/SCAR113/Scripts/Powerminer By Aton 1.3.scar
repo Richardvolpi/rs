@@ -1,0 +1,753 @@
+{  __________________________________
+  |**********************************|
+  |      Powerminer By Aton 1.3      |
+  |**********************************|
+  | Instructions:                    |
+  |  1: ADD IRON ROCK COLOR!         |
+  |  2: Try to get a north angle     |
+  |  3: U must look from above       |
+  |  4: V-bright,32/26bit colors     |
+  |  5: U MUST HAVE PUBLIC CHAT OFF  |
+  |  6: U Need scar version 1.12     |
+  |  7: Start in rimington mine      |
+  |  8: Silent Mouse OFF             |
+  |**********************************|
+  | Credits To:                      |
+  | RsCheatNet community!            |
+  |__________________________________|
+}
+program PowerMinerByAton;
+var
+x,y,a,b,c,ax,ay,I,InvNumber,HandleInv,HeadInv,Drops,ran,talked,attached,IronRocks,
+Flag,Talk,TalkY,Drop,Yellowdrop,Mine,MineY,Login,Head,Handle,Box,
+cmhs:integer;
+ST:LongInt;
+Log,Loged,Fight:boolean;
+
+Const
+(*~~~~~~~~~~~~~~~~~~~~ SETINGS! ~~~~~~~~~~~~~~~~~~~~*)
+
+Username = 'go_sick'; //Enter Username
+Password = 'lantard'; //Enter Password
+Inv = 1;               //Inv slot from wich droping will start
+Msfmmh = 3;            //Enter Human Mouse Muvemet Speed. Normal is 3.
+
+(*~~~~~~~~~~~! COLOURS FROM MAIN SCREEN ~~~~~~~~~~~~*)
+
+IronRocks1 = 2110010;  //Enter Colour of Iron Rocks
+IronRocks2 = 2242382;  //Enter Colour Of Iron Rocks
+IronRocks3 = 2242382;  //Enter Colour Of Iron Rocks
+
+(*~~~~~~~~~~~~~ COLOURS FROM INVENTORY ~~~~~~~~~~~~~*)
+
+PickHandle = 6437;      //Colour of the pickaxe handle you are useing. Color should only have 4 number.
+PickHead = 2243406 ;    //Colour of the pickaxe head you are useing. Color should be something like this 5853501.
+
+(*~~~~~~~~~~~~~~~~~ END OF SETINGS ~~~~~~~~~~~~~~~~~*)
+
+Procedure SetRandom;
+Var color,I:integer;
+begin
+Color:=1+Random(3);
+I:=1+Random(2);
+case Color of
+  1: Begin IronRocks:=IronRocks1; end;
+  2: Begin IronRocks:=IronRocks2; end;
+  3: Begin IronRocks:=IronRocks3; end;
+end;
+Case I of
+  1: Begin x:= 275+random(15); y:=180+random(15); I:=I+1; end;
+  2: Begin x:= 300-random(15); y:=195-random(15); I:=1;end;
+end;
+end;
+
+procedure SetCords;
+begin
+Case InvNumber of
+   28: begin ax:=705; ay:=455; end;
+   27: begin ax:=665; ay:=455; end;
+   26: begin ax:=625; ay:=455; end;
+   25: begin ax:=585; ay:=455; end;
+   24: begin ax:=705; ay:=420; end;
+   23: begin ax:=665; ay:=420; end;
+   22: begin ax:=625; ay:=420; end;
+   21: begin ax:=585; ay:=420; end;
+   20: begin ax:=705; ay:=385; end;
+   19: begin ax:=665; ay:=385; end;
+   18: begin ax:=625; ay:=385; end;
+   17: begin ax:=585; ay:=385; end;
+   16: begin ax:=705; ay:=350; end;
+   15: begin ax:=665; ay:=350; end;
+   14: begin ax:=625; ay:=350; end;
+   13: begin ax:=585; ay:=350; end;
+   12: begin ax:=705; ay:=311; end;
+   11: begin ax:=665; ay:=311; end;
+   10: begin ax:=625; ay:=311; end;
+   9:  begin ax:=585; ay:=311; end;
+   8:  begin ax:=705; ay:=275; end;
+   7:  begin ax:=665; ay:=275; end;
+   6:  begin ax:=625; ay:=275; end;
+   5:  begin ax:=585; ay:=275; end;
+   4:  begin ax:=705; ay:=240; end;
+   3:  begin ax:=665; ay:=240; end;
+   2:  begin ax:=625; ay:=240; end;
+   1:  begin ax:=585; ay:=240; end;
+   end;
+end;
+
+Procedure MoveMouseHuman(x,y: integer );   { Made By GenoDemoN }
+var
+cx,cy,cc,DM,mx,my,omx,omy,sx,sy,kx,ky,oomx,oomy: Integer;
+stfs:longint;
+begin
+sx:=x;
+sy:=y;
+cc:=0;
+stfs:=getsystemtime+20000*1000;
+kx:=0;
+ky:=0;
+omx:=0;
+omy:=0;
+repeat
+dm:=0;
+Getmousepos(cx,cy);
+x:=sx;
+y:=sy;
+If (cx>x) or (cx<x) then
+begin
+mx:=x;
+If (x>cx) and ((cx-x<16) or (cx-x>-16)) then
+mx:=cx+random(15);
+If (x<cx) and ((cx-x<16) or (cx-x>-16)) then
+mx:=cx-random(15);
+end;
+If (cy>y) or (cy<y) then
+begin
+my:=y;
+If (y>cy) and ((cy-y<16) or (cy-y>-16)) then
+my:=cy+random(15);
+If (y<cy) and ((cy-y<16) or (cy-y>-16)) then
+my:=cy-random(15);
+end;
+If (mx=x) and (my=y)  then
+dm:=1;
+movemouse(mx,my);
+wait(random(msfmmh));
+If (omx=oomx) and (omy=oomy) and (cc>100)then
+stfs:=getsystemtime-3151351;
+Getmousepos(cx,cy);
+oomx:=omx;
+oomy:=omy;
+omx:=cx;
+omy:=cy;
+cc:=cc+1;
+until((dm=1) or (getsystemtime>stfs))
+cc:=0;
+end;
+
+Procedure ClickMouseHuman(x,y,rx,ry: integer; left:boolean);    { Made By GenoDemoN }
+var cx,cy,dm: Integer;
+begin
+x:=x+random(rx);
+y:=y+random(ry);
+MoveMouseHuman(x,y);
+Wait(25);
+getmousepos(cx,cy);
+If (cx=x) and (cy=y) then
+dm:=1;
+Clickmouse(x,y,left);
+If (dm=1) then
+cmhs:=cmhs+1;
+If (dm=0) then
+cmhs:=cmhs+1;
+end;
+
+//By Aton and Credits to Bumis
+procedure LoginIfNeeded;
+var o,p:integer;
+begin
+    if((GetColor(405,120)=1842201)and(GetColor(364,121)=1842201))and(Not Loged)then
+ begin
+ P:=0;
+  repeat
+      Status('Trying to Loggin...')
+      Wait(100+random(10));
+      ClickMouseHuman(410,335,100,10,true);
+      Wait(500+random(50));
+      ClickMouseHuman(410,295,100,20,true);
+      Wait(1000+random(100));
+      if((Getcolor(284,234)=65535)and(GetColor(326,336)=16777215))then
+      begin
+        ClickMouseHuman(390,270,3,3,true);
+        Wait(500+random(50));
+        SendKeysSilent(username);
+        Wait(500+random(50));
+        ClickMouseHuman(395,285,3,3,true);
+        Wait(500+random(50));
+        SendKeysSilent(password);
+        Wait(500+random(50));
+        if(GetColor(317,339)=16777215)then
+          begin
+          o:=0;
+          I:=1+random(4)
+          case I of
+          1: begin c:=20; end; 2: begin c:=21; end;
+          3: begin c:=22; end; 4: begin c:=23; end;
+          end;
+            repeat
+            o:=o+1;
+            wait(100+random(10));
+            ClickMouseHuman(250+3,325,100,20,true);
+            Wait(10+random(300));
+            until(Not (GetColor(317,339)=16777215))or(o=c);
+            if(o>=20)then
+              begin
+              p:=p+1;
+              end;
+              if(not(o>=20))then
+                repeat
+               Wait(500+random(50));
+                until(FindBitmap(Login,x,y));
+               if(FindBitmap(Login,x,y))and(not(o>=20))then
+                repeat
+               Wait(500+random(50));
+               ClickMouseHuman(x+200,y-3,10,3,true);
+               Wait(500);
+                until(not FindBitmap(LogIn,x,y));
+            end;
+      end;
+   until(not(GetColor(362,121)=1842201))or(p>=1);
+   if(p>=1)then
+     begin
+     p:=0;
+     Writeln(' ');
+     Writeln('Log in Failed');
+     Writeln(' ');
+     Loged:=true;
+     end
+  end;
+end;
+
+Procedure LogOut(why:string);
+begin
+Writeln(' ');
+Writeln(why);
+Writeln(' ');
+Wait(100+random(10));
+Log:=true;
+ClickMouseHuman(640,500,30,20,true);
+Wait(100+random(10));
+c:=0;
+repeat
+c:=c+1
+ClickMouseHuman(594,395,119,10,true);
+Wait(100+random(10));
+until(c=15);
+end;
+
+Procedure PrintProgressReport; //The EdMandel and Phalanx. Edited by Aton
+var
+  RHours,Minutes,Seconds,RMinutes,RSeconds,avtime:LongInt;
+  Time:String;
+Begin
+   Seconds:=(GetSystemTime-ST) div 1000;
+   Minutes:=Seconds div 60;
+   RHours:=Minutes div 60;
+   Time:=inttostr(Seconds)+' Seconds';
+   avtime:=Seconds/Drops;
+   if Minutes<>0 then
+      begin
+         RSeconds:=Seconds Mod (Minutes*60);
+         Time:=inttostr(Minutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+      end;
+   if RHours<>0 then
+      begin
+         RMinutes:=Minutes Mod (RHours*60);
+         RSeconds:=Seconds Mod (Minutes*60);
+         Time:=inttostr(RHours)+' Hours, '+inttostr(RMinutes)+' Minutes and '
+         +inttostr(RSeconds)+' Seconds';
+      end;
+   begin
+   writeln(' ');
+   writeln('Progress Report:');
+   writeln('Worked For '+Time);
+   writeln(''+inttostr(Talked)+' Time[s] Talked To Random Event')
+   Writeln(''+inttostr(Ran)+' Time[s] Ran From Random Event')
+   Writeln(''+inttostr(Attached)+' Pickaxe[s] Fixed')
+   writeln('Mined and Droped '+inttostr(Drops)+' Time[s] '+inttostr(Drops*(29-Inv))
+   +' Iron');
+   writeln('Gained '+inttostr(Drops*((29-Inv)*35))+' Mining Experience');
+   writeln('Currently Averaging '+inttostr(3600/avtime*(29-inv))+' Iron Mined And '
+   +inttostr(3600/avtime*((29-Inv)*35))+' Experience An Hour');
+   end;
+End;
+
+procedure SetRunOn;
+begin
+   Wait(50+random(5));
+   ClickMouseHuman(713,497,17,20,true);
+   Wait(100+random(100));
+   ClickMouseHuman(620,280,25,25,true);
+   Wait(100+random(10));
+   ClickMouseHuman(640,200,30,20,true);
+   Wait(100+random(10));
+End;
+
+Procedure MapFlag;
+begin
+   Wait(200);
+   if(FindBitmapIn(flag,a,b,550,5,750,177))then
+   begin
+    repeat
+     wait(500);
+    until(not FindBitmapIn(flag,a,b,550,5,750,177));
+    Wait(100);
+   end;
+End;
+
+procedure FindFight;
+begin
+if(Not Loged)then
+begin
+If(FindColorSpiral(x,y,65280,160,100,400,250))then Wait(3000);
+If(FindColorSpiral(x,y,65280,160,100,400,250))then
+begin
+Status('Random Event Found');
+SaveScreenshot('RandomEventRun.bmp');
+Fight:=True;
+Ran:=Ran+1;
+SetRunOn;
+Wait(50+random(10));
+ClickMouseHuman(665,35,5,5,true);
+Wait(100);
+Mapflag;
+Wait(10000+random(1000));
+ClickMouseHuman(655,145,5,5,true);
+Wait(100);
+MapFlag;
+end;
+end;
+End;
+
+procedure TalkToEve;
+var i:integer;
+begin
+Fight:=false;
+C:=0;
+i:=1;
+if(FindColorSpiral(x,y,65535,0,0,500,375))and(Not FindBitmapIn(Box,x,y,0,0,500,375))then
+begin
+repeat
+c:=c+1;
+Status('Searching For Random Event '+inttostr(c)+'/50');
+case i of
+ 1: begin ax:=x+random(75); i:=i+1; end;
+ 2: begin ax:=x-random(75); i:=1;   end;
+end;
+ClickMouseHuman(ax,y+30,0,0,false);
+wait(50+random(10));
+If(FindColorSpiral(x,y,65280,160,100,400,250))then FindFight;
+If(Fight)then break;
+if(FindBitmap(Talk,x,y))or(FindBitmap(TalkY,x,y))then break;
+if(C>=30)then break;
+if(FindColorSpiral(x,y,65535,0,0,500,375))then begin TalkToEve; break; end;
+MoveMouseHuman(x+75+random(10),y-50-random(10))
+Wait(50+random(10));
+until(false);
+end;
+end;
+
+procedure FindText;
+begin
+If(Not Loged)then
+begin
+If(FindColorSpiral(x,y,65280,160,100,400,250))then FindFight;
+If(Not Fight)then
+begin
+If(findColorSpiral(a,b,65535,0,0,500,375))and(Not FindBitmapIn(Box,x,y,0,0,500,375))then
+begin
+SaveScreenShot('RandomEventTalk.bmp');
+TalkToEve;
+Wait(200+random(20));
+end;
+If(FindBitmap(Talk,x,y))or(FindBitmap(TalkY,x,y))then
+begin
+ClickMouseHuman(x,y,10,0,true);
+wait(3000+random(300));
+Talked:=Talked+1;
+end;
+end;
+end;
+End;
+
+Procedure Attach;
+var FindHead,FindHandle:boolean;
+begin
+InvNumber:= 1;
+repeat
+Wait(200+random(20));
+c:= 0;
+Status('Searching For Pickaxe Parts '+inttostr(InvNumber)+'/28')
+SetCords;
+If (FindColorSpiral(a,b,PickHandle,ax,ay,ax+20,ay+25))or
+(FindColorSpiral(a,b,PickHead,ax,ay,ax+20,ay+25))then
+begin
+repeat
+ClickMouseHuman(a,b,2,2,false);
+Wait(200+random(20));
+c:= c+1;
+If(FindBitmap(Handle,x,y))or(FindBitmap(Head,x,y))or(c=2)then break;
+MoveMouseHuman(a+random(10),b-50-random(10))
+Wait(100+random(10));
+Until(false)
+if(FindBitmap(Handle,x,y))then
+begin
+HandleInv:= InvNumber;
+FindHandle:= true;
+MoveMouseHuman(ax+random(10),ay-50-random(10))
+end;
+If(FindBitmap(Head,x,y))then
+begin
+HeadInv:= InvNumber;
+FindHead:= true;
+MoveMouseHuman(ax+random(10),ay-50-random(10))
+end;
+if(c=2)then
+begin
+MoveMouseHuman(ax+random(10),ay-50-random(10))
+end;
+end;
+InvNumber:= InvNumber+1;
+Until(FindHandle)and(FindHead)or(InvNumber=29);
+If(FindHandle)and(FindHead)then
+begin
+Status('Parts Found! Attaching...');
+InvNumber:= HandleInv;
+SetCords;
+If (FindColorSpiral(a,b,PickHandle,ax,ay,ax+20,ay+25))then ClickMouseHuman(a,b,2,2,true);
+Wait(300+random(30));
+InvNumber:= HeadInv;
+SetCords;
+If (FindColorSpiral(a,b,PickHead,ax,ay,ax+20,ay+25))then ClickMouseHuman(a,b,2,2,true);
+Wait(300+random(30));
+Attached:=Attached+1;
+end;
+If(InvNumber=29)then status('Parts Not Found!');
+end;
+
+Procedure CheckForPickHead;
+begin
+If(Not Loged)then begin
+c:=0;
+If(FindColorSpiral(a,b,PickHead,0,0,510,340))then
+begin
+repeat
+c:=c+1;
+If(FindColorSpiral(a,b,PickHead,0,0,510,340))then
+begin
+ClickMouseHuman(a,b,1,1,false)
+Wait(100+random(10));
+end;
+until(FindBitmap(Head,x,y))or(c=10);
+if (FindBitmap(Head,x,y))then
+begin
+ClickMouseHuman(x,y,1,1,true)
+Mapflag;
+Wait(1000+random(100));
+Attach;
+end else end;
+end;
+End;
+
+procedure DoMining;
+begin
+if(Not Loged)then
+begin
+c:= 0;
+   repeat
+     Wait(150);
+     c:=0;
+     LoginIfNeeded;
+     SetRandom;
+      FindFight;
+      FindText;
+      CheckForPickHead;
+   Status('Mining Iron');
+     if(FindColorSpiral(x,y,IronRocks,x-270,y-175,x+270,y+175))then
+     begin
+     ClickMouseHuman(x,y,0,0,False);
+     Wait(50+random(10));
+         If(FindBitmap(Mine,x,y))or(FindBitmap(MineY,x,y))then
+         begin
+         ClickMouseHuman(x,y,30,0,true)
+         Wait(100);
+         Mapflag;
+         wait(1000+random(500));
+             if(GetColor(114,444)=0)and
+             (GetColor(121,442)=0)then
+           begin
+           Repeat
+           C:= c+1;
+           Wait(100+random(10));
+           if(c=10)or(c=20)or(c=29)then FindText;
+           Until(not ((GetColor(114,444)=0)and
+             (GetColor(121,442)=0)))or(c>=30);
+           if(c>=30)then DoMining;
+           end;
+           end;
+           end;
+           MoveMouseHuman(x-75-random(10),y-50-random(10));
+           Wait(100+random(10));
+    until(GetColor(106,410)=0)and(getColor(187,413)=0)or(getColor(490,431)=0)or
+    (GetColor(49,440)=0)and(GetColor(148,440)=0);
+   if(getColor(490,431)=0)then
+   begin
+   LogOut('Out Off Pickaxes');
+   end;
+   if(GetColor(49,440)=0)and(GetColor(148,440)=0)then
+   begin
+   LogOut('You are dead!');
+   end;
+end else
+End;
+
+procedure InvDrop;
+begin
+If(Not Loged)then
+begin
+wait(100+random(10));
+ClickMouseHuman(667,58,5,5,true);
+wait(100+random(10));
+Mapflag;
+ClickMouseHuman(640,200,30,20,true);
+Wait(100+random(10));
+repeat
+SetCords;
+begin
+c:=0;
+repeat
+    Status('Droping '+inttostr(InvNumber)+'/28');
+    MoveMouseHuman(ax+random(10),ay-50-random(10));
+    wait(100+random(10));
+    ClickMouseHuman(ax,ay,20,25,false);
+    wait(300);
+    C:=c+1
+Until(FindBitMapIn(Drop,x,y,550,190,760,510))or
+(FindBitMapIn(Yellowdrop,x,y,550,190,760,510))or(c=15);
+end;
+   if(FindBitMapIN(Drop,x,y,550,190,760,510))
+   or(FindBitMapIn(Yellowdrop,x,y,550,190,760,510))then
+   begin
+   repeat
+     ClickMouseHuman(x,y,20,0,true);
+     wait(100+random(10));
+Until(not FindBitMapIn(Drop,x,y,550,190,760,510))
+or(not FindBitMapIn(Yellowdrop,x,y,550,190,760,510));;
+end;
+InvNumber:=InvNumber+1;
+until(InvNumber>28)
+If(InvNumber>28)then
+begin
+ClickMouseHuman(640,115,5,5,true);
+wait(100+random(10));
+Mapflag;
+end;
+end;
+End;
+
+Procedure LoadBmps;
+begin
+flag := BitmapFromString(2, 2,
+        'FF00005D3311C656045D3311');
+Box := BitmapFromString(6, 3,
+       '0000000000005D54475D54470000000000000000000000005D5447' +
+       '5D54470000000000000000000000005D54475D5447000000000000' +
+       '');
+Talk := BitmapFromString(17, 10,
+        'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+        '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+        '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+        'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF');
+TalkY := BitmapFromString(17, 10,
+        'FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+        '000000000000000000000000000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000000000000000FFFF00FFFF00FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+        '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000FFFF00FFFF00000000000000000000000000FFFF00' +
+        'FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00');
+drop := BitmapFromString(14, 12,
+        '000000000000000000000000000000000000000000000000000000' +
+        '000000000000000000000000000000000000FFFFFFFFFFFFFFFFFF' +
+        'FFFFFF000000000000000000000000000000000000000000000000' +
+        '000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000' +
+        '000000000000000000000000000000000000000000FFFFFFFFFFFF' +
+        '000000000000FFFFFFFFFFFF000000000000000000000000000000' +
+        '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000000000000000000000000000000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFFFFFFFF000000000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+        '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFFFFFFFF' +
+        'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+        '000000000000000000000000000000000000000000000000000000' +
+        '000000000000000000000000000000000000');
+Yellowdrop := BitmapFromString(14, 12,
+        '000000000000000000000000000000000000000000000000000000' +
+        '000000000000000000000000000000000000FFFF00FFFF00FFFF00' +
+        'FFFF00000000000000000000000000000000000000000000000000' +
+        '000000000000FFFF00FFFF00000000FFFF00FFFF00000000000000' +
+        '000000000000000000000000000000000000000000FFFF00FFFF00' +
+        '000000000000FFFF00FFFF00000000000000000000000000000000' +
+        '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000000000000000000000000000000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00FFFF00000000000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+        '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000000000000000FFFF00FFFF00FFFF00' +
+        'FFFF00FFFF00000000000000000000FFFF00FFFF00000000000000' +
+        '000000000000000000000000000000000000000000000000000000' +
+        '000000000000000000000000000000000000');
+Mine := BitmapFromString(14, 12,
+        '000000000000000000000000000000000000000000000000000000' +
+        '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+        '000000000000000000FFFFFFFFFFFF000000000000000000000000' +
+        '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+        'FFFFFF000000000000000000000000000000000000FFFFFFFFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFFFFFFFF000000000000000000' +
+        '000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000' +
+        '000000000000000000000000FFFFFFFFFFFF000000000000000000' +
+        '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFF' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000000000000000000000000000000000000000000000' +
+        '000000000000000000000000000000000000');
+MineY := BitmapFromString(14, 12,
+        '000000000000000000000000000000000000000000000000000000' +
+        '000000000000000000000000000000000000FFFF00FFFF00000000' +
+        '000000000000000000FFFF00FFFF00000000000000000000000000' +
+        '000000000000FFFF00FFFF00000000000000000000000000FFFF00' +
+        'FFFF00000000000000000000000000000000000000FFFF00FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00FFFF00000000000000000000' +
+        '000000000000000000FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000FFFF00FFFF00000000FFFF00FFFF00000000000000' +
+        '000000000000000000000000FFFF00FFFF00000000000000000000' +
+        '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000000000000000FFFF00FFFF00' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000000000000000000000000000000000000000000000' +
+        '000000000000000000000000000000000000');
+Login := BitmapFromString(11, 7,
+        '000000000000FFFF00000000000000000000000000000000000000' +
+        '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00FFFF00000000000000FFFF00000000000000000000' +
+        '000000FFFF00000000000000000000FFFF00000000FFFF00000000' +
+        '000000000000000000FFFF00000000000000000000FFFF00000000' +
+        'FFFF00000000000000000000000000FFFF00000000000000000000' +
+        'FFFF00000000FFFF00000000000000000000000000FFFF00000000' +
+        '000000000000FFFF00000000000000FFFF00FFFF00000000000000' +
+        '000000FFFF00FFFF00FFFF00000000');
+Handle := BitmapFromString(19, 10,
+       'FF9040FF9040000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000FF9040FF9040000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000FF9040FF9040000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000FF9040FF9040000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000FF9040FF9040FF9040FF9040FF9040' +
+       '000000000000000000000000FF9040FF9040FF9040FF9040000000' +
+       '000000000000FF9040FF9040FF9040FF9040FF9040FF9040000000' +
+       'FF9040FF9040000000000000FF9040FF9040000000000000FF9040' +
+       'FF9040000000000000FF9040FF9040FF9040FF9040FF9040000000' +
+       '000000FF9040FF9040000000000000000000FF9040FF9040FF9040' +
+       'FF9040FF9040000000000000FF9040FF9040000000FF9040FF9040' +
+       '000000000000FF9040FF9040000000000000FF9040FF9040000000' +
+       '000000FF9040FF9040000000000000FF9040FF9040000000FF9040' +
+       'FF9040000000000000FF9040FF9040000000000000FF9040FF9040' +
+       '000000000000FF9040FF9040000000000000FF9040FF9040000000' +
+       'FF9040FF9040000000000000FF9040FF9040000000000000000000' +
+       'FF9040FF9040FF9040FF9040FF9040000000000000FF9040FF9040' +
+       '000000');
+Head := BitmapFromString(14, 10,
+       'FF9040FF9040000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000FF9040FF9040000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000FF9040FF9040000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000FF9040FF9040000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000FF9040FF9040FF9040FF9040FF9040000000000000' +
+       '000000000000FF9040FF9040FF9040FF9040000000FF9040FF9040' +
+       'FF9040000000FF9040FF9040000000000000FF9040FF9040000000' +
+       '000000FF9040FF9040FF9040FF9040000000000000FF9040FF9040' +
+       '000000000000FF9040FF9040000000000000FF9040FF9040FF9040' +
+       'FF9040000000000000FF9040FF9040000000000000FF9040FF9040' +
+       'FF9040FF9040FF9040000000FF9040FF9040000000000000FF9040' +
+       'FF9040000000000000FF9040FF9040000000000000000000000000' +
+       'FF9040FF9040000000000000FF9040FF9040000000000000000000' +
+       'FF9040FF9040FF9040FF9040FF9040');
+end;
+begin
+LoadBmps;
+ST:=GetSystemTime;
+Drops:=0; Talked:=0; Ran:=0; Attached:=0;
+Log:=false;
+LoginIfNeeded;
+repeat
+If(Loged)then break;
+DoMining;
+If(Log)then break;
+InvNumber:=Inv;
+InvDrop;
+Drops:=Drops+1;
+PrintProgressReport;
+until(Log)or(Loged);
+end.
+

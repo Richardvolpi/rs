@@ -1,0 +1,272 @@
+// Ultimate Tree power chopper
+//Settings:
+//-Silent mouse off
+//-Stand in a place where there is only regular trees!
+//-Stand in a place where the trees won't get you lost
+//-A place where there is a bundle of trees
+//-shaft fletching = 1
+//-Drop all = 0
+//-If using drop all axe must be equipped
+//-^Inventory = empty
+//-If shaft fletching then, Knife in first slot
+//-No anti random yet
+//-Report any bugs
+
+
+program UltimateTreePowerChopper;
+
+var
+x,y,a,b,flag,c,ltree,htree: Integer;
+
+procedure ranobj(objr, objr0: Integer; ran, ran0: Integer);    //random mouse function
+begin
+x:=objr-random(ran)
+y:=objr0+random(ran0)
+end;
+
+procedure ranobj2(ran1, ran2: Integer);                //random mouse function
+begin
+x:=x+random(ran1)
+y:=y+random(ran2)
+end;
+
+procedure Flagwait;
+begin
+   repeat
+    wait(500+random(100));
+   until(not (FindBitmapIn(flag,x,y,562,9,751,179)));
+    wait(100+random(100));
+  end;
+
+procedure Mouse(mx, my, ran, ran2: Integer; Mbtn: string); //By OhDearUrDead
+begin
+  Wait(20+random(50));
+
+  mx:=mx+random(ran)
+  my:=my+random(ran2)
+  MoveMouseSmooth(mx,my);
+  Wait(200+random(200));
+  if(Mbtn = 'left')then ClickMouse(mx,my,true);
+  if(Mbtn = 'right')then ClickMouse(mx,my,false);
+  Wait(80+random(100));
+end;
+
+procedure RWait (ranlength: string);
+begin
+  if(ranlength = 'xxshort') then
+    begin
+    wait(15+random(15)+random(15))
+    end;
+  if(ranlength = 'xshort') then
+    begin
+    wait(50+random(25)+random(25))
+    end;
+  if(ranlength = 'short') then
+    begin
+    wait(100+random(50)+random(50))
+    end;
+  if(ranlength = 'medium') then
+    begin
+    wait(200+random(100)+random(100))
+    end;
+  if(ranlength = 'long') then
+    begin
+    wait(500+random(250)+random(250))
+    end;
+  if(ranlength = 'xlong') then
+    begin
+    wait(1000+random(500)+random(500))
+    end;
+  if(ranlength = 'xxlong') then
+    begin
+    wait(1000+random(500)+random(500)+random(500)+random(500))
+    end;
+end;
+
+procedure FindTextSpiral(txt: String; dx,dy: Integer; SpiralSize: Integer; step, SpiralWait: Integer);  // By OhDearUrDead, Edited By Khain
+var px, py, qx, qy: Integer;
+    FoundText: Boolean;
+begin
+  FoundText:= false;
+  px:= dx; py:= dy; qx:= dx; qy:= dy;
+  x:= dx;
+  y:= dy;
+  MoveMouseSmooth(x,y);
+  repeat
+  Spiralwait:= Spiralwait+random(50);
+    MoveMouse(x,y)
+    px:= px + 20; py:= py + 20;
+    qx:= qx - 20; qy:= qy - 20;
+    repeat
+      getmousepos(x,y)
+      x:= x + step;
+      MoveMouseSmooth(x,y);
+      Wait(SpiralWait);
+      if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+    Until(x >= px)or(FoundText);
+    if(FoundText)then Break;
+    repeat
+      getmousepos(x,y)
+      y:= y + step;
+      MoveMouseSmooth(x,y);
+      Wait(SpiralWait);
+      if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+    Until(y >= py)or(FoundText);
+    if(FoundText)then Break;
+    repeat
+      getmousepos(x,y)
+      x:= x - step;
+      MoveMouseSmooth(x,y);
+      Wait(SpiralWait);
+      if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+    Until(qx >= x)or(FoundText);
+    if(FoundText)then Break;
+    repeat
+      getmousepos(x,y)
+      y:= y - step;
+      MoveMouseSmooth(x,y);
+      Wait(SpiralWait);
+      if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+    Until(qy >= y)or(FoundText);
+  Until(px > dx + SpiralSize)or(FoundText);
+end;
+
+Procedure MakeShafts;
+begin
+ repeat
+  ranobj(590,217,14,20)
+  Mouse(x,y,15,5,'left')   // Knife
+  rwait('medium')
+  ranobj(722,439,20,15)
+  Mouse(x,y,15,5,'left')   // Log last slot
+  rwait('short')
+  ranobj(121,391,40,30)
+  MoveMouseSmooth(x,y)
+  Wait(800 + Random (300))
+  ClickMouse(x,y,True)
+  rwait('medium')
+ until (getcolor(702,451)=4345174)
+end;
+
+procedure CutTrees;
+begin
+ c:=0;
+ repeat
+  repeat
+   begin
+   rwait('short')
+   Status('Finding Trees');
+   c:=c+1;
+   if(FindColorSpiralTolerance(x,y,1386536,230,110,330,250,6))then // First search method
+    begin
+     x:=x-random(10)
+     y:=y-random(10)
+     movemousesmooth(x,y)
+     rwait('medium')
+    end;
+   if(c>1)then  // if not find after 6 turns, do another method
+   begin
+   x:=196+random(136);
+   y:=108+random(114);
+   if(FindColorSpiralTolerance(x,y,1386536,x-10,y-10,x-10,y-10,6))then    // Second search method
+    begin
+     c:=0;
+     x:=x-random(10)
+     y:=y-random(10)
+     movemousesmooth(x,y)
+     rwait('medium')
+    end
+    else
+   if(FindColorSpiralTolerance(x,y,1386536,30,30,500,340,6))then   // if second search method was invalid do this method
+    begin
+     x:=x-random(10)
+     y:=y-random(10)
+     movemousesmooth(x,y)
+     rwait('medium')
+    end;
+    end;
+    end;
+  until(findcolortolerance(a,b,13492504,75,5,85,15,150))         // Until find bluish color in the upper text "Tree"
+  or   (findcolortolerance(a,b,14609167,75,5,85,15,150))
+  or   (findcolortolerance(a,b,14344712,75,5,85,15,150))
+      c:=0;
+      Status('Cutting Trees');
+      clickmouse(x,y,true)
+      rwait('long');
+      flagwait;
+      rwait('xxlong')
+ until(not (getcolor(702,451)=4345174))
+end;
+
+procedure loadbitmaps;
+begin
+   flag := BitmapFromString(8, 15,
+       '000000000000000000000000000000000000FF00005D3311000000' +
+       '000000000000000000000000FF0000FF00005D3311000000000000' +
+       '000000000000FF0000FF0000FF00005D3311000000000000000000' +
+       'FF0000FF0000FF0000FF00005D3311000000000000FF0000FF0000' +
+       'FF0000FF0000FF00005D3311000000FF0000FF0000FF0000FF0000' +
+       'FF0000FF00005D3311FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF00005D3311000000000000000000000000000000000000C65604' +
+       '5D3311000000000000000000000000000000000000C656045D3311' +
+       '000000000000000000000000000000000000C656045D3311000000' +
+       '000000000000000000000000000000C656045D3311000000000000' +
+       '000000000000000000000000C656045D3311000000000000000000' +
+       '000000000000000000C656045D3311000000000000000000000000' +
+       '000000000000C656045D3311000000000000000000000000000000' +
+       '000000C656045D3311');
+
+  ltree := BitmapFromString(19, 7,
+       '17DEC817DEC816DDC816DDC816DDC8000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '00000000000005C8C205C8C2000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '00000000000000000016DDC805C8C2000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '00000000000000000000000016DDC805C8C2000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '00000000000000000000000000000016DDC805C8C2000000000000' +
+       '00000000000015DCC715DCC715DCC715DCC7000000000000000000' +
+       '15DCC717DCC717DCC717DCC700000000000016DDC805C8C2000000' +
+       '00000000000000000015DCC705C7C205C7C2000000000000000000' +
+       '15DCC715DCC700000000000005C7C205C7C200000016DDC805C7C2' +
+       '161C0600000000000000000015DCC705C7C2000000000000000000' +
+       '00000015DCC705C7C200000000000017DCC705C7C2');
+
+  tree := BitmapFromString(11, 7,
+       '07CAC805CAC809CCCA0CCDCB0CCDCB0CCDCB000000000000000000' +
+       '00000000000000000000000001C5C501C5C50000000000000D0907' +
+       '00000000000000000000000000000000000007CAC801C6C5000000' +
+       '00000000000000000000000000000000000000000000000008CDC8' +
+       '02C6C6000000000000000000000000000000000000000000000000' +
+       '00000005CBC804C8C70000000000000000000CCDCB0CCDCB08CAC9' +
+       '08CAC900000000000002C7C604C8C70000000000000000000CCDCB' +
+       '02C7C601C6C500000000000000000008CDC804C8C7000000000000' +
+       '0000000CCDCB02C7C6000000000000');
+
+  htree := BitmapFromString(18, 7,
+       '0EE9DB0EE9DB0EE9DB0EE9DB0EE9DB000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '00000003DBD803DBD8000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '0000000EE9DB03DBD8000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '0000000EE9DB03DBD8000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '0000000EE9DB03DBD80000000000000000000000000EE9DB0EE9DB' +
+       '0EE9DB0EE9DB0000000000000000000DE8DB0DE8DB0DE8DB0DE8DB' +
+       '0000000EE9DB03DBD80000000000000000000000000EE9DB03DBD7' +
+       '03DBD70000000000000000000DE8DB0DE8DB161C06161C0603DBD7' +
+       '0000000EE9DB03DBD80000000000000000000000000DE8DB03DBD7' +
+       '0000000000000000000000000DE8DB03DBD7161C060000000DE8DB' +
+       '');
+end;
+
+begin
+loadbitmaps;
+repeat
+CutTrees;
+MakeShafts;
+until(false)
+end.
+

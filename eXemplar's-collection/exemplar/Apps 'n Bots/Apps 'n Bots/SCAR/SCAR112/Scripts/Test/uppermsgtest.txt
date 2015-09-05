@@ -1,0 +1,8 @@
+program New;
+begin
+  while(true)do
+  begin
+    Writeln(GetUpperMsg);
+    Wait(500);
+  end;
+end.

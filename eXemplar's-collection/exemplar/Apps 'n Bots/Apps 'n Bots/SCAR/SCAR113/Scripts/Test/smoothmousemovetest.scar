@@ -1,0 +1,17 @@
+//open mspaint, create new big enough image
+//run this script if you want to see the trail
+program New;
+var
+  x, y: Integer;
+begin
+  SetMouseMode(False);
+  GetMousePos(x, y);
+  while(True)do
+  begin
+    Wait(1000);
+    HoldMouse(x, y, True);
+    x:= Random(500);
+    y:= Random(300);
+    MoveMouseSmooth(x, y);
+  end;
+end.

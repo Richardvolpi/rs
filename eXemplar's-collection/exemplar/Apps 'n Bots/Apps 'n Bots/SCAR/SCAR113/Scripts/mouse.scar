@@ -1,0 +1,12 @@
+program New;
+var x,y:integer;
+
+begin
+
+repeat
+      wait(100);
+      getmousepos(x,y)
+      clickmouse(1,1,true);
+until(1 = 2);
+
+end.

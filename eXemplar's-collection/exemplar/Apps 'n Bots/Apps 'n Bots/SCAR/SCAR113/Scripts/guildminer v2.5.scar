@@ -1,0 +1,1188 @@
+//////////////////////////////////////////////////////////////////////////////////////////////
+///                                  GuildMiner ver 2.5                                    ///
+///                                By Bud_wis_er_420                                       ///
+//////////////////////////////////////////////////////////////////////////////////////////////
+/// Ver 1.0 - Ver 1.7                                                                      ///
+///   1.Fixed somemore bugs                                                                ///
+/// Ver 1.8                                                                                ///
+///   1.Added boxbreaker2 include (killerbz BoxOpener Modified By Akumara V1.1)            ///
+///   2.Fixed lots of bugs                                                                 ///
+/// Ver 1.9                                                                                ///
+///   1.Added separated Pickaxe head fixer(not 100% need bitmap if rihgt click             ///
+///     "Pickup Pickaxe Head")e-mail me if someone gets it befor I do                      ///
+///   2.fixed login bug and a few little tweaks                                            ///
+/// Ver 2.0                                                                                ///
+///   1.Fixed Banking bug.                                                                 ///
+///   1.Changed a few things to make it run better                                         ///
+/// Ver 2.1                                                                                ///
+///   1.fixed a few things i missed.                                                       ///
+/// Ver 2.2                                                                                ///
+///   1. fixed lagging at bank                                                             ///
+/// Ver 2.3                                                                                ///
+///   1 Fixed a few more bugs                                                              ///
+/// Ver 2.4                                                                                ///
+///   1. tweeked it some;lagged when go to center, click on ladder and booth bug           ///
+/// Ver 2.5                                                                                ///
+///   1. fix somemore bugs                                                                 ///
+//////////////////////////////////////////////////////////////////////////////////////////////
+/// Credits T0: This was Atons Script to start with. I changed so much I dont know whats   ///
+///             left of his, but I want to give him credit. I started with his script      ///
+///             cause it had alot of things I needed already there. I got tired of tring   ///
+///             to get my guild miner ,that you don't have to enter any colors in, to      ///
+///             work. I know the public has been needing a working guild miner for a long  ///
+///             time ,so I just fixed Atons.                                               ///
+//////////////////////////////////////////////////////////////////////////////////////////////
+/// Instructions:                                                                          ///
+///   1. ADD COLORS THAT ARE REQESTED IN 56-77 LINES!                                      ///
+///   2. Try to get a north angle or almost as north!                                      ///
+///   3. U must look from above in RS2!                                                    ///
+///   4. V-bright, 32bit colors                                                            ///
+///   5. U NEED TO HAVE PUBLIC CHAT OFF/HIDE                                               ///
+///   6. U Need Scar version 1.13                                                          ///
+///   7. START IN EAST BANK OF FALADOR!                                                    ///
+///   8. SILENT MOUSE OFF!                                                                 ///
+///   9. PICKAXES MUST BE IN FIRST BANK SLOT!!                                             ///
+///   10.Have boxbreaker2 include file in script folder                                    ///
+//////////////////////////////////////////////////////////////////////////////////////////////
+program GuildMiner;
+{.include BoxBreaker2.txt}
+var x, y, a, c, flag,  climb1, Climb2, The_Bank,b,qbank,yqbank, widAllY, widAll,
+trips, L, Talk, TalkY, Bpicks, Fpicks, Talked, Ran, login, Mine1, Mine2,Handle,PickHead:integer;
+ST:LongInt;
+Loged,Go,Find,Fight,foundmith:boolean;
+const
+
+
+(*~~~~~~~~~~~~~~~~~~~~ Setup ~~~~~~~~~~~~~~~~~~~~*)
+Mith = 0;//1 to mine mith. 0 to not mine mith
+Pick = 2;//1 if you can't wield pickaxe. 2 if you can wield pickaxe
+
+username = ''; //Enter Your Username
+password = '';  //Enter Your Password
+
+(*~~~~~~~~~~~~ Colors On Main Screen ~~~~~~~~~~~~*)
+PickaxeColor = 6576707; //Add Color of Pickaxe head using
+Ladder1  = 872307;  //Add Ladder Color by statue
+Ladder2 = 6180;     //Add Ladder color in guild(darkest color)
+Booth = 538699;      //Add Light Brown color at the top corner of ea. bank booth window
+
+(*~~~~~~~~~~~~~~ Colors On Minimap ~~~~~~~~~~~~~~*)
+Bank = 6676223;  //Add a yellow color of Bank simbol in MINIMAP!
+BankPpl = 195836;  //Add yellow color of bank people on mini map
+Walk1 = 9803169;   //Add the color of the statue (right next to the ladder when going down) in MINIMAP!
+Ladder = 1717872;  //Add Ladder color in guild in MINIMAP!
+Rocks = 7626346;   //Add Coal Rocks color in MINIMAP!
+GColor = 2375543;  //Add Guild simbol color(Pickaxe color) in MINIMAP!
+
+(*~~~~~~~~~~~~~~~~~ End Of Setup ~~~~~~~~~~~~~~~~*)
+
+
+procedure LoginIfNeeded;
+begin
+if(IsTextAt2(293,251,'Username',0))or
+(IsTextAt2(309,241,'Welcome to RuneScape',0))then
+begin
+if(IsTextAt2(309,241,'Welcome to RuneScape',0))then
+ begin
+  movemousesmooth(396+random(132),276+random(28));
+  wait(200+random(100));
+  getmousepos(x,y);
+  clickmouse(x,y,true);
+  wait(200+random(100));
+ end;
+if(IsTextAt2(293,251,'Username',50))then
+   begin
+    movemousesmooth(368+random(20),252+random(3));
+  wait(200+random(100));
+  getmousepos(x,y);
+  clickmouse(x,y,true);
+  wait(500+random(500));
+    SendKeysSilent(username);
+    movemousesmooth(368+random(20),268+random(3));
+  wait(200+random(100));
+  getmousepos(x,y);
+  clickmouse(x,y,true);
+  wait(500+random(500));
+    SendKeysSilent(password);
+    movemousesmooth(236+random(132),306+random(28));
+  wait(200+random(100));
+  getmousepos(x,y);
+  clickmouse(x,y,true);
+  wait(200+random(100));
+    repeat
+     c:=c+1;
+     wait(500);
+    until(GetColor(201,90)=65535)and(GetColor(323,105)=65535) or(c=30)
+   end;
+if(GetColor(201,90)=65535)and(GetColor(323,105)=65535)then
+ begin
+  movemousesmooth(428+random(50),90+random(3));
+  wait(200+random(100));
+  getmousepos(x,y);
+  clickmouse(x,y,true);
+  wait(1000+random(500));
+ end;
+end;
+end;
+
+
+Procedure PrintProgressReport; //The EdMandel and Phalanx. Edited by Aton
+var
+ RHours,Minutes,Seconds,RMinutes,RSeconds,avtime:LongInt;
+ Time:String;
+Begin
+  Seconds:=(GetSystemTime-ST) div 1000;
+  Minutes:=Seconds div 60;
+  RHours:=Minutes div 60;
+  Time:=inttostr(Seconds)+' Seconds';
+  avtime:=Seconds/trips;
+  if Minutes<>0 then
+     begin
+        RSeconds:=Seconds Mod (Minutes*60);
+        Time:=inttostr(Minutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+     end;
+  if RHours<>0 then
+     begin
+        RMinutes:=Minutes Mod (RHours*60);
+        RSeconds:=Seconds Mod (Minutes*60);
+        Time:=inttostr(RHours)+' Hours, '+inttostr(RMinutes)+' Minutes and '
+        +inttostr(RSeconds)+' Seconds';
+     end;
+  begin
+  writeln(' ');
+  writeln('Progress Report:');
+  writeln('Worked for '+Time);
+  Writeln(''+inttostr(Ran)+' Time[s] Ran From Random Event')
+  writeln(''+inttostr(Bpicks)+' New Pickaxes Taken')
+  writeln(''+inttostr(Fpicks)+' Pickaxes Fixed')
+  writeln('Mined and Banked ('+inttostr(trips)+' Time[s]) '+inttostr(trips*28)
+  +' Coal');
+  writeln('Gained '+inttostr(trips*1400)+' Mining Experience');
+  writeln('Currently Averaging '+inttostr(3600/avtime*28)+' Coal Mined and '
+  +inttostr(3600/avtime*1400)+' Experience an Hour');
+  end;
+End;
+
+procedure SetRunOff;
+begin
+  movemousesmooth(700+random(20),470+random(20));
+  wait(200+random(200));
+  getmousepos(x,y);
+  clickmouse(x,y,true);
+  wait(200+random(200));
+  movemousesmooth(565+random(20),255+random(20));
+  wait(200+random(200));
+  getmousepos(x,y);
+  clickmouse(x,y,true);
+  wait(200+random(200));
+  movemousesmooth(635+random(20),175+random(20));
+  wait(200+random(200));
+  getmousepos(x,y);
+  clickmouse(x,y,true);
+  wait(200+random(200));
+end;
+
+procedure SetRunOn;
+begin
+  movemousesmooth(700+random(20),470+random(20));
+  wait(200+random(200));
+  getmousepos(x,y);
+  clickmouse(x,y,true);
+  wait(200+random(200));
+  movemousesmooth(610+random(20),255+random(20));
+  wait(200+random(200));
+  getmousepos(x,y);
+  clickmouse(x,y,true);
+  wait(200+random(200));
+  movemousesmooth(635+random(20),175+random(20));
+  wait(200+random(200));
+  getmousepos(x,y);
+  clickmouse(x,y,true);
+  wait(200+random(200));
+end;
+
+procedure flagwait;
+begin
+c:=0;
+  wait(500+random(200));
+  if FindBitmapIn(flag,x,y,576,9,720,155)then
+  repeat
+  c:=c+1;
+  wait(500);
+  until not FindBitmapIn(flag,x,y,576,9,720,155)or(c>100)
+  wait(500+random(200));
+end;
+
+Procedure MapFlag;
+begin
+  Wait(200);
+  C:=0;
+  if(FindBitmapIn(flag,x,y,550,5,750,177))then
+  begin
+   repeat
+    Wait(100);
+    C:=c+1;
+   until(FindBitmapIn(flag,x,y,640,65,671,101))or
+   (not FindBitmapIn(flag,x,y,550,5,750,177))or(C>200);
+   Wait(200);
+  end;
+end;
+
+Procedure GoCenter;
+begin
+c:=0;
+x:=145;
+y:=155;
+If(FindColorspiral(x,y,GColor,550,15,750,160))then
+begin
+Status('Going to Center');
+MoveMouseSmooth(x+5-random(10),y+5-random(10));
+Wait(200+random(100));
+GetMousePos(x,y);
+ClickMouse(x,y,true);
+Wait(500+random(50));
+
+repeat
+c:=c+1;
+wait(500)
+until(FindColorSpiralTolerance(x,y,2570810,5,5,513,334,5))or(c>20)
+end;
+If(Not(FindColor(x,y,GColor,550,5,750,177)))and
+(FindColor(x,y,Rocks,576,91,700,155))then
+Begin
+if (FindColor(x,y,Rocks,576,91,700,155))then
+Status('Going To Center');
+MoveMouseSmooth(x+2-random(4),y+2-random(4));
+Wait(200+random(100));
+GetMousePos(x,y);
+ClickMouse(x,y,true);
+wait(200+random(100));
+Mapflag;
+Wait(500+random(100));
+if not(FindColorSpiralTolerance(x,y,2570810,5,5,513,334,5))then
+begin
+GoCenter;
+end;
+end;
+End;
+
+procedure NewPicks;
+begin
+wait(200+random(100));
+MoveMouseSmooth(82+random(15),66+random(15));
+Wait(200+random(100));
+GetMousePos(x,y);
+ClickMouse(x,y,true);
+Wait(500+random(100));
+end;
+
+Procedure CloseBank;
+begin
+Wait(200+random(10));
+MoveMouseSmooth(430,44);
+Wait(200+random(100));
+ClickMouse(430,44,true);
+Wait(500+random(100));
+end;
+
+Procedure TakeOff;
+begin
+MoveMouseSmooth(680,200);
+Wait(200+random(100));
+ClickMouse(680,200,true);
+Wait(200+random(100));
+MoveMouseSmooth(590,320);
+Wait(200+random(100));
+ClickMouse(590,320,true);
+Wait(200+random(100));
+MoveMouseSmooth(640,200);
+Wait(200+random(100));
+ClickMouse(640,200,true);
+Wait(200+random(100));
+end;
+
+Procedure PutOn;
+begin
+MoveMouseSmooth(640,200);
+Wait(200+random(100));
+ClickMouse(640,200,true);
+Wait(200+random(100));
+MoveMouseSmooth(580,240);
+Wait(200+random(100));
+ClickMouse(580,240,true);
+Wait(500+random(110));
+end;
+
+procedure GoUp;
+begin
+C:=0;
+repeat
+ C:=c+1;
+ repeat
+ c:=c+1;
+ Status('Going up '+inttostr(c)+'/50');
+ x:=280;
+ y:=170;
+ If(FindColorspiral(x,y,Ladder2,75,50,260,210))then
+ MoveMouseSmooth(x+2-random(4),y+15-random(30));
+ Wait(500+random(100));
+ until (FindBitmapToleranceIn(Climb1,x,y,5,5,20,20,80))and
+ (FindBitmapToleranceIn(Climb2,x,y,68,5,100,20,80))or(C>50)
+ if(FindBitmapToleranceIn(Climb2,x,y,5,5,20,20,80))and
+ (FindBitmapToleranceIn(Climb1,x,y,68,5,100,20,80))then;
+ begin
+ GetMousePos(x,y);
+ ClickMouse(x,y,true);
+ repeat
+ Wait(500+random(100));
+ c:=c+1;
+ until(FindColor(x,y,Walk1,630,70,680,100))or(c>30)
+ end;
+until(FindColor(x,y,Walk1,630,70,680,100))
+status('made it');
+end;
+
+procedure GoDown;
+begin
+C:=0;
+begin
+repeat
+C:=C+1;
+repeat
+If(FindColor(x,y,Rocks,550,5,750,177))and(getcolor(583,77)=0)and(getcolor(592,48)=0)then break;
+C:=C+1;
+x:=300;
+y:=145;
+Status('Going Down '+inttostr(c)+'/50');
+If(FindColorspiral(x,y,Ladder1,50,80,250,250))then
+MoveMouseSmooth(x+8-random(4),y+random(5));
+Wait(500+random(300));
+until(FindBitmapToleranceIn(Climb1,x,y,5,5,20,20,50))and(FindBitmapToleranceIn(Climb2,x,y,80,5,105,20,50))or(C>=50)
+if (C>=50)then break;
+if(FindBitmapToleranceIn(Climb1,x,y,5,5,20,20,50))and(FindBitmapToleranceIn(Climb2,x,y,80,5,105,20,50))then
+begin
+GetMousePos(x,y);
+ClickMouse(x,y,true);
+Wait(200+random(10));
+flagwait;
+end;
+until(FindColor(x,y,Rocks,550,5,750,177))and(getcolor(583,77)=0)and(getcolor(592,48)=0)or(C>20)
+end;
+begin
+L:=0;
+repeat
+L:= L+5;
+Status('Cheking are we in Guild '+inttostr(L)+'/100');
+Wait(200);
+Until((FindColor(x,y,Rocks,550,5,750,177))and(getcolor(583,77)=0)and(getcolor(592,48)=0)or(L>=100));
+end;
+if(FindColor(x,y,Rocks,550,5,750,177))and(getcolor(583,77)=0)and(getcolor(592,48)=0)then
+begin
+Status('We are in Guild!');
+SetRunOn;
+wait(200+random(100));
+MoveMouseSmooth(x-random(4),y);
+Wait(200+random(100));
+GetMousePos(x,y);
+ClickMouse(x,y,true);
+Wait(200+random(100));
+end;
+if not(FindColor(x,y,Rocks,550,5,750,177))and not(getcolor(583,77)=0)and not(getcolor(592,48)=0)or(L>=100)then
+begin
+Status('Guild Not Found!');
+end;
+end;
+
+procedure ToLadder;
+begin
+c:=0;
+if(Not Loged)and(FindColor(x,y,rocks,575,10,720,140))and(getcolor(645,150)=0)then
+ begin
+ repeat
+ If (FindColor(x,y,Rocks,590,70,625,110))then
+  begin
+  Status('Going To Ladder 1/2');
+  MoveMouseSmooth(x-random(5),y);
+  Wait(200+random(100));
+  GetMousePos(x,y);
+  ClickMouse(x,y,true);
+  Wait(1000+random(200));
+  Mapflag;
+  end;
+ If not(FindColor(x,y,Rocks,590,70,625,110))then break;
+ until (FindColor(x,y,ladder,590,70,635,110))
+ If (FindColor(x,y,ladder,585,40,630,110))then
+  begin
+  Status('Going To Ladder 2/2');
+  MoveMouseSmooth(x+15+random(5),y+2+random(4));
+  Wait(200+random(100));
+  GetMousePos(x,y);
+  ClickMouse(x,y,true);
+  Wait(1000+random(200));
+  flagwait;
+  GoUp;
+  end;
+  end;
+End;
+
+function FindGasCommented(findx,findy:integer):boolean; //Created by Odie5533
+var gx,gy,gasc:integer;
+begin
+if(FindColorSpiralTolerance(findx,findy,4221285,findx-16,findy-16,findx+16,findy+16,20))then
+ for gy:=findy-16 to findy+16 do
+  for gx:=findx-16 to findx+16 do
+   if(SimilarColors(GetColor(gx,gy),3036237,20))or
+     (SimilarColors(GetColor(gx,gy),4221285,20))or
+     (SimilarColors(GetColor(gx,gy),6785163,20))then
+    gasc:=gasc+1;
+if(gasc>150)then result:=true;
+end;
+
+Procedure RunFromEve;
+begin
+If(FindColor(x,y,65535,160,100,400,250))or(FindColor(x,y,65280,160,100,400,250))then
+begin
+Status('Random Event Found');
+SaveScreenShot('RandomEventRun'+inttostr(ran)+'.bmp');
+Fight:=True;
+Ran:=Ran+1
+SetRunOn;
+ToLadder;
+Status('Waiting 5 sec...');
+Wait(5000);
+GoDown;
+end;
+END;
+
+
+procedure FindEve;
+begin
+If(FindColor(x,y,65280,160,100,400,250))then RunFromEve;
+If(FindColor(a,b,65535,0,0,500,375))then RunFromEve;
+End;
+
+Procedure Deposit;
+begin
+Status('Depositing Stuf');
+Wait(200)
+if (FindColorSpiral(x,y,65536,560,280,745,475))and(Pick=1)or
+(FindColorSpiral(x,y,65536,615,235,745,280))and(Pick=1)or
+(FindColorSpiral(x,y,65536,560,235,745,475))and(Pick=2)then
+begin
+MoveMouseSmooth(x,y);
+Wait(200+random(100));
+GetMousePos(x,y);
+ClickMouse(x,y,false);
+Wait(200+random(200));
+end;
+If (FindBitmapIn(widAllY,x,y,560,235,745,475))or
+   (FindBitmapIn(widAll,x,y,560,235,745,475))then
+begin
+MoveMouseSmooth(x+5+random(10),y+2+random(3));
+Wait(200+random(100));
+GetMousePos(x,y);
+ClickMouse(x,y,true);
+Wait(200+random(200));
+end;
+Wait(1000);
+end;
+
+procedure DepositStuf;
+begin
+if(Not Loged)then
+begin
+case Pick of
+  1:
+  begin
+  repeat
+   Deposit;
+  until(Not (FindColor(x,y,65536,560,280,745,475)))And
+  (Not (FindColor(x,y,65536,615,235,745,280)));
+  end;
+  2:
+  begin
+  repeat
+   Deposit;
+  until(Not (FindColor(x,y,65536,560,235,745,475)));
+  end;
+end;
+trips:= trips+1
+PrintProgressReport;
+end;
+End;
+
+procedure openbank;
+begin
+C:=0;
+ repeat
+  If (findbitmap(qbank,x,y)or findbitmap(yqbank,x,y))then break;
+    begin
+    C:=C+1;
+    if not(findcolor(x,y,booth,5,5,513,336))and(FindColor(x,y,bank,618,66,687,100))then
+    begin
+    status('Booth not Found');
+    x:=645;
+    y:=80;
+    if findcolorspiralTolerance(x,y,BankPpl,620,85,680,130,5)then
+    begin
+    MoveMouseSmooth(x-4+random(2),y-8+random(2));
+    wait(200+random(100));
+    getmousepos(x,y);
+    ClickMouse(x,y,true);
+    wait(200+random(100));
+    flagwait;
+    end;
+    end;
+    Status('Opening Bank '+inttostr(c)+'/10');
+    if findcolorspiral(x,y,booth,5,5,513,336)then
+      begin
+       MoveMouseSmooth(x+20-random(40),y+10+random(15));
+        Wait(500+random(300));
+      end;
+    end;
+ until (FindBitmapToleranceIn(B,x,y,33,4,58,20,70))or(C>10)
+  if(FindBitmapToleranceIn(B,x,y,33,4,58,20,70))then
+    begin
+     GetMousePos(x,y);
+     ClickMouse(x,y,false);
+     Wait(500+random(100));
+     if (findbitmap(qbank,x,y)or findbitmap(yqbank,x,y))then
+     begin
+     MoveMouseSmooth(x+5+random(15),y+2-random(4));
+     wait(500+random(100));
+     GetMousePos(x,y);
+     ClickMouse(x,y,true);
+     wait(500+random(100));
+     flagwait;
+     end;
+     L:=0;
+     repeat
+      L:=L+1;
+      Status('Cheking are we are in Bank '+inttostr(L)+'/25');
+      Wait(500);
+     Until(FindBitmapToleranceIn(The_Bank,x,y,177,30,250,51,50))or(L>25)
+      if(FindBitmapToleranceIn(The_Bank,x,y,177,30,250,51,50))then
+        begin
+         Status('We are in Bank!');
+         DepositStuf;
+        end;
+      if not(FindBitmapToleranceIn(The_Bank,x,y,177,30,250,51,50))or(L>25)then
+        begin
+         Status('Bank Not Found!');
+        end;
+    end;
+    wait(200+random(100));
+end;
+
+Procedure ToGuild;
+begin
+Status('Going to Guild')
+c:=0;
+find:=false;
+If(Not Loged)and(FindColor(x,y,bank,618,66,687,100))then
+begin
+  if FindColor(x,y,Walk1,575,9,718,150)then
+  begin
+     Find:=True;
+     Status('Statue Found!');
+     MoveMouseSmooth(x+10-random(5),y+3+random(3));
+     Wait(200+random(100));
+     GetMousePos(x,y);
+     ClickMouse(x,y,true);
+     Wait(1000);
+     flagwait;
+     GoDown;
+   end;
+  If (FindColor(x,y,ladder,688,61,721,111))and (not Find)then
+   begin
+     Status('Going To Guild 1/2');
+      if (FindColor(x,y,ladder,688,61,721,111))then
+      MoveMouseSmooth(x+5+random(5),y+20-random(3));
+      Wait(200+random(100));
+      GetMousePos(x,y);
+      ClickMouse(x,y,true);
+      Wait(8000+random(2000));
+      MapFlag;
+   end;
+  if FindColor(x,y,Walk1,580,100,687,159)and(not find)then
+   begin
+     Find:=True;
+     Status('Going To Guild 2/2');
+     MoveMouseSmooth(x+7-random(2),y+3-random(6));
+     Wait(200+random(100));
+     GetMousePos(x,y);
+     ClickMouse(x,y,true);
+     Wait(1000+random(200));
+     flagwait;
+     GoDown;
+   end;
+  if(Not go)and(not FindColor(x,y,Rocks,550,5,750,177))or
+   (Not Find)and(not FindColor(x,y,Rocks,550,5,750,177))then
+   begin
+     LoginIfNeeded;
+     ToGuild;
+   end;
+  If(L>=100)then
+   begin
+     Status('Guild Not Found!');
+     LoginIfNeeded;
+     ToGuild;
+   end;
+  end;
+End;
+
+Procedure ToBank;
+begin
+Status('Going to Bank')
+c:=0;
+find:=false;
+If(Not Loged)and(FindColor(x,y,Walk1,645,70,680,100))then
+begin
+wait(500+random(500));
+  if FindColor(x,y,Bank,586,8,718,40)then
+   begin
+     Find:=True;
+     Status('Bank Found!');
+     MoveMouseSmooth(x,y);
+     Wait(200+random(100));
+     GetMousePos(x,y);
+     ClickMouse(x,y,true);
+     Wait(25000);
+     flagwait;
+     wait(500+random(200));
+   end;
+  If (FindColor(x,y,ladder,650,5,691,50))and(not find)then
+   begin
+     Status('Going To Bank 1/2');
+     MoveMouseSmooth(x-10+random(5),y+15-random(3));
+     Wait(200+random(100));
+     GetMousePos(x,y);
+     ClickMouse(x,y,true);
+     Wait(500+random(100));
+     MapFlag;
+   end;
+  If (FindColor(x,y,Bank,550,5,750,177))and(not find)then
+   begin
+     Status('Going To Bank 2/2');
+     MoveMouseSmooth(x+2+random(2),y-5-random(3));
+     Wait(200+random(100));
+     GetMousePos(x,y);
+     ClickMouse(x,y,true);
+     Wait(500+random(100))
+     Flagwait;
+     Wait(500+random(200));
+   end;
+end;
+End;
+
+procedure DoMining;
+begin
+If(Not Loged)and (FindColor(x,y,rocks,575,10,720,140))and(getcolor(645,150)=0)then
+begin
+If Not(FindColor(x,y,rocks,605,25,704,120))then
+  begin
+  GoCenter;
+  end;
+If (FindColor(x,y,rocks,605,25,704,120))and(getcolor(645,150)=0)then
+  begin
+  foundmith:=False;
+  L:= 0;
+  c:= 0;
+  repeat
+  Wait(200);
+  L:= L+1;
+  c:= 0;
+  LoginIfNeeded;
+  FindEve;
+  if not(FindColorTolerance(x,y,2570810,5,5,513,334,5))then
+  begin
+  GoCenter;
+  end;
+  Status('Mining Coal');
+  repeat
+  x:= 245;
+  y:= 180;
+  c:=c+1;
+  if(FindColorSpiralTolerance(x,y,7556941,5,5,513,334,5)and(Mith=1))then
+    begin
+    foundmith:=true;
+    MoveMouseSmooth(x+random(5),y+random(5));
+    Wait(50+random(10));
+    end;
+  if(FindColorSpiralTolerance(x,y,2570810,5,5,513,334,5))and(foundmith=False)then
+    begin
+    MoveMouseSmooth(x+random(5),y+random(5));
+    Wait(50+random(10));
+    end;
+    wait(200+random(100));
+  until FindBitmapToleranceIn(Mine1,x,y,5,5,20,20,100)and
+  FindBitmapToleranceIn(Mine2,x,y,35,5,55,20,100)or(C>10)
+  if(c>10)then
+    begin
+    GoCenter;
+    end;
+  if FindBitmapToleranceIn(Mine1,x,y,5,5,20,20,100)and
+  FindBitmapToleranceIn(Mine2,x,y,35,5,55,20,100)then
+    begin
+    GetMousePos(x,y);
+    ClickMouse(x,y,true);
+    wait(200+random(100));
+    flagwait;
+    Wait(1000);
+    FindEve;
+    if(GetColor(109,430)=0)and
+    (GetColor(72,430)=0)then
+      begin
+      L:=0;
+      Repeat
+      C:= c+1
+      if(c=10)or(c=20)or(c=29)then FindEve;
+      Wait(500+random(200));
+      Until(not ((GetColor(109,430)=0)and
+      (GetColor(72,430)=0)))or(c>20);
+      if(c>20)then
+      DoMining;
+      end;
+    end;
+    wait(200+random(100));
+  until(GetColor(695,447)=65536)or(getColor(134,385)=0)and(getColor(335,374)=0)or(L>45);
+    if(getColor(134,385)=0)and(getColor(335,374)=0)then
+    begin
+    status('Checking if pick is broken or separated');
+    Wait(100);
+    TakeOff;
+    wait(1000)
+    if not(findbitmapin(handle,x,y,566,210,734,459))then
+    begin
+    Bpicks:=Bpicks+1;
+    SetRunOff;
+    ToLadder;
+    ToBank;
+    OpenBank;
+    NewPicks;
+    CloseBank;
+    PutOn;
+    ToGuild;
+    DoMining;
+    end;
+    if (findbitmapin(handle,x,y,566,210,734,459))then
+      begin
+      Fpicks:=Fpicks+1;
+      if (findcolor(x,y,PickaxeColor,5,5,513,334))then
+      begin
+      MoveMouseSmooth(x+5+random(5),y+5+random(5));
+      wait(200+random(100));
+      GetMousePos(x,y);
+      ClickMouse(x,y,true);
+      wait(200+random(100));
+      flagwait;
+      wait(1000+random(500));
+      if (findbitmapin(PickHead,x,y,566,210,734,459))then
+      begin
+      if (findbitmapin(handle,x,y,566,210,734,459))then
+      MoveMouseSmooth(x+5+random(5),y+5+random(5));
+      wait(200+random(100));
+      GetMousePos(x,y);
+      ClickMouse(x,y,true);
+      wait(1000+random(500));
+      if (findbitmapin(PickHead,x,y,566,210,734,459))then
+      MoveMouseSmooth(x+5+random(5),y+5+random(5));
+      wait(200+random(100));
+      GetMousePos(x,y);
+      ClickMouse(x,y,true);
+      wait(1000+random(500));
+      PutOn;
+      end;
+      end;
+      end;
+    If(L>45)then
+    begin
+    GoCenter;
+    DoMining;
+    end;
+  end;
+  end;
+  end;
+End;
+
+Procedure LoadBmps;
+begin
+flag := BitmapFromString(2, 2,
+       'FF00005D3311C656045D3311');
+widAllY := BitmapFromString(8, 10,
+       '5D54475D54475D5447FFFF00FFFF00FFFF005D54475D54475D5447' +
+       '5D5447FFFF00FFFF00000000FFFF00FFFF005D54475D5447FFFF00' +
+       'FFFF000000000000005D5447FFFF00FFFF005D5447FFFF00FFFF00' +
+       '0000005D54475D5447FFFF00FFFF005D5447FFFF00FFFF00FFFF00' +
+       'FFFF00FFFF00FFFF00FFFF005D5447FFFF00FFFF00000000000000' +
+       '000000FFFF00FFFF005D5447FFFF00FFFF000000005D54475D5447' +
+       'FFFF00FFFF005D5447FFFF00FFFF000000005D54475D5447FFFF00' +
+       'FFFF005D5447FFFF00FFFF000000005D54475D5447FFFF00FFFF00' +
+       '5D5447FFFF00FFFF000000005D54475D5447FFFF00FFFF00');
+widAll := BitmapFromString(8, 11,
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFFFFFFFFFFFFFFFF5D54475D54475D54475D5447' +
+       'FFFFFFFFFFFF000000FFFFFFFFFFFF5D54475D5447FFFFFFFFFFFF' +
+       '0000000000005D5447FFFFFFFFFFFF5D5447FFFFFFFFFFFF000000' +
+       '5D54475D5447FFFFFFFFFFFF5D5447FFFFFFFFFFFFFFFFFFFFFFFF' +
+       'FFFFFFFFFFFFFFFFFF5D5447FFFFFFFFFFFF000000000000000000' +
+       'FFFFFFFFFFFF5D5447FFFFFFFFFFFF0000005D54475D5447FFFFFF' +
+       'FFFFFF5D5447FFFFFFFFFFFF0000005D54475D5447FFFFFFFFFFFF' +
+       '5D5447FFFFFFFFFFFF0000005D54475D5447FFFFFFFFFFFF5D5447' +
+       'FFFFFFFFFFFF0000005D54475D5447FFFFFFFFFFFF');
+Climb1 := BitmapFromString(5, 10,
+       '000000D3D3CFD3D3CFD3D3CF000000D3D3CFD3D3CF000000D3D3CF' +
+       'D3D3CFD3D3CF000000000000000000000000D3D3CF000000000000' +
+       '000000000000D3D3CF000000000000000000000000D3D3CF000000' +
+       '000000000000000000D3D3CF000000000000000000000000D3D3CF' +
+       '000000000000000000000000D3D3CFD3D3CF000000D3D3CFD3D3CF' +
+       '000000D3D3CFD3D3CFD3D3CF000000');
+Climb2 := BitmapFromString(6, 10,
+       '12DED012DED000000000000000000000000012DED012DED0000000' +
+       '00000000000000000012DED012DED0000000000000000000000000' +
+       '12DED012DED000000000000000000000000012DED012DED0000000' +
+       '00000000000000000012DED012DED0000000000000000000000000' +
+       '12DED012DED000000000000000000000000012DED012DED0000000' +
+       '00000000000000000012DED012DED0000000000000000000000000' +
+       '12DED012DED012DED012DED012DED012DED0');
+qbank  := BitmapFromString(65, 7,
+       'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000FFFFFFFFFFFF000000000000000000' +
+       '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF' +
+       '000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000000000000000000000' +
+       '000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+       '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000000000000000' +
+       '000000FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF' +
+       'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+       '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       '000000000000000000FFFFFFFFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000000000FFFFFFFFFFFF000000000000000000' +
+       '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000000000000000000000' +
+       '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000' +
+       '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000FFFFFF' +
+       'FFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000000000000000000000FFFFFFFFFFFF' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFF' +
+       '000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFF');
+  yqbank  := BitmapFromString(65, 6,
+       'FFFF00FFFF00000000000000000000FFFF00FFFF00000000000000' +
+       '000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+       'FFFF00FFFF00FFFF00FFFF00000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000FFFF00' +
+       'FFFF00FFFF00000000000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00000000000000000000000000000000000000000000' +
+       'FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+       'FFFF00FFFF00FFFF00FFFF00000000000000000000FFFF00FFFF00' +
+       '000000000000FFFF00FFFF00000000000000000000000000000000' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+       'FFFF00FFFF00000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+       '000000FFFF00FFFF00000000000000000000000000000000FFFF00' +
+       'FFFF00FFFF00FFFF00000000FFFF00FFFF00000000000000000000' +
+       'FFFF00FFFF00000000000000000000FFFF00FFFF00FFFF00FFFF00' +
+       '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000000000000000' +
+       '000000FFFF00FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+       '000000000000FFFF00FFFF00000000000000000000000000000000' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00FFFF00FFFF00' +
+       'FFFF00000000000000000000000000000000000000000000000000' +
+       '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       '000000000000000000FFFF00FFFF00FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00000000FFFF00FFFF00FFFF00000000000000000000' +
+       '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000FFFF00FFFF00000000' +
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '000000000000000000000000000000FFFF00FFFF00000000FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000' +
+       '000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+       '000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       'FFFF00FFFF00FFFF00FFFF00000000000000000000FFFF00FFFF00' +
+       'FFFF00FFFF00000000000000000000FFFF00FFFF00000000000000' +
+       '000000FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '000000000000FFFF00');
+  B  := BitmapFromString(6, 10,
+       '1BECE11BECE11BEBE01BEBE01BEBE00000001BECE11BECE1000000' +
+       '0000001BECE11BECE11BEBE01BECE10000000000001AEBE01BECE1' +
+       '1BECE11BECE10000000000001BEBE01BECE11BECE11BECE11BECE1' +
+       '1BEBE01BEBE00000001BECE11BECE10000000000001BECE11BECE1' +
+       '1BECE11BECE10000000000001BEBE01BECE11BECE11BECE1000000' +
+       '0000001BEBE01BECE11BECE11BECE10000000000001BECE11BECE1' +
+       '1BECE11BECE11BECE11BECE11BECE1000000');
+  The_Bank  := BitmapFromString(57, 10,
+       'FF981FFF981FFF981FFF981FFF981FFF981F000000FF981FFF981F' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       'FF981FFF981FFF981FFF981FFF981F000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000FF981FFF981F000000' +
+       '000000000000000000000000000000FF981FFF981F000000000000' +
+       '000000FF981FFF981F000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000FF981FFF981F000000000000FF981FFF981F' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       'FF981FFF981F000000000000000000000000000000000000FF981F' +
+       'FF981F000000000000000000FF981FFF981F000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000FF981FFF981F000000' +
+       '000000FF981FFF981F000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000FF981FFF981F000000000000000000000000' +
+       '000000000000FF981FFF981F000000000000000000FF981FFF981F' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       'FF981FFF981F000000000000FF981FFF981F000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000FF981FFF981F000000' +
+       '000000000000000000000000000000FF981FFF981F000000000000' +
+       '000000FF981FFF981FFF981FFF981FFF981F000000000000000000' +
+       '000000FF981FFF981FFF981FFF981F000000000000000000000000' +
+       '000000000000000000FF981FFF981FFF981FFF981FFF981F000000' +
+       '000000000000000000FF981FFF981FFF981FFF981F000000000000' +
+       '000000FF981FFF981FFF981FFF981FFF981F000000000000000000' +
+       'FF981FFF981F000000FF981FFF981F000000000000000000FF981F' +
+       'FF981F000000000000000000FF981FFF981FFF981F000000FF981F' +
+       'FF981F000000000000FF981FFF981F000000000000FF981FFF981F' +
+       '000000000000000000000000000000000000FF981FFF981F000000' +
+       '000000FF981FFF981F000000000000FF981FFF981F000000000000' +
+       'FF981FFF981F000000000000FF981FFF981FFF981F000000FF981F' +
+       'FF981F000000000000FF981FFF981FFF981FFF981F000000000000' +
+       '000000000000FF981FFF981F000000000000000000FF981FFF981F' +
+       '000000000000FF981FFF981F000000000000FF981FFF981F000000' +
+       '000000FF981FFF981F000000000000000000000000000000000000' +
+       'FF981FFF981F000000000000FF981FFF981F000000000000000000' +
+       'FF981FFF981FFF981FFF981FFF981F000000000000FF981FFF981F' +
+       '000000000000FF981FFF981F000000000000FF981FFF981FFF981F' +
+       '000000000000000000000000000000FF981FFF981F000000000000' +
+       '000000FF981FFF981F000000000000FF981FFF981F000000000000' +
+       'FF981FFF981FFF981FFF981FFF981F000000000000000000000000' +
+       '000000000000000000FF981FFF981F000000000000FF981FFF981F' +
+       '000000000000FF981FFF981F000000000000FF981FFF981F000000' +
+       '000000FF981FFF981F000000000000FF981FFF981F000000000000' +
+       'FF981FFF981FFF981FFF981F000000000000000000000000FF981F' +
+       'FF981F000000000000000000FF981FFF981F000000000000FF981F' +
+       'FF981F000000000000FF981FFF981F000000000000000000000000' +
+       '000000000000000000000000000000000000FF981FFF981F000000' +
+       '000000FF981FFF981F000000000000FF981FFF981F000000000000' +
+       'FF981FFF981F000000000000FF981FFF981F000000000000FF981F' +
+       'FF981F000000000000FF981FFF981F000000FF981FFF981F000000' +
+       '000000000000FF981FFF981F000000000000000000FF981FFF981F' +
+       '000000000000FF981FFF981F000000000000000000FF981FFF981F' +
+       'FF981FFF981FFF981F000000000000000000000000000000000000' +
+       'FF981FFF981FFF981FFF981FFF981F000000000000000000000000' +
+       'FF981FFF981FFF981FFF981FFF981F000000000000FF981FFF981F' +
+       '000000000000FF981FFF981F000000000000FF981FFF981F000000' +
+       '000000FF981FFF981F');
+Talk := BitmapFromString(15, 13,
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF' +
+       'FFFFFF5D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447000000FFFFFFFFFFFF0000000000000000005D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       'FFFFFFFFFFFF0000005D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D5447FFFFFFFFFFFF000000' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D5447FFFFFFFFFFFF0000005D54475D54475D5447' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF5D54475D54475D54475D54475D5447' +
+       'FFFFFFFFFFFF0000005D54475D5447FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF5D54475D54475D54475D5447FFFFFFFFFFFF000000' +
+       '5D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '5D54475D54475D5447FFFFFFFFFFFF0000005D54475D5447FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF0000005D54475D54475D5447' +
+       'FFFFFFFFFFFF0000005D54475D5447FFFFFFFFFFFF0000005D5447' +
+       'FFFFFFFFFFFF0000005D54475D54475D5447FFFFFFFFFFFF000000' +
+       '5D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '5D54475D54475D54475D54470000000000005D54475D54475D5447' +
+       '5D5447000000000000000000000000000000');
+TalkY := BitmapFromString(14, 12,
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D5447FFFF00FFFF00FFFF00' +
+       'FFFF00FFFF00FFFF005D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D5447000000FFFF00FFFF00000000000000000000' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       'FFFF00FFFF000000005D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D5447FFFF00FFFF000000005D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D5447FFFF00FFFF000000005D54475D54475D5447FFFF00FFFF00' +
+       'FFFF00FFFF005D54475D54475D54475D5447FFFF00FFFF00000000' +
+       '5D54475D5447FFFF00FFFF00000000000000FFFF00FFFF005D5447' +
+       '5D54475D5447FFFF00FFFF000000005D54475D54475D5447FFFF00' +
+       'FFFF00FFFF00FFFF00FFFF005D54475D54475D5447FFFF00FFFF00' +
+       '0000005D54475D5447FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '5D54475D54475D5447FFFF00FFFF000000005D54475D5447FFFF00' +
+       'FFFF000000005D5447FFFF00FFFF005D54475D54475D5447FFFF00' +
+       'FFFF000000005D54475D54475D5447FFFF00FFFF00FFFF00FFFF00' +
+       'FFFF005D54475D54475D54475D54470000000000005D54475D5447' +
+       '5D54475D5447000000000000000000000000');
+Login := BitmapFromString(11, 7,
+       '000000000000FFFF00000000000000000000000000000000000000' +
+       '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00FFFF00000000000000FFFF00000000000000000000' +
+       '000000FFFF00000000000000000000FFFF00000000FFFF00000000' +
+       '000000000000000000FFFF00000000000000000000FFFF00000000' +
+       'FFFF00000000000000000000000000FFFF00000000000000000000' +
+       'FFFF00000000FFFF00000000000000000000000000FFFF00000000' +
+       '000000000000FFFF00000000000000FFFF00FFFF00000000000000' +
+       '000000FFFF00FFFF00FFFF00000000');
+Mine1 := BitmapFromString(8, 10,
+       'E6E2DAE6E2DA000000000000000000000000E6E2DAE6E2DAE6E2DA' +
+       'E6E2DA000000000000000000000000E6E2DAE6E2DAE6E2DAE6E2DA' +
+       'E6E2DA000000000000E6E2DAE6E2DAE6E2DAE6E2DAE6E2DAE6E2DA' +
+       'E6E2DAE6E2DAE6E2DAE6E2DAE6E2DAE6E2DAE6E2DA000000E6E2DA' +
+       'E6E2DA000000E6E2DAE6E2DAE6E2DAE6E2DA000000000000000000' +
+       '000000E6E2DAE6E2DAE6E2DAE6E2DA000000000000000000000000' +
+       'E6E2DAE6E2DAE6E2DAE6E2DA000000000000000000000000E6E2DA' +
+       'E6E2DAE6E2DAE6E2DA000000000000000000000000E6E2DAE6E2DA' +
+       'E6E2DAE6E2DA000000000000000000000000E6E2DAE6E2DA');
+Mine2 := BitmapFromString(6, 10,
+       '17E3DA17E3DA17E3DA17E3DA17E3DA00000017E3DA17E3DA000000' +
+       '00000017E3DA17E3DA17E3DA17E3DA00000000000017E3DA17E3DA' +
+       '17E3DA17E3DA00000000000017E3DA17E3DA17E3DA17E3DA000000' +
+       '17E3DA17E3DA00000017E3DA17E3DA17E3DA17E3DA000000000000' +
+       '17E3DA17E3DA17E3DA17E3DA00000000000017E3DA17E3DA000000' +
+       '17E3DA17E3DA00000017E3DA17E3DA00000000000017E3DA17E3DA' +
+       '17E3DA17E3DA00000000000017E3DA17E3DA');
+Handle := BitmapFromString(14, 26,
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000001000001000000000000000000000000000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000001000000000000000000000000000000000000000000000000' +
+       '000000000001000000000000000000000001000000000000000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000000000001000000000000000000000000000000000000000000' +
+       '000000000001000000000000000000000000000001000000000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000000000000000001000000000000000000000000000000000000' +
+       '000000000001000000000000000000000000000001000000000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000000000001000000000000000000000000000000000000000000' +
+       '000000000001000000000000000000000000000001000000000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000000000001000000000000000000000000000000000000000000' +
+       '000000000001000000000000000000000000000001000000000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000000000001000000000000000000000000000000000000000000' +
+       '000000000001000000000000000000000000000001000000000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000000000001000000000000000000000000000000000000000000' +
+       '000000000001000000000000000000000001000000000000000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000000000001000000000000000000000000000000000000000000' +
+       '000000000001000000000000000000000001000000000000000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000000000001000000000000000000000000000000000000000000' +
+       '000000000001000000000000000000000001000000000000000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000000000001000000000000000000000000000000000000000000' +
+       '000000000000000001000000000000000001000000000000000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000000000001000000000000000000000000000000000000000000' +
+       '000000000000000001000000000000000001000000000000000000' +
+       '000000000000000000000000000000000000000000000001000000' +
+       '000000000001000000000000000000000000000000000000000000' +
+       '000000000000000000000001000000000000000001000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000001000001000000000000000000000000000000000000000000' +
+       '000000000000000000000000');
+PickHead  := BitmapFromString(21, 15,
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000001000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000001000000000001000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000001000000000001' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000001000000000001000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000001000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000001000000000000000000000001' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000000000001000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000001000001000001000001' +
+       '000000000000000000000000000001000000000000000000000000' +
+       '000000000000000000000000000000000000000000000001000000' +
+       '000000000000000000000000000000000000000001000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000001000000000000000000000000000000000000000001' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000001000001000001000001000000000000000000000000' +
+       '000000000000000000000001000000000000000000000000000000' +
+       '000000000001000001000001000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000001000000' +
+       '000000000001000001000001000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000001000000000001000000000000000000000000000000' +
+       '000000000001000001000001000001000001000001000001000001' +
+       '000001000001000001000001000000000000000000000001000001' +
+       '000001000001000001000001000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '');
+end;
+
+Begin
+LoadBmps;
+ST:=GetSystemTime;
+trips:=0; Talked:=0; Ran:=0; Bpicks:=0;
+Loged:=false;
+LoginIfNeeded;
+BoxOpenerSetup;
+repeat
+If(Loged)then break;
+ToGuild;
+doMining;
+FindStrangeBox;
+SetRunOff;
+ToLadder;
+ToBank;
+openbank;
+CloseBank;
+until(Loged);
+end.

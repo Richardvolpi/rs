@@ -1,0 +1,370 @@
+///////////////////////////////////////////////
+//        PAR - PSYCHO's ANTI RANDOM         //
+///////////////////////////////////////////////
+
+///////////////////////////////////////////////
+//              IMPLIMENTATION               //
+//             ----------------              //
+//       To import this into your script     //
+//  use {.include par.txt}. Put              //
+//  Check4Randoms everywhere you can at      //
+//  least once a second. Make sure you have  //
+//  osi imported before PAR. Put             //
+//  Check4Lamp('skill to click'); before     //
+//  your banking procedure.                  //
+//                                           //
+///////////////////////////////////////////////
+
+///////////////////////////////////////////////
+//                 PROCEDURE                 //
+//                -----------                //
+//  Check4Randoms; Checks for randoms.       //
+//  Check4Lamp(skill); Where skill is what   //
+//     skill you want to use the lamp on.    //
+//                                           //
+///////////////////////////////////////////////
+
+///////////////////////////////////////////////
+//                  REMOVED                  //
+//                 ---------                 //
+//  Check4Plant; Until lag issues solved.    //
+//  AntiWanderer function; Until I finish it //
+//                                           //
+///////////////////////////////////////////////
+
+///////////////////////////////////////////////
+//         DO NOT ALTER BELOW THIS           //
+///////////////////////////////////////////////
+
+
+
+
+
+
+
+var par_rub, par_stat, par_lamp, par_pmod, par_smod:integer;
+    par_loaded:boolean;
+
+Procedure LoadParBMPs;
+begin
+par_rub := BitmapFromString(22, 7,
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000000000' +
+       '000000000000000000000000000000000000000000FFFFFFFFFFFF' +
+       '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000000000000000000000000000000000000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000000000000000' +
+       '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+       '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000FFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFF' +
+       '000000FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF000000000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF');
+par_stat := BitmapFromString(22, 7,
+       '000000000000000000000000000000000000000000FFFF00000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000FFFF00000000000000000000FFFF00FFFF00FFFF00000000' +
+       'FFFF00FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00' +
+       '000000000000FFFF00000000000000FFFF00000000000000000000' +
+       '000000FFFF00000000000000FFFF00000000000000000000FFFF00' +
+       '000000000000000000000000FFFF00000000000000000000000000' +
+       'FFFF00000000000000000000000000000000000000FFFF00FFFF00' +
+       '000000000000000000FFFF00000000000000000000000000000000' +
+       'FFFF00000000000000000000FFFF00000000000000000000000000' +
+       '000000FFFF00000000FFFF00000000000000000000FFFF00000000' +
+       '000000000000FFFF00000000000000FFFF00000000000000FFFF00' +
+       '000000000000000000000000FFFF00000000000000FFFF00FFFF00' +
+       '000000000000FFFF00000000000000000000FFFF00FFFF00FFFF00' +
+       '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00FFFF00000000FFFF00000000000000000000FFFF00FFFF00' +
+       '000000');
+par_lamp := BitmapFromString(23, 7,
+       'C0BF19000001000001000001000001000001BBB916B2B116AFAE16' +
+       'ACAB169D9B129392128D8B1276750E000001000001000001000001' +
+       '000001000000000000000000000000C6C519C6C519D1CF19CCC919' +
+       'C9C719C6C519C6C519C0BF19BBB916B5B416ACAB16A4A2129A9812' +
+       '93921285840E7A790E6B69095D5C09A7A516000001000000000000' +
+       '000000CCC919CCC919CECC19C6C519C3C219C0BF19BEBC19BBB916' +
+       'B8B716B5B416B2B116A9A816A4A2129D9B129695128F8F1282810E' +
+       '9A9812AFAE1689870E000001000000000000000001D4D21CCECC19' +
+       'CCC919C0BF19BEBC19BBB916B5B416B2B116AFAE16A9A816A4A212' +
+       'A09F129A981289870E85840E8D8B129392129D9B12B8B716666509' +
+       '000001000000000000000001000001CCC919CCC919BBB916B8B716' +
+       'B5B416B2B116AFAE16A9A816A4A2129D9B1296951282810E7A790E' +
+       '85840E000001000001000001C3C219A9A816000000000000000000' +
+       '000001CCC919CCC919C0BF19B8B716B2B116AFAE16ACAB16A7A516' +
+       'A09F129A98128D8B127A790E76750E000001000001C3C219B5B416' +
+       'A7A516000001000000000000000000000000000001CECC19CCC919' +
+       'C0BF19B2B116AFAE16ACAB16A7A516A09F128F8F1282810E6F6E0E' +
+       '535309000001000000000001000001000001000000000000');
+par_pmod := BitmapFromString(9, 6,
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2' +
+       'E0E0E0A2A2A2000000000000A2A2A2000000000000A2A2A2979797' +
+       'E0E0E0A2A2A2000000A2A2A2000000A2A2A2000000A2A2A2979797' +
+       'E0E0E0A2A2A2000000A2A2A2000000A2A2A2000000A2A2A2979797' +
+       '979797979797979797979797979797979797979797979797979797');
+par_smod := BitmapFromString(9, 5,
+       'F7FF0BF7FF0BF7FF0BF7FF0BF7FF0BF7FF0BF7FF0BF7FF0BF7FF0B' +
+       'FFFE87F7FF0B000000000000F7FF0B000000000000F7FF0BD09D24' +
+       'FFFE87F7FF0B000000F7FF0B000000F7FF0B000000F7FF0BD09D24' +
+       'FFFE87F7FF0B000000F7FF0B000000F7FF0B000000F7FF0BD09D24' +
+       'D09D24D09D24D09D24D09D24D09D24D09D24D09D24D09D24D09D24');
+par_loaded:=true;
+end;
+
+Procedure Check4Plant(scanwidth,scanheight,color,tolerence:integer; name:string);
+var  a,b,c,d,e,f:integer;
+     addx,addy,switch:integer;
+     change,forwardx,forwardy,which:boolean;
+begin
+     change:=false;
+     which:=false
+     forwardx:=true;
+     forwardy:=true;
+     a:=516/scanwidth;
+     b:=338/scanheight;
+     c:=Trunc(a/2);
+     d:=Trunc(b/2);
+     e:=0;
+     f:=0;
+     addx:=1;
+     addy:=1;
+     switch:=1;
+   repeat
+     if(FindColorTolerance(x,y,color,(258+e*scanwidth),(169+f*scanheight),(258+e*scanwidth+scanwidth),(169+f*scanheight+scanheight),tolerence))then
+     begin
+          mmouse(x,y,0,0);
+          if(istextat2(9,9,'Pick',100))then
+          begin
+               writeln('Found a ' + name);
+               Mouse(x,y,0,0,true);
+               Mouse(231,440,100,8,true);
+          end;
+     end;
+     if(change)then
+     begin
+          switch:=switch*-1;
+          addx:=(addx*-1)+switch;
+          addy:=(addy*-1)+switch;
+          change:=false;
+     end;
+     if(forwardx)and(not which)then e:=e+switch;
+     if(forwardy)and(which)then f:=f+switch;
+     if(e=addx)then
+     begin
+          forwardx:=false;
+          which:=true;
+     end;
+     if(f=addy)then
+     begin
+          forwardy:=false;
+          which:=false;
+     end;
+     if(not forwardy)and(not forwardx) then
+     begin
+          forwardy:=true;
+          forwardx:=true;
+          change:=true;
+     end;
+   until(e>c) or (f>d);
+end;
+
+
+Procedure Scan4Randoms(scanwidth,scanheight,color,tolerence:integer; name:string);
+var  a,b,c,d,e,f:integer;
+     addx,addy,switch:integer;
+     change,forwardx,forwardy,which:boolean;
+begin
+     change:=false;
+     which:=false
+     forwardx:=true;
+     forwardy:=true;
+     a:=516/scanwidth;
+     b:=338/scanheight;
+     c:=Trunc(a/2);
+     d:=Trunc(b/2);
+     e:=0;
+     f:=0;
+     addx:=1;
+     addy:=1;
+     switch:=1;
+   repeat
+     if(FindColorTolerance(x,y,color,(258+e*scanwidth),(169+f*scanheight),(258+e*scanwidth+scanwidth),(169+f*scanheight+scanheight),tolerence))then
+     begin
+          mmouse(x,y,0,0);
+          if(istextat2(9,9,'Talk',100))then
+          begin
+               writeln('Found a ' + name);
+               Mouse(x,y,0,0,true);
+               Mouse(231,440,100,8,true);
+          end;
+     end;
+     if(change)then
+     begin
+          switch:=switch*-1;
+          addx:=(addx*-1)+switch;
+          addy:=(addy*-1)+switch;
+          change:=false;
+     end;
+     if(forwardx)and(not which)then e:=e+switch;
+     if(forwardy)and(which)then f:=f+switch;
+     if(e=addx)then
+     begin
+          forwardx:=false;
+          which:=true;
+     end;
+     if(f=addy)then
+     begin
+          forwardy:=false;
+          which:=false;
+     end;
+     if(not forwardy)and(not forwardx) then
+     begin
+          forwardy:=true;
+          forwardx:=true;
+          change:=true;
+     end;
+   until(e>c) or (f>d);
+end;
+
+Procedure Check4Mod;
+begin
+    if (findbitmapin(par_pmod,x,y,18,357,36,430)) or (findbitmapin(par_smod,x,y,18,357,36,430)) then
+    begin
+         writeln('Logged due to admin presence.');
+         Mouse(637,475,10,10,true);
+         Mouse(594,371,100,9,true);
+         wait(35*60000);
+    end;
+end;
+
+procedure Check4Randoms;
+var  a,b,c:integer;
+begin
+     c:=0;
+     if(FindColor(x,y,65535,4,4,516,338))then
+     begin
+          if(FindColorTolerance(a,b,1547472,175,95,516,338,25))then
+          begin
+               Scan4Randoms(30,30,1547472,20,'dwarf.');
+          end;
+          if(FindColorTolerance(a,b,9376393,175,95,516,338,25))then
+          begin
+               Scan4Randoms(30,30,9376393,20,'genie.');
+          end;
+          if(FindColorTolerance(a,b,2432000,175,95,516,338,25))then
+          begin
+               Scan4Randoms(30,30,2958080,15,'old man.');
+          end;
+     end;
+     Check4Plant(30,30,7421785,20,'plant.');
+     Check4Mod;
+end;
+
+Procedure UseTheLamp(skill:string);
+begin
+     writeln('Clicking on "' + skill + '" skill.');
+     if(skill='attack')then
+     begin
+          mouse(152,144,25,25,true);
+     end;
+     if(skill='strength')then
+     begin
+          mouse(184,144,25,25,true);
+     end;
+     if(skill='ranged')then
+     begin
+          mouse(216,155,25,25,true);
+     end;
+     if(skill='magic')then
+     begin
+          mouse(248,144,25,25,true);
+     end;
+     if(skill='defence')then
+     begin
+          mouse(280,144,25,25,true);
+     end;
+     if(skill='hitpoints')then
+     begin
+          mouse(312,144,25,25,true);
+     end;
+     if(skill='prayer')then
+     begin
+          mouse(344,144,25,25,true);
+     end;
+     if(skill='agility')then
+     begin
+          mouse(184,180,25,25,true);
+     end;
+     if(skill='herblaw')then
+     begin
+          mouse(216,180,25,25,true);
+     end;
+     if(skill='theiving')then
+     begin
+          mouse(248,180,25,25,true);
+     end;
+     if(skill='crafting')then
+     begin
+          mouse(280,180,25,25,true);
+     end;
+     if(skill='runecrafting')then
+     begin
+          mouse(312,180,25,25,true);
+     end;
+     if(skill='mining')then
+     begin
+          mouse(152,216,25,25,true);
+     end;
+     if(skill='smithing')then
+     begin
+          mouse(184,216,25,25,true);
+     end;
+     if(skill='fishing')then
+     begin
+          mouse(216,216,25,25,true);
+     end;
+     if(skill='cooking')then
+     begin
+          mouse(248,216,25,25,true);
+     end;
+     if(skill='firemaking')then
+     begin
+          mouse(280,216,25,25,true);
+     end;
+     if(skill='woodcutting')then
+     begin
+          mouse(312,216,25,25,true);
+     end;
+     if(skill='fletching')then
+     begin
+          mouse(344,216,25,25,true);
+     end;
+     mouse(237,250,42,10,true);
+end;
+
+procedure Check4Lamp(usage:string);
+begin
+     if(not par_loaded)then LoadParBMPs;
+     while(FindBitmapToleranceIn(par_lamp,x,y,560,210,740,465,40))do
+     begin
+          mouse(x+2,y,5,5,false);
+          if(FindBitmapToleranceIn(par_rub,x,y,520,190,760,490,40))then
+          begin
+               mouse(x+2,y,5,2,true);
+               if(FindBitmapToleranceIn(par_stat,x,y,4,4,516,338,40))then
+               begin
+                    writeln('Found a Lamp!');
+                    UseTheLamp(usage);
+               end;
+          end;
+     end;
+end;

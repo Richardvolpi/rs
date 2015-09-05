@@ -1,0 +1,24 @@
+program New;
+var
+ x, y: Integer;
+ s: string;
+begin
+  repeat
+    MoveMouse(500,21);
+    Wait(60);
+    MoveMouse(461,17);
+    Wait(60);
+  until(processmapnocompass);
+  for y:= 1 to 35 do
+  begin
+    s:= '';
+    for x:= 1 to 40 do
+    begin
+      if(IsObjOnMap(x,y))then
+        s:= s + 'o'
+      else
+        s:= s + ' ';
+    end;
+    Writeln(s);
+  end;
+end.

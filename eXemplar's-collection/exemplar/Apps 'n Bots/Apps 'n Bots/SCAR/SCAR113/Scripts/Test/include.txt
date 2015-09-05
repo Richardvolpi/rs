@@ -1,0 +1,5 @@
+procedure WriteInt(i: Integer);
+begin
+  Writeln(IntToStr(i));
+end;
+

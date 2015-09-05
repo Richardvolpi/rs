@@ -1,0 +1,122 @@
+program FlaxSpinner;
+
+var ox,oy,xc,yc,spinner:Integer;
+
+const
+flaxcolour=15197343;
+spincolour=1139086;
+
+{.include OSi.txt}
+{.include WAAMPinclude.txt}
+
+procedure PickFlax;
+var tries:integer;
+begin
+ repeat
+  if(not(IsTextAt2(9,9,'Pi',100)))then
+  begin
+   tries:=0;
+   ox:=0;
+   oy:=0;
+   repeat
+    FindColorTolerance(xc,yc,flaxcolour,ox,ox,515,340,10);
+    MoveMouseSmooth(ox+Random(3),oy+Random(3));
+    RWait('short');
+    CheckCommunication;
+    ox:=xc;
+    oy:=yc;
+    tries:=tries+1;
+    CheckCommunication;
+   until(IsTextAt2(9,9,'Pi',100)or(tries > 10));
+   if(not(IsTextAt2(9,9,'Pi',100)))then
+   begin
+    ;FindTextSpiral('Pi',250,170,36,6,10);
+    MoveMouseSmooth(251,176);
+    CheckCommunication;
+   end;
+  end;
+  if(IsTextAt2(9,9,'Pi',100))then
+  begin
+   CheckCommunication;
+   GetMousePos(xc,yc);
+   Mouse(xc,yc,1,1,true);
+   MapFlag;
+   RWait('long');
+  end;
+  CheckCommunication;
+ until(FindColorTolerance(xc,yc,flaxcolour,693,428,728,458,100));
+end;
+
+procedure WalkToSpinner;
+begin
+ repeat
+  RWait('xshort');
+ until(FindBitmapToleranceIn(spinner,xc,yc,575,5,720,160,150));
+ Mouse(xc,yc,5,5,true);
+ MapFlag;
+ RWait('medium');
+ repeat
+  repeat
+   FindTextSpiral('Climb',250,170,150,15,10);
+   CheckCommunication;
+  until(IsTextAt2(9,9,'Climb',100));
+  GetMousePos(xc,yc);
+  Mouse(xc,yc,5,5,true);
+  Wait(4000+Random(1000));
+  CheckCommunication;
+ until(GetColor(600,50) = 0);
+end;
+
+procedure WalkToFlax;
+begin
+ repeat
+  repeat
+   FindTextSpiral('Climb',250,170,150,15,10);
+   CheckCommunication;
+  until(IsTextAt2(9,9,'Climb',100));
+  GetMousePos(xc,yc);
+  Mouse(xc,yc,5,5,true);
+  Wait(5000+Random(1000));
+  CheckCommunication;
+ until(not(GetColor(600,50) = 0));
+end;
+
+procedure SpinFlax;
+begin
+ repeat
+  repeat
+   repeat
+    FindTextSpiral('Spi',250,170,36,6,10);
+   until(IsTextAt2(9,9,'Spi',100));
+   RWait('short');
+   GetMousePos(xc,yc);
+   Mouse(xc,yc,0,0,true);
+   MapFlag;
+   MoveMouseSmooth(340+Random(40),400+Random(40));
+   RWait('long');
+  until(IsTextAt2
+  CheckCommunication;
+ until(not(FindColorTolerance(xc,yc,flaxcolour,693,428,728,458,100)));
+end;
+
+begin
+ SetupOSi;
+ spinner := BitmapFromString(5, 5,
+       '7C652CC2CCC07C652CA2ACA07C652CC2CCC07C652CC2CCC07C652C' +
+       'C2CCC05B3B09C2CCC07C652CC2CCC07C652CA2ACA0694614C2CCC0' +
+       '705622C2CCC0694614C2CCC0694614C2CCC0705622');
+ Status('Dropping any left over bow strings');
+ AutoDrop('Use B');
+ repeat
+  Status('Picking flax');
+  PickFlax;
+  Status('Walking to spinner');
+  WalkToSpinner;
+  Status('Spinning flax');
+  SpinFlax;
+  Status('Dropping bow strings');
+  AutoDrop('Use B');
+  Status('Walking to flax');
+  WalkToFlax;
+ until(false);
+end.

@@ -1,0 +1,408 @@
+{========================================]
+         Draynor Fisher and Banker
+                  v1.3
+           Created by Odie5533
+[========================================]
+ Instructions:
+   1.Have Nets in 1st Bank Slot
+   2.Have a net in inventory
+   3.If you have EatFood on, then have
+     food in 2nd bank slot
+   4.Works best on low detail
+[========================================}
+
+program DraynorShrimpFisher;
+{.include OSi.txt}
+{.include BoxBreaker.txt}
+const
+////=========================Setup==========================\\\\
+username = '';  //Enter Your Username
+password = '';  //Enter Your Password
+EatFood = false; //If you are banking, eat food at low hp?
+//=\\======================================================//=\\
+
+var AttackCount,YellowTextCount,TalkCount,LampCount,FishCount,FR,BankSymbol:integer;
+TalkW,TalkY,iLamp,FishNet,rcmFishBmp:integer; LastFished:LongInt;
+NoNet:boolean;
+
+Procedure Report(doing:string);
+var time,times,timem,timeh,StrSecZero,StrMinZero:string;
+    Hours,Minutes,Seconds,avtime:LongInt;
+begin
+  clearreport;
+  Seconds:=(GetSystemTime-ST) div 1000;
+  Hours:=Seconds div 3600;
+  Seconds:=Seconds - (hours*3600);
+  Minutes:=Seconds div 60;
+  Seconds:=Seconds - (Minutes*60);
+  if(minutes<10)then StrMinZero:='0';
+  if(seconds<10)then StrSecZero:='0';
+  if(hours>0)then timeh:=inttostr(hours)+':';
+  if(minutes>0)then timem:=StrMinZero+inttostr(minutes)+':';
+  times:=StrSecZero+inttostr(seconds); time:=timeh+timem+times;
+addtoreport('Dray Netter by Odie5533');
+addtoreport('***********************');
+addtoreport('Currently: '+doing);
+addtoreport('Worked for '+time);
+addtoreport('Fished: '+inttostr(FishCount));
+if(avtime>0)then
+addtoreport('Averaging '+inttostr(3600/avtime)+' fish an hour');
+addtoreport('Attacks: '+inttostr(AttackCount)+'  Talked: '+inttostr(TalkCount));
+end;
+
+procedure LoginCheck; {Created by Odie5533}
+var counter:integer;
+begin
+if(NotLogedIn)and(length(username)>0)and(length(password)>0)then
+begin
+if(IsTextAt2(293,251,'Username',0))then
+  Mouse(460,322,10,2,true);
+if(IsTextAt2(309,241,'Welcome to RuneScape',0))then
+ begin
+  Mouse(400,280,125,20,true);
+  if(IsTextAt2(271,214,'Enter your username',0))then
+   begin
+    Mouse(400,256,20,5,true);
+    SendKeysSilentsmooth(username,50);
+    Mouse(400,270,20,5,true);
+    SendKeysSilentsmooth(password,50);
+    Mouse(300,322,20,5,true);
+    repeat
+     counter:=counter+1;
+     wait(100);
+    until(FindColor(x,y,8421504,0,0,515,338))or(counter=60)
+   end;
+ end;
+end;
+if(LogedIn)then
+if(FindColor(x,y,65535,235,40,280,100))and(FindColor(x,y,8421504,400,0,515,338))then
+ begin
+  Mouse(x+5,y+1,15,5,true);
+  sendarrowsilentwait(0,900+random(200))
+  wait(200+random(100));
+ end;
+end;
+
+procedure TalkCheck;
+var counter,c:integer; Talked2Rand:boolean;
+begin
+if(FindColor(x,y,65535,5,5,514,337))then wait(500);
+if(FindColor(x,y,65535,5,5,514,337))and(LogedIn)then
+ begin
+  YellowTextCount:=YellowTextCount+1;
+  GetScreenShot('YellowText',YellowTextCount);
+  Report('Yellow Text');
+  repeat
+   counter:=counter+2+random(1);
+   if((x+counter) < 515)and((y+18) < 338)then
+    MoveMouseSmoothEx(x+counter,y+15+random(3),1,6,15,20,20);
+   wait(5);
+   if(IsTextAt2(9,9,'Ta',100))then
+    begin
+     GetMousePos(x,y);
+     Mouse(x,y,0,0,false);
+     Wait(200+random(100));
+     if(FindBitmap(TalkW,x,y))or(FindBitmap(TalkY,x,y))then
+      begin
+       Mouse(x,y,40,5,true);
+       MapFlag;
+       wait(1000+random(1000));
+       while((FindColor(x,y,16711680,5,345,510,465))or
+            (FindColor(x,y,16777215,5,345,510,465)))and
+            (not(GetColor(20,434)=0))and(c<=10)do
+        begin
+         TalkCount:=TalkCount+1;
+         GetScreenShot('Talk',TalkCount);
+         Mouse(x,y,50,2,true);
+         wait(2000+random(1000));
+         c:=c+1;
+        end;
+       Talked2Rand:=true;
+      end;
+    end;
+  until(counter>=250)or(Talked2Rand);
+ end;
+end;
+
+Procedure AttackCheck;
+var ax,ay:integer;
+begin
+if(FindColor(ax,ay,65280,240,125,270,180))then
+ begin
+  AttackCount:=AttackCount+1;
+  GetScreenshot('Attack',AttackCount);
+  Report('Attacked');
+  SetRun(true);
+  Mouse(706,82,2,2,true);
+  wait(2000); MapFlag;
+  wait(10000+random(3000));
+  Mouse(590,84,2,2,true);
+  wait(2000); MapFlag;
+  if(FindColorTolerance(x,y,15750425,572,8,722,160,40))then
+   begin
+    Mouse(x+15,y,2,2,true);
+    MapFlag;
+   end;
+ end;
+end;
+
+Procedure LampCheck;
+var lx,ly:integer;
+begin
+while(FindBitmapSpiralTolerance(iLamp,lx,ly,560,210,735,465,50))do
+ begin
+  LampCount:=LampCount+1;
+  GetScreenshot('Lamp',LampCount);
+  Report('Lamp');
+  Mouse(x,y,1,1,true);
+  wait(3000+random(1000));
+  Mouse(157,220,12,12,true)
+  wait(3000+random(1000));
+  Mouse(248,255,10,2,true);
+  wait(3000+random(1000));
+  Mouse(226,442,10,3,true);
+  wait(3000+random(1000));
+  end;
+end;
+
+procedure MiscCheck;
+var ax,ay:integer;
+begin
+ if(FindColor(ax,ay,786423,10,350,150,433))then
+  begin
+   GetScreenshot('Mod',1);
+   LogOut('UHOH, A MOD!!!');
+  end;
+ if(GetColor(30,418)=0)and(GetColor(72,429)=0)then
+  begin
+   GetScreenShot('Dead',1);
+   LogOut('You are dead!');
+  end;
+ if(FindColor(ax,ay,11503238,10,350,479,433))then
+  begin
+   GetScreenshot('Mime',1);
+   LogOut('Mime Found');
+  end;
+end;
+
+Procedure FindRandoms;
+begin
+LoginCheck;
+TalkCheck;
+AttackCheck;
+MiscCheck;
+if(FR>5)then
+begin
+ FR:=0;
+ LampCheck;
+ FindBox;
+end;
+FR:=FR+1;
+end;
+
+Procedure Bank;
+var GetFood:boolean;
+begin
+Report('Banking');
+if(EatFood)then
+ if(GetHp<50)then
+  GetFood:=true;
+OpenBag;
+OpenBank;
+MMouse(574,218,20,20);
+if(not(IsTextAt2(9,9,'Store 1 Sm',100)))then
+begin Deposit(0,0,0); Withdraw(1,1,1); end else
+Deposit(2,0,0);
+if(GetFood)then
+ Withdraw(2,1,1);
+CloseBank;
+if(GetFood)then
+ UseItem(2);
+end;
+
+Procedure AntiGetLost;
+begin
+if(LogedIn)then
+begin
+Report('AntiGetLost');
+if(not(FindColor(x,y,BankSymbol,572,8,722,160)))and
+  (not(FindColorTolerance(x,y,15750425,572,8,722,160,40)))then
+ LogOut('I am lost');
+if(FindColorTolerance(x,y,15750425,572,8,722,160,40))Then
+ MouseFlag(x+15,y,2,2) else
+if(FindColor(x,y,BankSymbol,572,8,721,160))then
+ MouseFlag(x,y,2,2);
+end;
+end;
+
+Procedure ToFish;
+begin
+Report('To Fish');
+if(not(FindColorTolerance(x,y,15750425,572,8,722,160,40)))Then
+ MouseFlag(650,120,5,5);
+if(FindColorTolerance(x,y,15750425,572,8,722,160,40))Then
+ begin
+  Mouse(x+15,y,2,2,true);
+  wait(5000);
+  MapFlag;
+ end else AntiGetLost;
+end;
+
+Procedure ToBank;
+begin
+report('To Bank');
+SetRun(true);
+if(not(FindColor(x,y,BankSymbol,570,8,725,162)))then
+ MouseFlag(667,55,5,5);
+if(FindColor(x,y,BankSymbol,570,8,725,162))then
+ begin
+  Mouse(x,y,2,2,true);
+  wait(5000);
+  MapFlag;
+ end else
+  AntiGetLost;
+end;
+
+Function FindFish:boolean;
+begin
+Report('Finding Fish');
+if(FindColorSpiralTolerance(x,y,15249528,5,5,514,337,20))then
+ begin
+  MMouse(x,y,2,2);
+  If(IsTextAt2(9,9,'Net',100))then
+   begin
+    result:=true;
+    LastFished:=GetSystemTime;
+   end;
+ end;
+end;
+
+Procedure CatchFish(catchfishx,catchfishy:integer);
+var cend,c,ax,ay,fx,fy:integer; cstop,ccstop:boolean;
+begin
+ Report('Fishing');
+ x:=catchfishx; y:=catchfishy;
+ Mouse(x,y,0,0,true);
+ repeat
+  c:=c+1;
+  wait(10);
+  FindColorSpiralTolerance(x,y,15249528,x-20,y-20,x+20,y+20,20);
+  if(not(cstop))and(not(FindBitmapIn(flag,ax,ay,570,5,725,162)))then
+   begin cstop:=true; c:=0; end;
+  if(cstop)and(c>150)then ccstop:=true;
+ until(ccstop)or(c>500)
+ c:=0;
+ cend:=175+random(75);
+ fx:=x; fy:=y;
+ if(not(GetColor(209,585)=16711680))then
+  repeat
+   Report('Fishing');
+   wait(200);
+   c:=c+1;
+   FindRandoms;
+   if(GetColor(377,397)=0)then
+    NoNet:=true;
+  until(c>=cend)or(InvinCount=28)or(NoNet)or
+       (not(FindColorSpiralTolerance(x,y,15249528,fx-20,fy-20,fx+20,fy+20,25)))
+  StandStill;
+end;
+
+Procedure LoadBmps;
+begin
+rcmFishBmp := BitmapFromString(7, 2,
+       'FFFFFFFFFFFF5D54475D54475D5447FFFFFFFFFFFF000000FFFFFF' +
+       'FFFFFF5D54475D5447FFFFFFFFFFFF');
+iLamp := BitmapFromString(16, 2,
+       '000001000001000001000001000001BAB815B2B015AEAD15ABAA15' +
+       '9C9A129291128C8A1275740E000001000001000001C5C418D0CE18' +
+       'CBC918C8C618C5C418C5C418C0BE18BAB815B5B315ABAA15A3A112' +
+       '99971292911284820E79780E696809');
+TalkW := BitmapFromString(17, 10,
+        'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+        '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+        '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+        'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF');
+TalkY := BitmapFromString(17, 10,
+        'FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+        '000000000000000000000000000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000000000000000FFFF00FFFF00FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+        '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000FFFF00FFFF00000000000000000000000000FFFF00' +
+        'FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00');
+FishNet := BitmapFromString(9, 5,
+       '584843000001585044000001000001605043484038484038605043' +
+       '00000130202000000100000140302A58483E48382D58483E504038' +
+       '302020302020564D423020200000015040380000010000013C3024' +
+       '564D42564D42544A3B00000148403E00000130202000000158483E' +
+       '564D42564D42564D42544A3B000001302020302020000001585044' +
+       '');
+end;
+
+Procedure GetColors;
+begin
+if(FindColorTolerance(x,y,5360864,572,8,722,160,45))then
+ BankSymbol:=GetColor(x,y)
+else
+ begin
+  MouseFlag(667,55,5,5);
+  if(FindColorTolerance(x,y,5360864,572,8,722,160,45))then
+   BankSymbol:=GetColor(x,y)
+ end;
+if(FindColor(x,y,BankSymbol,615,60,680,105))then
+ ToFish;
+end;
+
+begin
+SetupOSi;
+LoadBmps;
+LastFished:=GetSystemTime;
+ChatFixer;
+GetColors;
+repeat
+FindRandoms;
+wait(200);
+if(FindFish)then
+ CatchFish(x,y);
+if(GetSystemTime-LastFished>300000)then
+ begin
+  AntiGetLost;
+  LastFished:=GetSystemTime;
+ end;
+if(InvinCount=28)or(NoNet)then
+ begin
+  FishCount:=FishCount+27;
+  NoNet:=false;
+  ToBank;
+  Bank;
+  ToFish;
+ end;
+until(false)
+end.

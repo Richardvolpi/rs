@@ -1,0 +1,881 @@
+Program WoodCuttor;
+
+{
+  *  -----------------  *
+ |-----------------------|
+||WOODCUTTOR BY ICESCREAM||
+ |-----------------------|
+  *  -----------------  *
+     
+v. 1 - Initial release
+v. 1.2 - Fixed bugs and more bugs.
+v. 1.21 - Added Tolerance for tree. (default 5)
+v. 1.41 - WillowCutting + banking in draynor + fixed bugs
+v. 1.42 - Fixed things and fixed banking a little
+v. 1.43 - Added it to find splitted axe head, doesn't bank it yet
+v. 1.44 - Fixed bugs and added 2 tree colors, added report.
+v. 1.45 - U can now fletch+bank same time.
+v. 1.46 - Fixes and stuff, if attked random added.
+v. 1.47 - Fixed bug with checking axe.
+v. 1.5  - U can now Fletch in Bank too! :)
+v. 1.51 - Fixed bugs in fletching.
+v. 1.52 - Fixed very minor bug.
+v. 1.53 - No need to setup so many colors anymore! :)
+v. 1.55 - Little Things, AxeHeadRepairing, RandomLogout (THANKS SQUIG) and more
+v. 1.6  - Much fixes, Ent-random, Checks if tree already cutted, Better running away.
+v. 1.61 - Fixed Running ALOT.
+v. 1.62 - Fixed FindAxeHead + Fixed dropping logs..
+v. 1.621- Last version was buggy, fixed, Won't travel so much anymore!
+
+     IF fletching in bank, start with nothing in inv!
+
+             !!!LOG IN 2ND INV SPOT!!!
+                
+         --- WC AXE IN FIRST INV SPOT ---
+         --- AXES IN FIRST BANK SPOT  ---
+         --- KNIFE 2ND INV SPOT       ---
+         --- KNIFE 2ST BANK SPOT      ---
+         --- LOGS IN FIRST BANK SLOT  ---
+         --- VERy BRIGHT              ---
+         --- LOW DETAIL               ---
+         
+}
+
+var MakeX, headcolor, headcolor1, handlecolor, LogInInv, report, report2, bankcount,
+WoodBanked, DropLogs, time1, time2, FletchLogs, gidibipliks, randomcount,kalle5,kalle6,AfterRun, headcolor2, headcolor3, headcolor4:integer;loge:string;isrunned,irun,iirun,iiirun:boolean;
+
+//      SETUP
+Const
+UserName  =''       ;//ur username
+Password  =''       ;//ur pass
+
+TreeColor1= 2969672  ;
+TreeColor2= 1515552  ;//for faster tree finding
+TreeColor3= 2502704  ;//for even faster tree finding
+TreeTOl   = 8        ;//Do u want it to accept similar colors for a tree? 0=no 6=yes 5435=any color
+BowInInv  = 873338   ;//bow color in inventory
+CutTime   = 15000    ;//in milliseconds
+BankLogo  = 4049111  ;//The yellow $,only need to set if banking=true
+LampSkill = 'Prayer' ;//what skill to boost if genie comes
+Fletch    = False    ;//want to fletch? true=yes false=no
+DrayBank  = False    ;//willowcutting + banking @ draynor?
+Pwrcut    = True     ;//do u want to powercut?
+
+
+{.include osi.txt}
+{.include par.txt}
+{.include BoxBreaker.txt}
+
+//DO NOT ALTER BELOW THIS
+
+Procedure WoodReport;
+var
+  RHours,Minutes,Seconds,RMinutes,RSeconds:LongInt;
+  Time:String;
+begin
+if(GetSystemTime-report2 > report*60000)then
+begin
+  Seconds:=(GetSystemTime-ST) div 1000;
+  Minutes:=Seconds div 60;
+  RHours:=Minutes div 60;
+  Time:=inttostr(Seconds)+' Seconds';
+  if Minutes<>0 then
+  begin
+   RSeconds:=Seconds Mod (Minutes*60);
+   Time:=inttostr(Minutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+  end;
+  if RHours<>0 then
+  begin
+   RMinutes:=Minutes Mod (RHours*60);
+   RSeconds:=Seconds Mod (Minutes*60);
+   Time:=inttostr(RHours)+' Hours, '+inttostr(RMinutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+  end;
+  begin
+  writeln(' ');
+  writeln('<Woodcuttor by '+loge+'>');
+  writeln('Worked for '+Time);
+  if(DrayBank=true)then
+  begin;
+  writeln('Banked '+inttostr(BankCount)+' times')
+  writeln('Banked about '+inttostr(WoodBanked)+' logs')
+  end;
+  if(Fletch=true)then
+  begin;
+  writeln('Fletched about '+inttostr(FletchLogs)+' logs')
+  end;
+  if(Draybank=false)and(pwrcut=true)then
+  begin;
+  Writeln('Cutted + Dropped about '+inttostr(DropLogs)+' logs')
+  end;
+  Writeln('Axes/Atks handled '+inttostr(RandomCount)+' times')
+  writeln('<Woodcuttor by '+loge+'>');
+  writeln(' ');
+  Report2:=GetSystemTime;
+  end;
+end;
+end;
+
+Procedure LogIn;
+Begin;
+if(NotLogedIn) then
+ begin;
+ Mouse(454,286,3,3,true)
+ wait(random(200+100))
+ Say(UserName)
+ wait(random(200+100))
+ Say(Password)
+ wait(random(200+100))
+ Mouse(305,322,3,3,true)
+ wait(4000+random(1000))
+ if(NotLogedIn)then
+  begin;
+  Status('Trying to log in again')
+  wait(100+random(100))
+  Mouse(462,321,2,2,true)
+  LogIn
+  end;
+ Mouse(459,92,2,2,true)
+ wait(200+random(300))
+ Mouse(459,64,2,2,true)
+ wait(200+random(300))
+ if(NotLogedIn)then
+  begin;
+  LogIn
+  end;
+ end;
+End;
+
+Procedure Autologoutting; //LITTLE MODIFIED SQUIGGLYOS PROCEDURE
+var a:integer;
+begin;
+  if((((getsystemtime-time1)/1000)/60)>time2)then
+      begin
+        a:=random(4);
+        writeln('');
+        if(a=0)then
+          begin
+            writeln('Taking a 5 minit break');
+            wait(random(120000)+300000);
+            writeln('');
+          end;
+        if(a=1)then
+          begin
+            writeln('Taking a 10 minit break');
+            wait(random(150000)+600000);
+            writeln('');
+          end;
+        if(a=2)then
+          begin
+            writeln('Taking a 15 minit break');
+            wait(random(300000)+900000);
+            writeln('');
+          end;
+        if(a=3)then
+          begin
+            writeln('Taking a 20 minit break');
+            wait(random(600000)+1200000);
+            writeln('');
+          end;
+        if(a=4)then
+          begin
+            writeln('Taking a 30 minit break');
+            wait(random(750000)+1800000);
+            writeln('');
+          end;
+        if(a=5)then
+          begin
+            writeln('FUCK THOSE BREAKS! I take a 3 sec brake! :D');
+            wait(random(500)+3000);
+            writeln('');
+          end;
+        Login;
+        time1:=getsystemtime
+        time2:=((time1/1000)/60)+random(100)+250;
+      end;
+end;
+
+Function Axebrokenreturn:boolean;
+begin
+result:=false
+Mouse(649,185,3,3,true)
+MMouse(581,228,2,2)
+wait(500+random(200))
+if(istextat2(9,9,'Use',100))or(istextat2(9,9,'',100))then
+begin
+result:=true
+end;
+end;
+
+Procedure AntiEnt;
+begin;
+if(FindColorTolerance(x,y,55769,85,15,115,15,20))then
+begin
+Writeln('Found an Ent!');
+StandStill;
+RandomCount:=RandomCount+1;
+wait(25000+random(7500))
+end;
+end;
+
+procedure AxeHeadFinder;
+begin
+if(AxeBrokenReturn=true)then
+begin
+Status('Finding wc axehead');
+if(FindColorSpiralTolerance(x,y,HeadColor,1,1,515,338,5))or(FindColorSpiralTolerance(x,y,HeadColor1,1,1,515,338,5))or(FindColorSpiralTolerance(x,y,HeadColor2,1,1,515,338,5))or(FindColorSpiralTolerance(x,y,HeadColor3,1,1,515,338,5))or(FindColorSpiralTolerance(x,y,HeadColor4,1,1,515,338,5))then
+  begin
+    MMouse(x-random(1),y-random(1),1,1);
+    wait(350+random(100));
+    if(IsTextAt2(9,9,'Take',100))then
+    begin
+      Mouse(x-random(1),y-random(1),1,1,true);
+      Setrun(true);
+      wait(9000+random(2500))
+      status('CONGRATS you got your axehead back :)')
+      if(FindObjColorTOl('Use',HeadColor,1))then
+      begin;
+      Mouse(x,y,1,1,true)
+      wait(500+random(750))end;
+      if(FindObjCOlorTOl('Wield',HandleColor,1))then
+      begin;
+      Mouse(x,y,0,0,true)
+      wait(2500+random(1000))
+      Status('Thank me, you got your axe back in business')
+      RandomCount:=randomcount+1;
+      end;
+    end;
+   end;
+ end;
+end;
+
+Procedure RunIfAtk;
+begin
+irun:=false
+iirun:=false
+iiirun:=false
+if(isrunned=false)then
+ begin;
+ Afterrun:=99
+ end;
+if(Gethp<Afterrun)then
+begin;
+SetRun(true)
+
+
+
+if DrayBAnk=true then
+ begin;
+ status('Running to bank, Char was atked! :(')
+ if(FindColorTolerance(x,y,BankLogo,570,0,718,156,4))then
+ begin;
+ Check4randoms
+ Setrun(true)
+ mouse(x-random(1),y-random(1),1,1,true)
+ wait(12000+random(3000))
+ RunIfAtk;
+ FindBox;
+ Check4randoms
+  if(FindColorTolerance(x,y,BankLogo,570,0,718,156,4))then
+  begin;
+  Check4randoms
+   mouse(x-5-random(2),y+2-random(2),2,2,true)
+   FindBox;
+   wait(1500+random(1000))
+   Check4randoms
+  end;
+ end;
+Status('Banking')
+Check4Randoms;
+Check4lamp(lampskill);
+OpenBank;
+ if(OpenBank=true)then
+ begin;
+ Deposit(3,1,27+random(3))
+ wait(500+random(500))
+ Deposit(1,1,1)
+ wait(500+random(500))
+ Withdraw(1,1,1)
+ wait(100+random(100))
+ Closebank
+ BankCount:=BankCount+1;
+ WoodBanked:=WoodBanked+25;
+ Status('Banked willows :)')
+ if(Axebrokenreturn=true)then
+ begin;
+ LogOut('Ran out of axes!')
+ WoodReport;
+ end;
+ end;
+ status('Going to the willows')
+wait(500+random(500))
+FindBox;
+Check4randoms
+ if(FindColorTolerance(x,y,BankLogo,5,5,770,400,4))then
+ begin;
+ Mouse(x-28-random(2),y+40-random(2),2,2,true)
+ Check4randoms
+ RunIfAtk;
+ FindBox;
+ Mapflag;
+ FindBox;
+ Check4randoms
+ end;
+ end;
+
+
+
+Status('Running away')
+Mouse(649-random(2),140-random(2),2,2,true)
+Kalle5:=getsystemtime;
+MapFlag;
+KAlle6:=getsystemtime;
+ if(kalle6-kalle5>500)then
+ begin;
+ repeat
+ Mouse(642,480,3,3,true)
+ wait(300+random(300))
+ Mouse(634,369,3,3,true)
+ wait(5000+random(3000))
+ until(notlogedin=true)
+ RandomCount:=randomcount+1;
+ isrunned:=true
+ irun:=true
+ Login;
+ end;
+
+if(isrunned=false)then
+begin;
+Mouse(600-random(2),100-random(2),2,2,true)
+Kalle5:=getsystemtime;
+MapFlag;
+KAlle6:=getsystemtime;
+ if(kalle6-kalle5>500)then
+ begin;
+ repeat
+ Mouse(642,480,3,3,true)
+ wait(300+random(300))
+ Mouse(634,369,3,3,true)
+ wait(5000+random(3000))
+ until(notlogedin=true)
+ RandomCount:=randomcount+1;
+ isrunned:=true
+ iirun:=true
+ Login;
+ end;
+end;
+
+if(isrunned=false)then
+begin;
+Mouse(681-random(2),118-random(2),2,2,true)
+Kalle5:=getsystemtime;
+MapFlag;
+KAlle6:=getsystemtime;
+ if(kalle6-kalle5>500)then
+ begin;
+ repeat
+ Mouse(642,480,3,3,true)
+ wait(300+random(300))
+ Mouse(634,369,3,3,true)
+ wait(5000+random(3000))
+ until(notlogedin=true)
+ RandomCount:=randomcount+1;
+ isrunned:=true
+ iiirun:=true
+ Login;
+ end;
+end;
+
+if(isrunned=true)then
+begin;
+AfterRun:=Gethp;
+if(irun=true)then
+ begin
+ Mouse(649,27,3,3,true)
+ MapFlag;
+ end;
+if(iirun=true)then
+ begin;
+ MOuse(691,41,3,3,true)
+ MapFlag;
+ end;
+if(iiirun=true)then
+ begin;
+ MOuse(602,40,3,3,true)
+ MapFlag;
+ end;
+end;
+end;
+end;
+
+procedure AxeBrokenForWillow;
+begin
+AxeheadFinder;
+status('Going to the bank')
+ if(FindColorTolerance(x,y,BankLogo,570,0,718,156,4))then
+ begin;
+ Check4randoms
+ mouse(x-random(2),y+random(2),1,1,true)
+ wait(15000+random(4000))
+ FindBox;
+ Check4randoms
+  if(FindColorTolerance(x,y,BankLogo,570,0,718,156,4))then
+  begin;
+  Check4randoms
+   mouse(x-5-random(2),y+2-random(2),2,2,true)
+   FindBox;
+   wait(1500+random(2000))
+   Check4randoms
+   
+Status('Banking')
+Check4Randoms;
+Check4lamp(lampskill);
+OpenBank;
+ if(OpenBank=true)then
+ begin;
+ Deposit(3,1,27+random(3))
+ wait(500+random(500))
+ Deposit(1,1,1)
+ wait(500+random(500))
+ Withdraw(1,1,1)
+ wait(100+random(100))
+ Closebank
+ BankCount:=BankCount+1;
+ WoodBanked:=WoodBanked+25;
+ Status('Banked willows :)')
+ if(Axebrokenreturn=true)then
+ begin;
+ LogOut('Ran out of axes!')
+ WoodReport;
+ end;
+ end;
+ status('Going to the willows')
+wait(500+random(500))
+FindBox;
+Check4randoms
+ if(FindColorTolerance(x,y,BankLogo,5,5,770,400,4))then
+ begin;
+ Mouse(x-28-random(2),y+40-random(2),2,2,true)
+ Check4randoms
+ RunIfAtk;
+ FindBox;
+ Mapflag;
+ FindBox;
+ Check4randoms
+ end;
+ end;
+ end;
+ end;
+
+procedure getaxeheadcolor;
+begin
+Mouse(649,185,3,3,true)
+status('Getting axehead + -handle colors from inv');
+headcolor:=getcolor(590,218);
+headcolor1:=getcolor(590,220)
+headcolor2:=getcolor(589,221)
+headcolor3:=getcolor(591,218)
+headcolor4:=getcolor(588,218)
+wait(random(20));
+wait(100+random(150));
+HandleColor:=getcolor(577,239);
+wait(random(100))
+status('Getting log color from inv');
+LoginInv:=getcolor(622,234);
+wait(random(20));
+wait(100+random(150));
+time1:=getsystemtime
+time2:=((time1/1000)/60)+random(100)+250;
+end;
+
+Procedure BankingSomething;
+begin;
+Status('Banking')
+Check4Randoms;
+Check4lamp(lampskill);
+OpenBank;
+ if(OpenBank=true)then
+ begin;
+ Deposit(3,1,27+random(3))
+ wait(500+random(500))
+ Deposit(1,1,1)
+ wait(500+random(500))
+ Withdraw(1,1,1)
+ wait(100+random(100))
+ Closebank
+ BankCount:=BankCount+1;
+ WoodBanked:=WoodBanked+25;
+ Status('Banked willows :)')
+ if(Axebrokenreturn=true)then
+ begin;
+ LogOut('Ran out of axes!')
+ WoodReport;
+ end;
+ end;
+end;
+
+
+Procedure ToDraynorBank;
+begin
+status('Going to the bank')
+ if(FindColorTolerance(x,y,BankLogo,570,0,718,156,4))then
+ begin;
+ Check4randoms
+ Setrun(true)
+ mouse(x-random(1),y-random(1),1,1,true)
+ Mapflag;
+ RunIfAtk;
+ FindBox;
+ Check4randoms
+  if(FindColorTolerance(x,y,BankLogo,570,0,718,156,4))then
+  begin;
+  Check4randoms
+   mouse(x-5-random(2),y+2-random(2),2,2,true)
+   FindBox;
+   wait(1500+random(1000))
+   Check4randoms
+  end;
+ end;
+end;
+
+Procedure FletchThem;
+begin;
+if(fletch=true)then
+ begin;
+ UseItem(2)
+ wait(100+random(100))
+ UseItem(3)
+ wait(random(100))
+ Mouse(391-random(3),401-random(3),5,5,false)
+ if(FindBitmap(MakeX,x,y))then
+  begin;
+  Mouse(x,y,1,1,true)
+  wait(3000+random(500))
+  Say('30')
+  wait(46000/2+random(2000))
+  DropColorTol(BowInInv,15)
+  Check4Randoms;
+  RunIfAtk;
+  wait(46000/2+random(2000))
+  FletchLogs:=FletchLogs+26;
+  Woodreport;
+  if (FindObjCOlorTOl('use',BowInInv,20))then
+   begin
+    FletchThem;
+    Check4randoms;
+    RunIfAtk;
+    FindBox;
+   end;
+  end;
+ end;
+end;
+
+Procedure FletchThemBanking;
+begin;
+if(fletch=true)then
+ begin;
+ UseItem(2)
+ wait(100+random(100))
+ UseItem(3)
+ wait(random(100))
+ Mouse(391-random(3),401-random(3),5,5,false)
+ if(FindBitmap(MakeX,x,y))then
+  begin;
+  Mouse(x,y,1,1,true)
+  wait(3000+random(500))
+  Say('30')
+  wait(46000/2+random(2000))
+  Check4Randoms;
+  RunIfAtk;
+  wait(46000/2+random(2000))
+  FletchLogs:=FletchLogs+26;
+  Woodreport;
+  end;
+ end;
+end;
+
+Procedure FletchInBank;
+var Fletchnumbah:integer;
+begin;
+if(draybank=false)then begin;
+if(pwrcut=false)then begin;
+if(fletch=true)then
+ begin;
+ FletchNumbah:=28
+ status('Getting Fletching Things')
+ if(Openbank=true)then
+ begin;
+ wait(100+random(500))
+ withdraw(2,1,1)
+ wait(100+random(200))
+ withdraw(1,1,29+random(3))
+ wait(100+random(200))
+ Closebank;
+ Mouse(649,185,3,3,true)
+ wait(100+random(100))
+ UseItem(1)
+ wait(100+random(100))
+ UseItem(2)
+ wait(random(100))
+ Mouse(391,401,5,5,false)
+ if(FindBitmap(MakeX,x,y))then
+  begin;
+  Mouse(x,y,2,2,true)
+  wait(3500+random(750))
+  Say(inttostr(Fletchnumbah+random(4)))
+  Status('Fletching')
+  wait(24000+random(2000))
+  RunIfAtk;
+  wait(23000+random(2000))
+  FletchLogs:=FletchLogs+27;
+  WoodReport;
+  Status('Depositing Bows')
+  OpenBank;
+  Deposit(1,1,1)
+  wait(100+random(200))
+  Deposit(2,1,30+random(4))
+  end;
+ end;
+end;
+end;
+end;
+end;
+
+Procedure CheckInv;
+begin;
+if(Fletch=False)then
+begin;
+Status('Dropping Logs')
+Mouse(647-random(2),184-random(2),2,2,true)
+wait(random(200+100))
+Mouse(589-random(3),220-random(3),5,5,true)
+DropColor(LogInInv)
+Check4Randoms;
+RunIfAtk;
+DropLogs:=DropLogs+27;
+Woodreport;
+Mouse(679,177,7,7,true)
+wait(100+random(200))
+Mouse(599,295,3,3,true)
+wait(100+random(200))
+if(FindObjCOlorTOl('Use',LogInInv,20))then
+ begin
+ CheckInv;
+ RunIfAtk;
+ Check4randoms;
+ FindBox;
+ end;
+ end;
+FletchThem;
+end;
+
+Procedure Inventoryisfull;
+begin;
+Mouse(650,184,6,6,true)
+wait(random(100))
+MMouse(710,439,4,4)
+wait(random(50)+50)
+if(istextat2(9,9,'Use',70))then
+begin;
+if(Pwrcut=true)then
+begin;
+CheckInv;
+end;
+If(Draybank=true)then
+begin;
+ToDraynorbank;
+FletchThemBanking;
+BankingSomething;
+status('Going to the willows')
+wait(500+random(500))
+FindBox;
+Check4randoms
+ if(FindColorTolerance(x,y,BankLogo,5,5,770,400,4))then
+ begin;
+ Mouse(x-28-random(2),y+40-random(2),2,2,true)
+ Check4randoms
+ RunIfAtk;
+ FindBox;
+ wait(12000+random(2500))
+ FindBox;
+ Check4randoms
+ end;
+end;
+end;
+end;
+
+procedure Cut;
+begin
+  Status('Finding Tree');
+  if(FindColorSpiralTolerance(x,y,TreeColor1,106,84,398,242,TreeTol))or(FindColorSpiralTolerance(x,y,TreeColor2,106,84,398,242,TreeTol))or(FindColorSpiralTolerance(x,y,TreeColor3,106,84,398,242,TreeTol))then
+  begin;
+   MMouse(x-random(2),y-random(2),2,2);
+   if(istextat2(9,9,'Chop',100))then
+   begin;
+   Mouse(x-random(4),y-random(4),4,4,true)
+   Status('Cutting Tree')
+   Check4randoms;
+   wait(cuttime/3+random(1000))
+   RunIfAtk;
+   AntiEnt;
+   FindBox;
+   Check4randoms
+   wait(random(100))
+   AntiEnt;
+   MMouse(x-random(4),y-random(4),4,4)
+   if(istextat2(9,9,'Chop',100))then
+   begin;
+   AntiEnt;
+   Inventoryisfull;
+   wait(cuttime/3+random(1000))
+   end;
+   AntiEnt;
+   MMouse(x-random(4),y-random(4),4,4)
+   if(istextat2(9,9,'Chop',100))then
+   begin;
+   AntiEnt;
+   RunifAtk;
+   wait(cuttime/3+random(1000))
+   end;
+   gidibipliks:=gidibipliks+1;
+  end;
+ end;
+end;
+
+Procedure BMPs;
+Begin;
+MakeX := BitmapFromString(33, 2,
+       '5D5447FFFFFFFFFFFFFFFFFFFFFFFF5D54475D54475D5447FFFFFF' +
+       'FFFFFF000000FFFFFFFFFFFF5D54475D54475D5447FFFFFFFFFFFF' +
+       'FFFFFFFFFFFF5D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF5D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '0000000000005D5447FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '5D54475D54475D54475D54475D54475D54475D5447FFFFFFFFFFFF' +
+       'FFFFFFFFFFFF5D5447');
+       Loge:='icescream'
+end;
+
+Procedure ToWillows;
+begin;
+status('Going to the willows')
+wait(500+random(500))
+FindBox;
+Check4randoms
+ if(FindColorTolerance(x,y,BankLogo,5,5,770,400,4))then
+ begin;
+ Mouse(x-28-random(2),y+40-random(2),2,2,true)
+ Check4randoms
+ RunIfAtk;
+ FindBox;
+ Mapflag;
+ FindBox;
+ Check4randoms
+ end;
+end;
+
+procedure CutWillow;
+begin
+  Status('Finding Willow');
+  if(FindColorSpiralTolerance(x,y,TreeColor1,106,84,398,242,TreeTol))or(FindColorSpiralTolerance(x,y,TreeColor2,106,84,398,242,TreeTol))or(FindColorSpiralTolerance(x,y,TreeColor3,106,84,398,242,TreeTol))then
+   begin
+   MMouse(x-random(2),y-random(2),2,2);
+   if(istextat2(9,9,'Chop',100))then
+   begin;
+   Mouse(x-random(4),y-random(4),4,4,true)
+   Status('Cutting Tree')
+    Check4randoms;
+    RunIfAtk;
+    wait(cuttime/3+random(1000))
+    AntiEnt;
+    FindBox;
+    wait(random(100))
+    MMouse(x-random(4),y-random(4),4,4)
+     if(istextat2(9,9,'Chop',100))then
+     begin;
+     AntiEnt;
+     Inventoryisfull;
+     wait(cuttime/3+random(1000))
+     end;
+     AntiEnt;
+   MMouse(x-random(4),y-random(4),4,4)
+     if(istextat2(9,9,'Chop',100))then
+     begin;
+     AntiEnt;
+     RunifAtk;
+     wait(cuttime/3+random(1000))
+     end;
+   gidibipliks:=gidibipliks+1;
+  end;
+ end;
+end;
+begin;
+SetupOsi;
+Login;
+ChatFixer;
+Bmps;
+GetAxeHeadColor
+RunIfAtk;
+Gidibipliks:=0;
+Face('N')
+repeat
+FletchInBank;
+Woodreport;
+
+ if(DrayBank=True)then
+ repeat
+ begin;
+ ToWillows;
+ repeat
+ CutWillow;
+  if(gidibipliks>1)then
+  begin;
+  AxeBrokenForWIllow;
+  Autologoutting;
+  login;
+  Gidibipliks:=0;
+  invincount
+  end;
+ RunIfAtk;
+ AxeBrokenForWillow;
+ until(invinfull=true)
+ AxeBrokenForWillow;
+ FletchThemBanking;
+ ToDraynorBank;
+ RunIfAtk;
+ Check4lamp(lampskill);
+ BankingSomething;
+ RunIfAtk;
+ WoodReport;
+ Login;
+ end;
+ until(false)
+
+
+if(pwrcut=true)then
+begin;
+repeat
+repeat
+Cut;
+if(gidibipliks>3)then
+begin;
+Inventoryisfull
+gidibipliks:=0;
+AxeHeadFinder
+Autologoutting;
+RunifATk;
+end;
+Login;
+InvinFull;
+until(invinfull=true);
+FindBox;
+Login;
+Check4lamp(LampSkill);
+RunIfAtk;
+Autologoutting;
+CheckInv;
+ChatFixer;
+Woodreport;
+until(false);
+end;
+until(false);
+end.

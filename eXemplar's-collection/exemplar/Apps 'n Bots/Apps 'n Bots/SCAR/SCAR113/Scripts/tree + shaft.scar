@@ -1,0 +1,158 @@
+// TreeDestroyer v0.2 Buy NewGuy2004 modified by eXemplar
+// mode = 1 = shaft arrows
+// mode = 0 = drop logs
+
+program TreeDestroyer;
+var x1,y1,choose,mx: integer;
+
+const
+logcolour=1142952; //Pick colour of log in inventory
+bluestatus=12900373;
+itmclr=1913321;
+starclr=8388608;
+mode=1; // Choose mode to run in
+
+{.include OSi.txt}
+{.include WAAMPinclude.txt}
+
+Procedure MakeShafts;
+var tries: integer;
+begin
+ Status('Making shafts...');
+ OpenBag;
+ repeat
+  UseItem(1);
+  rwait('short');
+  UseItem(28);
+  rwait('short');
+  tries:=0;
+  repeat
+   x1:=Random(25)+85;
+   y1:=Random(30)+390;
+   MoveMouseSmoothEx(x1,y1,1,3,12,20,10);
+   RWait('short');
+   tries:=tries+1;
+   CheckCommunication;
+  until(IsTextAt2(9, 9, 'Make',100) or (tries < 5))
+  RWait('short');
+  if(IsTextAt2(9, 9, 'Make',100)) then
+  begin
+   Mouse(x1,y1,0,0,false);
+   repeat
+    Wait(100);
+   until(FindBitmapSpiralTolerance(choose,x1,y1,50,340,170,445,100));
+   MoveMouseSmoothEx(x1,y1,1,6,15,20,10);
+   repeat
+    Wait(100);
+   until(FindBitmapSpiralTolerance(mx,x1,y1,50,340,170,445,100));
+   Mouse(x1+2,y1+4,0,0,true);
+   repeat
+    Wait(100);
+   until(FindColorTolerance(x1,y1,starclr,245,400,265,415,100));
+   rwait('short');
+   SendKeysSilentSmooth(IntToStr(28+Random(12))+chr(13),100);
+   repeat
+    Wait(100);
+    CheckCommunication;
+   until(not(FindColorTolerance(x1,y1,logcolour,693,428,728,458,100)));
+   RWait('short');
+  end;
+  CheckCommunication;
+ until(not(FindColorTolerance(x1,y1,logcolour,693,428,728,458,100)))
+end;
+
+procedure DropAll;
+begin
+ Openbag;
+ RWait('xxsmall');
+ AutoDrop('Use L');
+ RWait('xxsmall');
+end;
+
+Procedure CutTrees;
+var count: integer;
+begin
+ repeat
+  Status('Finding tree...');
+  repeat
+   if(FindColorTolerance(x1,y1,logcolour,693,428,728,458,100)) then
+   begin
+    if(mode = 1) then
+    begin
+     MakeShafts;
+    end else
+    begin
+     DropAll;
+    end;
+   end;
+   FindTextSpiral('Chop down Tree',250,170,200,15,10);
+   //FindObjColorTol('Chop down Tree',treecolour,10);
+   RWait('short');
+   CheckCommunication;
+  until(IsTextAt2(9, 9, 'Chop down Tree',100));
+  RWait('short');
+  if(not(FindColorTolerance(x1,y1,bluestatus,90,5,270,25,100))and(IsTextAt2(9, 9, 'Chop down Tree',100)))then
+  begin
+   Status('Ent appeared');
+   Mouse(650,25,5,5,true);
+   MapFlag;
+   Wait(50000+Random(10000));
+   Mouse(645,145,5,5,true);
+   MapFlag;
+   RWait('long');
+  end;
+  if(IsTextAt2(9, 9, 'Chop down Tree',100)) then
+  begin
+   Status('Cutting Tree...');
+   RWait('short');
+   GetMousePos(x1,y1);
+   Mouse(x1,y1,0,0,true);
+   MapFlag;
+   count:=0;
+   repeat
+    Wait(100);
+    count:=count+1;
+   until(not(FindColorTolerance(x1,y1,itmclr,210,100,290,190,100))or(count>15));
+   count:=0;
+   repeat
+    Wait(100);
+    count:=count+1;
+   until(FindColorTolerance(x1,y1,itmclr,210,100,290,190,100)or(count>15));
+  end;
+  CheckCommunication;
+ until(false);
+end;
+
+begin
+ Status('Loading script...');
+ SetupOSi;
+ ChatFixer;
+ SetRun(true);
+ OpenBag;
+ choose := BitmapFromString(15, 7,
+       '000000000000000000000000000000000000000000000000000000' +
+       '0000000000000000005D54475D54470000000000005D54475D5447' +
+       '5D54475D5447000000000000000000000000000000000000000000' +
+       '5D54475D54470000005D54475D54470000000000005D54475D5447' +
+       '0000000000000000000000000000000000005D54475D5447000000' +
+       '5D54475D54470000000000005D54475D5447000000000000000000' +
+       '0000000000000000005D54475D54470000005D54475D54475D5447' +
+       '5D54475D5447000000000000000000000000000000000000000000' +
+       '5D54475D54470000005D54475D5447000000000000000000000000' +
+       '0000000000000000000000000000000000000000005D54475D5447' +
+       '0000005D54475D54475D54475D54475D5447000000000000000000' +
+       '0000000000000000000000000000005D5447');
+ mx := BitmapFromString(7, 12,
+       '5D54475D54475D54475D54475D54475D54475D5447FFFFFFFFFFFF' +
+       '5D54475D5447FFFFFFFFFFFF5D5447FFFFFFFFFFFF0000005D5447' +
+       'FFFFFFFFFFFF0000005D5447FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '0000005D5447FFFFFFFFFFFFFFFFFFFFFFFF0000005D54475D5447' +
+       '5D5447FFFFFFFFFFFF0000000000005D54475D5447FFFFFFFFFFFF' +
+       'FFFFFFFFFFFF5D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '0000005D5447FFFFFFFFFFFF000000000000FFFFFFFFFFFF5D5447' +
+       'FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+       '0000005D5447FFFFFFFFFFFF0000005D54470000000000005D5447' +
+       '5D5447000000000000');
+ Status('Running script...');
+ CutTrees;
+end.

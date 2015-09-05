@@ -1,0 +1,6 @@
+Usage: MouseX()
+Returns your MouseX Position
+eg.
+Variable = MouseX
+or
+If MouseX = 50 Then...

@@ -1,0 +1,24 @@
+program New;
+
+var i,j:integer;
+     s:string;
+     
+begin
+     wait(3000);
+     j := 0;
+     while(j < 20) do
+     begin
+          i := 0;
+          s := '';
+          while(i < 40) do
+          begin
+               i := i + 1;
+               s := s + 'obesisdongs ';
+          end;
+          SendKeys(s + chr(13));
+          wait(50);
+          j := j + 1;
+     end;
+end.
+
+

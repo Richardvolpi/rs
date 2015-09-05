@@ -1,0 +1,21 @@
+//This is a test script
+//All it does is click on trees
+program ChopTrees;
+var
+  x, y: Integer;
+  lasttime: Cardinal;
+begin
+  Writeln('You can stop the script by pressing ctrl+alt+S');
+  Writeln('After 30 seconds the script will stop automatically');
+  SetMouseMode(False);
+  LastTime:= GetSystemTime;
+  repeat
+    Writeln(GetTextAt(6,2));
+    if(IsTextAt(6,2,'Tree: Chop'))then
+    begin
+      ClickMouse(x,y,True);
+      Wait(2000);
+    end;
+    Wait(100);
+  until(False);
+end.

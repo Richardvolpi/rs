@@ -1,0 +1,24 @@
+program New;
+var
+  ClientCanvas, DebugCanvas, BMapCanvas: TCanvas;
+  bmap: Integer;
+begin
+  //display debug image window
+  //this can be used for debugging or displaying
+  //something to script user
+  DisplayDebugImgWindow(100, 100);
+  //obtain canvas of RS window and debug window
+  DebugCanvas:= GetDebugCanvas;
+  ClientCanvas:= GetClientCanvas;
+  //display something to user if you wish
+  //this one displays upper left corner
+  CopyCanvas(ClientCanvas, DebugCanvas, 0, 0, 100, 100, 0, 0, 100, 100);
+  //save the part of client screen if you wish
+  bmap:= BitmapFromString(100, 100, '');
+  BMapCanvas:= GetBitmapCanvas(bmap);
+  CopyCanvas(ClientCanvas, BMapCanvas, 0, 0, 100, 100, 0, 0, 100, 100);
+  SaveBitmap(bmap, AppPath + 'bmap100x100.bmp');
+  //well, since we don't really don't need bmap anymore
+  //let's destroy it and free memory
+  FreeBitmap(bmap);
+end.

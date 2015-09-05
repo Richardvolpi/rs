@@ -1,0 +1,102 @@
+program FormTest;
+var
+  form, self: TForm;
+  Application: TApplication;
+  UserLabel, PassLabel: TLabel;
+  Username, Password: string;
+  txtUser, txtPass: TEdit;
+  ButtonOK: TButton;
+  f: Integer;
+  Year, Month, Day, Hour, Min, Sec, MSec: Word;
+
+//Event handler for ButtonOk.OnClick
+procedure buttonclick(sender: TObject);
+begin
+  Username:= txtUser.Text;
+  Password:= txtPass.Text;
+end;
+  
+  
+begin
+  //Initialize Application object
+  Application:= GetApplication;
+  Self:= GetSelf;
+  //////////////////////////////////////
+  // Creating and using forms
+  //////////////////////////////////////
+  //Create form for login/password
+  form:= TForm.Create(Application);
+  Form.Width := 220;
+  Form.Height := 140;
+  Form.Position := poScreenCenter;
+  Form.BorderStyle := bsDialog;
+  Form.Caption := 'Hello There';
+
+  //Create things on form
+  UserLabel := TLabel.Create(Form);
+  UserLabel.Top := 12;
+  UserLabel.Left := 16;
+  UserLabel.Caption := 'Username:';
+  UserLabel.Parent := Form;
+  PassLabel := TLabel.Create(Form);
+  PassLabel.Top := 42;
+  PassLabel.Left := 16;
+  PassLabel.Caption := 'Password:';
+  PassLabel.Parent := Form;
+  txtUser := TEdit.Create(Form);
+  txtUser.Top := 10;
+  txtUser.Left := 86;
+  txtUser.Width := 100;
+  txtUser.Parent := Form;
+  txtPass := TEdit.Create(Form);
+  txtPass.Top := 40;
+  txtPass.Left := 86;
+  txtPass.Width := 100;
+  txtPass.PasswordChar:= '*';
+  txtPass.Parent := Form;
+  ButtonOK := TButton.Create(Form);
+  ButtonOK.Left := 60;
+  ButtonOK.Top := 80;
+  ButtonOK.Width := 80;
+  ButtonOK.Height := 24;
+  ButtonOK.Caption := '&OK';
+  //Assign event to button that will hide form
+  ButtonOK.OnClick := @buttonclick;
+  ButtonOK.Parent := Form;
+  ButtonOK.Default := True;
+  ButtonOK.ModalResult:= mrOk;
+  
+  //Show modal form
+  Form.ShowModal;
+  
+  if(Username <> '')then
+    Writeln('Ah, hello ' + Username + ', nice to see you!');
+  //We won't need form anymore, free memory
+  form.free;
+
+  /////////////////////////////
+  // Using various Delphi features
+  /////////////////////////////
+  // Display messageboxes
+  Application.Messagebox('Testing messagebox', 'Just test', 0);
+  // Ask questions
+  if(Application.Messagebox('Are you a dog?', 'Question', 4) = 6)then
+    Writeln('Woof!')
+  else
+    Writeln('Meow!');
+  //Move this window or change it's caption
+  Self.Caption:= 'Wow, I can fly!';
+  for f:= 1 to 20 do
+  begin
+    Self.Left:= f * 20;
+    Self.Top:= f * 20;
+    Sleep(30);
+  end;
+  //Minimize SCAR window
+  Application.Minimize;
+  //Date functions
+  DecodeDate(Now, Year, Month, Day);
+  Writeln('Today is ' + IntToStr(Year) + '-' + IntToStr(Month) + '-' + IntToStr(Day));
+  DecodeTime(Now, Hour, Min, Sec, MSec);
+  Application.Title:= IntToStr(Hour) + ':' + IntToStr(Min);
+end.

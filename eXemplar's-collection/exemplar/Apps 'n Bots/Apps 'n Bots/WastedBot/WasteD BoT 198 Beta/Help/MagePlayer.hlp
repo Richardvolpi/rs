@@ -1,0 +1,2 @@
+Usage: MagePlayer(String Name, Integer SpellID)
+Mages a selected player by name and casts a selected spell on them

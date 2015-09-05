@@ -1,0 +1,622 @@
+{
+ v1 -* Made by Phalanx *-
+ Start in karmanja with a sleeping bag and the required tools.
+
+ Works for both P2P and F2P
+ Just set the required settings and you are good to go. :)
+
+ Notice: * Rotate the map MENUALLY to head almost perfect north.
+         * Compitable with scar 112.
+}
+// improve arrive using chat msg.
+Program KarmanjaFisher;
+{.include PhalanxInclude.txt}
+Const
+  ClickMapDel = 5 ;
+Type
+ TForm1=TForm;
+Var
+ FishingPath, KarmanjaDocksPath, PortSarimPath, BankPath:integer;
+ AtBank, ML1, ML2, AtFarm, ML3, AtPort, AtDocks, KL1, KL2, KL3, FishingSpot:integer;
+ Dx,Dy:integer;
+ UpLine,ItemNames,CatchType:String;
+ StartCheck:boolean;
+ StartingFishCount,CurrentFishCount:LongInt;
+ BKC,C:integer;
+ ItemNamesArr:StrArr;
+
+ FishingM, Fish:integer;
+ Edt_UserName, Edt_PassWord, Edt_BTPR, Edt_SWDelay, Edt_KS : TEdit;
+ Btn_Cancel, Btn_OK : TButton;
+ ComboBox_FMode, ComboBox_FishType : TComboBox;
+ 
+ Start:boolean;
+procedure OKClick (sender: TObject);
+var
+ MaxF:integer;
+begin
+  SaveSetting('Phalanx_Karmnja_Fisher', 'username', Edt_UserName.Text);
+  SaveSetting('Phalanx_Karmnja_Fisher', 'password', Edt_PassWord.Text);
+  SaveSetting('Phalanx_Karmnja_Fisher', 'SWDelay', Edt_SWDelay.Text);
+  SaveSetting('Phalanx_Karmnja_Fisher', 'KillSwitch', Edt_KS.Text);
+  SaveSetting('Phalanx_Karmnja_Fisher', 'BTPR', Edt_BTPR.Text);
+  SaveSetting('Phalanx_Karmnja_Fisher', 'FMode', IntToStr(ComboBox_FMode.ItemIndex));
+  SaveSetting('Phalanx_Karmnja_Fisher', 'FishType', IntToStr(ComboBox_FishType.ItemIndex));
+
+  Case StrToInt(LoadSetting('Phalanx_Karmnja_Fisher', 'FishType')) of
+  1:begin
+     UpLine:='fish: Net';
+     CatchType:='Net';
+     ItemNames:='Raw Shrimp, Raw Anchoby,';
+     MaxF:=99;
+     Dx:=1;
+     Dy:=7;
+    end;
+  2:begin
+     UpLine:='fish: Net';
+     CatchType:='Bait';
+     ItemNames:='Raw Trout, Raw Sardin, Raw Salmon,';
+     MaxF:=97;
+     Dx:=1;
+     Dy:=7;
+    end;
+  3:begin
+     UpLine:='fish: Harpoon';
+     CatchType:='Cage';
+     ItemNames:='Raw Lob';
+     MaxF:=88;
+     Dx:=4;
+     Dy:=8;
+    end;
+  4:begin
+     UpLine:='fish: Harpoon';
+     CatchType:='Harpoon';
+     ItemNames:='Raw Tuna';
+     MaxF:=95;
+     Dx:=4;
+     Dy:=8;
+    end;
+  5:begin
+     UpLine:='fish: Harpoon';
+     CatchType:='Harpoon';
+     ItemNames:='Raw Swordie, Raw Tuna,';
+     MaxF:=85;
+     Dx:=4;
+     Dy:=8;
+    end;
+ end;
+ InitInclude(LoadSetting('Phalanx_Karmnja_Fisher', 'username'),LoadSetting('Phalanx_Karmnja_Fisher', 'password'),StrToInt(LoadSetting('Phalanx_Karmnja_Fisher', 'SWDelay')),ClickMapDel,MaxF,StrToInt(LoadSetting('Phalanx_Karmnja_Fisher', 'KillSwitch')));
+ FishingM:=StrToInt(LoadSetting('Phalanx_Karmnja_Fisher', 'FMode'));
+ Fish:=StrToInt(LoadSetting('Phalanx_Karmnja_Fisher', 'FishType'));
+ Start:=True;
+end;
+procedure CancelClick (sender: TObject);
+begin
+ Start:=False;
+end;
+Procedure CallMainForm;
+var
+  Form1 : TForm1;
+  Lbl_FishType, Lbl_UserName, Lbl_PassWord, Lbl_FMode, Lbl_BTPR, Lbl_SWDelay, Lbl_KS, Topic_UserSettings, Topic_FishingSettings, Topic_MiscSettings : TLabel;
+  Bevel1, Bevel2, Bevel3 : TBevel;
+begin
+  Form1 := TForm1.Create(nil);
+  Form1.Left := 10;
+  Form1.Top := 10;
+  Form1.Width := 297;
+  Form1.Height := 393;
+  Form1.Caption := 'Fishing Script - By Phalanx';
+  Form1.Color := clBtnFace;
+  Form1.Font.Color := clWindowText;
+  Form1.Font.Height := -11;
+  Form1.Font.Name := 'MS Sans Serif';
+  Form1.Font.Style := [];
+  Form1.PixelsPerInch := 96;
+  Lbl_UserName := TLabel.Create(Form1);
+  Lbl_UserName.Parent := Form1;
+  Lbl_UserName.Left := 8;
+  Lbl_UserName.Top := 32;
+  Lbl_UserName.Width := 68;
+  Lbl_UserName.Height := 19;
+  Lbl_UserName.Caption := 'User name:';
+  Lbl_UserName.Font.Color := clWindowText;
+  Lbl_UserName.Font.Height := -16;
+  Lbl_UserName.Font.Name := 'Times New Roman';
+  Lbl_UserName.Font.Style := [];
+  Lbl_UserName.ParentFont := False;
+  Lbl_PassWord := TLabel.Create(Form1);
+  Lbl_PassWord.Parent := Form1;
+  Lbl_PassWord.Left := 8;
+  Lbl_PassWord.Top := 64;
+  Lbl_PassWord.Width := 63;
+  Lbl_PassWord.Height := 19;
+  Lbl_PassWord.Caption := 'Password:';
+  Lbl_PassWord.Font.Color := clWindowText;
+  Lbl_PassWord.Font.Height := -16;
+  Lbl_PassWord.Font.Name := 'Times New Roman';
+  Lbl_PassWord.Font.Style := [];
+  Lbl_PassWord.ParentFont := False;
+  Lbl_FMode := TLabel.Create(Form1);
+  Lbl_FMode.Parent := Form1;
+  Lbl_FMode.Left := 8;
+  Lbl_FMode.Top := 128;
+  Lbl_FMode.Width := 83;
+  Lbl_FMode.Height := 19;
+  Lbl_FMode.Caption := 'Fishing mode:';
+  Lbl_FMode.Font.Color := clWindowText;
+  Lbl_FMode.Font.Height := -16;
+  Lbl_FMode.Font.Name := 'Times New Roman';
+  Lbl_FMode.Font.Style := [];
+  Lbl_FMode.ParentFont := False;
+  Lbl_BTPR := TLabel.Create(Form1);
+  Lbl_BTPR.Parent := Form1;
+  Lbl_BTPR.Left := 8;
+  Lbl_BTPR.Top := 224;
+  Lbl_BTPR.Width := 183;
+  Lbl_BTPR.Height := 19;
+  Lbl_BTPR.Caption := 'Bankings until progress report:';
+  Lbl_BTPR.Font.Color := clWindowText;
+  Lbl_BTPR.Font.Height := -16;
+  Lbl_BTPR.Font.Name := 'Times New Roman';
+  Lbl_BTPR.Font.Style := [];
+  Lbl_BTPR.ParentFont := False;
+  Lbl_SWDelay := TLabel.Create(Form1);
+  Lbl_SWDelay.Parent := Form1;
+  Lbl_SWDelay.Left := 8;
+  Lbl_SWDelay.Top := 256;
+  Lbl_SWDelay.Width := 196;
+  Lbl_SWDelay.Height := 19;
+  Lbl_SWDelay.Caption := 'Sleep walking delay (in minutes):';
+  Lbl_SWDelay.Font.Color := clWindowText;
+  Lbl_SWDelay.Font.Height := -16;
+  Lbl_SWDelay.Font.Name := 'Times New Roman';
+  Lbl_SWDelay.Font.Style := [];
+  Lbl_SWDelay.ParentFont := False;
+  Lbl_KS := TLabel.Create(Form1);
+  Lbl_KS.Parent := Form1;
+  Lbl_KS.Left := 8;
+  Lbl_KS.Top := 288;
+  Lbl_KS.Width := 69;
+  Lbl_KS.Height := 19;
+  Lbl_KS.Caption := 'Kill Switch:';
+  Lbl_KS.Font.Color := clWindowText;
+  Lbl_KS.Font.Height := -16;
+  Lbl_KS.Font.Name := 'Times New Roman';
+  Lbl_KS.Font.Style := [];
+  Lbl_KS.ParentFont := False;
+  Topic_UserSettings := TLabel.Create(Form1);
+  Topic_UserSettings.Parent := Form1;
+  Topic_UserSettings.Left := 8;
+  Topic_UserSettings.Top := 8;
+  Topic_UserSettings.Width := 103;
+  Topic_UserSettings.Height := 21;
+  Topic_UserSettings.Caption := 'User Settings:';
+  Topic_UserSettings.Font.Color := clWindowText;
+  Topic_UserSettings.Font.Height := -19;
+  Topic_UserSettings.Font.Name := 'Times New Roman';
+  Topic_UserSettings.Font.Style := [];
+  Topic_UserSettings.ParentFont := False;
+  Topic_FishingSettings := TLabel.Create(Form1);
+  Topic_FishingSettings.Parent := Form1;
+  Topic_FishingSettings.Left := 8;
+  Topic_FishingSettings.Top := 104;
+  Topic_FishingSettings.Width := 122;
+  Topic_FishingSettings.Height := 21;
+  Topic_FishingSettings.Caption := 'Fishing Settings:';
+  Topic_FishingSettings.Font.Color := clWindowText;
+  Topic_FishingSettings.Font.Height := -19;
+  Topic_FishingSettings.Font.Name := 'Times New Roman';
+  Topic_FishingSettings.Font.Style := [];
+  Topic_FishingSettings.ParentFont := False;
+  Topic_MiscSettings := TLabel.Create(Form1);
+  Topic_MiscSettings.Parent := Form1;
+  Topic_MiscSettings.Left := 8;
+  Topic_MiscSettings.Top := 200;
+  Topic_MiscSettings.Width := 105;
+  Topic_MiscSettings.Height := 21;
+  Topic_MiscSettings.Caption := 'Misc Settings:';
+  Topic_MiscSettings.Font.Color := clWindowText;
+  Topic_MiscSettings.Font.Height := -19;
+  Topic_MiscSettings.Font.Name := 'Times New Roman';
+  Topic_MiscSettings.Font.Style := [];
+  Topic_MiscSettings.ParentFont := False;
+  Bevel1 := TBevel.Create(Form1);
+  Bevel1.Parent := Form1;
+  Bevel1.Left := 0;
+  Bevel1.Top := 96;
+  Bevel1.Width := 289;
+  Bevel1.Height := 2;
+  Bevel2 := TBevel.Create(Form1);
+  Bevel2.Parent := Form1;
+  Bevel2.Left := -16;
+  Bevel2.Top := 192;
+  Bevel2.Width := 305;
+  Bevel2.Height := 2;
+  Bevel3 := TBevel.Create(Form1);
+  Bevel3.Parent := Form1;
+  Bevel3.Left := -16;
+  Bevel3.Top := 320;
+  Bevel3.Width := 305;
+  Bevel3.Height := 2;
+  Lbl_FishType := TLabel.Create(Form1);
+  Lbl_FishType.Parent := Form1;
+  Lbl_FishType.Left := 8;
+  Lbl_FishType.Top := 160;
+  Lbl_FishType.Width := 58;
+  Lbl_FishType.Height := 19;
+  Lbl_FishType.Caption := 'Fish type:';
+  Lbl_FishType.Font.Color := clWindowText;
+  Lbl_FishType.Font.Height := -16;
+  Lbl_FishType.Font.Name := 'Times New Roman';
+  Lbl_FishType.Font.Style := [];
+  Lbl_FishType.ParentFont := False;
+  Edt_UserName := TEdit.Create(Form1);
+  Edt_UserName.Parent := Form1;
+  Edt_UserName.Left := 80;
+  Edt_UserName.Top := 32;
+  Edt_UserName.Width := 201;
+  Edt_UserName.Height := 27;
+  Edt_UserName.Font.Color := clWindowText;
+  Edt_UserName.Font.Height := -16;
+  Edt_UserName.Font.Name := 'Times New Roman';
+  Edt_UserName.Font.Style := [];
+  Edt_UserName.ParentFont := False;
+  Edt_UserName.TabOrder := 0;
+  Edt_PassWord := TEdit.Create(Form1);
+  Edt_PassWord.Parent := Form1;
+  Edt_PassWord.Left := 80;
+  Edt_PassWord.Top := 64;
+  Edt_PassWord.Width := 201;
+  Edt_PassWord.Height := 27;
+  Edt_PassWord.Font.Color := clWindowText;
+  Edt_PassWord.Font.Height := -16;
+  Edt_PassWord.Font.Name := 'Times New Roman';
+  Edt_PassWord.Font.Style := [];
+  Edt_PassWord.ParentFont := False;
+  Edt_PassWord.TabOrder := 1;
+  Edt_PassWord.PasswordChar := '*';
+  Edt_BTPR := TEdit.Create(Form1);
+  Edt_BTPR.Parent := Form1;
+  Edt_BTPR.Left := 208;
+  Edt_BTPR.Top := 224;
+  Edt_BTPR.Width := 73;
+  Edt_BTPR.Height := 27;
+  Edt_BTPR.Font.Color := clWindowText;
+  Edt_BTPR.Font.Height := -16;
+  Edt_BTPR.Font.Name := 'Times New Roman';
+  Edt_BTPR.Font.Style := [];
+  Edt_BTPR.ParentFont := False;
+  Edt_BTPR.TabOrder := 4;
+  Edt_SWDelay := TEdit.Create(Form1);
+  Edt_SWDelay.Parent := Form1;
+  Edt_SWDelay.Left := 208;
+  Edt_SWDelay.Top := 256;
+  Edt_SWDelay.Width := 73;
+  Edt_SWDelay.Height := 27;
+  Edt_SWDelay.Font.Color := clWindowText;
+  Edt_SWDelay.Font.Height := -16;
+  Edt_SWDelay.Font.Name := 'Times New Roman';
+  Edt_SWDelay.Font.Style := [];
+  Edt_SWDelay.ParentFont := False;
+  Edt_SWDelay.TabOrder := 5;
+  Edt_KS := TEdit.Create(Form1);
+  Edt_KS.Parent := Form1;
+  Edt_KS.Left := 208;
+  Edt_KS.Top := 288;
+  Edt_KS.Width := 73;
+  Edt_KS.Height := 27;
+  Edt_KS.Font.Color := clWindowText;
+  Edt_KS.Font.Height := -16;
+  Edt_KS.Font.Name := 'Times New Roman';
+  Edt_KS.Font.Style := [];
+  Edt_KS.ParentFont := False;
+  Edt_KS.TabOrder := 6;
+  ComboBox_FMode := TComboBox.Create(Form1);
+  ComboBox_FMode.Parent := Form1;
+  ComboBox_FMode.Left := 96;
+  ComboBox_FMode.Top := 128;
+  ComboBox_FMode.Width := 185;
+  ComboBox_FMode.Height := 27;
+  ComboBox_FMode.Font.Color := clWindowText;
+  ComboBox_FMode.Font.Height := -16;
+  ComboBox_FMode.Font.Name := 'Times New Roman';
+  ComboBox_FMode.Font.Style := [];
+  ComboBox_FMode.ItemHeight := 19;
+  ComboBox_FMode.ParentFont := False;
+  ComboBox_FMode.TabOrder := 2;
+  ComboBox_FMode.Items.Add('Choose your fishing mode...');
+  ComboBox_FMode.Items.Add('1 - Fish - Cook - Bank');
+  ComboBox_FMode.Items.Add('2 - Power Fishing');
+  Btn_Cancel := TButton.Create(Form1);
+  Btn_Cancel.Parent := Form1;
+  Btn_Cancel.Left := 8;
+  Btn_Cancel.Top := 328;
+  Btn_Cancel.Width := 129;
+  Btn_Cancel.Height := 25;
+  Btn_Cancel.Caption := 'Cancel';
+  Btn_Cancel.Font.Color := clWindowText;
+  Btn_Cancel.Font.Height := -16;
+  Btn_Cancel.Font.Name := 'Times New Roman';
+  Btn_Cancel.Font.Style := [];
+  Btn_Cancel.ParentFont := False;
+  Btn_Cancel.TabOrder := 8;
+  Btn_OK := TButton.Create(Form1);
+  Btn_OK.Parent := Form1;
+  Btn_OK.Left := 144;
+  Btn_OK.Top := 328;
+  Btn_OK.Width := 129;
+  Btn_OK.Height := 25;
+  Btn_OK.Caption := 'OK';
+  Btn_OK.Default := True;
+  Btn_OK.Font.Color := clWindowText;
+  Btn_OK.Font.Height := -16;
+  Btn_OK.Font.Name := 'Times New Roman';
+  Btn_OK.Font.Style := [];
+  Btn_OK.ParentFont := False;
+  Btn_OK.TabOrder := 7;
+  ComboBox_FishType := TComboBox.Create(Form1);
+  ComboBox_FishType.Parent := Form1;
+  ComboBox_FishType.Left := 96;
+  ComboBox_FishType.Top := 160;
+  ComboBox_FishType.Width := 185;
+  ComboBox_FishType.Height := 27;
+  ComboBox_FishType.Font.Color := clWindowText;
+  ComboBox_FishType.Font.Height := -16;
+  ComboBox_FishType.Font.Name := 'Times New Roman';
+  ComboBox_FishType.Font.Style := [];
+  ComboBox_FishType.ItemHeight := 19;
+  ComboBox_FishType.ParentFont := False;
+  ComboBox_FishType.TabOrder := 3;
+  ComboBox_FishType.Items.Add('Choose the fish you want to fish...');
+  ComboBox_FishType.Items.Add('1 - Shrimps and anchovies.');
+  ComboBox_FishType.Items.Add('2 - Trouts, salmons and sardines.');
+  ComboBox_FishType.Items.Add('3 - Lobsters.');
+  ComboBox_FishType.Items.Add('4 - Tuna and swordies.');
+  ComboBox_FishType.Items.Add('5 - Swordies only.');
+  
+  //Defaults
+  Edt_UserName.Text:=LoadSetting('Phalanx_Karmnja_Fisher', 'username');
+  Edt_PassWord.Text:=LoadSetting('Phalanx_Karmnja_Fisher', 'password');
+  Edt_BTPR.Text:=LoadSetting('Phalanx_Karmnja_Fisher', 'BTPR');
+  Edt_SWDelay.Text:=LoadSetting('Phalanx_Karmnja_Fisher', 'SWDelay');
+  Edt_KS.Text:=LoadSetting('Phalanx_Karmnja_Fisher', 'KillSwitch');
+  if LoadSetting('Phalanx_Karmnja_Fisher', 'FMode') <> NIL then
+   ComboBox_FMode.ItemIndex:=StrToInt(LoadSetting('Phalanx_Karmnja_Fisher', 'FMode'))
+  else ComboBox_FMode.ItemIndex:=0;
+  if LoadSetting('Phalanx_Karmnja_Fisher', 'FishType') <> NIL then
+   ComboBox_FishType.ItemIndex:=StrToInt(LoadSetting('Phalanx_Karmnja_Fisher', 'FishType'))
+  else ComboBox_FishType.ItemIndex:=0;
+  Btn_OK.OnClick := @OKClick;
+  Btn_OK.ModalResult:= mrOk;
+
+  Btn_Cancel.OnClick := @CancelClick;
+  Btn_Cancel.ModalResult:= mrOk;
+
+  Form1.ShowModal;
+  Form1.Free;
+end;
+Procedure DoBanking;
+var
+ x,y,i:integer;
+ CFC:longint;
+begin
+ TalkTo(65536,6,2,'Banker: Talk',6,0,'l d like to access my bank account please',1{option},379,1,'Close window',BankPath);
+ if StartCheck then EmptyBank('Harpoon, Lobster Pot, Net, Bait, Feather, Coins, Fishing Rod, Fly Fishing Rod, Sleeping Bag, Axe, tinderbox,');
+ for i:=1 to c do
+ if GetItem(ItemNamesArr[i],x,y,60,30,450,235) then
+ begin
+  ClickMouse(x,y,True);
+  Wait(1000);
+  while(IsTextAt(334,264,'25'))do
+  begin
+   ClickMouse(335,270,True);
+   Wait(300);
+  end;
+  while(IsTextAt(304,264,'Five'))do
+  begin
+   ClickMouse(305,270,True);
+   Wait(300);
+  end;
+  while(IsTextAt(274,264,'One'))do
+  begin
+   ClickMouse(275,270,True);
+   Wait(300);
+  end;
+  GetItemQuanity(X,Y,CFC);
+  CurrentFishCount:=CurrentFishCount+CFC;
+ end;
+ if StartCheck then
+ begin
+  StartingFishCount:=CurrentFishCount;
+  StartCheck:=False;
+ end;
+ //Close bank window
+ Repeat
+  ClickMouse(400,6,True);
+  Wait(1000);
+ Until (IsTextAt(379,1,'Close window')=False)
+ bkc:=bkc+1;
+end;
+Procedure FindSpot(var x,y:integer);
+var
+ sx,sy:integer;
+begin
+ repeat
+  CloseMenu;
+  if Not SpiralFindObj(x,y,-1,x-100,y-100,x+100,y+100,15,UpLine,50,20000) then
+  begin
+   x:=250;
+   y:=160;
+  end else
+  begin
+   ClickMouse(x+Random(1),y+Random(1),False);
+   Wait(100);
+   if RightClickMenu(Sx,Sy,CatchType)=CatchType then
+   begin
+    ClickMouse(Sx+2+Random(5),Sy+2+Random(2),True);
+    Wait(100);
+   end;
+  end;
+  MoveMouse(x,y);
+  Wait(3000);
+ until IsTextAt(6,2,UpLine);
+end;
+Procedure DoFishing;
+var
+ x,y,Sx,Sy: Integer;
+ FT: LongInt;
+begin
+ x:=250;
+ y:=160;
+ FindSpot(x,y);
+ FT:=GetSystemTime;
+ repeat
+  SleepNeeded;
+  MoveMouse(x,y);
+  Wait(100);
+  if Not IsTextAt(6,2,UpLine) then FindSpot(x,y);
+  ClickMouse(x+Random(1),y+Random(1),False);
+  Wait(100);
+  if RightClickMenu(Sx,Sy,CatchType)=CatchType then
+  begin
+   ClickMouse(Sx+2+Random(5),Sy+2+Random(2),True);
+   Wait(100);
+  end;
+  if Fish=5 then Wait(1300+Random(400))
+  else Wait(2250+Random(250));
+  CloseMenu;
+  if Fish=5 then
+  begin
+   while FindItem(Sx,Sy,'Tuna') do
+   begin
+    Wait(50);
+    ClickMouse(Sx,Sy,False);
+    Wait(100);
+    ClickMouse(Sx,Sy+30,True);
+    Wait(2000+random(500));
+   end;
+  end;
+  if GetSystemTime-FT >=60000*2 then
+  begin
+   GoByPath(FishingPath);
+   FindSpot(x,y);
+   FT:=GetSystemTime;
+  end;
+ until (InvFull) and (FishingM=1);
+end;
+Procedure TravelToKarmanja;
+var
+  x,y,i:integer;
+begin
+ While FindColor(x,y,2183811,5,5,510,325)or(GetChatMsg='You arrived') do
+ begin
+  TalkTo(2183811{13697024},6,2,'Seaman',6,0,'l d rather go to Crandor lsle',2,1,1,'',PortSarimPath);
+  i:=0;
+  repeat
+   Wait(100);
+   i:=i+1;
+  until (GetChatMsg='You arrived')or(i>=120);
+ end;
+end;
+Procedure TravelToPortSarim;
+var
+  i,x,y:integer;
+begin
+  While FindColor(x,y,1326223,5,110,510,210)or(GetChatMsg='You arrived') do
+  begin
+   TalkTo(1326223{286920},6,2,'Customs',6,0,'Can I',1,6,0,'Why',PortSarimPath);
+   ClickOption(2);
+   repeat
+    Wait(100);
+    i:=i+1;
+   until (IsTextAt(6,0,'Ok')) or (i>100);
+   if i<=100 then
+   begin
+    ClickOption(1);
+    i:=0;
+    repeat
+     Wait(100);
+     i:=i+1;
+    until (GetChatMsg='You arrived')or(i>=120);
+   end;
+  end;
+end;
+begin
+ StartCheck:=True;
+ Start:=False;
+ CallMainForm;
+ StrToStrArr(ItemNames,ItemNamesArr,C);
+ AtBank:= CreateLandmark(22, 14, '04000801000104000C0100010400F2030001040015030001040015');
+ ML1:= CreateLandmark(16, 11, '04000E00000101000104000E00000204004303000104000C03000104000603000104000C030001040002030001040021010001040003210001040002');
+ ML2:= CreateLandmark(12, 10, '04000701000104001D01000104000601000104000E01000104002001000104000F010001040002010001040008');
+ AtFarm:= CreateLandmark(5, 3, '010001040003010001040004010002040003010001');
+ ML3:= CreateLandmark(16, 6, '04000201000104000301000104001B01000104001A01000104000101000104001001000204000303000104000A');
+ AtPort:= CreateLandmark(7, 10, '09000104000301000104000F09000104001509000104000C090001040007010001040005090001');
+ 
+ AtDocks:= CreateLandmark(9, 2, '010009040004010001040003010001');
+ KL1:= CreateLandmark(5, 10, '09000104000A090001040003010001040001090002040006010001040003010001040005010001040003010001040005010001040003010001');
+ KL2:= CreateLandmark(9, 10, '04000101000104001B01000104000101000104000F01000104000301000104001301000204000B010001040005');
+ KL3:= CreateLandmark(6, 8, '04000101000104000901000104000201000104000701000104000101000104000F010001040001010001040001010001040003');
+ FishingSpot:= CreateLandmark(6, 8, '04000109000104000109000204000709000104000409000204000409000104000C090001040004090002040004090001');
+ 
+ PortSarimPath:=CreatePath;
+ AddLandmarkToPath(PortSarimPath, AtPort, 2, 7);
+ AddLandmarkToPath(PortSarimPath, ML3, 10, 15);
+ AddLandmarkToPath(PortSarimPath, AtFarm, -2, 19);
+ AddLandmarkToPath(PortSarimPath, ML2, 18, 20);
+ AddLandmarkToPath(PortSarimPath, ML1, 10, 30);
+ AddLandmarkToPath(PortSarimPath, AtBank, 5, 40);
+ 
+ FishingPath:=CreatePath;
+ AddLandmarkToPath(FishingPath, FishingSpot, Dx, Dy);
+ AddLandmarkToPath(FishingPath, KL3, 8, -15);
+ AddLandmarkToPath(FishingPath, KL2, 3, -11);
+ AddLandmarkToPath(FishingPath, KL1, -15, 13);
+ AddLandmarkToPath(FishingPath, AtDocks, -12, -4);
+
+ KarmanjaDocksPath:=CreatePath;
+ AddLandmarkToPath(KarmanjaDocksPath, AtDocks, 6, -1);
+ AddLandmarkToPath(KarmanjaDocksPath, KL1, 12, 16);
+ AddLandmarkToPath(KarmanjaDocksPath, KL2, 27, 4);
+ AddLandmarkToPath(KarmanjaDocksPath, KL3, 12, 16);
+ AddLandmarkToPath(KarmanjaDocksPath, FishingSpot, 2, 18);
+
+ BankPath:=CreatePath;
+ AddLandmarkToPath(BankPath, AtBank, 12, 3);
+ AddLandmarkToPath(BankPath, ML1, 18, -2);
+ AddLandmarkToPath(BankPath, ML2, -6, -25);
+ AddLandmarkToPath(BankPath, AtFarm, -13, -15);
+ AddLandmarkToPath(BankPath, ML3, 10, -30);
+ AddLandmarkToPath(BankPath, AtPort, 2, -20);
+ if Start then
+ begin
+   LogInIfNeeded;
+         Status('Going to port sarim...');
+     GoByPath(PortSarimPath);
+     Status('Traveling to karmnja...');
+     TravelToKarmanja;
+   Repeat
+    Status('Going to fishing spot...');
+    GoByPath(FishingPath);
+    Status('Fishing...');
+    DoFishing;
+
+    if FishingM=1 then
+    begin
+     Status('Going to karmanja docks...');
+     GoByPath(KarmanjaDocksPath);
+     Status('Traveling to port sarim...');
+     TravelToPortSarim;
+     Status('Going to bank...');
+     GoByPath(BankPath);
+     Status('Banking...');
+     DoBanking;
+     Status('Going to port sarim...');
+     GoByPath(PortSarimPath);
+     Status('Traveling to karmnja...');
+     TravelToKarmanja;
+    end;
+   Until False;
+ end;
+end.
+

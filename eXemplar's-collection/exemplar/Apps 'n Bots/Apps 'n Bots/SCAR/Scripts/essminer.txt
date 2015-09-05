@@ -1,0 +1,620 @@
+{======================================================================
+EssenceMiner v1.0.1 by shocker.
+   It goes to Essence, Mine it, Goes to bank, Deposit it and so on.
+======================================================================
+
+Start(suggested):
+   1) Wearing pick axe :P (dont forget this!)
+   2) Near varrock bank (actually anywhere in the way bank-essence)
+   3) empty inventory  (all stuff will be deposited anyway)
+
+Needed:
+   1) Almost perfect north align (put it the most closer that
+      you can, clockwise or anticlockwise);
+   2) 32bit color system;
+   3) High Detail;
+   4) V-Bright (screen brighteness);
+   5) Highest angle of vision (uparrow until maximum);
+   6) Scar 1.12 or higher :P
+
+Features:
+   1) Support minimap rotation;
+   2) Does NOT need anymore perfect north align!
+   3) Random event Algorithm (see RandomEvent procedure);
+   4) Anti Get Lost Algorithm;
+   5) Progress report.
+   6) Autologin (i was thinking of take off this one :P );
+   7) Status indicator (know what the script is doing or
+      attempting to do of almost everything) - very handy.
+   
+======================================================================
+Versions:
+   1.0.1 no bug know yet. Sometimes you get stucked in essence,
+         but no longer than 1 minute or 2 :P
+   1.0.0 intial version (not released)
+======================================================================}
+
+Program EssenceMiner;
+{.include EssenceMinerPics.txt}
+
+Const
+username = '';
+password = '';
+RandomEventTime = 600; // 600 seconds before calling the RandomEvent
+                      // procedure, if you get stucked anywhere (by
+                      // a random event or by getting hardly lost).
+LSTime = 240; // 4 minutes (4*60) before calling LittleStep procedure;
+
+var
+x,y,p,q: Integer;         //Global Variables
+i,trips,L,G: Integer;     //counters
+essloc:integer;
+ST:LongInt;
+
+//BumisD2YK4L's RS2 Login //modified by shocker
+procedure LoginIfNeeded;
+begin
+ repeat
+   if((GetColor(321,255)=65535)and(GetColor(254,100)=10547953)and(GetColor(467,119)=1842201))then
+   begin
+     Status('Trying to Loggin...')
+     wait(500);
+     clickmouse(459,319,true);
+     wait(1000);
+     if((Getcolor(201,26)=15655906)and(GetColor(279,37)=14404297)and(GetColor(284,114)=4323063))then
+     begin
+       Clickmouse(400,349,true);
+       Wait(500);
+       ClickMouse(380,261,true);
+       SendKeysSilent(username);
+       Wait(500);
+       ClickMouse(383,274,true);
+       Wait(500);
+       SendKeysSilent(password);
+       Wait(500);
+       ClickMouse(299,331,true);
+       L:=L+1;
+       Wait(7000);
+       repeat
+          Wait(500);
+          MoveMouse(450,99);
+          Wait(500);
+          ClickMouse(450,99,true);
+       until(not(Getcolor(184,99)=65535));
+     end;
+   end;
+ until(not(GetColor(404,328)=723723));
+end;
+
+Procedure LogOut(why:string);
+Begin
+  Writeln(why);
+  Wait(100);
+  MoveMouse(658,512);
+  Wait(100);
+  ClickMouse(658,512,true);
+  Wait(100);
+  MoveMouse(657,403);
+  Wait(100);
+  ClickMouse(299,331,true);
+       L:=L+1;
+       Wait(7000);
+       repeat
+          Wait(500);
+          MoveMouse(450,99);
+          Wait(500);
+          ClickMouse(450,99,true);
+       until(not(Getcolor(184,99)=65535));
+     end;
+     begin;
+ until(not(GetColor(404,328)=723723));
+end;
+
+Procedure LogOut(why:string);
+Begin
+  Writeln(why);
+  Wait(100);
+  MoveMouse(658,512);
+  Wait(100);
+  ClickMouse(658,512,true);
+  Wait(100);
+  MoveMouse(657,403);
+  Wait(100);
+  ClickMouse(657,403,true);
+  Wait(100);
+  Status('Script Finished. Infinty Loop.');
+  ClearTimeOuts;
+  repeat
+     wait(5000);
+  until(false);
+End;
+
+Procedure RandomEvent;export;
+var Hour,Min,Sec,MSec: Word;
+Begin
+  //this procedure is called (SetTimeOut) if the script get stucked in any
+  //procedure, more than 10 minutes for default.
+  //This happen if you get hardly lost or a random event happen.
+  //==================================================================
+  //its possible to make the way back to varrock bank and start the script
+  //over again, but i need to know all places that u can be teleported.
+  //==================================================================
+  //Until that, just log out and take a picture for debug purposes.
+  //(the bitmap is saved in script folder and its overwritten every
+  // time the procedure is called).
+  Writeln('Random Event or Bug Detected! Saving ScreenShot...');
+  SaveScreenShot('RandomEventDebug.bmp');
+  DecodeTime(Now, Hour, Min, Sec, MSec);
+  writeln('The time is '+IntToStr(Hour)+'h'+IntToStr(Min)+'m'+inttostr(Sec)+'s');
+  LogOut('Probably you get teleported/killed by a random event, logging out...');
+End;
+
+Procedure LittleStep;export;
+Begin
+  //this procedure is called when u get stucked more then 4 minutes for default;
+  //anti bug prevent
+  Writeln('Anti Get Lost Algorithm Activated. (Little Step)');
+  G:=G+1000;
+  wait(500);
+  MoveMouse(648,88);
+  wait(500);
+  ClickMouse(648,(85+random(6)),true);
+  wait(100);
+  SetTimeOut(LSTime,'LittleStep');
+End;
+
+Procedure PrintProgressReport;
+var
+RHours,Minutes,Seconds,RMinutes,RSeconds,avtime:LongInt;
+Time:String;
+Begin
+  Seconds:=(GetSystemTime-ST) div 1000;
+  Minutes:=Seconds div 60;
+  RHours:=Minutes div 60;
+  Time:=inttostr(Seconds)+'sec';
+  avtime:=Seconds/trips;
+  if Minutes<>0 then
+     begin
+       RSeconds:=Seconds Mod (Minutes*60);
+       Time:=inttostr(Minutes)+'min'+inttostr(RSeconds)+'sec';
+     end;
+  if RHours<>0 then
+     begin
+       RMinutes:=Minutes Mod (RHours*60);
+       RSeconds:=Seconds Mod (Minutes*60);
+       Time:=inttostr(RHours)+'h'+inttostr(RMinutes)+'min'+inttostr(RSeconds)+'sec';
+     end;
+  writeln('');
+  writeln('PROGRESS REPORT:');
+  writeln('AntiGetLost protection Activated '+inttostr(G)+' time[s]');
+  writeln('Worked for '+Time+' and Logged In '+inttostr(L)+' times[s]');
+  writeln('Mined and Banked '+inttostr(trips)+' time[s] '+inttostr(trips*28)+' Blank Runes');
+  writeln('Currently Averaging '+inttostr(3600/avtime*28)+' Blank Runes per hour');
+  writeln('');
+End;
+
+
+
+procedure SetRunOff;
+begin
+ Wait(50);
+ MoveMouse(720,510);
+ Wait(50);
+ ClickMouse(720,510,true);
+ Wait(100);
+ MoveMouse(580,285);
+ Wait(50);
+ ClickMouse(580,285,true);
+ Wait(100);
+ MoveMouse(655,210);
+ Wait(50);
+ ClickMouse(655,210,true);
+ Wait(100);
+end;
+
+procedure SetRunOn;
+begin
+ Wait(50);
+ MoveMouse(720,510);
+ Wait(50);
+ ClickMouse(720,510,true);
+ Wait(100);
+ MoveMouse(635,285);
+ Wait(50);
+ ClickMouse(635,285,true);
+ Wait(100);
+ MoveMouse(655,210);
+ Wait(50);
+ ClickMouse(655,210,true);
+ Wait(100);
+end;
+
+Procedure Go(Where:integer; dx,dy:integer;
+            WhereRotatedClockWise:integer;
+            WhereRotatedAntiClock:integer; stats:string);
+Begin
+if((FindBitmapIn(where,x,y,550,5,750,177))or
+   (FindBitmapIn(WhereRotatedClockWise,x,y,550,5,750,177))or
+   (FindBitmapIn(WhereRotatedAntiClock,x,y,550,5,750,177))) then
+   begin
+      Status(stats);
+      MoveMouse(x+dx,y+dy);
+      wait(100);
+      ClickMouse(x+dx,y+dy, true);
+      wait(1500);
+      if(FindBitmapIn(flag,x,y,550,5,750,177))then
+         begin
+            repeat
+               wait(500);
+            until(not FindBitmapIn(flag,x,y,550,5,750,177));
+         end;
+   end;
+Wait(200);
+End;
+
+procedure ToMage;
+begin
+ SetRunOn;
+ Go(bank,35,0,bank,bank,'To aubry 1/3...');
+ Go(bank,20,46,bank,bank,'To aubry 2/3...');
+ SetRunOff;
+ Go(aubry1,-3,8,aubry2,aubry3,'To aubry 3/3...');
+end;
+
+Procedure GoToEssence;
+Begin
+ SetTimeOut(RandomEventTime,'RandomEvent');
+ SetTimeOut(LSTime,'LittleStep');
+ LoginIfNeeded;
+ i:=0;
+ repeat
+     if( (FindBitmapIn(essence,x,y,550,5,750,177) )or
+         (FindBitmapIn(essencenw,x,y,550,5,750,177))or
+         (FindBitmapIn(essencene,x,y,550,5,750,177))or
+         (FindBitmapIn(essencesw,x,y,550,5,750,177))or
+         (FindBitmapIn(essencese,x,y,550,5,750,177)))then Break;
+     if (i>99) then
+        begin
+          Writeln('Anti Get Lost Algorithm Activated.');
+          G:=G+1;
+          ToMage;
+          i:=1;
+          LoginIfNeeded;
+        end;
+    repeat
+       i:=i+7;
+       Status('Searching for Aubry '+inttostr(i)+'/100...');
+       if( (FindBitmapIn(essence,x,y,550,5,750,177) )or
+           (FindBitmapIn(essencenw,x,y,550,5,750,177))or
+           (FindBitmapIn(essencene,x,y,550,5,750,177))or
+           (FindBitmapIn(essencesw,x,y,550,5,750,177))or
+           (FindBitmapIn(essencese,x,y,550,5,750,177)))then Break;
+       LogInIfNeeded;
+       FindColorSpiral(x,y,1723500,100,10,400,265);   //costas
+       MoveMouse(x,y);
+       wait(500);
+    until( (FindBitmapSpiral(aubrytalk,p,q,0,0,100,25)) or (i>99) );
+    if (i<100) then
+      begin
+         ClickMouse(x,y,true);
+         //writeln('clicquei '+inttostr(x)+','+inttostr(y));
+         Wait(2000);
+      end;
+ Until((GetColor(246,463)=65535)or(GetColor(246,463)=49152));
+ MoveMouse(250,458);
+ Wait(500);
+ repeat
+    ClickMouse(250+random(50),458,true);
+    Wait(1000+Random(100));
+ until((FindBitmapIn(essence,x,y,550,5,750,177))or
+       (FindBitmapIn(essencenw,x,y,550,5,750,177))or
+       (FindBitmapIn(essencene,x,y,550,5,750,177))or
+       (FindBitmapIn(essencesw,x,y,550,5,750,177))or
+       (FindBitmapIn(essencese,x,y,550,5,750,177)));
+ ClearTimeOuts;
+End;
+
+Procedure WhereAreWe;
+Begin
+ i:=1;
+ essloc:=0;
+ repeat
+      i:=i+1;
+      Status('Figuring out where we have appeared...'+inttostr(i)+'/40');
+      LogInIfNeeded;
+      if(FindBitmapIn(essence,x,y,550,5,750,177))then
+        begin
+          Writeln('We have appeared in the middle of the esscence');
+          essloc:=1;
+        end;
+      if(FindBitmapIn(essencenw,x,y,550,5,750,177))then
+        begin
+          Writeln('We have appeared in the north west position of the esscence');
+          essloc:=2;
+        end;
+      if(FindBitmapIn(essencene,x,y,550,5,750,177))then
+        begin
+          Writeln('We have appeared in the north east position of the esscence');
+          essloc:=3;
+        end;
+      if(FindBitmapIn(essencesw,x,y,550,5,750,177))then
+        begin
+          Writeln('We have appeared in the south west position of the esscence');
+          essloc:=4;
+        end;
+      if(FindBitmapIn(essencese,x,y,550,5,750,177))then
+        begin
+          Writeln('We have appeared in the south east position of the esscence');
+          essloc:=5;
+        end;
+      If (essloc=0) then Wait(1000);
+ Until((essloc<>0) or (i>39));
+ if (i>39) then                      //this is a bug fix
+    begin
+       essloc:=1;
+       ClickMouse(700,120,true);
+       wait(5000);
+       ClickMouse(690,120,true);
+    end;
+end;
+
+Procedure EssFromSW(where:string);
+begin
+   Case where of
+      'essence' :  Go(essencesw,0,0,essencesw,essencesw,'Going to SW essence...');
+      'portal'  :  Go(essencesw,-40,5,essencesw,essencesw,'Going to SW portal...');
+   end;
+end;
+
+Procedure EssFromMiddle;
+begin
+ Go(essence,-2,-2,essence,essence,'Going to middle of essence...');
+ Go(essence,-40,20,essence,essence,'Going near SW...');
+ EssFromSW('essence');
+end;
+
+Procedure EssFromNW(where:string);
+begin
+   Case where of
+      'essence' :  Go(essencenw,-10,50,essencenw,essencenw,'Going to NW essence...');
+      'portal'  :  Go(essencenw,-52,40,essencenw,essencenw,'Going to NW portal...');
+   end;
+end;
+
+Procedure EssFromNE(where:string);
+begin
+   Case where of
+      'essence' :  Go(essencene,-14,-6,essencene,essencene,'Going to NE essence...');
+      'portal'  :  Go(essencene,20,-30,essencene,essencene,'Going to NE portal...');
+   end;
+end;
+
+Procedure EssFromSE(where:string);
+begin
+   Case where of
+      'essence' :  Go(essencese,-5,5,essencese,essencese,'Going to SE essence...');
+      'portal'  :  Go(essencese,0,30,essencese,essencese,'Going to SE portal...');
+   end;
+end;
+
+Procedure WalkNear(where:string);
+begin
+   Case where of
+      'essence' :
+         begin
+            Status('Walking near essence...');
+            if(essloc = 1)then EssFromMiddle;
+            if(essloc = 2)then EssFromNW('essence');
+            if(essloc = 3)then EssFromNE('essence');
+            if(essloc = 4)then EssFromSW('essence');
+            if(essloc = 5)then EssFromSE('essence');
+         end;
+      'portal' :
+         begin
+            Status('Walking near portal...');
+            if(essloc = 1)then EssFromSW('portal');
+            if(essloc = 2)then EssFromNW('portal');
+            if(essloc = 3)then EssFromNE('portal');
+            if(essloc = 4)then EssFromSW('portal');
+            if(essloc = 5)then EssFromSE('portal');
+         end;
+   end;
+end;
+
+Procedure DoMining;
+var mining: Boolean;
+Begin
+ SetTimeOut(RandomEventTime,'RandomEvent');
+ SetTimeOut(LSTime,'LittleStep');
+ LoginIfNeeded;
+ i:=1;
+ mining:= False;
+ repeat
+     if (i>99) then
+        begin
+           Writeln('Anti Get Lost Algorithm Activated.');
+           G:=G+1;
+           WalkNear('essence');
+           i:=1;
+           LoginIfNeeded;
+        end;
+     repeat
+         if(not FindBitmapSpiral(mineess,p,q,10,5,100,25))then
+         begin
+            repeat
+               Status('Searching for essence...'+inttostr(i)+'/100');
+               i:=i+7;
+               LogInIfNeeded;
+               x:=Random(500);
+               y:=Random(320);
+               MoveMouse(x,y);
+               Wait(200);
+            until((FindBitmapSpiral(mineess,p,q,10,5,100,25))or(i>99));
+         end;
+         if (i>99) then Break;
+         if (i<100) then ClickMouse(x,y,true);
+         Status('Mining...');
+         Wait(3000);
+         MoveMouse(657,210);
+         wait(500);
+         ClickMouse(657,210,true);
+         wait(500);
+         MoveMouse(720,470);
+         wait(500);
+         if(FindBitmapSpiral(invessc,x,y,0,0,200,80))then
+            begin
+               Status('Inventory Full');
+               mining:= true;
+               MoveMouse(10,10);
+            end;
+         MoveMouse(x,y);
+         wait(500);
+     until(mining);
+ until(mining);
+ ClearTimeOuts;
+end;
+
+Procedure GoBack(essencelocation:integer);
+var color:integer;
+Begin
+  SetTimeOut(RandomEventTime,'RandomEvent');
+  SetTimeOut(LSTime,'LittleStep');
+  LoginIfNeeded;
+  i:=1;
+  repeat
+     repeat
+        if (i>99) then
+           begin
+              Writeln('Anti Get Lost Algorithm Activated.');
+              G:=G+1;
+              WalkNear('portal');
+              i:=1;
+              LoginIfNeeded;
+           end;
+        repeat
+           Status('Searching portal...'+inttostr(i)+'/100');
+           i:=i+7;
+           if((FindBitmapIn(aubry1,x,y,550,5,750,177))or
+              (FindBitmapIn(aubry2,x,y,550,5,750,177))or
+              (FindBitmapIn(aubry3,x,y,550,5,750,177)))then Break;
+           Case essencelocation of
+              1 : color:= 12052457;
+              2 : color:= 11986665;
+              3 : color:= 12248810;
+              4 : color:= 12052457;
+              5 : color:= 11920615;
+           end;
+           FindColorSpiral(x,y,color,5,10,520,346);
+           MoveMouse(x,y);
+           Wait(500);
+        until((FindBitmapSpiral(portal,p,q,0,0,90,30))or(i>99));
+        if (i>99) then Break;
+        if((FindBitmapIn(aubry1,x,y,550,5,750,177))or
+           (FindBitmapIn(aubry2,x,y,550,5,750,177))or
+           (FindBitmapIn(aubry3,x,y,550,5,750,177)))then Break;
+        if (i<100) then ClickMouse(x,y,true);
+        Wait(1500);
+     until(GetColor(204,458)=65535)or(GetColor(204,458)=49152);
+     MoveMouse(250,458);
+     Wait(400);
+     ClickMouse(250,458,true);
+     Wait(1000+Random(100));
+  until((FindBitmapIn(aubry1,x,y,550,5,750,177))or
+        (FindBitmapIn(aubry2,x,y,550,5,750,177))or
+        (FindBitmapIn(aubry3,x,y,550,5,750,177)));
+  ClearTimeOuts;
+End;
+
+procedure ToBank;
+begin
+ Go(aubry1,19,-21,aubry2,aubry3,'To bank 1/3...');
+ SetRunOn;
+ Go(bank,35,0,bank,bank,'To bank 2/3...');
+ Go(bank,0,0,bank,bank,'To bank 3/3...');
+ SetRunOff;
+end;
+
+Procedure DoBanking;
+Begin
+SetTimeOut(RandomEventTime,'RandomEvent');
+SetTimeOut(LSTime,'LittleStep');
+LoginIfNeeded;
+i:=1;
+repeat
+   //verify if you get lost or didnt arrive at bank
+   //or door was closed.
+   //Anti Get Lost Algorithm
+   if (i>99) then
+      begin
+         Writeln('Anti Get Lost Algorithm Activated.');
+         G:=G+1;
+         ToBank;
+         i:=1;
+         LoginIfNeeded;
+      end;
+   //Searching bank booth...
+   repeat
+     if(not FindBitmapSpiral(usebank,x,y,0,5,100,30))then
+      begin
+         repeat
+            i:=i+3;
+            Status('Banking... (openning bank) '+inttostr(i)+'/100');
+            x:=60+random(390);
+            y:=120+random(110);
+            FindColorSpiral(x,y,607067,5,10,520,346);
+            MoveMouse(x,y);
+            wait(500);
+         until((FindBitmapSpiral(usebank,p,q,0,5,100,30))or(i>99));
+         if (i>99) then Break;
+      end;
+     if (i<100) then ClickMouse(x,y,false);
+     Wait(1000);
+     if(findbitmap(qusebank,x,y))or(findbitmap(qbankyellow,x,y))then
+        begin
+           Movemouse(x,y);
+           Wait(100);
+           clickmouse(x,y,true);
+           wait(4000);
+        end;
+   until(findbitmap(inbank,x,y));
+until(findbitmap(inbank,x,y));
+Status('Banking... (Storing runes)');
+      //storing runes
+Wait(500);
+movemouse(636,255);
+wait(100);
+clickmouse(636,255, false);
+wait(500);
+movemouse(615,327);
+Wait(100);
+clickmouse(615,327, true);
+Wait(1000);
+    //close bank
+movemouse(465,45);
+wait(100);
+clickmouse(465,45, true);
+wait(200);
+ClearTimeOuts;
+End;
+
+Begin
+  LoadingBitmaps;
+  trips:=0;
+  ST:=GetSystemTime;
+  L:=0;
+  G:=0;
+  LogInIfNeeded;
+  Repeat
+     trips:=trips+1;
+     ToMage;
+     GoToEssence;
+     WhereAreWe;
+     WalkNear('essence');
+     DoMining;
+     WalkNear('portal');
+     GoBack(essloc);
+     ToBank;
+     DoBanking;
+     PrintProgressReport;
+  Until(false);
+End.

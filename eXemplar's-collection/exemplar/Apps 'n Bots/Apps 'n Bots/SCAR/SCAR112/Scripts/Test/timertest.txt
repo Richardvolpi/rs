@@ -1,0 +1,29 @@
+program New;
+procedure Timer; export;
+begin
+  Writeln('Timerproc');
+  Sleep(101);
+  Writeln('End TimerProc');
+  SetTimeout(1,'TIMER');
+end;
+
+procedure Timer_once; export;
+begin
+  Writeln('Timerproc_called once');
+end;
+
+
+begin
+  SetTimeout(1,'TIMER');
+  SetTimeout(10,'TIMER_ONCE');
+  while(true)do
+  begin
+    Wait(200);
+    Writeln('a');
+    if(Random(40) = 0)then
+    begin
+      Writeln('Killing Timeouts');
+      ClearTimeouts;
+    end;
+  end;
+end.

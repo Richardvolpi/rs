@@ -1,0 +1,159 @@
+{
+
+eXemplar's Gnome Agility Script v2
+Requirements:
+- Highest map angle
+- Map facing South West
+- Correct colours
+- OSi v4
+
+Future improvements:
+- Better finding of log + rope
+- Stop that annoying bug where the
+   mouse moves slightly when clicking!
+   
+}
+
+program GnomeAgility;
+
+var runner,ox,oy,xc,yc: integer;
+
+const
+logcolour=606314; // Colour of the log which is walked across
+pipecolour=6513515; // Light grey colour of pipes
+bluestatus=14146307; // Colour of blue text which appears at the top
+
+{.include OSi.txt}
+
+procedure WalkToLog;
+begin
+ repeat
+  repeat
+   RWait('xxshort');
+  until(FindBitmapToleranceIn(runner,xc,yc,575,5,720,160,150));
+  Mouse(xc+random(10),yc+random(10),5,5,true);
+ until(FindBitmapIn(flag,x,y,570,5,725,162));
+ MapFlag;
+ RWait('xlong');
+end;
+
+procedure WalkAcrossLog;
+begin
+ repeat
+  if(FindColorSpiral(xc,yc,logcolour,9,9,500,320))then MoveMouseSmooth(xc-random(5),yc+random(5));
+  RWait('xxshort');
+ until(FindColorTolerance(xc,yc,bluestatus,90,5,270,25,75));
+ GetMousePos(xc,yc);
+ Mouse(xc,yc,2,2,true);
+ MapFlag;
+ RWait('xxlong');
+ RWait('xxlong');
+ RWait('xxlong');
+end;
+
+procedure Climb(xp,yp:integer);
+begin
+ MoveMouseSmooth(1,1);
+ RWait('short');
+ repeat
+  FindTextSpiral('Climb',xp,yp,100,10,10);
+  RWait('xxshort');
+ until(IsTextAt2(9,9,'Climb',100));
+ RWait('short');
+ GetMousePos(xc,yc);
+ Mouse(xc,yc,0,0,true);
+ MapFlag;
+ RWait('xxlong');
+ RWait('xlong');
+end;
+
+procedure WalkAcrossRope;
+begin
+ repeat
+  MoveMouseSmooth(50+random(100),275+random(75));
+  RWait('short');
+ until((FindColorTolerance(xc,yc,bluestatus,90,5,270,25,75))and(IsTextAt2(9,9,'Wal',100)));
+ GetMousePos(xc,yc);
+ Mouse(xc,yc,0,0,true);
+ MapFlag;
+ RWait('xxlong');
+ RWait('xxlong');
+ RWait('xxlong');
+end;
+
+procedure SqueezeThroughPipe;
+begin
+ ox:=0;
+ oy:=0;
+ repeat
+  RWait('xxshort');
+  if(FindColorSpiral(xc,yc,pipecolour,156,4,515,337))then MoveMouseSmooth(xc,yc);
+ until(IsTextAt2(9,9,'Squ',100));
+ repeat
+  xc:=xc-20;
+  yc:=yc-5;
+  MoveMouseSmooth(xc,yc);
+  RWait('short');
+ until(not(IsTextAt2(9,9,'Squ',100)));
+ Mouse(xc,yc,0,0,true);
+ MapFlag;
+ RWait('long');
+ MoveMouseSmooth(1,1);
+ repeat
+  RWait('xxshort');
+  if(FindColorSpiralTolerance(xc,yc,pipecolour,200,150,300,200,30))then MoveMouseSmooth(xc,yc);
+ until(IsTextAt2(9,9,'Squ',100));
+ RWait('short');
+ repeat
+  Mouse(xc,yc,1,1,true);
+  RWait('long');
+ until(not(IsTextAt2(9,9,'Squ',100)));
+ RWait('xxlong');
+ RWait('xxlong');
+ RWait('xxlong');
+ RWait('xxlong');
+ RWait('xlong');
+end;
+
+begin
+ SetupOSi;
+ runner := BitmapFromString(8, 11,
+       'D0C6CFD0C6CF110711110711D0C6CFD0C6CFD0C6CFD0C6CFD0C6CF' +
+       'D0C6CF110711110711D0C6CFD0C6CFD0C6CFD0C6CF110711110711' +
+       '110711110711110711110711D0C6CF110711110711D0C6CF110711' +
+       '110711D0C6CF110711110711110711110711110711110711110711' +
+       'D0C6CFD0C6CF110711D0C6CFD0C6CF110711110711110711D0C6CF' +
+       'D0C6CFD0C6CFD0C6CFD0C6CFD0C6CF110711110711110711110711' +
+       'D0C6CFD0C6CFD0C6CF110711110711D0C6CFD0C6CF110711110711' +
+       'D0C6CF110711110711D0C6CFD0C6CF110711110711D0C6CFD0C6CF' +
+       '110711D0C6CFD0C6CF110711110711D0C6CFD0C6CFD0C6CFD0C6CF' +
+       'D0C6CFD0C6CFD0C6CFD0C6CFD0C6CFD0C6CFD0C6CF');
+ //SetRunOn;
+ GetMousePos(xc,yc);
+ repeat
+  Writeln('Walking to log...');
+  WalkToLog;
+  MoveMouseSmooth(1,1);
+  Writeln('Walking across log...');
+  WalkAcrossLog;
+  MoveMouseSmooth(1,1);
+  Writeln('Climbing...');
+  Climb(140,50);
+  MoveMouseSmooth(1,1);
+  Writeln('Climbing...');
+  Climb(245,170);
+  MoveMouseSmooth(1,1);
+  Writeln('Walking across rope...');
+  WalkAcrossRope;
+  MoveMouseSmooth(1,1);
+  Writeln('Climbing...');
+  Climb(150,240);
+  MoveMouseSmooth(1,1);
+  Writeln('Climbing...');
+  Climb(475,300);
+  MoveMouseSmooth(1,1);
+  Writeln('Squeezing through pipe...');
+  SqueezeThroughPipe;
+  MoveMouseSmooth(1,1);
+ until(false);
+end.

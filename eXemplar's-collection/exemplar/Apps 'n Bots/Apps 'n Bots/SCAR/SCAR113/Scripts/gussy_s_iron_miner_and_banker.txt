@@ -1,0 +1,1698 @@
+{              FEATURES
+v 1.0 basic mining and banking script
+v 1.1 added some basic random event protection and added
+progress report.
+v1.2 added human mouse moves by GenoDemoN
+v1.3 scar 1.13 release, removed human mouse
+moves by GenoDemoN and replaced with the new
+MoveMouseSmooth
+v2.0 rewrote walking script
+v3.0 got rid of my random event protection cause it was crap
+and replaced with aton's, also fixed script to work with new
+update(the new co-ordinates)
+v3.1 added procedure that logged out if took too long to walk
+(i.e. got lost) and added in login procedure that worked with new
+rs update (the new co-ordinates) added random rock colors (i.e.
+chooses randomly of the 4 rock colors), added pick fixing, added
+mining malfunction prevention, added procedure to locate when in
+rimmington and correct it.  Added chat fixer by joolz.  Added take
+new pick procedure for if pick was damaged
+v3.2 added form (kept version without for anyone that doesnt like the form,
+made script both waamp and aton random protection,fixed bug with
+banking , added autotalking
+}
+
+///////////////////////////////////////////////////
+//Gussy's Rimmington iron miner with banking v3.2//
+///////////////////////////////////////////////////
+//enter the required colors in lines 48-68       //
+//silent mouse will be set to OFF                //
+//public chat will be set to OFF                 //
+//private chat will be set to OFF                //
+//start at the western iron rocks of the rimming-//
+//ton mine                                       //
+//take 1 pickaxe in inventory (other wise my pick//
+//fixing wont work                               //
+//highest angle of view                          //
+//high detail, v. bright                         //
+//map pointing sort of north (make the road that //
+//runs above the mining spot west-east flat)     //
+//Do not wield your pickaxe                      //
+//if you are using waamp make sure you have run  //
+//waamp first and that you have the waamp include//
+//Please note: works with wamp 2.214             //
+//SCRIPT WILL GIVE YOU FIVE SECONDS AFTER FORM   //
+//TO HAVE CLIENT ON TOP, IF THIS IS NOT DONE     //
+//LOGIN WILL NOT COMMENCE                        //
+///////////////////////////////////////////////////
+//                 thanks to                     //
+//Aton's iron miner,for the random protection    //
+//Phalanx and Edmandel's progress report         //
+//Simon(not part of RSCheatNet)for helping code  //
+//and for the attaching pick head script         //
+//Chatfixer by joolz                             //
+//waamp by wallbot                               //
+//BumisD2YK4L's RS2 Login                        //
+///////////////////////////////////////////////////
+
+{********************* SET UP *********************}
+
+program ironminerandbanker;
+{.include WAAMPinclude.txt}
+
+const
+{-----------------------REQUIRED COLORS------------------------}
+
+//from inventory
+invhead=1585218; //the color of the pickaxe head in the inventory
+handle=6177;  //the color of the handle head in the inventory (should be a 4 digit color)
+
+//from minimap
+miningspot = 539738; //the colour of the mining spot ground on the minimap outer circle
+road = 5922147; // the colour of the road next to the mining spot (just north)
+banklogo = 4376542; //the gold colour of the bank logo
+
+//from minimap only if using rimmington correction
+magic=1089271; //the fire icon in the rimmington magic shop (middle orange part)
+water=14563328; //the water drop next to the rimmington magic shop (bright blue bottom bit)
+
+//from game screen
+rock1=2700378;//enter a color from the iron rock (different to other colors)
+rock2=2174026;//enter a color from the iron rock (different to other colors)
+rock3=2175058;//enter a color from the iron rock (different to other colors)
+rock4=1582137;//enter a color from the iron rock (different to other colors)
+
+invore=2174026; //brown centre color of iron ore in the inv screen (doesnt normally need changing)
+bankbooth=539730;//the brown wood trim of the bank booth (doesnt normally need changing)
+head=2705763; //the color of the pickaxe head on the screen (wield the pickaxe to be able to get it)
+
+{---------------------------SCRIPT---------------------------}
+
+var
+x,y,xa,ya,xb,yb,xd,yd,xe,ye,xg,yg,xh,yh,xi,c,yi,xy,talk:integer;
+talky,yy,xz,yz,a,b,minerocknumber,d,w,z,g,h,nextore:integer;
+x1,y1,x2,y2,ax,flag,box,newpicks:integer;
+ST,WT,minetime:longint;
+banks,iron,runs,talks,fixes,rimmington:integer;
+takenewpick,fight:boolean;
+//primaryform
+rimmingtonbox,minebox,walkbox,pickbox,takenewpickbox,autotalkcheck:Tcheckbox;
+randomprotection,minetimebox,walktimebox:tcombobox;
+usernamebox,passwordbox:Tedit;
+form, self: TForm;
+Application: TApplication;
+randomtext,usertext,passtext,pickfixtext,walktimetext,minetimetext,rimmingtontext,takenewpickboxtext,autotalkchecktext:tlabel;
+buttonok:tbutton;
+modprotect,userimmingtoncorrection,useminetimer,usewalktimer,minelogout,walktime,mypickfix,usetakenewpick:integer;
+username,password:string;
+//talkingform
+phrasetext,phrase1text,phrase2text,phrase3text,phrase4text,phrase5text: TLabel;
+autoform, aself: TForm;
+aApplication: TApplication;
+phrase: TComboBox;
+aButtonOK: TButton;
+phrase1,phrase2,phrase3,phrase4,phrase5: TEdit;
+useautotalk,usingautotalking,autotalks:integer;
+startminetime:longint;
+phrasetext1,phrasetext2,phrasetext3,phrasetext4,phrasetext5:string;
+
+//autotalkingform
+procedure buttonclicking (sender: Tobject);
+begin
+begin
+if (phrase.text = '1') then
+begin
+useautotalk:=1
+end;
+if (phrase.text = '2') then
+begin
+useautotalk:=2
+end;
+if (phrase.text = '3') then
+begin
+useautotalk:=3
+end;
+if (phrase.text = '4') then
+begin
+useautotalk:=4
+end;
+if (phrase.text = '5') then
+begin
+useautotalk:=5
+end;
+end;
+
+begin
+phrasetext1:=phrase1.text;
+phrasetext2:=phrase2.text;
+phrasetext3:=phrase3.text;
+phrasetext4:=phrase4.text;
+phrasetext5:=phrase5.text;
+end;
+end;
+
+procedure autoForms;
+begin
+aApplication:= GetApplication;
+   aSelf:= GetSelf;
+
+  autoForm:= TForm.Create(nil);
+   autoForm.Width := 220;
+   autoForm.Height := 400;
+   autoForm.Position := poScreenCenter;
+   autoForm.BorderStyle := bsDialog;
+   autoForm.Caption := 'Auto Talking By Gussy';
+   autoform.color:=clblack;
+
+   phrasetext := TLabel.Create(autoForm);
+   phrasetext.Top := 10;
+   phrasetext.Left := 16;
+   phrasetext.Caption := 'Choose number of Phrases to use:';
+   phrasetext.Parent := autoForm;
+   phrasetext.font.color:=cllime;
+  phrase:= TComboBox.Create(autoForm);
+   phrase.Top:= 25;
+   phrase.Left:= 16;
+   phrase.Parent:= autoForm;
+   phrase.DropDownCount:= 5;
+   phrase.Items.Add ('1');
+   phrase.Items.Add ('2');
+   phrase.Items.Add ('3');
+   phrase.Items.Add ('4');
+   phrase.Items.Add ('5');
+   phrase.ItemIndex:= 0;
+
+   phrase1text := TLabel.Create(autoForm);
+   phrase1text.Top:= 70;
+   phrase1text.Left := 16;
+   phrase1text.Caption := 'Phrase 1 (if applicable):';
+   phrase1text.Parent := autoForm;
+   phrase1text.font.color:=cllime;
+phrase1 := TEdit.Create(autoForm);
+   phrase1.Top := 85;
+   phrase1.Left := 16;
+   phrase1.Width := 145;
+   phrase1.Parent := autoForm;
+
+   phrase2text := TLabel.Create(autoForm);
+   phrase2text.Top:= 120;
+   phrase2text.Left := 16;
+   phrase2text.Caption := 'Phrase 2 (if applicable):';
+   phrase2text.Parent := autoForm;
+   phrase2text.font.color:=cllime;
+phrase2 := TEdit.Create(autoForm);
+   phrase2.Top := 135;
+   phrase2.Left := 16;
+   phrase2.Width := 145;
+   phrase2.Parent := autoForm;
+
+   phrase3text := TLabel.Create(autoForm);
+   phrase3text.Top:= 170;
+   phrase3text.Left := 16;
+   phrase3text.Caption := 'Phrase 3 (if applicable):';
+   phrase3text.Parent := autoForm;
+   phrase3text.font.color:=cllime;
+phrase3 := TEdit.Create(autoForm);
+   phrase3.Top := 185;
+   phrase3.Left := 16;
+   phrase3.Width := 145;
+   phrase3.Parent := autoForm;
+
+   phrase4text := TLabel.Create(autoForm);
+   phrase4text.Top:= 220;
+   phrase4text.Left := 16;
+   phrase4text.Caption := 'Phrase 4 (if applicable):';
+   phrase4text.Parent := autoForm;
+   phrase4text.font.color:=cllime;
+phrase4 := TEdit.Create(autoForm);
+   phrase4.Top := 235;
+   phrase4.Left := 16;
+   phrase4.Width := 145;
+   phrase4.Parent := autoForm;
+
+   phrase5text := TLabel.Create(autoForm);
+   phrase5text.Top:= 270;
+   phrase5text.Left := 16;
+   phrase5text.Caption := 'Phrase 5 (if applicable):';
+   phrase5text.Parent := autoForm;
+   phrase5text.font.color:=cllime;
+phrase5 := TEdit.Create(autoForm);
+   phrase5.Top := 285;
+   phrase5.Left := 16;
+   phrase5.Width := 145;
+   phrase5.Parent := autoForm;
+
+   aButtonOK := TButton.Create(autoForm);
+   aButtonOK.Left := 69;
+   aButtonOK.Top := 330;
+   aButtonOK.Width := 80;
+   aButtonOK.Height := 24;
+   aButtonOK.Caption := '&OK';
+   aButtonOK.Parent := autoForm;
+   aButtonOK.OnClick := @buttonclicking;
+   aButtonOK.Default := True;
+   aButtonOK.ModalResult:= mrOk;
+
+   autoForm.ShowModal;
+   autoForm.Free;
+   //End autoFormS
+end;
+
+//main form
+   procedure randommodform;
+begin //random protection
+if (randomprotection.Text = 'Waamp') then
+      begin
+modprotect:=1
+writeln('chose Waamp random mod protection')
+      end;
+
+if (randomprotection.Text = 'Atons(in script)') then
+      begin
+modprotect:=2
+writeln('chose atons random mod protection')
+      end;
+
+if (randomprotection.Text = 'None') then
+      begin
+modprotect:=0
+writeln ('chose no random mod protection')
+      end;
+      end;
+
+      procedure userpassform;
+      begin //username and password
+      username:=usernamebox.text;
+      password:=passwordbox.text;
+      end;
+      
+      procedure rimmingtonform;
+      begin
+      //rimmington check
+      if rimmingtonbox.Checked then
+      begin
+      writeln('using rimmington correction')
+      userimmingtoncorrection:=1
+      end;
+      end;
+
+      procedure usetalkform;
+      begin
+      //fake talking check
+      if autotalkcheck.Checked then
+      begin
+      writeln('using auto talking')
+      usingautotalking:=1
+      end;
+      end;
+
+      procedure minetimerform;
+      begin
+      //mine timer check
+      if minebox.Checked then
+      begin
+      writeln('using mine timer')
+      useminetimer:=1
+      end;
+      if useminetimer=1 then
+      begin
+      case minetimebox.text of
+      '1': begin; minelogout:=1; end;
+      '2': begin; minelogout:=2; end;
+      '3': begin; minelogout:=3; end;
+      '4': begin; minelogout:=4; end;
+      '5': begin; minelogout:=5; end;
+      '6': begin; minelogout:=6; end;
+      '7': begin; minelogout:=7; end;
+      '8': begin; minelogout:=8; end;
+      '9': begin; minelogout:=9; end;
+      '10': begin; minelogout:=10; end;
+      end;
+      end;
+      end;
+      
+      //walk timer check
+      procedure walktimerform;
+      begin
+      if walkbox.Checked then
+      begin
+      writeln('using walk timer')
+      usewalktimer:=1
+      end;
+      if usewalktimer=1 then
+      begin
+      case walktimebox.text of
+      '1': begin; walktime:=1; end;
+      '2': begin; walktime:=2; end;
+      '3': begin; walktime:=3; end;
+      '4': begin; walktime:=4; end;
+      '5': begin; walktime:=5; end;
+      '6': begin; walktime:=6; end;
+      '7': begin; walktime:=7; end;
+      '8': begin; walktime:=8; end;
+      '9': begin; walktime:=9; end;
+      '10': begin; walktime:=10; end;
+      end;
+      end;
+      end;
+
+      procedure pickfixform;
+      begin
+      //pick check
+      if pickbox.Checked then
+      begin
+      writeln('using gussys pick fixing script')
+      mypickfix:=1
+      end;
+      end;
+
+      procedure takenewpickform;
+      begin
+      //pick new check
+      if takenewpickbox.Checked then
+      begin
+      writeln('using take new pick script')
+      usetakenewpick:=1
+      end;
+      end;
+
+   procedure buttonclick(sender: TObject);
+   begin;
+   randommodform;
+   userpassform;
+   rimmingtonform;
+   minetimerform;
+   walktimerform;
+   pickfixform;
+   takenewpickform;
+   usetalkform;
+   end;
+procedure forms;
+begin
+Application:= GetApplication;
+   Self:= GetSelf;
+
+  Form:= TForm.Create(nil);
+   Form.Width := 310;
+   Form.Height := 470;
+   Form.Position := poScreenCenter;
+   Form.BorderStyle := bsDialog;
+   Form.Caption := 'Gussys Rimmington Iron Miner with Banking'
+   form.color:=clblack;
+
+   randomtext:= TLabel.Create(Form);
+   randomtext.Top := 10;
+   randomtext.Left := 16;
+   randomtext.font.color := cllime;
+   randomtext.Caption := 'Choose Random Event Protection Mode:';
+   randomtext.Parent := Form;
+  randomprotection:= TComboBox.Create(form);
+   randomprotection.Top:= 25;
+   randomprotection.Left:= 16;
+   randomprotection.Parent:= Form;
+   randomprotection.DropDownCount:= 3;
+   randomprotection.Items.Add ('Waamp');
+   randomprotection.Items.Add ('Atons(in script)');
+   randomprotection.Items.Add ('None');
+   randomprotection.ItemIndex:= 0;
+   
+  rimmingtonbox                   := TCheckBox.Create(Form);
+  rimmingtonbox.Parent            := Form;
+  rimmingtonbox.Left              := 16;
+  rimmingtonbox.Top               := 60;
+  rimmingtonbox.Width             := 273;
+  rimmingtonbox.Height            := 17;
+  rimmingtontext:= TLabel.Create(Form);
+   rimmingtontext.Top := 62;
+   rimmingtontext.Left := 32;
+   rimmingtontext.font.color := cllime;
+   rimmingtontext.Caption := 'Use Rimmington Walking Correction?:';
+   rimmingtontext.Parent := Form;
+   
+  pickbox                   := TCheckBox.Create(Form);
+  pickbox.Parent            := Form;
+  pickbox.Left              := 16;
+  pickbox.Top               := 95;
+  pickbox.Width             := 273;
+  pickbox.Height            := 17;
+  pickbox.font.color := cllime;
+  pickfixtext:= TLabel.Create(Form);
+   pickfixtext.Top := 97;
+   pickfixtext.Left := 32;
+   pickfixtext.font.color := cllime;
+   pickfixtext.Caption := 'Use Gussys Pick Fix?:';
+   pickfixtext.Parent := Form;
+   
+  minebox                   := TCheckBox.Create(Form);
+  minebox.Parent            := Form;
+  minebox.Left              := 16;
+  minebox.Top               := 130;
+  minebox.Width             := 273;
+  minebox.Height            := 17;
+  minetimetext:= TLabel.Create(Form);
+   minetimetext.Top := 132;
+   minetimetext.Left := 32;
+   minetimetext.font.color := cllime;
+   minetimetext.Caption := 'Use Mine Timer to logout if mining exceeds time limit?:';
+   minetimetext.Parent := Form;
+   
+  walkbox                   := TCheckBox.Create(Form);
+  walkbox.Parent            := Form;
+  walkbox.Left              := 16;
+  walkbox.Top               := 190;
+  walkbox.Width             := 279;
+  walkbox.Height            := 17;
+  walktimetext:= TLabel.Create(Form);
+   walktimetext.Top := 192;
+   walktimetext.Left := 32;
+   walktimetext.font.color := cllime;
+   walktimetext.Caption := 'Use Walk Timer to logout if mining exceeds time limit?:';
+   walktimetext.Parent := Form;
+   
+   autotalkcheck                   := TCheckBox.Create(Form);
+  autotalkcheck.Parent            := Form;
+  autotalkcheck.Left              := 16;
+  autotalkcheck.Top               := 280;
+  autotalkcheck.Width             := 279;
+  autotalkcheck.Height            := 17;
+  autotalkchecktext:= TLabel.Create(Form);
+   autotalkchecktext.Top := 285;
+   autotalkchecktext.Left := 32;
+   autotalkchecktext.font.color := cllime;
+   autotalkchecktext.Caption := 'Use Autotalking?:';
+   autotalkchecktext.Parent := Form;
+   
+   takenewpickbox                   := TCheckBox.Create(Form);
+  takenewpickbox.Parent            := Form;
+  takenewpickbox.Left              := 16;
+  takenewpickbox.Top               := 250;
+  takenewpickbox.Width             := 279;
+  takenewpickbox.Height            := 17;
+  takenewpickboxtext:= TLabel.Create(Form);
+   takenewpickboxtext.Top := 252;
+   takenewpickboxtext.Left := 32;
+   takenewpickboxtext.font.color := cllime;
+   takenewpickboxtext.Caption := 'Use take new pick if current one is broken?:';
+   takenewpickboxtext.Parent := Form;
+   
+  minetimetext:= TLabel.Create(Form);
+   minetimetext.Top := 150;
+   minetimetext.Left := 70;
+   minetimetext.Caption := 'If so, how long before logout?:';
+   minetimetext.Parent := Form;
+   minetimetext.font.color := cllime;
+  minetimebox:= TComboBox.Create(form);
+   minetimebox.Top:= 165;
+   minetimebox.Left:= 70;
+   minetimebox.Parent:= Form;
+   minetimebox.DropDownCount:= 10;
+   minetimebox.Items.Add ('1');
+   minetimebox.Items.Add ('2');
+   minetimebox.Items.Add ('3');
+   minetimebox.Items.Add ('4');
+   minetimebox.Items.Add ('5');
+   minetimebox.Items.Add ('6');
+   minetimebox.Items.Add ('7');
+   minetimebox.Items.Add ('8');
+   minetimebox.Items.Add ('9');
+   minetimebox.Items.Add ('10');
+   minetimebox.ItemIndex:= 0;
+   
+   walktimetext:= TLabel.Create(Form);
+   walktimetext.Top := 210;
+   walktimetext.Left := 70;
+   walktimetext.Caption := 'If so, how long before logout?:';
+   walktimetext.Parent := Form;
+   walktimetext.font.color := cllime;
+  walktimebox:= TComboBox.Create(form);
+   walktimebox.Top:= 225;
+   walktimebox.Left:= 70;
+   walktimebox.Parent:= Form;
+   walktimebox.DropDownCount:= 10;
+   walktimebox.Items.Add ('1');
+   walktimebox.Items.Add ('2');
+   walktimebox.Items.Add ('3');
+   walktimebox.Items.Add ('4');
+   walktimebox.Items.Add ('5');
+   walktimebox.Items.Add ('6');
+   walktimebox.Items.Add ('7');
+   walktimebox.Items.Add ('8');
+   walktimebox.Items.Add ('9');
+   walktimebox.Items.Add ('10');
+   walktimebox.ItemIndex:= 0;
+   
+   usertext := TLabel.Create(Form);
+   usertext.Top:= 310;
+   usertext.Left := 16;
+   usertext.Caption := 'Username?:';
+   usertext.Parent := Form;
+   usertext.font.color := cllime;
+usernamebox := TEdit.Create(Form);
+   usernamebox.Top := 325;
+   usernamebox.Left := 16;
+   usernamebox.Width := 145;
+   usernamebox.Parent := Form;
+   
+   passtext := TLabel.Create(Form);
+   passtext.Top:= 350;
+   passtext.Left := 16;
+   passtext.Caption := 'Password?:';
+   passtext.Parent := Form;
+   passtext.font.color := cllime;
+passwordbox := TEdit.Create(Form);
+   passwordbox.Top := 365;
+   passwordbox.Left := 16;
+   passwordbox.Width := 145;
+   passwordbox.Parent := Form;
+
+  ButtonOK := TButton.Create(Form);
+   ButtonOK.Left := 110;
+   ButtonOK.Top := 400;
+   ButtonOK.Width := 80;
+   ButtonOK.Height := 24;
+   ButtonOK.Caption := '&RUN SCRIPT';
+   ButtonOK.OnClick := @buttonclick
+   ButtonOK.Parent := Form;
+   ButtonOK.Default := True;
+   ButtonOK.ModalResult:= mrOk;
+   Form.ShowModal;
+   Form.Free;
+   end;
+
+
+
+//setstartingvalues
+procedure start;
+begin
+ST:=getsystemtime;
+setmousemode(false)
+end;
+
+ Procedure MapFlag;
+begin
+   Wait(200);
+   if(FindBitmapIn(flag,a,b,550,5,750,177))then
+   begin
+    repeat
+     wait(500);
+    until(not FindBitmapIn(flag,a,b,550,5,750,177));
+    Wait(100);
+   end;
+End;
+
+procedure SetRunOn;
+begin
+   Wait(200);
+   MoveMousesmooth(713,480);
+   Wait(50);
+   ClickMouse(713,480,true);
+   Wait(200);
+   MoveMousesmooth(623,265);
+   Wait(200);
+   ClickMouse(623,265,true);
+   Wait(100);
+   MoveMouse(650,183);
+   Wait(100);
+   ClickMouse(650,183,true);
+   Wait(300);
+end;
+
+//BumisD2YK4L's RS2 Login modified by gussy1531 to work with new rs update
+procedure LoginIfNeeded;
+begin
+    if((GetColor(328,247)=65535)and(GetColor(279,293)=16777215))then
+ begin
+  repeat
+      Status('Trying to Login')
+      wait(500);
+      ClickMouse(454,294,true);
+      wait(1000);
+      if((Getcolor(287,220)=65535)and(GetColor(306,323)=16777215))then
+      begin
+        Clickmouse(365,256,true);
+        Wait(500);
+        SendKeysSilent(username);
+        Wait(500);
+        ClickMouse(366,271,true);
+        Wait(500);
+        SendKeysSilent(password);
+        Wait(500);
+        if(GetColor(306,325)=16777215)then
+        begin
+        repeat
+        wait(100);
+        ClickMouse(313,324,true);
+        Wait(5000);
+        until(Not (GetColor(306,325)=16777215));
+        repeat
+        Wait(500);
+        until(GetColor (201,66)=65535) or (GetColor (200,96)=65535)
+        repeat
+           Wait(500);
+           MoveMousesmooth(457,64);
+           Wait(500);
+           ClickMouse(457,64,true);
+           Wait(500);
+           MoveMousesmooth(457,94);
+           Wait(500);
+           ClickMouse(457,94,true);
+           Wait(500);
+        until(not(Getcolor(201,66)=65535));
+      end;
+    end;
+   until(not(GetColor(413,319)=5918026));
+  end;
+End;
+
+{--ChatFixer 2.13 by Joolz--}
+Procedure ChatFixer;
+begin
+loginifneeded;
+      begin
+      x:=55;
+      y:=491;
+      if(not(GetColor(x,y)=255))then
+      begin
+        Status('Setting "Public chat" off...')
+          repeat
+             MoveMouseSmooth(x-random(10),y-random(10));
+             Wait(100+random(20));
+             ClickMouse(x,y,true);
+             Wait(100+random(20));
+          until((GetColor(x,y)=255));
+      end;
+      end;
+      begin
+      x:=184;
+      y:=492;
+      if(not(GetColor(x,y)=255))then
+      begin
+        Status('Setting "Private chat" off...')
+          repeat
+             MoveMouseSmooth(x-random(10),y-random(10));
+             Wait(100+random(20));
+             ClickMouse(x,y,true);
+             Wait(100+random(20));
+          until((GetColor(x,y)=255));
+      end;
+      end;
+end;
+
+
+procedure FindFight;
+begin
+begin
+If(FindColorSpiral(x,y,65280,160,100,400,250))then Wait(3000);
+If(FindColorSpiral(x,y,65280,160,100,400,250))then
+begin
+Status('Random Event Found');
+SaveScreenshot('RandomEventRun.bmp');
+Fight:=True;
+Runs:=Runs+1;
+SetRunOn;
+Wait(50+random(10));
+clickmouse(665,35,true);
+Wait(100);
+Mapflag;
+Wait(10000+random(1000));
+clickmouse(655,145,true);
+Wait(100);
+MapFlag;
+end;
+end;
+End;
+
+procedure TalkToEve;
+var i:integer;
+begin
+Fight:=false;
+C:=0;
+i:=1;
+if(FindColorSpiral(x,y,65535,0,0,500,375))and(Not FindBitmapIn(Box,x,y,0,0,500,375))then
+begin
+repeat
+c:=c+1;
+Status('Searching For Random Event '+inttostr(c)+'/50');
+case i of
+ 1: begin ax:=x+random(75); i:=i+1; end;
+ 2: begin ax:=x-random(75); i:=1;   end;
+end;
+clickmouse(ax,y+30,false);
+wait(50+random(10));
+If(FindColorSpiral(x,y,65280,160,100,400,250))then FindFight;
+If(Fight)then break;
+if(FindBitmap(Talk,x,y))or(FindBitmap(TalkY,x,y))then break;
+if(C>=30)then break;
+if(FindColorSpiral(x,y,65535,0,0,500,375))then begin TalkToEve; break; end;
+movemousesmooth(x+75+random(10),y-50-random(10))
+Wait(50+random(10));
+until(false);
+end;
+end;
+
+procedure FindText;
+begin
+begin
+If(FindColorSpiral(x,y,65280,160,100,400,250))then FindFight;
+If(Not Fight)then
+begin
+If(findColorSpiral(a,b,65535,0,0,500,375))and(Not FindBitmapIn(Box,x,y,0,0,500,375))then
+begin
+SaveScreenShot('RandomEventTalk.bmp');
+TalkToEve;
+Wait(200+random(20));
+end;
+If(FindBitmap(Talk,x,y))or(FindBitmap(TalkY,x,y))then
+begin
+clickmouse(x,y,true);
+wait(3000+random(300));
+Talks:=Talks+1;
+end;
+end;
+end;
+End;
+
+//gussys pick fixing procedure
+procedure pickfix;
+begin
+If(Findcolorspiral(w,z,handle,565,213,732,453)) and (Findcolorspiraltolerance(x,y,invhead,565,213,730,453,1)) then
+begin
+if (Findcolorspiraltolerance(x,y,invhead,565,213,732,453,1)) then
+begin
+movemousesmooth(x,y)
+wait(200+random(200))
+clickmouse(x,y,true)
+wait(200+random(200))
+if (Findcolorspiral(w,z,handle,565,213,730,453)) then
+begin
+movemousesmooth(583,225)
+wait(200+random(200))
+clickmouse(583,225,true)
+wait(200+random(200))
+writeln('pickfixed')
+fixes:=fixes+1;
+end;
+end;
+end;
+end;
+
+
+procedure pickheadget;
+begin
+if (not findcolorspiral(c,d,invhead,555,200,747,461)) then
+begin
+repeat
+if(findcolorspiral(c,d,head,5,3,515,338)) then
+movemousesmooth(c,d)
+wait(200)
+clickmouse(c,d,true)
+wait(3000);
+until(findcolorspiral(c,d,invhead,555,200,747,461))
+pickfix;
+end;
+end;
+
+//mining malfunction prevention procedure
+procedure logoutmine; //if mining exceeds time limit logout
+begin
+movemousesmooth(647,479)
+wait(500)
+clickmouse(647,479,true);
+wait(500)
+movemousesmooth(631,374)
+wait(500)
+clickmouse(631,374,true)
+writeln('time between ores exceeded time limit, logged out')
+wait(500)
+repeat
+sleep(200)
+until(false)
+end;
+
+procedure setnewcoords;
+begin
+nextore:=nextore+1
+minetime:=getsystemtime; wait(200);
+end;
+
+procedure checktime;
+begin
+if(getsystemtime-minetime)>(minelogout*60000) then
+logoutmine;
+end;
+
+procedure checkcoords;
+begin
+case nextore of
+1: begin;
+if (not findcolorspiral(g,h,invore,611,215,640,243)) then
+checktime
+if (findcolorspiral(g,h,invore,611,215,640,243)) then
+setnewcoords;
+end;
+2: begin
+if (not findcolorspiral(g,h,invore,654,215,683,242)) then
+checktime;
+if (findcolorspiral(g,h,invore,654,215,683,242)) then
+setnewcoords;
+end;
+3: begin
+if (not findcolorspiral(g,h,invore,695,216,726,243)) then
+checktime;
+if (findcolorspiral(g,h,invore,695,216,726,243)) then
+setnewcoords;
+end;
+4: begin
+if ( not findcolorspiral(g,h,invore,568,253,599,279)) then
+checktime;
+if (findcolorspiral(g,h,invore,568,253,599,279)) then
+setnewcoords;
+end;
+5: begin
+if ( not findcolorspiral(g,h,invore,611,254,642,280)) then
+checktime;
+if (findcolorspiral(g,h,invore,611,254,642,280)) then
+setnewcoords;
+end;
+6: begin
+if (not findcolorspiral(g,h,invore,652,254,684,279)) then
+checktime;
+if (findcolorspiral(g,h,invore,652,254,684,279)) then
+setnewcoords;
+end;
+7: begin
+if ( not findcolorspiral(g,h,invore,693,252,726,280)) then
+checktime;
+if (findcolorspiral(g,h,invore,693,252,726,280)) then
+setnewcoords;
+end;
+8: begin
+if (not findcolorspiral(g,h,invore,568,287,601,316)) then
+checktime;
+if (findcolorspiral(g,h,invore,568,287,601,316)) then
+setnewcoords;
+end;
+9: begin
+if (not findcolorspiral(g,h,invore,610,289,642,314)) then
+checktime;
+if (findcolorspiral(g,h,invore,610,289,642,314)) then
+setnewcoords;
+end;
+10: begin
+if (not findcolorspiral(g,h,invore,654,289,684,316)) then
+checktime;
+if (findcolorspiral(g,h,invore,654,289,684,316)) then
+setnewcoords;
+end;
+11: begin
+if (not findcolorspiral(g,h,invore,695,288,726,316)) then
+checktime;
+if (findcolorspiral(g,h,invore,695,288,726,316)) then
+setnewcoords;
+end;
+12: begin
+if (not findcolorspiral(g,h,invore,568,326,600,351)) then
+checktime;
+if (findcolorspiral(g,h,invore,568,326,600,351)) then
+setnewcoords;
+end;
+13: begin
+if (not findcolorspiral(g,h,invore,612,325,641,351)) then
+checktime;
+if (findcolorspiral(g,h,invore,612,325,641,351)) then
+setnewcoords;
+end;
+14: begin
+if (not findcolorspiral(g,h,invore,653,326,683,351)) then
+checktime;
+if (findcolorspiral(g,h,invore,653,326,683,351)) then
+setnewcoords;
+end;
+15: begin
+if (not findcolorspiral(g,h,invore,653,326,683,351)) then
+checktime;
+if (findcolorspiral(g,h,invore,695,326,726,351)) then
+setnewcoords;
+end;
+16: begin
+if (not findcolorspiral(g,h,invore,569,362,601,387)) then
+checktime;
+if (findcolorspiral(g,h,invore,569,362,601,387)) then
+setnewcoords;
+end;
+17: begin
+if (not findcolorspiral(g,h,invore,610,361,640,389)) then
+checktime;
+if (findcolorspiral(g,h,invore,610,361,640,389)) then
+setnewcoords;
+end;
+18: begin
+if (not findcolorspiral(g,h,invore,652,361,682,388)) then
+checktime;
+if (findcolorspiral(g,h,invore,652,361,682,388)) then
+setnewcoords;
+end;
+19: begin
+if (not findcolorspiral(g,h,invore,694,361,726,387)) then
+checktime;
+if (findcolorspiral(g,h,invore,694,361,726,387)) then
+setnewcoords;
+end;
+20: begin
+if (not findcolorspiral(g,h,invore,567,397,600,423)) then
+checktime;
+if (findcolorspiral(g,h,invore,567,397,600,423)) then
+setnewcoords;
+end;
+21: begin
+if (not findcolorspiral(g,h,invore,610,397,643,422)) then
+checktime;
+if (findcolorspiral(g,h,invore,610,397,643,422)) then
+setnewcoords;
+wait(200)
+end;
+22: begin
+if (not findcolorspiral(g,h,invore,653,396,683,422)) then
+checktime;
+if (findcolorspiral(g,h,invore,653,396,683,422)) then
+setnewcoords;
+wait(200)
+end;
+23: begin
+if (not findcolorspiral(g,h,invore,695,397,726,422)) then
+checktime;
+if (findcolorspiral(g,h,invore,695,397,726,422)) then
+setnewcoords;
+wait(200)
+end;
+24: begin
+if (not findcolorspiral(g,h,invore,567,433,599,459)) then
+checktime;
+if (findcolorspiral(g,h,invore,567,433,599,459)) then
+setnewcoords;
+end;
+25: begin
+if (not findcolorspiral(g,h,invore,610,432,643,458)) then
+checktime;
+if (findcolorspiral(g,h,invore,610,432,643,458)) then
+setnewcoords;
+end;
+26: begin
+if (not findcolorspiral(g,h,invore,610,432,643,458)) then
+checktime;
+if (findcolorspiral(g,h,invore,653,433,684,457)) then
+setnewcoords;
+end;
+27: begin
+if (not findcolorspiral(g,h,invore,696,434,725,459)) then
+checktime;
+if (findcolorspiral(g,h,invore,696,434,725,459)) then
+setnewcoords;
+end;
+end;
+end;
+
+//rimmington correction procedure
+procedure walk2;
+begin;
+movemousesmooth(x2,y2);
+wait(200);
+clickmouse(x2,y2,true);
+wait(200);
+end;
+
+procedure walk1;
+begin;
+movemousesmooth(x1,y1);
+wait(200);
+clickmouse(x1,y1,true);
+wait(200)
+end;
+
+
+
+procedure rimmingmalf;
+begin
+writeln('walking procedure malfunctioned')
+writeln('activated walk from rimmington to mine')
+rimmington:=rimmington+1
+end;
+
+procedure rimmingtonwalklost;
+begin
+if findcolorspiral(x,y,magic,566,1,744,100) and findcolorspiral(a,b,water,566,1,744,100) then
+begin
+rimmingmalf;
+if(findcolorspiral(x,y,magic,566,1,744,100)) then
+movemousesmooth(x,y-10)
+wait(100+random(100))
+clickmouse(x,y-10,true)
+wait(8000+random(100))
+SendArrowSilent(3)
+wait(200)
+SendArrowSilent(3)
+wait(200)
+begin
+movemousesmooth(597,87)
+wait(200+random(200))
+clickmouse(597,87,true)
+wait(7000+random(200))
+repeat
+clickmouse(640,46,true)
+wait(500)
+until (findcolorspiral(x1,y1,road,587,72,608,106))
+begin
+repeat
+if(FindColorSpiral(x1,y1,road,587,72,608,106))then
+walk1;
+wait(200);
+until (FindColorSpiral(x2,y2,road,620,110,665,143))
+begin
+repeat
+if(FindColorSpiral(x2,y2,road,620,110,665,143))then
+walk2;
+wait(1000);
+until(findcolorspiral(xg,yg,miningspot,660,90,744,165))
+clickmouse(xg,yg,true);
+wait(13000);
+clickmouse(617,126,true);
+end;
+end;
+end;
+end;
+end;
+
+procedure correctioncheck;
+begin
+if userimmingtoncorrection=1 then
+rimmingtonwalklost;
+end;
+
+procedure logoutlost; //if lost logout
+begin
+movemousesmooth(647,479)
+wait(500)
+clickmouse(647,479,true);
+wait(500)
+movemousesmooth(631,374)
+wait(500)
+clickmouse(631,374,true)
+writeln('walking exceeded time limit, logged out')
+wait(500)
+repeat
+sleep(200)
+until(false)
+end;
+
+
+//fake talking
+procedure autotalk1;
+begin
+sendkeys(phrasetext1 + chr(10))
+wait(1000+random(1000))
+chatfixer;
+autotalks:=autotalks+1;
+end;
+
+procedure autotalk2;
+begin
+sendkeys(phrasetext2 + chr(10))
+wait(1000+random(1000))
+chatfixer;
+autotalks:=autotalks+1;
+end;
+
+procedure autotalk3;
+begin
+sendkeys(phrasetext3 + chr(10))
+wait(1000+random(1000))
+chatfixer;
+autotalks:=autotalks+1;
+end;
+
+procedure autotalk4;
+begin
+sendkeys(phrasetext4 + chr(10))
+wait(200+random(200))
+wait(1000+random(1000))
+chatfixer;
+autotalks:=autotalks+1;
+end;
+
+procedure autotalk5;
+begin
+sendkeys(phrasetext5 + chr(10))
+wait(1000+random(1000))
+chatfixer;
+autotalks:=autotalks+1;
+end;
+
+procedure autotalk;
+begin
+if (random(10))=1 then
+begin
+if ((getsystemtime-startminetime)>300000)then
+begin
+case useautotalk of
+1: begin autotalk1 end;
+
+2: begin useautotalk:=(random(2)+1)
+   begin
+     case useautotalk of
+     1:begin autotalk1 end;
+     2:begin autotalk2 end;
+     end;
+     end;
+     end;
+
+3: begin useautotalk:=(random(3)+1)
+   begin
+      case useautotalk of
+     1:begin autotalk1 end;
+     2:begin autotalk2 end;
+     3:begin autotalk3 end;
+     end;
+     end;
+     end;
+
+4: begin useautotalk:=(random(4)+1)
+   begin
+      case useautotalk of
+     1:begin autotalk1 end;
+     2:begin autotalk2 end;
+     3:begin autotalk3 end;
+     4:begin autotalk4 end;
+     end;
+     end;
+     end;
+
+5: begin useautotalk:=(random(5)+1)
+   begin
+      case useautotalk of
+     1:begin autotalk1 end;
+     2:begin autotalk2 end;
+     3:begin autotalk3 end;
+     4:begin autotalk4 end;
+     5:begin autotalk5 end;
+     end;
+     end;
+     end;
+
+end;
+end;
+end;
+end;
+
+//checks if using autotalk
+procedure checkautotalk;
+begin
+if usingautotalking=1 then
+begin
+autotalk
+end;
+end;
+
+
+procedure lost; //checks if taken too long to walk
+begin
+if(getsystemtime-wt>(walktime*60000)) then
+logoutlost
+end;
+
+//different anti mod procedures
+procedure aton;
+begin;
+FindFight;
+FindText;
+end;
+
+procedure checkrandommodprocedure;
+begin
+if modprotect=1 then
+checkcommunication;
+if modprotect=2 then
+aton;
+end;
+
+//checkpickfix
+procedure checkpickfix;
+begin
+if mypickfix=1 then
+pickheadget
+end;
+
+//check mine timer
+procedure checkminetimer;
+begin
+if useminetimer=1 then
+checkcoords;
+end;
+
+//check walk timer
+procedure checkwalktimer;
+begin
+if usewalktimer=1 then
+lost
+end;
+
+//walkingtobank
+procedure walka;
+begin;
+loginifneeded;
+movemousesmooth(xa,ya);
+wait(200);
+clickmouse(xa,ya,true);
+wait(1000);
+lost;
+end;
+
+procedure walkb;
+begin;
+loginifneeded;
+movemousesmooth(xb,yb);
+wait(200);
+clickmouse(xb,yb,true);
+wait(1000);
+lost;
+end;
+
+procedure tobank;
+begin;
+wt:=getsystemtime;
+movemousesmooth(651,17)
+wait(200)
+clickmouse(651,17,true);
+wait(12000);
+loginifneeded;
+movemousesmooth(699,41)
+wait(200)
+clickmouse(699,41,true);
+wait(12000);
+loginifneeded;
+repeat
+movemousesmooth(654,71)
+wait(200)
+clickmouse(654,71,true)
+wait(200)
+loginifneeded;
+until (findcolorspiral(xa,ya,road,718,71,723,92))
+begin
+repeat;
+if(FindColorSpiral(xb,yb,road,710,66,723,94))then
+walkb;
+wait(200)
+loginifneeded;
+until(FindColorSpiral(xa,ya,road,672,21,708,42))
+begin
+repeat
+if(FindColorSpiral(xa,ya,road,626,25,662,45))then
+walka;
+wait(200)
+loginifneeded;
+until(findcolorspiral(xz,yz,banklogo,595,5,732,158))
+begin
+wait(1000)
+if(findcolorspiral(xy,yy,65535,xz-15,yz-20,xz+50,yz+30))then
+clickmouse(xy,(yy-10),true);
+wait(2000)
+loginifneeded;
+if(findcolorspiral(xy,yy,65535,xz-15,yz-20,xz+50,yz+30))then
+clickmouse(xy,(yy-7),true);
+wait(20000);
+loginifneeded;
+end;
+end;
+end;
+end;
+
+//depositing
+procedure bankernormal;
+begin;
+repeat;
+movemousesmooth(214,164)
+wait(200+random(200))
+clickmouse(214,164,true)
+wait(200+random(200))
+if(findcolorspiral(xi,yi,bankbooth,180,171,373,235))then
+movemousesmooth(xi,yi);
+wait (200)
+clickmouse(xi,yi,false);
+wait (500);
+clickmouse(xi,yi+40,true)
+wait(2000)
+until(not findcolorspiral(xi,yi,bankbooth,180,171,373,244))
+movemousesmooth(710,444)
+wait(500)
+clickmouse(710,444,false)
+wait(500)
+movemousesmooth(710,411)
+wait(500)
+clickmouse(710,411,true)
+wait(2000)
+movemousesmooth(475,41)
+wait(1000)
+clickmouse(475,41,true)
+banks:=banks+1
+end;
+
+//pick taking procedure
+procedure takepick;
+begin
+repeat;
+movemousesmooth(214,164)
+wait(200+random(200))
+clickmouse(214,164,true)
+wait(200+random(200))
+if(findcolorspiral(xi,yi,bankbooth,180,171,373,235))then
+movemousesmooth(xi,yi);
+wait (200)
+clickmouse(xi,yi,false);
+wait (500);
+clickmouse(xi,yi+40,true)
+wait(2000)
+until(not findcolorspiral(xi,yi,bankbooth,180,171,373,244))
+begin
+movemousesmooth(580,228);
+wait(200+random(200))
+clickmouse(580,228,true)
+wait(200+random(200))
+movemousesmooth(94,77)
+wait(200+random(200))
+clickmouse(94,77,true)
+wait(200+random(200))
+takenewpick:=false;
+end;
+end;
+
+//checks what banking should be done
+procedure banker;
+begin
+if takenewpick=false then
+bankernormal;
+if takenewpick=true then
+takepick;
+end;
+
+//walk to rocks
+procedure walkd;
+begin;
+loginifneeded;
+movemousesmooth(xd,yd);
+wait(200);
+clickmouse(xd,yd,true);
+wait(200);
+lost;
+correctioncheck;
+end;
+
+procedure walke;
+begin;
+loginifneeded;
+movemousesmooth(xe,ye);
+wait(200);
+clickmouse(xe,ye,true);
+wait(200);
+lost;
+correctioncheck;
+end;
+
+procedure torock;
+begin;
+wt:=getsystemtime;
+movemousesmooth(618,112)
+wait(200)
+clickmouse(618,112,true)
+wait(200)
+repeat;
+if(FindColorSpiral(xd,yd,road,620,110,657,135))then
+walkd;
+wait(1000)
+loginifneeded;
+until (not FindColorSpiral(xd,yd,road,620,110,657,135))
+begin
+repeat
+loginifneeded;
+if(FindColorSpiral(xe,ye,road,587,72,608,106))then
+walke;
+wait(200);
+until (FindColorSpiral(xd,yd,road,620,110,665,143))
+begin
+repeat
+if(FindColorSpiral(xd,yd,road,620,110,665,143))then
+walkd;
+wait(1000);
+loginifneeded;
+until(findcolorspiral(xg,yg,miningspot,660,90,744,165))
+clickmouse(xg,yg,true);
+wait(13000);
+movemousesmooth(622,128)
+clickmouse(622,128,true)
+wait(5000);
+end;
+end;
+end;
+
+procedure checkpickaxe;
+begin
+if(not (getcolor(593,220)=0)) then
+begin
+writeln('pickaxe broken, taking a new one')
+takenewpick:=true
+tobank
+banker
+torock
+writeln('pickaxe taken, begining mining')
+newpicks:=newpicks+1;
+end;
+end;
+
+
+//check take new pcik
+procedure checktakenewpick;
+begin
+if usetakenewpick=1
+then
+checkpickaxe;
+end;
+
+
+//miningprocedure
+procedure minerock1;
+begin;
+if(findcolorspiral(x,y,rock1,9,11,519,344))then
+begin
+movemousesmooth(x,y)
+wait(200+random(200))
+clickmouse(x,y,true);
+wait(4000)
+checkrandommodprocedure;
+checkpickfix;
+checkminetimer;
+checktakenewpick;
+checkautotalk;
+end
+end;
+
+procedure minerock2;
+begin;
+if(findcolorspiral(x,y,rock2,9,11,519,344))then
+begin
+movemousesmooth(x,y)
+wait(200+random(200))
+clickmouse(x,y,true);
+wait(4000)
+checkrandommodprocedure;
+checkpickfix;
+checkminetimer;
+checktakenewpick;
+checkautotalk;
+end
+end;
+
+procedure minerock3;
+begin;
+if(findcolorspiral(x,y,rock3,9,11,519,344))then
+begin
+movemousesmooth(x,y)
+wait(200+random(200))
+clickmouse(x,y,true);
+wait(4000)
+checkrandommodprocedure;
+checkpickfix;
+checkminetimer;
+checktakenewpick;
+checkautotalk;
+end
+end;
+
+procedure minerock4;
+begin;
+if(findcolorspiral(x,y,rock4,9,11,519,344))then
+begin
+movemousesmooth(x,y)
+wait(200+random(200))
+clickmouse(x,y,true);
+wait(4000)
+checkrandommodprocedure;
+checkpickfix;
+checkminetimer;
+checktakenewpick;
+checkautotalk;
+end
+end;
+
+procedure mining;
+begin
+repeat
+loginifneeded;
+minerocknumber:=((random(4))+1)
+if (minerocknumber=1) then
+minerock1
+if (minerocknumber=2) then
+minerock2
+if (minerocknumber=3) then
+minerock3
+if (minerocknumber=4) then
+minerock4
+until(findcolorspiral(xh,yh,invore,702,437,738,453));
+end;
+
+//the edmandel and phalanx progress report
+
+procedure progresstime;
+var
+Hours,Minutes,Seconds:LongInt;
+ Time:String;
+Begin
+  Seconds:=(GetSystemTime-ST) div 1000;
+  Minutes:=Seconds div 60;
+  Hours:=Minutes div 60;
+  Time:=inttostr(Seconds)+' Seconds';
+  if Minutes<>0 then
+     begin
+        Seconds:=Seconds Mod (Minutes*60);
+        Time:=inttostr(Minutes)+' Minutes and '+inttostr(Seconds)+' Seconds';
+     end;
+  if Hours<>0 then
+     begin
+        Minutes:=Minutes Mod (Hours*60);
+        Seconds:=Seconds Mod (Minutes*60);
+        Time:=inttostr(Hours)+' Hours, '+inttostr(Minutes)+' Minutes and '
+        +inttostr(Seconds)+' Seconds';
+     end;
+     begin
+     writeln(' ')
+     writeln('------progress report------')
+     writeln('worked for ' + time)
+     end;
+     end;
+
+
+procedure progressmining;
+var
+mined,banked,randomevents,randomtalks,pickfixes,usedautotalks,corrections,newpickstaken:string;
+begin
+iron:=(banks*27);
+begin
+mined:=inttostr(iron);
+banked:=inttostr(banks);
+randomevents:=inttostr(runs);
+randomtalks:=inttostr (talks);
+pickfixes:=inttostr (fixes);
+newpickstaken:=inttostr (newpicks)
+corrections:=inttostr (rimmington);
+usedautotalks:=inttostr (autotalks);
+
+writeln('mined ' + (mined) + ' iron ore')
+writeln('banked ' + (banked) + ' Time[s]')
+if modprotect=2 then
+writeln('ran from ' + (randomevents) + ' random event[s]')
+if modprotect=2 then
+writeln('talked to ' + (randomtalks) + ' random event[s]')
+if mypickfix=1 then
+writeln('fixed pick ' + (pickfixes) +  ' time[s]')
+if userimmingtoncorrection=1 then
+writeln('activated rimmington correction ' + (corrections) + ' time[s]')
+if usetakenewpick=1 then
+writeln('took ' + (newpickstaken) + ' new picks')
+if usingautotalking=1 then
+writeln('fake talked ' + (usedautotalks) + ' time[s]')
+end;
+end;
+
+procedure loadbmps;
+begin;
+flag := BitmapFromString(2, 2,
+        'FF00005D3311C656045D3311');
+Box := BitmapFromString(6, 3,
+       '0000000000005D54475D54470000000000000000000000005D5447' +
+       '5D54470000000000000000000000005D54475D5447000000000000' +
+       '');
+Talk := BitmapFromString(17, 10,
+        'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+        '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+        '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+        'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF');
+TalkY := BitmapFromString(17, 10,
+        'FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+        '000000000000000000000000000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000000000000000FFFF00FFFF00FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+        '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000FFFF00FFFF00000000000000000000000000FFFF00' +
+        'FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00');
+       end;
+
+//actual program
+begin;
+forms
+wait(200)
+if usingautotalking=1 then
+begin
+autoforms;
+end;
+start;
+wait(5000)
+loadbmps;
+repeat;
+loginifneeded;
+chatfixer;
+nextore:=1;
+minetime:=getsystemtime;
+startminetime:=getsystemtime;
+mining;
+tobank;
+banker;
+torock;
+progresstime;
+progressmining;
+wait(2000)
+until (false);
+end.

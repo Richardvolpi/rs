@@ -1,0 +1,48 @@
+var
+  username, password: string;
+
+procedure LogInIfNeeded; export;
+begin
+  //if logged out press Cancel
+  if(LoginScreen)then
+  begin
+    Writeln('Clearing username, password fields');
+    ClickMouse(400,280,True);
+    Wait(2000);
+  end;
+  //If logged out select Existing User
+  if(StartScreen)then
+  begin
+    Writeln('Choosing existing user');
+    ClickMouse(340,280,True);
+    Wait(4000);
+  end;
+  //If logged out, log in
+  if(LoginScreen)then
+  begin
+    Writeln('Trying to log in');
+    ClickMouse(100,260,True);
+    Wait(500);
+    SendKeysSilent(username);
+    Wait(2000);
+    ClickMouse(120,310,True);
+    Wait(500);
+    SendKeysSilent(password);
+    Wait(2000);
+    ClickMouse(380,250,True);
+    Wait(6000);
+  end;
+  //If we have Welcome to RuneScape open, close it
+  if(GetColor(56,117)=16777215)and
+    (GetColor(57,118)=0)and
+    (GetColor(455,216)=16777215)and
+    (GetColor(454,215)=0)
+  then
+  begin
+    Writeln('Closing Welcome box');
+    ClickMouse(250,208,True);
+    Wait(2000);
+  end;
+  SetTimeOut(20,'LOGINIFNEEDED');
+end;
+

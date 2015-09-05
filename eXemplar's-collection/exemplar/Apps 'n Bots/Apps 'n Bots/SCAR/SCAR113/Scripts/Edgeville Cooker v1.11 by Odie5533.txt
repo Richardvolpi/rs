@@ -1,0 +1,461 @@
+{========================================]
+              Edgeville Cooker
+                   v1.11
+                By Odie5533
+[========================================]
+ 1.Have the fish you want to cook in 1st
+   Bank Slot
+ 2.Start in Bank
+ 3.Works best on Low Detail
+[========================================]
+ Special thanks to Chrilleman, for help
+ on the XP Gained in the Report Procedure
+[========================================}
+
+program EdgevilleCooker;
+{.include OSi.txt}
+{.include BoxBreaker.txt}
+var RawFish,iLamp,TalkW,TalkY:integer; {Bitmaps}
+CookCount,AttackCount,TalkCount,YellowTextCount,LampCount,FR,KillSwitch,xpx:integer; {Counters}
+subx,suby:integer; UnderAttack,FindColors:boolean;
+BankSymbol,PotColor,RangeColor,WaterSymbol:integer; {Colors}
+const
+
+//=\\========================================//=\\
+Username = '';
+Password = '';
+FishType = 3; //What kind of fish to cook?
+{0 Lobster, 1 Trout, 2 Salmon, 3 Shrimp, 4 Swordfish
+ 5 Herring, 6 Tuna, 7 Sardine, 8 Pike, 9 Anchovies
+ 10 Cod, 11 Shark, 12 Mackerel, 13 Bass}
+Procedure Setup; begin
+KillSwitch:=551; //How many fish do you have to cook?
+FindColors:=true; //Automatically get colors?
+BankSymbol := 5099242; //Color of the bank symbol
+WaterSymbol := 13572352;
+PotColor := 3042748; //Color of the Shop Pot (Lightest)
+RangeColor := 1518279; //Debug ONLY
+////==========================================\\\\
+end;
+ 
+
+Procedure Report(doing:string);
+var times,timem,timeh,StrSecZero,StrMinZero,avtime:string;
+    Hours,Minutes,Seconds:LongInt;
+begin
+  clearreport;
+  Seconds:=(GetSystemTime-ST) div 1000;
+  if(CookCount>0)and(Seconds>0)then
+   avtime:=inttostr(3600/(Seconds/CookCount));
+  Hours:=Seconds div 3600;
+  Seconds:=Seconds - (hours*3600);
+  Minutes:=Seconds div 60;
+  Seconds:=Seconds - (Minutes*60);
+  if(minutes<10)then StrMinZero:='0';
+  if(seconds<10)then StrSecZero:='0';
+  if(hours>0)then timeh:=inttostr(hours)+':';
+  if(minutes>0)then timem:=StrMinZero+inttostr(minutes)+':';
+  times:=StrSecZero+inttostr(seconds);
+addtoreport('Edge Cooker by Odie5533');
+addtoreport('***********************');
+addtoreport('Currently: '+doing);
+addtoreport('Worked for '+timeh+timem+times);
+addtoreport('Cooked: '+inttostr(CookCount)+' XP Gained: '+inttostr(CookCount*xpx));
+addtoreport('Averaging '+avtime+' fish an hour');
+addtoreport('Attacks: '+inttostr(AttackCount)+'  Talked: '+inttostr(TalkCount));
+end;
+
+procedure LoginCheck; {Created by Odie5533}
+var counter:integer;
+begin
+if(NotLogedIn)and(length(username)>0)and(length(password)>0)then
+begin
+if(IsTextAt2(293,251,'Username',0))then
+  Mouse(460,322,10,2,true);
+if(NotLogedIn)then
+if(IsTextAt2(309,241,'Welcome to RuneScape',0))then
+ begin
+  Mouse(400,280,125,20,true);
+  if(IsTextAt2(271,214,'Enter your username',0))then
+   begin
+    Mouse(400,256,20,5,true);
+    SendKeysSilentsmooth(username,50);
+    Mouse(400,270,20,5,true);
+    SendKeysSilentsmooth(password,50);
+    Mouse(300,322,20,5,true);
+    repeat
+     counter:=counter+1;
+     wait(100);
+    until(FindColor(x,y,8421504,0,0,515,338))or(counter=60)
+   end;
+ end;
+end;
+if(LogedIn)then
+if(FindColor(x,y,65535,235,40,280,100))and(FindColor(x,y,8421504,400,0,515,338))then
+ begin
+  Mouse(x+5,y+1,15,5,true);
+  sendarrowsilentwait(0,900+random(200))
+  wait(200+random(100));
+ end;
+end;
+
+procedure TalkCheck;
+var counter,c:integer; Talked2Rand:boolean;
+begin
+if(FindColor(x,y,65535,5,5,514,337))then wait(500);
+if(FindColor(x,y,65535,5,5,514,337))and(LogedIn)then
+ begin
+  YellowTextCount:=YellowTextCount+1;
+  GetScreenShot('YellowText',YellowTextCount);
+  Report('Yellow Text');
+  repeat
+   counter:=counter+2+random(1);
+   if((x+counter) < 515)and((y+18) < 338)then
+    MoveMouseSmoothEx(x+counter,y+15+random(3),1,6,15,20,20);
+   wait(5);
+   if(IsTextAt2(9,9,'Ta',100))then
+    begin
+     GetMousePos(x,y);
+     Mouse(x,y,0,0,false);
+     Wait(200+random(100));
+     if(FindBitmap(TalkW,x,y))or(FindBitmap(TalkY,x,y))then
+      begin
+       Mouse(x,y,40,5,true);
+       MapFlag;
+       wait(1000+random(1000));
+       while((FindColor(x,y,16711680,5,345,510,465))or
+            (FindColor(x,y,16777215,5,345,510,465)))and
+            (not(GetColor(20,434)=0))and(c<=10)do
+        begin
+         TalkCount:=TalkCount+1;
+         GetScreenShot('Talk',TalkCount);
+         Mouse(x,y,50,2,true);
+         wait(2000+random(1000));
+         c:=c+1;
+        end;
+       Talked2Rand:=true;
+      end;
+    end;
+  until(counter>=250)or(Talked2Rand);
+ end;
+end;
+
+Procedure AttackCheck;
+var ax,ay:integer;
+begin
+if(FindColor(ax,ay,65280,240,125,270,180))then
+ begin
+  AttackCount:=AttackCount+1;
+  GetScreenshot('Attack',AttackCount);
+  UnderAttack:=true;
+ end;
+end;
+
+Procedure LampCheck;
+var lx,ly:integer;
+begin
+while(FindBitmapSpiralTolerance(iLamp,lx,ly,560,210,735,465,50))do
+ begin
+  LampCount:=LampCount+1;
+  GetScreenshot('Lamp',LampCount);
+  Report('Lamp');
+  Mouse(x,y,10,10,true);
+  wait(3000+random(1000));
+  Mouse(157,220,12,12,true)
+  wait(3000+random(1000));
+  Mouse(248,255,10,2,true);
+  wait(3000+random(1000));
+  Mouse(226,442,10,3,true);
+  wait(3000+random(1000));
+  end;
+end;
+
+Procedure WildyCheck;
+begin
+if(GetColor(466,61)=8421504)or(GetColor(466,61)=16777215)then
+  Mouse(435,60,10,3,true);
+end;
+
+procedure MiscCheck;
+var ax,ay:integer;
+begin
+ if(FindColor(ax,ay,786423,10,350,150,433))then
+  begin
+   GetScreenshot('Mod',1);
+   LogOut('UHOH, A MOD!!!');
+  end;
+ if(GetColor(30,418)=0)and(GetColor(72,429)=0)then
+  begin
+   GetScreenShot('Dead',1);
+   LogOut('You are dead!');
+  end;
+ if(FindColor(ax,ay,11503238,10,350,479,433))then
+  begin
+   GetScreenshot('Mime',1);
+   LogOut('Mime Found');
+  end;
+end;
+
+Procedure FindRandoms;
+begin
+WildyCheck;
+LoginCheck;
+TalkCheck;
+MiscCheck;
+if(FR>5)then
+begin
+ FR:=0;
+ LampCheck;
+ FindBox;
+end;
+FR:=FR+1;
+end;
+
+Procedure ToRange;
+begin
+Report('To Range');
+SetRun(true);
+if(not(FindColorTolerance(x,y,WaterSymbol,572,8,722,160,5)))then
+ begin
+  Mouse(615,40,3,3,true);
+  MapFlagWalk;
+ end;
+if(FindColorTolerance(x,y,WaterSymbol,572,8,722,160,5))then
+ begin
+  Mouse(x,y,3,3,true);
+  MapFlag;
+  if(FindColorTolerance(x,y,PotColor,572,8,752,160,5))then
+   begin
+    x:=x+20; y:=y-15;
+    while(not(SimilarColors(GetColor(x,y),7040372,40)))and(LogedIn)do
+     begin x:=x-2;y:=y+1;wait(5);end;
+    Mouse(x-5,y+5,2,2,true);
+    MapFlag; wait(800+random(200));
+    if(FindObjColorTol('Climb',4616328,20))then
+     begin
+      GetMousePos(x,y);
+      ClickMouse(x,y,true);
+      wait(5000+random(1000));
+      FindRandoms;
+      if(FindColorTolerance(x,y,RangeColor,5,5,337,514,10))then
+       begin
+        Mouse(x,y-35,3,3,true);
+        MapFlag; Wait(800+random(200));
+       end else
+       begin
+        Mouse(224,303,20,20,true);
+        MapFlag;
+       end;
+     end;
+   end;
+ end;
+end;
+
+Procedure ToBank;
+begin
+Report('To Bank');
+if(FindObjColorTol('Climb',4616328,20))then
+ begin
+  GetMousePos(x,y);
+  ClickMouse(x,y,true);
+  while(not(GetColor(319,153)=16777215))and(LogedIn)do wait(1);
+  while(GetColor(319,153)=16777215)and(LogedIn)do wait(1);
+  wait(100+random(50));
+ end;
+if(FindColorTolerance(x,y,WaterSymbol,572,8,722,160,5))then
+ MouseFlagWalk(x,y,3,3);
+if(not(FindColor(x,y,BankSymbol,572,8,722,160)))then
+ begin
+  FindColorTolerance(x,y,WaterSymbol,572,8,722,160,5)
+  MouseFlagWalk(x+20,y+30,3,3);
+ end;
+if(FindColor(x,y,BankSymbol,572,8,722,160))then
+ MouseFlag(x+5,y+10,3,3);
+end;
+
+Procedure Bank;
+begin
+Report('Banking');
+if(CookCount>KillSwitch)then
+ LogOut('Finished Cooking!');
+OpenBank;
+Deposit(0,0,0);
+Withdraw(1,1,0);
+CloseBank;
+end;
+
+Procedure CookFish;
+var c,rawx,rawy,rangex,rangey:integer;
+begin
+while(FindBitmapToleranceIn(RawFish,rawx,rawy,560,210,730,465,30))and
+     (FindColorSpiralTolerance(rangex,rangey,RangeColor,5,5,514,337,20))and
+     (not(UnderAttack))do
+begin
+ FindRandoms;
+ Mouse(rawx-subx,rawy-suby,25,25,true);
+ Mouse(rangex,rangey,3,3,true);
+ c:=0;
+ while((FindBitmapToleranceIn(RawFish,x,y,rawx-15,rawy-15,rawx+15,rawy+15,30))and(c<20))or(c<3)do
+  begin
+   c:=c+1;
+   wait(200+random(100));
+   FindRandoms;
+  end;
+ CookCount:=CookCount+1;
+ Report('Cooking');
+end;
+end;
+
+Procedure LoadBmps;
+begin
+case FishType of
+0:begin RawFish := BitmapFromString(8, 4,
+       '000001874D23804921834C21874D238D5123975725000001000001' +
+       '874D23804921874D23905325995928A35E2A000001000001874D23' +
+       '834C218D5123000001000001000001000000000000000001000001' +
+       '000001000000000000000000000000'); subx:=20; suby:=20; end;//Lobster
+1:begin RawFish := BitmapFromString(4, 4,
+       '000001B9AEADBFB6B6C6BEBE000001C4BBBACBC4C4D4CECE000001' +
+       'CDC6C5D6D0D0DAD4D4000000000001000001000001'); subx:=-2; suby:=20; end;//Trout
+2:begin RawFish := BitmapFromString(4, 4,
+       '000001A98B86AE908AB59691000001B2938DBB9A95C1A49E000001' +
+       'BC9C97C2A5A1C4A9A5000000000001000001000001'); subx:=-2; suby:=20; end;//Salmon
+3:begin RawFish := BitmapFromString(5, 2,
+       '564D42000001CAB7ADA67A5F000001000001DACEC7CFBEB6000001' +
+       '302020'); subx:=0; suby:=8; end; //Shrimp
+4:begin RawFish := BitmapFromString(5, 6,
+       '000001D3B3D9C395CCAE7BB79C7FA1000001D6C7DACFBDD3C9B4CD' +
+       '000001000001CCB7CFC4ACC9000001302020000001C0A6C5BB9FC0' +
+       '000001302020000001B495BA000001302020302020000001C9B4CD' +
+       '000001302020564D42'); subx:=18; suby:=10; end;//Sowrdfish
+5:begin RawFish := BitmapFromString(4, 5,
+       '564D42000001B7ADAC5F5858000001C2BAB9C9C2C1CFC9C9000001' +
+       'CDC6C5D8D2D1DBD6D6000001D9D3D3DCD8D8E0DCDC000001FBFAFA' +
+       'F5F3F3F0EEEE'); subx:=-4; suby:=15; end; //Herring
+6:begin RawFish := BitmapFromString(6, 6,
+       '001C00001C00001C00001C00001C00C2BAB9001C00CDC6C5001C00' +
+       '001C00CAC3C2C7C0C0001C00D2CCCC001C00001C00CFC9C9CFC7C7' +
+       'D9D3D3D9D3D3D8D2D1D6D1D0D5CFCFD3CDCDDFDADADED9D9DCD8D8' +
+       'DBD6D6DED9D9DCD8D8E8E4E4EAE7E7E9E6E6000001000001000001' +
+       ''); subx:=5; suby:=17; end; //Tuna
+7:begin RawFish := BitmapFromString(4, 5,
+       '0000010000013D6F3F509052345B34478049599E5A5DA55E529253' +
+       '62AF6367B7686ABE6C6ABE6C6EC46F71CA737DD37F8AAE8A8AAE8A' +
+       '8AAE8A83D484'); subx:=8; suby:=8; end; //Sardine
+8:begin RawFish := BitmapFromString(6, 5,
+       '000001617B626782676E8B6E7493750000016079606580666A876B' +
+       '718F71769576000001475A474E624E546A545A715A87AB877E9F7E' +
+       '506650546A545A715A60796091B79284A785586F585B745D617B62' +
+       '9FC09F93BA93000001'); subx:=16; suby:=3; end; //Pike
+9:begin RawFish := BitmapFromString(5, 4,
+       '707079797A8483838D78788200000185858F8989951410106C6C75' +
+       '00000100000190909C4E4E545B5B6358585F00000187879162626A' +
+       '55555B000001'); subx:=20; suby:=7; end; //Anchovies
+10:begin RawFish := BitmapFromString(6, 7,
+       '6F6F8C70718E7374927777967A7A9A7F7FA07777967A7A9A7C7C9C' +
+       '7F7FA08081A28484A57F7FA08283A48586A88888AC8B8BAF8E8FB3' +
+       '8586A87E7E887E7E887E7E887E7E880000018888AC7E7E887E7E88' +
+       '7E7E887E7E880000018B8BAF7E7E887E7E887E7E887E7E887E7E88' +
+       '0000010000010000010000017E7E887E7E88'); subx:=6; suby:=14; end; //Cod
+11:begin RawFish := BitmapFromString(6, 4,
+       '887F7E8379797A71718A81807A71710000018C8282877D7C9B9090' +
+       '8C82827C7373000001AA9E9EACA0A09C91918E84847E7575000001' +
+       '000001A49897978D8C8A81807C7373000001'); subx:=19; suby:=17; end; //Shark
+12:begin RawFish := BitmapFromString(6, 4,
+       '00000184834A89884E8E8D509392539897559291739A9A7AA2A180' +
+       'A6A55EABA960B0AE639E9D7DA5A584605959B4B490BBBA96C0BF9D' +
+       'A9A987605959BABA94C0BF9DC4C4A5CDCC73'); subx:=-2; suby:=12; end; //Mackerel
+13:begin RawFish := BitmapFromString(5, 5,
+       '001D00001D00CB8172C98071C77E70001D00001D00D18576CF8474' +
+       'CD8373D48F81D48F81D38C7ED38C7ED38A7BD69689D69689D7978C' +
+       'D69689D59387DBA59B000001000001000001000001'); subx:=7; suby:=18; end; //Bass
+end;
+iLamp := BitmapFromString(16, 2,
+       '000001000001000001000001000001BAB815B2B015AEAD15ABAA15' +
+       '9C9A129291128C8A1275740E000001000001000001C5C418D0CE18' +
+       'CBC918C8C618C5C418C5C418C0BE18BAB815B5B315ABAA15A3A112' +
+       '99971292911284820E79780E696809');
+TalkW := BitmapFromString(17, 10,
+        'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+        '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+        '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+        'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF');
+TalkY := BitmapFromString(17, 10,
+        'FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+        '000000000000000000000000000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000000000000000FFFF00FFFF00FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+        '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000FFFF00FFFF00000000000000000000000000FFFF00' +
+        'FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00');
+end;
+
+Procedure GetColors;
+begin
+if(FindColors)then
+if(FindColorTolerance(x,y,5360864,572,8,722,160,45))then
+ begin
+  BankSymbol:=GetColor(x,y);
+  if(FindColorTolerance(x,y,14564618,572,8,722,160,45))then
+   begin
+    WaterSymbol:=GetColor(x,y);
+    MouseFlag(x,y,5,5);
+    if(FindColorTolerance(x,y,3042748,572,8,722,160,40))then
+     begin
+      PotColor:=GetColor(x,y);
+      FindColors:=false;
+      writeln('Successfully Found All Colors!');
+     end;
+   end;
+ end;
+end;
+
+begin
+SetupOSi;
+Setup;
+LoadBmps;
+ChatFixer;
+FindRandoms;
+GetColors;
+KillSwitch:=(KillSwitch div 27)*27;
+case FishType of
+0:xpx:=120; 1:xpx:=70; 2:xpx:=90; 3:xpx:=30;
+4:xpx:=140; 5:xpx:=50; 6:xpx:=100; 7:xpx:=40;
+8:xpx:=80; 9:xpx:=30; 10:xpx:=75; 11:xpx:=210;
+12:xpx:=60; 13:xpx:=130; end;
+if(not(FindColors))then
+repeat
+ToRange;
+CookFish;
+ToBank;
+Bank;
+UnderAttack:=false;
+until(false);
+end.

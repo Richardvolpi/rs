@@ -1,0 +1,138 @@
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=Windows-1252">
+</head>
+<body>
+<pre>
+<table width=100% bgcolor=#CFCFE5><tr> <td> <font face=arial size=+3>
+Build Log
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>
+<h3>------- Build started: Project: ocrdll, Configuration: Release|Win32 -------
+</h3>
+</pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
+Command Lines
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>Creating temporary file "f:\sean\focr\sources\Release\RSP000003.rsp" with contents
+[
+/O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "OCRDLL_EXPORTS" /D "_WINDLL" /D "_MBCS" /FD /EHsc /MT /GS /Yu"stdafx.h" /Fp"Release/ocrdll.pch" /Fo"Release/" /Fd"Release/vc70.pdb" /W3 /c /Wp64 /Zi /TP
+.\svm.cpp
+.\Segmentor.cpp
+.\Line.cpp
+.\ImageTransform.cpp
+.\ImageClasifier.cpp
+.\Image.cpp
+.\EditDistance.cpp
+.\dllimplementation.cpp
+.\DictSearch.cpp
+]
+Creating command line "cl.exe @f:\sean\focr\sources\Release\RSP000003.rsp /nologo"
+Creating temporary file "f:\sean\focr\sources\Release\RSP000004.rsp" with contents
+[
+/OUT:"Release/ocrdll.dll" /INCREMENTAL:NO /NOLOGO /DLL /DEF:"ExpFunctions.def" /DEBUG /PDB:"Release/ocrdll.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /IMPLIB:"Release/ocrdll.lib" /MACHINE:X86  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib
+.\release\DictSearch.obj
+.\release\dllimplementation.obj
+.\release\EditDistance.obj
+.\release\Image.obj
+.\release\ImageClasifier.obj
+.\release\ImageTransform.obj
+.\release\Line.obj
+.\release\ocrdll.obj
+.\release\Segmentor.obj
+.\release\stdafx.obj
+.\release\svm.obj
+]
+Creating command line "link.exe @f:\sean\focr\sources\Release\RSP000004.rsp"
+</pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
+Output Window
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>Compiling...
+svm.cpp
+Segmentor.cpp
+Segmentor.cpp(108) : warning C4018: '>=' : signed/unsigned mismatch
+Segmentor.cpp(155) : warning C4018: '>=' : signed/unsigned mismatch
+Segmentor.cpp(180) : warning C4018: '<' : signed/unsigned mismatch
+Segmentor.cpp(187) : warning C4018: '<' : signed/unsigned mismatch
+Segmentor.cpp(189) : warning C4018: '<' : signed/unsigned mismatch
+Segmentor.cpp(205) : warning C4305: 'initializing' : truncation from 'double' to 'float'
+Segmentor.cpp(235) : warning C4018: '<' : signed/unsigned mismatch
+Segmentor.cpp(248) : warning C4018: '<' : signed/unsigned mismatch
+Segmentor.cpp(255) : warning C4018: '<' : signed/unsigned mismatch
+Segmentor.cpp(264) : warning C4018: '<' : signed/unsigned mismatch
+Segmentor.cpp(282) : warning C4101: 'oY' : unreferenced local variable
+Segmentor.cpp(350) : warning C4018: '<' : signed/unsigned mismatch
+Segmentor.cpp(352) : warning C4018: '<' : signed/unsigned mismatch
+Segmentor.cpp(353) : warning C4018: '<' : signed/unsigned mismatch
+Segmentor.cpp(355) : warning C4018: '>' : signed/unsigned mismatch
+Segmentor.cpp(356) : warning C4018: '>' : signed/unsigned mismatch
+Segmentor.cpp(368) : warning C4018: '<' : signed/unsigned mismatch
+Segmentor.cpp(370) : warning C4018: '<' : signed/unsigned mismatch
+Segmentor.cpp(372) : warning C4018: '<' : signed/unsigned mismatch
+Line.cpp
+Line.cpp(116) : warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+Line.cpp(116) : warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+ImageTransform.cpp
+ImageTransform.cpp(199) : warning C4018: '<' : signed/unsigned mismatch
+ImageTransform.cpp(238) : warning C4018: '<' : signed/unsigned mismatch
+ImageTransform.cpp(285) : warning C4018: '<' : signed/unsigned mismatch
+ImageClasifier.cpp
+ImageClasifier.cpp(53) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Image.cpp
+Image.cpp(282) : warning C4018: '>=' : signed/unsigned mismatch
+Image.cpp(282) : warning C4018: '>=' : signed/unsigned mismatch
+Image.cpp(424) : warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+Image.cpp(424) : warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+Image.cpp(439) : warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+Image.cpp(440) : warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+Image.cpp(442) : warning C4018: '>=' : signed/unsigned mismatch
+Image.cpp(442) : warning C4018: '>=' : signed/unsigned mismatch
+Image.cpp(445) : warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+Image.cpp(445) : warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+Image.cpp(464) : warning C4244: '=' : conversion from 'unsigned long' to 'float', possible loss of data
+Image.cpp(465) : warning C4244: '=' : conversion from 'unsigned long' to 'float', possible loss of data
+Image.cpp(479) : warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+Image.cpp(479) : warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+Image.cpp(489) : warning C4018: '<' : signed/unsigned mismatch
+Image.cpp(491) : warning C4018: '<' : signed/unsigned mismatch
+Image.cpp(493) : warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+Image.cpp(493) : warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+Image.cpp(461) : warning C4101: 'y' : unreferenced local variable
+Image.cpp(461) : warning C4101: 'x' : unreferenced local variable
+Image.cpp(506) : warning C4018: '<' : signed/unsigned mismatch
+Image.cpp(508) : warning C4018: '<' : signed/unsigned mismatch
+Image.cpp(520) : warning C4018: '<' : signed/unsigned mismatch
+Image.cpp(627) : warning C4018: '>=' : signed/unsigned mismatch
+Image.cpp(630) : warning C4018: '>=' : signed/unsigned mismatch
+Image.cpp(621) : warning C4101: 'val' : unreferenced local variable
+EditDistance.cpp
+EditDistance.cpp(20) : warning C4267: '=' : conversion from 'size_t' to 'int', possible loss of data
+EditDistance.cpp(21) : warning C4267: '=' : conversion from 'size_t' to 'int', possible loss of data
+EditDistance.cpp(63) : warning C4267: '=' : conversion from 'size_t' to 'int', possible loss of data
+EditDistance.cpp(64) : warning C4267: '=' : conversion from 'size_t' to 'int', possible loss of data
+dllimplementation.cpp
+dllimplementation.cpp(18) : warning C4518: '__declspec(dllexport ) void ' : storage-class or type specifier(s) unexpected here; ignored
+dllimplementation.cpp(18) : warning C4230: anachronism used : modifiers/qualifiers interspersed; qualifier ignored
+dllimplementation.cpp(29) : warning C4508: 'loadDictionary' : function should return a value; 'void' return type assumed
+dllimplementation.cpp(31) : warning C4518: '__declspec(dllexport ) void ' : storage-class or type specifier(s) unexpected here; ignored
+dllimplementation.cpp(31) : warning C4230: anachronism used : modifiers/qualifiers interspersed; qualifier ignored
+dllimplementation.cpp(35) : warning C4508: 'loadModel' : function should return a value; 'void' return type assumed
+dllimplementation.cpp(36) : warning C4518: '__declspec(dllexport ) void ' : storage-class or type specifier(s) unexpected here; ignored
+dllimplementation.cpp(36) : warning C4230: anachronism used : modifiers/qualifiers interspersed; qualifier ignored
+dllimplementation.cpp(44) : warning C4508: 'getString' : function should return a value; 'void' return type assumed
+dllimplementation.cpp(63) : warning C4018: '<' : signed/unsigned mismatch
+DictSearch.cpp
+DictSearch.cpp(28) : warning C4018: '<' : signed/unsigned mismatch
+DictSearch.cpp(30) : warning C4018: '<' : signed/unsigned mismatch
+DictSearch.cpp(57) : warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+DictSearch.cpp(111) : warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+DictSearch.cpp(119) : warning C4244: 'initializing' : conversion from 'size_t' to 'float', possible loss of data
+DictSearch.cpp(150) : warning C4018: '<' : signed/unsigned mismatch
+DictSearch.cpp(105) : warning C4101: 'word' : unreferenced local variable
+DictSearch.cpp(195) : warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+DictSearch.cpp(196) : warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+Generating Code...
+Linking...
+   Creating library Release/ocrdll.lib and object Release/ocrdll.exp
+</pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
+Results
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>
+Build log was saved at "file://f:\sean\focr\sources\Release\BuildLog.htm"
+ocrdll - 0 error(s), 74 warning(s)</pre></table><table   width=100% height=20 bgcolor=#CFCFE5><tr><td><font face=arial size=+2>
+</font></table></body></html>

@@ -1,0 +1,23 @@
+program ARChat;
+var
+  s, lasts: string;
+begin
+  while(true)do
+  begin
+    lasts:= s;
+    s:= GetChatMsg;
+    if(s = 'You swing your pick at the rock...')then
+      s:= '';
+    if(s = 'You manage to obtain some iron ore')then
+      s:= '';
+    if(s = 'There is currently no ore available in this rock')then
+      s:= '';
+    if(s = 'You only succeed in scratching the rock')then
+      s:= '';
+    if(s<>'')and(s<>lasts)then
+    begin
+      Writeln(s);
+    end;
+    wait(10);
+  end;
+end.

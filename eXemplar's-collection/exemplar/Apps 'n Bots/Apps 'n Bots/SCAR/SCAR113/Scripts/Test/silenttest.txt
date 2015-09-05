@@ -1,0 +1,14 @@
+program New;
+var
+  x, y: Integer;
+begin
+  Sleep(2000);
+  SendKeysSilent('Awaa!!12@');
+  repeat
+    x:= Random(100);
+    y:= Random(100);
+    MoveMouse(x, y);
+    ClickMouse(x, y, True);
+    Wait(500);
+  until(false);
+end.

@@ -1,0 +1,507 @@
+{
+  PowerMiner v1.0 created by pups
+  1.0 - first ver
+  1.1 - some bug fixes
+  Thanks to:
+  - Odie5533 for OSi and antirandoms
+  - Stupid3ooo for pickhead random
+  Instructions:
+  - Have pick in first inv slot
+  - Have ore you are mining in second inv slot
+
+  P.S I suggest mining in Varrok east mine between 3 copper ores
+  P.P.S If bugs found email to: vasya_pupkin_2@hotmail.com
+}
+
+program PowerMiner;
+const
+  OreColor=4747162;//Ore color...
+  UserName='';
+  Password='';
+  LookForGas=True;
+  SideToRun='N';// N, E, W or S
+
+var
+  AttackCount,YellowTextCount,TalkCount,LampCount,AttachCount,FR,gascount:LongInt;
+  TalkW,TalkY,iLamp,LastMined,OreColorInv,RWX,RWY:integer;
+  found:boolean;
+  HeadColor1,HeadColor2,HeadColor3,HeadColor4,HeadColor5:longint;
+  PickHead,PickHandle,PickFindCounter,i:longint;
+
+{.include OSi.txt}
+{.include BoxBreaker2.txt}
+
+procedure LoginCheck; {Created by Odie5533}
+var counter:integer;
+begin
+if(NotLogedIn)and(length(username)>0)and(length(password)>0)then
+begin
+if(IsTextAt2(293,251,'Username',0))then
+  Mouse(460,322,10,2,true);
+if(IsTextAt2(309,241,'Welcome to RuneScape',0))then
+ begin
+  Mouse(400,280,125,20,true);
+  if(IsTextAt2(271,214,'Enter your username',0))then
+   begin
+    Mouse(400,256,20,5,true);
+    SendKeysSilentsmooth(username,50);
+    Mouse(400,270,20,5,true);
+    SendKeysSilentsmooth(password,50);
+    Mouse(300,322,20,5,true);
+    repeat
+     counter:=counter+1;
+     wait(100);
+    until(FindColor(x,y,8421504,0,0,515,338))or(counter=60)
+   end;
+ end;
+end;
+if(LogedIn)then
+if(FindColor(x,y,65535,235,40,280,100))and(FindColor(x,y,8421504,400,0,515,338))then
+ begin
+  Mouse(x+5,y+1,15,5,true);
+  sendarrowsilentwait(0,900+random(200))
+  wait(200+random(100));
+ end;
+end;
+
+procedure TalkCheck;
+var counter,c:integer; Talked2Rand:boolean;
+begin
+if(FindColor(x,y,65535,5,5,514,337))then wait(500);
+if(FindColor(x,y,65535,5,5,514,337))and(LogedIn)then
+ begin
+  found:=true;
+  Status('Text found');
+  YellowTextCount:=YellowTextCount+1;
+  GetScreenShot('YellowText',YellowTextCount);
+  repeat
+   counter:=counter+2+random(1);
+   if((x+counter) < 515)and((y+18) < 338)then
+    MoveMouseSmoothEx(x+counter,y+15+random(3),1,6,15,20,20);
+   wait(5);
+   if(IsTextAt2(9,9,'Ta',100))then
+    begin
+     GetMousePos(x,y);
+     Mouse(x,y,0,0,false);
+     Wait(200+random(100));
+     if(FindBitmap(TalkW,x,y))or(FindBitmap(TalkY,x,y))then
+      begin
+       Status('Talking to random event');
+       Mouse(x,y,40,5,true);
+       MapFlag;
+       wait(1000+random(1000));
+       while((FindColor(x,y,16711680,5,345,510,465))or
+            (FindColor(x,y,16777215,5,345,510,465)))and
+            (not(GetColor(20,434)=0))and(c<=10)do
+        begin
+         TalkCount:=TalkCount+1;
+         GetScreenShot('Talk',TalkCount);
+         Mouse(x,y,50,2,true);
+         wait(2000+random(1000));
+         c:=c+1;
+        end;
+       Talked2Rand:=true;
+      end;
+    end;
+  until(counter>=250)or(Talked2Rand);
+ end;
+end;
+
+Procedure AttackCheck;
+var ax,ay:integer;
+begin
+if(FindColor(ax,ay,65280,240,125,270,180))then
+ begin
+  Status('Running from random event');
+  found:=true;
+  AttackCount:=AttackCount+1;
+  GetScreenshot('Attack',AttackCount);
+  SetRun(true);
+  Mouse(648+RWX,83+RWY,2,2,true);
+  wait(2000); MapFlag;
+  wait(5000+random(3000));
+  Mouse(648-RWX,83-RWY,2,2,true);
+  wait(2000); MapFlag;
+ end;
+end;
+
+Procedure LampCheck;
+var lx,ly:integer;
+begin
+while(FindBitmapSpiralTolerance(iLamp,lx,ly,560,210,735,465,50))do
+ begin
+  Status('Lamp found')
+  LampCount:=LampCount+1;
+  GetScreenshot('Lamp',LampCount);
+  Mouse(lx,ly,1,1,true);
+  wait(3000+random(1000));
+  Mouse(160,220,12,12,true)
+  wait(3000+random(1000));
+  Mouse(248,255,10,2,true);
+  wait(3000+random(1000));
+  Mouse(226,442,10,3,true);
+  wait(3000+random(1000));
+  end;
+end;
+
+procedure getheadcolors; //automatically gets 5 different
+begin                    //head colors (pivs procedure)
+status('Getting pickaxe head colors');
+Mouse(635,175,20,20,true); wait(200+random(100));
+Mouse(635,175,20,20,true); wait(200+random(100));
+headcolor1:=getcolor(573,219); wait(20);
+headcolor2:=getcolor(587,216); wait(20);
+headcolor3:=getcolor(587,217); wait(20);
+headcolor4:=getcolor(595,222); wait(20);
+headcolor5:=getcolor(578,217); wait(20);
+wait(100+random(100));
+end;
+
+procedure MoveToHead;
+begin
+  if(FindColorSpiral(x,y,241,565,5,725,160))then begin
+    status('Moving to red dot');
+    Mouse(x,y,1,1,true);
+    MapFlag;
+    Wait(100+random(100));
+  end;
+end;
+
+procedure AttachPick;
+begin
+if(FindBitmapSpiralTolerance(PickHead,x,y,550,200,745,465,50))and
+(FindBitmapSpiralTolerance(PickHandle,x,y,550,200,745,465,50))then
+  begin
+  status('Attaching pick head');
+  AttachCount:=AttachCount+1;
+  GetScreenShot('attach',AttachCount);
+  if(FindBitmapSpiralTolerance(PickHead,x,y,550,200,745,465,50))then
+    begin
+    Mouse(x,y,5,5,true);
+    Wait(1000+random(100));
+    end;
+  if(FindBitmapSpiralTolerance(PickHandle,x,y,550,200,745,465,50))then
+    begin
+    Mouse(x,y,5,5,true);
+    Wait(1000+random(100));
+    end;
+  end;
+end;
+
+procedure FindPick;
+var Counter:integer;
+begin
+if((GetColor(387,382)=0)and(GetColor(485,413)=0))then
+begin
+found:=true;
+PickFindCounter:=PickFindCounter+1;
+repeat
+counter:=counter+1
+Status('Finding pick head: '+IntToStr(counter));
+if(FindBitmapSpiralTolerance(PickHead,x,y,550,200,745,465,50))then
+  break;
+if(FindColorSpiral(x,y,HeadColor1,10,10,505,328))or
+  (FindColorSpiral(x,y,HeadColor2,10,10,505,328))or
+  (FindColorSpiral(x,y,HeadColor3,10,10,505,328))or
+  (FindColorSpiral(x,y,HeadColor4,10,10,505,328))or
+  (FindColorSpiral(x,y,HeadColor5,10,10,505,328))then
+  begin
+    MMouse(x,y,0,0);
+    wait(100+random(100));
+    if(IsTextAt2(9,9,'Take', 100))then begin
+      Mouse(x,y,2,2,true);
+      MapFlag;
+      PickFindCounter:=0;
+    end;
+  end else
+    MoveToHead;
+until(counter=10);
+AttachPick;
+end;
+end;
+
+procedure MiscCheck;
+var ax,ay:integer;
+begin
+ if(FindColor(ax,ay,786423,10,350,150,433))then
+  begin
+   GetScreenshot('Mod',1);
+   LogOut('UHOH, A MOD!!!');
+  end;
+ if(GetColor(30,418)=0)and(GetColor(72,429)=0)then
+  begin
+   GetScreenShot('Dead',1);
+   LogOut('You are dead!');
+  end;
+ if (getcolor(378,33)=15395562)and(getcolor(156,46)=15395562)and(getcolor(331,46)=15395562) then
+  begin
+    GetScreenshot('Maze',1);
+    LogOut('Maze Found')
+  end;
+ if(FindColor(ax,ay,11503238,10,350,479,433))then
+  begin
+   GetScreenshot('Mime',1);
+   LogOut('Mime Found');
+  end;
+end;
+
+procedure LostCheck;
+begin
+  if GetSystemTime-LastMined >=10*60000 then begin
+    GetScreenshot('Lost',1);
+    LogOut('Got Lost');
+  end;
+end;
+
+Procedure FindRandoms;
+begin
+LoginCheck;
+TalkCheck;
+AttackCheck;
+MiscCheck;
+FindPick;
+if(FR>5)then
+begin
+ FR:=0;
+ LampCheck;
+ FindStrangeBox;
+ LostCheck;
+end;
+FR:=FR+1;
+end;
+
+procedure FindGas(findx,findy:integer);
+var counter,GasColor,bmap,gasfind:integer;
+ClientCanvas,BMapCanvas:TCanvas;
+begin
+if not LookForGas then
+  exit;
+GasColor:=8296866;//8296866
+if(FindColorSpiralTolerance(x,y,GasColor,findx-16,findy-16,findx+16,findy+16,20))then
+begin
+repeat
+counter:=counter+1
+begin
+ClientCanvas:= GetClientCanvas;
+bmap:= BitmapFromString(32,32,'');
+BMapCanvas:= GetBitmapCanvas(bmap);
+CopyCanvas(ClientCanvas,BMapCanvas,findx-16,findy-16,findx+16,findy+16,0,0,32,32);
+wait(100);
+if(FindBitmap(bmap,x,y))then
+  begin gasfind:=0;end
+else
+  gasfind:=gasfind+1;
+FreeBitmap(bmap);
+end;
+if(gasfind=5)then
+begin
+gascount:=gascount+1;
+GetScreenshot('gas',gascount)
+WriteLn('Found Gas');
+StandStill; Wait(30000);//Put thing you wanna do after gas here
+break;
+end;
+until(counter>=10);
+end;
+end;
+
+procedure Mine;
+begin
+  Status('Mining ore');
+  if FindColorSpiral(x,y,OreColor,160,120,310,210) then begin
+    MMouse(x,y,2,2);
+    wait(200+random(100));
+    if IsTextAt2(9,9,'Mine',100) then begin
+      FindGas(x,y);
+      Mouse(x,y,2,2,true);
+      LastMined:=GetSystemTime;
+      exit;
+    end;
+  end;
+  if FindColorSpiral(x,y,OreColor,80,60,350,240) then begin
+    MMouse(x,y,2,2);
+    wait(200+random(100));
+    if IsTextAt2(9,9,'Mine',100) then begin
+      FindGas(x,y);
+      Mouse(x,y,2,2,true);
+      LastMined:=GetSystemTime;
+      exit;
+    end;
+  end;
+  if FindColorSpiral(x,y,OreColor,30,30,485,310) then begin
+    MMouse(x,y,2,2);
+    wait(200+random(100));
+    if IsTextAt2(9,9,'Mine',100) then begin
+      FindGas(x,y);
+      Mouse(x,y,2,2,true);
+      LastMined:=GetSystemTime;
+      exit;
+    end;
+  end;
+end;
+
+function DropColor2(thedropcolor:integer):integer;
+var i,e:integer;
+begin
+e:=1;
+if(DropW=0)then
+ LoadDropBmps;
+ while(i<6) do
+  begin
+   if (i=5) and (e<8) then
+    begin
+     i:=0;
+     e:=e+1;
+    end;
+   if(FindColor(x,y,thedropcolor,(569+42*i),(213+36*e),(569+42*i+31),(213+36*e+30)))then
+    begin
+     Mouse(574+((42-1)*i),218+((36-1)*e),20,20,false);
+     if(FindBitmap(DropW,x,y))or(FindBitmap(DropYe,x,y))then
+      begin
+       Mouse(x,y,15,5,true);
+       result:=result+1;
+       wait(200+random(50));
+      end else
+       MMouse(639,179,15,15);
+     end;
+   i:=i+1;
+  end;
+end;
+
+Procedure LoadBmps;
+begin
+iLamp := BitmapFromString(16, 2,
+       '000001000001000001000001000001BAB815B2B015AEAD15ABAA15' +
+       '9C9A129291128C8A1275740E000001000001000001C5C418D0CE18' +
+       'CBC918C8C618C5C418C5C418C0BE18BAB815B5B315ABAA15A3A112' +
+       '99971292911284820E79780E696809');
+TalkW := BitmapFromString(17, 10,
+        'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+        '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+        '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+        'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF');
+TalkY := BitmapFromString(17, 10,
+        'FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+        '000000000000000000000000000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000000000000000FFFF00FFFF00FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+        '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000FFFF00FFFF00000000000000000000000000FFFF00' +
+        'FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00');
+PickHandle := BitmapFromString(15, 27,
+       '564D41595145564D41544A3C544A3C595145564D41564D41564D41' +
+       '564D41595145000001000001544A3C4F4538544A3C595145564D41' +
+       '544A3C544A3C544A3C5951455951455951455951450000012F2000' +
+       '362400000001544A3C564D41544A3C544A3C564D41564D41564D41' +
+       '5951455951455951450000012F20002F2000362400000001302020' +
+       '564D41544A3C544A3C595145564D41595145564D41595145595145' +
+       '0000012F2000362400362400000001302020564D41564D41564D41' +
+       '564D41564D41544A3C544A3C544A3C0000012F20002F2000362400' +
+       '362400000001302020544A3C544A3C544A3C544A3C544A3C544A3C' +
+       '544A3C544A3C0000012F2000362400362400362400000001302020' +
+       '544A3C564D41564D41564D41544A3C564D41564D410000012F2000' +
+       '2F2000362400362400000001302020302020564D41564D41564D41' +
+       '595145564D41564D41564D410000012F2000362400362400000001' +
+       '302020302020544A3C544A3C544A3C544A3C595145544A3C544A3C' +
+       '0000012F2000362400362400362400000001302020564D41564D41' +
+       '544A3C544A3C544A3C564D41544A3C4F45380000012F2000362400' +
+       '362400000001302020302020564D41564D41544A3C544A3C595145' +
+       '595145564D410000012F2000362400362400362400000001302020' +
+       '564D41564D41544A3C544A3C564D41564D41595145595145000001' +
+       '2F20002F20002F2000000001302020302020564D41564D41544A3C' +
+       '564D41564D41544A3C564D410000012F20002F20002F2000362400' +
+       '000001302020564D41544A3C544A3C544A3C595145544A3C544A3C' +
+       '564D410000012F20002F20002F2000000001302020302020544A3C' +
+       '544A3C564D41564D41595145544A3C544A3C0000012F20002F2000' +
+       '2F2000000001302020302020595145544A3C564D41595145595145' +
+       '595145564D41564D410000012F20002F20002F2000000001302020' +
+       '595145595145564D41564D41595145595145595145595145000001' +
+       '2F20002F20002F2000000001302020302020595145595145595145' +
+       '595145564D41564D41564D41564D410000012F20002F20002F2000' +
+       '000001302020564D41595145595145595145595145564D41564D41' +
+       '544A3C0000012F20002F20002F2000000001302020302020564D41' +
+       '595145595145544A3C544A3C564D41595145564D410000012F2000' +
+       '2F20002F2000000001302020544A3C564D41595145595145544A3C' +
+       '544A3C564D41564D41564D410000012F20002F2000000001302020' +
+       '302020544A3C564D41595145595145564D41544A3C544A3C4F4538' +
+       '000001271B002F20002F2000000001302020595145544A3C564D41' +
+       '595145595145595145544A3C544A3C544A3C0000011D1500271B00' +
+       '000001302020302020595145544A3C564D41595145595145595145' +
+       '564D41564D41564D410000011D15001D1500000001302020595145' +
+       '544A3C544A3C564D41595145595145595145595145595145544A3C' +
+       '0000011D15001D1500000001302020564D41595145595145595145' +
+       '595145564D41595145595145564D41544A3C564D41000001000001' +
+       '302020302020595145595145595145595145544A3C564D41595145' +
+       '544A3C544A3C4F4538564D41595145302020302020564D41595145' +
+       '564D41564D41564D41544A3C544A3C564D41544A3C544A3C544A3C' +
+       '');
+PickHead := BitmapFromString(6, 5,
+       '2E1F002E1F00352400000001483E33483E331D1400261A002E1F00' +
+       '352400000001483E331D14001D1400261A002E1F00000001302020' +
+       '000001000001000001000001302020302020302020302020302020' +
+       '302020302020483E33');
+end;
+
+begin
+  SetupOSi;
+  ChatFixer;
+  BoxOpenerSetup;
+  GetHeadColors;
+  LoadBmps;
+  OreColorInv:=GetColor(638,223)
+  case SideToRun of
+    'N':begin RWX:=-1; RWY:=-48; end;
+    'S':begin RWX:=1; RWY:=48; end;
+    'E':begin RWX:=-58; RWY:=-1; end;
+    'W':begin RWX:=58; RWY:=1; end;
+  end;
+  LastMined:=GetSystemTime;
+  repeat
+    Mine;
+    wait(50);
+    if FindBitmapIn(flag,x,y,570,5,725,162) then
+      MapFlag;
+    Found:=false;
+    for i:=1 to 15 do begin
+      wait(250+random(10));
+      if (i>2)and(GetColor(78,430)=0)and(GetColor(93,418)=0) then
+        break;
+      if (i>2)and(GetColor(155,430)=0)and(GetColor(273,417)=0) then
+        break;
+      FindRandoms;
+      if Found then
+        break;
+    end;
+    If PickFindCounter>=4 then
+      LogOut('Pick broken or lost');
+    if InvinFull then
+      DropColor2(OreColorInv);
+  until false;
+end.

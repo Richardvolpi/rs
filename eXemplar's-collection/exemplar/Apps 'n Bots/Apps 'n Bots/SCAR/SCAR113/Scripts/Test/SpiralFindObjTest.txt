@@ -1,0 +1,21 @@
+program New;
+var
+  x,y: Integer;
+begin
+  x:= 250;
+  y:=195;
+  if(FindColorSpiral(x,y, 2587, 100, 150, 400, 250))then
+    Writeln('Color Found')
+  else
+    Writeln('No bronze rocks color found');
+  x:= 30;
+  y:=211;
+  if(SpiralFindObjs(x,y, -1, 0, 0, 500, 300, 10, 'Rock,Tree', 200, 20000))then
+  begin
+    Writeln('Obj Found!!!');
+    MoveMouse(x,y);
+    ClickMouse(x,y,False);
+  end
+  else
+    Writeln('Not found');
+end.

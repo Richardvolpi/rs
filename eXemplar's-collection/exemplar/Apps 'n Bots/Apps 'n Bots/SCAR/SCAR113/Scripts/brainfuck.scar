@@ -1,0 +1,50 @@
+program BFI;
+var
+  charArray : array[0..29999]of char;
+  s, script : string;
+  output: string;
+  brackets : Integer;
+  currentChar : Integer;
+  B : array[0..100]of Integer;
+  i : Integer;
+begin
+  script := '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.+++++++++++++++++++++++++++++.+++++++..+++.';//enter you script here
+  brackets := 0;
+  currentChar := 0;
+  Writeln('BrainFuck Interpreter v1.0 by Diablo');
+  Writeln('diablodude@operamail.com');
+  for i:=0 to 29999 do
+    charArray[i] := Chr(0);
+  i := 1;
+  output:= '';
+  while i <= Length(script) do
+  begin
+    case script[i] of
+      '>' : currentChar := currentChar + 1;
+      '<' : currentChar := currentChar + 1;
+      '.' : begin
+                 Writeln('Output: ');
+                 Writeln(charArray[currentChar]);
+            end;
+      ',' : begin
+              s:=Readln('Enter a character');
+              charArray[currentChar] := s[1];
+            end;
+      '+' : charArray[currentChar] := Chr(Ord(charArray[currentChar])+1);
+      '-' : charArray[currentChar] := Chr(Ord(charArray[currentChar])-1);
+      '[' : begin
+              B[brackets] := i;
+              brackets:=brackets+1;
+            end;
+      ']' : begin
+              if Ord(charArray[currentChar]) <> 0 then
+                i := B[brackets-1]-1
+              else
+                brackets:=brackets-1;
+            end;
+    end;
+    i := i + 1;
+  end;
+  Writeln('');
+  Writeln('BFScript completed.');
+end.

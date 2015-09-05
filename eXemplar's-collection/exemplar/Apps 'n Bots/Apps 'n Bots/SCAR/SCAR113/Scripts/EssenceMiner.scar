@@ -1,0 +1,163 @@
+program EssenceMiner;
+
+{.include OSi.txt}
+{.include WAAMPinclude.txt}
+
+var tele,xc,yc: integer;
+
+const
+bankcolour=6282990;
+runestorecolour=3112447;
+
+procedure WalkToAubry;
+begin
+     FindColorSpiralTolerance(xc,yc,bankcolour,620,60,670,90,50)
+     SetRunOn;
+     Mouse(xc+40,yc,5,5,true);
+     MapFlag;
+     RWait('short');
+     Mouse(Random(10)+633,Random(20)+130,2,2,true);
+     MapFlag;
+     RWait('medium');
+     FindColorSpiralTolerance(xc,yc,runestorecolour,610,110,630,150,50)
+     Mouse(xc,yc,2,2,true);
+     MapFlag;
+     RWait('short');
+     SetRunOff;
+     // FindColorSpiral(xc,yc,runestorecolour,575,8,646,68)
+end;
+
+procedure TeleportAubry;
+begin
+     repeat
+           repeat
+                 FindTextSpiral('Talk',250,190,100,10,10);
+           until(IsTextAt2(9,9,'Talk',100));
+           GetMousePos(xc,yc);
+           Mouse(xc,yc,0,0,false);
+           MapFlag;
+           RWait('short');
+     until(FindBitmap(tele,xc,yc));
+     GetMousePos(xc,yc);
+     Mouse(xc,yc+50,1,1,true);
+     Wait(5000);
+end;
+
+procedure WalkToEssence;
+begin
+     repeat
+          FindTextSpiral('Mine',250,190,100,50,10)
+          if(not(IsTextAt2(9,9,'Mine',100))) then
+          begin
+               Mouse(605,120,10,10,true);
+               MapFlag;
+          end;
+          RWait('medium');
+     until(IsTextAt2(9,9,'Mine',100));
+end;
+
+procedure LoadBitmaps;
+begin
+     tele := BitmapFromString(23, 8,
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D5447FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF5D54475D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF5D5447' +
+       '5D5447FFFFFFFFFFFF000000000000FFFFFFFFFFFF5D54475D5447' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF5D54475D5447FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF5D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF0000005D5447' +
+       'FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF0000005D5447FFFFFF' +
+       'FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+       '5D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF0000005D5447' +
+       'FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+       '0000000000000000000000005D54475D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF0000005D5447' +
+       'FFFFFFFFFFFF0000005D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF' +
+       '5D54475D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+       '5D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF0000000000005D5447' +
+       '5D54470000000000000000000000000000005D5447FFFFFFFFFFFF' +
+       '0000000000000000000000005D54475D54475D54475D5447000000' +
+       '0000000000000000005D5447');
+end;
+
+procedure MineEssence;
+begin
+     repeat
+           FindTextSpiral('Mine',250,190,100,50,10);
+           GetMousePos(xc,yc)
+           Mouse(xc,yc,0,0,true);
+           RWait('short');
+           OpenBag;
+           MoveMouseSmooth(710,445);
+           Wait(5000);
+     until(IsTextAt2(9,9,'Use',100));
+end;
+
+procedure WalkToTeleporter;
+begin
+     if(GetColor(700,40) > 0) then Mouse(620,105,2,2,true);
+     if((GetColor(655,47) > 0) and (GetColor(675,30) = 0)) then Mouse(681,95,2,2,true);
+     if((GetColor(606,120) > 0) and (GetColor(594,90) = 0) and (GetColor(646,130) = 0)) then Mouse(670,59,2,2,true);
+     if((GetColor(690,120) > 0) and (GetColor(653,141) = 0) and (GetColor(700,85) = 0)) then Mouse(625,68,2,2,true);
+     MoveMouseSmooth(649,83);
+     repeat
+           FindTextSpiral('Use',250,190,150,15,10)
+           RWait('medium');
+     until(IsTextAt2(9,9,'Use',100));
+     RWait('short');
+     GetMousePos(xc,yc);
+     Mouse(xc,yc+15,1,1,true);
+     Wait(5000);
+end;
+
+procedure WalkToBank;
+begin
+     SetRunOn;
+     Mouse(Random(10)+660,Random(20)+39,4,4,true);
+     MapFlag;
+     RWait('short');
+     FindColorSpiralTolerance(xc,yc,bankcolour,620,60,670,90,50)
+     SetRunOn;
+     Mouse(xc+40,yc,5,5,true);
+     MapFlag;
+     RWait('short');
+     FindColorSpiralTolerance(xc,yc,bankcolour,620,60,670,90,50)
+     Mouse(xc,yc,5,5,true);
+     MapFlag;
+     RWait('short');
+     SetRunOff;
+end;
+
+procedure DepositEssence;
+begin
+     OpenBag;
+     OpenBank;
+     Deposit(0,0,0);
+     CloseBank;
+     RWait('short');
+end;
+
+begin
+     SetupOSi;
+     ChatFixer;
+     LoadBitmaps;
+     repeat
+           Status('Walking to Aubury...');
+           WalkToAubry;
+           Status('Teleporting to Rune Essence...');
+           TeleportAubry;
+           Status('Finding Rune Essence...');
+           WalkToEssence;
+           Status('Mining Rune Essence...');
+           MineEssence;
+           Status('Finding Teleporter');
+           WalkToTeleporter;
+           Status('Walking to bank...');
+           WalkToBank;
+           Status('Depositing...');
+           DepositEssence;
+     until(false);
+end.
+

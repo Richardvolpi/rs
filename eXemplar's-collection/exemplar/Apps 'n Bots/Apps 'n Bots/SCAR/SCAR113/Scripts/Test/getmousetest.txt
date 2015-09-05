@@ -1,0 +1,10 @@
+program New;
+var
+  x, y: Integer;
+begin
+  repeat
+    sleep(500);
+    GetMousePos(x,y);
+    Writeln(inttostr(x)+' '+inttostr(y));
+  until(false);
+end.

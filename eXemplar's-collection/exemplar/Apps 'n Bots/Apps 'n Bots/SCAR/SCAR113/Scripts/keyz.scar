@@ -1,0 +1,15 @@
+program Puls3r;
+
+procedure ClickMouseWait(x,y,w1,w2:integer;l:boolean);
+begin
+     HoldMouse(x,y,l);
+     Wait(w1);
+     ReleaseMouse(x,y,l);
+     Wait(w2);
+end;
+begin
+     setMouseMode(false);
+     repeat
+           ClickMouseWait(450,68,1,1,true);
+     until(false);
+end.

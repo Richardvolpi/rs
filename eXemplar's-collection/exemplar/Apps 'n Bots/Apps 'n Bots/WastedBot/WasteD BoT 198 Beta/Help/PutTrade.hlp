@@ -1,0 +1,2 @@
+Usage: PutTrade(ID, Count)
+Puts an item into a trade by its ID and the Amount.

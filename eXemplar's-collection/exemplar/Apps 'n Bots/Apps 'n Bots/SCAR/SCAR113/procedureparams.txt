@@ -1,0 +1,128 @@
+function inttostr(i: Longint): string;
+function strtoint(s: string): Longint;
+function strtointdef(s: string; def: Longint): Longint;
+function copy(s: string; ifrom, icount: Longint): string;
+function pos(substr, s: string): Longint;
+procedure delete(var s: string; ifrom, icount: Longint): string;
+procedure insert(s: string; var s2: string; ipos: Longint): string;
+function getarraylength: integer;
+procedure setarraylength;
+Function StrGet(var S : String; I : Integer) : Char;
+procedure StrSet(c : Char; I : Integer; var s : String);
+Function Uppercase(s : string) : string;
+Function Lowercase(s : string) : string;
+Function Trim(s : string) : string;
+Function Length(s : String) : Longint;
+procedure SetLength(var S: String; L: Longint);
+function Random(Range: Integer): Integer;
+Function Sin(e : Extended) : Extended;
+Function Cos(e : Extended) : Extended;
+Function Sqrt(e : Extended) : Extended;
+Function Round(e : Extended) : Longint;
+Function Trunc(e : Extended) : Longint;
+Function Int(e : Extended) : Longint;
+Function Pi : Extended;
+Function Abs(e : Extended) : Extended;
+function StrToFloat(s: string): Extended;
+Function FloatToStr(e : Extended) : String;
+Function Padl(s : string;I : longInt) : string;
+Function Padr(s : string;I : longInt) : string;
+Function Padz(s : string;I : longInt) : string;
+Function Replicate(c : char;I : longInt) : string;
+Function StringOfChar(c : char;I : longInt) : string;
+function VarGetType(x: Variant): TVarType;
+function Null: Variant;
+procedure RaiseLastException;
+procedure RaiseException(Ex: TIFException; Param: string);
+function ExceptionType: TIFException;
+function ExceptionParam: string;
+function ExceptionProc: Cardinal;
+function ExceptionPos: Cardinal;
+function ExceptionToString(er: TIFException; Param: string): string;
+
+procedure Writeln(s: string)
+procedure Status(s: string)
+function Readln(question: string): string
+function GetChatMsg: string
+function GetLastChatMsg: string
+function GetUpperMsg: string
+function GetLastUpperMsg: string
+function GetTextAt(x, y: Integer): string
+function IsTextAt(x, y: Integer; S: String): Boolean
+function IsTextAt2(x, y: Integer; S: String; Tolerance: Integer): Boolean
+function IsTextInArea(x1, y1, x2, y2: Integer; var x, y: Integer; S: String): Boolean
+procedure PlaySound(s: string)
+procedure SaveScreenshot(s: string)
+function AppPath: string
+procedure GetMousePos(var x, y: Integer)
+procedure MoveMouse(x,y: integer)
+procedure MoveMouseSmooth(x,y: integer)
+procedure MoveMouseSmoothEx(x,y: integer; minsleeptime, maxsleeptime, maxdistance, gravity, forces: Integer)
+procedure ClickMouse(x,y: integer; Left: boolean)
+procedure SetMouseMode(Silent: boolean)
+function Random(Range: Integer): Integer
+function ConvertColor(C: Integer): Integer
+function GetColor(x,y: Integer): Integer
+function GetFightMode: Integer
+function FindColor(var x,y: Integer; color, xs, ys, xe, ye: Integer): Boolean
+function FindColorSpiral(var x,y: Integer; color, xs, ys, xe, ye: Integer): Boolean
+function FindColorSpiral2(var x,y: Integer; color, xs, ys, xe, ye: Integer): Boolean
+function FindColorTolerance(var x,y: Integer; color, xs, ys, xe, ye: Integer; Tolerance: Integer): Boolean
+function FindColorSpiralTolerance(var x,y: Integer; color, xs, ys, xe, ye: Integer; Tolerance: Integer): Boolean
+function SpiralFindObj(var x,y: Integer; color, xs, ys, xe, ye: Integer; Step: Integer; Text: string; WaitTime, MaxTime: Integer): Boolean
+function SpiralFindObjs(var x,y: Integer; color, xs, ys, xe, ye: Integer; Step: Integer; CommaText: string; WaitTime, MaxTime: Integer): Boolean
+function FindColoredAreaTolerance(var x,y: Integer; color, xs, ys, xe, ye: Integer; MinArea, Tolerance: Integer): Boolean
+procedure Wait(ms: Integer)
+procedure Sleep(ms: Integer)
+function SetTimeout(secs: Cardinal; procname: string): Integer
+procedure ClearTimeouts
+procedure ClearTimeout(s: string)
+procedure SendKeys(S: string)
+procedure SendKeysSilent(S: string)
+procedure SendArrowSilent(a: Byte)
+procedure SendArrowSilentWait(a: Byte; WaitTime: Integer)
+function StartScreen: Boolean
+function LoginScreen: Boolean
+function CreateLandmark(W, H: Integer; Data: string): Integer
+function FindLandmark(LandMark: Integer; var x,y: Integer; var accuracy: Extended): Boolean
+procedure FindWindow(Title: string)
+procedure ActivateClient
+function ProcessMap: Boolean
+function ProcessMapNoCompass: Boolean
+procedure FixMouse(var x,y: integer; slot: Integer)
+procedure FixMouseEx(var x,y: integer; slot, maxshift, squaresx, squaresy, squaresize: Integer; minaccuracy: Extended)
+procedure ClickMap(x,y: integer; Left: boolean)
+function IsObjOnMap(x,y: integer): Boolean
+function IsWaterOnMap(x,y: integer): Boolean
+function CreatePath: Integer
+procedure AddLandmarkToPath(path, landmark, x, y: Integer)
+function ProcessPath(path: Integer;var x, y: Integer; var r: Extended; Tolerance: Extended): Integer
+function LoadBitmap(path: string): Integer
+function BitmapFromString(Width, Height: Integer; str: string): Integer
+procedure SaveBitmap(bitmap: Integer; path: string)
+procedure FreeBitmap(bitmap: Integer)
+function GetBitmapCanvas(bitmap: Integer): TCanvas
+function FindBitmap(bitmap: Integer; var x, y: Integer): Boolean
+function FindBitmapIn(bitmap: Integer; var x, y: Integer; x1, y1, x2, y2: Integer): Boolean
+function FindBitmapToleranceIn(bitmap: Integer; var x, y: Integer; x1, y1, x2, y2: Integer; tolerance: Integer): Boolean
+function FindBitmapSpiral(bitmap: Integer; var x, y: Integer; x1, y1, x2, y2: Integer): Boolean
+function FindBitmapSpiralTolerance(bitmap: Integer; var x, y: Integer; x1, y1, x2, y2: Integer; Tolerance: Integer): Boolean
+function FindBitmapMaskTolerance(mask: Integer; var x, y: Integer; x1, y1, x2, y2: Integer; Tolerance, ContourTolerance: Integer): Boolean
+function GetSystemTime: Integer
+function GetSelf: TForm
+function GetClientCanvas: TCanvas
+function GetDebugCanvas: TCanvas
+function GetApplication: TApplication
+procedure CopyCanvas(Source, Dest: TCanvas; sxs, sys, sxe, sye, dxs, dys, dxe, dye: Integer)
+procedure SaveSetting(section, setting, value: string)
+function LoadSetting(section, setting : string) : string
+procedure ColorToleranceSpeed(x: integer)
+function SimilarColors(col1, col2, tolerance: integer): Boolean
+procedure SendInterSCARMessage(id, message: string)
+function ReadInterSCARMessage(id: string): string
+procedure ClearReport
+procedure AddToReport(s: string)
+procedure DisplayDebugImgWindow(Width, Height: Integer)
+procedure LoadChars(path: string)
+procedure HoldMouse(x,y: integer; Left: boolean)
+procedure ReleaseMouse(x,y: integer; Left: boolean)

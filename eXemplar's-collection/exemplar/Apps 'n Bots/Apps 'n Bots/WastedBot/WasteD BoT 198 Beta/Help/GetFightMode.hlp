@@ -1,0 +1,6 @@
+Usage: GetFightMode()
+Returns your current FightMode
+eg.
+Variable = GetFightMode
+or
+If GetFightMode = 1 Then...

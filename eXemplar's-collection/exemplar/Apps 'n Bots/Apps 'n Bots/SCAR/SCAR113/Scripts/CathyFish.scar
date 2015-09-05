@@ -1,0 +1,87 @@
+program CathyFish;
+
+var xc,yc,fishlogo,fishstore,stime:integer;
+
+{.include OSi.txt}
+
+procedure RWait (ranlength: string);
+begin
+   if(ranlength = 'xxshort') then wait(15+random(15)+random(15))
+   if(ranlength = 'xshort')  then wait(50+random(25)+random(25))
+   if(ranlength = 'short')   then wait(100+random(50)+random(50))
+   if(ranlength = 'medium')  then wait(200+random(100)+random(100))
+   if(ranlength = 'long')    then wait(500+random(250)+random(250))
+   if(ranlength = 'xlong')   then wait(1000+random(500)+random(500))
+   if(ranlength = 'xxlong')  then wait(1000+random(500)+random(500)+random(500)+random(500))
+end;
+
+function ScanText(txt1,txt2: String; startx,starty,endx,endy,xstep,ystep:Integer):boolean;
+var px, py: Integer;
+     FoundText: Boolean;
+begin
+   FoundText:= false;
+   px:=startx;
+   py:=starty;
+   while((px < endx)and(py < starty)and(FoundText=false))do
+    px:=px+xstep;
+    py:=py+ystep;
+    if(IsTextAt2(9,9,txt1,100) or IsTextAt2(9,9,txt2,100))then FoundText:=true;
+    RWait('short');
+   end;
+   result:=FoundText;
+end;
+
+procedure AntiWhirlpool(b1,b2,b3,b4:Integer);//Use in fishing procedure--By benleegt
+begin
+ action:= 'Finding Whirlpools'
+ currently
+ If(FindColorSpiralTolerance(ix,iy,13288386,b1,b2,b3,b4,3) and FindColorSpiralTolerance(ix,iy,13158085,b1,b2,b3,b4,3))then
+ begin
+  WriteLn('Whirlpool found! Waiting');
+  Mouse(647,82,0,0,true);
+  while(FindColorSpiralTolerance(ix,iy,13288386,b1,b2,b3,b4,3) and FindColorSpiralTolerance(ix,iy,13158085,b1,b2,b3,b4,3))do
+   RWait('short');
+  end;
+  GotoFishSpot;
+ end;
+end;
+
+procedure ClickFish;
+begin
+ MoveMouseSmooth(1,1);
+ RWait('short');
+ repeat
+  RWait('xxshort');
+ until(ScanText('Net','Cage',50,150,490,250,10,5));
+ RWait('short');
+ GetMousePos(xc,yc);
+ Mouse(xc,yc,0,0,true);
+ RWait('short');
+end;
+
+procedure DropCrap;
+begin
+ AutoDrop('Wear');
+ AutoDrop('Use Se');
+ AutoDrop('Open');
+end;
+
+begin
+ setupOSi;
+  repeat
+   repeat
+    ClickFish;
+    stime:=GetSystemTime;
+    repeat
+     RWait('short');
+     AntiWhirlpool(232,115,306,185);
+     CheckEquipment;
+    until(GetSystemTime-stime>19999);
+   until(InvinFull);
+   FindBox;
+   DropCrap;
+   //WalkShop;
+   //SellFish;
+   //WalkFish;
+  until(false);
+end.

@@ -1,0 +1,24 @@
+// game at:
+// http://www.plasticmartians.com/play.php?gameID=118
+
+program BrakeIn;
+const ballcolour = 16181705;
+const sparkcolour = 781034;
+var x,y,xc,yc,s:integer;
+begin
+     repeat
+           if(findcolortolerance(x,y,ballcolour,230,140,420,320,10))then
+           begin
+                s := 0;
+                repeat
+                      movemouse(x+random(25),y+random(25));
+                      wait(1);
+                      s := s + 1;
+                until(findcolortolerance(xc,yc,sparkcolour,270,170,370,290,20)or(s > 10));
+           end else
+           begin
+                movemouse(250+random(150),170+random(130));
+           end;
+           Wait(10);
+     until(false);
+end.

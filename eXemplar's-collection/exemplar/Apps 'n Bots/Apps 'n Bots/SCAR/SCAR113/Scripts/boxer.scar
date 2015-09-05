@@ -1,0 +1,44 @@
+program Boxer;
+
+procedure DragMouse(x1,y1,x2,y2:integer);
+begin
+     MoveMouse(x1,y1);
+     Wait(1);
+     HoldMouse(x1,y1,true);
+     Wait(1);
+     MoveMouse(x2,y2);
+     Wait(1);
+     ReleaseMouse(x2,y2,true);
+     Wait(1);
+end;
+
+procedure DrawBox(x,y,w,h:integer);
+begin
+     DragMouse(x,y,x,y+h);
+     DragMouse(x,y+h,x+w,y+h);
+     DragMouse(x+w,y+h,x+w,y);
+     DragMouse(x+w,y,x,y);
+end;
+
+begin
+     repeat
+           DrawBox(230,400,180,180);
+           DrawBox(260,510,50,80);
+           DrawBox(340,510,50,80);
+           DrawBox(260,400,20,20);
+           DrawBox(280,400,20,20);
+           DrawBox(300,400,20,20);
+           DrawBox(320,400,20,20);
+           DrawBox(340,400,20,20);
+           DrawBox(360,400,20,20);
+           DrawBox(260,420,20,20);
+           DrawBox(280,420,20,20);
+           DrawBox(300,420,20,20);
+           DrawBox(320,420,20,20);
+           DrawBox(340,420,20,20);
+           DrawBox(360,420,20,20);
+           Wait(1);
+           MoveMouse(770,770);
+           ClickMouse(770,770,true);
+     until(false);
+end.

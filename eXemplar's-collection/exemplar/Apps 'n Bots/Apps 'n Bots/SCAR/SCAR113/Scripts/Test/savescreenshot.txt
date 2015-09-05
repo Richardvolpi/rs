@@ -1,0 +1,4 @@
+program New;
+begin
+  SaveScreenshot(AppPath + 'awaaff.bmp');
+end.

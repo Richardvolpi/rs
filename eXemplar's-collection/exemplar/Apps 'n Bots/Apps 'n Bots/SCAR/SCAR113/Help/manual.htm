@@ -1,0 +1,777 @@
+<style>
+<!--
+body         { font-family: Verdana; font-size: 9pt; letter-spacing: -0 }
+a            { font-family: Verdana; font-size: 8pt; font-weight: bold }
+-->
+</style>
+<p align="center"><b><font size="4">SCAR CDE Manual 1.10</font></b></p>
+<p align="left"><b><font size="2">Author information<br>
+</font></b>SCAR is created by Kaitnieks (Aivars Irmejs)<br>
+(C) 2004 Aivars Irmejs<br>
+If you like SCAR, drop me a line: <a href="mailto:aispam@serveris.lv">
+aispam@serveris.lv</a><br>
+Community website: <a href="http://www.rscheatnet.com">www.rscheatnet.com</a> (I 
+am not responsible for contents of the site).<br>
+SCAR Scripts: <a href="http://www.scriptdump.net">www.scriptdump.net</a> (I am 
+not responsible for contents of the site).</p>
+<p align="left"><b><font size="2">Introduction<br>
+</font></b>There used to be a cheat for THE GAME which was able to do virtually every
+boring action the players do every day over and over again. The name was
+AutoRune. It worked on almost all Windows systems and introduced scriptable
+cheats for the game, it could do anything except auto-PKing. The problem however
+was, that THE COMPANY could easily make it cease to work by changing the game
+communication protocol, which they did. Now the AutoRune and other bots, like
+RS are useless and dead. AutoRune due to communication protocol change,
+RS due to making the JAVA code undecompilable or at least much harder to
+decompile. So people have to get their old clickers out of the shelves, clean
+dust off them and cheat as much as they can, which is not very much, but at least
+something.<br>
+My ultimate goal was to make the best clicker for the game, however I realized
+fast, that there could be no &quot;best&quot; as some people prefer functionality but
+others ease to use. So I decided to design a CDE for the game, something that
+has never been tried before. CDE stands for cheat development environment. SCAR
+stands for Shite Compared to AutoRune. It's not just a clicker, it's a
+programmable clicker using Pascal language and I'm also planning to add
+possibility to compile the scripts to exe files, so anyone with basic Pascal and
+SCAR knowledge can create their own fully functional cheats. Do it while you
+can, color macros is not the future of THE GAME, I have my own reasons to
+believe in it, I will however keep them with myself.<br>
+I won't go deep into explanation of Pascal language, there are plenty tutorials
+out there, use <a href="http://www.google.com">www.google.com</a> but I will
+demonstrate some basic control structures and compare some of them to AutoRune script.</p>
+<p align="left"><b>Introduction II<br>
+</b>Lots of time has passed since the very first SCAR version. It's been 
+improved a lot. I've been threatened by THE COMPANY because of it, it has caused 
+lots of frustration and confusion because of the complexity of it's usage and 
+surprisingly there are some people who have actually enjoyed it. There 
+have been some Anti-SCAR things added to The Game like Minimap, which changes 
+angle every time you look at it to disable map walking scripts and fatigue with 
+sleepwords. <br>
+The SCAR is used by about six hundreds of players daily when I write 
+these lines. There is SCAR forum, there are few script dumps. And sadly there 
+are scammers impersonating me. You must believe I will never distribute any 
+files by e-mail or likewise. We never implemented ability to compile scripts not because we 
+couldn't, but because Cow, former community leader, convinced me, that this 
+might get abused by scammers. It's a big problem. The Company should fight 
+scammers not cheaters.<br>
+So what's the future of SCAR? I'm not going to add anything new to it, I might 
+keep fixing bugs, but the further development is now in Dylock's hands. He's 
+working on SCAR that is compatible with version 2 of The Game.</p>
+<p align="left"><b><font size="2">General<br>
+</font></b>You should start with trying out sample scripts. The shortcut keys
+are Ctrl+Alt+R to run script and Ctrl+Alt+S to stop.<br>
+If it doesn't click for some reason or you are using SUN JAVA VM, turn off
+silent mouse from Tools menu.<br>
+If it can't find the client window, select Specify Client title from Tools menu
+and enter the title of the client you are using. Character case does matter. Or 
+just drag the crosshair over the client (the game area itself).<br>
+If it can't handle the map (map failed), make sure you have turned it correctly
+(the north should be pointing perfectly up and the cross should be perfectly
+straight). Most map walking scripts won't work because of the Anti-SCAR routines 
+mentioned above.<br>
+If it can't read texts or there are any other problems, make sure you have
+extracted all required files and directories from the archive.</p>
+<p align="left"><b><font size="2">Pascal basics<br>
+</font></b>Some Pascal basics can be found here, but I must warn you that the site will
+scare you: <a href="http://www2.iicm.edu/hmcard/courseware/pascal/Pascal2.htm">
+http://www2.iicm.edu/hmcard/courseware/pascal/Pascal2.htm</a><br>
+Or you could try this site:<br>
+<a href="http://web.mit.edu/taoyue/www/tutorials/pascal/contents.html">
+http://web.mit.edu/taoyue/www/tutorials/pascal/contents.html</a><br>
+You really should find and read a serious Pascal tutorial, this manual will give you an
+idea, not teach the Pascal language.<br>
+The simplest Pascal program:<br>
+<font face="Lucida Console" size="2">begin<br>
+end.<br>
+</font>As you see, it requires 2 lines - begin shows where the program starts, end with
+dot - where it ends. Everything after it gets ignored. A better program would
+be:</p>
+<div style="border-left-style: solid; border-left-width: 1; padding-left: 4">
+<p align="left" style="margin-top: 5; margin-bottom: 5">
+<font face="Lucida Console" size="2">program MyFirst;<br>
+begin<br>
+&nbsp; Writeln ('Hello World!');<br>
+end.</font></p>
+</div>
+<p align="left">It's a good style to specify program name at the beginning, also pay attention
+to spacing, small and capital letters, usage of semicolons.<br>
+Here is a thing about variables. I know most of you avoided them at all in AR
+script, but they are easier here (I hope). The variables have types. SCAR
+supports less types than Pascal and for those who are familiar with Pascal - it
+doesn't support arrays (ok it actually does, I just didn't want to explain it
+here :P). Here are types you will use:</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber1">
+  <tr>
+    <td width="33%">string</td>
+    <td width="33%">Text, string of characters</td>
+    <td width="34%">'a', 'some text', 'awaa'#13'bah'</td>
+  </tr>
+  <tr>
+    <td width="33%">Integer</td>
+    <td width="33%">Whole numbers, positive and negative</td>
+    <td width="34%">0, 1, 2, 3, ..., -1, -2, -3, ...</td>
+  </tr>
+  <tr>
+    <td width="33%">Extended</td>
+    <td width="33%">Real numbers, positive and negative</td>
+    <td width="34%">0, 1.5, -100.67, 100.3333</td>
+  </tr>
+  <tr>
+    <td width="33%">Boolean</td>
+    <td width="33%">Have only 2 values - true or false</td>
+    <td width="34%">True, False</td>
+  </tr>
+</table>
+<p align="left">There are other types too, but these are the main to operate with. A simple
+example:</p>
+<div style="border-left-style: solid; border-left-width: 1; padding-left: 4">
+<p align="left" style="margin-top: 5; margin-bottom: 5">
+<font face="Lucida Console" size="2">program VarDemo;<br>
+var s: string;<br>
+begin<br>
+&nbsp; s:= 'Hello World!';<br>
+&nbsp; Writeln(s);<br>
+end.</font></p>
+</div>
+<p align="left">As you see, we have to use var variable_name : type; to define the variable
+before using it.<br>
+You will sometimes want to print out Integer and Extended type variable values,
+so here is a sample to do it as only strings can be printed out. A sample of
+type conversion:</p>
+<div style="border-left-style: solid; border-left-width: 1; padding-left: 4">
+<p align="left"><font face="Lucida Console" size="2">program PrintNumbers;<br>
+var i: Integer;<br>
+&nbsp;&nbsp;&nbsp;
+e: Extended;<br>
+begin<br>
+&nbsp;
+i:= 10;<br>
+&nbsp;
+e:= 3.5;<br>
+&nbsp;
+Writeln('i=' + IntToStr(i) + ', e=' + FloatToStr(e));<br>
+end.</font></p>
+</div>
+<p align="left">(Copy and paste it in SCAR window to test)<br>
+What can you do with variables? It depends on variable type. You can concatenate
+string variables: s:= 'wo' + 'rd'; will result with 'word' in variable s. You
+can do a whole bunch of arithmetic operations with Integer and Extended: i:= 4 +
+5 will result with 9 in i etc. Boolean are useful too. You can set it to true or
+false: b:= True; or to logical condition b:= (a = 1); will result with True in b
+is a is equal to 1 or False if a is equal to anything else.<br>
+Now about control types. I will use AR script to compare.<br>
+<i>Conditional statement</i>.</p>
+<div style="border-left-style: solid; border-left-width: 1; padding-left: 4">
+<p align="left"><font face="Lucida Console" size="2">&nbsp; if( a = 1)or(a = 4)then<br>
+&nbsp; begin<br>
+&nbsp;&nbsp;&nbsp; a:= 0;<br>
+&nbsp;&nbsp;&nbsp; Writeln('a was 1 or 4 so we made it to zero');<br>
+&nbsp; end else<br>
+&nbsp; begin<br>
+&nbsp;&nbsp;&nbsp; Writeln('a was neither 1 nor 4');<br>
+&nbsp; end;</font></p>
+</div>
+<p align="left">This script checks if variable a is 1 or 4 and acts accordingly. Here is
+AutoRune equivalent for ARscripters:</p>
+<div style="border-left-style: solid; border-left-width: 1; padding-left: 4">
+<p align="left"><font face="Lucida Console" size="2">GoToIfVarEqualNum(@Label1, %a, 1)<br>
+GoToIfVarEqualNum(@Label1, %a, 4)<br>
+Debug(&quot;a was neither 1 nor 4&quot;)<br>
+GoTo(@Label2)<br>
+Label1:<br>
+SetVarNum(%a, 0)<br>
+Debug(&quot;a was 1 or 4 so we made it to zero&quot;)<br>
+Label2:</font></p>
+</div>
+<p align="left">Which one is easier?<br>
+<i>While loops.</i></p>
+<div style="border-left-style: solid; border-left-width: 1; padding-left: 4">
+<p align="left"><font face="Lucida Console" size="2">i:= 0;<br>
+while(i &lt; 10) do<br>
+begin<br>
+&nbsp; i:= i + 1;<br>
+&nbsp; Writeln(IntToStr(i));<br>
+end;</font></p>
+</div>
+<p align="left">AR script equivalent:</p>
+<div style="border-left-style: solid; border-left-width: 1; padding-left: 4">
+<p align="left"><font face="Lucida Console" size="2">SetVarNum(%i, 0)<br>
+@LoopStart:<br>
+GoToIfVarAboveNum(@EndLoop, %i, 9)<br>
+AddVarNum(%i, 1)<br>
+DebugVar(%i)<br>
+GoTo(@LoopStart)<br>
+@EndLoop:</font></p>
+</div>
+<p align="left"><i>Repeat loop</i> is very similar, except the condition is checked at the end of the
+loop and it's exit condition (if it's true, the loop ends), so it always go
+through repeat-until loop at least 1 time.</p>
+<div style="border-left-style: solid; border-left-width: 1; padding-left: 4">
+<p align="left"><font face="Lucida Console" size="2">i:= 0;<br>
+repeat<br>
+&nbsp; i:= i + 1;<br>
+&nbsp; Writeln(IntToStr(i));<br>
+until(i &gt;= 10);</font></p>
+</div>
+<p align="left">AR script equivalent:</p>
+<div style="border-left-style: solid; border-left-width: 1; padding-left: 4">
+<p align="left"><font face="Lucida Console" size="2">SetVarNum(%i, 0)<br>
+@LoopStart:<br>
+AddVarNum(%i, 1)<br>
+DebugVar(%i)<br>
+GoToIfVarBelowNum(@LoopStart, %i, 10)</font></p>
+</div>
+<p align="left"><i>For loops.</i></p>
+<div style="border-left-style: solid; border-left-width: 1; padding-left: 4">
+<p align="left"><font face="Lucida Console" size="2">for i:= 1 to 10 do<br>
+begin<br>
+&nbsp; Writeln(i);<br>
+end;</font></p>
+</div>
+<p align="left">In AR Script you would have to use while loop or repeat-until equivalent.&nbsp;
+<br>
+That's all about control structures. You will understand more from the examples
+included with SCAR.</p>
+<p align="left"><b><font size="2">Creating map walking<br>
+</font></b>
+<u><i>
+<b>Landmarks don't work with the regular RS client anymore</b></i></u><br>
+This section explains how to create map walking scripts. The
+functions/procedures that you will have to use are: CreateLandmark, CreatePath,
+AddLandmarkToPath, ProcessMap, ProcessPath.<br>
+How does it work? First thing to do is to create landmarks all along the path.
+To do it, open the minimap (compass arrows have to make a perfect, straight
+cross) and press &quot;Create Landmark&quot;. If everything is correct, a copy of minimap
+should appear with all objects, walls etc in it. Cut out the area you want to
+create the landmark of. I prefer landmarks in width and height 25% of minimap's
+width and height and smaller. Then press ok. It should generate CreateLandmark
+command for you. Do it all along the path, make sure every next landmark is
+perfectly visible from the previous one. They can't be too close. After you have
+done that, you will have a list of them. Assign them to variables (like in
+sample scripts).<br>
+Next thing you do is creating the path. Create new path with CreatePath like in
+sample scripts.<br>
+Now you need to add the landmarks to the path. The sequence is important - the
+destination landmark comes first, then the one right before it etc, the last one
+is the place you start at. Let's say we have AddLandmarkToPath(BedPath,
+LandMark4, 5, -4); What do the numbers mean? BedPath is path variable, LandMark4
+is landmark variable, 5, -4 are coordinates - x, y. x, y represents relative
+coordinates from the landmark that should be clicked to move along the path. In
+this example SCAR will click 5 squares to right from the landmark's left side
+and 4 squares above the landmark's upper edge.<br>
+Now that the paths are created, we need to move by them somehow. I propose to
+use this procedure:<br>
+<font face="Lucida Console">procedure GoByPath(path: Integer);<br>
+var<br>
+&nbsp; HowFar: Integer;<br>
+&nbsp; x, y: Integer;<br>
+&nbsp; r: Extended;<br>
+&nbsp; Dest: Boolean;<br>
+begin<br>
+&nbsp; repeat<br>
+&nbsp;&nbsp;&nbsp; MoveMouse(460,15);<br>
+&nbsp;&nbsp;&nbsp; Wait(200);<br>
+&nbsp;&nbsp;&nbsp; ProcessMap;<br>
+&nbsp;&nbsp;&nbsp; HowFar:= ProcessPath(Path, x, y, r, 0.1);<br>
+&nbsp;&nbsp;&nbsp; Status('HowFar='+IntToStr(HowFar)+' x='+IntToStr(x) + ' y='+IntToStr(y)+'
+r='+FloatToStr(r));<br>
+&nbsp;&nbsp;&nbsp; if(r &gt; 0.6)then<br>
+&nbsp;&nbsp;&nbsp; begin<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(HowFar = 0)then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ClickMap(x, y, True)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ClickMap(x + Random(3)-1, y +
+Random(3) - 1, True);<br>
+&nbsp;&nbsp;&nbsp; end;<br>
+&nbsp;&nbsp;&nbsp; Dest:= (HowFar=0)and(x&lt;=19)and(x&gt;=17)and(y&lt;=19)and(y&gt;=17);<br>
+&nbsp;&nbsp;&nbsp; if(not Dest)then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Wait(5000);<br>
+&nbsp; until(Dest);<br>
+end;<br>
+</font>If you want to know how ProcessPath works, keep reading. It has 5
+parameters ProcessPath(Path, x, y, r, tolerance); Path is path variable, x, y
+are variables where coordinates to be clicked are returned, r returns
+possibility that we are still on the path (0..1), where 0 means that we are
+totally lost (or map is closed or turned to wrong angle) and 1 means it's a
+perfect match. tolerance contains allowed error. Like, if you are near landmark
+l2 and you see landmark l1 which is your destination, it will go to l1 whenever
+match of that landmark + tolerance =&gt; match of the current landmark. I suggest
+to use 0.1 or 0.2 as tolerance. If you are required to use bigger then your
+landmarks are somehow bad.</p>
+<p align="left"><font size="2"><b>Using forms.<br>
+</b>To use forms you got to understand how objects work. First of all, what is a 
+class? Class is basically a definition of object with it's properties and 
+methods, it's like a blueprint. When we create object from class, we have 
+something to actually work with. So we have to create everything - forms, 
+textboxes, buttons, checkboxes etc. After you have finished using the object, 
+free it.<br>
+Here is a sample form:<br>
+</font><font face="Lucida Console">program FormTest;<br>
+var<br>
+&nbsp; form, self: TForm;<br>
+&nbsp; Application: TApplication;<br>
+&nbsp; UserLabel, PassLabel: TLabel;<br>
+&nbsp; txtUser, txtPass: TEdit;<br>
+&nbsp; ButtonOK: TButton;<br>
+<br>
+//Event handler for ButtonOk.OnClick<br>
+procedure buttonclick(sender: TObject);<br>
+begin<br>
+&nbsp; Application.MessageBox('You pressed the button!', 'Button Pressed', 0);<br>
+end;<br>
+<br>
+<br>
+begin<br>
+&nbsp; //Initialize Application object<br>
+&nbsp; Application:= GetApplication;<br>
+&nbsp; Self:= GetSelf;<br>
+&nbsp; //////////////////////////////////////<br>
+&nbsp; // Creating and using forms<br>
+&nbsp; //////////////////////////////////////<br>
+&nbsp; //Create form for login/password<br>
+&nbsp; Form:= TForm.Create(nil);<br>
+&nbsp; Form.Width := 220;<br>
+&nbsp; Form.Height := 140;<br>
+&nbsp; Form.Position := poScreenCenter;<br>
+&nbsp; Form.BorderStyle := bsDialog;<br>
+&nbsp; Form.Caption := 'Hello There';<br>
+<br>
+&nbsp; //Create things on form<br>
+&nbsp; UserLabel := TLabel.Create(Form);<br>
+&nbsp; UserLabel.Top := 12;<br>
+&nbsp; UserLabel.Left := 16;<br>
+&nbsp; UserLabel.Caption := 'Username:';<br>
+&nbsp; UserLabel.Parent := Form;<br>
+&nbsp; PassLabel := TLabel.Create(Form);<br>
+&nbsp; PassLabel.Top := 42;<br>
+&nbsp; PassLabel.Left := 16;<br>
+&nbsp; PassLabel.Caption := 'Password:';<br>
+&nbsp; PassLabel.Parent := Form;<br>
+&nbsp; txtUser := TEdit.Create(Form);<br>
+&nbsp; txtUser.Top := 10;<br>
+&nbsp; txtUser.Left := 86;<br>
+&nbsp; txtUser.Width := 100;<br>
+&nbsp; txtUser.Parent := Form;<br>
+&nbsp; txtPass := TEdit.Create(Form);<br>
+&nbsp; txtPass.Top := 40;<br>
+&nbsp; txtPass.Left := 86;<br>
+&nbsp; txtPass.Width := 100;<br>
+&nbsp; txtPass.PasswordChar:= '*';<br>
+&nbsp; txtPass.Parent := Form;<br>
+&nbsp; ButtonOK := TButton.Create(Form);<br>
+&nbsp; ButtonOK.Left := 60;<br>
+&nbsp; ButtonOK.Top := 80;<br>
+&nbsp; ButtonOK.Width := 80;<br>
+&nbsp; ButtonOK.Height := 24;<br>
+&nbsp; ButtonOK.Caption := '&amp;OK';<br>
+&nbsp; //Assign event to button that will hide form<br>
+&nbsp; ButtonOK.OnClick := @buttonclick;<br>
+&nbsp; ButtonOK.Parent := Form;<br>
+&nbsp; ButtonOK.Default := True;<br>
+&nbsp; ButtonOK.ModalResult:= mrOk;<br>
+<br>
+&nbsp; //Show modal form<br>
+&nbsp; Form.ShowModal;<br>
+&nbsp; Form.Free;<br>
+end.</font><font size="2"><b><br>
+</b>
+</font><br>
+Let's look at bits of the code.<br>
+<font face="Lucida Console">&nbsp; Application:= GetApplication; - get reference 
+to SCAR application.<br>
+&nbsp; Self:= GetSelf; - get reference to main form of SCAR.<br>
+&nbsp; <br>
+&nbsp; Form:= TForm.Create(nil); - create a new form.<br>
+&nbsp; after form is created, we can set various properties of it, like:<br>
+&nbsp; Form.Height := 140;<br>
+&nbsp; <br>
+&nbsp; To create controls on form, create a new object like this:<br>
+&nbsp; UserLabel := TLabel.Create(Form);<br>
+&nbsp; And then specify the new form as parent of the just created control:<br>
+&nbsp; UserLabel.Parent := Form;<br>
+<br>
+&nbsp; You can assign events to controls like this:<br>
+&nbsp; ButtonOK.OnClick := @buttonclick;<br>
+&nbsp; That means every time button is clicked, procedure buttonclick will be 
+called.<br>
+&nbsp; Here is how you define the event handler procedure for onClick.<br>
+&nbsp; procedure buttonclick(sender: TObject);<br>
+&nbsp; begin<br>
+&nbsp;&nbsp;&nbsp; ... code here<br>
+&nbsp; end;<br>
+<br>
+&nbsp; Form.ShowModal; - form will be shown and script will wait until it's 
+closed.<br>
+<br>
+&nbsp; Form.Free; - form is destroyed to free the memory. All controls on form 
+are destroyed as well.</font></p>
+<p><b><font size="2">Standard functions.<br>
+</font></b>This is a list to functions you can use which do not requite THE CLIENT window.
+The most useful (for you) functions are underlined.<br>
+<u>procedure <a name="Writeln">Writeln</a>(s: string);</u> - outputs string to debug box<u><br>
+procedure <a name="Status">Status</a>(s: string);</u> - shows a message in status bar<u><br>
+function <a name="Readln">Readln</a>(question: string): string;</u> - asks question to user and
+returns the answer<u><br>
+procedure Wait(ms: Integer);</u> - Waits ms milliseconds (Wait(1000) - wait 1
+second). You should use this to avoid freezing.<u><br>
+function <a name="inttostr">inttostr</a>(i: Longint): string;</u> - converts integer to string.<u><br>
+function <a name="strtoint">strtoint</a>(s: string): Longint;</u> - converts string to integer.<u><br>
+</u>function <a name="strtointdef">strtointdef</a>(s: string; def: Longint): Longint;<br>
+<u>function <a name="copy">copy</a>(s: string; ifrom, icount: Longint): string;</u> - returns part
+of the string (Copy('abcde',2,3) would return 'bcd'.<u><br>
+function <a name="pos">pos</a>(substr, s: string): Longint;</u> - returns position of substring in
+string. Returns 0 if not found.<u><br>
+procedure <a name="delete">delete</a>(var s: string; ifrom, icount: Longint): string;</u> - delete
+part of string<u>.<br>
+procedure <a name="insert">insert</a>(s: string; var s2: string; ipos: Longint): string;</u> - insert
+s into s2.<u><br>
+</u>function <a name="getarraylength">getarraylength</a>: integer;<br>
+procedure <a name="setarraylength">setarraylength</a>;<br>
+Function <a name="StrGet">StrGet</a>(var S : String; I : Integer) : Char;<br>
+procedure <a name="StrSet">StrSet</a>(c : Char; I : Integer; var s : String);<br>
+<u>Function <a name="Uppercase">Uppercase</a>(s : string) : string;<br>
+Function <a name="Lowercase">Lowercase</a>(s : string) : string;<br>
+Function <a name="Trim">Trim</a>(s : string) : string;</u> - removes spaces from 
+start and end of string<u>.<br>
+Function <a name="Length">Length</a>(s : String) : Longint;</u> - returns string 
+length in characters.<br>
+procedure <a name="SetLength">SetLength</a>(var S: String; L: Longint);<br>
+function Random(Range: Integer): Integer;<br>
+Function <a name="Sin">Sin</a>(e : Extended) : Extended;<br>
+Function <a name="Cos">Cos</a>(e : Extended) : Extended;<br>
+Function <a name="Sqrt">Sqrt</a>(e : Extended) : Extended; - square root.<br>
+Function <a name="Round">Round</a>(e : Extended) : Longint; - rounds and 
+converts floating point number to integer.<br>
+Function <a name="Trunc">Trunc</a>(e : Extended) : Longint; - rounds down and 
+converts to integer.<br>
+Function <a name="Int">Int</a>(e : Extended) : Longint;<br>
+Function <a name="Pi">Pi</a> : Extended;<br>
+Function <a name="Abs">Abs</a>(e : Extended) : Extended; - returns absolute 
+value (converts negative number to pozitive).<br>
+<u>function <a name="StrToFloat">StrToFloat</a>(s: string): Extended;</u> - 
+converts string to floating pointnumber.<br>
+<u>Function <a name="FloatToStr">FloatToStr</a>(e : Extended) : String;</u> - 
+converts floating point number to string<u>.<br>
+</u>Function <a name="Padl">Padl</a>(s : string;I : longInt) : string;<br>
+Function <a name="Padr">Padr</a>(s : string;I : longInt) : string;<br>
+Function <a name="Padz">Padz</a>(s : string;I : longInt) : string;<br>
+Function <a name="Replicate">Replicate</a>(c : char;I : longInt) : string;<br>
+Function <a name="StringOfChar">StringOfChar</a>(c : char;I : longInt) : string;<br>
+function <a name="VarGetType">VarGetType</a>(x: Variant): TVarType;<br>
+function <a name="Null">Null</a>: Variant;<br>
+procedure <a name="RaiseLastException">RaiseLastException</a>;<br>
+procedure <a name="RaiseException">RaiseException</a>(Ex: TIFException; Param: string);<br>
+function <a name="ExceptionType">ExceptionType</a>: TIFException;<br>
+function <a name="ExceptionParam">ExceptionParam</a>: string;<br>
+function <a name="ExceptionProc">ExceptionProc</a>: Cardinal;<br>
+function <a name="ExceptionPos">ExceptionPos</a>: Cardinal;<br>
+function <a name="ExceptionToString">ExceptionToString</a>(er: TIFException; Param: string): string;<br>
+Function means that the function returns a value, procedure just does something
+and doesn't return anything. Parameters and their types are specified in
+brackets and as the last comes type of function return value.</p>
+<p><b><font color="Red" size="2">Supported classes</font></b><p>This is only a 
+list of some of classes that can be used in SCAR. For more help on properties 
+and methods of individual classes consult Delphi help or internet search. 
+Remember that only very limited functionality is implemented and many properties 
+and methods that work in Delphi will not work in SCAR. Not all supported classes 
+are listed here, only the main ones.</p>
+<p><b>TGroupBox</b> - The TGroupBox component represents a standard group box, 
+used to group related controls on a form.</p>
+<p><b>TLabel</b> - Use TLabel to add text or a bitmap that the user can’t edit 
+to a form.</p>
+<p><b>TEdit</b> - Use a TEdit object to put a standard edit control on a form.</p>
+<p><b>TMemo</b> - Use TMemo to put a standard multiline edit control on a form.</p>
+<p><b>TComboBox</b> - A TComboBox component is an edit box with a scrollable 
+drop-down list attached to it.</p>
+<p><b>TButton</b> - Use TButton to put a standard push button on a form.</p>
+<p><b>TCheckBox</b> - A TCheckBox component presents an option for the user.</p>
+<p><b>TRadioButton</b> - Use TRadioButton to add a radio button to a form.</p>
+<p><b>TListBox</b> - Use TListBox to display a scrollable list of items that 
+users can select, add, or delete.</p>
+<p><b>TScrollBar</b> - Use TScrollBar to add a free-standing scroll bar to a 
+form.</p>
+<p><b>TImage</b> - Use TImage to display a graphical image on a form.</p>
+<p><b>TPanel</b> - Use TPanel to put an empty panel on a form.</p>
+<p><b>TTimer</b> - TTimer is used to simplify calling the system timer 
+functions.</p>
+<p><b>TForm</b> - form (window) component.</p>
+<p><b>TApplication</b> - TApplication encapsulates a windowed application.</p>
+<p><b>TMenuItem</b> - Use TMenuItem to specify the appearance and behavior of an 
+item in a menu.</p>
+<p><b>TMenu</b> - Use TMenu as a base class when defining a component that 
+represents a collection of menu items.</p>
+<p><b>TMainMenu</b> - Use TMainMenu to provide the main menu for a form.</p>
+<p><b>TPopupMenu</b> - Use TPopupMenu to define the pop-up menu that appears 
+when the user clicks on a control with the right mouse button.</p>
+<p><b>TCanvas</b> - Use TCanvas as a drawing surface for objects that draw an 
+image of themselves.</p>
+<p><b><font color="Red" size="2">Client related functions<p>
+</font></b>
+<strong>function</strong> <font color="#0000FF"><a name="GetChatMsg">GetChatMsg</a></font> : <strong><font color="#008080">string</font></strong>;- 
+alias for <font color="#0000FF">GetTextAt</font>(7,304)<p>
+<strong>function</strong> <font color="#0000FF"><a name="GetUpperMsg">GetUpperMsg</a></font>: <strong><font color="#008080">string</font></strong>; 
+- alias for <font color="#0000FF">GetTextAt</font>(6,2)<p>
+<strong>function</strong> <font color="#0000FF"><a name="GetTextAt">GetTextAt</a></font>(<strong><strong><font color="#800000">x, y</font></strong></strong>: 
+<font color="#008080"><b>Integer</b></font>): <strong><font color="#008080">string</font></strong>; 
+- get text at the specified coordinates.<p>
+<strong>function</strong> <font color="#0000FF"><a name="IsTextAt">IsTextAt</a></font>(<strong><font color="#800000">x, y</font></strong>: 
+<font color="#008080"><b>Integer</b></font>; <strong><font color="#800000">S</font></strong>: 
+<b><font color="#008080">string</font></b>): <strong><font color="#008080">Boolean</font></strong>; - works faster than
+<font color="#0000FF">GetTextAt</font> - compares if there is specified text at x,y.<p>
+<b>function</b> <font color="#0000FF"><a name="IsTextAt2">IsTextAt2</a></font>(x, 
+y: Integer; S: String; Tolerance: Integer): Boolean - Works like regular
+<font color="#0000FF">TextAt</font> at but supports text spacing and changing 
+colors.</p>
+<p>
+<strong>function</strong> <font color="#0000FF"><a name="IsTextInArea">IsTextInArea</a></font>(<strong><font color="#800000">x1, y1, x2, y2</font></strong>: Integer; var <strong><font color="#800000">x, y</font></strong>: Integer; <strong><font color="#800000">S</font></strong>: String):
+<strong><font color="#008080">Boolean</font></strong>; - searches for text in S in box specified by x1, y1, x2, y2. Returns
+coordinates of the text in x, y if found.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="GetMousePos">GetMousePos</a></font>(<strong style="font-weight: 400">var</strong><strong> <font color="#800000">x,y</font></strong>: <strong><font color="#008080">integer</font></strong>); 
+- read current mouse position into x,y.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="MoveMouse">MoveMouse</a></font>(<strong><font color="#800000">x,y</font></strong>: <strong><font color="#008080">integer</font></strong>); - simulate mouse movement, move cursor to x,y.<p>
+<b>procedure</b> <font color="#0000FF"><a name="MoveMouseSmooth">MoveMouseSmooth</a></font>(<b><font color="#800000">x,y</font></b>:
+<font color="#008080"><b>integer</b></font>) - simulate humanlike mouse 
+movement.<p>
+<b>procedure</b> <font color="#0000FF"><a name="MoveMouseSmoothEx">
+MoveMouseSmoothEx</a></font>(<font color="#800000"><b>x,y</b></font>:
+<font color="#008080"><b>integer</b></font>; <b><font color="#800000">
+minsleeptime, maxsleeptime, maxdistance, gravity, forces</font></b>:
+<font color="#008080"><b>Integer</b></font>) - simulate humanlike mouse movement 
+with more customizable parameters. By default MinSleepTime = 1; MaxSleepTime = 
+3; MaxDistance = 45; Gravity = 20; Forces = 10. Minsleeptime and Maxsleeptime 
+limit pause between mouse cursor jumps, MaxDistance is maximal allowed distance 
+between mouse jumps, Gravity is how much mouse tends to reach destination, 
+Forces are like random winds, hand shaking simulation.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="ClickMouse">ClickMouse</a></font>(<strong><font color="#800000">x,y</font></strong>: integer; Left: <strong><font color="#008080">boolean</font></strong>); - simulate mouse click at x,y. <p>
+<b>procedure</b> <font color="#0000FF"><a name="HoldMouse">HoldMouse</a></font>(x,y: 
+integer; Left: boolean); - Holds mouse button. True for left button, false for 
+right.<p>
+<b>procedure</b> <font color="#0000FF"><a name="ReleaseMouse">ReleaseMouse</a></font>(x,y: 
+integer; Left: boolean); Releases mouse button.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="SetMouseMode">SetMouseMode</a></font>(Silent: <strong><font color="#008080">boolean</font></strong>); - if 
+<font color="#0000FF">SetMouseMode</font>(True) then it will
+move and click without moving mouse cursor. If that doesn't work, use
+<font color="#0000FF">SetMouseMode</font>(False);<p>
+<strong>function</strong> <font color="#0000FF"><a name="Random">Random</a></font>(Range: Integer): <strong><font color="#008080">Integer</font></strong>; - returns random 0 &lt;= number &lt; Range<p>
+<strong>function</strong> <font color="#0000FF"><a name="GetColor">GetColor</a></font>(<strong><font color="#800000">x,y</font></strong>: Integer): <strong><font color="#008080">Integer</font></strong>; - Return color number at x,y.<p>
+<strong>function</strong> <font color="#0000FF"><a name="GetFightMode">GetFightMode</a></font>: <strong><font color="#008080">Integer</font></strong>; - Will return 0 is fight mode selection is
+invisible, 1 for controlled, 2 for str, 3 for att and 4 for def.<p>
+<strong>function</strong> <font color="#0000FF"><a name="FindColor">FindColor</a></font>(var <strong><font color="#800000">x,y</font></strong>: Integer; <strong><font color="#800000">color, xs, ys, xe, ye</font></strong>: Integer): <strong><font color="#008080">Boolean</font></strong>; -
+find color in box specified by xs, ys, xe, ye starting from left to right.
+Returns True if color found, the coordinates of the color if found is put in x,y.<p>
+<b>function</b> <font color="#0000FF"><a name="FindColorTolerance">
+FindColorTolerance</a></font>(var x,y: Integer; color, xs, ys, xe, ye: Integer; 
+Tolerance: Integer): Boolean - Works like the regular <font color="#0000FF">
+FindColor</font> function but with a tolerance parameter for finding any similar 
+color. Tolerance is used to find a color in range of the color you are looking 
+for. The greater color range you want, the higher the tolerance parameter should 
+be.<p>
+<strong>function</strong> <font color="#0000FF"><a name="FindColorSpiral">FindColorSpiral</a></font>(var <strong><font color="#800000">x,y</font></strong>: Integer; <strong><font color="#800000">color, xs, ys, xe, ye</font></strong>: Integer):
+<strong><font color="#008080">Boolean</font></strong>; - find color in box specified by xs, ys, xe, ye but start from x,y.<p>
+<b>function</b> <font color="#0000FF"><a name="FindColorSpiralTolerance">
+FindColorSpiralTolerance</a></font>(var x,y: Integer; color, xs, ys, xe, ye: 
+Integer; Tolerance: Integer): Boolean - Works like the regular
+<font color="#0000FF">FindColorSpiral</font> but with a tolerance parameter for 
+finding any similar color. Tolerance is used to find a color in range of the 
+color you are looking for. The greater color range you want, the higher the 
+tolerance parameter should be.<p>
+<strong>function</strong> <font color="#0000FF"><a name="FindColorSpiral2">FindColorSpiral2</a></font>(var <strong><font color="#800000">x,y</font></strong>: Integer; <strong><font color="#800000">color, xs, ys, xe, ye</font></strong>: Integer):
+<strong><font color="#008080">Boolean</font></strong>; - find color just like 
+<font color="#0000FF">FindColorSpiral</font>, and if there is a big spot of
+that color then it finds the center of it.<p>
+<b>function</b> <font color="#0000FF"><a name="FindColoredAreaTolerance">
+FindColoredAreaTolerance</a></font>(var x,y: Integer; color, xs, ys, xe, ye: 
+Integer; MinArea, Tolerance: Integer): Boolean - Works similar to
+<font color="#0000FF">FindColorTolerance</font> but instead of finding just 1 
+colored pixel and storing the coordinates into x and y, it finds an area where 
+the colored pixel was found and stores a random coordinate according to the 
+entered MinArea value into x,y. MinArea is specified by the count of pixels you 
+it has in an area. To create a are of 10X10 you would enter 100 as MinArea<p>
+<strong>function </strong><a name="SpiralFindObj"><font color="#0000FF">SpiralFindObj</font></a>(var <strong><font color="#800000">x,y</font></strong>: Integer; <strong><font color="#800000">color, xs, ys, xe, ye</font></strong>: Integer; <strong><font color="#800000">Step</font></strong>: Integer;
+<strong><font color="#800000">Text</font></strong>: string; <strong><font color="#800000">WaitTime, MaxTime</font></strong>: Integer): <strong><font color="#008080">Boolean</font></strong>; - universal function for
+object finding. x, y contain coordinates to start search from and
+return coordinates of spot if object found, color - object color or -1 if the
+color is ignored, xs, ys, xe, ye specify box to search in (set them to -1 to
+search the whole client screen), Step - how many pixels skip (as more as
+faster), text - text to look for that appears when mouse is over the
+object at 6,2, WaitTime - time in milliseconds to wait before reading the text after
+moving the mouse, MaxTime - maximum time to search (if not found during tha
+time, give up)<p>
+<strong>function </strong><a name="SpiralFindObjs"><font color="#0000FF">SpiralFindObjs</font></a>(var <strong><font color="#800000">x,y</font></strong>: Integer; <strong><font color="#800000">color, xs, ys, xe, ye</font></strong>: Integer; <strong><font color="#800000">Step</font></strong>: Integer;
+<strong><font color="#800000">CommaText</font></strong>: string; <strong><font color="#800000">WaitTime, MaxTime</font></strong>: Integer): <strong><font color="#008080">Boolean</font></strong>; 
+- works like SpiralFindObj but looks for multiple objects. CommaText is objects 
+to look for, seperated by commas. If object name contains comma, put it in 
+quotes like this Text = 'Object1,Object2,&quot;Object,contains comma&quot;,&quot;Contains 
+&quot;&quot;quotes&quot;&quot; and, comma&quot;,Object999';<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="Wait">Wait</a></font>(<strong><font color="#800000">ms</font></strong>: Integer); -see above<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="Sleep">Sleep</a></font>(<strong><font color="#800000">ms</font></strong>: Integer); -alias of Wait<p>
+<strong>function</strong> <font color="#0000FF"><a name="SetTimeout">SetTimeout</a></font>(secs: Integer; procname: string): Integer; - set timed
+procedure. After secs seconds a procedure with name procname will be called. The
+procedure has no parameters and it's only called once (you can SetTimeout again
+in the procedure). Procedure must be declared as external.<p>
+<b>procedure</b> <font color="#0000FF"><a name="ClearTimeout">ClearTimeout</a></font>(s: 
+string) - Cancels a single timed procedure<p>
+<b>procedure</b> <font color="#0000FF"><a name="ClearTimeouts">ClearTimeouts</a></font> 
+- Cancels all timed procedures<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="SendKeys">SendKeys</a></font>(<strong><font color="#800000">S</font></strong>: String); - simulate key pressing to send a string to the
+active window.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="SendKeysSilent">SendKeysSilent</a></font>(<strong><font color="#800000">S</font></strong>: String); - send string to Client's window, if this
+doesn't work, use SendKeys<p>
+<b>procedure</b> <font color="#0000FF"><a name="SendArrowSilent">SendArrowSilent</a></font>(a: 
+Byte); - Sends arrow to Client's window. For a, 0 = up, 1 = right, 2 = down, 3 = 
+left.<p>
+<b>procedure</b> <font color="#0000FF"><a name="SendArrowSilentWait">
+SendArrowSilentWait</a></font>(a: Byte; WaitTime: Integer) - Sends an arrow to 
+Client's window and holds it for a given wait time.<p>
+<strong>function</strong> <font color="#0000FF"><a name="StartScreen">StartScreen</a></font>: <strong><font color="#008080">Boolean;</font></strong> 
+- depreciated, only left for compatibility<p>
+<strong>function</strong> <font color="#0000FF"><a name="LoginScreen">LoginScreen</a></font>: <strong><font color="#008080">Boolean</font></strong>; 
+- depreciated, only left for compatibility<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="FindRSWindow">FindRSWindow</a></font>; - finds Client window (you can use it in cases if it's
+not found before)<p>
+<strong>function</strong> <font color="#0000FF"><a name="CreateLandmark">CreateLandmark</a></font>(<strong><font color="#800000">W, H</font></strong>: Integer;<strong><font color="#800000"> Data</font></strong>: string): <strong><font color="#008080">Integer</font></strong>; - creates
+landmark. Use Script &gt; Create landmark from main menu to generate a correct
+landmark<p>
+<strong>function</strong> <font color="#0000FF"><a name="FindLandmark">FindLandmark</a></font>(<strong><font color="#800000">LandMark</font></strong>: Integer; var <strong><font color="#800000">x,y</font></strong>: Integer; var <strong><font color="#800000">accuracy</font></strong>:
+Extended): <strong><font color="#008080">Boolean</font></strong>; - searches for the landmark in map (Get map into memory with
+ProcessMap first). x and y returns top left corner of the landmark in map, r
+contains 1 if the place in map matches the landmark perfectly and 0 if it's
+totally different.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="ProcessMap">ProcessMap</a></font>; - Analyzes 
+image on client and creates map in memory.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="ProcessMapNoCompass">ProcessMapNoCompass</a></font>; - reads the map into memory. 
+Processing does not fail if compass is not perfectly straight.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="ClickMap">ClickMap</a></font>(<strong><font color="#800000">x,y</font></strong>: integer; <strong><font color="#800000">Left</font></strong>: boolean); - click map coordinates. 18,18
+are your coordinates.<p>
+<strong>function</strong> <font color="#0000FF"><a name="CreatePath">CreatePath</a></font>: Integer; - Create new path<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="AddLandmarkToPath">AddLandmarkToPath</a></font>(<strong><font color="#800000">path, landmark, x, y</font></strong>: Integer); - add landmark to
+path, x,y contain relative coordinates from the top left corner of the landmark
+that should be clicked.<p>
+<strong>function</strong> <font color="#0000FF"><a name="ProcessPath">ProcessPath</a></font>(<strong><font color="#800000">path:</font></strong> Integer;var <strong><font color="#800000">x, y</font></strong>: Integer; var <strong><font color="#800000">accuracy</font></strong>: Extended;
+<strong><font color="#800000">Tolerance</font></strong>: Extended): <strong><font color="#008080">Integer</font></strong>; - moves further by the path. Returns x, y - map
+coordinates that should be clicked, accuracy that we're on the path 0..1 and
+function value is number of the current landmark in the path. <p>
+<strong>function</strong> <font color="#0000FF"><a name="LoadBitmap">LoadBitmap</a></font>(<strong><font color="#800000">path</font></strong>: string): <strong><font color="#008080">Integer</font></strong>; - Loads bitmap (*.bmp) in memory and
+returns handle to it. Path can be absolute or relative if starts with a dot.<p>
+<b>procedure</b> <font color="#0000FF"><a name="SaveBitmap">SaveBitmap</a></font>(bitmap: 
+Integer; path: string) - Saves a bitmap as a file.<p>
+<b>procedure</b> <font color="#0000FF"><a name="FreeBitmap">FreeBitmap</a></font>(bitmap: 
+Integer) - Releases a bitmap and frees the memory<p>
+<strong>function</strong> <font color="#0000FF"><a name="BitmapFromString">BitmapFromString</a></font>(<font color="#800000"><strong>Width</strong></font><strong><font color="#800000">, 
+Height</font></strong>: Integer; <font color="#800000"><strong>data</strong></font>: string): <strong><font color="#008080">Integer</font></strong>; - Loads bitmap 
+in memory from string data and returns handle to it. Data strings can be created 
+by clicking menu Script &gt; Picture To String.<p>
+<strong>function</strong> <font color="#0000FF"><a name="FindBitmap">FindBitmap</a></font>(<strong><font color="#800000">bitmap</font></strong>: Integer; var <strong><font color="#800000">x, y</font></strong>: Integer): <strong><font color="#008080">Boolean</font></strong>; - search for
+the bitmap in client window. If found coordinates are returned in x,y. bitmap
+contains handle to bitmap generated by LoadBitmap.<p>
+<strong>function</strong> <font color="#0000FF"><a name="FindBitmapIn">FindBitmapIn</a></font>(<strong><font color="#800000">bitmap</font></strong>: Integer; var <strong><font color="#800000">x, y, x1, y1, x2, y2</font></strong>: Integer): <strong><font color="#008080">Boolean</font></strong>; - search for
+the bitmap in coordinates specified by x1, y1, x2, y2.<p>
+<b>function</b> <font color="#0000FF"><a name="FindBitmapToleranceIn">
+FindBitmapToleranceIn</a></font>(bitmap: Integer; var x, y: Integer; x1, y1, x2, 
+y2: Integer; tolerance: Integer): Boolean - Works like <font color="#0000FF">
+FindBitmapIn</font> but with a tolerance parameter for finding any similar 
+colored bitmap. Tolerance is used to find a colored bitmap in range of the 
+bitmap you are looking for. The greater color range you want, the higher the 
+tolerance parameter should be.<p>
+<strong>function</strong> <font color="#0000FF"><a name="FindBitmapSpiral">FindBitmapSpiral</a></font>(<strong><font color="#800000">bitmap</font></strong>: Integer; var <strong><font color="#800000">x, y, x1, y1, x2, y2</font></strong>: Integer): <strong><font color="#008080">Boolean</font></strong>; - search for
+the bitmap in coordinates specified by x1, y1, x2, y2 starting from x, y.<p>
+<b>function</b> <font color="#0000FF"><a name="FindBitmapSpiralTolerance">
+FindBitmapSpiralTolerance</a></font>(bitmap: Integer; var x, y: Integer; x1, y1, 
+x2, y2: Integer; Tolerance: Integer): Boolean - Works like FindBitmapSpiral but 
+with a tolerance parameter for finding any similar colored bitmap. Tolerance is 
+used to find a colored bitmap in range of the bitmap you are looking for. The 
+greater color range you want, the higher the tolerance parameter should be.<p>
+<b>function</b> <font color="#0000FF"><a name="FindBitmapMaskTolerance">
+FindBitmapMaskTolerance</a></font>(mask: Integer; var x, y: Integer; x1, y1, x2, 
+y2: Integer; Tolerance, ContourTolerance: Integer): Boolean - Essentially it 
+Works like <font color="#0000FF">FindBitmapIn</font> except it identifies using 
+the masks/shape of an object in the bitmap. Masks are specified by the colors 
+black and white. ContourTolerance is the minimal tolerance for color difference 
+between shape of a mask and the background in a bitmap, It makes sure the shape 
+differs from the background.<br>
+<img border="0" src="mask.gif" width="8" height="15"> &lt;-- a mask for finding 
+letter A in any color.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="PlaySound">PlaySound</a></font>(<strong><font color="#800000">FileName</font></strong>: 
+string); - play the specified WAV file.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="SaveScreenshot">SaveScreenshot</a></font>(<strong><font color="#800000">FileName</font></strong>: 
+string); - save screenshot of client window in bitmap file.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="FindWindow">FindWindow</a></font>(<strong><font color="#800000">Title</font></strong>: 
+string); - find client, look for window with title in titlebar.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="ActivateClient">ActivateClient</a></font>(<strong><font color="#800000">Title</font></strong>: 
+string); - activate client window.<p>
+<strong>function</strong> <font color="#0000FF"><a name="AppPath">AppPath</a></font> : <strong><font color="#008080">string</font></strong>;- get SCAR folder path.<p>
+<strong>function</strong> <font color="#0000FF"><a name="GetSelf">GetSelf</a></font> : <strong>
+<font color="#008080">TForm</font></strong>;- get reference to SCAR main form.<p>
+<strong>function</strong> <font color="#0000FF"><a name="GetApplication">GetApplication</a></font> : <strong>
+<font color="#008080">TApplication</font></strong>;- get reference to SCAR 
+Application object.<p>
+<strong>function</strong> <font color="#0000FF"><a name="GetCanvas">GetCanvas</a></font> : <strong>
+<font color="#008080">TCanvas</font></strong>;- get reference to game client 
+window's Canvas.<p>
+<strong>procedure</strong> <font color="#0000FF"><a name="CopyCanvas">CopyCanvas</a></font>(<strong><font color="#800000">Source, 
+Dest</font></strong>: 
+TCanvas; <strong><font color="#800000">sxs, sys, sxe, sye, dxs, dys, dxe, dye</font></strong>: 
+Integer); - Copy area from Source canvas to Dest canvas. Area to be copied from 
+is specified by sxs, sys, sxe, sye, area to be copied to is specified by dxs, 
+dys, dxe, dye.<p>
+<strong>function</strong> <font color="#0000FF"><a name="GetBitmapCanvas">GetBitmapCanvas</a></font>(<strong><font color="#800000">bitmap</font></strong>: 
+Integer) : <strong>
+<font color="#008080">TCanvas</font></strong>;- get reference to bitmap's Canvas.<p>
+<b>function</b> <font color="#0000FF"><a name="GetDebugCanvas">GetDebugCanvas</a></font>:
+<font color="#008080"><b>TCanvas</b></font> - Returns a canvas of the debug 
+image window.<p>
+<b>procedure</b> <font color="#0000FF"><a name="FixMouse">FixMouse</a></font>(var 
+x,y: integer; slot: Integer) - Fixmouse checks for screen shifting around x,y 
+and changes x,y accordingly. Slots are used to stored the number for every spot 
+you're following. example 0, 1, 2. If you're just checking one spot, then 0 as 
+slot. x,y are the coords of the spot you're watching and lost is just the spot 
+number.<p>
+<b>procedure</b> <font color="#0000FF"><a name="FixMouseEx">FixMouseEx</a></font>(var 
+x,y: integer; slot, maxshift, squaresx, squaresy,squaresize: Integer; 
+minaccuracy: Extended) - Like <font color="#0000FF">FixMouse</font> with added 
+detail. Maxshift is how far the max distance the square could have been shifted. 
+Default 3. Squaresx is how many squares in row, default 13. Squaresy is how many 
+squares in column, default 10. Squaresize is how big the squares are, Default 
+15. Minaccuracy is accuracy limit for a square, how much we allow it to change, 
+default 0.7, 1 for 100%.<p>
+<b>procedure</b> <font color="#0000FF"><a name="ColorToleranceSpeed">
+ColorToleranceSpeed</a></font>(x: integer) - Sets the speed of tolerance 
+comparisons. <font color="#0000FF">ColorToleranceSpeed</font>(1) is a little 
+slower then 0 but more accurate. <font color="#0000FF">ColorToleranceSpeed</font>(0) 
+is faster but not as accurate as 1.<p><b>function</b> <font color="#0000FF">
+<a name="SimilarColors">SimilarColors</a></font>(col1, col2, tolerance: 
+integer): Boolean - Function to test weather two colors are within tolerance 
+range. If they are withing range, it returns true, if not false.</p>
+<p><b>procedure</b> <font color="#0000FF"><a name="SendInterSCARMessage">
+SendInterSCARMessage</a></font>(id, message: string) - Sends a string to another 
+script. The ID is used for both scripts to communicate with each other by 
+sending and reading the string/messages.</p>
+<p><b>function</b> <font color="#0000FF"><a name="ReadInterSCARMessage">
+ReadInterSCARMessage</a></font>(id: string): string - Reads string/messages sent 
+by another script by means of an ID</p>
+<p><b>procedure</b> <font color="#0000FF"><a name="ClearReport">ClearReport</a></font> 
+- Clears all messages sent to the report box</p>
+<p><b>procedure</b> <font color="#0000FF"><a name="AddToReport">AddToReport</a></font>(s: 
+string) - Adds a message to the report box</p>
+<p><b>procedure</b> <font color="#0000FF"><a name="DisplayDebugImgWindow">
+DisplayDebugImgWindow</a></font>(Width, Height: Integer) - Brings up the debug 
+image window.</p>
+<p><b>procedure</b> <font color="#0000FF"><a name="LoadChars">LoadChars</a></font>(path: 
+string) - Loads rs2 chars. For default path: LoadChars('')</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>(C) 2003-2005 Aivars Irmejs</p>

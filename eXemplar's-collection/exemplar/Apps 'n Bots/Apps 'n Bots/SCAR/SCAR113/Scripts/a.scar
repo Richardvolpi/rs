@@ -1,0 +1,83 @@
+program InvStuff;
+
+var col,row,rx,ry: Integer;
+
+{.include OSi.txt}
+Procedure DropInv(invin:Integer);
+begin
+ OpenBag;
+ if(invin>0)and(invin<29)then
+ begin
+  ry:=214;
+  repeat
+   if(invin>4)then
+   begin
+    invin:=invin-4;
+    ry:=ry+36;
+   end;
+  until(invin<5);
+  rx:=528+(invin*42);
+  RWait('short');
+  Mouse(rx,ry,15,15,false);
+  RWait('medium');
+  if(FindBitmapIn(Drop,rx,ry,555,210,730,460))or(FindBitmapIn(DropY,rx,ry,555,210,730,460))then
+  begin
+   Mouse(x,y,20,4,true);
+   wait(200+random(25));
+  end;
+ end;
+end;
+
+function InvCount(Item:String) : Integer;
+begin
+ Result:=0;
+ col:=0;
+ row:=1;
+ OpenBag;
+ repeat
+  repeat
+   col:=col+1;
+   rx:=528+(col*42)+2;
+   ry:=178+(row*36)+2;
+   MMouse(rx,ry,15,15);
+   if(IsTextAt2(9,9,Item,100))then Result:=Result+1;
+  until(col >= 4);
+  col:=0;
+  row:=row+1;
+ until(row > 7);
+end;
+
+// find the inventory number of the first item found
+function FindInv(Item:String) : Integer;
+var Found:Boolean;
+begin
+ Found:=false;
+ Result:=0;
+ col:=0;
+ row:=1;
+ OpenBag;
+ repeat
+  repeat
+   col:=col+1;
+   rx:=528+(col*42)+2;
+   ry:=178+(row*36)+2;
+   MMouse(rx,ry,15,15);
+   RWait('xxshort');
+   if(IsTextAt2(9,9,Item,100))then
+   begin
+    Found:=true;
+    Result:=(row*col) - 1;
+   end;
+  until((col >= 4) or (Found=true));
+  col:=0;
+  row:=row+1;
+ until((row > 7) or (Found=true));
+ if(Found=false)then Result:=-1;
+end;
+
+begin
+ SetupOSi;
+ Drop(FindInv('Use K'));
+ //Writeln(IntToStr(FindInv('Use aaa')));
+ //Writeln(IntToStr(InvCount('Use L')));
+end.

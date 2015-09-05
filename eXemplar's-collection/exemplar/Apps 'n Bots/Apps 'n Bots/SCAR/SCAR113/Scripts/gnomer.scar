@@ -1,0 +1,379 @@
+(*
+Gnome Agility  v 1.1
+      By: GenoDemoN
+NO-AntiRandoms, not really needed though
+      Start At Log
+      Have the log (First Obstacle) appear staright on main screen
+      v-Bright
+      Have Run on
+      DO NOT WEAR ANYTHING GREY!!!!!!!!
+Set-up Lines 14-20
+
+*)
+
+program Gnomey;
+const
+tol=10; // Do not Change
+color1=601161;  //Log
+color2=6451320; //Net Part
+color3=4223370; //Tree Stub (tanish part)
+color4=6194595; //Rope
+color5=3959425; //Tree Stub (tanish part)
+color6=6453392; //Net Part
+color7=7171703; //Pipe
+SPEED=3;        //Speed 1=Fastest 10=An eternity
+var
+x,y,z,zz,pipe,runs,x1,x2,y1,y2,y3,avrg:integer;
+found,done:boolean;
+st,RHours,Minutes,Seconds,RMinutes,RSeconds:longint;
+time:string;
+
+procedure ssleep(ss:integer);
+var
+sst:longint;
+begin
+ss:=ss+(ss/10)*speed;
+sst:=getsystemtime+ss;
+repeat
+sleep(5);
+until(getsystemtime>sst);
+end;
+
+procedure sendkeyssilentsmooth(text:string;pause:integer); {Created by Piv}
+begin
+repeat
+sendkeyssilent(copy(text,1,1)); wait(pause+random(50));
+delete(text,1,1); wait(50);
+until(length(text)=0);
+wait(100+random(50));
+end;
+
+procedure searchd(color:integer);
+begin
+repeat
+sleep(10);
+z:=z+1;
+IF (z>15)then z:=0;
+//writeln(inttostr(z));
+until(findcolorspiraltolerance(x,y,color,128,180+z*10,400,190+z*10,tol))
+end;
+
+procedure searchu(color:integer);
+begin
+repeat
+sleep(10);
+z:=z+1;
+IF (z>18)then z:=0;
+//writeln(inttostr(z));
+until(findcolorspiraltolerance(x,y,color,128,180-z*10,400,190-z*10,tol))
+end;
+
+procedure searcha(color:integer);
+begin
+repeat
+sleep(10);
+z:=z+1;
+IF (z>15)then z:=0;
+//writeln(inttostr(z));
+until(findcolorspiraltolerance(x,y,color,128-z*2,180-z*10,400+z*2,190+z*10,tol))
+end;
+
+procedure searchr(color:integer);
+begin
+repeat
+sleep(10);
+z:=z+1;
+IF (z>20)then z:=0;
+//writeln(inttostr(z));
+until(findcolorspiraltolerance(x,y,color,300+z*10,50,310+z*10,240,tol))
+end;
+
+function findcolorex(cmc,l,u,r,d,rl,ru,rr,rd:integer):boolean;
+var                                 { by GenoDemoN }
+x1,x2,x3,x4,y1,y2,y3,y4,xxx,yyy,d1,d2,d3,d4:integer ;
+b1,b2,b3,b4:boolean;
+begin
+xxx:=(rl+rr)/2;
+yyy:=(ru+rd)/2;
+IF ((findcolorspiraltolerance(x1,y1,cmc,l,u,r,ru,tol)) or
+(findcolorspiraltolerance(x2,y2,cmc,l,ru,rl,rd,tol))or
+(findcolorspiraltolerance(x3,y3,cmc,rr,ru,r,rd,tol))or
+(findcolorspiraltolerance(x4,y4,cmc,l,rd,r,d,tol)))then
+begin
+b1:=false;
+b2:=false;
+b3:=false;
+b4:=false;
+IF (findcolorspiraltolerance(x1,y1,cmc,l,u,r,ru,tol)) then b1:=true;
+IF (findcolorspiraltolerance(x2,y2,cmc,l,ru,rl,rd,tol)) then b2:=true;
+IF (findcolorspiraltolerance(x3,y3,cmc,rr,ru,r,rd,tol)) then b3:=true;
+IF (findcolorspiraltolerance(x4,y4,cmc,l,rd,r,d,tol)) then b4:=true;
+d1:=(xxx-x1)*(xxx-x1)+(yyy-y1)*(yyy-y1);
+d2:=(xxx-x2)*(xxx-x2)+(yyy-y2)*(yyy-y2);
+d3:=(xxx-x3)*(xxx-x3)+(yyy-y3)*(yyy-y3);
+d4:=(xxx-x4)*(xxx-x4)+(yyy-y4)*(yyy-y4);
+result:=false;
+If ((d1<d2)and(d1<d3)and(d1<d4)and(b1)) then
+begin
+x:=x1;
+y:=y1;
+result:=true;
+end;
+If ((d2<d1)and(d2<d3)and(d2<d4)and(b2)) then
+begin
+x:=x2;
+y:=y2;
+result:=true;
+end;
+If ((d3<d2)and(d3<d1)and(d3<d4)and(b3)) then
+begin
+x:=x3;
+y:=y3;
+result:=true;
+end;
+If ((d4<d2)and(d4<d3)and(d4<d1)and(b4)) then
+begin
+x:=x4;
+y:=y4;
+result:=true;
+end;
+
+end;
+end;
+
+
+begin
+runs:=0;
+ writeln('         v1.1 compiled');
+ writeln('');
+  writeln('');
+   writeln('');
+    writeln('');
+
+writeln('Gnome Agility RS2');
+writeln('By: GenoDemoN');
+
+st:=getsystemtime;
+loadchars('');
+ writeln('');
+  writeln('');
+pipe := BitmapFromString(24, 6,
+       'BAAB8ABBAE92000000000000000000BAAB8ABAAB8ABAAB8ABAAB8A' +
+       'B9A581BAAB8AB9A581000000000000000000B9A581B9A581B9A581' +
+       'B9A581000000000000000000B9A581B9A581BBAE92000000BBAE92' +
+       'BBAE92BAAB8A000000BAAB8ABAAB8A000000B9A581B9A581000000' +
+       'B9A581B9A581B9A581000000B9A581B9A581000000B9A581B9A581' +
+       'B9A581000000B9A581BBAE92000000BBAE92BBAE92BAAB8A000000' +
+       'BAAB8ABAAB8A000000B9A581B9A581000000B9A581B9A581B9A581' +
+       '000000B9A581B9A581000000B9A581B9A581B9A581000000B9A581' +
+       'BBAE92000000BAAB8ABAAB8ABAAB8A000000B9A581B9A581000000' +
+       'BAAB8AB9A581000000B9A581B9A581B9A581000000B9A581B9A581' +
+       '000000000000000000000000B9A581B9A581BAAB8A000000BAAB8A' +
+       'B9A581B9A581000000BAAB8ABAAB8A000000BAAB8ABAAB8A000000' +
+       'B9A581BAAB8ABAAB8A000000BAAB8ABAAB8A000000BAAB8ABAAB8A' +
+       'BAAB8AB9A581B9A581B9A581000000000000000000000000BAAB8A' +
+       'BAAB8ABAAB8A000000BAAB8ABAAB8A000000000000000000000000' +
+       'B9A581BAAB8ABAAB8AB9A581000000000000000000000000B9A581' +
+       '');
+
+
+
+  repeat
+z:=-1;
+repeat
+found:=false;
+searchd(color1);
+movemousesmooth(x,y);
+ssleep(200+random(50));
+zz:=0;
+repeat
+zz:=zz+1;
+ssleep(5);
+IF (istextat2(46+zz,9,'a',100)) then
+begin
+found:=true;
+clickmouse(x,y,true);
+ssleep(6900+random(200));
+end;
+sleep(5);
+until(zz>3);
+until(found);
+
+x:=230+random(30);
+y:=260+random(25);
+movemousesmooth(x,y);
+ssleep(100+random(50));
+clickmouse(x,y,true);
+ssleep(1400+random(200));
+
+z:=-1;
+repeat
+found:=false;
+searchd(color2);
+movemousesmooth(x,y);
+ssleep(100+random(50));
+IF (istextat2(9,9,'C',100)) then
+begin
+found:=true;
+clickmouse(x,y,true);
+ssleep(3600+random(200));
+end;
+until(found);
+
+z:=-1;
+repeat
+found:=false;
+searcha(color3);
+movemousesmooth(x,y);
+ssleep(100+random(50));
+IF (istextat2(9,9,'C',100)) then
+begin
+found:=true;
+clickmouse(x,y,true);
+ssleep(3600+random(200));
+end;
+until(found);
+
+z:=-1;
+repeat
+found:=false;
+searchr(color4);
+movemousesmooth(x,y);
+ssleep(200+random(50));
+zz:=0;
+repeat
+zz:=zz+1;
+sleep(5);
+IF (istextat2(46+zz,9,'on',100)) then
+begin
+found:=true;
+clickmouse(x,y,true);
+ssleep(6900+random(200));
+end;
+sleep(5);
+until(zz>3);
+until(found);
+
+
+
+
+z:=-1;
+repeat
+found:=false;
+searchr(color5);
+movemousesmooth(x,y);
+ssleep(100+random(50));
+IF (istextat2(9,9,'C',100)) then
+begin
+found:=true;
+clickmouse(x,y,true);
+ssleep(5800+random(200));
+end;
+until(found);
+
+x:=228+random(32);
+y:=50+random(30);
+movemousesmooth(x,y);
+ssleep(100+random(50));
+clickmouse(x,y,true);
+ssleep(1100+random(200));
+
+z:=-1;
+repeat
+found:=false;
+searchu(color6);
+movemousesmooth(x,y);
+ssleep(100+random(50));
+IF (istextat2(9,9,'C',100)) then
+begin
+found:=true;
+clickmouse(x,y,true);
+ssleep(3900+random(200));
+end;
+until(found);
+
+z:=-1;
+repeat
+found:=false;
+searchu(color7);
+movemousesmooth(x,y);
+ssleep(100+random(50));
+IF (istextat2(9,9,'S',100)) then
+begin
+found:=true;
+clickmouse(x,y,true);
+ssleep(2000+random(200));
+IF(findbitmapspiraltolerance(pipe,x,y,37,417,81,433,35)=false)then
+begin
+ssleep(7900+random(200));
+end;
+IF(findbitmapspiraltolerance(pipe,x,y,37,417,81,433,35))then
+begin
+found:=false;
+ //sendkeyssilentsmooth('argh'+chr(13),10);
+ ssleep(300);
+ end;
+end;
+until(found);
+   x1:=240;
+   y1:=195;
+   x2:=x1+20;
+   y2:=y2+20;
+   done:=false;
+Repeat
+       x1:=x1-10;
+       y1:=y1-10;
+       x2:=x2+10
+       y2:=y2+10;
+      //findcolorex(cmc,l,u,r,d,rl,ru,rr,rd:integer):boolean;
+      IF (x1<10) then x1:=10;
+      IF (y1<10) then y1:=10;
+      IF (x2>515) then x2:=515;
+      IF (y2>240) then y2:=240
+      IF(x1=10)and(y1=10)and(x2=515)and(y2=240) then done:=true;
+     IF(done=false) then done:=(findcolorex(color7,10,172,515,240,x1,y1,x2,y2)=false);
+until(done);
+
+  y3:=(y1+y2)/2;
+
+x:=40+random(20);
+y:=y3-15+random(30);
+movemousesmooth(x,y);
+ssleep(100+random(50));
+clickmouse(x,y,true);
+ssleep(2600+random(200));
+
+x:=40+random(20);
+y:=y3-15+random(30);
+movemousesmooth(x,y);
+ssleep(100+random(50));
+clickmouse(x,y,true);
+ssleep(2600+random(200));
+
+  Seconds:=(GetSystemTime-ST) div 1000;
+  Minutes:=Seconds div 60;
+  RHours:=Minutes div 60;
+  Time:=inttostr(Seconds)+' Seconds';
+  if Minutes<>0 then
+  begin
+   RSeconds:=Seconds Mod (Minutes*60);
+   Time:=inttostr(Minutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+  end;
+  if RHours<>0 then
+  begin
+   RMinutes:=Minutes Mod (RHours*60);
+   RSeconds:=Seconds Mod (Minutes*60);
+   Time:=inttostr(RHours)+' Hours, '+inttostr(RMinutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+     end;
+     runs:=runs+1;
+     writeln('');
+      writeln('');
+     avrg:=(getsystemtime-st)/1000/60/60/runs;
+  writeln('Worked For: '+time);
+  writeln('Cycles a hour: '+inttostr(avrg));
+      writeln('Exp a hour: '+inttostr(avrg*94));
+       writeln('');
+
+ until(false);
+end.
+

@@ -1,0 +1,10 @@
+program IncludeTest;
+{.include include.txt}
+var f: Integer;
+begin
+  //WriteInt is declared in include.txt
+  WriteInt(3);
+  for f:= 1 to 10 do
+    WriteInt(f);
+end.
+

@@ -1,0 +1,249 @@
+{
+          Portals Agility Pipe Script
+            Credit goes to Stupid
+              for his Guildminer
+         to help with color spirals
+         and some random protection.
+}
+
+program Agility;
+const
+PipeA=7829376;
+PipeB=4342342;
+var x,y,n,Pipe,talkto:integer;
+
+procedure Mouse(mx, my, ran, ran2: Integer; Mbtn: boolean); //By OhDearUrDead(x,y,ran1,ran2,left/right)
+begin
+Wait(20+random(50));
+mx:=mx+random(ran)
+my:=my+random(ran2)
+MoveMouseSmooth(mx,my);
+Wait(100+random(100));
+ClickMouse(mx,my,mbtn);
+wait(50+random(50));
+end;
+
+procedure FindTextSpiral(txt: String; dx,dy: Integer; SpiralSize: Integer; step, SpiralWait: Integer);  // By OhDearUrDead, Edited By Khain
+var px, py, qx, qy: Integer;
+     FoundText: Boolean;
+begin
+   FoundText:= false;
+   px:= dx; py:= dy; qx:= dx; qy:= dy;
+   x:= dx;
+   y:= dy;
+   MoveMouseSmooth(x,y);
+   repeat
+   Spiralwait:= Spiralwait+random(50);
+     MoveMouse(x,y)
+     px:= px + 20; py:= py + 20;
+     qx:= qx - 20; qy:= qy - 20;
+     repeat
+       getmousepos(x,y)
+       x:= x + step;
+       MoveMouseSmooth(x,y);
+       Wait(SpiralWait);
+       if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+     Until(x >= px)or(FoundText);
+     if(FoundText)then Break;
+     repeat
+       getmousepos(x,y)
+       y:= y + step;
+       MoveMouseSmooth(x,y);
+       Wait(SpiralWait);
+       if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+     Until(y >= py)or(FoundText);
+     if(FoundText)then Break;
+     repeat
+       getmousepos(x,y)
+       x:= x - step;
+       MoveMouseSmooth(x,y);
+       Wait(SpiralWait);
+       if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+     Until(qx >= x)or(FoundText);
+     if(FoundText)then Break;
+     repeat
+       getmousepos(x,y)
+       y:= y - step;
+       MoveMouseSmooth(x,y);
+       Wait(SpiralWait);
+       if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+     Until(qy >= y)or(FoundText);
+   Until(px > dx + SpiralSize)or(FoundText);
+end;
+
+procedure SetRunOn;
+begin
+   Wait(50+random(5));
+   Mouse(708,475,5,5,true);
+   Wait(100+random(100));
+   Mouse(614,260,5,5,true);
+   Wait(100+random(10));
+   Mouse(644,178,5,5,true);
+   Wait(100+random(10));
+End;
+
+procedure Logout;
+begin
+mouse(651,483,5,5,true)
+wait(1000+random(500))
+mouse(636,375,5,5,true)
+end;
+
+procedure ClickPipe;
+begin
+wait(3500+random(50))
+if (findcolorspiral(x,y,PipeA,156,4,515,337)) or
+   (findcolorspiral(x,y,PipeB,156,4,515,337)) then
+    begin
+     movemousesmooth(x,y+random(5))
+     wait(200+random(20))
+     getmousepos(x,y)
+     clickmouse(x,y,false)
+    end;
+    wait(1000+random(25))
+    if(FindBitmap(Pipe,x,y))then
+      begin
+        movemousesmooth(x+15,y+5)
+        wait(200+random(20))
+        getmousepos(x,y)
+        clickmouse(x,y,true)
+      end else
+      begin
+        movemousesmooth(16+random(10),15+random(10))
+        wait(100+random(50))
+      end;
+end;
+
+Procedure FindFight;
+begin
+if(FindColorSpiral(x,y,65280,180,90,320,230))then begin wait(1000) end;
+if(FindColorSpiral(x,y,65280,180,90,320,230))then
+  begin
+    wait(500+random(50))
+    ClickPipe;
+    wait(60000+random(1000))
+    Logout;
+    n:=1;
+  end;
+end;
+
+procedure TalkToRand;
+begin
+  repeat
+  if (FindColorSpiral(x,y,16711680,5,345,510,465))or
+  (FindColorSpiral(x,y,16777215,5,345,510,465))then
+      begin
+      Mouse(x,y,50,2,true);
+      wait(2000+random(1000));
+      end;
+  until(GetColor(20,434)=0)
+end;
+
+procedure FindText;
+var counter:integer;
+begin
+if (FindColor(x,y,65535,0,0,515,338))then wait(500)
+if (FindColor(x,y,65535,0,0,515,338))then
+  begin
+  repeat
+  counter:=counter+2+random(1);
+  MoveMouse(x+counter,y+15+random(1));
+  wait(10+random(10));
+  if(FindColorSpiral(x,y,65280,180,90,320,230))then
+    begin
+    FindFight;
+    break;
+    end;
+  if(IsTextAt2(9,9,'Ta',100))then
+    begin
+    GetMousePos(x,y);
+    Mouse(x,y,1,1,false);
+    Wait(200+random(100));
+    if(FindBitmap(Talkto,x,y))then
+      begin
+      Mouse(x,y,10,2,true);
+      wait(1000+random(1000));
+      TalkToRand;
+      end;
+    end;
+  until(counter>=250);
+  end;
+end;
+
+Procedure FindRandoms;
+begin
+FindFight;
+FindText;
+end;
+
+Procedure LoadBmps;
+begin
+Talkto := BitmapFromString(18, 2,
+       'FFFFFFFFFFFF000000FFFFFFFFFFFF5D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF0000000000005D5447FFFFFFFFFFFF' +
+       'FFFFFFFFFFFFFFFFFF5D54475D5447FFFFFFFFFFFF000000000000' +
+       '');
+pipe := BitmapFromString(31, 15,
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D5447FFFFFFFFFFFFFFFFFF5D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D5447FFFFFFFFFFFF' +
+       '0000000000005D54470000000000005D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D5447FFFFFFFFFFFF5D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D5447FFFFFF' +
+       'FFFFFF5D54475D54475D54475D54475D54475D5447FFFFFFFFFFFF' +
+       'FFFFFF5D54475D54475D5447FFFFFFFFFFFF5D54475D5447FFFFFF' +
+       'FFFFFF5D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF5D5447' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFF5D54475D54475D5447' +
+       '5D5447FFFFFFFFFFFF000000FFFFFFFFFFFF5D54475D5447FFFFFF' +
+       'FFFFFF0000005D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF5D54475D54475D54475D54475D5447' +
+       'FFFFFFFFFFFF5D54475D5447FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF0000005D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+       '0000005D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFF0000005D5447FFFFFF' +
+       'FFFFFF0000005D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+       '0000005D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFFFFFFFF' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF5D5447FFFFFFFFFFFF' +
+       '0000000000005D54475D5447FFFFFFFFFFFF5D5447FFFFFFFFFFFF' +
+       '0000005D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFF0000000000000000000000005D54475D5447' +
+       'FFFFFFFFFFFFFFFFFF0000000000005D54475D54475D54475D5447' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF0000005D54475D5447FFFFFFFFFFFF' +
+       'FFFFFFFFFFFF0000000000005D54475D5447FFFFFFFFFFFFFFFFFF' +
+       'FFFFFFFFFFFF5D54475D54475D54470000000000000000005D5447' +
+       '5D54475D54475D54475D54475D5447000000FFFFFFFFFFFF000000' +
+       '5D54475D54475D54470000000000000000000000005D54475D5447' +
+       '5D54475D54470000000000000000000000000000005D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D5447FFFFFFFFFFFF0000005D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D5447FFFFFFFFFFFF0000005D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D5447');
+end;
+begin
+n:=0;
+LoadBmps;
+repeat
+ClickPipe;
+wait(200+random(50))
+Findrandoms;
+until(n=1)
+end.

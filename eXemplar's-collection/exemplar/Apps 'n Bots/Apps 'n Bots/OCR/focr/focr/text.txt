@@ -1,0 +1,220 @@
+Microsoft (R) COFF Binary File Dumper Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+
+Dump of file dllimplementation.obj
+
+File Type: COFF OBJECT
+
+COFF SYMBOL TABLE
+000 0000008E DEBUG  notype       Filename     | .file    .\dllimplementation.cpp
+003 00600C05 ABS    notype       Static       | @comp.id
+004 00000001 ABS    notype       Static       | @feat.00
+005 00000000 SECT1  notype       Static       | .drectve    Section length   42, #relocs    0, #linenums    0, checksum        0
+007 00000000 SECT2  notype       Static       | .debug$S    Section length 24D7, #relocs   12, #linenums    0, checksum        0
+009 00000000 SECT3  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum AA09C88B, selection    2 (pick any)
+00B 00000000 SECT3  notype       External     | ?end@?$_Iosb@H@std@@2W4_Seekdir@12@B (public: static enum std::_Iosb<int>::_Seekdir const std::_Iosb<int>::end)
+00C 00000000 SECT4  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum B8BC6765, selection    2 (pick any)
+00E 00000000 SECT4  notype       External     | ?cur@?$_Iosb@H@std@@2W4_Seekdir@12@B (public: static enum std::_Iosb<int>::_Seekdir const std::_Iosb<int>::cur)
+00F 00000000 SECT5  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum        0, selection    2 (pick any)
+011 00000000 SECT5  notype       External     | ?beg@?$_Iosb@H@std@@2W4_Seekdir@12@B (public: static enum std::_Iosb<int>::_Seekdir const std::_Iosb<int>::beg)
+012 00000000 SECT6  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum A032AF3E, selection    2 (pick any)
+014 00000000 SECT6  notype       External     | ?binary@?$_Iosb@H@std@@2W4_Openmode@12@B (public: static enum std::_Iosb<int>::_Openmode const std::_Iosb<int>::binary)
+015 00000000 SECT7  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum ED59B63B, selection    2 (pick any)
+017 00000000 SECT7  notype       External     | ?_Noreplace@?$_Iosb@H@std@@2W4_Openmode@12@B (public: static enum std::_Iosb<int>::_Openmode const std::_Iosb<int>::_Noreplace)
+018 00000000 SECT8  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 9B14583D, selection    2 (pick any)
+01A 00000000 SECT8  notype       External     | ?_Nocreate@?$_Iosb@H@std@@2W4_Openmode@12@B (public: static enum std::_Iosb<int>::_Openmode const std::_Iosb<int>::_Nocreate)
+01B 00000000 SECT9  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 5019579F, selection    2 (pick any)
+01D 00000000 SECT9  notype       External     | ?trunc@?$_Iosb@H@std@@2W4_Openmode@12@B (public: static enum std::_Iosb<int>::_Openmode const std::_Iosb<int>::trunc)
+01E 00000000 SECTA  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum C5B428EF, selection    2 (pick any)
+020 00000000 SECTA  notype       External     | ?app@?$_Iosb@H@std@@2W4_Openmode@12@B (public: static enum std::_Iosb<int>::_Openmode const std::_Iosb<int>::app)
+021 00000000 SECTB  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 8F629757, selection    2 (pick any)
+023 00000000 SECTB  notype       External     | ?ate@?$_Iosb@H@std@@2W4_Openmode@12@B (public: static enum std::_Iosb<int>::_Openmode const std::_Iosb<int>::ate)
+024 00000000 SECTC  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum AA09C88B, selection    2 (pick any)
+026 00000000 SECTC  notype       External     | ?out@?$_Iosb@H@std@@2W4_Openmode@12@B (public: static enum std::_Iosb<int>::_Openmode const std::_Iosb<int>::out)
+027 00000000 SECTD  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum B8BC6765, selection    2 (pick any)
+029 00000000 SECTD  notype       External     | ?in@?$_Iosb@H@std@@2W4_Openmode@12@B (public: static enum std::_Iosb<int>::_Openmode const std::_Iosb<int>::in)
+02A 00000000 SECTE  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 5019579F, selection    2 (pick any)
+02C 00000000 SECTE  notype       External     | ?_Hardfail@?$_Iosb@H@std@@2W4_Iostate@12@B (public: static enum std::_Iosb<int>::_Iostate const std::_Iosb<int>::_Hardfail)
+02D 00000000 SECTF  notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 8F629757, selection    2 (pick any)
+02F 00000000 SECTF  notype       External     | ?badbit@?$_Iosb@H@std@@2W4_Iostate@12@B (public: static enum std::_Iosb<int>::_Iostate const std::_Iosb<int>::badbit)
+030 00000000 SECT10 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum AA09C88B, selection    2 (pick any)
+032 00000000 SECT10 notype       External     | ?failbit@?$_Iosb@H@std@@2W4_Iostate@12@B (public: static enum std::_Iosb<int>::_Iostate const std::_Iosb<int>::failbit)
+033 00000000 SECT11 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum B8BC6765, selection    2 (pick any)
+035 00000000 SECT11 notype       External     | ?eofbit@?$_Iosb@H@std@@2W4_Iostate@12@B (public: static enum std::_Iosb<int>::_Iostate const std::_Iosb<int>::eofbit)
+036 00000000 SECT12 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum        0, selection    2 (pick any)
+038 00000000 SECT12 notype       External     | ?goodbit@?$_Iosb@H@std@@2W4_Iostate@12@B (public: static enum std::_Iosb<int>::_Iostate const std::_Iosb<int>::goodbit)
+039 00000000 SECT13 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 246BE590, selection    2 (pick any)
+03B 00000000 SECT13 notype       External     | ?floatfield@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::floatfield)
+03C 00000000 SECT14 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum  A9E2D0A, selection    2 (pick any)
+03E 00000000 SECT14 notype       External     | ?basefield@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::basefield)
+03F 00000000 SECT15 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 778F8431, selection    2 (pick any)
+041 00000000 SECT15 notype       External     | ?adjustfield@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::adjustfield)
+042 00000000 SECT16 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum E1351B80, selection    2 (pick any)
+044 00000000 SECT16 notype       External     | ?_Stdio@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::_Stdio)
+045 00000000 SECT17 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 709A8DC0, selection    2 (pick any)
+047 00000000 SECT17 notype       External     | ?boolalpha@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::boolalpha)
+048 00000000 SECT18 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 384D46E0, selection    2 (pick any)
+04A 00000000 SECT18 notype       External     | ?fixed@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::fixed)
+04B 00000000 SECT19 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 1C26A370, selection    2 (pick any)
+04D 00000000 SECT19 notype       External     | ?scientific@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::scientific)
+04E 00000000 SECT1A notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum  E1351B8, selection    2 (pick any)
+050 00000000 SECT1A notype       External     | ?hex@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::hex)
+051 00000000 SECT1B notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum  709A8DC, selection    2 (pick any)
+053 00000000 SECT1B notype       External     | ?oct@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::oct)
+054 00000000 SECT1C notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum  384D46E, selection    2 (pick any)
+056 00000000 SECT1C notype       External     | ?dec@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::dec)
+057 00000000 SECT1D notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum  1C26A37, selection    2 (pick any)
+059 00000000 SECT1D notype       External     | ?internal@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::internal)
+05A 00000000 SECT1E notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum ED59B63B, selection    2 (pick any)
+05C 00000000 SECT1E notype       External     | ?right@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::right)
+05D 00000000 SECT1F notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 9B14583D, selection    2 (pick any)
+05F 00000000 SECT1F notype       External     | ?left@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::left)
+060 00000000 SECT20 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum A032AF3E, selection    2 (pick any)
+062 00000000 SECT20 notype       External     | ?showpos@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::showpos)
+063 00000000 SECT21 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 5019579F, selection    2 (pick any)
+065 00000000 SECT21 notype       External     | ?showpoint@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::showpoint)
+066 00000000 SECT22 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum C5B428EF, selection    2 (pick any)
+068 00000000 SECT22 notype       External     | ?showbase@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::showbase)
+069 00000000 SECT23 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 8F629757, selection    2 (pick any)
+06B 00000000 SECT23 notype       External     | ?uppercase@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::uppercase)
+06C 00000000 SECT24 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum AA09C88B, selection    2 (pick any)
+06E 00000000 SECT24 notype       External     | ?unitbuf@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::unitbuf)
+06F 00000000 SECT25 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum B8BC6765, selection    2 (pick any)
+071 00000000 SECT25 notype       External     | ?skipws@?$_Iosb@H@std@@2W4_Fmtflags@12@B (public: static enum std::_Iosb<int>::_Fmtflags const std::_Iosb<int>::skipws)
+072 00000000 SECT26 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum        0, selection    2 (pick any)
+074 00000000 SECT26 notype       External     | ?none@?$_Locbase@H@std@@2HB (public: static int const std::_Locbase<int>::none)
+075 00000000 SECT27 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum A848E8F7, selection    2 (pick any)
+077 00000000 SECT27 notype       External     | ?all@?$_Locbase@H@std@@2HB (public: static int const std::_Locbase<int>::all)
+078 00000000 SECT28 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum A032AF3E, selection    2 (pick any)
+07A 00000000 SECT28 notype       External     | ?messages@?$_Locbase@H@std@@2HB (public: static int const std::_Locbase<int>::messages)
+07B 00000000 SECT29 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 5019579F, selection    2 (pick any)
+07D 00000000 SECT29 notype       External     | ?time@?$_Locbase@H@std@@2HB (public: static int const std::_Locbase<int>::time)
+07E 00000000 SECT2A notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum C5B428EF, selection    2 (pick any)
+080 00000000 SECT2A notype       External     | ?numeric@?$_Locbase@H@std@@2HB (public: static int const std::_Locbase<int>::numeric)
+081 00000000 SECT2B notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 8F629757, selection    2 (pick any)
+083 00000000 SECT2B notype       External     | ?monetary@?$_Locbase@H@std@@2HB (public: static int const std::_Locbase<int>::monetary)
+084 00000000 SECT2C notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum AA09C88B, selection    2 (pick any)
+086 00000000 SECT2C notype       External     | ?ctype@?$_Locbase@H@std@@2HB (public: static int const std::_Locbase<int>::ctype)
+087 00000000 SECT2D notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum B8BC6765, selection    2 (pick any)
+089 00000000 SECT2D notype       External     | ?collate@?$_Locbase@H@std@@2HB (public: static int const std::_Locbase<int>::collate)
+08A 00000000 SECT2E notype       Static       | .text    Section length   33, #relocs    5, #linenums    4, checksum 9B172322, selection    1 (pick no duplicates)
+08C 00000000 SECT2F notype       Static       | .debug$S    Section length   A3, #relocs    3, #linenums    0, checksum        0, selection    5 (pick associative Section 2e)
+08E 00000000 DEBUG  notype       Filename     | .file    f:\sean\focr\sources\dllimplementation.cpp
+092 00000000 SECT2E notype ()    External     | _loadDictionary@4    tag index 00000097 size 00000033 lines 000033EA next function 00000000
+094 00000000 UNDEF  notype ()    External     | ??_U@YAPAXI@Z (void * __cdecl operator new[](unsigned int))
+095 00000000 UNDEF  notype       External     | ?probs@@3PAPAMA (float * * probs)
+096 00000000 UNDEF  notype ()    External     | ?initialize@DictSearch@@QAEHPBD@Z (public: int __thiscall DictSearch::initialize(char const *))
+097 00000000 SECT2E notype       BeginFunction | .bf    line# 0013 end 00000000
+099 00000004 SECT2E notype       .bf or.ef    | .lf
+09A 00000033 SECT2E notype       EndFunction  | .ef    line# 001d
+09C 00000000 SECT30 notype       Static       | .debug$F    Section length   10, #relocs    1, #linenums    0, checksum        0, selection    5 (pick associative Section 2e)
+09E 00000000 SECT31 notype       Static       | .text    Section length    A, #relocs    2, #linenums    2, checksum 5727055D, selection    1 (pick no duplicates)
+0A0 00000000 SECT32 notype       Static       | .debug$S    Section length   82, #relocs    3, #linenums    0, checksum        0, selection    5 (pick associative Section 31)
+0A2 00000000 SECT31 notype ()    External     | _loadModel@4    tag index 000000A5 size 0000000A lines 000034FB next function 00000000
+0A4 00000000 UNDEF  notype ()    External     | ?loadModel@ImageClassifier@@QAE_NPBD@Z (public: bool __thiscall ImageClassifier::loadModel(char const *))
+0A5 00000000 SECT31 notype       BeginFunction | .bf    line# 0020 end 00000000
+0A7 00000002 SECT31 notype       .bf or.ef    | .lf
+0A8 0000000A SECT31 notype       EndFunction  | .ef    line# 0022
+0AA 00000000 SECT33 notype       Static       | .debug$F    Section length   10, #relocs    1, #linenums    0, checksum        0, selection    5 (pick associative Section 31)
+0AC 00000000 SECT34 notype       Static       | .text    Section length  24F, #relocs   2C, #linenums   18, checksum  D888E41, selection    1 (pick no duplicates)
+0AE 00000000 SECT35 notype       Static       | .debug$S    Section length  109, #relocs    3, #linenums    0, checksum        0, selection    5 (pick associative Section 34)
+0B0 00000000 SECT34 notype ()    External     | _getString@8    tag index 000000C6 size 0000024F lines 000039C8 next function 00000000
+0B2 00000000 UNDEF  notype ()    External     | ??3@YAXPAX@Z (void __cdecl operator delete(void *))
+0B3 00000000 UNDEF  notype ()    External     | ?getMatch@DictSearch@@QAEPADPADPAPAM@Z (public: char * __thiscall DictSearch::getMatch(char *,float * *))
+0B4 00000000 SECT36 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum 8DE5B576, selection    2 (pick any)
+0B6 00000000 SECT36 notype       External     | __real@3f800000
+0B7 00000000 SECT37 notype       Static       | .rdata    Section length    4, #relocs    0, #linenums    0, checksum        0, selection    2 (pick any)
+0B9 00000000 SECT37 notype       External     | __real@00000000
+0BA 00000000 UNDEF  notype ()    External     | ??1ImageClassifier@@UAE@XZ (public: virtual __thiscall ImageClassifier::~ImageClassifier(void))
+0BB 00000000 UNDEF  notype ()    External     | ?getCharacter@ImageClassifier@@QAEDPAM@Z (public: char __thiscall ImageClassifier::getCharacter(float *))
+0BC 00000000 UNDEF  notype ()    External     | ??0ImageClassifier@@QAE@ABVImage@@@Z (public: __thiscall ImageClassifier::ImageClassifier(class Image const &))
+0BD 00000000 UNDEF  notype ()    External     | ?scale@Image@@QAEXHH@Z (public: void __thiscall Image::scale(int,int))
+0BE 00000000 UNDEF  notype ()    External     | ?center@Image@@QAEXM@Z (public: void __thiscall Image::center(float))
+0BF 00000000 UNDEF  notype ()    External     | ??1Image@@UAE@XZ (public: virtual __thiscall Image::~Image(void))
+0C0 00000000 UNDEF  notype ()    External     | ??4Image@@QAEXABV0@@Z (public: void __thiscall Image::operator=(class Image const &))
+0C1 00000000 UNDEF  notype ()    External     | ?getLetter@Segmentor@@QAE?AVImage@@H_N@Z (public: class Image __thiscall Segmentor::getLetter(int,bool))
+0C2 00000000 UNDEF  notype ()    External     | ?getNrOfLetters@Segmentor@@QAEHXZ (public: int __thiscall Segmentor::getNrOfLetters(void))
+0C3 00000000 UNDEF  notype ()    External     | ?process@Segmentor@@QAEXAAVImage@@@Z (public: void __thiscall Segmentor::process(class Image &))
+0C4 00000000 UNDEF  notype ()    External     | ?load@Image@@QAE_NPBD@Z (public: bool __thiscall Image::load(char const *))
+0C5 00000000 UNDEF  notype ()    External     | __fltused
+0C6 00000000 SECT34 notype       BeginFunction | .bf    line# 0025 end 00000000
+0C8 00000018 SECT34 notype       .bf or.ef    | .lf
+0C9 0000024F SECT34 notype       EndFunction  | .ef    line# 0056
+0CB 00000000 SECT38 notype       Static       | .debug$F    Section length   10, #relocs    1, #linenums    0, checksum        0, selection    5 (pick associative Section 34)
+0CD 00000000 SECT39 notype       Static       | .text$yc    Section length   16, #relocs    4, #linenums    1, checksum 98928F64, selection    2 (pick any)
+0CF 00000000 SECT3A notype       Static       | .debug$S    Section length   67, #relocs    3, #linenums    0, checksum        0, selection    5 (pick associative Section 39)
+0D1 00000000 SECT39 notype ()    Static       | _$E1    tag index 000000D8 size 00000016 lines 00003BDF next function 00000000
+0D3 00000000 SECT3B notype       Static       | .CRT$XCU    Section length   10, #relocs    4, #linenums    0, checksum        0
+0D5 00000000 SECT3B notype       Static       | _$S3
+0D6 00000000 UNDEF  notype ()    External     | _atexit
+0D7 00000000 UNDEF  notype ()    External     | ??0Image@@QAE@XZ (public: __thiscall Image::Image(void))
+0D8 00000000 SECT39 notype       BeginFunction | .bf    line# 000a end 00000000
+0DA 00000001 SECT39 notype       .bf or.ef    | .lf
+0DB 00000016 SECT39 notype       EndFunction  | .ef    line# 000a
+0DD 00000000 SECT3C notype       Static       | .debug$F    Section length   10, #relocs    1, #linenums    0, checksum        0, selection    5 (pick associative Section 39)
+0DF 00000000 SECT3D notype       Static       | .text$yc    Section length   1B, #relocs    5, #linenums    1, checksum 445AA451, selection    2 (pick any)
+0E1 00000000 SECT3E notype       Static       | .debug$S    Section length   67, #relocs    3, #linenums    0, checksum        0, selection    5 (pick associative Section 3d)
+0E3 00000000 SECT3D notype ()    Static       | _$E4    tag index 000000E6 size 0000001B lines 00003D09 next function 00000000
+0E5 00000004 SECT3B notype       Static       | _$S6
+0E6 00000000 SECT3D notype       BeginFunction | .bf    line# 000b end 00000000
+0E8 00000001 SECT3D notype       .bf or.ef    | .lf
+0E9 0000001B SECT3D notype       EndFunction  | .ef    line# 000b
+0EB 00000000 SECT3F notype       Static       | .debug$F    Section length   10, #relocs    1, #linenums    0, checksum        0, selection    5 (pick associative Section 3d)
+0ED 00000000 SECT40 notype       Static       | .text$yc    Section length   16, #relocs    4, #linenums    1, checksum 98928F64, selection    2 (pick any)
+0EF 00000000 SECT41 notype       Static       | .debug$S    Section length   67, #relocs    3, #linenums    0, checksum        0, selection    5 (pick associative Section 40)
+0F1 00000000 SECT40 notype ()    Static       | _$E7    tag index 000000F5 size 00000016 lines 00003DEC next function 00000000
+0F3 00000008 SECT3B notype       Static       | _$S9
+0F4 00000000 UNDEF  notype ()    External     | ??0Segmentor@@QAE@XZ (public: __thiscall Segmentor::Segmentor(void))
+0F5 00000000 SECT40 notype       BeginFunction | .bf    line# 000c end 00000000
+0F7 00000001 SECT40 notype       .bf or.ef    | .lf
+0F8 00000016 SECT40 notype       EndFunction  | .ef    line# 000c
+0FA 00000000 SECT42 notype       Static       | .debug$F    Section length   10, #relocs    1, #linenums    0, checksum        0, selection    5 (pick associative Section 40)
+0FC 00000000 SECT43 notype       Static       | .text$yc    Section length   16, #relocs    4, #linenums    1, checksum 98928F64, selection    2 (pick any)
+0FE 00000000 SECT44 notype       Static       | .debug$S    Section length   68, #relocs    3, #linenums    0, checksum        0, selection    5 (pick associative Section 43)
+100 00000000 SECT43 notype ()    Static       | _$E10    tag index 00000104 size 00000016 lines 00003ECF next function 00000000
+102 0000000C SECT3B notype       Static       | _$S12
+103 00000000 UNDEF  notype ()    External     | ??0DictSearch@@QAE@XZ (public: __thiscall DictSearch::DictSearch(void))
+104 00000000 SECT43 notype       BeginFunction | .bf    line# 000e end 00000000
+106 00000001 SECT43 notype       .bf or.ef    | .lf
+107 00000016 SECT43 notype       EndFunction  | .ef    line# 000e
+109 00000000 SECT45 notype       Static       | .debug$F    Section length   10, #relocs    1, #linenums    0, checksum        0, selection    5 (pick associative Section 43)
+10B 00000000 SECT46 notype       Static       | .text$yd    Section length    A, #relocs    2, #linenums    0, checksum 5727055D, selection    2 (pick any)
+10D 00000000 SECT47 notype       Static       | .debug$S    Section length   67, #relocs    3, #linenums    0, checksum        0, selection    5 (pick associative Section 46)
+10F 00000000 SECT46 notype ()    Static       | _$E2
+110 00000000 SECT48 notype       Static       | .debug$F    Section length   10, #relocs    1, #linenums    0, checksum        0, selection    5 (pick associative Section 46)
+112 00000000 SECT49 notype       Static       | .text$yd    Section length    A, #relocs    2, #linenums    0, checksum 5727055D, selection    2 (pick any)
+114 00000000 SECT4A notype       Static       | .debug$S    Section length   67, #relocs    3, #linenums    0, checksum        0, selection    5 (pick associative Section 49)
+116 00000000 SECT49 notype ()    Static       | _$E5
+117 00000000 SECT4B notype       Static       | .debug$F    Section length   10, #relocs    1, #linenums    0, checksum        0, selection    5 (pick associative Section 49)
+119 00000000 SECT4C notype       Static       | .text$yd    Section length    A, #relocs    2, #linenums    0, checksum 5727055D, selection    2 (pick any)
+11B 00000000 SECT4D notype       Static       | .debug$S    Section length   67, #relocs    3, #linenums    0, checksum        0, selection    5 (pick associative Section 4c)
+11D 00000000 SECT4C notype ()    Static       | _$E8
+11E 00000000 UNDEF  notype ()    External     | ??1Segmentor@@QAE@XZ (public: __thiscall Segmentor::~Segmentor(void))
+11F 00000000 SECT4E notype       Static       | .debug$F    Section length   10, #relocs    1, #linenums    0, checksum        0, selection    5 (pick associative Section 4c)
+121 00000000 SECT4F notype       Static       | .text$yd    Section length    A, #relocs    2, #linenums    0, checksum 5727055D, selection    2 (pick any)
+123 00000000 SECT50 notype       Static       | .debug$S    Section length   68, #relocs    3, #linenums    0, checksum        0, selection    5 (pick associative Section 4f)
+125 00000000 SECT4F notype ()    Static       | _$E11
+126 00000000 UNDEF  notype ()    External     | ??1DictSearch@@QAE@XZ (public: __thiscall DictSearch::~DictSearch(void))
+127 00000000 SECT51 notype       Static       | .debug$F    Section length   10, #relocs    1, #linenums    0, checksum        0, selection    5 (pick associative Section 4f)
+129 00000000 SECT52 notype       Static       | .bss    Section length 4A4A0, #relocs    0, #linenums    0, checksum        0
+12B 00000048 SECT52 notype       External     | ?ds@@3VDictSearch@@A (class DictSearch ds)
+12C 00000020 SECT52 notype       External     | ?segmentor@@3VSegmentor@@A (class Segmentor segmentor)
+12D 00000010 SECT52 notype       External     | ?imClass@@3VImageClassifier@@A (class ImageClassifier imClass)
+12E 00000000 SECT52 notype       External     | ?image@@3VImage@@A (class Image image)
+12F 00000000 SECT53 notype       Static       | .debug$T    Section length   44, #relocs    0, #linenums    0, checksum        0
+
+String Table Size = 0x98C bytes
+
+  Summary
+
+          10 .CRT$XCU
+       4A4A0 .bss
+          B0 .debug$F
+        2A3F .debug$S
+          44 .debug$T
+          42 .drectve
+          B4 .rdata
+         28C .text
+          5D .text$yc
+          28 .text$yd

@@ -1,0 +1,576 @@
+program SettingsFormForScriptSample;
+const
+ // Here you set your settings:
+ // User related settings:
+ UserName      = 'Jonny' ; // put your UserName between the ''
+ PassWord      = '' ; // put your Password between the ''
+ // General settings:
+ HPCheck       = 1  ; // 1 to check for your HP, any other number for no.
+ Limit         = 15 ; // How much you need to be damaged for the script to auto heal.
+ Critical      = 0  ; // Enter here the critical hp status - if it gets to it, the script will auto log out, 0 to cancel check.
+ FightS        = 1  ; // Fighting styles: 1 for ranging + normal attack (hand to hand), 2 for maging + normal attack, any other number for normal attack only.
+ // ->->->->-> NOTICE: if u use Fighting style of 1, u must have your sword on first inv slot and your bow on second slot (ill change that in the future.)
+ SpellName     = 'pika strike' ; // Name of the spell you wanna use for maging (FightS=2), example: wind strike
+ FightM        = 3  ; // Fighting modes if fightin style is not 1 or 2: 1 = Controlled ; 2 = Agressive ; 3 = Accurate ; 4 = Defensive;
+ UseLogOut     = 0  ; // if you chose Fighting style 1 or 2 then if you have no runes/arrows/bow, the script will log you out.
+ RightClick    = 0  ; // 1 to use Right click ONLY, any other number to use right click AND left click.
+ AutoOpenDoors = 0  ; // 1 to enable auto open doors, any other number to disable it.
+ ATPR          = 1  ; // Attacks till progress report.
+
+ // Talking related stuff (you can always turn public chat block on and Fkaetalk off, you know..):
+ UseFakeTalk   = 0  ;           // 1 to use Fake talk, any other number for no.
+ FakeTalkChanse= 100;           // the chance to fake talk will be 1 to the value you'll set here (in this example - a chanse of 1 to 100 that the script will fake talk).
+
+ // List of what you wanna pick up..
+ Bones         = 0  ;       // 1 to pick up and burry Bones, any other number for no.
+ Coins         = 1  ;       // 1 to pick up Coins, any other number for no.
+ Feathers      = 0  ;       // 1 to pick up Feathers, any other number for no.
+ Runes         = 0  ;       // 1 to pick up Runes(all runes), any other number for no.
+
+ // Map related settings:
+ UseMap        = 1  ;       // 1 to use map to find NPC's nearby, 2 to use map with landmarks, any other number to disable map support.
+ Radius        = 4  ;       // Radius in squares to search for NPC if UseMap = 1.
+ MNFTUM        = 50 ;       // Monsters not found till use map (if usemap=1 or 2).
+ {
+  in order to use Map support - you must supply 1 land mark with its size and cordinates of where to click as the following:
+  <x of point to click>, <y of point to click>, <x of size>, <y of size>, <landmark code>.
+  Notice: landmarks better be created from Cyan spots when the map is straight - for faster map use...
+  Example:
+   landmark=(8, 6, '030001000017030001000008030002000004010001000001030002000005')
+     +(and)
+   point to click on landmark = (2,3)
+     =(makes)
+   MLandMark     = '2, 3, 8, 6, 030001000017030001000008030002000004010001000001030002000005';
+ }
+ MLandMark     = '2, 3, 8, 6, 030001000017030001000008030002000004010001000001030002000005';
+
+ // Monster's related settings:
+ {
+  !!! READ CAREFULY !!!
+  /!\ if you supply the color (and you better do..), put it from the first color to the third not the oposite! /!\
+  Example (RATS):
+  Allowed:
+  MonsterColor  = 7159865  ;  - best color
+  MonsterColor2 = 13027071 ;  - 2nd color
+  MonsterColor3 = -1       ;  - 3rd color
+  Not Allowed:
+  MonsterColor  = -1       ;
+  MonsterColor2 = 7159865  ;
+  MonsterColor3 = 13027071 ;
+ }
+ // Set for chickens :P
+ MonsterColor  =  7159865 ; // Leave it -1 for the bot to auto find the monster color, otherwise, put the color here!
+ MonsterColor2 =  13027071 ; // Leave it -1 for the bot to auto find the monster color, otherwise, put the color here!
+ MonsterColor3 =  -1 ; // Leave it -1 for the bot to auto find the monster color, otherwise, put the color here!
+ MonstersName  =  '' ; // Optional - if you want the bot to search for a specipic monster name, you can supply it here, otherwise, leave it as '' (default).
+
+ // Other settings (you can leave it as default):
+ SWDelay       = 15 ;       // How much minutes to wait for an FO (Fatigue Operator) - 900000 <=> 1000 MiliSeconds = 1 Second * 60 = 1 Minute * 15 = 15 Minutes.
+ SDelay        = 40 ;       // Starting delay for map fix...
+
+ // Settings end!
+var
+  Application: TApplication;
+  Form1: TForm;
+  Bevel6, Bevel5, Bevel4, Bevel3, Bevel2, Bevel1 : TBevel;
+  Label1, Label2, Label3, Label4, Label5, Label6, Label7, Label8, Label9: TLabel;
+  txtUser, txtPass: TEdit;
+  cbCheckHP : TCheckBox;
+  txtLimit : TEdit;
+  txtCritical : TEdit;
+  cbFightStyle : TComboBox;
+  txtSpellName : TEdit;
+  cbFightMode : TComboBox;
+  cbLogOut : TCheckBox;
+  cbRightClick : TCheckBox;
+  cbOpenDoors : TCheckBox;
+  cbAttackPR : TCheckBox;
+  cbUseFakeTalk : TCheckBox;
+  txtTalkChance : TEdit;
+  cbPickBones : TCheckBox;
+  cbPickCoins : TCheckBox;
+  cbPickFeathers : TCheckBox;
+  cbPickRunes : TCheckBox;
+  cbUseMap : TCheckBox;
+  txtMapRadius : TEdit;
+  txtMNFTUM : TEdit;
+  txtLandmark : TEdit;
+  txtMonster : TEdit;
+  btnOk : TButton;
+  btnCancel : TButton;
+  cbUseColor1 : TCheckBox;
+  txtColor1 : TEdit;
+  cbUseColor2 : TCheckBox;
+  txtColor2 : TEdit;
+  cbUseColor3 : TCheckBox;
+  txtColor3 : TEdit;
+
+
+procedure CheckBoxClicked(Sender: TObject);
+begin
+  txtColor1.Enabled    := (cbUseColor1.Checked);
+  txtColor2.Enabled    := (cbUseColor2.Checked);
+  txtColor3.Enabled    := (cbUseColor3.Checked);
+end;
+
+procedure ShowSettingsForm;
+begin
+//An easy way to do it is create
+//form in Delphi, save it then look for *.dfm
+//file by clicking menu Script > Load DFM form
+//then add objects to var declarations
+//and delete the unsupported lines
+//and fix combobox items and other things it messes up
+///////////////// Generated from: Dummy.dfm
+  Form1 := TForm.Create(Application);
+  Form1.Left := 306;
+  Form1.Top := 98;
+  Form1.BorderStyle := bsDialog;
+  Form1.Caption := 'Autofight Script Settings Form';
+  Form1.ClientHeight := 481;
+  Form1.ClientWidth := 441;
+  Form1.Color := clBtnFace;
+  Form1.Font.Color := clWindowText;
+  Form1.Font.Height := -11;
+  Form1.Font.Name := 'Tahoma';
+  Form1.Font.Style := [];
+  Form1.PixelsPerInch := 96;
+  Bevel1 := TBevel.Create(Form1);
+  Bevel1.Parent := Form1;
+  Bevel1.Left := 0;
+  Bevel1.Top := 0;
+  Bevel1.Width := 441;
+  Bevel1.Height := 41;
+  Bevel1.Align := alTop;
+  Bevel1.Shape := bsBottomLine;
+  Bevel2 := TBevel.Create(Form1);
+  Bevel2.Parent := Form1;
+  Bevel2.Left := 0;
+  Bevel2.Top := 41;
+  Bevel2.Width := 441;
+  Bevel2.Height := 40;
+  Bevel2.Align := alTop;
+  Bevel2.Shape := bsBottomLine;
+  Bevel3 := TBevel.Create(Form1);
+  Bevel3.Parent := Form1;
+  Bevel3.Left := 0;
+  Bevel3.Top := 81;
+  Bevel3.Width := 441;
+  Bevel3.Height := 112;
+  Bevel3.Align := alTop;
+  Bevel3.Shape := bsBottomLine;
+  Bevel4 := TBevel.Create(Form1);
+  Bevel4.Parent := Form1;
+  Bevel4.Left := 0;
+  Bevel4.Top := 193;
+  Bevel4.Width := 441;
+  Bevel4.Height := 42;
+  Bevel4.Align := alTop;
+  Bevel4.Shape := bsBottomLine;
+  Bevel5 := TBevel.Create(Form1);
+  Bevel5.Parent := Form1;
+  Bevel5.Left := 0;
+  Bevel5.Top := 235;
+  Bevel5.Width := 441;
+  Bevel5.Height := 58;
+  Bevel5.Align := alTop;
+  Bevel5.Shape := bsBottomLine;
+  Bevel6 := TBevel.Create(Form1);
+  Bevel6.Parent := Form1;
+  Bevel6.Left := 0;
+  Bevel6.Top := 293;
+  Bevel6.Width := 441;
+  Bevel6.Height := 64;
+  Bevel6.Align := alTop;
+  Bevel6.Shape := bsBottomLine;
+  Label1 := TLabel.Create(Form1);
+  Label1.Parent := Form1;
+  Label1.Left := 32;
+  Label1.Top := 12;
+  Label1.Width := 52;
+  Label1.Height := 13;
+  Label1.Caption := 'Username:';
+  Label2 := TLabel.Create(Form1);
+  Label2.Parent := Form1;
+  Label2.Left := 241;
+  Label2.Top := 12;
+  Label2.Width := 50;
+  Label2.Height := 13;
+  Label2.Caption := 'Password:';
+  Label4 := TLabel.Create(Form1);
+  Label4.Parent := Form1;
+  Label4.Left := 238;
+  Label4.Top := 52;
+  Label4.Width := 52;
+  Label4.Height := 13;
+  Label4.Caption := 'Critical HP:';
+  Label5 := TLabel.Create(Form1);
+  Label5.Parent := Form1;
+  Label5.Left := 30;
+  Label5.Top := 92;
+  Label5.Width := 55;
+  Label5.Height := 13;
+  Label5.Caption := 'Fight Style:';
+  Label6 := TLabel.Create(Form1);
+  Label6.Parent := Form1;
+  Label6.Left := 24;
+  Label6.Top := 116;
+  Label6.Width := 56;
+  Label6.Height := 13;
+  Label6.Caption := 'Spell Name:';
+  Label7 := TLabel.Create(Form1);
+  Label7.Parent := Form1;
+  Label7.Left := 232;
+  Label7.Top := 92;
+  Label7.Width := 57;
+  Label7.Height := 13;
+  Label7.Caption := 'Fight Mode:';
+  Label3 := TLabel.Create(Form1);
+  Label3.Parent := Form1;
+  Label3.Left := 232;
+  Label3.Top := 305;
+  Label3.Width := 135;
+  Label3.Height := 13;
+  Label3.Caption := 'NPCs not found to use map:';
+  Label8 := TLabel.Create(Form1);
+  Label8.Parent := Form1;
+  Label8.Left := 24;
+  Label8.Top := 329;
+  Label8.Width := 50;
+  Label8.Height := 13;
+  Label8.Caption := 'Landmark:';
+  Label9 := TLabel.Create(Form1);
+  Label9.Parent := Form1;
+  Label9.Left := 232;
+  Label9.Top := 372;
+  Label9.Width := 73;
+  Label9.Height := 13;
+  Label9.Caption := 'Monster Name:';
+  txtUser := TEdit.Create(Form1);
+  txtUser.Parent := Form1;
+  txtUser.Left := 88;
+  txtUser.Top := 8;
+  txtUser.Width := 129;
+  txtUser.Height := 21;
+  txtUser.TabOrder := 0;
+  txtPass := TEdit.Create(Form1);
+  txtPass.Parent := Form1;
+  txtPass.Left := 296;
+  txtPass.Top := 8;
+  txtPass.Width := 129;
+  txtPass.Height := 21;
+  txtPass.TabOrder := 1;
+  cbCheckHP := TCheckBox.Create(Form1);
+  cbCheckHP.Parent := Form1;
+  cbCheckHP.Left := 16;
+  cbCheckHP.Top := 50;
+  cbCheckHP.Width := 153;
+  cbCheckHP.Height := 17;
+  cbCheckHP.Caption := 'Check HP, autoheal limit of:';
+  cbCheckHP.TabOrder := 2;
+  txtLimit := TEdit.Create(Form1);
+  txtLimit.Parent := Form1;
+  txtLimit.Left := 168;
+  txtLimit.Top := 48;
+  txtLimit.Width := 49;
+  txtLimit.Height := 21;
+  txtLimit.TabOrder := 3;
+  txtCritical := TEdit.Create(Form1);
+  txtCritical.Parent := Form1;
+  txtCritical.Left := 296;
+  txtCritical.Top := 48;
+  txtCritical.Width := 49;
+  txtCritical.Height := 21;
+  txtCritical.TabOrder := 4;
+  cbFightStyle := TComboBox.Create(Form1);
+  cbFightStyle.Parent := Form1;
+  cbFightStyle.Left := 88;
+  cbFightStyle.Top := 88;
+  cbFightStyle.Width := 129;
+  cbFightStyle.Height := 21;
+  cbFightStyle.Style := csDropDownList;
+  cbFightStyle.ItemHeight := 13;
+  cbFightStyle.TabOrder := 5;
+  cbFightStyle.Items.Add('Normal attack only');
+  cbFightStyle.Items.Add('Normal + Ranging');
+  cbFightStyle.Items.Add('Normal + Maging');
+  txtSpellName := TEdit.Create(Form1);
+  txtSpellName.Parent := Form1;
+  txtSpellName.Left := 88;
+  txtSpellName.Top := 112;
+  txtSpellName.Width := 129;
+  txtSpellName.Height := 21;
+  txtSpellName.TabOrder := 6;
+  cbFightMode := TComboBox.Create(Form1);
+  cbFightMode.Parent := Form1;
+  cbFightMode.Left := 296;
+  cbFightMode.Top := 88;
+  cbFightMode.Width := 129;
+  cbFightMode.Height := 21;
+  cbFightMode.Style := csDropDownList;
+  cbFightMode.ItemHeight := 13;
+  cbFightMode.TabOrder := 7;
+  cbFightMode.Items.Add('Controlled');
+  cbFightMode.Items.Add('Agressive');
+  cbFightMode.Items.Add('Accurate');
+  cbFightMode.Items.Add('Defensive');
+  cbLogOut := TCheckBox.Create(Form1);
+  cbLogOut.Parent := Form1;
+  cbLogOut.Left := 16;
+  cbLogOut.Top := 144;
+  cbLogOut.Width := 161;
+  cbLogOut.Height := 17;
+  cbLogOut.Caption := 'Log out if out of runes/bolts';
+  cbLogOut.TabOrder := 8;
+  cbRightClick := TCheckBox.Create(Form1);
+  cbRightClick.Parent := Form1;
+  cbRightClick.Left := 16;
+  cbRightClick.Top := 168;
+  cbRightClick.Width := 97;
+  cbRightClick.Height := 17;
+  cbRightClick.Caption := 'Right click only';
+  cbRightClick.TabOrder := 9;
+  cbOpenDoors := TCheckBox.Create(Form1);
+  cbOpenDoors.Parent := Form1;
+  cbOpenDoors.Left := 232;
+  cbOpenDoors.Top := 144;
+  cbOpenDoors.Width := 145;
+  cbOpenDoors.Height := 17;
+  cbOpenDoors.Caption := 'Open doors automatically';
+  cbOpenDoors.TabOrder := 10;
+  cbAttackPR := TCheckBox.Create(Form1);
+  cbAttackPR.Parent := Form1;
+  cbAttackPR.Left := 232;
+  cbAttackPR.Top := 168;
+  cbAttackPR.Width := 145;
+  cbAttackPR.Height := 17;
+  cbAttackPR.Caption := 'Attack till progress report';
+  cbAttackPR.TabOrder := 11;
+  cbUseFakeTalk := TCheckBox.Create(Form1);
+  cbUseFakeTalk.Parent := Form1;
+  cbUseFakeTalk.Left := 16;
+  cbUseFakeTalk.Top := 202;
+  cbUseFakeTalk.Width := 153;
+  cbUseFakeTalk.Height := 17;
+  cbUseFakeTalk.Caption := 'Use Fake Talk, chance 1 of:';
+  cbUseFakeTalk.TabOrder := 12;
+  txtTalkChance := TEdit.Create(Form1);
+  txtTalkChance.Parent := Form1;
+  txtTalkChance.Left := 176;
+  txtTalkChance.Top := 200;
+  txtTalkChance.Width := 41;
+  txtTalkChance.Height := 21;
+  txtTalkChance.TabOrder := 13;
+  cbPickBones := TCheckBox.Create(Form1);
+  cbPickBones.Parent := Form1;
+  cbPickBones.Left := 16;
+  cbPickBones.Top := 240;
+  cbPickBones.Width := 97;
+  cbPickBones.Height := 17;
+  cbPickBones.Caption := 'Pick up bones';
+  cbPickBones.TabOrder := 14;
+  cbPickCoins := TCheckBox.Create(Form1);
+  cbPickCoins.Parent := Form1;
+  cbPickCoins.Left := 16;
+  cbPickCoins.Top := 264;
+  cbPickCoins.Width := 97;
+  cbPickCoins.Height := 17;
+  cbPickCoins.Caption := 'Pick up coins';
+  cbPickCoins.TabOrder := 15;
+  cbPickFeathers := TCheckBox.Create(Form1);
+  cbPickFeathers.Parent := Form1;
+  cbPickFeathers.Left := 232;
+  cbPickFeathers.Top := 240;
+  cbPickFeathers.Width := 97;
+  cbPickFeathers.Height := 17;
+  cbPickFeathers.Caption := 'Pick up feathers';
+  cbPickFeathers.TabOrder := 16;
+  cbPickRunes := TCheckBox.Create(Form1);
+  cbPickRunes.Parent := Form1;
+  cbPickRunes.Left := 232;
+  cbPickRunes.Top := 264;
+  cbPickRunes.Width := 97;
+  cbPickRunes.Height := 17;
+  cbPickRunes.Caption := 'Pick up runes';
+  cbPickRunes.TabOrder := 17;
+  cbUseMap := TCheckBox.Create(Form1);
+  cbUseMap.Parent := Form1;
+  cbUseMap.Left := 16;
+  cbUseMap.Top := 303;
+  cbUseMap.Width := 121;
+  cbUseMap.Height := 17;
+  cbUseMap.Caption := 'Use map with radius:';
+  cbUseMap.TabOrder := 18;
+  txtMapRadius := TEdit.Create(Form1);
+  txtMapRadius.Parent := Form1;
+  txtMapRadius.Left := 144;
+  txtMapRadius.Top := 301;
+  txtMapRadius.Width := 73;
+  txtMapRadius.Height := 21;
+  txtMapRadius.TabOrder := 19;
+  txtMNFTUM := TEdit.Create(Form1);
+  txtMNFTUM.Parent := Form1;
+  txtMNFTUM.Left := 376;
+  txtMNFTUM.Top := 301;
+  txtMNFTUM.Width := 49;
+  txtMNFTUM.Height := 21;
+  txtMNFTUM.TabOrder := 20;
+  txtLandmark := TEdit.Create(Form1);
+  txtLandmark.Parent := Form1;
+  txtLandmark.Left := 88;
+  txtLandmark.Top := 325;
+  txtLandmark.Width := 337;
+  txtLandmark.Height := 21;
+  txtLandmark.TabOrder := 21;
+  cbUseColor1 := TCheckBox.Create(Form1);
+  cbUseColor1.Parent := Form1;
+  cbUseColor1.Left := 16;
+  cbUseColor1.Top := 370;
+  cbUseColor1.Width := 97;
+  cbUseColor1.Height := 17;
+  cbUseColor1.Caption := 'Monster color 1:';
+  cbUseColor1.TabOrder := 22;
+  txtColor1 := TEdit.Create(Form1);
+  txtColor1.Parent := Form1;
+  txtColor1.Left := 128;
+  txtColor1.Top := 368;
+  txtColor1.Width := 89;
+  txtColor1.Height := 21;
+  txtColor1.TabOrder := 23;
+  cbUseColor2 := TCheckBox.Create(Form1);
+  cbUseColor2.Parent := Form1;
+  cbUseColor2.Left := 16;
+  cbUseColor2.Top := 394;
+  cbUseColor2.Width := 97;
+  cbUseColor2.Height := 17;
+  cbUseColor2.Caption := 'Monster color 2:';
+  cbUseColor2.TabOrder := 24;
+  txtColor2 := TEdit.Create(Form1);
+  txtColor2.Parent := Form1;
+  txtColor2.Left := 128;
+  txtColor2.Top := 392;
+  txtColor2.Width := 89;
+  txtColor2.Height := 21;
+  txtColor2.TabOrder := 25;
+  cbUseColor3 := TCheckBox.Create(Form1);
+  cbUseColor3.Parent := Form1;
+  cbUseColor3.Left := 16;
+  cbUseColor3.Top := 418;
+  cbUseColor3.Width := 97;
+  cbUseColor3.Height := 17;
+  cbUseColor3.Caption := 'Monster color 3:';
+  cbUseColor3.TabOrder := 26;
+  txtColor3 := TEdit.Create(Form1);
+  txtColor3.Parent := Form1;
+  txtColor3.Left := 128;
+  txtColor3.Top := 416;
+  txtColor3.Width := 89;
+  txtColor3.Height := 21;
+  txtColor3.TabOrder := 27;
+  txtMonster := TEdit.Create(Form1);
+  txtMonster.Parent := Form1;
+  txtMonster.Left := 312;
+  txtMonster.Top := 368;
+  txtMonster.Width := 113;
+  txtMonster.Height := 21;
+  txtMonster.TabOrder := 28;
+  btnOk := TButton.Create(Form1);
+  btnOk.Parent := Form1;
+  btnOk.Left := 135;
+  btnOk.Top := 448;
+  btnOk.Width := 75;
+  btnOk.Height := 25;
+  btnOk.Caption := 'Ok';
+  btnOk.Default := True;
+  btnOk.ModalResult := 1;
+  btnOk.TabOrder := 29;
+  btnCancel := TButton.Create(Form1);
+  btnCancel.Parent := Form1;
+  btnCancel.Left := 231;
+  btnCancel.Top := 448;
+  btnCancel.Width := 75;
+  btnCancel.Height := 25;
+  btnCancel.Cancel := True;
+  btnCancel.Caption := 'Cancel';
+  btnCancel.ModalResult := 2;
+  btnCancel.TabOrder := 30;
+  
+  ////////////////////////////////////////
+  //Set default form variables
+  ////////////////////////////////////////
+  txtUser.Text := Username;
+  txtPass.Text := Password;
+  cbCheckHP.Checked := (HPCheck = 1);
+  txtLimit.Text := IntToStr(Limit);
+  txtCritical.Text := IntToStr(Critical);
+  cbFightStyle.ItemIndex:= FightS;
+  txtSpellName.Text := SpellName;
+  cbFightMode.ItemIndex:= FightM - 1;
+  cbLogOut.Checked := (UseLogOut = 1);
+  cbRightClick.Checked := (RightClick = 1);
+  cbOpenDoors.Checked := (AutoOpenDoors = 1);
+  cbAttackPR.Checked := (ATPR = 1);
+  cbUseFakeTalk.Checked := (UseFakeTalk = 1);
+  txtTalkChance.Text := IntToStr(FakeTalkChanse);
+  cbPickBones.Checked    := (Bones = 1);
+  cbPickCoins.Checked    := (Coins = 1);
+  cbPickFeathers.Checked := (Feathers = 1);
+  cbPickRunes.Checked    := (Runes = 1);
+  cbUseMap.Checked := (UseMap = 1);
+  txtMapRadius.Text:= IntToStr(Radius);
+  txtMNFTUM.Text:= IntToStr(MNFTUM);
+  txtLandMark.Text := MLandMark;
+  txtColor1.Text := IntToStr(MonsterColor);
+  txtColor2.Text := IntToStr(MonsterColor2);
+  txtColor3.Text := IntToStr(MonsterColor3);
+  cbUseColor1.Checked    := (MonsterColor <> -1);
+  cbUseColor2.Checked    := (MonsterColor2 <> -1);
+  cbUseColor3.Checked    := (MonsterColor3 <> -1);
+  txtColor1.Enabled    := (MonsterColor <> -1);
+  txtColor2.Enabled    := (MonsterColor2 <> -1);
+  txtColor3.Enabled    := (MonsterColor3 <> -1);
+  cbUseColor1.OnClick  := @CheckBoxClicked;
+  cbUseColor2.OnClick  := @CheckBoxClicked;
+  cbUseColor3.OnClick  := @CheckBoxClicked;
+  txtMonster.Text:= MonstersName;
+
+  if(Form1.ShowModal = 1)then
+  begin
+    //Change unchecked colors to -1
+    if(not cbUseColor1.Checked)then txtColor1.Text:= '-1';
+    if(not cbUseColor2.Checked)then txtColor2.Text:= '-1';
+    if(not cbUseColor3.Checked)then txtColor3.Text:= '-1';
+    Writeln('Settings updated');
+    //Update all game variables to the new settings like
+    //vUsername:= txtUser.Text;
+    //  ...
+  end else
+  begin
+    Writeln('User cancelled');
+    //Update all game variables to default constants
+    //vUsername:= Username;
+    //  ...
+  end;
+  Form1.Free;
+
+end;
+
+begin
+  Application:= GetApplication;
+  ShowSettingsForm;
+  //The rest of the script as normally
+
+  //----- Planning -------
+  // Constants should not be used directly in script because
+  // settings form cannot change them. Instead use constants
+  // for default values, for an example at the beginning of
+  // script const UsernameDef = 'DefaultUser';
+  // then declare script variable Username which will be
+  // used everywhere in script.
+  // When settings form gets displayed, if user presses OK
+  // then Username := whatever user typed in
+  // otherwise Username := UsernameDef; - default constant
+  
+  //Have fun with forms! :)
+  
+end.

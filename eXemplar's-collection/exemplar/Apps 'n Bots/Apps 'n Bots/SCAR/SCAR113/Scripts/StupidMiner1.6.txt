@@ -1,0 +1,784 @@
+{
+[==================================================]
+[            Stupid3ooo's PowerMiner               ]
+[                  version:1.6                     ]
+[==================================================]
+| Instructions:                                    |
+|   1.Add Colors/Setup Lines 32-52                 |
+|   2.Do not rotate camera, keep relativly north   |
+|   3.Highest angle of view, look from above       |
+|   4.V-bright,32bit colors                        |
+|   5.Public Chat OFF                              |
+|   6.SCAR version 1.13                            |
+|   7.Silent Mouse OFF                             |
+|   8.Start script with pickaxe visible            |
+[==================================================]
+[ Thanks to, RSCheating community                  ]
+[   *PLEASE POST ANY BUGS/HELP IN THE FORUMS       ]
+[==================================================]
+}
+program StupidPowerMiner;
+
+var x,y,a,b,flag,Talkto,PickHead,PickHandle,
+Take,Ore,Drop,NotStuck,Walk,Drops,Talked,Ran,
+Attached,xf,yf,hc1,hc2,hc3,hc4,hc5,PickAxe,
+orecolor,PickAxeSteel,gas:integer;
+ST:LongInt;
+ColorsFound:Boolean;
+
+{.include WAAMPinclude.txt}
+
+const
+////======================Setup=======================\\\\
+UseWAAMP = false;//to use WAAMP over built in random event protection, go to line 472 and remove the "//" if true
+Username = '';
+Password = '';
+FindGaser = true;//true/false, this allows the script to look for steaming rocks but can slow down minning
+PickFind = true;//true/false, this allows the script to look for a pick axe head but can slow down minning
+Direction = 'N';//(N)orth,(S)outh,(E)ast,(W)est,(X) if ore is right next to minning spot pickaxe
+Distance = 30;
+//This is to help find the ore according to the minimap.
+//Direction is which cardinal dirrecion the ore you want to mine is located from the Minimap Pick Axe.
+//The distance is the length in coordinates between the ore and the Minimap Pick Axe, or minning spot icon.
+//You can use the eye dropper to help find the distance.
+//For an easy refrence go to: http://www.angelfire.com/oz/stupid3ooo/Instruction.JPG
+//=\\================================================//=\\
+
+////======================Colors======================\\\\
+OreColor1 = 2305869;//Color of ore you wish to mine
+OreColor2 = 1976644;
+OreColor3 = 2437457;
+MapPick = 14207684;//Color of MINIMAP pickaxe, or minning spot color(choose handle or head color)
+//=\\================================================//=\\
+
+Procedure PrintProgressReport; //modified from Phalanx's script
+var
+  RHours,Minutes,Seconds,RMinutes,RSeconds,avtime:LongInt;
+  Time:String;
+begin
+  Seconds:=(GetSystemTime-ST) div 1000;
+  Minutes:=Seconds div 60;
+  RHours:=Minutes div 60;
+  Time:=inttostr(Seconds)+' Seconds';
+  avtime:=Seconds/Drops;
+  if Minutes<>0 then
+  begin
+   RSeconds:=Seconds Mod (Minutes*60);
+   Time:=inttostr(Minutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+  end;
+  if RHours<>0 then
+  begin
+   RMinutes:=Minutes Mod (RHours*60);
+   RSeconds:=Seconds Mod (Minutes*60);
+   Time:=inttostr(RHours)+' Hours, '+inttostr(RMinutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+  end;
+  begin
+  writeln('<=================Progress Report================>');
+  writeln('Ran '+inttostr(ran)+' time[s]');
+  writeln('Talked '+inttostr(talked)+' time[s]');
+  writeln('Attached '+inttostr(attached)+' time[s]');
+  writeln('Stopped for gas '+inttostr(gas)+' time[s]');
+  writeln('Worked for '+Time);
+  writeln('Mined about '+inttostr(drops*28)+' ore[s]');
+  writeln('Currently Averaging about '+inttostr(3600/avtime*28)+' ores an hour');
+  writeln('<================================================>');
+  end;
+end;
+
+procedure FindTextSpiral(txt: String; dx,dy: Integer; SpiralSize: Integer; step, SpiralWait: Integer);  // By OhDearUrDead, Edited By Khain
+var px, py, qx, qy: Integer;
+     FoundText: Boolean;
+begin
+   FoundText:= false;
+   px:= dx; py:= dy; qx:= dx; qy:= dy;
+   x:= dx;
+   y:= dy;
+   MoveMouseSmooth(x,y);
+   repeat
+   Spiralwait:= Spiralwait+random(50);
+     MoveMouseSmooth(x,y)
+     px:= px + 20; py:= py + 20;
+     qx:= qx - 20; qy:= qy - 20;
+     repeat
+       getmousepos(x,y)
+       x:= x + step;
+       MoveMouseSmooth(x,y);
+       Wait(SpiralWait);
+       if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+     Until(x >= px)or(FoundText);
+     if(FoundText)then Break;
+     repeat
+       getmousepos(x,y)
+       y:= y + step;
+       MoveMouseSmooth(x,y);
+       Wait(SpiralWait);
+       if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+     Until(y >= py)or(FoundText);
+     if(FoundText)then Break;
+     repeat
+       getmousepos(x,y)
+       x:= x - step;
+       MoveMouseSmooth(x,y);
+       Wait(SpiralWait);
+       if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+     Until(qx >= x)or(FoundText);
+     if(FoundText)then Break;
+     repeat
+       getmousepos(x,y)
+       y:= y - step;
+       MoveMouseSmooth(x,y);
+       Wait(SpiralWait);
+       if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+     Until(qy >= y)or(FoundText);
+   Until(px > dx + SpiralSize)or(FoundText);
+end;
+
+procedure RWait (ranlength: string);
+begin
+   if(ranlength = 'xxshort') then
+     begin
+     wait(15+random(15)+random(15))
+     end;
+   if(ranlength = 'xshort') then
+     begin
+     wait(50+random(25)+random(25))
+     end;
+   if(ranlength = 'short') then
+     begin
+     wait(100+random(50)+random(50))
+     end;
+   if(ranlength = 'medium') then
+     begin
+     wait(200+random(100)+random(100))
+     end;
+   if(ranlength = 'long') then
+     begin
+     wait(500+random(250)+random(250))
+     end;
+   if(ranlength = 'xlong') then
+     begin
+     wait(1000+random(500)+random(500))
+     end;
+   if(ranlength = 'xxlong') then
+     begin
+     wait(1000+random(500)+random(500)+random(500)+random(500))
+     end;
+end;
+
+procedure Mouse(mx, my, ran, ran2: Integer; Mbtn: boolean); //By OhDearUrDead(x,y,ran1,ran2,left/right)
+begin
+Wait(20+random(50));
+mx:=mx+random(ran)
+my:=my+random(ran2)
+MoveMouseSmooth(mx,my);
+Wait(100+random(100));
+ClickMouse(mx,my,mbtn);
+wait(50+random(50));
+end;
+
+procedure SetRunOn;
+begin
+   Wait(50+random(5));
+   Mouse(708,475,5,5,true);
+   Wait(100+random(100));
+   Mouse(614,260,5,5,true);
+   Wait(100+random(10));
+   Mouse(644,178,5,5,true);
+   Wait(100+random(10));
+End;
+
+Procedure MapFlag;
+begin
+   Wait(200);
+   if(FindBitmapIn(flag,a,b,565,5,725,160))then
+   begin
+    repeat
+     wait(500);
+    until(not FindBitmapIn(flag,a,b,565,5,725,160));
+    Wait(100);
+   end;
+End;
+
+procedure ReturnToOre;
+begin
+if(FindColorSpiralTolerance(x,y,MapPick,565,5,725,160,5))then
+  begin
+  Mouse(x,y,5,5,true);
+  MapFlag;
+  Wait(100+random(100));
+  if(direction='N')then
+    begin
+    Mouse(648,83-Distance,5,5,true);
+    MapFlag;
+    end;
+  if(direction='E')then
+    begin
+    Mouse(648+Distance,83,5,5,true);
+    MapFlag;
+    end;
+  if(direction='W')then
+    begin
+    Mouse(648-Distance,83,5,5,true);
+    MapFlag;
+    end;
+  if(direction='S')then
+    begin
+    Mouse(648,83+Distance,5,5,true);
+    MapFlag;
+    end;
+  end;
+end;
+
+//=============================Anti Random Events=============================\\
+procedure LoginIfNeeded;//A stupid3ooo procedure based of many others
+var counter:integer;
+begin
+if(IsTextAt2(293,251,'Username',10))then
+  begin Mouse(460,322,10,2,true);Wait(500+random(500));;end;
+if(IsTextAt2(309,241,'Welcome to RuneScape',10))then
+  begin
+  Mouse(453,292,20,5,true);
+  Wait(500+random(500));
+  end;
+if(IsTextAt2(293,251,'Username',10))then
+  begin
+  Mouse(400,256,20,5,true);
+  Wait(500+random(500));
+  SendKeysSilent(username);
+  Wait(500+random(500));
+  Mouse(400,270,20,5,true);
+  Wait(500+random(500));
+  SendKeysSilent(password);
+  Wait(1000+random(500));
+  Mouse(300,322,20,5,true);
+  repeat
+  counter:=counter+1
+  wait(100);
+  until(FindColorSpiral(x,y,8421504,0,0,515,338))or(counter=60)
+  end;
+if(FindColorSpiral(x,y,8421504,400,0,515,338))then
+  begin
+  wait(100+random(100));
+  Mouse(x-50,y,10,2,true);
+  wait(100+random(100));
+  end;
+end;
+
+procedure FindPickHeadColor;
+begin
+if(not(FindBitmapSpiralTolerance(PickAxe,x,y,546,198,745,468,100)))or
+  (not(FindBitmapSpiralTolerance(PickAxeSteel,x,y,546,198,745,468,100)))then
+  begin
+  writeln('');
+  writeln('ERROR! cannot find pick in screen, please put pick in inventory or go to your equip page and restart the script!');
+  writeln('');
+  ColorsFound:=False;
+  end;
+if(FindBitmapSpiralTolerance(PickAxe,x,y,546,198,745,468,100))or
+  (FindBitmapSpiralTolerance(PickAxeSteel,x,y,546,198,745,468,100))then
+  begin
+  hc1:=GetColor(x+6,y+3);
+  hc2:=GetColor(x+18,y+7);
+  hc3:=GetColor(x+20,y+6);
+  hc4:=GetColor(x+19,y+6);
+  hc5:=GetColor(x+16,y+5);
+  writeln('Pick axe colors are...');
+  writeln(inttostr(hc1));
+  writeln(inttostr(hc2));
+  writeln(inttostr(hc3));
+  writeln(inttostr(hc4));
+  writeln(inttostr(hc5));
+  WriteLn('Begin mining.');
+  ColorsFound:=True;
+  end;
+end;
+
+procedure ItemGrab;
+begin
+if(FindColorSpiral(x,y,241,565,5,725,160))then
+  begin
+  Mouse(x,y,1,1,true);
+  MapFlag;
+  Wait(100+random(100));
+  FindTextSpiral('Take',240,180,50,5,10+random(10));
+  GetMousePos(x,y);
+  Mouse(x,y,0,0,true);
+  Wait(1000+random(100));
+  end;
+end;
+
+Procedure FindFight;
+begin
+if(FindColorSpiral(x,y,65280,180,90,320,230))then wait(1000)
+if(FindColorSpiral(x,y,65280,180,90,320,230))then
+  begin
+  SetRunOn;
+  Mouse(648,35,5,5,true);
+  Wait(100);
+  Mapflag;
+  Wait(8000+random(2000));
+  Mouse(648,135,5,5,true);
+  MapFlag;
+  ReturnToOre;
+  Wait(100);
+  Ran:=Ran+1
+  end;
+end;
+
+procedure TalkToRand;
+begin
+  repeat
+  if (FindColorSpiral(x,y,16711680,5,345,510,465))or
+  (FindColorSpiral(x,y,16777215,5,345,510,465))then
+      begin
+      Mouse(x,y,50,2,true);
+      wait(2000+random(1000));
+      end;
+  until(GetColor(20,434)=0)
+end;
+
+procedure FindText;
+var counter:integer;
+begin
+if(FindColor(x,y,65535,0,0,515,338))then wait(500);
+if(FindColor(x,y,65535,0,0,515,338))then
+  begin
+  repeat
+  counter:=counter+2+random(1);
+  MoveMouseSmooth(x+counter,y+15+random(2));
+  wait(10+random(10));
+  if(FindColorSpiral(x,y,65280,180,90,320,230))then
+    begin
+    FindFight;
+    break;
+    end;
+  if(IsTextAt2(9,9,'Ta',100))then
+    begin
+    GetMousePos(x,y);
+    Mouse(x,y,1,1,false);
+    Wait(200+random(100));
+    if(FindBitmap(Talkto,x,y))then
+      begin
+      Mouse(x+10,y,10,2,true);
+      MapFlag;
+      wait(1000+random(1000));
+      TalkToRand;
+      Talked:=Talked+1
+      end;
+    end;
+  until(counter>=250);
+  end;
+end;
+
+procedure AttachPick;
+begin
+if(FindBitmapSpiralTolerance(PickHead,x,y,550,200,745,465,50))and
+(FindBitmapSpiralTolerance(PickHandle,x,y,550,200,745,465,50))then
+  begin
+  if(FindBitmapSpiralTolerance(PickHead,x,y,550,200,745,465,50))then
+    begin
+    Attached:=Attached+1
+    Mouse(x,y,5,5,true);
+    Wait(1000+random(100));
+    end;
+  if(FindBitmapSpiralTolerance(PickHandle,x,y,550,200,745,465,50))then
+    begin
+    Mouse(x,y,5,5,true);
+    Wait(1000+random(100));
+    end;
+  end;
+end;
+
+procedure FindPick;
+var DropCount,Counter:integer;
+begin
+if((GetColor(387,382)=0)and(GetColor(485,413)=0))then
+begin
+repeat
+DropCount:=DropCount+1
+If(FindBitmapSpiralTolerance(Ore,x,y,550,200,745,465,100))then
+begin
+Mouse(x,y,5,5,false);
+Wait(100+random(100));
+if(FindBitmap(Drop,x,y))then
+begin
+Mouse(x+20,y,10,2,true);
+Wait(100+random(100));
+MoveMouseSmooth(648+random(10),186+random(10));
+Wait(500+random(100));
+end;
+end;
+until(DropCount=2);
+Mouse(683,184,5,5,true);
+wait(500+random(100));
+Mouse(591,303,5,5,true);
+wait(500+random(100));
+Mouse(647,183,5,5,true);
+wait(500+random(100));
+counter:=counter+1
+if(FindColorSpiral(x,y,hc1,0,0,515,338))or
+  (FindColorSpiral(x,y,hc2,0,0,515,338))or
+  (FindColorSpiral(x,y,hc3,0,0,515,338))or
+  (FindColorSpiral(x,y,hc4,0,0,515,338))or
+  (FindColorSpiral(x,y,hc5,0,0,515,338))then
+  begin
+  MoveMouseSmooth(x,y);
+  wait(100+random(100));
+  if(IsTextAt2(9,9,'Take', 100))then
+    begin Mouse(x,y,2,2,true);MapFlag;end
+  else
+    itemgrab;
+  end
+else
+  itemgrab;
+AttachPick;
+end;
+end;
+
+procedure FindGas(findx,findy:integer);
+var counter,GasColor,bmap,gasfind:integer;
+ClientCanvas,BMapCanvas:TCanvas;
+begin
+GasColor:=8296866;//8296866
+if(FindColorSpiralTolerance(x,y,GasColor,findx-16,findy-16,findx+16,findy+16,20))then
+begin
+repeat
+counter:=counter+1
+begin
+ClientCanvas:= GetClientCanvas;
+bmap:= BitmapFromString(32,32,'');
+BMapCanvas:= GetBitmapCanvas(bmap);
+CopyCanvas(ClientCanvas,BMapCanvas,findx-16,findy-16,findx+16,findy+16,0,0,32,32);
+wait(100);
+if(FindBitmap(bmap,x,y))then
+  begin gasfind:=0;end
+else
+  gasfind:=gasfind+1;
+FreeBitmap(bmap);
+end;
+if(gasfind=5)then
+begin
+WriteLn('Found Gas');
+SetRunOn;Gas:=Gas+1;Wait(8000+random(2000));//Put thing you wanna do after gas here
+Wait(1000);
+break;
+end;
+until(counter>=10);
+end;
+end;
+
+Procedure FindRandoms;
+begin
+//if(UseWAAMP=true)then begin CheckCommunication;end;
+if(UseWAAMP=false)then
+begin
+LoginIfNeeded;
+FindFight;
+FindText;
+if(PickFind=true)then FindPick;
+if(FindGaser=true)then FindGas(xf,yf-8);
+end;
+end;
+//============================================================================\\
+
+
+Procedure InvDrop;
+var counter:integer;
+begin
+Drops:=Drops+1
+//SetRunOn;
+//Mouse(648,35,5,5,true);
+//Mapflag;
+//wait(100+random(100));
+repeat
+  counter:=counter+1
+  If(FindBitmapSpiralTolerance(Ore,x,y,550,200,745,465,100))then
+    begin
+    Mouse(x,y,5,5,false);
+    Wait(200+random(100));
+    if(FindBitmap(Drop,x,y))then
+      begin
+      Mouse(x+20,y,5,1,true);
+      Wait(100+random(100));
+      end;
+    MoveMouseSmooth(650+random(10),185+random(10));
+    Wait(800+random(200));
+    end;
+until(not(FindBitmapSpiralTolerance(Ore,x,y,550,200,745,465,100)))or(counter=75)
+Mouse(648,135,5,5,true);Mapflag;wait(100+random(100));
+//ReturnToOre;
+end;
+
+Procedure SetRandom;
+Var color:integer;
+begin
+Color:=1+Random(3);
+case Color of
+  1: Begin OreColor:=OreColor1; end;
+  2: Begin OreColor:=OreColor2; end;
+  3: Begin OreColor:=OreColor3; end;
+end;
+end;
+
+procedure ClickMine;
+begin
+MoveMouseSmooth(x,y);
+wait(50+random(10));
+if(IsTextAt2(9,9,'Mine',100))then
+  begin
+  Mouse(x,y,3,3,true);
+  end;
+wait(2000+random(1000));
+end;
+
+Procedure MineOre;
+var counter:integer;
+begin
+SetRandom;
+if not(FindColorSpiral(x,y,OreColor,210,130,300,220))then//Find ore close
+  if(FindColorSpiral(x,y,OreColor,3,3,515,338))or//Find ore far
+    (FindColorSpiral(x,y,OreColor,100,66,415,276))then//Find ore medium
+    begin
+    ClickMine;
+    MapFlag;
+    FindFight;
+    FindText;
+    Wait(500+random(100));
+    end;
+if(FindColorSpiral(x,y,OreColor,210,130,300,220))then//Find ore close
+  begin
+  ClickMine;
+  FindFight;
+  FindText;
+  xf:=x;
+  yf:=y;
+  repeat
+  counter:=counter+1
+  FindRandoms;
+  Wait(1000);
+  until not((GetColor(195,426)=0)and(GetColor(109,430)=0))or(counter>=5);
+  end;
+end;
+
+Procedure LoadBmps;
+begin
+flag := BitmapFromString(2, 2,
+        'FF00005D3311C656045D3311');
+Talkto := BitmapFromString(18, 2,
+       'FFFFFFFFFFFF000000FFFFFFFFFFFF5D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF0000000000005D5447FFFFFFFFFFFF' +
+       'FFFFFFFFFFFFFFFFFF5D54475D5447FFFFFFFFFFFF000000000000' +
+       '');
+Walk := BitmapFromString(20, 2,
+       'FFFFFF0000000000005D5447FFFFFFFFFFFF0000005D5447FFFFFF' +
+       'FFFFFF0000005D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+       '000000FFFFFF0000000000005D54475D54475D5447FFFFFFFFFFFF' +
+       'FFFFFFFFFFFFFFFFFF0000005D5447FFFFFFFFFFFF0000005D5447' +
+       'FFFFFFFFFFFF0000005D5447');
+Take := BitmapFromString(20, 2,
+       '5D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000005D5447FFFFFF' +
+       'FFFFFFFFFFFF0000000000005D54475D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFFFFFFFFFFFFFF5D54475D54475D5447FFFFFF' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF');
+Drop := BitmapFromString(20, 2,
+       'FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF0000005D5447FFFFFF' +
+       'FFFFFF0000005D54475D54475D5447FFFFFFFFFFFF0000005D5447' +
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+       '5D5447FFFFFFFFFFFF0000005D54475D54475D54475D5447FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000');
+Ore := BitmapFromString(10, 10,
+       '856C4B856C4B886E4D8B704F000001000001000001000001443827' +
+       '584731856C4B886E4D000001000001302020302020000001382D1E' +
+       '54442F68543B0000010000013020203020203020200000012D2518' +
+       '483B296C573D6F593E302020302020302020544A3C544A3C000001' +
+       '3D31225847316F593E725C40302020544A3C564D41544A3C564D41' +
+       '0000014D3E2B6F593E755E43776044544A3C544A3C564D41564D41' +
+       '564D41000001584731725C407760447A6346544A3C544A3C564D41' +
+       '564D41564D41000001655239755E437A6346806748544A3C564D41' +
+       '544A3C544A3C564D410000016F593E7A6346806748886E4D544A3C' +
+       '544A3C544A3C4F4538544A3C544A3C000001000001000001000001' +
+       '564D41564D41564D41544A3C4F4538544A3C564D41302020302020' +
+       '302020');
+PickHandle := BitmapFromString(15, 27,
+       '564D41595145564D41544A3C544A3C595145564D41564D41564D41' +
+       '564D41595145000001000001544A3C4F4538544A3C595145564D41' +
+       '544A3C544A3C544A3C5951455951455951455951450000012F2000' +
+       '362400000001544A3C564D41544A3C544A3C564D41564D41564D41' +
+       '5951455951455951450000012F20002F2000362400000001302020' +
+       '564D41544A3C544A3C595145564D41595145564D41595145595145' +
+       '0000012F2000362400362400000001302020564D41564D41564D41' +
+       '564D41564D41544A3C544A3C544A3C0000012F20002F2000362400' +
+       '362400000001302020544A3C544A3C544A3C544A3C544A3C544A3C' +
+       '544A3C544A3C0000012F2000362400362400362400000001302020' +
+       '544A3C564D41564D41564D41544A3C564D41564D410000012F2000' +
+       '2F2000362400362400000001302020302020564D41564D41564D41' +
+       '595145564D41564D41564D410000012F2000362400362400000001' +
+       '302020302020544A3C544A3C544A3C544A3C595145544A3C544A3C' +
+       '0000012F2000362400362400362400000001302020564D41564D41' +
+       '544A3C544A3C544A3C564D41544A3C4F45380000012F2000362400' +
+       '362400000001302020302020564D41564D41544A3C544A3C595145' +
+       '595145564D410000012F2000362400362400362400000001302020' +
+       '564D41564D41544A3C544A3C564D41564D41595145595145000001' +
+       '2F20002F20002F2000000001302020302020564D41564D41544A3C' +
+       '564D41564D41544A3C564D410000012F20002F20002F2000362400' +
+       '000001302020564D41544A3C544A3C544A3C595145544A3C544A3C' +
+       '564D410000012F20002F20002F2000000001302020302020544A3C' +
+       '544A3C564D41564D41595145544A3C544A3C0000012F20002F2000' +
+       '2F2000000001302020302020595145544A3C564D41595145595145' +
+       '595145564D41564D410000012F20002F20002F2000000001302020' +
+       '595145595145564D41564D41595145595145595145595145000001' +
+       '2F20002F20002F2000000001302020302020595145595145595145' +
+       '595145564D41564D41564D41564D410000012F20002F20002F2000' +
+       '000001302020564D41595145595145595145595145564D41564D41' +
+       '544A3C0000012F20002F20002F2000000001302020302020564D41' +
+       '595145595145544A3C544A3C564D41595145564D410000012F2000' +
+       '2F20002F2000000001302020544A3C564D41595145595145544A3C' +
+       '544A3C564D41564D41564D410000012F20002F2000000001302020' +
+       '302020544A3C564D41595145595145564D41544A3C544A3C4F4538' +
+       '000001271B002F20002F2000000001302020595145544A3C564D41' +
+       '595145595145595145544A3C544A3C544A3C0000011D1500271B00' +
+       '000001302020302020595145544A3C564D41595145595145595145' +
+       '564D41564D41564D410000011D15001D1500000001302020595145' +
+       '544A3C544A3C564D41595145595145595145595145595145544A3C' +
+       '0000011D15001D1500000001302020564D41595145595145595145' +
+       '595145564D41595145595145564D41544A3C564D41000001000001' +
+       '302020302020595145595145595145595145544A3C564D41595145' +
+       '544A3C544A3C4F4538564D41595145302020302020564D41595145' +
+       '564D41564D41564D41544A3C544A3C564D41544A3C544A3C544A3C' +
+       '');
+PickHead := BitmapFromString(6, 5,
+       '2E1F002E1F00352400000001483E33483E331D1400261A002E1F00' +
+       '352400000001483E331D14001D1400261A002E1F00000001302020' +
+       '000001000001000001000001302020302020302020302020302020' +
+       '302020302020483E33');
+PickAxe := BitmapFromString(30, 14,
+       '564D42564D42544A3B4D4438544A3B564D42564D42544A3B4D4438' +
+       '544A3B544A3B544A3B544A3B544A3B000001000001000001000001' +
+       '544A3B564D42564D42564D42564D42564D42564D42544A3B544A3B' +
+       '564D42544A3B564D42564D42544A3B544A3B4D4438564D42564D42' +
+       '544A3B544A3B564D42564D42544A3B4D44384D44380000012F2000' +
+       '2F20003625003D2900000001564D42564D42564D42564D42564D42' +
+       '564D42564D42544A3B564D42544A3B564D42544A3B4D4438544A3B' +
+       '564D42564D42000001000001000001000001000001000001000001' +
+       '000001000001392D1B44341E4D3B22544127000001302020564D42' +
+       '544A3B564D42564D42564D42564D42564D42544A3B544A3B564D42' +
+       '4D44384D4438564D42000001000001392D1B342918342918342918' +
+       '34291834291834291834291834291834291840311E44341E4D3B22' +
+       '000001302020544A3B544A3B564D42564D42564D42564D42564D42' +
+       '544A3B544A3B564D42544A3B000001000001392D1B392D1B392D1B' +
+       '3429183429183429183429183429183429183429183429181E1500' +
+       '271B005441274D3B22000001000001564D42544A3B564D42564D42' +
+       '564D42564D42564D42564D42544A3B564D42000001392D1B392D1B' +
+       '392D1B392D1B392D1B342918342918342918342918342918342918' +
+       '3429181E1500271B002F2000513E254D3B2248382044341E000001' +
+       '000001544A3B544A3B564D42564D42564D42544A3B544A3B564D42' +
+       '544A3B000001000001000001000001000001000001000001000001' +
+       '0000010000010000010000011E15002F20002F20004D3B224D3B22' +
+       '48382044341E40311E44341E000001000001564D42564D42564D42' +
+       '544A3B544A3B564D42544A3B4D4438302020302020302020302020' +
+       '3020203020203020203020203020200000011E1500271B002F2000' +
+       '2F20004D3B224D3B2248382044341E40311E392D1B40311E44341E' +
+       '000001000001564D42564D42544A3B564D42544A3B544A3B4D4438' +
+       '544A3B544A3B544A3B544A3B544A3B4D4438544A3B544A3B000001' +
+       '1E15002F20002F20002F200000000100000100000144341E40311E' +
+       '392D1B342918392D1B40311E44341E000001564D42544A3B564D42' +
+       '564D42564D42564D42544A3B544A3B564D42564D42564D42544A3B' +
+       '564D420000011E1500271B002F20002F2000000001302020302020' +
+       '302020000001000001000001392D1B2F2515342918392D1B000001' +
+       '302020564D42564D42564D42564D42544A3B544A3B564D42564D42' +
+       '564D424D44384D4438564D420000011E15002F20002F2000000001' +
+       '302020302020544A3B544A3B544A3B302020302020000001000001' +
+       '0000012F2515392D1B000001544A3B564D42564D42564D42544A3B' +
+       '544A3B544A3B564D42564D42544A3B544A3B0000011E15002F2000' +
+       '2F20002F2000000001302020544A3B544A3B544A3B564D42564D42' +
+       '544A3B544A3B30202030202000000100000140311E000001564D42' +
+       '544A3B544A3B564D42564D42544A3B544A3B544A3B564D42564D42' +
+       '0000011E15002F20002F2000000001302020302020544A3B544A3B' +
+       '564D42564D42564D42544A3B4D4438544A3B564D42564D42302020' +
+       '000001302020302020544A3B544A3B544A3B4D4438544A3B544A3B' +
+       '544A3B544A3B0000011E15002F20002F20002F2000000001302020' +
+       '4D44384D4438544A3B544A3B564D42564D42564D42544A3B544A3B' +
+       '544A3B544A3B544A3B564D42302020544A3B');
+PickAxeSteel := BitmapFromString(30, 14,
+       '564D42564D42544A3B4D4438544A3B564D42564D42544A3B4D4438' +
+       '544A3B544A3B544A3B544A3B544A3B000001000001000001000001' +
+       '544A3B564D42564D42564D42564D42564D42564D42544A3B544A3B' +
+       '564D42544A3B564D42564D42544A3B544A3B4D4438564D42564D42' +
+       '544A3B544A3B564D42564D42544A3B4D44384D44380000012D1E00' +
+       '2D1E003423003A2700000001564D42564D42564D42564D42564D42' +
+       '564D42564D42544A3B564D42544A3B564D42544A3B4D4438544A3B' +
+       '564D42564D42000001000001000001000001000001000001000001' +
+       '0000010000015C5656686060756D6C827878000001302020564D42' +
+       '544A3B564D42564D42564D42564D42564D42544A3B544A3B564D42' +
+       '4D44384D4438564D42000001000001595353595353595353595353' +
+       '595353595353595353595353595353575151615A596A6262756D6C' +
+       '000001302020544A3B544A3B564D42564D42564D42564D42564D42' +
+       '544A3B544A3B564D42544A3B0000010000015C5656595353575151' +
+       '5751515751515751515751515751515751515751515751511C1400' +
+       '251900827878756D6C000001000001564D42544A3B564D42564D42' +
+       '564D42564D42564D42564D42544A3B564D42000001615A595F5858' +
+       '5C5656595353575151575151544E4E544E4E544E4E544E4E544E4E' +
+       '544E4E1C14002519002D1E007D7474756D6C6E67676A6262000001' +
+       '000001544A3B544A3B564D42564D42564D42544A3B544A3B564D42' +
+       '544A3B000001000001000001000001000001000001000001000001' +
+       '0000010000010000010000011C14002D1E002D1E00797070756D6C' +
+       '6E67676A6262635D5C6A6262000001000001564D42564D42564D42' +
+       '544A3B544A3B564D42544A3B4D4438302020302020302020302020' +
+       '3020203020203020203020203020200000011C14002519002D1E00' +
+       '2D1E007B7272756D6C6E67676A6262635D5C5F5858635D5C686060' +
+       '000001000001564D42564D42544A3B564D42544A3B544A3B4D4438' +
+       '544A3B544A3B544A3B544A3B544A3B4D4438544A3B544A3B000001' +
+       '1C14002D1E002D1E002D1E00000001000001000001686060635D5C' +
+       '5F58585751515C5656615A59665E5E000001564D42544A3B564D42' +
+       '564D42564D42564D42544A3B544A3B564D42564D42564D42544A3B' +
+       '564D420000011C14002519002D1E002D1E00000001302020302020' +
+       '302020000001000001000001595353524B4B544E4E595353000001' +
+       '302020564D42564D42564D42564D42544A3B544A3B564D42564D42' +
+       '564D424D44384D4438564D420000011C14002D1E002D1E00000001' +
+       '302020302020544A3B544A3B544A3B302020302020000001000001' +
+       '0000014D47465F5858000001544A3B564D42564D42564D42544A3B' +
+       '544A3B544A3B564D42564D42544A3B544A3B0000011C14002D1E00' +
+       '2D1E002D1E00000001302020544A3B544A3B544A3B564D42564D42' +
+       '544A3B544A3B302020302020000001000001665E5E000001564D42' +
+       '544A3B544A3B564D42564D42544A3B544A3B544A3B564D42564D42' +
+       '0000011C14002D1E002D1E00000001302020302020544A3B544A3B' +
+       '564D42564D42564D42544A3B4D4438544A3B564D42564D42302020' +
+       '000001302020302020544A3B544A3B544A3B4D4438544A3B544A3B' +
+       '544A3B544A3B0000011C14002D1E002D1E002D1E00000001302020' +
+       '4D44384D4438544A3B544A3B564D42564D42564D42544A3B544A3B' +
+       '544A3B544A3B544A3B564D42302020544A3B');
+
+end;
+begin
+LoadBmps;
+LoadChars('');
+ST:=GetSystemTime;
+FindPickHeadColor;
+if(ColorsFound=True)then
+begin
+SetRunOn;
+repeat
+LoginIfNeeded;
+NotStuck:=NotStuck+1;
+if(NotStuck=250)then
+  begin
+  //ReturnToOre;
+  NotStuck:=0;
+  end;
+if((GetColor(422,398)=0)and(GetColor(205,392)=0))or//coal
+  ((GetColor(205,391)=0)and(GetColor(422,398)=0))or//iron
+  ((GetColor(430,398)=0)and(GetColor(196,391)=0))or//copper
+  ((GetColor(417,398)=0)and(GetColor(208,391)=0))or//tin
+  ((GetColor(423,397)=0)and(GetColor(204,391)=0))then//clay
+  begin
+  WriteLn('Dropping Inventory');
+  InvDrop;
+  PrintProgressReport;
+  end;
+MineOre;
+Wait(100+random(100));
+until(false)
+end;
+end.

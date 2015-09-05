@@ -1,0 +1,951 @@
+{==================================================]
+           OSi: Odie's Scripting Include
+                      v4.0
+                   by Odie5533
+    Thanks Kaitnieks, for making SCAR, <3 Forever
+[==================================================]
+ <3 x piv x <3 GenoDemoN <3 Joolz <3 Chriz
+ <3 Khain <3 OhDearUrDead <3 Stupid <3 Wallbot
+ <3 HatlessCow
+[==================================================}
+
+{You are not allowed to edit and/or change this in
+ any way. You are not allowed to take any piece(s)
+ from/out of OSi, all parts must be left in and the
+ only way to use it's procedures is to include OSi
+ in your script(s). All procedures and/or functions
+ in OSi were created by Odie5533 unless specifically
+ specified. All items in this script are Copyrighted
+ to Odie5533 and/or their origional creator unless
+ specifically specified. This script may not be sold,
+ traded, exchanged, and/or redistributed unless
+ you have been given direct written consent to do so.}
+
+{ChangeLog:
+ v1.0 - Initial release
+ v2.0 - Added UberWait and Autologin, updated a few things
+ v2.1 - Added LoadBankBmps; feature
+ v2.5 - Added AutoDrop; feature
+ v2.51 - Added StartScriptSlow; Feature
+ v3.0 - Added full banking and UseItem procedures
+ v3.1 - Updated... some things... I think
+ v3.2 - Updated the UseItem feaature
+ v3.3 - Updated loads and added loads. Also, welcome pplsuqbawlz to the
+        OSi scripting team!
+ v3.31 - Updated mouse procedures
+ v3.32 - Added LogedIn and NotLogedIn
+ v3.4 - Added many procedures and updated things
+ v3.41 - Added StandStill Procedure
+ v3.5 - Added Buy procedure and some others
+ v3.52 - Summit rather i think, MouseFlags (Idea by HatlessCow)
+ v4.0 - FindObjColorTol Entirely Redone! pplsuqbawlz quit OSi =(}
+
+var x,y,StoreAll,StoreAllY,rcmQuickBank,rcmQuickBankY,All,AllY,
+Banks,flag,s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,tempbank,DropYe,DropW:integer;
+Loged:boolean; ST:LongInt; screendir:string;
+
+Procedure MMouse(x,y,rx,ry: Integer);
+begin
+ x:=x+random(rx); y:=y+random(ry);
+if(x<=789)and(x>=0)and(y<= 592)and(y>=0)then
+begin
+ Wait(100+random(50));
+ MoveMouseSmoothEx(x,y,1,6,15,20,10);
+ GetMousePos(x,y);
+ Wait(300+random(100));
+end;
+end;
+
+Procedure Mouse(x,y,rx,ry: integer; left:boolean);
+begin
+x:=x+random(rx); y:=y+random(ry);
+if(x<=789)and(x>=0)and(y<= 592)and(y>=0)then
+begin
+movemousesmoothex(x,y,1,6,15,20,10);
+GetMousePos(x,y);
+Wait(50+random(50));
+HoldMouse(x,y,left);
+Wait(10+random(70));
+ReleaseMouse(x,y,left);
+wait(100+random(100));
+x:=x-3+random(6); y:=y-3+random(6);
+MoveMouseSmoothEx(x,y,1,6,25,20,10);
+wait(150+random(100));
+end;
+end;
+
+procedure RandObj;
+begin
+ x:=50+random(300);
+ y:=50+random(300);
+end;
+
+procedure GetScreenShot(reason:string; event:Integer); {Unkown Creator}
+begin
+ SaveScreenshot(apppath+'Scripts\'+Screendir+'\'+reason+inttostr(event)+'.bmp');
+ writeln('Screenshot of: '+reason+' #'+inttostr(event));
+end;
+
+Function LogedIn:boolean;
+begin
+if(GetColor(377,472)=2370094)then
+ result:=true;
+end;
+
+Function NotLogedIn:boolean;
+begin
+if(GetColor(377,472)=8291967)then
+ result:=true;
+end;
+
+Procedure Face(facing:string);
+var direction:integer;
+begin
+if(facing='N')then
+  direction := BitmapFromString(8, 11,
+       '640000640000640000000001640000790E00640000640000640000' +
+       '790E00640000640000790E003F00003F0000790E00790E003F0000' +
+       '3F0000790E00851B003F00003F0000851B00851B003F00003F0000' +
+       '3F0000790E003F00003F00009622009622003F00003F00003F0000' +
+       '790E003F00003F00009622009622003F00003F0000790E003F0000' +
+       '3F00003F00009622009622003F00003F00009622003F00003F0000' +
+       '3F00009622009622003F00003F00009622009622003F00003F0000' +
+       '9C36009C36003F00003F0000AB4601AB46013F00003F00009C3600' +
+       'AB46013F00003F00009C3600AB4601AB4601AB4601AB4601AB4601' +
+       'AB4601AB46010000019C3600BA5604BA5604BA5604');
+if(facing='W')then
+  direction := BitmapFromString(9, 10,
+       '640000640000640000640000000001640000790E00640000640000' +
+       '640000640000851B006400000000011B00001B00001B00001B0000' +
+       '851B00851B00851B00790E006400001B00001B0000851B00851B00' +
+       '851B00790E001B00001B00001B0000851B00851B00962200962200' +
+       '1B00001B00001B00001B0000790E001B00001B0000851B00851B00' +
+       '851B00851B001B00001B00001B00001B00001B00001B00001B0000' +
+       '9C36009C3600851B00851B00851B001B00001B0000851B009C3600' +
+       '9C3600851B001B00001B00001B0000851B009C3600AB4601AB4601' +
+       '3F00001B00001B00001B0000851B001B00001B00009C3600AB4601' +
+       '9C36009C36001B00001B00001B00001B00001B00001B00003F0000' +
+       '');
+if(facing='S')then
+  direction := BitmapFromString(6, 10,
+       '20201E20201E640000000001640000851B00640000790E00640000' +
+       '0000011B0000790E00790E001B00001B00000000011B00001B0000' +
+       '1B00001B0000790E00790E00851B00851B001B00001B0000851B00' +
+       '851B00851B00851B001B00001B00001B00001B00001B00001B0000' +
+       '9C3600851B001B00001B00001B00001B00009C36009C36009C3600' +
+       '851B001B00001B00003F00001B00009C3600851B001B00009C3600' +
+       '9C36001B00001B00001B00009C3600AB4601');
+if(facing='E')then
+  direction := BitmapFromString(8, 6,
+       '851B00851B00851B001B0000851B00962200851B001B00001B0000' +
+       '851B00851B001B0000851B00962200851B001B00001B0000851B00' +
+       '851B001B0000851B00851B00851B001B00001B0000851B00851B00' +
+       '1B00001B00001B00001B00001B00001B00001B00001B00001B0000' +
+       '1B00001B00001B00001B00001B00001B00001B00009C36009C3600' +
+       '9C36009C36009C3600');
+if(length(facing)>0)then
+while(not(FindBitmapIn(direction,x,y,561,4,571,17)))do
+ SendArrowSilentWait(1,2);
+end;
+
+Procedure StandStill;
+begin
+ Mouse(647,82,2,2,true);
+ wait(5000+random(1000));
+end;
+
+Procedure SetRun(runon: boolean);
+begin
+   Wait(20+random(5));
+   Mouse(701,468,10,25,true);
+   Wait(70+random(50));
+   if(not(GetColor(607,263)=2303648))and(RunOn)then
+   Mouse(611,253,15,15,true);
+   if(GetColor(607,263)=2303648)and(not RunOn)then
+   Mouse(569,256,5,5,true);
+   Wait(100+random(50));
+   Mouse(644,178,5,5,true);
+   Wait(100+random(50));
+End;
+
+Procedure OpenBag;
+begin
+if(not (GetColor(633,179)=2829182))then
+begin
+ wait(400+random(100));
+ Mouse(635,176,15,15,true);
+ wait(400+random(100));
+end;
+end;
+
+procedure SetFightMode(oFightMode:integer);
+begin
+if(GetColor(559,179)=5531511)then
+ Mouse(548,176,10,15,true);
+wait(200+random(50));
+if(oFightMode=1)and(not (GetColor(565,282)=2303647))then
+Mouse(569,271,55,15,true);
+if(oFightMode=2)and(not (GetColor(565,323)=2303647))then
+Mouse(569,311,55,15,true);
+if(oFightMode=3)and(not (GetColor(565,367)=2303647))then
+Mouse(569,352,55,15,true);
+if(oFightMode=4)and(not (GetColor(565,411)=2303647))then
+Mouse(571,403,55,15,true);
+OpenBag;
+end;
+
+Procedure ChatFixer;
+begin
+ while(not(GetColor(54,496)=255))and(LogedIn)do
+  Mouse(45,485,15,10,true);
+ wait(300+random(100));
+ while(not(GetColor(183,496)=255))and(LogedIn)do
+  Mouse(176,485,15,10,true);
+ wait(300+random(100));
+ while(not(GetColor(323,496)=255))and(LogedIn)do
+  Mouse(315,485,15,10,true);
+ wait(300+random(100));
+end;
+
+procedure sendkeyssilentsmooth(text:string;pause:integer); {Created by Piv}
+begin
+repeat
+sendkeyssilent(copy(text,1,1)); wait(pause+random(pause/2));
+delete(text,1,1);
+until(length(text)=0);
+wait(100+random(50));
+end;
+
+procedure Say(text:string);
+begin
+SendKeysSilentSmooth(text+chr(13),70);
+end;
+
+Procedure LogOut(why:string);
+var c:integer;
+begin
+  Writeln(' ');
+  Writeln(why);
+  Writeln(' ');
+  Wait(100+random(10));
+  Loged:=true;
+  Mouse(635,470,25,20,true);
+  Wait(100+random(10));
+  c:=0;
+  Mouse(586,370,119,10,true);
+  GetMousePos(x,y);
+  repeat
+    c:=c+1
+    Wait(250+random(100));
+    ClickMouse(x,y,true);
+  until(GetColor(400,130)=1842201)and(GetColor(354,120)=1842201)or(c=15);
+  writeln('Infinite Loop Begin...')
+  repeat
+   wait(5000);
+  until(false)
+end;
+
+Procedure MapFlag;
+var m,mapx,mapy:integer;
+begin
+ Wait(300+random(100));
+ while(FindBitmapIn(flag,mapx,mapy,570,5,725,162))or(M<10)do
+  begin
+   wait(100+random(50));
+   M:=M+1;
+  end;
+end;
+
+Procedure MapFlagWalk;
+var M:integer;
+begin
+  Wait(300+random(100));
+  while(FindBitmapIn(flag,x,y,570,5,725,162))and(not(FindBitmapIn(flag,x,y,633,64,665,90)))or(M<11)do
+  begin
+   wait(200+random(100));
+   M:=M+1;
+  end;
+end;
+
+Procedure MouseFlag(x,y,rx,ry:integer);
+begin
+Mouse(x,y,rx,ry,true);
+MapFlag;
+end;
+
+Procedure MouseFlagWalk(x,y,rx,ry:integer);
+begin
+Mouse(x,y,rx,ry,true);
+MapFlagWalk;
+end;
+
+Procedure LoadBankBmps;
+begin
+rcmQuickBank := BitmapFromString(17, 2,
+       '5D5447FFFFFFFFFFFFFFFFFF5D54475D54475D5447FFFFFFFFFFFF' +
+       '5D54475D5447FFFFFFFFFFFF5D54475D54475D5447000000FFFFFF' +
+       'FFFFFF000000FFFFFFFFFFFF5D54475D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF');
+rcmQuickBankY := BitmapFromString(17, 2,
+       '5D5447FFFF00FFFF00FFFF005D54475D54475D5447FFFF00FFFF00' +
+       '5D54475D5447FFFF00FFFF005D54475D54475D5447000000FFFF00' +
+       'FFFF00000000FFFF00FFFF005D54475D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF000000005D5447FFFF00FFFF00');
+All := BitmapFromString(14, 2,
+       '5D5447FFFFFFFFFFFFFFFFFF5D54475D54475D54475D5447FFFFFF' +
+       'FFFFFF5D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF' +
+       'FFFFFF5D54475D54475D5447FFFFFFFFFFFF0000005D5447FFFFFF' +
+       'FFFFFF');
+AllY := BitmapFromString(14, 2,
+       '5D5447FFFF00FFFF00FFFF005D54475D54475D54475D5447FFFF00' +
+       'FFFF005D54475D5447FFFF00FFFF00FFFF00FFFF00000000FFFF00' +
+       'FFFF005D54475D54475D5447FFFF00FFFF000000005D5447FFFF00' +
+       'FFFF00');
+end;
+
+Procedure UseItem(invin:integer);
+var rx,ry:integer;
+begin
+ OpenBag;
+ if(invin>0)and(invin<29)then
+  begin
+   ry:=218;
+   repeat
+    if(invin>4)then
+     begin
+      invin:=invin-4;
+      ry:=ry+36;
+     end;
+   until(invin<5);
+   rx:=532+(invin*42);
+   Mouse(rx,ry,20,20,true);
+   wait(400+random(200));
+  end;
+end;
+
+function UseItemName(invin:integer; invinname:string):boolean;
+var rx,ry:integer;
+begin
+ OpenBag;
+ if(invin>0)and(invin<29)then
+ begin
+  ry:=218;
+  repeat
+  if(invin>4)then
+  begin
+   invin:=invin-4;
+   ry:=ry+36;
+  end;
+  until(invin<5);
+  rx:=532+(invin*42);
+  if(length(invinname)>0)then
+  begin
+   MMouse(rx,ry,15,15);
+   if(IsTextAt2(9,9,invinname,100))then
+   begin
+    GetMousePos(x,y);
+    Mouse(x,y,0,0,true);
+    wait(300+random(100));
+    result:=true;
+   end;
+  end;
+ end;
+end;
+
+function UseItemColor(theitemcolor:integer):boolean;
+var i,e:integer;
+begin
+ while(i<6) do
+  begin
+   if (i=5) and (e<8) then
+    begin
+     i:=0;
+     e:=e+1;
+    end;
+   if(FindColor(x,y,theitemcolor,(569+42*i),(213+36*e),(569+42*i+31),(213+36*e+30)))then
+    begin
+     Mouse((580+42*i),(225+36*e),10,10,true);
+     result:=true;
+    end;
+   i:=i+1;
+   if(result)then break;
+  end;
+end;
+
+function UseItemColorTol(uicolor,uitol:integer):boolean;
+var i,e:integer;
+begin
+ while(i<6) do
+  begin
+   if (i=5) and (e<8) then
+    begin
+     i:=0;
+     e:=e+1;
+    end;
+   if(FindColorTolerance(x,y,uicolor,(569+42*i),(213+36*e),(569+42*i+31),(213+36*e+30),uitol))then
+    begin
+     Mouse((580+42*i),(225+36*e),10,10,true);
+     result:=true;
+    end;
+   i:=i+1;
+   if(result)then break;
+  end;
+end;
+
+function FindObjColorTol(foname:string; focolor,fotol:integer):boolean;
+var s,d,lb,xx,yy,b,c:integer;
+begin
+s:=168; d:=s; b:=21; c:=b/2;
+while(d<=336)and(not(result))do
+ begin
+  d:=d+c; x:=d; LB:=2*S-D;
+  while(x>=LB)and(not(result))do
+   begin
+   x:=d;
+    while(x>=LB)and(not(result))do
+     begin
+      if(FindColorSpiralTolerance(xx,yy,focolor,x-c+89,d-c,x+c+89,d+c,fotol))or
+        (FindColorSpiralTolerance(xx,yy,focolor,x-c+89,LB-c,x+c+89,LB+c,fotol))then
+       begin
+        MMouse(xx,yy,1,1);
+        if(IsTextAt2(9,9,foname,100))then result:=true;
+       end;
+      x:=x-b;
+      wait(1);
+     end;
+    x:=d;
+    while(x>LB)and(not(result))do
+     begin
+      if(FindColorSpiralTolerance(xx,yy,focolor,d-c+89,x-c,d+c,x+c+89,fotol))or
+        (FindColorSpiralTolerance(xx,yy,focolor,LB-c+89,x-c,LB+c,x+c+89,fotol))then
+       begin
+        MMouse(xx,yy,1,1);
+        if(IsTextAt2(9,9,foname,100))then result:=true;
+       end;
+      x:=x-b;
+      wait(1);
+     end;
+   end;
+ end;
+GetMousePos(x,y);
+end;
+
+Function OpenBank:boolean;
+var c:integer;
+begin
+if(rcmQuickBank=0)then
+ LoadBankBmps;
+if(FindObjColorTol('Use Bank',tempbank,11))then
+  begin
+   tempbank:= GetColor(x,y);
+   Mouse(x,y,1,1,false);
+   wait(75+random(25));
+   if(FindBitmap(rcmQuickBank,x,y))or(FindBitmap(rcmQuickBankY,x,y))then
+    begin
+     Mouse(x,y,5,2,true);
+     MapFlag;
+    end else
+     MMouse(5,5,60,60);
+    while(not(IsTextAt2(185,36,'The Bank of RuneScape',100)))and(c<30)do
+    begin
+     wait(50+random(25));
+     c:=c+1;
+    end;
+  end;
+ if(IsTextAt2(185,36,'The Bank of RuneScape',100))and(not(GetColor(476,76)=5531254))then
+  Mouse(472,81,4,10,true);
+ wait(200+random(100));
+ if(IsTextAt2(185,36,'The Bank of RuneScape',100))then
+  result:=true;
+end;
+
+Procedure Withdraw(Col,Row,Amount:integer);
+var rx,ry,c:integer;
+begin
+if(rcmQuickBank=0)then
+LoadBankBmps;
+if(IsTextAt2(185,36,'The Bank of RuneScape', 100))and(col>0)and(row>0)and(col<5)and(row<8)then
+begin
+ rx:=35+(col*47)
+ ry:=27+(row*38)
+if(amount=1)then
+begin
+ Mouse(rx,ry,23,23,true);
+ wait(600+random(200));
+end;
+if(amount=0)or(amount>1)then
+begin
+ Mouse(rx,ry,23,23,false)
+ wait(200+random(100));
+ if(amount=0)then
+ begin
+ if(FindBitmap(All,x,y))or(FindBitmap(AllY,x,y))then
+ begin
+  Mouse(x,y,50,3,true)
+  wait(600+random(200));
+ end;
+ end else
+ begin
+  GetMousePos(x,y)
+  Mouse(x,y+81,20,10,true);
+  repeat
+   c:=c+1;
+   wait(75);
+  until(c>20)or(GetColor(258,412)=8388608)
+  wait(500+random(200));
+  if(GetColor(258,412)=8388608)then
+   SendKeysSilentSmooth(inttostr(amount)+chr(13),100)
+  wait(500+random(200));
+ end;
+end;
+end;
+end;
+
+Procedure Deposit(Col,Row,Amount:integer);
+var rx,ry,c:integer;
+begin
+if(rcmQuickBank=0)then
+LoadBankBmps;
+if(IsTextAt2(185,36,'The Bank of RuneScape',100))then
+begin
+ rx:=532+(col*42)
+ ry:=178+(row*36)
+if(row=0)and(amount=0)then
+begin
+if(col=0)then col:=1
+   repeat
+   begin
+    if(findcolorspiral(x,y,65536,570,250,725,460))or(findcolorspiral(x,y,65536,rx,210,725,245))then
+    begin
+    c:=c+1
+     Mouse(x,y,2,2,false);
+     wait(150+random(50));
+     if(FindBitmap(All,x,y))or(FindBitmap(AllY,x,y))then
+     begin
+      Mouse(x,y,40,2,true);
+      wait(600+random(200));
+     end;
+    MMouse(650,185,5,5);
+    wait(400+random(200));
+    end;
+   end;
+   until(not FindColorSpiral(x,y,65536,570,250,725,460))and(not findcolorspiral(x,y,65536,rx,210,725,245))or(c>28)
+end;
+if(col>0)and(col<5)and(row>0)and(row<8)then
+begin
+ wait(200+random(100));
+ if(amount=1)then
+ begin
+  Mouse(rx,ry,20,20,true);
+  wait(600+random(200));
+ end else
+ begin
+  Mouse(rx,ry,20,20,false)
+  wait(150+random(50));
+  if(amount=0)then
+  begin
+  if(FindBitmap(StoreAll,x,y))or(FindBitmap(StoreAllY,x,y))then
+  begin
+   Mouse(x,y,40,2,true)
+   wait(600+random(200));
+  end;
+  end else
+  begin
+   GetMousePos(x,y)
+   Mouse(x,y+81,20,10,true);
+   wait(900+random(300));
+   SendKeysSilentSmooth(inttostr(amount)+chr(13),100)
+   wait(600+random(200));
+   end;
+ end;
+end;
+end;
+end;
+
+procedure CloseBank;
+begin
+if(IsTextAt2(185,36,'The Bank of RuneScape', 100))and(GetColor(464,39)=8421504)then
+ begin
+  Banks:=Banks+1;
+  Mouse(430,39,5,5,true);
+  wait(800+random(300));
+ end;
+end;
+
+procedure Buy(buyloc,buyamount:integer);
+var buyx,buyy,num1,num5,num0,num1Y,num5Y,
+    num0Y,buyten,buyfive:integer;
+begin
+num5:=LoadBitmap('./Charsrs2/58.bmp');
+num0:=LoadBitmap('./Charsrs2/53.bmp');
+num1:= BitmapFromString(10, 2,
+       '5D5447FFFFFFFFFFFFFFFFFF0000005D54475D54475D54475D5447' +
+       '5D5447FFFFFFFFFFFFFFFFFFFFFFFF0000005D54475D54475D5447' +
+       '5D54475D5447');
+num1Y:= BitmapFromString(10, 2,
+       '5D5447FFFF00FFFF00FFFF000000005D54475D54475D54475D5447' +
+       '5D5447FFFF00FFFF00FFFF00FFFF000000005D54475D54475D5447' +
+       '5D54475D5447');
+num0Y:= BitmapFromString(5, 8,
+       'FFFF00FFFF00000000FFFF00FFFF00FFFF000000000000005D5447' +
+       'FFFF00FFFF000000005D54475D5447FFFF00FFFF000000005D5447' +
+       '5D5447FFFF00FFFF000000005D54475D5447FFFF00FFFF00000000' +
+       '5D54475D5447FFFF00FFFF000000005D54475D5447FFFF00FFFF00' +
+       'FFFF005D5447FFFF00FFFF00');
+num5Y:= BitmapFromString(4, 4,
+       'FFFF00FFFF005D54475D5447000000FFFF00FFFF005D54475D5447' +
+       '5D5447FFFF00FFFF005D54475D5447FFFF00FFFF00');
+buyy:=74;
+while(buyloc>=9)do
+ begin
+  buyloc:=buyloc-9;
+  buyy:=buyy+49;
+ end;
+buyx:=38+(buyloc*47);
+while((buyamount / 10)>0)do
+ begin buyamount:=buyamount-10; buyten:=buyten+1;end;
+while((buyamount / 5)>0)do
+ begin buyamount:=buyamount-5; buyfive:=buyfive+1;end;
+while(buyten>=1)do
+ begin
+  Mouse(buyx,buyy,20,20,false);
+  if(FindBitmap(num0,x,y))or(FindBitmap(num0Y,x,y))then
+   Mouse(x,y,20,8,true);
+  buyten:=buyten-1;
+ end;
+while(buyfive>=1)do
+ begin
+  Mouse(buyx,buyy,20,20,false);
+  if(FindBitmap(num5,x,y))or(FindBitmap(num5Y,x,y))then
+   Mouse(x,y,20,8,true);
+  buyfive:=buyfive-1;
+ end;
+while(buyamount>=1)do
+ begin
+  Mouse(buyx,buyy,20,20,false);
+  if(FindBitmap(num1,x,y))or(FindBitmap(num1Y,x,y))then
+   Mouse(x,y,20,8,true);
+  buyamount:=buyamount-1;
+ end;
+end;
+
+function InvinCount:integer;
+var r,d,ix,iy:integer;
+begin
+OpenBag;
+while(d<8)do
+ begin
+  if(r>4)then begin r:=0; d:=d+1; end;
+   if(FindColor(ix,iy,65536,569+42*r,213+36*d,569+42*r+31,213+36*d+30))then
+    result:=result+1;
+  r:=r+1;
+ end;
+end;
+
+function InvinFull:boolean;
+begin
+if(InvinCount=28)then result:=true;
+end;
+
+Procedure LoadDropBmps;
+begin
+dropW := BitmapFromString(28, 2,
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF');
+dropYe := BitmapFromString(28, 2,
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00FFFF00FFFF00000000000000000000FFFF00FFFF00FFFF00' +
+       'FFFF00000000000000000000000000FFFF00FFFF00FFFF00FFFF00' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00FFFF00000000000000000000FFFF00FFFF00000000' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00');
+end;
+
+Procedure AutoDrop(item :string);
+var Row,Col,Ix,Iy,InvLoc,Dropx,dropy:integer;
+begin
+if(DropW=0)then
+ LoadDropBmps;
+InvLoc:=1; Col:=1; Row:=1;
+OpenBag;
+repeat
+  Ix:=(Col-1)*42+574;
+  Iy:=(Row-1)*36+218;
+  MoveMouseSmooth(Ix+random(17),Iy+random(17));
+  wait(150+random(30));
+  If(IsTextAt2(9,9,item,100))then
+  begin
+   GetMousePos(x,y);
+   ClickMouse(x,y,false);
+   wait(120+random(25));
+   if(FindBitmap(DropW,dropx,dropy))or(FindBitmap(DropYe,dropx,dropy))then
+    Mouse(dropx+10,dropy,20,4,true);
+  end;
+  InvLoc:=InvLoc+1;
+  Row:=Row+1;
+  if(Row>7)then
+  begin
+   Col:=Col+1;
+   Row:=1;
+  end;
+until(InvLoc>28)
+end;
+
+function DropColor(thedropcolor:integer):integer;
+var i,e:integer;
+begin
+if(DropW=0)then
+ LoadDropBmps;
+ while(i<6) do
+  begin
+   if (i=5) and (e<8) then
+    begin
+     i:=0;
+     e:=e+1;
+    end;
+   if(FindColor(x,y,thedropcolor,(569+42*i),(213+36*e),(569+42*i+31),(213+36*e+30)))then
+    begin
+     Mouse(574+((42-1)*i),218+((36-1)*e),20,20,false);
+     if(FindBitmap(DropW,x,y))or(FindBitmap(DropYe,x,y))then
+      begin
+       Mouse(x,y,15,5,true);
+       result:=result+1;
+       wait(200+random(50));
+      end else
+       MMouse(639,179,15,15);
+     end;
+   i:=i+1;
+  end;
+end;
+
+function DropColorTol(thedropcolor,tdtol:integer):integer;
+var i,e:integer;
+begin
+if(DropW=0)then
+ LoadDropBmps;
+ while(i<6) do
+  begin
+   if (i=5) and (e<8) then
+    begin
+     i:=0;
+     e:=e+1;
+    end;
+   if(FindColorTolerance(x,y,thedropcolor,(569+42*i),(213+36*e),(569+42*i+31),(213+36*e+30),tdtol))then
+    begin
+     Mouse(574+((42-1)*i),218+((36-1)*e),20,20,false);
+     wait(75+random(50));
+     if(FindBitmap(DropW,x,y))or(FindBitmap(DropYe,x,y))then
+      begin
+       Mouse(x,y,15,5,true);
+       result:=result+1;
+       wait(200+random(50));
+      end else
+       MMouse(639,179,15,15);
+     end;
+   i:=i+1;
+  end;
+end;
+
+procedure DropHold(keep:string); {Created by x Piv x}
+var booleanarray: array [1..28] of boolean; my,mx,i:integer;
+begin
+if(DropW=0)then
+ LoadDropBmps;
+while(length(keep)>0)do
+ begin
+  if(pos(',',keep)=0)then
+   booleanarray[strtoint(keep)]:=true else
+   booleanarray[strtoint(copy(keep,0,pos(',',keep)-1))]:=true;
+  if(pos(',',keep)>0)then
+   delete(keep,1,pos(',',keep)) else
+   keep:='';
+ end;
+for my:=0 to 6 do
+  for mx:=0 to 3 do
+   begin
+    i:=i+1;
+     if(not booleanarray[i])then
+      begin
+       Mouse(574+(mx*42),218+(my*36),20,20,false);
+       wait(200+random(100));
+       if(FindBitmap(DropW,x,y))or(FindBitmap(DropYe,x,y))then
+        Mouse(x,y,15,5,true);
+      end;
+   end;
+end;
+
+Procedure LoadStatBmps;
+begin
+s0 := BitmapFromString(5, 8,
+       '000000FFFFFFFFFFFFFFFFFF000000FFFFFF000000000000000000' +
+       'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+       '000000FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000FFFFFF000000' +
+       'FFFFFFFFFFFFFFFFFF000000');
+s1 := BitmapFromString(3, 8,
+       '000000FFFFFF000000FFFFFFFFFFFF000000000000FFFFFF000000' +
+       '000000FFFFFF000000000000FFFFFF000000000000FFFFFF000000' +
+       '000000FFFFFF000000FFFFFFFFFFFFFFFFFF');
+s2 := BitmapFromString(5, 8,
+       '000000FFFFFFFFFFFFFFFFFF000000FFFFFF000000000000000000' +
+       'FFFFFF000000000000000000000000FFFFFF000000000000000000' +
+       'FFFFFF000000000000000000FFFFFF000000000000000000FFFFFF' +
+       '000000000000000000FFFFFF000000000000000000000000FFFFFF' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF');
+s3 := BitmapFromString(4, 8,
+       '000000FFFFFFFFFFFF000000FFFFFF000000000000FFFFFF000000' +
+       '000000000000FFFFFF000000FFFFFFFFFFFF000000000000000000' +
+       '000000FFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFF000000FFFFFFFFFFFF000000');
+s4 := BitmapFromString(4, 8,
+       'FFFFFF000000000000000000FFFFFF000000000000000000FFFFFF' +
+       '000000000000000000FFFFFF000000FFFFFF000000FFFFFF000000' +
+       'FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF' +
+       '000000000000000000FFFFFF000000');
+s5 := BitmapFromString(4, 8,
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF' +
+       '000000000000000000FFFFFFFFFFFFFFFFFF000000000000000000' +
+       '000000FFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFF000000FFFFFFFFFFFF000000');
+s6 := BitmapFromString(5, 8,
+       '000000000000FFFFFFFFFFFF000000000000FFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000000000000000FFFFFF000000FFFFFF' +
+       'FFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000FFFFFF000000' +
+       'FFFFFFFFFFFFFFFFFF000000');
+s7 := BitmapFromString(4, 8,
+       'FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF000000' +
+       '000000FFFFFF000000000000000000FFFFFF000000000000FFFFFF' +
+       '000000000000000000FFFFFF000000000000FFFFFF000000000000' +
+       '000000FFFFFF000000000000000000');
+s8 := BitmapFromString(5, 8,
+       '000000FFFFFFFFFFFFFFFFFF000000FFFFFF000000000000000000' +
+       'FFFFFFFFFFFF000000000000000000FFFFFF000000FFFFFFFFFFFF' +
+       'FFFFFF000000FFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000FFFFFF000000' +
+       'FFFFFFFFFFFFFFFFFF000000');
+s9 := BitmapFromString(5, 8,
+       '000000FFFFFFFFFFFFFFFFFF000000FFFFFF000000000000000000' +
+       'FFFFFFFFFFFF000000000000000000FFFFFF000000FFFFFF000000' +
+       '000000FFFFFF000000000000FFFFFFFFFFFFFFFFFF000000000000' +
+       '000000000000FFFFFF000000000000000000000000FFFFFF000000' +
+       '000000000000000000FFFFFF');
+end;
+
+Function GetStatFor(stat:string; bottom:integer):integer;
+var ox,oy,ox2,oy2,col,row:integer;
+begin
+if(s0=0)then
+LoadStatBmps;
+if(not (GetColor(592,175)=2763390))then
+begin
+Mouse(577,178,10,10,true);
+end;
+if(stat='attack')or(stat='strength')or(stat='defense')or(stat='ranged')or(stat='prayer')or(stat='magic')or(stat='rc')then
+col:=1
+if(stat='hp')or(stat='agility')or(stat='herb')or(stat='thieve')or(stat='craft')or(stat='fletch')then
+col:=2
+if(stat='mine')or(stat='smith')or(stat='fish')or(stat='cook')or(stat='fire')or(stat='wc')then
+col:=3
+if(stat='attack')or(stat='hp')or(stat='mine')then
+row:=1
+if(stat='strength')or(stat='agility')or(stat='smith')then
+row:=2
+if(stat='defense')or(stat='herb')or(stat='fish')then
+row:=3
+if(stat='range')or(stat='thieve')or(stat='cook')then
+row:=4
+if(stat='prayer')or(stat='craft')or(stat='fire')then
+row:=5
+if(stat='magic')or(stat='fletch')or(stat='wc')then
+row:=6
+if(stat='rc')then
+row:=7
+if(bottom=0)then
+begin
+ox:=520+(col*64);
+oy:=179+(row*31);
+end;
+if(bottom=1)then
+begin
+ox:=532+(col*64);
+oy:=191+(row*31);
+end;
+ox2:=ox+9
+oy2:=oy+9
+if(FindBitmapMaskTolerance(s1,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=10
+if(FindBitmapMaskTolerance(s2,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=20
+if(FindBitmapMaskTolerance(s3,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=30
+if(FindBitmapMaskTolerance(s4,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=40
+if(FindBitmapMaskTolerance(s5,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=50
+if(FindBitmapMaskTolerance(s6,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=60
+if(FindBitmapMaskTolerance(s7,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=70
+if(FindBitmapMaskTolerance(s8,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=80
+if(FindBitmapMaskTolerance(s9,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=90
+ox:=ox+6
+ox2:=ox+9
+if(FindBitmapMaskTolerance(s0,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+0
+if(FindBitmapMaskTolerance(s1,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+1
+if(FindBitmapMaskTolerance(s2,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+2
+if(FindBitmapMaskTolerance(s3,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+3
+if(FindBitmapMaskTolerance(s4,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+4
+if(FindBitmapMaskTolerance(s5,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+5
+if(FindBitmapMaskTolerance(s6,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+6
+if(FindBitmapMaskTolerance(s7,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+7
+if(FindBitmapMaskTolerance(s8,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+8
+if(FindBitmapMaskTolerance(s9,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+9
+end;
+
+Function GetHp:integer;
+var Hp1,Hp2:integer;
+begin
+Hp1:=(GetStatFor('hp',0))
+Hp2:=(GetStatFor('hp',1))
+if(Hp1>0)and(Hp2>0)then
+Result:=round((Hp1/Hp2)*100);
+end;
+
+Procedure StartScriptSlow;
+begin
+repeat
+status(inttostr(round((ST-(GetSystemTime-5000))/1000)))
+wait(100)
+until(GetSystemTime-ST>4999)
+end;
+
+Procedure SetupOSi;
+begin
+setmousemode(false)
+loadchars('')
+ClearReport;
+flag:=BitmapFromString(2, 2,
+        'FF00005D3311C656045D3311');
+ST:=GetSystemTime;
+tempbank:=2842230;
+Writeln('Using OSi Version 4.0 - Created by Odie5533')
+end;

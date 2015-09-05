@@ -1,0 +1,72 @@
+//===============================\\
+// Rubber chicken thing by RegeX \\
+// Stand somewhere with tonnes of\\
+//             people.           \\
+//  Varrock Central Square on #1 \\
+//       is a good place =P      \\
+//===============================\\
+//      R   E   G   E   X        \\
+//        24 - 07 - 05           \\
+//===============================\\
+program ChickenAbuser;
+
+ {.include squig.txt}
+ 
+ var whackPic:integer;
+     whackCount:integer;
+
+ procedure FindPerson;
+  var x:integer;
+      done: boolean;
+  begin
+    done := false;
+    while(done=false)do
+     begin
+       MouseC(74 + Random(421-74),69 + Random(270-69),0);
+       Wait(200);
+       x := 9;
+       while(x < 300)and(done = false)do
+        begin
+          if(IsTextAt2(x,9,'level',100) = true)then
+           begin
+             Writeln('Found player to w.h.a.c.k');
+             done := true;
+           end;
+          x := x + 2;
+        end;
+     end;
+  end;
+  
+ procedure WhackPerson;
+  var x,y:integer;
+      found: boolean;
+  begin
+    GetMousePos(x,y);
+    MouseC(x,y,2);
+    Wait(500);
+    found := FindBitmap(whackPic,x,y);
+    if(found) then
+     begin
+       MouseC(x,y,1);
+       Wait(2000);
+       whackCount := whackCount + 1;
+       Writeln('We have whacked ' + IntToStr(whackCount) + ' players!');
+     end;
+  end;
+
+ begin
+  SetupSquig;
+  whackPic := BitmapFromString(41, 12, 'z78DAED96410AC0200C04BF' +
+       'D483D20F94FEFF49054F424898355A0A36070F61353BC188F5AAA' +
+       '59C75CBF5EE42D590BDDFA1F0F4470BAE217BDFA7264E7EEA9DA9' +
+       'ED8C106A1BA4E22C3DA1E07A2FE3F9892B5AE598BE8FB83356399' +
+       '7DAA3882B7A3ED57BCB795750ABF9B1F3F35343FAEF756F5D3732' +
+       'D464AE093B9F0EE296DFF0CC6BA6FE5EE27723D6937C5C45D5AB4' +
+       'E1E14C7A739');
+  whackCount := 0;
+  while(LoggedIn) do
+   begin
+     FindPerson;
+     WhackPerson;
+   end;
+ end.

@@ -1,0 +1,4 @@
+const
+
+username=''; //Duh...your username
+password=''; //Duh...your password

@@ -1,0 +1,249 @@
+{
+ Auto talk v1 -* Made by Phalanx*-
+ * no need for high preformance comp...
+ In this script you can choose eighter type your answers or to make the script auto talk (answer)
+ but before you make it auto talk,
+ You MUST put all the lines you need between line 56 to the ending comment (Line 60).
+ if you choose to type the answers to the quiestion in RS yourself(AFK = 1), the script will generate all the lines in the
+ DEBUG box (where you see Succesfully compiled, Successfully executed etc..)
+ You can generate lines without having people to type them in RS if you change the AFK value to 2 (line 28).
+ * dont try to type chracters such as =,',@,$,%,^,& etc ... just type normal letters and everything should be going well..
+ * Notice: you better provide your user name or else you may start talking to yourself (lol).
+ Thats it.. now try this script out.. hope you'll like it :)
+ 
+ To do list:
+  - Multiple answers for multiple questions.
+  - improve user name support with numbers and following of capital letters (if you dont understant, dont even try to).
+
+ Notice: Compitable with SCAR 111-112 Only. ( because its using my include which is supported with 111-112 only)
+}
+program AutoTalk;
+{.include PhalanxInclude.txt}
+const
+ // Set your settings here:
+ 
+ // User related settings:
+ // You MUST divide the user name with CAPITAL letters - so the Username support will work perfect!
+ // Example: UnknownGuy - the script will check for "UnknownGuy", "Unknown" and "Guy" - all forms of the user name seperated with Capital letters.
+ UserName         = '' ; // Put your UserName between the '' here.
+ PassWord         = '' ; // Put your PassWord between the '' here.
+ UserNameSupport  = 0  ; // 1 to generate answers to sentense provided with your username - by all forms of it, any other number for no.
+
+ // General settings:
+ AFK              = 0  ; // 1 to write your own answers to questions coming from RS, 2 to write your own questions AND answers, any other number for auto talk\logout(if enabled).
+ AnswerTo         = 1  ; // 1 to answer to chat msgs only, 2 to answer to pms only, any other number to answer both.
+ SoundPath        = '' ; // optional: Sound path here - will play sound when some1 says a word in RS (AFK = 1).
+ UseAutoLogIn     = 0  ; // Change the value to 1 to use this script's auto log in!
+ UseAutoLogOut    = 0  ; // Change the value to 1 to use this script's auto log out!
+ MinTillLogIn     = 2  ; // if there is no answer to the text typed, the script will logout(if logout=1), after that, how much time to wait till relogin?
+ MinTillNextCheck = 1  ; // For how much time to ignore msgs after last answer\auto talk?
+
+//Settings end.
+type
+ usnarr=array[1..12{max size of name characters}] of string;
+var
+ x,y,i,j,p,textdelay,UNS:integer;
+ s,TempC,WrittenText,pstr,usrn,Name:string;
+ LON,StopReading:boolean;
+ usn:usnarr;
+Procedure Say(Text:string);
+begin
+ SendKeysSilent(Text+''+chr(10));
+end;
+Procedure Answer(S:string);
+begin
+ if pos('Hello',s)<>0 then Begin Wait(300); Say('hey'); Wait(7700); LON:=False; End
+ //PUT YOUR LINES HERE! - BEGIN
+ else if pos('Autoing',s)<>0 then Begin Wait(1400); Say('no'); Wait(8600); LON:=False; End
+ else if pos('autoing',s)<>0 then Begin Wait(1400); Say('no'); Wait(8600); LON:=False; End
+ else if pos('auto',s)<>0 then Begin Wait(1400); Say('no'); Wait(8600); LON:=False; End
+ else if pos('Auto',s)<>0 then Begin Wait(1400); Say('no'); Wait(8600); LON:=False; End
+ else if pos('Hey',s)<>0 then Begin Wait(200); Say('yo'); Wait(7800); LON:=False; End
+ //DONT PUT YOUR LINES ANY FURTHER! - END.
+ else Begin Wait(300); if random(3)=0 then Say('heh'); Wait(7700); LON:=False; End; //default answer
+end;
+function FindName(var x,y:integer; Name:string):boolean;
+var
+ FoundName:boolean;
+begin
+ FoundName:=False;
+ if IsTextInArea(315,75,315,187,x,y,Name) then FoundName:=True;
+ Result:=FoundName;
+end;
+Procedure AddToFriendsList(Name:string);
+begin
+ OpenMenu(5);
+ ClickMouse(350,210,True);
+ Wait(1000);
+ Say(Name);
+ Wait(5000);
+end;
+Procedure TalkWith(Name,S:string);
+var
+ x,y:integer;
+begin
+ OpenMenu(5);
+ if FindName(x,y,Name) then
+ begin
+  MoveMouse(x+3,y+2);
+  Wait(100);
+  ClickMouse(x+3,y+2,True);
+  Wait(1000);
+  Answer(s);
+ end;
+end;
+Procedure RemoveFromFriendsList(Name:string);
+begin
+ OpenMenu(5);
+ if FindName(x,y,Name) then
+ begin
+  ClickMouse(440,y+3,True);
+  Wait(1000);
+ end;
+end;
+Procedure FindText(yc:integer; var line:string);
+begin
+ if (yc>= 256) and (yc<=267) then line:=GetTextAt(7,256);
+ if (yc>= 268) and (yc<=279) then line:=GetTextAt(7,268);
+ if (yc>= 280) and (yc<=291) then line:=GetTextAt(7,280);
+ if (yc>= 292) and (yc<=303) then line:=GetTextAt(7,292);
+ if (yc>= 304) and (yc<=316) then line:=GetTextAt(7,304);
+ if pos(username,line)=1 then line:='';
+end;
+begin
+ StopReading:=False;
+ for i:=1 to length(username) do usn[i]:='';
+ //This will get user name veriaties..
+ // improve for following capitals.
+ P:=1; i:=1; usrn:=username;
+ while (i<=length(username)) do
+ begin
+  if ( StrGet(usrn,i) = uppercase(StrGet(usrn,i)) ) then
+  begin
+   j:=i+1;
+   while j<=length(username) do
+   begin
+    if (StrGet(usrn,j) = uppercase(StrGet(usrn,j))) then
+    begin
+     usn[p]:=copy(username,i,j-1);
+     p:=p+1;
+    end else if j=length(username) then
+    begin
+     usn[p]:=copy(username,i,j);
+     p:=p+1;
+    end
+    j:=j+1
+   end;
+  end;
+  i:=i+1
+ end;
+ i:=1; pstr:='';
+ while (i<length(username)) and (usn[i]<>'') do
+ begin
+  pstr:=pstr+'and(pos('+chr(39)+usn[i]+chr(39)+',s)<>0)';
+  i:=i+1;
+ end;
+ if AFK=2 then
+ begin
+  writeln('All the lines are going to show up here:')
+  repeat
+   S:='';
+   S:=readln('Enter a line to Answer to (type "stop" to stop):');
+   s:=LowerCase(s);
+   if (S<>'')and (s<>'stop')then
+   begin
+    UNS:=0; i:=1;
+    while (i<length(username)) and (usn[i]<>'') and (UNS=0) do
+    begin
+     if (pos(lowercase(usn[i]),s)<>0)and(UserNameSupport=1) then
+     begin
+      delete(s,pos(lowercase(usn[i]),s),length(usn[i])+1);
+      UNS:=1;
+     end;
+     i:=i+1;
+    end;
+    TempC:=UpperCase(copy(S,1,1));
+    Delete(s,1,1);
+    s:=TempC+S;
+    WrittenText:='';
+    WrittenText:=readln('Answer to - '+s);
+    textdelay:=200*length(WrittenText);
+    //need an exact check for the enter (chr 10\13)
+    if (WrittenText<>'')and(WrittenText<>chr(10))and(WrittenText<>chr(13))and(WrittenText<>chr(10)+chr(13))and((UNS=0)or(UserNameSupport<>1)) then
+     writeln('else if pos('+chr(39)+s+chr(39)+',s)<>0 then Begin Wait('+inttostr(TextDelay)+'); Say('+chr(39)+WrittenText+chr(39)+'); Wait('+inttostr(10000-TextDelay)+'); LON:=False; End')
+    else if (WrittenText<>'')and(WrittenText<>chr(10))and(WrittenText<>chr(13))and(WrittenText<>chr(10)+chr(13))and(UserNameSupport=1)and(UNS=1) then
+     writeln('else if (pos('+chr(39)+s+chr(39)+',s)<>0)'+pstr+' then Begin Wait('+inttostr(TextDelay)+'); Say('+chr(39)+WrittenText+chr(39)+'); Wait('+inttostr(10000-TextDelay)+'); LON:=False; End');
+   end;
+   if s='stop' then StopReading:=True;
+  until StopReading;
+ end else
+ begin
+  if UseAutoLogIn = 1 then LogInIfNeeded;
+  if AFK=1 then writeln('All the lines are going to show up here:');
+  Repeat
+   Wait(200);
+   if (AnswerTo<>2) and (FindColor(x,y,65535,7,260,13,315)) then
+   begin
+    if AFK=1 then
+    begin
+     PlaySound(SoundPath);
+     FindText(y,s);
+     if s<>'' then
+     begin
+      UNS:=0;
+      S:=copy(S,pos(':',S)+2,Length(S));
+      i:=1;
+      while (i<length(username)) and (usn[i]<>'') and (UNS=0) do
+      begin
+       if (pos(lowercase(usn[i]),lowercase(s))<>0)and(UserNameSupport=1) then
+       begin
+        delete(s,pos(lowercase(usn[i]),lowercase(s)),length(usn[i])+1);
+        UNS:=1;
+       end;
+       i:=i+1;
+      end;
+      WrittenText:='';
+      WrittenText:=readln('Answer to - '+s);
+      textdelay:=200*length(WrittenText);
+      if WrittenText<>'' then
+      begin
+       if (WrittenText<>chr(10))and(WrittenText<>chr(13))and(WrittenText<>chr(10)+chr(13))and((UNS=0)or(UserNameSupport<>1)) then
+        writeln('else if pos('+chr(39)+s+chr(39)+',s)<>0 then Begin Wait('+inttostr(TextDelay)+'); Say('+chr(39)+WrittenText+chr(39)+'); Wait('+inttostr(10000-TextDelay)+'); LON:=False; End')
+       else if (WrittenText<>chr(10))and(WrittenText<>chr(13))and(WrittenText<>chr(10)+chr(13))and(UserNameSupport=1)and(UNS=1) then
+        writeln('else if (pos('+chr(39)+s+chr(39)+',s)<>0)'+pstr+' then Begin Wait('+inttostr(TextDelay)+'); Say('+chr(39)+WrittenText+chr(39)+'); Wait('+inttostr(10000-TextDelay)+'); LON:=False; End');
+       Say(WrittenText);
+      end;
+     end;
+     Wait(3000);
+    end else
+    begin
+     LON:=True;
+     FindText(y,s);
+     S:=copy(S,pos(':',S)+2,Length(S));
+     Answer(S);
+     if LON then
+     begin
+      if UseAutoLogOut = 1 then
+      begin
+       LogOut;
+       Wait(MinTillLogIn*60000);
+      end;
+      if UseAutoLogIn = 1 then LogInIfNeeded;
+      Wait(MinTillNextCheck*60000);
+     end;
+    end;
+   end else if (AnswerTo<>1) and (FindColor(x,y,16776960,7,260,13,315)) then
+   begin
+    FindText(y,s);
+    if pos('tells you',s)<>0 then
+    begin
+     Name:=copy(S,1,pos('tells you',S)-3);
+     S:=copy(S,pos(':',S)+2,Length(S));
+     AddToFriendsList(Name);
+     TalkWith(Name,S);
+     RemoveFromFriendsList(Name);
+    end;
+   end;
+  Until False;
+ end;
+end.

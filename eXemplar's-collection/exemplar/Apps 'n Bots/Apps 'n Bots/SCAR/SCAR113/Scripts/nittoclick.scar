@@ -1,0 +1,26 @@
+program NittoClick;
+
+Procedure Mouse(x,y: integer; left:boolean);
+begin
+     movemousesmoothex(x,y,1,6,15,20,10);
+     GetMousePos(x,y);
+     Wait(50+random(50));
+     HoldMouse(x,y,left);
+     Wait(10+random(70));
+     ReleaseMouse(x,y,left);
+     wait(100+random(100));
+     x:=x-3+random(6); y:=y-3+random(6);
+     MoveMouseSmoothEx(x,y,1,6,25,20,10);
+     wait(150+random(100));
+end;
+
+begin
+     repeat
+           mouse(348,208,true);
+           Wait(5000);
+           mouse(334,440,true);
+           Wait(5000);
+           mouse(420,287,true);
+           Wait(5000);
+     until(false)
+end.

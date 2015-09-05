@@ -1,0 +1,4 @@
+program New;
+begin
+  SendArrowSilentWait(1,50);
+end.

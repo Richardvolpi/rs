@@ -1,0 +1,727 @@
+{==================================================]
+              Odie's Scripting Include
+                      v3.2
+                   By Odie5533
+          http://www.rs.odie5555.ho8.com
+[==================================================]
+ Thanks to: RSCN, x piv x, GenoDemoN, Joolz, Chriz,
+            Gussy, Khain, OhDearUrDead, Stupid,
+            Wallbot, and anyone I forgot to mention!
+[==================================================}
+
+{Please note: Please do not edit this script, instead
+              please PM me on RSCN or post what you
+              want updated in the forums, and I will
+              most likely be glad to update for you}
+
+{ChangeLog:
+ v1.0 - Initial release
+ v2.0 - Added UberWait and Autologin, updated a few things
+ v2.1 - Added LoadBankBmps; feature
+ v2.5 - Added AutoDrop; feature
+ v2.51 - Added StartScriptSlow; Feature
+ v3.0 - Added full banking and UseItem procedures
+ v3.1 - Updated... some things... I think
+ v3.2 - Updated the UseItem feaature}
+
+var x,y,StoreAll,StoreAllY,rcmQuickBank,rcmQuickBankY,WithdrawAll,
+    Banks,flag,c:integer;
+Loged,Screenshot:boolean;
+ST:LongInt;
+screendir:string;
+
+Procedure SetupUNPW;
+begin
+//=====================Setup=======================
+Screenshot:=true; //If you want to take screenshots, true, else, false
+Screendir:=''; //Set the directory to save screenshots
+//=================================================
+end;
+
+Procedure MMouse(x,y,rx,ry: Integer); {Made by odie5533 based on x piv x's settings}
+begin
+  x:=x+random(rx);
+  y:=y+random(ry);
+  Wait(50+random(50));
+  MoveMouseSmoothEx(x,y,1,3,12,20,10);
+  Wait(100+random(50));
+end;
+
+Procedure Mouse(x,y,rx,ry: integer; left:boolean);{Made By GenoDemoN, Modified by piv and odie5533}
+begin
+x:=x+random(rx);
+y:=y+random(ry);
+//movemousesmoothex(x,y,1,3,12,20,10);
+movemousesmooth(x,y);
+Wait(50+random(50));
+HoldMouse(x,y,left);
+Wait(10+random(70));
+ReleaseMouse(x,y,left);
+wait(100+random(50));
+end;
+
+procedure UberWait(wai:integer); {Created by GenoDemoN}
+ var waii:longint;
+ begin
+ waii:=wai+random(wai/2)+getsystemtime;
+ repeat
+ wait(random(10));
+ until(getsystemtime>waii);
+ end;
+ 
+Procedure Display(otext:string); {Created by Odie5533}
+begin
+status(otext);
+addtoreport(otext);
+end;
+
+procedure RWait (ranlength: string);
+begin
+   if(ranlength = 'xxshort') then wait(15+random(15)+random(15))
+   if(ranlength = 'xshort')  then wait(50+random(25)+random(25))
+   if(ranlength = 'short')   then wait(100+random(50)+random(50))
+   if(ranlength = 'medium')  then wait(200+random(100)+random(100))
+   if(ranlength = 'long')    then wait(500+random(250)+random(250))
+   if(ranlength = 'xlong')   then wait(1000+random(500)+random(500))
+   if(ranlength = 'xxlong')  then wait(1000+random(500)+random(500)+random(500)+random(500))
+end;
+
+procedure GetScreenShot(reason:string; event:Integer);
+var
+   x : string;
+begin
+if(screenshot)then
+  begin
+  x:=inttostr(Event)
+  SaveScreenshot(apppath+'Scripts\'+Screendir+'\ScreenCaptureFor'+reason+inttostr(strtoint((copy(x,length(x),1))))+'.bmp');
+  writeln('ScreenCaptureFor'+reason+inttostr(strtoint((copy(x,length(x),1))))+'.bmp');
+  end;
+end;
+
+procedure SetRunOn; {Edited by Odie5533}
+begin
+   Wait(50+random(5));
+   Mouse(701,468,10,25,true);
+   Wait(100+random(100));
+   if(not(GetColor(607,263)=2303648))then
+   Mouse(611,253,15,15,true);
+   Wait(100+random(10));
+   Mouse(644,178,5,5,true);
+   Wait(100+random(10));
+End;
+
+procedure SetRunOff; {Edited by Odie5533}
+begin
+   Wait(100+random(50));
+   Mouse(708,475,5,5,true);
+   Wait(200+random(100));
+   if(GetColor(607,263)=2303648)then
+   Mouse(569,256,5,5,true);
+   Wait(200+random(50));
+   Mouse(644,178,5,5,true);
+   Wait(200+random(50));
+End;
+
+Procedure OpenBag; {Created by Odie5533}
+begin
+if(not GetColor(633,177)=2829182)then
+begin
+wait(150+random(50));
+Mouse(633,175,20,20,true);
+wait(150+random(50));
+end;
+end;
+
+Procedure ChatFixer; {--ChatFixer 2.15 by Joolz--} //Modified by Odie5533
+begin
+   begin
+      If(not(GetColor(46,488)=255))then
+      begin
+         Status('Setting "Public chat" off...')
+         MMouse(46,488,10,10);
+         repeat
+            GetMousePos(x,y);
+            Mouse(x,y,0,0,true);
+            Wait(100+random(50));
+         until(GetColor(46,488)=255);
+      end;
+   end;
+   begin
+      If(not(GetColor(175,488)=255))then
+      begin
+         Status('Setting "Private chat" off...')
+         MMouse(175,488,10,10);
+         repeat
+            GetMousePos(x,y);
+            Mouse(x,y,0,0,true);
+            Wait(100+random(50));
+         until(GetColor(175,488)=255);
+      end;
+   end;
+   begin
+      If(not(GetColor(315,488)=255))then
+      begin
+         Status('Setting "Trade/Duel" off...')
+         MMouse(315,488,10,10);
+         repeat
+            GetMousePos(x,y);
+            Mouse(x,y,0,0,true);
+            Wait(100+random(50));
+         until(GetColor(315,488)=255);
+      end;
+   end;
+Writeln('ChatFixing done!');
+end;
+
+procedure sendkeyssilentsmooth(text:string;pause:integer); {Created by Piv}
+begin
+repeat
+sendkeyssilent(copy(text,1,1)); wait(pause+random(50));
+delete(text,1,1); wait(50);
+until(length(text)=0);
+end;
+
+procedure FindTextSpiral(txt: String; dx,dy: Integer; SpiralSize: Integer; step, SpiralWait: Integer);  // By OhDearUrDead, Edited By Khain
+var px, py, qx, qy: Integer;
+     FoundText: Boolean;
+begin
+   FoundText:= false;
+   px:= dx; py:= dy; qx:= dx; qy:= dy;
+   x:= dx;
+   y:= dy;
+   MoveMouseSmooth(x,y);
+   repeat
+   Spiralwait:= Spiralwait+random(50);
+     MoveMouse(x,y)
+     px:= px + 20; py:= py + 20;
+     qx:= qx - 20; qy:= qy - 20;
+     repeat
+       getmousepos(x,y)
+       x:= x + step;
+       MoveMouseSmooth(x,y);
+       Wait(SpiralWait);
+       if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+     Until(x >= px)or(FoundText);
+     if(FoundText)then Break;
+     repeat
+       getmousepos(x,y)
+       y:= y + step;
+       MoveMouseSmooth(x,y);
+       Wait(SpiralWait);
+       if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+     Until(y >= py)or(FoundText);
+     if(FoundText)then Break;
+     repeat
+       getmousepos(x,y)
+       x:= x - step;
+       MoveMouseSmooth(x,y);
+       Wait(SpiralWait);
+       if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+     Until(qx >= x)or(FoundText);
+     if(FoundText)then Break;
+     repeat
+       getmousepos(x,y)
+       y:= y - step;
+       MoveMouseSmooth(x,y);
+       Wait(SpiralWait);
+       if(IsTextAt2(9,9,txt,100))then FoundText:= true;
+     Until(qy >= y)or(FoundText);
+   Until(px > dx + SpiralSize)or(FoundText);
+end;
+
+Procedure LogOut(why:string);
+var c:integer;
+begin
+  Writeln(' ');
+  Writeln(why);
+  Writeln(' ');
+  Wait(100+random(10));
+  Loged:=true;
+  Mouse(635,470,25,20,true);
+  Wait(100+random(10));
+  c:=0;
+  repeat
+    c:=c+1
+    Mouse(586,370,119,10,true);
+    Wait(250+random(100));
+  until(GetColor(400,130)=1842201)and(GetColor(354,120)=1842201)or(c=15);
+end;
+
+Procedure MapFlag;
+var m:integer;
+begin
+  Wait(200+random(75));
+  M:=0;
+  if(FindBitmapIn(flag,x,y,570,5,725,162))then
+  begin
+   repeat
+    wait(100+random(50));
+    M:=M+1;
+   until(not FindBitmapIn(flag,x,y,570,5,725,162))and(M>9);
+   Wait(100+random(50));
+  end;
+end;
+
+Procedure UseItem(invin:integer); {Created by Odie5533}
+var rx,ry:integer;
+begin
+OpenBag;
+if(invin>0)and(invin<29)then
+begin
+ry:=214;
+repeat
+if(invin>4)then
+begin
+invin:=invin-4;
+ry:=ry+36;
+end;
+until(invin<5);
+rx:=528+(invin*42);
+wait(200+random(100));
+Mouse(rx,ry,20,20,true);
+wait(400+random(200));
+end;
+end;
+
+Procedure UseItem2(invin:integer; invinname:string); {Created by Odie5533}
+var rx,ry:integer;
+begin
+ OpenBag;
+ if(invin>0)and(invin<29)then
+ begin
+  ry:=216;
+  repeat
+  if(invin>4)then
+  begin
+   invin:=invin-4;
+   ry:=ry+36;
+  end;
+  until(invin<5);
+  rx:=530+(invin*42);
+  if(length(invinname)>0)then
+  begin
+   wait(200+random(100));
+   MMouse(rx,ry,15,15);
+   wait(50+random(25));
+   if(IsTextAt2(9,9,invinname,100))then
+   begin
+    GetMousePos(x,y);
+    Mouse(x,y,0,0,true);
+    wait(400+random(200));
+   end;
+  end;
+ end;
+end;
+
+procedure OpenBank;
+begin
+if(not (IsTextAt2(185,36,'The Bank of RuneScape',100)))then
+ begin
+ status('Opening Bank');
+ FindTextSpiral('Use Bank booth',280,200,130,30,100);
+ wait(200+random(150));
+ c:=0
+ repeat
+ c:=c+1
+  if(IsTextAt2(9,9,'Use Bank booth',100))then
+   begin
+   GetMousePos(x,y);
+   Mouse(x,y,0,0,false);
+   wait(200+random(150));
+   if(FindBitmap(rcmQuickBank,x,y))or(FindBitmap(rcmQuickBankY,x,y))then
+    begin
+    Mouse(x,y,5,2,true);
+     Wait(200+random(75));
+     if(FindBitmapIn(flag,x,y,570,5,725,162))then
+     begin
+     repeat
+     wait(100+random(50));
+     until(not FindBitmapIn(flag,x,y,570,5,725,162));
+     Wait(100+random(50));
+     end;
+    end;
+    wait(1000+random(500))
+    end;
+ until(IsTextAt2(185,36,'The Bank of RuneScape',100))or(c>1)
+ end;
+ wait(1000+random(250));
+end;
+
+Procedure Withdraw(Col,Row,Amount :integer); {Created by Odie5533}
+var rx,ry:integer;
+begin
+if(IsTextAt2(185,36,'The Bank of RuneScape', 100))and(col>0)and(row>0)and(col<5)and(row<8)then
+begin
+ rx:=33+(col*47)
+ ry:=25+(row*38)
+if(amount=1)then
+begin
+ Mouse(rx,ry,20,20,true);
+ wait(600+random(200));
+end;
+if(amount=0)or(amount>1)then
+begin
+ Mouse(rx,ry,20,20,false)
+ wait(200+random(100));
+ if(amount=0)then
+ begin
+ if(FindBitmapIn(WithDrawAll,x,y,5,65,465,410))then
+ begin
+  Mouse(x,y,50,3,true)
+  wait(600+random(200));
+ end;
+ end else
+ begin
+  GetMousePos(x,y)
+  Mouse(x,y+81,20,10,true);
+  wait(900+random(300));
+  SendKeysSilentSmooth(inttostr(amount)+chr(13),100)
+  wait(600+random(200));
+ end;
+end;
+end;
+end;
+
+Procedure Deposit(Col,Row,Amount :integer); {Created by Odie5533}
+var rx,ry,c:integer;
+begin
+if(IsTextAt2(185,36,'The Bank of RuneScape',100))then
+begin
+ rx:=528+(col*42)
+ ry:=178+(row*36)
+if(row=0)and(amount=0)then
+begin
+if(col=0)then col:=1
+   repeat
+   begin
+    if(findcolorspiral(x,y,65536,570,250,725,460))or(findcolorspiral(x,y,65536,rx,210,725,245))then
+    begin
+    c:=c+1
+     Mouse(x,y,2,2,false);
+     wait(150+random(50));
+     if(FindBitmapIn(StoreAll,x,y,555,230,745,465))or(FindBitmapIn(StoreAllY,x,y,555,230,745,465))then
+     begin
+      Mouse(x,y,40,2,true);
+      wait(600+random(200));
+     end;
+    MMouse(650,185,5,5);
+    wait(400+random(200));
+    end;
+   end;
+   until(not FindColorSpiral(x,y,65536,570,250,725,460))and(not findcolorspiral(x,y,65536,rx,210,725,245))or(c>28)
+end;
+if(col>0)and(col<5)and(row>0)and(row<8)then
+begin
+ wait(200+random(100));
+ if(amount=1)then
+ begin
+  Mouse(rx,ry,20,20,true);
+  wait(600+random(200));
+ end else
+ begin
+  Mouse(rx,ry,20,20,false)
+  wait(150+random(50));
+  if(amount=0)then
+  begin
+  if(FindBitmapIn(StoreAll,x,y,555,230,745,465))or(FindBitmapIn(StoreAllY,x,y,555,230,745,465))then
+  begin
+   Mouse(x,y,40,2,true)
+   wait(600+random(200));
+  end;
+  end else
+  begin
+   GetMousePos(x,y)
+   Mouse(x,y+81,20,10,true);
+   wait(900+random(300));
+   SendKeysSilentSmooth(inttostr(amount)+chr(13),100)
+   wait(600+random(200));
+   end;
+ end;
+end;
+end;
+end;
+
+procedure CloseBank;
+begin
+status('Closing bank');
+if(IsTextAt2(185,36,'The Bank of RuneScape', 100))then
+begin
+Banks:=Banks+1;
+Mouse(430,39,5,5,true);
+wait(800+random(300));
+end;
+end;
+
+Procedure AutoDrop(item :string); {Created by Odie5533}
+var drop,dropy,Row,Col,Ix,Iy,InvLoc:integer;
+begin
+drop := BitmapFromString(28, 2,
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF');
+dropY := BitmapFromString(28, 2,
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00FFFF00FFFF00000000000000000000FFFF00FFFF00FFFF00' +
+       'FFFF00000000000000000000000000FFFF00FFFF00FFFF00FFFF00' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00FFFF00000000000000000000FFFF00FFFF00000000' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00');
+InvLoc:=1; Col:=1; Row:=1;
+if(not(GetColor(632,175)=2829182))then
+Mouse(630,175,30,25,true);
+wait(50+random(25));
+repeat
+  Ix:=(Col-1)*42+570;
+  Iy:=(Row-1)*38+214;
+  MMouse(Ix,Iy,23,20);
+  wait(10+random(5));
+  If(IsTextAt2(9,9,item,100))then
+  begin
+   Mouse(Ix,Iy,23,20,false);
+   wait(10+random(5));
+   if(FindBitmapIn(Drop,x,y,555,210,730,460))or(FindBitmapIn(DropY,x,y,555,210,730,460))then
+    begin
+     Mouse(x,y,20,4,true);
+     wait(200+random(25));
+    end;
+  end;
+  InvLoc:=InvLoc+1;
+  Row:=Row+1;
+  if(Row>7)then
+  begin
+   Col:=Col+1;
+   Row:=1;
+  end;
+until(InvLoc>28)
+end;
+
+Function GetStatFor(stat:string; bottom:integer):integer; {Created by Odie5533}
+var ox,oy,ox2,oy2,col,row,s0,s1,s2,s3,s4,s5,s6,s7,s8,s9:integer;
+begin
+s0 := BitmapFromString(5, 8,
+       '000000FFFFFFFFFFFFFFFFFF000000FFFFFF000000000000000000' +
+       'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+       '000000FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000FFFFFF000000' +
+       'FFFFFFFFFFFFFFFFFF000000');
+s1 := BitmapFromString(3, 8,
+       '000000FFFFFF000000FFFFFFFFFFFF000000000000FFFFFF000000' +
+       '000000FFFFFF000000000000FFFFFF000000000000FFFFFF000000' +
+       '000000FFFFFF000000FFFFFFFFFFFFFFFFFF');
+s2 := BitmapFromString(5, 8,
+       '000000FFFFFFFFFFFFFFFFFF000000FFFFFF000000000000000000' +
+       'FFFFFF000000000000000000000000FFFFFF000000000000000000' +
+       'FFFFFF000000000000000000FFFFFF000000000000000000FFFFFF' +
+       '000000000000000000FFFFFF000000000000000000000000FFFFFF' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF');
+s3 := BitmapFromString(4, 8,
+       '000000FFFFFFFFFFFF000000FFFFFF000000000000FFFFFF000000' +
+       '000000000000FFFFFF000000FFFFFFFFFFFF000000000000000000' +
+       '000000FFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFF000000FFFFFFFFFFFF000000');
+s4 := BitmapFromString(4, 8,
+       'FFFFFF000000000000000000FFFFFF000000000000000000FFFFFF' +
+       '000000000000000000FFFFFF000000FFFFFF000000FFFFFF000000' +
+       'FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF' +
+       '000000000000000000FFFFFF000000');
+s5 := BitmapFromString(4, 8,
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF' +
+       '000000000000000000FFFFFFFFFFFFFFFFFF000000000000000000' +
+       '000000FFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFF000000FFFFFFFFFFFF000000');
+s6 := BitmapFromString(5, 8,
+       '000000000000FFFFFFFFFFFF000000000000FFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000000000000000FFFFFF000000FFFFFF' +
+       'FFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000FFFFFF000000' +
+       'FFFFFFFFFFFFFFFFFF000000');
+s7 := BitmapFromString(4, 8,
+       'FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF000000' +
+       '000000FFFFFF000000000000000000FFFFFF000000000000FFFFFF' +
+       '000000000000000000FFFFFF000000000000FFFFFF000000000000' +
+       '000000FFFFFF000000000000000000');
+s8 := BitmapFromString(5, 8,
+       '000000FFFFFFFFFFFFFFFFFF000000FFFFFF000000000000000000' +
+       'FFFFFFFFFFFF000000000000000000FFFFFF000000FFFFFFFFFFFF' +
+       'FFFFFF000000FFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000FFFFFF000000' +
+       'FFFFFFFFFFFFFFFFFF000000');
+s9 := BitmapFromString(5, 8,
+       '000000FFFFFFFFFFFFFFFFFF000000FFFFFF000000000000000000' +
+       'FFFFFFFFFFFF000000000000000000FFFFFF000000FFFFFF000000' +
+       '000000FFFFFF000000000000FFFFFFFFFFFFFFFFFF000000000000' +
+       '000000000000FFFFFF000000000000000000000000FFFFFF000000' +
+       '000000000000000000FFFFFF');
+if(not (GetColor(592,175)=2763390))then
+begin
+Mouse(577,178,10,10,true);
+end;
+if(stat='attack')or(stat='strength')or(stat='defense')or(stat='ranged')or(stat='prayer')or(stat='magic')or(stat='rc')then
+col:=1
+if(stat='hp')or(stat='agility')or(stat='herb')or(stat='thieve')or(stat='craft')or(stat='fletch')then
+col:=2
+if(stat='mine')or(stat='smith')or(stat='fish')or(stat='cook')or(stat='fire')or(stat='wc')then
+col:=3
+if(stat='attack')or(stat='hp')or(stat='mine')then
+row:=1
+if(stat='strength')or(stat='agility')or(stat='smith')then
+row:=2
+if(stat='defense')or(stat='herb')or(stat='fish')then
+row:=3
+if(stat='range')or(stat='thieve')or(stat='cook')then
+row:=4
+if(stat='prayer')or(stat='craft')or(stat='fire')then
+row:=5
+if(stat='magic')or(stat='fletch')or(stat='wc')then
+row:=6
+if(stat='rc')then
+row:=7
+if(bottom=0)then
+begin
+ox:=520+(col*64);
+oy:=179+(row*31);
+end;
+if(bottom=1)then
+begin
+ox:=532+(col*64);
+oy:=191+(row*31);
+end;
+ox2:=ox+9
+oy2:=oy+9
+if(FindBitmapMaskTolerance(s1,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=10
+if(FindBitmapMaskTolerance(s2,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=20
+if(FindBitmapMaskTolerance(s3,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=30
+if(FindBitmapMaskTolerance(s4,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=40
+if(FindBitmapMaskTolerance(s5,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=50
+if(FindBitmapMaskTolerance(s6,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=60
+if(FindBitmapMaskTolerance(s7,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=70
+if(FindBitmapMaskTolerance(s8,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=80
+if(FindBitmapMaskTolerance(s9,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=90
+ox:=ox+6
+ox2:=ox+9
+if(FindBitmapMaskTolerance(s0,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+0
+if(FindBitmapMaskTolerance(s1,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+1
+if(FindBitmapMaskTolerance(s2,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+2
+if(FindBitmapMaskTolerance(s3,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+3
+if(FindBitmapMaskTolerance(s4,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+4
+if(FindBitmapMaskTolerance(s5,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+5
+if(FindBitmapMaskTolerance(s6,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+6
+if(FindBitmapMaskTolerance(s7,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+7
+if(FindBitmapMaskTolerance(s8,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+8
+if(FindBitmapMaskTolerance(s9,x,y,ox,oy,ox2,oy2,10,240))then
+Result:=Result+9
+end;
+
+Function GetHp:integer; {Created by Odie5533}
+var Hp1,Hp2:integer;
+begin
+Hp1:=(GetStatFor('hp',0))
+Hp2:=(GetStatFor('hp',1))
+Result:=round((Hp1/Hp2)*100);
+end;
+
+Procedure LoadBankBmps;
+begin
+   rcmQuickBank := BitmapFromString(16, 6,
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+       '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF0000000000005D5447' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFF' +
+       '000000000000000000FFFFFFFFFFFFFFFFFF');
+
+   rcmQuickBankY := BitmapFromString(17, 5,
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+       '000000000000000000000000FFFF00FFFF00FFFF00FFFF00FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '000000000000FFFF00FFFF00000000000000000000FFFF00FFFF00' +
+       '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+       '000000FFFF00FFFF00000000000000000000FFFF00FFFF00000000' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00000000000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00000000000000000000');
+StoreAllY := BitmapFromString(15, 6,
+        'FFFF00FFFF00000000000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00FFFF00FFFF00FFFF00' +
+        'FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00FFFF00FFFF00000000000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        'FFFF00FFFF00000000000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00FFFF00FFFF00000000000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '');
+
+StoreAll := BitmapFromString(15, 6,
+        'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF' +
+        'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '');
+WithdrawAll := BitmapFromString(38, 2,
+       'FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFF' +
+       'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+       '000000FFFFFFFFFFFF000000000000000000000000000000000000' +
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000000000FFFFFFFFFFFF000000000000000000000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF');
+end;
+
+Procedure StartScriptSlow; {Created by Odie5533}
+begin
+repeat
+status(inttostr(round((ST-(GetSystemTime-5000))/1000)))
+wait(100)
+until(GetSystemTime-ST>4999)
+end;
+
+Procedure SetupOSi;
+begin
+setmousemode(false)
+loadchars('')
+SetupUNPW;
+flag := BitmapFromString(2, 2,
+        'FF00005D3311C656045D3311');
+LoadBankBmps;
+ST:=GetSystemTime;
+Writeln('Using OSi Version 3.2 - Created by Odie5533')
+end;

@@ -1,0 +1,10 @@
+program New;
+var a, f: Cardinal;
+begin
+  a:= GetSystemTime;
+  for f:= 1 to 1000 do
+  begin
+    Status(IntToStr(Random(99999999)));
+  end;
+  Writeln('Time ellapsed: ' + FloatToStr((GetSystemTime-a)/1000) + ' sec.');
+end.

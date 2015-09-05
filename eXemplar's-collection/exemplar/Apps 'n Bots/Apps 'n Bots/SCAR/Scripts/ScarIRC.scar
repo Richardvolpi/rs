@@ -1,0 +1,159 @@
+{.Script Info:
+# ScriptName  = IRC Client
+# Author      = RegeX
+# Description = Is an example IRC client in SCAR
+# Version     = 1.0 Final
+# Date        = 14 September 2005
+# Comments    = It's modal, won't let you do much
+                at the same time (without threading?)
+/Script Info}
+
+program ScarIRC;
+
+{ Setup the script in the directives specified here }
+const
+  USE_IRC     = True;
+  IRC_NETWORK = 'irc.kaitnieks.com';
+  IRC_CHAN    = '#bots';
+  IRC_NICK    = 'ScarIRC-'; // Name will be appended with a random
+                            // number. e.g SCARIRC- becomes SCARIRC-4325
+                            
+  VERBOSE     = False;      // Whether to log in/out data
+{ End Configuration here, you do not need to edit more }
+var
+    ircPtr     : Integer;
+
+
+function SubStr(str : String; startIdx, endIdx : Integer):String;
+var buff:string;
+begin
+  buff := '';
+  for startIdx := (startIdx + 1) to endIdx do
+  begin
+    buff := buff + StrGet(str,startIdx);
+  end
+  Result := buff;
+end;
+
+procedure WriteIRC(data:string);
+var written:boolean;
+begin
+  written := false;
+  data := data + Chr(13);
+  while(written = false) do
+  begin
+    written := SendConnectionData(ircPtr,data);
+  end;
+  if(VERBOSE = true) then
+    WriteLn('[Out] ' + data);
+end;
+
+procedure HandleIRC;
+var buf,tmp,buf2 : string;
+    read : boolean;
+begin
+  if(ircPtr >= 0)and(IsConnectionOpen(ircPtr)) then
+  begin
+    while(read = false)do
+    begin
+      read := ReadConnectionData(ircPtr,buf);
+      if(VERBOSE) then
+        WriteLn('[In] ' + buf);
+      
+      //////////////// Check for PING \\\\\\\\\\\\\\\\\\
+      if(pos('PING :',buf) > 0) then
+      begin
+        tmp := SubStr(buf,pos(':',buf),Length(buf) - 2);
+        WriteLn('Replying to PING with: ' + tmp);
+        WriteIRC('PONG :' + tmp);
+      end;
+
+      //////////// Check for user commands \\\\\\\\\\\\\
+      if(pos('PRIVMSG ' + IRC_CHAN + ' :!',buf) > 0) then
+      begin
+        tmp := SubStr(buf,pos(':!',buf) + 1,Length(buf) - 2);
+        WriteLn('Incoming command: ' + tmp);
+
+        // !say command
+        if(pos('say',Lowercase(tmp)) > 0) then
+        begin
+          buf2 := SubStr(tmp,4,Length(tmp));
+          writeln('Incoming !say command: ' + buf2);
+          WriteIRC('PRIVMSG ' + IRC_CHAN + ' :' + buf2);
+        end;
+        
+      end;
+    end;
+  end;
+  if(not(IsConnectionOpen(ircPtr))) then
+    WriteLn('IRC Disconnected');
+end;
+
+procedure ConnectIRC;
+var nick:string;
+begin
+  ircPtr := OpenConnection(IRC_NETWORK,6667,15000);
+  if(ircPtr >= 0) then
+  begin
+    HandleIRC;
+    nick := IRC_NICK + IntToStr(Random(9999));
+    WriteLn('Connecting to ' + IRC_NETWORK + ' as ' + nick);
+    WriteIRC('USER ' + nick + ' localhost Kaitnieks :Runescape Seller');
+    WriteIRC('NICK ' + nick);
+    HandleIRC;
+    WriteLn('Joining ' + IRC_CHAN);
+    WriteIRC('JOIN ' + IRC_CHAN);
+    HandleIRC;
+  end
+  else
+    WriteLn('IRC failed');
+end;
+
+
+function SplitSentences(sentences : string) : Array of String;
+var buff : Array of String;
+    bigIdx,idx : Integer;
+    die: Boolean;
+    charBuf : String;
+begin
+  SetArrayLength(buff,1);
+  idx := 1;
+  bigIdx := 0;
+  die := False;
+  while((bigIdx + idx) < Length(sentences))and(die = False) do
+  begin
+    if(StrGet(sentences,(bigIdx + idx)) = ',') then
+    begin
+      // Split time
+      SetArrayLength(buff,GetArrayLength(buff) + 1);
+      buff[GetArrayLength(buff) - 1] := charBuf;
+      bigIdx := (bigIdx + idx);
+      idx := 0;
+      charBuf := '';
+    end
+    else
+    begin
+      // Append
+      charBuf := charBuf + StrGet(sentences,(bigIdx + idx));
+    end;
+    idx := idx + 1;
+  end;
+  Result := buff;
+end;
+
+
+begin
+  WriteLn('-> Starting IRC <-');
+  if(USE_IRC = True) then
+  begin
+    // Setup IRC
+    ConnectIRC;
+  end;
+  while(True) do
+  begin
+   // Idle?
+   HandleIRC;
+   Wait(50);
+  end;
+
+end.

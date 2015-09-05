@@ -1,0 +1,289 @@
+{AutoFighter 1.1 By: HatlessCow
+» Fights any monster
+» Prayer enables bone picking and burying
+» Eating enables eating and logging when out of food
+» More Updates to come~!
+}
+program UberAutoFighter;
+{.include osi.txt}
+{.include par2.txt}
+{.include boxbreaker2.txt}
+
+var
+zombie,swarm,shade:integer;
+Attack,Bones,RedBar:integer;
+
+const
+//////////SETUP//////////
+NPCColor = 13816792;   // Most unique Color of ur target
+NPCColor2 = 858224;    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NPCtext = 'Attack GU'; // NPC text (Not the whole thing)
+FoodColor = 1207197;   // Color of food ur using
+EatFood = false;       // True enables eating and logging when out of food
+Prayer = false;        // Picks up bones and buries
+BoneColor = 9342873;   // Color of bones on ground
+BoneColor2 = 9605789;  // Color of bones in inventory
+MiniGround = 1732709;  // Color of green or brown ground on minimap
+NonFoodItems = 0;      // Number of non-food items in inventory
+Username = 'pureb0b';//
+Password = 'k1ller';//
+FightMode = 1;         //
+/////////////////////////
+
+procedure MouseFlag(x, y, rx, ry:integer; left:boolean);
+begin
+ Mouse(x, y, rx, ry, left);
+ MapFlag;
+ wait(200);
+end;
+
+procedure UberWait(time:integer);
+var half:integer;
+begin
+ half:= time/2;
+ Wait(time + random(half));
+end;
+
+function FindObjColorTol2(objtext:string; objcolor,objtol:integer):boolean;
+begin
+ if(FindColorSpiralTolerance(x,y,objcolor,5,5,514,336,objtol))then
+  begin
+   MMouse(x,y,1,1);
+   wait(300);
+   if((IsTextAt2(9,9,objtext,100)))then
+    result:=true;
+  end;
+end;
+
+function CanKill:boolean;
+begin
+ if(not(FindColorSpiral(x,y,65280,x-30,y+30,x-30,y+30)))or(not(FindColorSpiral(x,y,255,x-40,y+40,x-40,y+40)))then
+  result:=true;
+end;
+
+procedure LoadBmps;
+begin
+RedBar := BitmapFromString(30, 5,
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000');
+Attack := BitmapFromString(12, 7,
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFF5D54475D54475D5447' +
+       '5D5447FFFFFFFFFFFF5D54475D54475D54475D5447FFFFFFFFFFFF' +
+       '0000005D54475D54475D5447FFFFFFFFFFFF0000005D54475D5447' +
+       '5D5447FFFFFFFFFFFF0000005D54475D54475D5447FFFFFFFFFFFF' +
+       '0000005D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF5D5447' +
+       '5D5447FFFFFFFFFFFFFFFFFFFFFFFF5D54475D5447FFFFFFFFFFFF' +
+       '0000000000000000005D5447FFFFFFFFFFFF000000000000000000' +
+       '5D5447FFFFFFFFFFFF0000005D54475D54475D5447FFFFFFFFFFFF' +
+       '0000005D54475D5447');
+Bones := BitmapFromString(17, 4,
+       '5D54475D5447FF9040FF90400000005D5447FF9040FF9040000000' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D5447FF9040FF90400000005D5447FF9040FF90400000005D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       'FF9040FF9040FF9040FF9040FF90400000000000005D54475D5447' +
+       'FF9040FF9040FF9040FF90405D54475D54475D54475D5447FF9040' +
+       'FF9040000000000000FF9040FF90405D54475D5447FF9040FF9040' +
+       '000000000000FF9040FF90405D5447');
+zombie := BitmapFromString(15, 4,
+       '5D54475D54475D54475D5447FFFF00FFFF000000005D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D5447FFFF00FFFF000000005D54475D54475D54475D54475D5447' +
+       'FFFF00FFFF005D5447FFFF005D54475D54475D5447FFFF00FFFF00' +
+       'FFFF00FFFF005D54475D54475D54475D54475D5447000000000000' +
+       'FFFF00FFFF005D54475D5447FFFF00FFFF00000000FFFF00FFFF00' +
+       '5D54475D54475D5447FFFF00FFFF005D5447');
+swarm := BitmapFromString(11, 5,
+       'FFFF005D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFF00FFFF005D54475D54475D54475D5447FFFF00' +
+       'FFFF005D54475D54475D54475D5447FFFF00FFFF005D54475D5447' +
+       '5D5447FFFF00FFFF000000005D54475D54475D54475D5447FFFF00' +
+       'FFFF005D54475D5447FFFF00FFFF00000000FFFF005D54475D5447' +
+       '5D5447FFFF00FFFF000000005D5447FFFF00FFFF00FFFF00FFFF00' +
+       'FFFF00');
+shade := BitmapFromString(13, 4,
+       '5D54475D54475D5447FFFF00FFFF00FFFF005D54475D54475D5447' +
+       'FFFF00FFFF005D54475D54475D54475D5447FFFF00FFFF00000000' +
+       'FFFF00FFFF005D54475D5447FFFF00FFFF000000005D54475D5447' +
+       'FFFF00FFFF000000000000005D54470000000000005D5447FFFF00' +
+       'FFFF000000005D54475D54475D5447FFFF00FFFF005D54475D5447' +
+       '5D54475D54475D5447FFFF00FFFF000000005D5447');
+end;
+
+procedure LogInIfOut;
+begin
+ if(NotLogedIn=true)then
+  begin
+   Mouse(459,289,2,2,true);
+   wait(1000);
+   Mouse(371,254,1,1,true);
+   SendKeysSilent(Username+chr(13));
+   SendKeysSilent(Password);
+   Mouse(306,324,1,1,true);
+   wait(3000);
+   repeat
+   wait(50);
+   until(FindColorSpiralTolerance(x,y,8421504,425,58,490,66,15))
+   Mouse(460,63,1,1,true);
+  end;
+end;
+
+procedure RunFromRandom;
+begin
+ if(FindColorSpiral(x,y,65280,221,119,319,206))then
+ begin
+  if(FindColorSpiralTolerance(x,y,6511137,221,119,319,206,25))or
+  (FindColorSpiralTolerance(x,y,526344,221,119,319,206,25))or
+  (FindColorSpiralTolerance(x,y,8505,221,119,319,206,25))then
+   begin
+   MMouse(x,y,1,1);
+   uberwait(300);
+   if(IsTextAt(9,9,'Attack'))or
+   (IsTextAt(9,9,'Walk here / 2 more'))then
+    begin
+     Mouse(x,y,1,1,false);
+     wait(600);
+     if(FindBitmap(zombie,x,y))or
+     (FindBitmap(swarm,x,y))or
+     (FindBitmap(shade,x,y))then
+      begin
+       If(FindColorSpiralTolerance(x,y,MiniGround,570,5,623,142,10))or
+       (FindColorSpiralTolerance(x,y,MiniGround,599,5,720,47,10))or
+       (FindColorSpiralTolerance(x,y,MiniGround,723,5,675,139,10))or
+       (FindColorSpiralTolerance(x,y,MiniGround,602,127,705,161,10))then
+        begin
+         MouseFlag(x,y,2,2,true);
+         StandStill;
+         If (FindColorSpiralTolerance(x, y, 195836, 570, 5, 623, 142, 15)) or
+         (FindColorSpiralTolerance(x, y, 195836, 599, 5, 720, 47, 15)) or
+         (FindColorSpiralTolerance(x, y, 195836, 723, 5, 675, 139, 15)) or
+         (FindColorSpiralTolerance(x, y, 195836, 602, 127, 705, 161, 15)) then
+          MouseFlag(x,y,1,1,true);
+        end;
+      end;
+     RandObj;
+     MMouse(x,y,1,1);
+    end;
+   end;
+ end;
+end;
+
+procedure CheckRandoms;
+begin
+ RunFromRandom;
+ Check4randoms;
+ FindStrangeBox;
+end;
+
+procedure TimeToLog;
+begin
+ if(InvinCount<NonFoodItems)or(InvinCount=0)then
+  LogOut('Out of Food');
+end;
+
+procedure BuryBones;
+begin
+ if(FindColorSpiral(x,y,BoneColor2,564,214,732,454))then
+  begin
+   MMouse(x,y,1,1);
+   UberWait(350);
+   If(IsTextAt2(9,9,'Bury',100))then
+     Mouse(x,y,1,1,true);
+  end;
+ CheckRandoms;
+end;
+
+procedure PickBury;
+begin
+if(FindObjColorTol2('Take',BoneColor,5))then
+ begin
+ Mouse(x,y,1,1,false);
+ uberwait(350);
+ if(FindBitmap(Bones,x,y))then
+  begin
+   MouseFlag(x,y,1,1,true);
+   BuryBones;
+  end;
+ end;
+end;
+
+procedure KillNpc;
+begin
+CheckRandoms;
+if(FindObjColorTol2(NPCtext,NPCColor,5))or(FindObjColorTol2(NPCtext,NPCColor2,5))then
+ begin
+  if(CanKill = true)then
+   begin
+   Mouse(x,y,1,1,false);
+   wait(200);
+   if(FindBitmap(Attack,x,y))then
+    begin
+     MouseFlag(x,y,1,1,true);
+     wait(1500);
+     repeat
+      CheckRandoms;
+      wait(20);
+     until(not(FindColorSpiral(x,y,65280,221,119,319,206)))
+     if(Prayer=true)then
+     PickBury
+    end;
+   end;
+ end;
+ CheckRandoms;
+end;
+
+procedure AreDying;
+begin
+ CheckRandoms;
+ if(GetHp<50)then
+  begin
+   repeat
+   OpenBag;
+   if(FindColorSpiral(x,y,FoodColor,564,214,732,454))then
+    begin
+     MMouse(x,y,1,1);
+     UberWait(350);
+     If(IsTextAt2(9,9,'Eat',100))then
+      Mouse(x,y,1,1,true);
+    end;
+   until(GetHp>90)
+  end;
+OpenBag;
+end;
+
+begin
+setuposi
+BoxOpenerSetup;
+LogInIfOut;
+SetFightMode(FightMode);
+ChatFixer;
+LoadBmps;
+Writeln('Thanks for using a HatlessCow Script!');
+SetRun(true);
+repeat
+ LogInIfOut;
+ KillNpc;
+ if (EatFood = true) then
+  begin
+   LogInIfOut;
+   TimeToLog;
+   AreDying;
+  end;
+until(false)
+end.

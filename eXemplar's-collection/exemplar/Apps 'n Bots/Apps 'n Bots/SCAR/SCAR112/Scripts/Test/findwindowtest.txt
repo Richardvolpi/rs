@@ -1,0 +1,12 @@
+begin
+  //open calculator before running this script
+  FindWindow('findwindowtest.txt - SCAR 1.12 by Kaitnieks');
+  SetMouseMode(False);
+  MoveMouse(10,10);
+  ActivateClient;
+  Sleep(100);
+  FindWindow('Calculator');
+  ActivateClient;
+  SendKeys('2+2=');
+
+end.

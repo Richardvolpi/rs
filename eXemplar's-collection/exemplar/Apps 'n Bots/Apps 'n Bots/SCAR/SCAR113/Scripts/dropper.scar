@@ -1,0 +1,80 @@
+
+program New;
+
+var x,y:integer;
+
+Procedure Mouse(x,y,rx,ry: integer; left:boolean);{Made By GenoDemoN, Modified by piv and odie5533}
+begin
+x:=x+random(rx);
+y:=y+random(ry);
+//movemousesmoothex(x,y,1,3,12,20,10);
+movemousesmooth(x,y);
+Wait(50+random(50));
+HoldMouse(x,y,left);
+Wait(10+random(70));
+ReleaseMouse(x,y,left);
+wait(100+random(50));
+end;
+
+Procedure MMouse(x,y,rx,ry: Integer); {Made by odie5533 based on x piv x's settings}
+begin
+  x:=x+random(rx);
+  y:=y+random(ry);
+  Wait(50+random(50));
+  MoveMouseSmoothEx(x,y,1,3,12,20,10);
+  Wait(100+random(50));
+end;
+
+Procedure AutoDrop(item :string); {Created by Odie5533}
+var drop,dropy,Row,Col,Ix,Iy,InvLoc:integer;
+begin
+drop := BitmapFromString(28, 2,
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF');
+dropY := BitmapFromString(28, 2,
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00FFFF00FFFF00000000000000000000FFFF00FFFF00FFFF00' +
+       'FFFF00000000000000000000000000FFFF00FFFF00FFFF00FFFF00' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00FFFF00000000000000000000FFFF00FFFF00000000' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00');
+InvLoc:=1; Col:=1; Row:=2;
+if(not(GetColor(632,175)=2829182))then
+Mouse(630,175,30,25,true);
+wait(80+random(25));
+repeat
+  Ix:=(Col-1)*42+570;
+  Iy:=(Row-1)*38+214;
+  MMouse(Ix,Iy,23,20);
+  wait(10+random(5));
+  If(IsTextAt2(9,9,item,100))then
+  begin
+   Mouse(Ix,Iy,23,20,false);
+   wait(10+random(5));
+   if(FindBitmapIn(Drop,x,y,555,210,730,460))or(FindBitmapIn(DropY,x,y,555,210,730,460))then
+    begin
+     Mouse(x,y,20,4,true);
+     wait(200+random(25));
+    end;
+  end;
+  InvLoc:=InvLoc+1;
+  Row:=Row+1;
+  if(Row>7)then
+  begin
+   Col:=Col+1;
+   Row:=1;
+  end;
+until(InvLoc>28)
+end;
+
+begin
+     setmousemode(false);
+     LoadChars('');
+     AutoDrop('U');
+end.

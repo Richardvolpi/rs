@@ -1,0 +1,84 @@
+program RscChatter;
+
+procedure megahal_setnoprompt(); external 'megahal_setnoprompt@megahal.dll' ;
+procedure megahal_setnowrap(); external 'megahal_setnowrap@megahal.dll' ;
+procedure megahal_setnobanner(); external 'megahal_setnobanner@megahal.dll' ;
+procedure megahal_seterrorfile(szFileName: PChar); external 'megahal_seterrorfile@megahal.dll' ;
+procedure megahal_setstatusfile(szFileName: PChar); external 'megahal_seterrorfile@megahal.dll' ;
+procedure megahal_setdirectory(szDir: PChar); external 'megahal_seterrorfile@megahal.dll' ;
+
+procedure megahal_initialize(); external 'megahal_initialize@megahal.dll' ;
+procedure megahal_cleanup(); external 'megahal_cleanup@megahal.dll' ;
+
+function megahal_initial_greeting(): PChar; external 'megahal_initial_greeting@megahal.dll' ;
+function megahal_command(szInput: PChar): Longint; external 'megahal_command@megahal.dll' ;
+function megahal_do_reply(szInput: PChar; Log: Longint): PChar; external 'megahal_do_reply@megahal.dll' ;
+procedure megahal_learn_no_reply(szInput: PChar; Log: Integer); external 'megahal_learn_no_reply@megahal.dll' ;
+procedure megahal_output(szPrompt: PChar); external 'megahal_output@megahal.dll' ;
+function megahal_input(szPrompt: PChar): PChar; external 'megahal_input@megahal.dll' ;
+
+var
+   chat,learn,lastchat,output: String;
+
+const
+     rsnick = '1m K1ll3n U';
+     replyrate = 100;
+
+procedure megahal_init;
+begin
+     Writeln('Loading MegaHal Library');
+     megahal_initialize;
+     megahal_setnoprompt;
+     megahal_setnowrap;
+     megahal_setnobanner;
+     megahal_setdirectory('.');
+     megahal_seterrorfile('.\megahal_error.txt');
+     megahal_setstatusfile('.\megahal_status.txt');
+     Writeln('MegaHal Library Initialised');
+end;
+
+function PStartScreen:boolean;
+var
+ bool:boolean;
+begin
+ if {F2P start screen}
+    ((GetColor(99,266)=8216920)and
+    (GetColor(212,265)=9924705)and
+    (GetColor(299,266)=8216920)and
+    (GetColor(412,266)=8216920))or
+    {P2P start screen}
+    ((GetColor(159,276)=8216920)and
+    (GetColor(351,275)=9924705)and
+    (GetColor(350,303)=11176575)and
+    (GetColor(160,304)=11307905)) then
+    bool:=True else bool:=False;
+ Result:=Bool;
+end;
+
+begin
+     megahal_init;
+     repeat
+           chat := '';
+           learn := '';
+           chat := GetChatMsg;
+           if((pos(rsnick,chat) = 0) and (pos(':',chat) > 0) and (not(lastchat = chat)))then
+           begin
+                learn := trim(copy(chat,pos(':',chat) + 1, length(chat) - pos(':',chat) + 1));
+                writeln('in: ' + learn);
+                if(length(trim(learn)) > 0)then
+                begin
+                     megahal_learn_no_reply(learn,0);
+                     if(replyrate > random(100))then
+                     begin
+                          output := megahal_do_reply(learn,0)
+                          writeln('out: ' + output);
+                          sendkeyssilent(output + chr(13));
+                     end;
+                end;
+           end;
+           lastchat := chat;
+           Wait(10);
+     until(PStartScreen);
+     megahal_cleanup;
+     Writeln('Script finished');
+end.

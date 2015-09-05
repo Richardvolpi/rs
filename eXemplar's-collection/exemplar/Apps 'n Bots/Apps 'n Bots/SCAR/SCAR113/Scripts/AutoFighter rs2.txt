@@ -1,0 +1,549 @@
+{+++++++++++++++++++++++++++++++++++++++++]
+                 AutoFighter
+                    v1.631
+                by: odie5533
+[+++++++++++++++++++++++++++++++++++++++++]
+Instructions:
+ 1.Setup lines 54-69
+ 2.Vbright, 32 bit color
+ 3.Highest angle of view
+ 4.Scar 1.13
+ 5.Requires OSi v3.4
+ 6.To use Eat function, have a piece of
+   the kind of food you want to eat in 1st
+   invin slot
+ 7.To use the Bone Burier, have a bones in
+   the 2nd invin slot
+[+++++++++++++++++++++++++++++++++++++++++]
+ Special Thanks To:
+ x piv x, Stupid3ooo, Joolz, and Nick
+ Super Special Thanks to: Pups!!!
+[+++++++++++++++++++++++++++++++++++++++++}
+
+{ChangeLog:
+ v1.0 - Initial release
+ v1.01 - Updated wait timing
+ v1.1 - Added Login Procedure, fixed Progress Report, and MapFlag waiting
+ v1.2 - Added Bone Collector, fixed wait times, Progress Report more accurate
+ v1.21 - Login faster, fixed fightmode changing, bone burying faster
+ v1.22 - Fixed login procedure
+ v1.5 - Added anti-randoms, and added eating fucntion
+ v1.6 - Fixed anti-randoms, updated various things
+ v1.61 - poop
+ v1.62 - I dno anymore
+ v1.63 - Fixed the anti-randoms
+ v1.631 - Fixed talk procedure and added SetFightMode after login}
+
+program AutoFighter;
+var ax,ay,report,report2,FightMode:Integer;
+BonesCollected,BonesBuried,Killed,Timeout,Ate,LastBuried,Runs,RandomCount,Lamps:Integer; {Counters}
+BoneColor,BoneInvColor,color1,color2,mcolor,tol,FoodInvColor:Integer; {Colors}
+TakeBones,TakeBonesY,AttackIt,AttackIt2,TalkW,TalkY,iLamp:integer; {Bitmaps}
+RWX,RWY,CriticalHP:integer; //Misc
+BoneCollecting,Att,Run,CHP,EatFood,Attacking:boolean;
+STT,LastFight,LFTimeout,TT:LongInt;
+username,password,RunWhere:string;
+{.include OSi.txt}
+{.include BoxBreaker.txt}
+
+Procedure Setup;
+begin
+//+++++++++++++++Setup+++++++++++++++
+Username:='Kill4laughs'; //Set Username
+Password:=''; //Set Password
+color1:=528528; //Monster Color 1
+color2:=9994351; //Monster Color 2
+tol:=0; //Tolerance to find the monster color. 0 is default
+FightMode:=1; //Set fight mode 1-4 top to bottom
+EatFood:=True; //True to eat food, false to not
+FoodInvColor:=608168; //Set the color of the food in your invin
+CriticalHP:=50; //Percent of HP left when you should run
+RunWhere:='E'; //Set Which way to run if fight random occurs
+Timeout:=30; //The maximum time (in seconds) a fight should last (will run if lasts longer)
+LFTimeout:=8; //The maximum time (in min) between fights
+BoneCollecting:=false; //Set True to collect bones, Fasle to not
+BoneColor:=13487571; //Set BoneColor on Screen
+Report:=1; //Set how often to print progress report (in minutes)
+
+end; //End of Setup
+
+//+++++++++++++++Anti-Randoms+++++++++++++++
+procedure LoginIfNeeded;//A stupid3ooo procedure based of many others
+var counter:integer;
+begin
+if(length(username) > 0)and(length(password) > 0)then
+begin
+if(IsTextAt2(293,251,'Username',0))and(NotLogedIn)then
+  Mouse(460,322,10,2,true);
+if(IsTextAt2(309,241,'Welcome to RuneScape',0))and(NotLogedIn)then
+ begin
+  Mouse(400,280,125,20,true);
+  if(IsTextAt2(271,214,'Enter your username',50))then
+   begin
+    Mouse(400,256,20,5,true);
+    SendKeysSilentsmooth(username,50);
+    Mouse(400,270,20,5,true);
+    SendKeysSilentsmooth(password,50);
+    Mouse(300,322,20,5,true);
+    repeat
+     counter:=counter+1;
+     wait(100);
+    until(FindColor(x,y,8421504,0,0,515,338))or(counter=60)
+   end;
+ end;
+if(FindColor(x,y,8421504,400,0,515,338))then
+ begin
+  Mouse(x+5,y+1,15,5,true);
+  sendarrowsilentwait(0,900+random(200))
+  wait(200+random(100));
+  SetFightMode(FightMode);
+ end;
+end;
+end;
+
+Procedure Eat;
+var c:integer;
+begin
+Writeln('You have low hp, now running...')
+SetRun(true);
+Mouse(648+RWX,83+RWY,2,2,true);
+wait(2000);
+MapFlag;
+wait(1000+random(500));
+OpenBag;
+if(EatFood)and(FindColorSpiral(x,y,FoodInvColor,560,210,730,460))then
+repeat
+OpenBag;
+if(FindColorSpiral(x,y,FoodInvColor,560,210,730,460))then
+begin
+ Mouse(x,y,3,3,true);
+ wait(3000+random(500));
+ Ate:=Ate+1;
+end;
+c:=c+1;
+until(GetHp>80)or(c>5)
+OpenBag;
+if(not(FindColorSpiral(x,y,FoodInvColor,560,210,730,460)))and(GetHp<80)then
+ LogOut('Low HP and unable to eat');
+Status('Walking back to NPCs');
+Mouse(648-RWX,83-RWY,2,2,true);
+wait(2000);
+MapFlag;
+CHP:=false;
+end;
+
+Procedure RunAway;
+begin
+Status('Running Away...')
+runs:=runs+1;
+GetScreenshot('Ran',runs);
+SetRun(true);
+Mouse(648+RWX,83+RWY,2,2,true);
+wait(2000);
+MapFlag;
+wait(10000+random(3000));
+Status('Running Back...')
+Mouse(648-RWX,83-RWY,2,2,true);
+wait(2000);
+MapFlag;
+Run:=false;
+end;
+
+procedure FindText;
+var counter,c:integer; Talked2Rand:boolean;
+begin
+if(FindColor(x,y,65535,5,5,514,337))then wait(200)
+if(FindColor(x,y,65535,5,5,514,337))and(LogedIn)then
+ begin
+  RandomCount:=RandomCount+1;
+  GetScreenShot('YellowtextFound',RandomCount);
+  repeat
+   counter:=counter+2+random(1);
+   if((x+counter) < 515)and((y+18) < 338)then
+    MoveMouseSmoothEx(x+counter,y+15+random(3),1,6,15,20,20);
+   wait(5);
+   if(IsTextAt2(9,9,'Ta',100))then
+    begin
+     GetMousePos(x,y);
+     Mouse(x,y,0,0,false);
+     Wait(200+random(100));
+     if(FindBitmap(TalkW,x,y))or(FindBitmap(TalkY,x,y))then
+      begin
+       Mouse(x,y,40,5,true);
+       MapFlag;
+       wait(1000+random(1000));
+       while((FindColor(x,y,16711680,5,345,510,465))or //Replaces TalkToRand
+            (FindColor(x,y,16777215,5,345,510,465)))and
+            (not(GetColor(20,434)=0))and(c<=10)do
+        begin
+         GetScreenShot('Talked',RandomCount);
+         Mouse(x,y,50,2,true);
+         wait(2000+random(1000));
+         c:=c+1;
+        end;
+       Talked2Rand:=true;
+      end;
+    end;
+  until(counter>=250)or(Talked2Rand);
+ end;
+end;
+
+Procedure FindLamp;
+begin
+while(FindBitmapSpiralTolerance(iLamp,x,y,550,200,745,470,100)) do
+ begin
+  Lamps:=Lamps+1;
+  GetScreenshot('Lamp',Lamps);
+  Mouse(x,y,10,10,true);
+  wait(3000+random(1000));
+  Mouse(157,220,12,12,true)
+  wait(3000+random(1000));
+  Mouse(248,255,10,2,true);
+  wait(3000+random(1000));
+  Mouse(226,442,10,3,true);
+  wait(3000+random(1000));
+  end;
+end;
+
+procedure FindMiscRandoms;
+var ax,ay:integer;
+begin
+ if(FindColor(ax,ay,786423,10,350,150,433))then
+  begin
+   GetScreenshot('Mod',1);
+   LogOut('UHOH, A MOD!!!');
+  end;
+ if(GetColor(30,418)=0)and(GetColor(72,429)=0)then
+  begin
+   GetScreenshot('Dead',1);
+   LogOut('You are dead!');
+  end;
+ if(FindColor(ax,ay,11503238,10,350,479,433))then
+  begin
+   GetScreenshot('Mime',1);
+   LogOut('Mime Found');
+  end;
+end;
+
+Procedure FindRandoms;
+begin
+LoginIfNeeded;
+FindText;
+FindBox;
+FindMiscRandoms;
+end;
+
+Procedure ProgressReport;
+var
+  RHours,Minutes,Seconds,RMinutes,RSeconds:LongInt;
+  Time:String;
+begin
+if(GetSystemTime-report2 > report*60000)then
+begin
+  Seconds:=(GetSystemTime-ST) div 1000;
+  Minutes:=Seconds div 60;
+  RHours:=Minutes div 60;
+  Time:=inttostr(Seconds)+' Seconds';
+  if Minutes<>0 then
+  begin
+   RSeconds:=Seconds Mod (Minutes*60);
+   Time:=inttostr(Minutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+  end;
+  if RHours<>0 then
+  begin
+   RMinutes:=Minutes Mod (RHours*60);
+   RSeconds:=Seconds Mod (Minutes*60);
+   Time:=inttostr(RHours)+' Hours, '+inttostr(RMinutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+  end;
+  begin
+  writeln(' ');
+  writeln('<=================Progress Report================>');
+  writeln('Worked for '+Time);
+  writeln('Fought '+inttostr(Killed)+' time[s]');
+  if(EatFood)then
+  writeln('Ate '+inttostr(ate)+' pieces of food')
+  if(bonecollecting)then
+  writeln('Collected '+inttostr(BonesCollected)+', and buried '+inttostr(BonesBuried)+' bones');
+  writeln('Handled: '+inttostr(RandomCount)+' Randoms, and ran from '+inttostr(runs)+' random events');
+  writeln('<================================================>');
+  Report2:=GetSystemTime;
+  end;
+end;
+end;
+
+Procedure GetBoneInvColor;
+begin
+   Status('Getting boneinvcolor...');
+   OpenBag;
+   MMouse(620,220,10,10);
+   Wait(500+random(200));
+   If(IsTextAt2(9,9,'Bury',100))then
+    begin
+      BoneInvColor := GetColor(625,230);
+      Status('BoneInvinColor is '+inttostr(BoneInvColor));
+    end else
+   begin
+      BoneCollecting := false;
+      Writeln('');
+      Writeln('No bone in second inv slot!');
+      Writeln('');
+   end;
+end;
+
+Procedure BoneBurier;
+begin
+OpenBag;
+Wait(200+random(100));
+Status('Burying bones...');
+   If(FindColorSpiral(x,y,(BoneInvColor),555,216,740,465))then
+   repeat
+    LastBuried:=0;
+    Mouse(x,y,10,10,true);
+    Wait(1500+random(300));
+    BonesBuried:=BonesBuried+1;
+   until(not(FindColorSpiral(x,y,(BoneInvColor),555,216,740,465)));
+end;
+
+Procedure BoneCollector;
+begin
+   Wait(200+random(100));
+   Status('Collecting bones...');
+   x:=262;
+   y:=174;
+   If(FindColorSpiral(x,y,(BoneColor),5,5,515,337))then
+   begin
+      Mouse(x,y,5,5,false);
+      wait(50+random(25));
+      If(FindBitmapIn(TakeBones,x,y,5,5,515,337))then
+      begin
+         Mouse(x,y,0,0,true);
+         Wait(15+random(5));
+         BonesCollected:=BonesCollected+1;
+         LastBuried:=LastBuried+1;
+         MapFlag;
+         wait(500+random(100));
+      end;
+      If(FindBitmapIn(TakeBonesY,x,y,5,5,515,337))then
+      begin
+         Mouse(x,y,0,0,true);
+         Wait(15+random(5));
+         BonesCollected:=BonesCollected+1;
+         LastBuried:=LastBuried+1;
+         MapFlag;
+         wait(500+random(100));
+      end;
+   end;
+end;
+
+Procedure Attack;
+var c:integer;
+begin
+mcolor:=random(2);
+case mcolor of
+ 0:mcolor:=color1;
+ 1:mcolor:=color2;
+end;
+x:=25+random(200);
+y:=25+random(200);
+if(FindColorSpiralTolerance(x,y,mcolor,5,5,514,337,tol))then
+begin
+status('Attacking...');
+ MoveMouseSmooth(x,y);
+ GetMousePos(ax,ay);
+ if(not FindColor(ax,ay,65280,ax-15,ay-30,ax+10,ay+15))and
+   (not(FindColor(ax,ay,65280,240,125,270,180)))then
+ begin
+  Mouse(ax,ay,1,1,false);
+  wait(150+random(50));
+  if(FindBitmapIn(AttackIt,x,y,10,12,516,342))or
+    (FindBitmapIn(AttackIt2,x,y,10,12,516,342))then
+  begin
+    Attacking:=true;
+    wait(50+random(25));
+    Mouse(x,y,5,3,true);
+    for c:=0 to 3 do
+    if(not (FindColorSpiral(ax,ay,65280,240,125,270,180)))then
+    begin
+     MapFlag;
+     wait(300+random(100));
+     FindRandoms;
+    end;
+  end else
+   MMouse(5,5,60,60);
+ end;
+end;
+end;
+
+Procedure WaitWhileAttacking;
+var c:integer;
+begin
+if(FindColorSpiral(ax,ay,65280,240,125,270,180))then
+begin
+ if(Attacking)then
+ begin
+  Killed:=Killed+1;
+  Attacking:=false;
+ end;
+ STT:=GetSystemTime;
+ repeat
+  TT:=(GetSystemTime-STT)/1000;
+  status('Fighting monster for '+inttostr(TT)+' second(s)')
+  wait(300);
+  if(TT>Timeout)then
+   Run:=true;
+  if(c>3)then
+  begin
+   FindRandoms;
+   if(GetHp<CriticalHP)then
+    CHP:=true;
+   c:=0;
+  end;
+  c:=c+1;
+ until(not (FindColorSpiral(ax,ay,65280,240,125,270,180)))or(Run)or(CHP)
+ if(Run)then
+ begin
+  Status('Fight lasted too long')
+  RunAway;
+ end;
+ if(CHP)then
+  Eat;
+ LastFight:=GetSystemTime;
+ If(BoneCollecting)then
+  BoneCollector;
+end;
+end;
+
+Procedure LoadBmps;
+begin
+TakeBones := BitmapFromString(70, 1,
+       'FFFFFFFFFFFF0000005D54475D54475D5447FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF5D54475D54475D5447FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+       '5D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF5D54475D5447' +
+       '5D54475D54475D54475D54475D5447FF9040FF9040FF9040FF9040' +
+       'FF90400000000000005D54475D5447FF9040FF9040FF9040FF9040' +
+       '5D54475D54475D5447FF9040FF9040FF9040FF9040FF90405D5447' +
+       '5D54475D54475D5447FF9040FF9040FF9040FF90405D54475D5447' +
+       '5D54475D5447FF9040FF9040FF9040FF9040FF9040');
+TakeBonesY := BitmapFromString(70, 1,
+       'FFFF00FFFF000000005D54475D54475D5447FFFF00FFFF00FFFF00' +
+       'FFFF005D54475D54475D5447FFFF00FFFF00000000FFFF00FFFF00' +
+       '5D54475D54475D5447FFFF00FFFF00FFFF00FFFF005D54475D5447' +
+       '5D54475D54475D54475D54475D5447FF9040FF9040FF9040FF9040' +
+       'FF90400000000000005D54475D5447FF9040FF9040FF9040FF9040' +
+       '5D54475D54475D5447FF9040FF9040FF9040FF9040FF90405D5447' +
+       '5D54475D54475D5447FF9040FF9040FF9040FF90405D54475D5447' +
+       '5D54475D5447FF9040FF9040FF9040FF9040FF9040');
+AttackIt := BitmapFromString(10, 6,
+      'FFFFFF5D54475D54475D5447FFFFFFFFFFFF5D54475D54475D5447' +
+      '5D5447FFFFFFFFFFFF5D54475D5447FFFFFFFFFFFF0000005D5447' +
+      '5D54475D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000' +
+      '5D54475D54475D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+      'FFFFFFFFFFFF5D54475D5447FFFFFFFFFFFF0000005D5447FFFFFF' +
+      'FFFFFF0000000000000000005D5447FFFFFFFFFFFF0000005D5447' +
+      'FFFFFFFFFFFF0000005D54475D54475D5447');
+AttackIt2 := BitmapFromString(21, 7,
+      '5D5447FFFF00FFFF000000005D54475D54475D54475D54475D5447' +
+      '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+      '5D54475D54475D54475D5447FFFF00FFFF00FFFF00FFFF005D5447' +
+      '5D54475D5447FFFF00FFFF00FFFF00FFFF005D54475D54475D5447' +
+      '5D5447FFFF00FFFF00FFFF00FFFF005D54475D5447FFFF00FFFF00' +
+      '0000000000000000005D5447FFFF00FFFF00000000000000FFFF00' +
+      'FFFF005D54475D5447FFFF00FFFF00000000000000000000000000' +
+      '5D5447FFFF00FFFF000000005D54475D54475D54475D5447FFFF00' +
+      'FFFF00FFFF00FFFF00FFFF000000005D5447FFFF00FFFF00000000' +
+      '5D54475D54475D54475D5447FFFF00FFFF000000005D54475D5447' +
+      '5D5447FFFF00FFFF00000000000000FFFF00FFFF000000005D5447' +
+      'FFFF00FFFF000000005D54475D54475D54475D5447FFFF00FFFF00' +
+      '0000005D54475D54475D5447FFFF00FFFF000000005D5447FFFF00' +
+      'FFFF000000005D5447FFFF00FFFF000000005D54475D54475D5447' +
+      '5D54475D5447FFFF00FFFF00FFFF005D54475D54475D5447FFFF00' +
+      'FFFF00FFFF00FFFF00FFFF000000005D54475D5447FFFF00FFFF00' +
+      'FFFF00FFFF005D5447');
+TalkW := BitmapFromString(17, 10,
+        'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+        '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+        '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+        'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF');
+TalkY := BitmapFromString(17, 10,
+        'FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+        '000000000000000000000000000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000000000000000FFFF00FFFF00FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+        '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000FFFF00FFFF00000000000000000000000000FFFF00' +
+        'FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00');
+//Lamp pic by Chriz
+iLamp := BitmapFromString(17, 6,
+       '000001000001000001000001BAB815B2B015AEAD15ABAA159C9A12' +
+       '9291128C8A1275740E000001000001000001000001000001D0CE18' +
+       'CBC918C8C618C5C418C5C418C0BE18BAB815B5B315ABAA15A3A112' +
+       '99971292911284820E79780E6968095C5A09A6A415CECC18C5C418' +
+       'C2C118C0BE18BDBB18BAB815B8B615B5B315B2B015A8A715A3A112' +
+       '9C9A129594128E8D1281800E999712AEAD15CECC18CBC918C0BE18' +
+       'BDBB18BAB815B5B315B2B015AEAD15A8A715A3A1129F9E12999712' +
+       '88860E84820E8C8A129291129C9A12000001CBC918CBC918BAB815' +
+       'B8B615B5B315B2B015AEAD15A8A715A3A1129C9A1295941281800E' +
+       '79780E84820E000001000001000001CBC918CBC918C0BE18B8B615' +
+       'B2B015AEAD15ABAA15A6A4159F9E129997128C8A1279780E75740E' +
+       '000001000001C2C118');
+end;
+
+begin
+clearreport;
+Setup;
+SetupOSi;
+Report2:=ST;
+LoadBmps;
+LoginIfNeeded;
+SetFightMode(FightMode);
+OpenBag;
+ChatFixer;
+if(BoneCollecting)then
+ GetBoneInvColor;
+LFTimeout:=LFTimeout*60000;
+LastFight:=GetSystemTime;
+case RunWhere of
+ 'N':begin RWX:=-1; RWY:=-48; end;
+ 'S':begin RWX:=1; RWY:=48; end;
+ 'E':begin RWX:=-58; RWY:=-1; end;
+ 'W':begin RWX:=58; RWY:=1; end;
+end;
+repeat
+ FindRandoms;
+ wait(300+random(150));
+ Att:=False;
+ Attack;
+ WaitWhileAttacking;
+ If(BoneCollecting)and(LastBuried>4)then
+  BoneBurier;
+ ProgressReport;
+until(GetSystemTime-LastFight>LFTimeout);
+LogOut('Loop Ended');
+end.

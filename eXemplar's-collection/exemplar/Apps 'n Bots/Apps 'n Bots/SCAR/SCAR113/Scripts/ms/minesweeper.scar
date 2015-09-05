@@ -1,0 +1,82 @@
+const
+     height=16;
+     width=30;
+
+var n: array[1..8]of integer;
+    bomb,face:integer;
+    xc,yc:integer;
+    box_x,box_y:integer;
+    boxes: array[1..width]of array[1..height]of integer;
+
+Procedure MoveBox(col,row:integer);
+begin
+     xc:=15+8-16+col*16;
+     yc:=96+8-16+row*16;
+     MoveMouseSmooth(xc,yc);
+end;
+
+Procedure ClickBox(col,row:integer);
+begin
+     MoveBox(col,row);
+     ClickMouse(xc,yc,true);
+end;
+
+Procedure LoadPiccies;
+var i:integer;
+begin
+     for i:=1 to 8 do
+     begin
+          n[i]:=loadbitmap('.\pics\n'+inttostr(i)+'.bmp');
+     end;
+     bomb:=loadbitmap('.\pics\bomb.bmp');
+     face:=loadbitmap('.\pics\face.bmp');
+end;
+
+Procedure UpdateArray;
+var tmp:integer;
+begin
+     for box_x:= 1 to width do
+     begin
+          for box_y:= 1 to height do
+          begin
+               tmp:=0;
+               xc:=15+8-16+box_x*16;
+               yc:=96+8-16+box_y*16;
+               for tmp:= 1 to 8 do
+               begin
+                    if(FindBitmapIn(n[tmp],xc,yc,xc-9,yc-9,xc+9,yc+9))then boxes[box_x][box_y]:=tmp;
+               end;
+               //if(GetColor(xc-8,yc)=16777215)then boxes[box_x][box_y]:=-1;
+          end;
+     end;
+end;
+
+procedure PrintArray;
+var temp:string;
+begin
+     for box_y:= 1 to height do
+     begin
+          temp:='';
+          for box_x:= 1 to width do
+          begin
+               temp:=temp+inttostr(boxes[box_x][box_y])+' ';
+          end;
+          writeln(temp)
+     end;
+end;
+
+Procedure NewGame;
+begin
+     repeat
+           Wait(100);
+     until(FindBitmap(face,xc,yc));
+     MoveMouseSmooth(xc,yc);
+     ClickMouse(xc,yc,true);
+end;
+
+begin
+     ActivateClient;
+     LoadPiccies;
+     UpdateArray;
+     PrintArray;
+end.

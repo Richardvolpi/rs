@@ -1,0 +1,6 @@
+Usage: GetItemNear(ID)
+Returns 1 if Item is near, 0 if not
+eg.
+Variable = GetItemNear
+or
+If GetItemNear = 1 Then...

@@ -1,0 +1,7 @@
+program New;
+var a: string;
+begin
+  a:= '3';
+  a:= a + '400';
+  Writeln(a[0]);
+end.
