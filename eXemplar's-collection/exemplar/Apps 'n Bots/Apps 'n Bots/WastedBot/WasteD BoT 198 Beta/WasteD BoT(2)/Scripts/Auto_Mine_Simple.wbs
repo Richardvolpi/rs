@@ -1,0 +1,202 @@
+'[WasteDBoT]
+Dim RockNum
+Dim Status
+Dim LastStatus
+Dim Count
+Dim Mines
+Dim GainedEXP
+Dim MineDuration
+Dim Banking
+Dim TempCount
+
+@Sub Main()
+Call WBLogo
+RockNum = 0
+Count = 0
+Mines = 0
+GainedEXP = 0
+TempCount = 0
+Banking = 0
+SetStatus("Starting Autominer")
+BotChat("@blu@AutoMiner@whi@ - by Phate of Wasted Coders Inc")
+BotChat("@blu@AutoMiner@whi@ - Mining Guild Coal")
+BotChat("@blu@AutoMiner@whi@ - Starting")
+CreateText 1, 120, 180, "@yel@[@whi@WasteD BoT Auto-Miner@yel@] @yel@- @whi@Phate"
+Sleep(100)
+UpdateStuff
+CreateText 3, 120, 200, "@yel@Coal Mined [@whi@" & Mines & "@yel@]"
+Sleep(100)
+CreateText 5, 120, 210, "[@whi@" & Status & "@yel@]"
+TimeOut
+Call MineLoop
+@End
+
+@Sub MineLoop()
+Do While ScriptOn()
+Dim Random
+Random = Rand(2)
+MineDuration = MineDuration + 1
+If Banking = 1 then
+Call Bank
+Else
+If Random = 1 then
+RockNum = 111
+Else
+RockNum = 110
+End If
+If Left(LastServerMsg, 5) = "There" then
+SetStatus("No Ore")
+ElseIf Left(LastServerMsg, 5) = "You o" then
+SetStatus("Scratched Rock")
+ElseIf Left(LastServerMsg, 5) = "You m" then
+SetStatus("Obtained Ore")
+Mines = Mines + 1
+UpdateStuff
+ElseIf Left(LastServerMsg, 5) = "You s" then
+SetStatus("Swinging Pick")
+Else
+SetStatus("Searching For Rocks")
+End If
+TempCount = TempCount + 1
+If TempCount = 50 Then
+ResetMessages
+TempCount = 0
+End If
+Count = Count + 1
+If Count = 20 then
+Dim LastInvent
+LastInvent = GetInventory(29)
+Count = 0
+End If
+If LastInvent = 0 then
+Sleep(300)
+If MineDuration = 20 then
+ActionNearest(RockNum)
+MineDuration = 0
+End If
+Else
+Call Bank
+If MineDuration = 20 then
+ActionNearest(RockNum)
+MineDuration = 0
+End If
+End If
+End If
+Loop
+@End
+
+@Sub Bank()
+SetStatus("Banking - Climbing")
+Banking = 1
+Sleep(2000)
+Sleep(2000)
+Call Bank2
+If Left(LastNPCChat, 4) = "Bank" then
+Answer(0)
+Sleep(9000)
+End If
+End Sub
+
+@Sub Bank2()
+Dim XRight
+Dim YRight
+Dim InBank
+XRight = 0
+YRight = 0
+If MyX > 250 then 
+ If MyX < 290 then
+  XRight = 1
+ End If
+End If
+If MyY < 570 then 
+ If MyY > 250 then
+  YRight = 1
+ End If
+End If
+'In Bank Check Start
+Dim XRight2
+Dim YRight2
+XRight2 = 0
+YRight2 = 0
+If MyX > 280 then 
+ If MyX < 286 then
+  XRight2 = 1
+ End If
+End If
+If MyY < 573 then 
+ If MyY > 254 then
+  YRight2 = 1
+ End If
+End If
+If XRight2 = 1 then
+If YRight2 = 1 then
+InBank = 1
+End If
+End If
+'In Bank Check End
+If InBank = 1 Then
+ SetStatus("Banking - Talking")
+ TalkToNPC(95)
+ Sleep(9000)
+Else
+If XRight = 1 then
+If YRight = 1 then
+SetStatus("Banking - Walking")
+Sleep(2000)
+WalkTo 285, 571
+Sleep(2000)
+Sleep(2000)
+WalkTo 285, 571
+Sleep(8000)
+WalkTo 285, 571
+Else
+Sleep(2000)
+ActionNearest(5)
+Call Bank
+End If
+Else
+Sleep(2000)
+ActionNearest(5)
+Call Bank
+End if
+End If
+@End
+
+@Sub SetStatus(What)
+If What = LastStatus then
+Else
+Status = What
+LastStatus = What
+CreateText 5, 120, 210, "[@whi@" & Status & "@yel@]"
+End If
+@End
+
+@Sub UpdateStuff()
+ResetMessages
+CreateText 2, 120, 190, "Gained EXP [@whi@" & GainedEXP & "@yel@]"
+Sleep(20)
+CreateText 3, 120, 200, "@yel@Coal Mined [@whi@" & Mines & "@yel@]"
+@End
+
+@Sub TimeOut()
+Sleep(20)
+@End
+
+@Sub WBLogo()
+Dim SN
+SN = "WasteDBoT Guild Miner"
+CreateText 1, 240, 150, "@dre@XXXXXXXXXXXXXXXXXXXXXXXXXX"
+CreateText 2, 240, 160, _
+"@dre@X@whi@                     @red@WasteDBoT                     @dre@X"
+CreateText 3, 241, 170, _
+"@dre@X@whi@              @red@Phate@whi@ @dre@and @red@Lormsby              @dre@X"
+CreateText 4, 240, 180, "@dre@XXXXXXXXXXXXXXXXXXXXXXXXXX"
+CreateText 5, 240, 190, "@lre@Script [@whi@" & SN & "@lre@]"
+Sleep(5000)
+DestroyText 5
+DestroyText 4
+DestroyText 3
+DestroyText 2
+DestroyText 1
+@End
+

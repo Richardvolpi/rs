@@ -1,0 +1,21 @@
+'[WasteDBoT]
+@Sub Main()
+Call WBLogo
+@End
+@Sub WBLogo()
+Dim SN
+SN = "WasteDBoT AutoFighter"
+CreateText 1, 240, 150, "@dre@XXXXXXXXXXXXXXXXXXXXXXXXXX"
+CreateText 2, 240, 160, _
+"@dre@X@whi@                     @red@WasteDBoT                     @dre@X"
+CreateText 3, 241, 170, _
+"@dre@X@whi@              @red@Phate@whi@ @dre@and @red@Lormsby              @dre@X"
+CreateText 4, 240, 180, "@dre@XXXXXXXXXXXXXXXXXXXXXXXXXX"
+CreateText 5, 240, 190, "@lre@Script [@whi@" & SN & "@lre@]"
+Sleep(5000)
+DestroyText 5
+DestroyText 4
+DestroyText 3
+DestroyText 2
+DestroyText 1
+@End

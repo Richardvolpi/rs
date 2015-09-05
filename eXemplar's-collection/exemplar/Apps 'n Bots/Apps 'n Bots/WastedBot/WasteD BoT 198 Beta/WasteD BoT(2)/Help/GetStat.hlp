@@ -1,0 +1,4 @@
+Usage: Variable = GetStat(Integer StatNumber, "Current" or "Total")
+Gets a stat into your chosen variable, use for comparing etc.
+eg.
+Variable = GetStat(0, Current)

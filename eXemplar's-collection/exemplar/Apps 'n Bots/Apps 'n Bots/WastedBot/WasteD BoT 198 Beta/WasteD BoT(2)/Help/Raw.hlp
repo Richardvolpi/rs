@@ -1,0 +1,2 @@
+Usage: Raw(String Packet)
+Sends a raw packet to the java applet, use this if you are advanced.

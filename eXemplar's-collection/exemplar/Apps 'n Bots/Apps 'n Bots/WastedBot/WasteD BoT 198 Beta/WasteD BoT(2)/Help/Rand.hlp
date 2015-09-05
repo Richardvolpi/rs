@@ -1,0 +1,4 @@
+Usage: Variable = Rand(Max)
+Creates a random number lower than 'Max'
+eg.
+Variable = Rand(24)

@@ -1,0 +1,2 @@
+Usage: Login(String Username, String Password)
+Logs in on your currently set world.

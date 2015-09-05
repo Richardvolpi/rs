@@ -1,0 +1,2 @@
+Usage: WalkTo(Integer X, Integer Y)
+Walks to a specified place in the world.

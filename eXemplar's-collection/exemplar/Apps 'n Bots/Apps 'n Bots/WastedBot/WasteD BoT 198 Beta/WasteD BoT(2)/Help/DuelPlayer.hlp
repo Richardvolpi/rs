@@ -1,0 +1,2 @@
+Usage: DuelPlayer(String Name)
+Sends a Duel request to a player by his/her name

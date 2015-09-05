@@ -1,0 +1,2 @@
+Usage: InString(String WhatString, String SearchString)
+Returns True if SearchString is inside WhatString else returns false

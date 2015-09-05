@@ -1,0 +1,2 @@
+Usage: SelectShopItem(ID)
+Selects an item in a shop by its ID
