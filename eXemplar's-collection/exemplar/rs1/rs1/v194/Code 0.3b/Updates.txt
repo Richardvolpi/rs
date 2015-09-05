@@ -1,0 +1,24 @@
+0.1a:
+Release
+
+0.2a:
+Added Commands -
+InCombat()
+PlayerInCombat(int id)
+CheckFighters(boolean check)
+
+Fixed Commands -
+SetFightMode
+
+0.2b
+Fixed the minimap
+
+0.3a
+Changed the way scripts are loaded, now uses parameters.
+For example:
+/RUN FIGHT [TYPE]
+you dont have to use parameters, if its just /RUN COMMAND then the parameter will be null
+See the new AutoFight.java for help
+
+0.3b
+Fixed someting i fucked up in 0.3a :D
