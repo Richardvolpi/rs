@@ -1,0 +1,8 @@
+Yet Another Bot.zip contains the following:
+
+\data\ - Runescape loader files are stored here
+\worlds\ - new in Yet Another bot 2.0
+\YaB\run.bat - runs YaB [read the readme, worlds & data text files first]
+\YaB\yab.jar - class files to make YaB run
+
+---
