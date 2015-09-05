@@ -1,0 +1,62 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 12/22/2004 10:26:20 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   SimpleClassLoader.java
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Hashtable;
+
+public class SimpleClassLoader extends ClassLoader
+{
+
+    public SimpleClassLoader(String s)
+    {
+        classes = new Hashtable();
+        directory = s;
+    }
+
+    private byte[] getClassImplFromDataBase(String s)
+    {
+        byte abyte0[];
+        File file = new File(".", directory + s + ".class");
+        FileInputStream fileinputstream = new FileInputStream(file);
+        abyte0 = new byte[fileinputstream.available()];
+        fileinputstream.read(abyte0);
+        return abyte0;
+        Exception exception;
+        exception;
+        return null;
+    }
+
+    public Class loadClass(String s)
+        throws ClassNotFoundException
+    {
+        return loadClass(s, true);
+    }
+
+    public synchronized Class loadClass(String s, boolean flag)
+        throws ClassNotFoundException
+    {
+        Class class1 = (Class)classes.get(s);
+        if(class1 != null)
+            return class1;
+        Class class2 = super.findSystemClass(s);
+        return class2;
+        ClassNotFoundException classnotfoundexception;
+        classnotfoundexception;
+        byte abyte0[] = getClassImplFromDataBase(s);
+        if(abyte0 == null)
+            throw new ClassNotFoundException();
+        Class class3 = defineClass(s, abyte0, 0, abyte0.length);
+        if(class3 == null)
+            throw new ClassFormatError();
+        if(flag)
+            resolveClass(class3);
+        classes.put(s, class3);
+        return class3;
+    }
+
+    private Hashtable classes;
+    private String directory;
+}
