@@ -1,0 +1,6 @@
+Erhm, its a OCR god damnit, use it, and use it well...  Any problems or any questions?
+- ask em in irc.randomrune.org - Then ur set ;)...
+
+THIS OCR WERE MADE BY On3 PLZ...
+
+[ QUERY: On3: FUCKING AUTOERS THEY NEVER LET ME AUTO IN PEACE! ]
