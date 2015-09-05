@@ -1,0 +1,24 @@
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+body {
+	background-color: #000000;
+}
+a:link {
+	color: #FF9900;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #FF9900;
+}
+a:hover {
+	text-decoration: none;
+	color: #FF0000;
+}
+a:active {
+	text-decoration: none;
+	color: #FF9900;
+}
