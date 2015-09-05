@@ -1,0 +1,689 @@
+{
+------------> Gussy Iron Miner v 1.0 <---------------
+THATS RIGHT - gussys back, with the first part of his massive
+mining money making machine (hehe aliteration).  Anyways, my first script
+was an iron miner - it blew - but i have always had an affinity
+for it - so i made a good one, which i now turn over publicly to
+YOU. btw it does work - i even included a progress in case you
+remember my old one
+
+SPECIAL THANKS
+I'd like to put a shout out to Mutant Squirrel, Chriz (real big thanks,
+stole tonnes), Alex, and anyone whose procedures i pinched for
+my library, and of course thanks to Kaitniek and Dylock for SCAR,
+and RuneSC for getting me back into cheating
+
+INSTRUCTIONS
+General
+one pick in first spot, set colors, high detail, v-bright, high
+angle, facing mostly north, empty inventory, push start, script
+will give you 5 seconds, spare picks in first inv slot
+
+For Fally
+Start in Rimmington mine, or Fally bank
+
+For Varrok
+Start in varrok east mine, or varrok east bank
+Note:Varrok dont work as good, cause the roads all wonky and weird
+so i reccomend using fally
+
+N.B. Please feel free to edit and make this script better, because
+thats what scar scripting is about, there no point in rewriting
+procedures someone else has done well - thats why large slabs of
+my code is copied
+
+->proof it works (btw this was with a lvl 20 odd with bronze)
+--------Iron Miner By Gussy---------
+worked for 5 Hours, 15 Minutes and 48 Seconds
+Banked 32 times
+Mined Approx. 864 iron ore
+Ran from 4 random events
+Talked to 1 random events
+Stopped for gas 1 times
+Found 0 strange boxes
+Broken 0 picks
+Taken a total of 2 new picks
+Successfully executed
+}
+
+program gussyironminer;
+
+const
+///////start setup ///////
+{----------------- Weird Stuff----------------}
+disguised='Winamp 5.1'; //what to rename scar to
+
+{----------------- Misc Stuff----------------}
+username='';
+password='';
+tolerance=2; //no higher than 10 - keep it low
+town=1; //1 to start in falador anything else to start at varrock
+takeore=true; //allow script to pick up ore
+speed=2; //lower is faster
+pickfindercount=3; //number of tries to find pick head
+
+{-----------Color Stuff (minimap)-----------}
+banklogo = 3783132;     //gold part of the dollar sign on the banklogo
+roadcolor = 6447722;    //Roads color - the grey bit (duh)
+miningspot = 6775405;   //The Pick Head color that denotes a mining spot (not your pick)
+npc = 56797 ;          //Yellow dot (npc) color
+
+{-----------Color Stuff (game screen)-----------}
+rockcolor1=2503764;//color of rock (yeah i use the old system)
+rockcolor2=1910851;//color of rock
+rockcolor3=2240076;//color of rock
+
+////////// end setup ////////////
+
+{.include gussylibrary.txt}
+{.include boxbreaker2.txt}
+
+var
+l,c:integer;
+newpicks,rockcolor:integer;
+
+///////////////////////////////
+///        randoms          ///
+///////////////////////////////
+
+procedure MiningRandoms;
+begin
+ LogInIfneeded(username,password);
+ if(Fight)then
+  Runaway;
+  uberwait(100*speed)
+ if(GasFound(x,y))then
+ begin
+  StandStill;
+  gasfound(x,y)
+  end;
+  uberwait(100*speed)
+ check4pick
+ CheckLeveled;
+ uberwait(100*speed)
+ FindMiscRandoms;
+ FindText;
+ uberwait(100*speed)
+ FindLamp;
+ FindStrangeBox;
+ uberwait(100*speed)
+end;
+
+///////////////////////////////
+///      end randoms        ///
+///////////////////////////////
+
+///////////////////////////////
+///        walking          ///
+///////////////////////////////
+//stolen directly from chris (thanks chris)
+
+procedure ToRocksVarrock;
+begin
+  Loginifneeded(username,password);
+  L:=0;
+  c:=0;
+  if(FindColorSpiralTolerance(x,y,banklogo,575,70,730,135,Tolerance))Then
+  begin
+    run(true);
+    uberwait(100)
+    Status('Going Out of bank');
+    mouse(x+21,y-26,5,5,True)
+    mapflagg;
+    c:=1
+  end;
+  Loginifneeded(username,password)
+  repeat
+    if(FindColorSpiralTolerance(x,y,roadcolor,690,25,692,120,Tolerance))Then
+    begin
+      c:=c+1;
+      Status('Going Out Varrock '+inttostr(c)+'/3');
+      uberwait(50)
+      mouse(x,y,5,5,True)
+      mapflagg;
+    end
+    Loginifneeded(username,password);
+    L:=L+1;
+  Until(FindColorSpiralTolerance(x,y,roadcolor,585,108,710,110,Tolerance))and(c>2)or(L>30);
+  c:=1;
+  L:=0;
+  repeat
+    if(FindColorSpiralTolerance(x,y,roadcolor,585,108,710,130,Tolerance))Then
+    begin
+      Status('Going To Rocks '+inttostr(c)+'/12');
+      uberwait(50)
+      mouse(x,y,5,5,True)
+      mapflagg;
+      c:=c+1;
+    end;
+    Loginifneeded(username,password);
+    L:=L+1;
+  until(FindColorSpiralTolerance(x,y,miningspot,574,8,722,160,Tolerance))and(c>6)or(c>13)or(L>30);
+  if(FindColorSpiralTolerance(x,y,miningspot,574,8,722,160,Tolerance))Then
+  begin
+    Status('To center')
+    uberwait(50)
+    mouse(x,y,5,5,True)
+    mapflagg;
+  end;
+  If(L>30) or (c>15)then
+  begin
+      LogOut('Lost To Rocks Varrock')
+  end;
+end;
+
+procedure ToBankVarrock;
+begin
+  Loginifneeded(username,password);
+  c:=0;
+  L:=0;
+  if(FindColorSpiralTolerance(x,y,miningspot,574,8,722,160,Tolerance))Then
+  begin
+    Status('Out of Mines')
+    mouse(x+30,y-35,5,5,True)
+    mapflagg;
+    c:=1
+  end;
+  Loginifneeded(username,password);
+  repeat
+    If(FindColorSpiralTolerance(x,y,roadcolor,595,32,700,34,Tolerance))Then
+    begin
+      Status('Going To Varrock '+inttostr(c)+'/4');
+      uberwait(50)
+      mouse(x,y,5,5,True)
+      mapflagg;
+      c:=c+1;
+    end;
+    Loginifneeded(username,password);
+    L:=L+1;
+  Until(FindColorSpiralTolerance(x,y,roadcolor,605,30,607,120,Tolerance))and(c>4)or(L>30)
+  c:=1;
+  L:=0;
+  repeat
+    If(FindColorSpiralTolerance(x,y,roadcolor,605,30,607,120,Tolerance))Then
+    begin
+      Status('Going To Bank '+inttostr(c)+'/3');
+      uberwait(50)
+      mouse(x,y,5,5,True)
+      mapflagg;
+      c:=c+1;
+    end;
+    Loginifneeded(username,password);
+    L:=L+1;
+  until(FindColorSpiralTolerance(x,y,banklogo,575,60,710,135,Tolerance))and(c>3)or(c>4)or(L>30)
+  If(FindColorSpiralTolerance(x,y,banklogo,575,60,710,135,Tolerance))Then
+  begin
+    Status('Going In Bank')
+    uberwait(50)
+    mouse(x,y,5,5,True)
+    mapflagg;
+    uberwait(7000)
+  end;
+  If(L>30)then
+  begin
+     LogOut('Lost To Bank Varrock')
+  end
+end;
+
+procedure ToRocksFalador;
+begin
+  Loginifneeded(username,password);
+  L:=0;
+  c:=0;
+  if(FindColorSpiralTolerance(x,y,banklogo,575,70,730,135,Tolerance))Then
+  begin
+    run(true);
+    uberwait(100)
+    Status('Going Out of bank');
+    mouse(x-30,y+20,5,5,True)
+    mapflagg;
+    uberwait(200)
+    c:=1
+  end;
+  Loginifneeded(username,password);
+  repeat
+    if(FindColorSpiralTolerance(x,y,roadcolor,585,120,710,122,Tolerance))Then
+    begin
+      c:=c+1;
+      Status('Going South '+inttostr(c)+'/8');
+      uberwait(50)
+      mouse(x,y,5,5,True)
+      mapflagg;
+      uberwait(200)
+    end
+    Loginifneeded(username,password);
+    L:=L+1;
+  Until(FindColorSpiralTolerance(x,y,roadcolor,605,30,607,120,Tolerance))and(c>7)or(L>30);
+  c:=1;
+  L:=0;
+  repeat
+    If(FindColorSpiralTolerance(x,y,roadcolor,605,30,607,120,Tolerance))Then
+    begin
+      Status('Going West '+inttostr(c)+'/2');
+      uberwait(50)
+      mouse(x,y,5,5,True)
+      mapflagg;
+      c:=c+1;
+    end;
+    Loginifneeded(username,password);
+    L:=L+1;
+  until(FindColorSpiralTolerance(x,y,roadcolor,585,115,710,117,Tolerance))and(c>2)or(L>30)
+  c:=0;
+  L:=0;
+  repeat
+    if(FindColorSpiralTolerance(x,y,roadcolor,585,115,710,117,Tolerance))Then
+    begin
+      c:=c+1;
+      Status('Going south '+inttostr(c)+'/4');
+      uberwait(50)
+      mouse(x,y,5,5,True)
+      mapflagg;
+    end
+    Loginifneeded(username,password);
+    L:=L+1;
+  Until(c>=2);
+  L:=0;
+  repeat
+    begin
+      c:=c+1;
+      Status('Going south '+inttostr(c)+'/4');
+      uberwait(50)
+      mouse(650,125,5,5,True)
+      mapflagg;
+    end
+    Loginifneeded(username,password);
+    L:=L+1;
+  until(FindColorSpiralTolerance(x,y,miningspot,574,8,722,160,Tolerance))and(c>2)or(c>3)or(L>30)
+  if(FindColorSpiralTolerance(x,y,miningspot,574,8,722,160,Tolerance))Then
+  begin
+    Status('To iron')
+    uberwait(50)
+    mouse(x-15,y-15,10,10,True)
+    mapflagg;
+  end;
+  if(FindColorSpiralTolerance(x,y,miningspot,574,8,722,160,Tolerance))Then
+  begin
+    uberwait(200)
+    mouse(x-31,y,5,5,True)
+    mapflagg;
+  end;
+  If(L>30)then
+  begin
+      LogOut('Lost To Rocks Falador')
+  end;
+end;
+
+procedure ToBankFalador;
+var
+xy,yy:integer;
+begin
+  Loginifneeded(username,password);
+  c:=0;
+  L:=0;
+  if(FindColorSpiralTolerance(x,y,miningspot,574,8,722,160,Tolerance))Then
+  begin
+    Status('Out of Mines')
+    mouse(x-15,y-15,10,10,True)
+    flag;
+    uberwait(100)
+  end
+  Loginifneeded(username,password);
+  if(FindColorSpiralTolerance(x,y,miningspot,574,8,722,160,Tolerance))Then
+  begin
+    c:=1
+    Loginifneeded(username,password);
+    Status('Going north '+inttostr(c)+'/2');
+    uberwait(50)
+    mouse(x-15,y-60,5,5,True)
+    mapflagg;
+  end
+  Loginifneeded(username,password);
+  repeat
+    if(FindColorSpiralTolerance(x,y,roadcolor,615,32,700,34,Tolerance))Then
+    begin
+      c:=c+1;
+      Status('Going north '+inttostr(c)+'/2');
+      uberwait(50)
+      mouse(x,y,5,5,True)
+      mapflagg;
+    end
+    Loginifneeded(username,password);
+    L:=L+1;
+  Until(FindColorSpiralTolerance(x,y,roadcolor,690,40,692,120,Tolerance))and(c>1)or(c>4)or(L>30);
+  c:=0;
+  repeat
+    if(FindColorSpiralTolerance(x,y,roadcolor,690,40,692,120,Tolerance))Then
+    begin
+      c:=c+1;
+      Status('Going East '+inttostr(c)+'/2');
+      uberwait(50)
+      mouse(x,y,5,5,True)
+      mapflagg;
+    end
+    Loginifneeded(username,password);
+    L:=L+1;
+  Until(FindColorSpiralTolerance(x,y,roadcolor,595,35,690,37,Tolerance))and(c>1)or(c>3)or(L>30);
+  c:=0;
+  repeat
+    if(FindColorSpiralTolerance(x,y,roadcolor,595,35,690,37,Tolerance))Then
+    begin
+      c:=c+1;
+      Status('Going North '+inttostr(c)+'/6');
+      uberwait(50)
+      mouse(x,y,5,5,True)
+      mapflagg;
+    end
+    Loginifneeded(username,password);
+    L:=L+1;
+  Until(FindColorSpiralTolerance(x,y,banklogo,574,45,722,160,Tolerance))and(c>4)or(c>8)or(L>30);
+      if(findcolorspiral(x,y,banklogo,574,45,722,160))and(findcolorspiral(xy,yy,npc,x-15,y-20,x+50,y+10))then
+               begin
+               mouse(xy,(yy-7),1,1,true);
+               addtoreport('in bank, using npc')
+               flag
+               uberwait(500)
+               end else
+               begin
+               if (findcolorspiral(x,y,banklogo,574,45,722,160)) then
+                   begin
+                   addtoreport('in bank, using banklogo')
+                   mouse(x,y,1,1,true)
+                   flag
+                   uberwait(500)
+                   end;
+               end;
+  If(L>30)then
+  begin
+     LogOut('Lost To Bank Falador')
+  end
+end;
+
+procedure ToBank;
+begin
+  if(Not Loged)then
+  begin
+    If(Town=1)then
+    begin
+      ToBankFalador;
+    end else
+      ToBankVarrock;
+    end;
+end;
+
+procedure ToRocks;
+begin
+  if(Not Loged)then
+  begin
+    If(Town=1)then
+    begin
+      ToRocksFalador;
+    end else
+      ToRocksVarrock;
+    end;
+end;
+
+///////////////////////////////
+///      end walking        ///
+///////////////////////////////
+
+///////////////////////////////
+///        mining           ///
+///////////////////////////////
+
+procedure setrandoms;
+var rander:integer;
+begin
+rander:=random(3);
+case rander of
+0: RockColor:=rockcolor1;
+1: RockColor:=rockcolor2;
+2: RockColor:=rockcolor3;
+end;
+end;
+
+
+procedure domining;
+var tx,ty,ifail,ax,ay:integer; took,flagged:boolean;
+begin
+took:=false
+setrandoms
+miningrandoms
+if findcolorspiral(x,y,rockcolor,218,118,282,186) then
+   begin
+   mmouse(x,y,2,2)
+   if (istextat2(9,9,'Mine',100)) then
+      begin
+      getmousepos(x,y)
+      tx:=x
+      Ty:=y
+      mouse(x,y,1,1,true)
+      end;
+   if ((takeore) and istextat2(9,9,'Take',100)) then
+      begin
+      getmousepos(x,y)
+      tx:=x
+      Ty:=y
+      mouse(x,y,1,1,true)
+      took:=true
+      end;
+   end else
+   if findcolorspiral(x,y,rockcolor,9,9,511,333) then
+   begin
+   mmouse(x,y,2,2)
+   if (istextat2(9,9,'Mine',100)) then
+      begin
+      getmousepos(x,y)
+      tx:=x
+      Ty:=y
+      mouse(x,y,1,1,true)
+      end;
+   if ((takeore) and istextat2(9,9,'Take',100)) then
+      begin
+      getmousepos(x,y)
+      tx:=x
+      Ty:=y
+      mouse(x,y,1,1,true)
+      took:=true
+      end;
+   end;
+if flagpresent then
+   begin
+   flagged:=true
+   flag
+   end;
+repeat
+if flagged then
+   break;
+uberwait(100*speed)
+ifail:=ifail+1
+miningrandoms
+until(not findcolorspiral(ax,ay,rockcolor,tx-5,ty-5,tx+5,ty+5)) or (ifail>(30/speed)) or (fixed=false) or (took) or (flagged)
+if(ifail>(20/speed))then
+addtoreport('exceeded time');
+end;
+
+///////////////////////////////
+///      end mining         ///
+///////////////////////////////
+
+
+///////////////////////////////////
+//////      banking          //////
+///////////////////////////////////
+
+procedure newpickbank;
+begin
+openbank
+uberwait(500)
+If(FindBitmapSpiralTolerance(Orebmp,x,y,550,200,745,465,100))then
+deposit(2,1,0) else
+               begin
+               //not ore in first spot
+               If(FindBitmapSpiralTolerance(Orebmp,x,y,608,212,642,241,100))then
+                   begin
+                   mouse(x,y,2,2,false)
+                     if(FindBitmap(All,x,y))or(FindBitmap(AllY,x,y))then
+                         begin
+                         Mouse(x,y,40,2,true);
+                         wait(600+random(200));
+                         end;
+                     end;
+               end;
+uberwait(200)
+if (findcolorspiral(x,y,hc1,77,53,110,94)) or
+(findcolorspiral(x,y,hc2,77,53,110,94)) or
+(findcolorspiral(x,y,hc3,77,53,110,94)) or
+(findcolorspiral(x,y,hc4,77,53,110,94)) or
+(findcolorspiral(x,y,hc5,77,53,110,94)) then
+mouse(x,y,3,3,true) else logout('no more picks');
+newpicks:=newpicks+1
+uberwait(1000)
+closebank
+fixed:=true
+end;
+
+procedure normalbank;
+begin
+openbank
+uberwait(500)
+If(FindBitmapSpiralTolerance(Orebmp,x,y,605,212,642,248,100))then
+deposit(2,1,0) else
+               begin
+               addtoreport('not first')
+               //not ore in first spot
+               If(FindBitmapSpiralTolerance(Orebmp,x,y,550,200,745,465,100))then
+                   begin
+                   mouse(x,y,2,2,false)
+                     if(FindBitmap(All,x,y))or(FindBitmap(AllY,x,y))then
+                         begin
+                         Mouse(x,y,40,2,true);
+                         wait(600+random(200));
+                         end;
+                     end;
+               end;
+addtoreport('starting item deposit')
+uberwait(200)
+itemdeposit
+addtoreport('ending item deposit')
+if (findcolorspiral(x,y,hc1,558,200,738,464)) or
+        (findcolorspiral(x,y,hc2,558,200,738,464)) or
+        (findcolorspiral(x,y,hc3,558,200,738,464)) or
+        (findcolorspiral(x,y,hc4,558,200,738,464)) or
+        (findcolorspiral(x,y,hc5,558,200,738,464)) then
+addtoreport('pick still there') else
+        begin
+        writeln('accidentaly deposited pick, taking it out again')
+        if (findcolorspiral(x,y,hc1,77,53,110,94)) or
+        (findcolorspiral(x,y,hc2,77,53,110,94)) or
+        (findcolorspiral(x,y,hc3,77,53,110,94)) or
+        (findcolorspiral(x,y,hc4,77,53,110,94)) or
+        (findcolorspiral(x,y,hc5,77,53,110,94)) then
+        mouse(x,y,3,3,true) else logout('no more picks');
+        end;
+addtoreport('close')
+closebank
+end;
+
+procedure banking;
+begin
+findlamp
+if fixed then normalbank else newpickbank
+banks:=banks+1
+end;
+
+//////////////////////////////
+///    end banking        ////
+/////////////////////////////
+
+///////////////////////////////////
+//////       progress        //////
+///////////////////////////////////
+
+//the edmandel and phalanx progress report
+procedure progresstime;
+var
+Hours,Minutes,Seconds:LongInt;
+ Time:String;
+Begin
+  Seconds:=(GetSystemTime-ST) div 1000;
+  Minutes:=Seconds div 60;
+  Hours:=Minutes div 60;
+  Time:=inttostr(Seconds)+' Seconds';
+  if not (minutes=0) then
+     begin
+        Seconds:=Seconds Mod (Minutes*60);
+        Time:=inttostr(Minutes)+' Minutes and '+inttostr(Seconds)+' Seconds';
+     end;
+  if not (hours=0) then
+     begin
+        Minutes:=Minutes Mod (Hours*60);
+        Seconds:=Seconds Mod (Minutes*60);
+        Time:=inttostr(Hours)+' Hours, '+inttostr(Minutes)+' Minutes and '
+        +inttostr(Seconds)+' Seconds';
+     end;
+     begin
+     writeln('worked for ' + time)
+     end;
+     end;
+
+procedure progressother;
+begin
+writeln('Banked ' + inttostr(banks) + ' times')
+writeln('Mined Approx. ' + inttostr(banks*27) + ' iron ore')
+writeln('Ran from ' + inttostr(ran) + ' random events')
+writeln('Talked to ' + inttostr(talked) + ' random events')
+writeln('Stopped for gas ' + inttostr(gas) + ' times')
+writeln('Found ' + inttostr(foundboxcount) + ' strange boxes')
+writeln('Broken ' + inttostr(broken) + ' picks');
+writeln('Taken a total of ' + inttostr(newpicks) + ' new picks');
+end;
+
+procedure progress;
+begin
+writeln('-----------Progress Report-----------')
+writeln('---------Iron Miner By Gussy---------')
+progresstime
+progressother
+end;
+
+///////////////////////////////////
+//////    end progress       //////
+///////////////////////////////////
+
+///////////////////////////////
+///       main prog         ///
+///////////////////////////////
+begin
+pickfindcount:=pickfindercount
+LoadLibrary(disguised);
+boxopenersetup;
+startscriptslow
+Loginifneeded(username,password)
+setchat('off')
+FindPickHeadColor(true)
+if (colorsfound) then
+begin
+if findcolorspiral(x,y,banklogo,574,0,718,151) then
+torocks
+repeat
+if(northtrips=random(8)) then
+    begin
+    northtrips:=0
+    face('N');
+    end;
+      repeat//mining
+      uberwait(300);
+      miningrandoms;
+      domining;
+      until(invinfull)or(fixed=false)
+tobank
+banking
+torocks
+northtrips:=northtrips+1;
+progress
+until(notlogedin)
+end;
+end.
+///////////////////////////////
+///    thats all folks      ///
+///////////////////////////////

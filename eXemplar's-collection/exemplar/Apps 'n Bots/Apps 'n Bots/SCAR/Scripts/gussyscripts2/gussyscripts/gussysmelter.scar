@@ -1,0 +1,749 @@
+{
+---------> Gussy Smelter v 2.0 <---------------
+THATS RIGHT - gussys back, with the second part of his massive
+mining money making machine (hehe aliteration). A brand new script,
+a smelter its not as good as his last version cause he lost it
+when he reformatted his computer, but its rewritten and working
+a charm
+
+SPECIAL THANKS
+I'd like to put a shout out to Mutant Squirrel, Chriz, Alex, and
+anyone whose procedures i pinched for my library, and of course
+thanks to Kaitniek and Dylock for SCAR, and RuneSC for getting
+me back into cheating
+
+INSTRUCTIONS
+General
+set colors, high detail, v-bright, high angle, facing mostly
+north, empty inventory, push start, script will give you
+5 seconds
+EMPTY INV
+
+For Fally
+Start in Fally east bank
+Note:Fally dont work as good as alk, cause its longer to walk
+
+For Alk
+Start in the only bank they have
+
+N.B. Please feel free to edit and make this script better, because
+thats what scar scripting is about, there no point in rewriting
+procedures someone else has done well - thats why large slabs of
+my code is copied
+
+}
+
+
+program gussysmelter;
+
+const
+///////start setup ///////
+{----------------- Weird Stuff----------------}
+disgused='Winamp 5.1'; //what to rename scar to
+
+{----------------- Misc Stuff----------------}
+username=''; //duh!!
+password=''; //why am i even writing this
+stype=2; //what bars to smelt - 1 for bronze, 2 for iron, 3 for silver, 4 for steel, 5 for gold, 6 for mith
+location=1;// 1 for alkarid, 2 for fally
+losttime=50; //the time after script will activate anti get lost if havent reached desitanation (in seconds) - it doesnt really do much, but i left it in from older versions
+ore1=49;//the number of primary ore in your bank (so script stops)
+ore2=0;//the nuber of secondary ore in your bank (if not required leave as 0)
+
+{-----------Color Stuff (minimap)-----------}
+//required colors
+furnacelogo=2260479; //pick an orangy part of the logo for the furnace
+banklogo=5299447; //the yellow part of the dollar sign
+
+//fally colors   - ie only required for location =2
+npc=56797; //the yellow dot on the minimap that is a NPC
+road=7631997; //the grey road just east of the bank
+
+//alk colors  - ie only required for location =1
+rock=2839174;   //the color of the rock between the furnace and bank
+
+////////// end setup ////////////
+
+{.include gussylibrary.txt}
+{.include boxbreaker2.txt}
+
+var xsmelt,xsmelty,ironbmp:integer; //bitmaps
+smeltx,smelty,xb,yb,xa,ya,xy,yy:integer;
+smeltnumber:string;
+wt:extended;tofurnaced,tobanked:boolean;//anti get loststuff
+
+
+///////////////////////////////////
+//////        killer         //////
+///////////////////////////////////
+
+procedure killswitch;
+var reqore1,reqore2:extended; stypen1,stypen2:integer;
+begin
+case stype of
+1: begin stypen1:=14 stypen2:=14 end;
+2: begin stypen1:=28 stypen2:=0 end;
+3: begin stypen1:=28 stypen2:=0 end;
+4: begin stypen1:=9 stypen2:=18 end;
+5: begin stypen1:=28 stypen2:=0 end;
+2: begin stypen1:=5 stypen2:=20 end;
+end;
+
+reqore1:=ore1/stypen1
+if stypen2>0 then
+   reqore2:=ore2/stypen2
+reqore1:=trunc(reqore1)
+if stypen2>0 then
+   reqore2:=trunc(reqore2)
+if (reqore1<=banks)  then
+logout('out of ore primary');
+if (reqore2<=banks) and (stypen2>0) then
+logout('out of ore secondary');
+end;
+
+
+///////////////////////////////////
+//////      end killer       //////
+///////////////////////////////////
+
+///////////////////////////////////
+//////        randoms        //////
+///////////////////////////////////
+
+procedure Randoms;
+begin
+ LogInIfneeded(username,password);
+ if(Fight)then
+  runaway;
+ CheckLeveled;
+ FindMiscRandoms;
+ FindText;
+ FindLamp;
+ FindStrangeBox;
+if (usedmod) then
+begin
+writeln('have run or the like, now relocating furnace')
+if (findcolorspiral(xb,yb,furnacelogo,569,2,732,158)) then
+   begin
+   if ((abs(xb-648))>6) or ((abs(yb-82))>6) then
+      begin
+      loginifneeded(username,password)
+      if location=2 then
+      mouse(xb-5,yb,1,1,true) else
+      mouse(xb+5,yb,1,1,true)
+      mapflagg
+      end
+   end
+end;
+end;
+
+///////////////////////////////////
+//////     end  randoms      //////
+///////////////////////////////////
+
+///////////////////////////////////
+//////     walking           //////
+///////////////////////////////////
+
+procedure antigetlost;
+begin
+if getsystemtime-wt>losttime*1000 then
+   begin
+   writeln('suspected lost, begining anti get lost procedure')
+   begin
+   if findcolorspiral(x,y,banklogo,560,3,727,155)or findcolorspiral(x,y,furnacelogo,560,3,727,155)then
+      begin
+      if findcolorspiral(x,y,furnacelogo,560,3,727,155)then
+         begin
+         writeln('found furnace')
+         mouse(x,y,1,1,true)
+         mapflagg
+         tofurnaced:=true
+         end;
+      if findcolorspiral(x,y,banklogo,560,3,727,155) then
+         begin
+         writeln('found bank')
+         mouse(x,y,1,1,true)
+         mapflagg
+         tobanked:=true
+         end;
+      end else
+      begin
+      writeln('found neither furnace nor bank')
+      logout('lost')
+      end;
+      end
+      end;
+      end;
+
+procedure ToFurnaceal;
+begin
+loginifneeded(username,password)
+uberwait(200)
+ If FindcolorSpiral(xa,ya,rock,632,20,701,77)then
+     begin
+     Mouse(xa+random(15),ya,2,2,true);
+     uberwait(100)
+     mapflagg
+     end else logout('lost to furnace alk')
+ loginifneeded(username,password)
+ antigetlost
+ If FindcolorSpiral(xa,ya,furnacelogo,599,23,690,61) then
+     begin
+     Mouse(xa+7,ya,2,2,true)
+     uberwait(100)
+     flag
+     uberwait(500)
+     tofurnaced:=false
+     end else
+    begin
+    if (FindcolorSpiral(xa,ya,rock,570,15,715,150)) then
+       begin
+       mouse(x+6,y-13,3,3,true)
+       uberwait(100)
+       mapflagg
+       end;
+    if (FindcolorSpiral(xa,ya,furnacelogo,570,15,715,150)) then
+       begin
+       Mouse(xa,ya,2,2,true)
+       uberwait(100)
+       mapflagg
+       tobanked:=false
+       end else logout('lost to furnace alk')
+    end;
+end;
+
+
+
+Procedure ToBankal;
+begin
+loginifneeded(username,password)
+if FindcolorSpiral(xa,ya,rock,601,86,667,149) then
+   begin
+   Mouse(xa+random(15),ya,2,2,true)
+   uberwait(100)
+   mapflagg
+   end;
+loginifneeded(username,password)
+antigetlost
+if (FindcolorSpiral(xa,ya,banklogo,570,15,715,150)) then
+    begin
+    Mouse(xa,ya,2,2,true)
+    uberwait(100)
+    mapflagg
+    tobanked:=false
+    end else
+    begin
+    if (FindcolorSpiral(xa,ya,rock,570,15,715,150)) then
+       begin
+       mouse(x-8,y+13,3,3,true)
+       uberwait(100)
+       mapflagg
+       end;
+    if (FindcolorSpiral(xa,ya,banklogo,570,15,715,150)) then
+       begin
+       Mouse(xa,ya,2,2,true)
+       uberwait(100)
+       mapflagg
+       tobanked:=false
+       end else logout('lost to bank alk')
+    end;
+end;
+
+procedure tobankfally;
+begin
+loginifneeded(username,password)
+uberwait(200)
+if findcolorspiral(xa,ya,road,677,42,702,79) then
+   begin
+   mouse(xa,ya,2,2,true)
+   mapflagg
+   loginifneeded(username,password)
+       begin
+       repeat
+       loginifneeded(username,password)
+       antigetlost
+       uberwait(100)
+       if findcolorspiral(xa,ya,road,672,100,683,109) then
+           mouse(xa,ya,2,2,true) else antigetlost
+           mapflagg
+           uberwait(100)
+       until(findcolor(xa,ya,banklogo,607,32,700,130))
+          begin
+          addtoreport('bank found')
+          if(findcolorspiral(xa,ya,banklogo,607,32,700,130))and(findcolorspiral(xy,yy,npc,xa-15,ya-20,xa+50,ya+10))then
+               begin
+               tobanked:=false
+               mouse(xy,(yy-7),1,1,true);
+               wait(2000+random(200));
+               addtoreport('in bank')
+               flag
+               end else
+               begin
+               if (findcolorspiral(xa,ya,banklogo,595,5,732,158)) then
+                   begin
+                   tobanked:=false
+                   mouse(xa,ya,1,1,true)
+                   flag
+                   end;
+               end;
+          end;
+       end;
+   end;
+end;
+
+procedure tofurnfally;
+begin
+loginifneeded(username,password)
+uberwait(200)
+if findcolorspiral(xa,ya,road,599,37,628,64) then
+   begin
+   mouse(xa,ya,2,2,true)
+   uberwait(500)
+   mapflagg
+   loginifneeded(username,password)
+       begin
+       repeat
+       loginifneeded(username,password)
+       antigetlost
+       uberwait(100)
+       if findcolorspiral(xa,ya,road,595,44,616,100) then
+           mouse(xa,ya,2,2,true)  else
+                                  begin
+                                  if findcolorspiral(xa,ya,road,595,23,626,100) then
+                                  mouse(xa,ya,2,2,true)  else antigetlost
+                                  end
+       mapflagg
+       until(findcolorspiral(xb,yb,furnacelogo,603,26,732,148))
+       uberwait(200)
+       if (findcolorspiral(xb,yb,furnacelogo,603,26,732,148)) then
+          begin
+          tofurnaced:=false
+          loginifneeded(username,password)
+          mouse(xb-7,yb,1,1,true)
+          flag
+          end;
+       end;
+   end;
+end;
+
+procedure tobank;
+begin;
+status('walking to bank powered by gussy')
+tofurnaced:=false
+wt:=getsystemtime
+run(true)
+if location=1 then
+tobankal
+if location=2 then
+tobankfally
+end;
+
+procedure tofurnace;
+begin;
+status('walking to furnace powered by gussy')
+tobanked:=false
+wt:=getsystemtime
+run(true)
+if location=1 then
+tofurnaceal
+if location=2 then
+tofurnfally
+end;
+
+///////////////////////////////////
+//////      end walking      //////
+///////////////////////////////////
+
+
+///////////////////////////////////
+//////     smelting          //////
+///////////////////////////////////
+
+procedure setsmeltcoords;
+begin
+case stype of
+1: begin smeltx:=51; smelty:=400; smeltnumber:='14'; end;
+2: begin smeltx:=109; smelty:=400; smeltnumber:='28'; end;
+3: begin smeltx:=165; smelty:=400; smeltnumber:='28'; end;
+4: begin smeltx:=220; smelty:=400; smeltnumber:='9'; end;
+5: begin smeltx:=280; smelty:=400; smeltnumber:='28'; end;
+6: begin smeltx:=337; smelty:=400; smeltnumber:='5'; end;
+end;
+end;
+
+procedure findfurnace;
+var
+sx,sy:integer;
+begin
+FindObj('Smelt',4156332,30)
+getmousepos(sx,sy)
+mouse(sx,sy,3,3,true)
+uberwait(1500)
+end;
+
+function smeltend(stype:integer):boolean;
+var
+invsx,invsy,invex,invey,mx,my:integer;
+begin
+if (stype=1) or (stype=4) or (stype=6) then
+begin
+     begin
+          case stype of
+          1: begin invsx:=700; invsy:=431; invex:=721; invey:=451;  end;
+          4: begin invsx:=658; invsy:=431; invex:=679; invey:=451; end;
+          6: begin invsx:=574; invsy:=431; invex:=595; invey:=451;  end;
+          end;
+     end;
+if not (findcolorspiral(mx,my,65536,invsx,invsy,invex,invey)) then
+result:=true
+end else
+    begin //gold and silver and iron (in case get full inv of smelt)
+      case stype of
+          2: begin invsx:=700; invsy:=431; invex:=721; invey:=451;  end;
+          3: begin invsx:=700; invsy:=431; invex:=721; invey:=451;  end;
+          5: begin invsx:=700; invsy:=431; invex:=721; invey:=451;  end;
+    end;
+     if not (findbitmaptolerancein(ironbmp,x,y,invsx,invsy,invex,invey,100)) then
+     result:=true
+    end;
+end;
+
+procedure smelting;
+var
+sx,sy:integer;
+begin
+status('smelting powered by gussy');
+  repeat
+  usedmod:=false
+  randoms
+  findfurnace
+  setsmeltcoords
+  mouse(smeltx,smelty,10,10,false)
+  uberwait(300)
+  if (findbitmap(xsmelt,sx,sy)) or (findbitmap(xsmelty,sx,sy))then
+     begin
+     mouse(sx,sy,2,2,true)
+     uberwait(500)
+     TypeSend(smeltnumber)
+     uberwait(100)
+     sendkeys(chr(13))
+         repeat
+         usedmod:=false
+         randoms
+         wait(100)
+         until(smeltend(stype)) or (usedmod)
+     end;
+     if usedmod then
+           usedmod:=false
+  until(smeltend(stype))
+end;
+
+///////////////////////////////////
+//////    end smelting       //////
+///////////////////////////////////
+
+///////////////////////////////////
+//////      banking          //////
+///////////////////////////////////
+
+procedure elwithdraw;
+begin
+if (stype=2) or (stype=3) or (stype=5) then
+withdraw(1,1,0)
+if (stype=1) then
+begin
+withdraw(1,1,14)
+uberwait(500)
+withdraw(2,1,14)
+end;
+if (stype=4) then
+begin
+withdraw(1,1,9)
+uberwait(500)
+withdraw(2,1,18)
+end;
+if stype=6 then
+begin
+withdraw(1,1,5)
+uberwait(500)
+withdraw(2,1,20)
+end;
+end;
+
+procedure banking;
+begin
+openbank
+uberwait(500)
+deposit(1,1,0)
+uberwait(300)
+itemdeposit
+uberwait(500)
+elwithdraw
+uberwait(1000)
+closebank
+banks:=banks+1
+end;
+
+procedure firstbank;
+begin
+openbank
+uberwait(500)
+elwithdraw
+uberwait(1000)
+closebank
+banks:=0
+end;
+
+///////////////////////////////////
+//////     end banking       //////
+///////////////////////////////////
+
+///////////////////////////////////
+//////       progress        //////
+///////////////////////////////////
+
+//the edmandel and phalanx progress report
+procedure progresstime;
+var
+Hours,Minutes,Seconds:LongInt;
+ Time:String;
+Begin
+  Seconds:=(GetSystemTime-ST) div 1000;
+  Minutes:=Seconds div 60;
+  Hours:=Minutes div 60;
+  Time:=inttostr(Seconds)+' Seconds';
+  if not (minutes=0) then
+     begin
+        Seconds:=Seconds Mod (Minutes*60);
+        Time:=inttostr(Minutes)+' Minutes and '+inttostr(Seconds)+' Seconds';
+     end;
+  if not (hours=0) then
+     begin
+        Minutes:=Minutes Mod (Hours*60);
+        Seconds:=Seconds Mod (Minutes*60);
+        Time:=inttostr(Hours)+' Hours, '+inttostr(Minutes)+' Minutes and '
+        +inttostr(Seconds)+' Seconds';
+     end;
+     begin
+     writeln('worked for ' + time)
+     end;
+     end;
+
+procedure progressother;
+var
+trips,smelted,irontakenstring:string;
+timesmelted,irontakenint:integer;
+
+begin
+trips:= inttostr (banks)
+if stype=5 then
+timesmelted:=banks*28
+if stype=4 then
+timesmelted:=banks*5
+if stype=3 then
+timesmelted:=banks*9
+if stype=2 then
+begin
+timesmelted:=banks*14
+irontakenint:=banks*28
+irontakenstring:= inttostr (irontakenint)
+end;
+if stype=1 then
+timesmelted:=banks*14
+
+smelted:= inttostr (timesmelted)
+
+writeln('banked ' + (trips) + ' times')
+if stype=5 then
+writeln('smelted ' +(smelted) + ' gold/silver bars')
+if stype=4 then
+writeln('smelted ' +(smelted) + ' mith bars')
+if stype=3 then
+writeln('smelted ' + (smelted) + ' steel bars')
+if stype=2 then
+begin
+writeln('smelted approximately ' + (smelted) + ' iron bars')
+writeln('unable to determine a real value becuase of random impure')
+writeln('taken ' + (irontakenstring) + ' iron ore')
+end;
+if stype=1 then
+writeln('smelted ' + (smelted) + ' bronze bars')
+end;
+
+procedure progress;
+begin
+writeln('-----------Progress Report-----------')
+progresstime
+progressother
+end;
+
+///////////////////////////////////
+//////    end progress       //////
+///////////////////////////////////
+
+procedure LoadBmps;
+begin
+xsmelt := BitmapFromString(47, 11,
+       '5D54475D5447FFFFFFFFFFFFFFFFFF5D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D5447FFFFFF' +
+       'FFFFFF5D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFF5D54475D5447FFFFFF' +
+       'FFFFFF5D54475D5447FFFFFFFFFFFF000000FFFFFFFFFFFF5D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF5D54475D5447' +
+       '5D54475D54475D54475D54475D54475D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFF000000FFFFFFFFFFFF0000000000005D5447' +
+       '0000000000005D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+       '0000005D54475D54475D54475D54475D54475D54475D54475D5447' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF0000000000005D5447FFFFFFFFFFFF' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D5447FFFFFFFFFFFF0000005D5447' +
+       'FFFFFFFFFFFF0000005D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF0000005D54475D5447' +
+       '5D5447FFFFFFFFFFFF5D54475D54475D54475D54475D5447FFFFFF' +
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D54475D54475D54475D5447' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF5D54475D54475D5447FFFFFFFFFFFF' +
+       '0000005D5447FFFFFFFFFFFFFFFFFFFFFFFF5D54475D54475D5447' +
+       '5D54475D54475D54475D54475D5447FFFFFFFFFFFF000000000000' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFF5D54475D54475D5447' +
+       'FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF5D5447' +
+       '5D5447FFFFFFFFFFFF000000000000FFFFFFFFFFFF5D54475D5447' +
+       'FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000000000000000' +
+       '5D54475D54475D54475D54475D54475D5447FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF5D54475D54475D54475D54475D54475D5447FFFFFFFFFFFF' +
+       '5D54475D5447FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFF' +
+       'FFFFFF0000005D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+       '0000005D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000' +
+       '5D54475D54475D54475D54475D54475D54475D54475D5447FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF0000005D54475D54475D54475D54475D5447' +
+       'FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+       '000000FFFFFFFFFFFF0000005D5447FFFFFFFFFFFFFFFFFFFFFFFF' +
+       'FFFFFF0000000000005D5447FFFFFFFFFFFF0000005D5447FFFFFF' +
+       'FFFFFF0000005D54475D54475D54475D54475D54475D54475D5447' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF5D5447FFFFFFFFFFFF' +
+       '5D5447FFFFFFFFFFFF0000000000005D5447FFFFFFFFFFFF000000' +
+       'FFFFFFFFFFFF000000FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+       '0000000000000000000000005D54475D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFF0000005D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFFFFFFFF0000000000005D54475D5447FFFFFF' +
+       'FFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF0000005D5447' +
+       '5D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D54475D5447FFFFFF' +
+       'FFFFFF0000005D54475D5447FFFFFFFFFFFFFFFFFF5D54475D5447' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFF0000005D5447FFFFFF' +
+       'FFFFFF0000005D54475D54470000000000000000005D54475D5447' +
+       '5D54475D54470000000000005D54470000000000005D5447000000' +
+       '0000005D54475D54475D5447000000000000000000000000000000' +
+       '5D54475D54470000000000005D54475D54475D5447000000000000' +
+       '0000005D54475D54475D54475D54475D54475D5447000000000000' +
+       '5D54475D5447000000000000');
+xsmelty := BitmapFromString(47, 11,
+       '5D54475D5447FFFF00FFFF00FFFF005D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D5447FFFF00' +
+       'FFFF005D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D5447FFFF00FFFF005D54475D5447FFFF00' +
+       'FFFF005D54475D5447FFFF00FFFF00000000FFFF00FFFF005D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D5447FFFF00FFFF000000005D5447FFFF00FFFF005D54475D5447' +
+       '5D54475D54475D54475D54475D54475D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF00000000FFFF00FFFF000000000000005D5447' +
+       '0000000000005D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D5447FFFF00FFFF000000005D5447FFFF00FFFF00' +
+       '0000005D54475D54475D54475D54475D54475D54475D54475D5447' +
+       'FFFF00FFFF00FFFF00FFFF000000000000005D5447FFFF00FFFF00' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D5447FFFF00FFFF000000005D5447' +
+       'FFFF00FFFF000000005D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFF00FFFF00FFFF00FFFF000000005D54475D5447' +
+       '5D5447FFFF00FFFF005D54475D54475D54475D54475D5447FFFF00' +
+       'FFFF00FFFF00FFFF00FFFF00FFFF005D54475D54475D54475D5447' +
+       'FFFF00FFFF00FFFF00FFFF005D54475D54475D5447FFFF00FFFF00' +
+       '0000005D5447FFFF00FFFF00FFFF00FFFF005D54475D54475D5447' +
+       '5D54475D54475D54475D54475D5447FFFF00FFFF00000000000000' +
+       '5D54475D54475D54475D5447FFFF00FFFF005D54475D54475D5447' +
+       'FFFF00FFFF00000000FFFF00FFFF00000000FFFF00FFFF005D5447' +
+       '5D5447FFFF00FFFF00000000000000FFFF00FFFF005D54475D5447' +
+       'FFFF00FFFF000000005D5447FFFF00FFFF00000000000000000000' +
+       '5D54475D54475D54475D54475D54475D5447FFFF00FFFF00FFFF00' +
+       'FFFF005D54475D54475D54475D54475D54475D5447FFFF00FFFF00' +
+       '5D54475D5447FFFF00FFFF00000000FFFF00FFFF00000000FFFF00' +
+       'FFFF000000005D5447FFFF00FFFF000000005D5447FFFF00FFFF00' +
+       '0000005D5447FFFF00FFFF000000005D5447FFFF00FFFF00000000' +
+       '5D54475D54475D54475D54475D54475D54475D54475D5447FFFF00' +
+       'FFFF00FFFF00FFFF000000005D54475D54475D54475D54475D5447' +
+       'FFFF00FFFF000000005D5447FFFF00FFFF00000000FFFF00FFFF00' +
+       '000000FFFF00FFFF000000005D5447FFFF00FFFF00FFFF00FFFF00' +
+       'FFFF000000000000005D5447FFFF00FFFF000000005D5447FFFF00' +
+       'FFFF000000005D54475D54475D54475D54475D54475D54475D5447' +
+       'FFFF00FFFF00000000000000FFFF00FFFF005D5447FFFF00FFFF00' +
+       '5D5447FFFF00FFFF000000000000005D5447FFFF00FFFF00000000' +
+       'FFFF00FFFF00000000FFFF00FFFF000000005D5447FFFF00FFFF00' +
+       '0000000000000000000000005D54475D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF000000005D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFF00FFFF000000005D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF00FFFF000000000000005D54475D5447FFFF00' +
+       'FFFF00000000FFFF00FFFF00000000FFFF00FFFF000000005D5447' +
+       '5D5447FFFF00FFFF00FFFF00FFFF00FFFF005D54475D5447FFFF00' +
+       'FFFF000000005D54475D5447FFFF00FFFF00FFFF005D54475D5447' +
+       '5D54475D54475D54475D5447FFFF00FFFF000000005D5447FFFF00' +
+       'FFFF000000005D54475D54470000000000000000005D54475D5447' +
+       '5D54475D54470000000000005D54470000000000005D5447000000' +
+       '0000005D54475D54475D5447000000000000000000000000000000' +
+       '5D54475D54470000000000005D54475D54475D5447000000000000' +
+       '0000005D54475D54475D54475D54475D54475D5447000000000000' +
+       '5D54475D5447000000000000');
+  ironbmp := BitmapFromString(8, 11,
+       '302020000001000001000001000001544A3B564D42564D42000001' +
+       '1F1A115F4D366652396C573C000001564D42564D422B2317362B1C' +
+       '69553B705A3E786043786043000001564D423B2F214A3C29735C41' +
+       '7B6345806748896E4D00000130202046392752422D7B6345806748' +
+       '896E4D8B704E00000130202052422D5F4D36735C41866B4A8B704E' +
+       '8B704E8D72500000015C4A346652397E6546896E4D8D72508D7250' +
+       '00000130202069553B755E428067488B704E8D7250000001302020' +
+       '302020705A3E7860438369498D7250907451000001302020564D42' +
+       '000001000001836949907451000001302020302020564D424D4438' +
+       '302020000001000001302020302020544A3B544A3B');
+end;
+
+
+begin//main program
+//setups
+LoadLibrary(disgused);
+boxopenersetup;
+LoadBmps;
+startscriptslow
+loginifneeded(username,password)
+Setchat('Off')
+firstbank
+repeat//loop
+loginifneeded(username,password)
+Setchat('Off')
+  if(northtrips>random(8)+4) then
+    begin
+    northtrips:=0
+    face('N');
+    end;
+tofurnace
+uberwait(500)
+smelting
+uberwait(500)
+tobank
+uberwait(1500)
+randoms
+banking
+randoms
+northtrips:=northtrips+1;
+progress
+killswitch
+until(loged)//loop
+end.
