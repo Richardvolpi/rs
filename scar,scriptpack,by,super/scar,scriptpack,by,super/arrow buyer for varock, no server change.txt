@@ -1,0 +1,61 @@
+//*>}metals arrow buyer{<*
+//butchered 3 scripts to make this
+//weeeeeee
+//first script
+//works in varrock only
+//only buys arrows
+//yep
+//cool
+
+program Arrowbuyervarrock;
+var
+f, x, y: Integer;
+
+
+procedure clickbuy;
+begin
+for f:= 1 to 15 do
+begin
+ClickMouse(369,253,False);
+wait(200);
+
+end;
+end;
+//Find Iowe and buy all arrows!
+procedure buyarrows;
+begin
+Wait(200);
+repeat
+repeat
+x:= Random(500);
+y:= Random(340);
+FindColorSpiral(x,y,3236995 and 1385600,5,5,490,310);
+MoveMouse(x, y);
+Wait(200);
+until(IsTextAt(6,2,'Iowe: Talk'))or(IsTextAt(6,0,'Yes please'));
+ClickMouse(x, y, True);
+Wait(5000);
+until(IsTextAt(6,0,'Yes please'));
+ClickMouse(6,2,False);
+Wait(5000);
+
+//SAFE BUYING ,RIGHT_CLICK'S = SO YOU WONT RUN AWAY WHEN MISSED.
+//Arrows
+ClickMouse(86,85,False);
+wait(200);
+
+Clickbuy;
+
+//Keep These Lines
+wait(2000);
+ClickMouse(400,49,True);
+end;
+
+begin
+repeat
+wait(1000);
+buyarrows;
+
+until(False);
+
+end.

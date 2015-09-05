@@ -1,0 +1,164 @@
+//Nature R00n Thiever
+//Made By OhDearUrDead
+
+//Instructions:
+//have you map facing south
+//Sleeping Bag Must Be In First Spot
+//Change Username And Password On Lines 44 And 48 To Your Name And PW
+//Start on east side of nature chest, tested in building south of stripey bank
+//should work in both nature buildings
+//get the walk.bmp here www.scriptdump.net/dump/scripts/Images/walk.bmp // you need it!!
+
+
+program MMM_Natures;
+const
+  MyWait = 200;
+var
+  loops, x, y, search, p, q: Integer;
+  s: string;
+  thieving: boolean;
+
+procedure LogInIfNeeded; export;
+var
+l: integer;
+begin
+  if(LoginScreen)then
+    begin
+      Writeln('Clearing username, password fields');
+      ClickMouse(400,280,True);
+      Wait(2000);
+    end;
+  if(StartScreen)then
+  begin
+    Writeln('Choosing existing user');
+    ClickMouse(340,280,True);
+    l:=0;
+      repeat
+        Wait(200);
+        l:=l+1;
+      until(LoginScreen)or (l>=30);
+  end;
+  if(GetColor(338,125)=5524540)and //p2p login
+    (GetColor(87,145)=3472636)then //p2p login
+  begin
+    Writeln('Trying to log in');
+
+    ClickMouse(260,290,True);      //p2plogin
+    Wait(500);
+    SendKeysSilent('sigmarkiller');
+    Wait(2000);
+    ClickMouse(120,310,True);
+    Wait(500);
+    SendKeysSilent('sanjaypower');
+    Wait(2000);
+      repeat
+        ClickMouse(380,250,True);
+        Wait(1000);
+      until(not loginscreen);
+    Wait(3000);
+  end;
+  if(IsTextAt(129, 165, 'Jage'))then
+    begin
+      ClickMouse(250, 235, True);
+      Wait(2000);
+    end;
+        //not sure what these do, they were in kaitnieks's login procedure
+        if(GetColor(169,134)=65535)and
+          (GetColor(441,130)=0) and
+          (GetColor(91,198)=0)then
+          begin
+            ClickMouse(250,207,True);
+            Wait(2000);
+          end;
+        If(GetColor(139,76)=33023) and
+          (GetColor(385,280)=65535)then
+          begin
+            ClickMouse(250,314,True);
+            Wait(2000);
+          end;
+SetTimeOut(10,'LOGINIFNEEDED');
+end;
+
+Procedure DoSleeping;
+    begin
+    Writeln('Sleeping');
+    Wait(200);
+    loops:=0;
+      Wait(200)
+      ClickMouse (498, 16, True);
+      Wait(200);
+      Movemouse (296, 47);
+      Wait(100);
+  ClickMouse(296, 46, True);
+  loops:=0;
+    repeat
+      wait(200);
+      loops:=loops+1;
+    until(IsTextAt(168, 293, 'click here')) or (loops>=25);
+  loops:=0;
+    repeat
+      loops:=loops+1;
+      Wait(200);
+        if(GetColor(209,252)=255)then
+          begin
+            //Writeln('Resetting wait...');
+            loops:=0;
+            Wait(2000);
+          end;
+         //get new sw word if no word comes in 30 seconds
+        if(loops=160)then
+          begin
+            loops:=0;
+            ClickMouse (200, 300, True);
+            Writeln('Trying again for sw word');
+          end;
+    until(not IsTextAt(168, 293, 'click here'));
+  MoveMouse(10,10);
+  Wait(100);
+    end;
+
+procedure DoThieving;
+var t: Integer;
+begin
+  thieving:= false;
+  Writeln('Thieving');
+  t:= GetSystemTime;
+  x:= 280;
+  y:= 175;
+  repeat
+    s:= GetChatMsg;
+      Wait(50);
+      if(s = 'You*')then
+      begin
+      Wait(100);
+      thieving:= true;
+      end;
+    while(not IsTextAt(6,2,'Chest'))do
+    begin
+    SpiralFindObj(x,y, -1, x-100, y-100, x+100, y+100, 10, 'Chest: Open', MyWait, 10000);
+    end;
+      MoveMouse(x, y);
+      Wait(100);
+      if(IsTextAt(6,2,'Chest: Open'))then
+      begin
+        ClickMouse(x, y, False);
+        Wait(100 + random(10));
+        if(FindBitmap(search, p, q))then
+        begin
+        ClickMouse(p + 30 + random(20), q + 17, True);
+        Wait(100 + Random(10));
+        end else
+      end;
+      MoveMouse(x,y);
+      Wait(100);
+  until(thieving);
+end;
+
+begin
+  search:= LoadBitmap('.\Scripts\downloaded\walk.bmp');
+  SetTimeOut(10,'LOGINIFNEEDED');
+  repeat
+  DoThieving;
+  DoSleeping;
+  until(False);
+end.

@@ -1,0 +1,1360 @@
+{****************************************}
+{  GK5K_PowerMiner_or_Guildminer_Banker  }
+{========================================}
+{Written By: GK5K/GothKing5000           }
+{Contact at: Gothking5000@hotmail.com    }
+{++++++++++++++++++++++++++++++++++++++++}
+{ Version: 1.2                           }
+{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+{ Features:                              }
+{   - Works for Free and Members         }
+{   - PowerMines or GuildMines           }
+{   - AutoReloggin                       }
+{   - AutoSleep                          }
+{   - Option of Play Sound on Sleep      }
+{   - AutoBank                           }
+{   - AutoMine                           }
+{   - Banks Mined Gems                   }
+{   - GuildMines Mith and Coal           }
+{   - PowerMines Adam, Clay, Coal, Copper}
+{     Gold, Iron, Mith, Runite, Silver,  }
+{     and Tin                            }
+{----------------------------------------}
+{ Instructions:                          }
+{   + For GuildMining                    }
+{    - Be in falador near southbank, near}
+{      miners guild, or in miners guild  }
+{    - Turn Map so that North is North   }
+{    - Put All uncut gems and ore on same}
+{      bank page and bank page must be   }
+{      selected in bank window           }
+{    *Optional* Before you start autoing }
+{      get one ore and one gem of each   }
+{      type (much more efficient...)     }
+{   + For PowerMining                    }
+{    -Find Rocks of selected Ore type    }
+{    *Optional* Turn Map so that North is}
+{     South (works...  but not necessary)}
+{________________________________________}
+
+Program GK5K_Powerminer_or_Guild_AutoMiner_Banker;
+var
+  form, self: TForm;
+  Application: TApplication;
+  PlayLabel, VersionLabel, PmLabel, SoundLabel, OreLabel, UserLabel, PassLabel: TLabel;
+  txtUser, txtPass: TEdit;
+  ButtonStart: TButton;
+  Ore, Play, pm, Sound_Play: TComboBox;
+  username, password, ItemCheck, ItemName: string;
+  IsRock, IsLadder, IsOre, mining, Sound, found: Boolean;
+  uncutsaph, uncutemerald, uncutruby, uncutdiamond, ItemBank, ladder, ItemColor,
+  ItemColorCode, Go, loggin, powermine, Coal, Mith, Adam, Runite, Copper, Iron,
+  Clay, Tin, Silver, Gold, Coalrock, Mithrock, Adamrock, RS, Copperrock,
+  Ironrock, Clayrock, Tinrock, Silverrock, Goldrock, a, b, t, loops, x, i, y,
+  idlecount, e, time: Integer;
+
+procedure GK5KLoggin;
+begin
+  case Loggin of
+    1:  begin
+          if(LoginScreen)then
+            begin
+              Writeln('Clearing username, password fields...');
+              ClickMouse(400,280,True);
+              Wait(2000);
+            end;
+          if(StartScreen)then
+            begin
+              Writeln('Choosing Member Login...');
+              ClickMouse(340,280,True);
+              loops:=0;
+              repeat
+                Wait(200);
+                loops:=loops+1;
+              until(LoginScreen)or (loops>=30);
+            end;
+          if(GetColor(338,125)=5524540)and (GetColor(87,145)=3472636)then
+            begin
+              Writeln('Trying to log in...');
+              ClickMouse(260,290,True);
+              Wait(500);
+              SendKeysSilent(username);
+              Wait(2000);
+              ClickMouse(120,310,True);
+              Wait(500);
+              SendKeysSilent(password);
+              Wait(2000);
+              repeat
+                ClickMouse(380,250,True);
+                Wait(1000);
+              until(not loginscreen);
+              Wait(3000);
+            end;
+        end;
+    2:  begin
+          if(LoginScreen)then
+            begin
+              Writeln('Clearing username, password fields...');
+              ClickMouse(400,280,True);
+              Wait(2000);
+            end;
+          if(StartScreen)then
+            begin
+              Writeln('Choosing existing user...');
+              ClickMouse(340,280,True);
+              loops:=0;
+              repeat
+                Wait(200);
+                loops:=loops+1;
+              until(LoginScreen)or (loops>=30);
+            end;
+          if(LoginScreen)then
+            begin
+              Writeln('Trying to log in...');
+              ClickMouse(260,290,True);
+              Wait(500);
+              SendKeysSilent(username);
+              Wait(2000);
+              ClickMouse(120,310,True);
+              Wait(500);
+              SendKeysSilent(password);
+              Wait(2000);
+              repeat
+                ClickMouse(380,250,True);
+                Wait(1000);
+              until(not loginscreen);
+              Wait(3000);
+            end;
+        end;
+    end;
+  if(GetColor(56,117)=16777215)and (GetColor(57,118)=0)and (GetColor(455,216)=16777215)and (GetColor(454,215)=0)then
+    begin
+      Writeln('Closing Welcome box...');
+      if(GetColor(455,281)=16777215)and (GetColor(58,281)=16777215)and (GetColor(250,281)=16777215)then
+        Clickmouse(250,260,True)
+      else ClickMouse(250,232,True);
+      Wait(500);
+      if (GetColor(95,132)=65535) and (GetColor(451,213)=0) and (GetColor(301,189)=0) then
+        begin
+          Writeln('Closing Non-Member Server Box...');
+          clickmouse(255,202,true);
+          wait(2000);
+        end;
+    end;
+  wait(300);
+end;
+
+procedure Clickitem;
+var
+  nx,ny: integer;
+begin
+  i:=0;
+  found:=false;
+  repeat
+    MoveMouse(490 + random(15),8 + random(3));
+    wait(10);
+    if (getcolor(265,32)=16711423) or (getcolor(293,31)=16711423) or (getcolor(314,32)=16711423) then
+      begin
+        case i of
+          1:  begin
+                nx:=290;
+                ny:=55;
+              end;
+          2:  begin
+                nx:=340;
+                ny:=55;
+              end;
+          3:  begin
+                nx:=390;
+                ny:=55;
+              end;
+          4:  begin
+                nx:=440;
+                ny:=55;
+              end;
+          5:  begin
+                nx:=490;
+                ny:=55;
+              end;
+          6:  begin
+                nx:=290;
+                ny:=90;
+              end;
+          7:  begin
+                nx:=340;
+                ny:=90;
+              end;
+          8:  begin
+                nx:=390;
+                ny:=90;
+              end;
+          9:  begin
+                nx:=440;
+                ny:=90;
+              end;
+          10: begin
+                nx:=490;
+                ny:=90;
+              end;
+          11: begin
+                nx:=290;
+                ny:=120;
+              end;
+          12: begin
+                nx:=340;
+                ny:=120;
+              end;
+          13: begin
+                nx:=390;
+                ny:=120;
+              end;
+          14: begin
+                nx:=440;
+                ny:=120;
+              end;
+          15: begin
+                nx:=490;
+                ny:=120;
+              end;
+          16: begin
+                nx:=290;
+                ny:=155;
+              end;
+          17: begin
+                nx:=340;
+                ny:=155;
+              end;
+          18: begin
+                nx:=390;
+                ny:=155;
+              end;
+          19: begin
+                nx:=440;
+                ny:=155;
+              end;
+          20: begin
+                nx:=490;
+                ny:=155;
+              end;
+          21: begin
+                nx:=290;
+                ny:=190;
+              end;
+          22: begin
+                nx:=340;
+                ny:=190;
+              end;
+          23: begin
+                nx:=390;
+                ny:=190;
+              end;
+          24: begin
+                nx:=440;
+                ny:=190;
+              end;
+          25: begin
+                nx:=490;
+                ny:=190;
+              end;
+          26: begin
+                nx:=290;
+                ny:=225;
+              end;
+          27: begin
+                nx:=340;
+                ny:=225;
+              end;
+          28: begin
+                nx:=390;
+                ny:=225;
+              end;
+          29: begin
+                nx:=440;
+                ny:=225;
+              end;
+          30: begin
+                nx:=490;
+                ny:=225;
+              end;
+          end;
+        movemouse(nx,ny);
+        wait(100);
+        GK5KLoggin;
+        found:=false;
+        if IsTextAt(6,2,ItemName) then
+          begin
+            clickmouse(nx,ny,true);
+            wait(25);
+            found:=true;
+          end;
+        i:=i+1;
+      end;
+  until(found=true) or (i=30);
+end;
+
+procedure sleep;
+begin
+  Writeln('Sleeping...')
+  Wait(200);
+  loops:=0;
+  itemname:= 'Sleeping Bag: sleep';
+  e:=0;
+  repeat
+    e:=e+1;
+    clickitem;
+    wait(time);
+  until (found=true) or (e=10);
+  if (found=true) then
+    begin
+      if Sound = true then
+        playsound('C:\WINDOWS\Media\tada.wav');
+      loops:=0;
+      repeat
+        wait(200);
+        loops:=loops+1;
+        GK5KLoggin;
+      until(IsTextAt(168, 293, 'click here')) or (loops>=25);
+      loops:=0;
+      repeat
+        loops:=loops+1;
+        Wait(20);
+        if(GetColor(209,252)=255)then
+          begin
+            loops:=0;
+            Wait(2000);
+          end;
+        if(loops=1700)then
+          begin
+            loops:=0;
+            ClickMouse (200, 300, True);
+            Writeln('Trying again for sw word...');
+          end;
+        GK5KLoggin;
+      until(not IsTextAt(168, 293, 'click here'));
+      MoveMouse(10,10);
+      Wait(100);
+      GK5KLoggin;
+    end
+  else begin
+         go:=0;
+         writeln('NO SLEEPING BAG IN INVENTORY');
+       end;
+end;
+
+procedure OpenMap;
+var
+  l: integer;
+begin
+  l:=0;
+  repeat
+    MoveMouse(460,15);
+    Wait(100);
+    l:=l+1;
+  until(GetColor(355,29)=16711423)or (l>=20);
+end;
+
+procedure CloseWin;
+var
+  l: integer;
+begin
+  l:=0;
+  repeat
+    MoveMouse(10,10);
+    Wait(100);
+    l:=l+1;
+  until(GetColor(394,31)<>8585216) or (l>=10);
+end;
+
+function CheckDoor(doorx, doory, waittime, ocolor: Integer; banking: Boolean):Boolean;
+var
+  done :Boolean;
+begin
+  done:=false;
+  Movemouse(doorx,doory);
+  Wait(waittime);
+  if(banking)then
+    begin
+      If(IsTextAt(6,2,'Door: Open')) and (ocolor<>18440)then
+        begin
+          Writeln('Opening Closed Door...');
+          ClickMouse(doorx,doory,true);
+          wait(500);
+          done:=true;
+        end
+      else
+        begin
+          if(IsTextAt(6,2,'doors: Open')) and ((ocolor=18440) or (ocolor=4210752))then
+            begin
+              Writeln('Opening Closed Door...');
+              ClickMouse(doorx,doory,true);
+              wait(500);
+              done:=true;
+            end;
+        end;
+    end
+  else
+    begin
+      If(IsTextAt(6,2,'Door: Open')) and (ocolor=18440)then
+        begin
+          Writeln('Opening Closed Door...');
+          ClickMouse(doorx,doory,true);
+          wait(500);
+          done:=true;
+        end
+      else
+        begin
+          if(IsTextAt(6,2,'doors: Open')) and (ocolor<>18440)then
+            begin
+              Writeln('Opening Closed Door...');
+              ClickMouse(doorx,doory,true);
+              wait(500);
+              done:=true;
+            end;
+        end;
+    end;
+  result:=done;
+end;
+
+procedure doors(distance,waittime, timeout: Integer;banking: Boolean);
+var
+  time, ocolor, interval, loops: Integer;
+  endproc: Boolean;
+begin
+  OpenMap;
+  ocolor:=GetColor(430,110);
+  CloseWin;
+  x:=255;
+  y:=165;
+  interval:=1;
+  loops:=0;
+  time:=GetSystemTime;
+  endproc:=CheckDoor(255,165,waittime,ocolor,banking);
+  repeat
+    if(y>0) and (y<330)then
+      while(y>165-(distance*interval)) and (not endproc)do
+        begin
+          y:=y-distance;
+          endproc:=CheckDoor(x,y,waittime,ocolor,banking);
+        end;
+    if(y>0) and (y<330)then
+      while(x>255-(distance*interval)) and (not endproc)do
+        begin
+          x:=x-distance;
+          endproc:=CheckDoor(x,y,waittime,ocolor,banking);
+        end;
+    if(y>0) and (y<330)then
+      while(y<165+(distance*interval)) and (not endproc)do
+        begin
+          y:=y+distance;
+          endproc:=CheckDoor(x,y,waittime,ocolor,banking);
+        end;
+    if(y>0) and (y<330)then
+      while(x<255+(distance*interval)) and (not endproc)do
+        begin
+          x:=x+distance;
+          endproc:=CheckDoor(x,y,waittime,ocolor,banking);
+        end;
+    interval:=interval+1;
+  until(endproc) or (x<0) or (y<0) or (x>510) or (y>330) or (GetSystemTime - time > timeout);
+end;
+
+procedure toguild;
+begin
+  Writeln('Going To Guild...');
+  OpenMap;
+  if(FindColor(a,b,1049708,426,106,434,114))then
+    begin
+      FindColor(x,y,1049708,357,68,504,185);
+      Clickmouse(x,y, True);
+      Wait(300);
+    end;
+  OpenMap;
+  loops:=0;
+  repeat
+    FindColor(x,y,0,390,56,505,180);
+    wait(100);
+    loops:=loops+1;
+  until(FindColor(a,b,16776960,x-5,y-5,x+5,y+5)) or (loops>=20);
+  repeat
+    OpenMap;
+    y:=y-3;
+  until(GetColor(x, y)=18440) or (y<0);
+  if(y>0)then
+    ClickMouse(x, y-5, True);
+  Wait(300);
+  i:= random(5);
+  t:=GetSystemTime;
+  loops:=0;
+  repeat
+    if (loops>0)then
+      doors(50, 60, 2500, False);
+    OpenMap;
+    loops:=0;
+    repeat
+      FindColor(x,y,0,390,56,505,180);
+      wait(100);
+      loops:=loops+1;
+    until(FindColor(a,b,16776960,x-5,y-5,x+5,y+5)) or (loops>=20);
+    if(not FindColor(a,b,0,422,102,436,122))then
+      ClickMouse(x + i,y - 5,true);
+    Wait(300);
+  until(FindColor(a,b,0,422,100,436,120)) or (GetSystemTime - t > 30000);
+end;
+
+procedure minebycolor;
+begin
+  idlecount:=0;
+  repeat
+    x:=Random(400)+50;
+    y:=Random(260)+40;
+    if(FindColorSpiral(x,y,ItemColorCode,0,0,510,330))then
+      begin
+        MoveMouse(x, y+2);
+        loops:= 0;
+        IsRock:= False;
+        repeat
+          IsRock:= IsTextAt(6,2,'Rock');
+          Wait(10);
+          loops:= loops + 1;
+        until(loops>20)or(IsRock);
+        if(IsRock)then
+          begin
+            ClickMouse(x, y, True);
+            IdleCount:=0;
+            Wait(5000 + Random(1000));
+            break;
+          end
+        else
+          idlecount:=idlecount+1;
+      end
+    else
+      idlecount:=idlecount+1;
+    if(idlecount>50)then
+      break;
+    Wait(50);
+  until(go=0);
+end;
+
+procedure mine;
+begin
+  Writeln('Mining...');
+  if(mining)then
+    begin
+      mining:=false;
+    end;
+  idlecount:=0;
+  repeat
+    if(FindBitmapSpiral(ItemColor,x,y,0,0,510,330))then
+      begin
+        MoveMouse(x, y+2);
+        IsRock:= False;
+        loops:=0;
+        repeat
+          IsRock:= IsTextAt(6,2,'Rock');
+          Wait(10);
+          loops:= loops + 1;
+        until(IsRock)or(loops>20);
+        if(IsRock)then
+          begin
+            ClickMouse(x, y, True);
+            IdleCount:=0;
+            Wait(5000 + Random(1000));
+            break;
+          end
+        else
+          idlecount:=idlecount+1;
+      end
+    else
+      idlecount:=idlecount+1;
+    if(idlecount>=50)then
+      begin
+        minebycolor;
+        break;
+      end;
+    wait(50);
+  until(go=0);
+end;
+
+procedure Powerminer;
+begin
+  repeat
+    GK5KLoggin;
+    if(FindBitmapSpiral(ItemColor,x,y,0,0,510,330))then
+      begin
+        MoveMouse(x,y);
+        Wait(500);
+        if(IsTextAt(6,2,'Rock'))then
+          begin
+            ClickMouse(x,y,True);
+            Writeln('Mining...');
+            Wait(200 + Random(200));
+          end
+        else begin
+               y:=random(330);
+               x:=random(510);
+               movemouse(x,y);
+             end;
+      end;
+    if(IsTextAt(7,304,'You are too tired'))then
+      sleep;
+  until(go=0);
+end;
+
+procedure toladder;
+begin
+  writeln('Going to Ladder...');
+  i:= random(5);
+  t:=GetSystemTime;
+  repeat
+    OpenMap;
+    FindColor(x,y,7220,356,100,453,185);
+    wait(100);
+    ClickMouse(x + 10,y + 10,true);
+    wait(2000);
+    CloseWin;
+  until(((x+10)>425) and ((x+10)<435) and ((y+10)>107) and ((y+10)<117)) or  (GetSystemTime - t > 17500);
+end;
+
+
+procedure upstairs;
+begin
+  Writeln('Going Upstairs...');
+  idlecount:=0;
+  loops:=0;
+  repeat
+    if(random(2)=0)then
+      begin
+        x:= Random(510);
+        y:= Random(320);
+        FindColorSpiral(x,y,4903,x-50,y-50,x+50,y+50);
+      end
+    else
+      FindBitmap(ladder, x, y);
+    MoveMouse(x, y);
+    loops:= 0;
+    IsLadder:= False;
+    repeat
+      IsLadder:= IsTextAt(6,2,'Ladder:');
+      Wait(10);
+      loops:= loops + 1;
+    until(loops>20)or(IsLadder);
+    if(IsLadder)then
+      begin
+        ClickMouse(x, y, True);
+        Wait(1000);
+        loops:=0;
+        t:=GetSystemTime;
+        repeat
+          Wait(500);
+          OpenMap;
+        until(FindColor(a,b,18440,400,56,505,185)) or (GetSystemTime - t > 12000);
+        break;
+      end
+    else
+      idlecount:=idlecount+1;
+    if(idlecount>=100)then
+      break;
+  until(false);
+end;
+
+procedure downstairs;
+begin
+  Writeln('Going Downstairs...');
+  idlecount:=0;
+  loops:=0;
+  repeat
+    if(random(2)=0)then
+      begin
+        x:= Random(510);
+        y:= Random(320);
+        FindColorSpiral(x,y,13674,x-50,y-50,x+50,y+50);
+      end
+    else
+      FindBitmap(ladder, x, y);
+    MoveMouse(x, y);
+    loops:= 0;
+    IsLadder:= False;
+    repeat
+      IsLadder:= IsTextAt(6,2,'Ladder:');
+      Wait(10);
+      loops:=loops + 1;
+    until(loops>20)or(IsLadder);
+    if(IsLadder)then
+      begin
+        ClickMouse(x, y, True);
+        Wait(1000);
+        loops:=0;
+        t:=GetSystemTime;
+        repeat
+          Wait(500);
+          OpenMap;
+        until(not FindColor(a,b,18440,400,56,505,185)) or (GetSystemTime - t > 12000);
+        wait(1000);
+        clickmouse(460,15,true);
+        wait(300)
+        clickmouse(448,110,true);
+        wait(2000);
+        break;
+      end
+    else
+      idlecount:=idlecount+1;
+    if(idlecount>=100)then
+      break;
+  until(false);
+end;
+
+procedure tobank;
+begin
+  Writeln('Going To Bank...')
+  OpenMap;
+  FindColor(x,y,1049708,357,68,504,185);
+  repeat
+    OpenMap;
+    x:=x-2;
+  until(GetColor(x, y)=18440) or (GetColor(x, y)=4210752) or (x<354);
+  if(x>=354)then
+    ClickMouse(x-5, y, true);
+  Wait(300);
+  i:= random(5);
+  t:=GetSystemTime;
+  loops:=0;
+  repeat
+    if (loops>0)then
+      doors(50, 60, 2500, True);
+    OpenMap;
+    FindColor(x,y,1049708,357,68,504,185);
+    ClickMouse(x + 10 + i,y + i,true);
+    Wait(300);
+    loops:=1;
+  until(FindColor(a,b,1049708,426,106,434,114)) or (GetSystemTime - t > 30000);
+end;
+
+procedure bank;
+begin
+  Writeln('Banking...')
+  idlecount:=0;
+  repeat
+    if (GetColor(264, 8)=12582912) then
+      begin
+        FindBitmap(Mith,x,y);
+      end
+    else begin
+           repeat
+             x:= Random(500);
+             y:= Random(340);
+             FindColorSpiral(x,y,10661355,x-50,y-50,x+50,y+50);
+             MoveMouse(x, y);
+             Wait(200);
+             idlecount:=idlecount+1;
+             if(IsTextAt(6,2,'Banker: Talk')) and (IsTextAt(7,304,'Banker: Good day')=False)then
+               begin
+                 ClickMouse(x, y, True);
+                 Wait(4000);
+                 idlecount:=0;
+               end;
+             Wait(100);
+           until(IsTextAt(6,0,'l d like to access my bank account please')) or (idlecount>100);
+           ClickMouse(17,8,True);
+         end;
+    loops:=0;
+    repeat
+      wait(800);
+      loops:=loops+1;
+    until(GetColor(264, 8)=12582912) or (loops>20);
+    idlecount:=idlecount+1;
+  until(FindBitmapSpiral(ItemBank,x,y,0,0,510,330)) or (idlecount>100);
+  if(idlecount<=100)then
+    begin
+      ClickMouse(x,y,True);
+      Wait(1000);
+      while(IsTextAt(334,264,'25'))do
+        begin
+          ClickMouse(335,270,True);
+          Wait(300);
+        end;
+      while(IsTextAt(304,264,'Five'))do
+        begin
+          ClickMouse(305,270,True);
+          Wait(300);
+        end;
+      while(IsTextAt(274,264,'One'))do
+        begin
+          ClickMouse(275,270,True);
+          Wait(300);
+        end;
+      if(FindBitmapspiral(uncutsaph,x,y,0,0,510,330))then
+        begin
+          ClickMouse(x,y,True);
+          Wait(1000);
+          while(IsTextAt(274,264,'One'))do
+            begin
+              ClickMouse(275,270,True);
+              Wait(300);
+            end;
+        end;
+      if(FindBitmapSpiral(uncutemerald,x,y,0,0,510,330))then
+        begin
+          ClickMouse(x,y,True);
+          Wait(1000);
+          while(IsTextAt(274,264,'One'))do
+            begin
+              ClickMouse(275,270,True);
+              Wait(300);
+            end;
+        end;
+      if(FindBitmapSpiral(uncutruby,x,y,0,0,510,330))then
+        begin
+          ClickMouse(x,y,True);
+          Wait(1000);
+          while(IsTextAt(274,264,'One'))do
+            begin
+              ClickMouse(275,270,True);
+              Wait(300);
+            end;
+        end;
+      if(FindBitmapSpiral(uncutdiamond,x,y,0,0,510,330))then
+        begin
+          ClickMouse(x,y,True);
+          Wait(1000);
+          while(IsTextAt(274,264,'One'))do
+            begin
+              ClickMouse(275,270,True);
+              Wait(300);
+            end;
+        end;
+      i:=0;
+      repeat
+        i:=i+1;
+        if (GetColor(264, 8)=12582912) or (GetColor(173, 10)=12582912) or (GetColor(120, 9)=12582912) or (GetColor(342, 21)=16776960) or (GetColor(168, 23)=65280) or (GetColor(54, 10)=16777215)  then
+          begin
+            ClickMouse(410,5,True);
+            Wait(200);
+          end;
+      until (i>=5);
+    end;
+end;
+
+procedure PmChange(sender: TObject);
+begin
+  Case pm.text of
+    'PowerMine' : Begin
+                    Ore.Items.Clear;
+                    Ore.Items.Add('Clay');
+                    Ore.Items.Add('Tin');
+                    Ore.Items.Add('Copper');
+                    Ore.Items.Add('Iron');
+                    Ore.Items.Add('Silver');
+                    Ore.Items.Add('Coal');
+                    Ore.Items.Add('Gold');
+                    Ore.Items.Add('Mithril');
+                    Ore.Items.Add('Adamantite');
+                    Ore.Items.Add('Runite');
+                    Ore.ItemIndex:=0;
+                    Ore.DropDownCount:= 10;
+                  end;
+    'GuildMine' : Begin
+                    Ore.Items.Clear;
+                    Ore.Items.Add('Coal');
+                    Ore.Items.Add('Mithril');
+                    Ore.ItemIndex:=0;
+                    Ore.DropDownCount:=2;
+                  end;
+    end;
+end;
+
+procedure Startbuttonclick(sender: TObject);
+begin
+  Mith:= BitmapFromString(21, 7,
+       '8196AC8196AC8196AC975B088196AC617181617181617181724B0B' +
+       '8196AC617181617181617181617181617181553402724B0B414C57' +
+       '617181617181414C57617181617181975B08724B0B617181617181' +
+       '617181414C57724B0B617181617181617181617181617181414C57' +
+       '975B08553402553402414C57414C57724B0B617181617181724B0B' +
+       '724B0B414C57617181617181414C574F2100975B08617181617181' +
+       '617181617181414C57724B0B975B08975B08975B08975B08724B0B' +
+       '53616F53616F724B0B724B0B724B0B414C57414C574F2100724B0B' +
+       '724B0B975B0861718153616F2E363E724B0B975B08724B0B724B0B' +
+       '724B0B724B0B724B0B2E363E6F82954F2100553402692D04692D04' +
+       '4F2100692D04692D04692D04692D04724B0B2E363E724B0B4F2100' +
+       '692D04692D04692D04692D04692D044F21006F829553616F53616F' +
+       '4F21004F21004F21004F21005534025534025534024F2100553402' +
+       '553402553402724B0B5534025534025534025534025534024F2100' +
+       '53616F53616F53616F53616F2E363E280F005534024F2100280F00' +
+       '280F004F2100553402553402724B0B553402280F00617181617181' +
+       '617181280F00553402');
+  Mithrock:= BitmapFromString(4, 3,
+       '05050A05050A05050A06060D05050A05050A06060D06060D040409' +
+       '04040906060D06060D');
+  coal:= BitmapFromString(16, 13,
+       '0000000000000000004D4D4D4D4D4D4D4D4D2727272727274D4D4D' +
+       '4D4D4D272727272727272727272727272727272727000000000000' +
+       '4D4D4D2727272727272727272727272727272727276D6D6D272727' +
+       '272727272727272727272727272727000000000000272727272727' +
+       '2727272727272727272727274D4D4D4D4D4D4D4D4D272727272727' +
+       '272727272727272727000000000000272727272727272727272727' +
+       '4D4D4D2727274D4D4D4D4D4D4D4D4D4D4D4D272727272727272727' +
+       '2727270000004D4D4D6D6D6D6D6D6D6D6D6D2727274D4D4D4D4D4D' +
+       '4D4D4D4D4D4D2727272727274D4D4D4D4D4D4D4D4D2727274D4D4D' +
+       '6D6D6D4D4D4D4D4D4D4D4D4D4D4D4D272727272727272727272727' +
+       '2727274D4D4D2727272727272727272727272727274D4D4D4D4D4D' +
+       '4D4D4D4D4D4D272727272727272727272727272727272727272727' +
+       '2727272727272727272727272727272727274D4D4D4D4D4D272727' +
+       '272727272727272727272727272727272727272727272727272727' +
+       '2727272727274D4D4D272727272727272727272727272727272727' +
+       '272727272727272727272727272727272727272727272727272727' +
+       '272727272727272727272727272727272727272727272727272727' +
+       '272727272727272727272727272727272727272727272727272727' +
+       '272727272727272727272727272727000000272727272727000000' +
+       '272727272727272727272727272727272727272727272727272727' +
+       '272727272727000000000000000000000000000000000000000000' +
+       '000000000000000000000000272727272727272727000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000');
+  coalrock:= BitmapFromString(7, 1,
+       '0909090A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A');
+  Runite:= BitmapFromString(17, 9,
+       '724B0B724B0B553402975B0800BBBB00BBBB00BBBB553402553402' +
+       '00BBBB00BBBB00BBBB00BBBB975B08724B0B724B0B008C8C00BBBB' +
+       '00BBBB975B0800BBBB008C8C008C8C008C8C724B0B00BBBB008C8C' +
+       '008C8C008C8C008C8C008C8C553402724B0B005E5E008C8C975B08' +
+       '724B0B008C8C008C8C008C8C005E5E724B0B008C8C008C8C008C8C' +
+       '008C8C008C8C005E5E975B08553402553402008C8C724B0B724B0B' +
+       '005E5E008C8C008C8C005E5E4F2100975B08008C8C008C8C008C8C' +
+       '008C8C005E5E724B0B975B08975B08007878724B0B724B0B724B0B' +
+       '005E5E005E5E4F2100724B0B724B0B975B08008C8C007878004343' +
+       '724B0B975B08724B0B724B0B00A1A14F2100553402692D04692D04' +
+       '4F2100692D04692D04692D04692D04724B0B004343724B0B4F2100' +
+       '692D04692D04692D040078780078784F21004F21004F21004F2100' +
+       '5534025534025534024F2100553402553402553402724B0B553402' +
+       '553402553402007878007878007878004343280F005534024F2100' +
+       '280F00280F004F2100553402553402724B0B553402280F00008C8C' +
+       '008C8C724B0B007878004343008C8C008C8C008C8C553402553402' +
+       '280F00280F00553402553402553402553402008C8C007878005E5E' +
+       '');
+  RS:= BitmapFromString(2, 1,
+       '8686CE8686CE');
+  Adam:= BitmapFromString(15, 9,
+       '553402975B0896AC8196AC8196AC8155340255340296AC8196AC81' +
+       '96AC8196AC81975B08724B0B724B0B718161975B0896AC81718161' +
+       '718161718161724B0B96AC81718161718161718161718161718161' +
+       '553402724B0B4C5741724B0B7181617181617181614C5741724B0B' +
+       '7181617181617181617181617181614C5741975B08553402553402' +
+       '724B0B4C57417181617181614C57414F2100975B08718161718161' +
+       '7181617181614C5741724B0B975B08975B08724B0B724B0B4C5741' +
+       '4C57414F2100724B0B724B0B975B08718161616F53363E2E724B0B' +
+       '975B08724B0B724B0B553402692D04692D044F2100692D04692D04' +
+       '692D04692D04724B0B363E2E724B0B4F2100692D04692D04692D04' +
+       '4F21004F21004F21004F21005534025534025534024F2100553402' +
+       '553402553402724B0B553402553402553402616F53363E2E280F00' +
+       '5534024F2100280F00280F004F2100553402553402724B0B553402' +
+       '280F00718161718161363E2E718161718161718161553402553402' +
+       '280F00280F00553402553402553402553402718161616F534C5741' +
+       '');
+  Adamrock:= BitmapFromString(3, 1,
+       '27371F27371F27371F');
+  Gold:= BitmapFromString(6, 1,
+       'D8AC40D8AC40BA9537BA9537A28130A28130');
+  Goldrock:= BitmapFromString(4, 1,
+       '9E6F009E6F009E6F009E6F00');
+  Silver:= BitmapFromString(13, 1,
+       'CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCA8A8A8A8A8A8A8A8A8A8A8A8' +
+       'A8A8A8A8A8A88F8F8F8F8F8F');
+  Silverrock:= BitmapFromString(3, 1,
+       '868686868686868686');
+  Tin:= BitmapFromString(16, 5,
+       'B29C9C975B08B29C9C857575857575857575724B0BB29C9C857575' +
+       '857575857575857575857575553402724B0B5A4F4F975B08724B0B' +
+       '8575758575758575755A4F4F724B0B857575857575857575857575' +
+       '8575755A4F4F975B08553402553402724B0B724B0B5A4F4F857575' +
+       '8575755A4F4F4F2100975B088575758575758575758575755A4F4F' +
+       '724B0B975B08975B08724B0B724B0B724B0B5A4F4F5A4F4F4F2100' +
+       '724B0B724B0B975B088575757265653F3838724B0B975B08724B0B' +
+       '724B0B4F2100553402692D04692D044F2100692D04692D04692D04' +
+       '692D04724B0B3F3838724B0B4F2100692D04692D04692D04');
+  Tinrock:= BitmapFromString(3, 2,
+       '373F47373F47373F47373F47373F47373F47');
+  Clay:= BitmapFromString(12, 5,
+       '724B0B91610F91610F91610F62410A724B0B91610F91610F91610F' +
+       '91610F91610F62410A724B0B62410A91610F91610F62410A4F2100' +
+       '975B0891610F91610F91610F91610F62410A724B0B724B0B62410A' +
+       '62410A4F2100724B0B724B0B975B0891610F7D530D452E07724B0B' +
+       '553402692D04692D044F2100692D04692D04692D04692D04724B0B' +
+       '452E07724B0B4F21004F21004F21004F21004F2100553402553402' +
+       '5534024F2100553402553402553402724B0B');
+  Clayrock:= BitmapFromString(2, 2,
+       '573700573700573700573700');
+  Iron:= BitmapFromString(14, 5,
+       '724B0B7161617161617161614C4141724B0B716161716161716161' +
+       '7161617161614C4141975B08553402724B0B4C4141716161716161' +
+       '4C41414F2100975B087161617161617161617161614C4141724B0B' +
+       '975B08724B0B724B0B4C41414C41414F2100724B0B724B0B975B08' +
+       '716161615353362E2E724B0B975B08724B0B553402692D04692D04' +
+       '4F2100692D04692D04692D04692D04724B0B362E2E724B0B4F2100' +
+       '692D04692D044F21004F21004F21004F2100553402553402553402' +
+       '4F2100553402553402553402724B0B553402553402');
+  Ironrock:= BitmapFromString(2, 2,
+       '2F1F172F1F172F1F172F1F17');
+  Copper:= BitmapFromString(15, 8,
+       '553402975B08D85615D85615D85615553402553402D85615D85615' +
+       'D85615D85615975B08724B0B724B0BA2400F975B08D85615A2400F' +
+       'A2400FA2400F724B0BD85615A2400FA2400FA2400FA2400FA2400F' +
+       '553402724B0B6D2B0A724B0BA2400FA2400FA2400F6D2B0A724B0B' +
+       'A2400FA2400FA2400FA2400FA2400F6D2B0A975B08553402553402' +
+       '724B0B6D2B0AA2400FA2400F6D2B0A4F2100975B08A2400FA2400F' +
+       'A2400FA2400F6D2B0A724B0B975B08975B08724B0B724B0B6D2B0A' +
+       '6D2B0A4F2100724B0B724B0B975B08A2400F8B370D4D1F07724B0B' +
+       '975B08724B0B724B0B553402692D04692D044F2100692D04692D04' +
+       '692D04692D04724B0B4D1F07724B0B4F2100692D04692D04692D04' +
+       '4F21004F21004F21004F21005534025534025534024F2100553402' +
+       '553402553402724B0B5534025534025534028B370D4D1F07280F00' +
+       '5534024F2100280F00280F004F2100553402553402724B0B553402' +
+       '280F00A2400FA2400F');
+  Copperrock:= BitmapFromString(2, 2,
+       '3F17003F17003F17003F1700');
+  ladder:= BitmapFromString(2, 1,
+       '3F1F003F1F00');
+  uncutsaph:= BitmapFromString(11, 6,
+       '0040D80037BA0037BA0037BA0030A20030A20030A20030A200298B' +
+       '00206D00206D0037BA0037BA0037BA0037BA0030A20030A20030A2' +
+       '00298B00298B00206D00206D0037BA0037BA0037BA0037BA0030A2' +
+       '0030A200298B00298B00206D00206D00174D0037BA0037BA0037BA' +
+       '0037BA0030A200298B00298B00206D00206D00174D00174D0037BA' +
+       '0037BA0030A20030A20030A200298B00206D00206D00206D00174D' +
+       '00174D0037BA0037BA0030A20030A200298B00206D00206D00206D' +
+       '00206D00206D00206D');
+  uncutemerald:= BitmapFromString(11, 5,
+       '2BAC2B2595252595252595252081202081202081202081201B6F1B' +
+       '155715155715259525259525259525259525208120208120208120' +
+       '1B6F1B1B6F1B155715155715259525259525259525259525208120' +
+       '2081201B6F1B1B6F1B1557151557150F3E0F259525259525259525' +
+       '2595252081201B6F1B1B6F1B1557151557150F3E0F0F3E0F259525' +
+       '2595252081202081202081201B6F1B1557151557151557150F3E0F' +
+       '0F3E0F');
+  uncutruby:= BitmapFromString(10, 6,
+       'D82B00BA2500BA2500BA2500A22000A22000A22000A22000A22000' +
+       '8B1B00D82B00BA2500BA2500BA2500A22000A22000A22000A22000' +
+       '8B1B006D1500BA2500BA2500BA2500BA2500A22000A22000A22000' +
+       '8B1B008B1B006D1500BA2500BA2500BA2500BA2500A22000A22000' +
+       '8B1B008B1B006D15006D1500BA2500BA2500BA2500BA2500A22000' +
+       '8B1B008B1B006D15006D15004D0F00BA2500BA2500A22000A22000' +
+       'A220008B1B006D15006D15006D15004D0F00');
+  uncutdiamond:= BitmapFromString(11, 6,
+       'D8D8D8D8D8D8BABABABABABAA2A2A2A2A2A2A2A2A2A2A2A2A2A2A2' +
+       '8B8B8B8B8B8BD8D8D8BABABABABABABABABAA2A2A2A2A2A2A2A2A2' +
+       'A2A2A2A2A2A28B8B8B6D6D6DD8D8D8BABABABABABABABABAA2A2A2' +
+       'A2A2A2A2A2A2A2A2A28B8B8B6D6D6D6D6D6DBABABABABABABABABA' +
+       'BABABAA2A2A2A2A2A2A2A2A28B8B8B8B8B8B6D6D6D6D6D6DBABABA' +
+       'BABABABABABABABABAA2A2A2A2A2A28B8B8B8B8B8B6D6D6D6D6D6D' +
+       '4D4D4DBABABABABABABABABABABABAA2A2A28B8B8B8B8B8B6D6D6D' +
+       '6D6D6D4D4D4D4D4D4D');
+  username:= TxtUser.Text;
+  password:= TxtPass.Text;
+  Case Ore.Text of
+    'Coal':       begin
+                    ItemCheck:='coal';
+                    ItemColor:=coalrock;
+                    ItemColorCode:=723723;
+                    ItemBank:=coal;
+                  end;
+    'Mithril':    begin
+                    ItemCheck:='mithril';
+                    ItemColor:=Mithrock;
+                    ItemColorCode:=787974;
+                    ItemBank:=Mith;
+                  end;
+    'Iron':       begin
+                    ItemCheck:='iron';
+                    ItemColor:=Ironrock;
+                    ItemColorCode:=1515311;
+                    ItemBank:=Iron;
+                  end;
+    'Copper':     begin
+                    ItemCheck:='copper';
+                    ItemColor:=Copperrock;
+                    ItemColorCode:=5951;
+                    ItemBank:=Copper;
+                  end;
+    'Runite':     begin
+                    ItemCheck:='runite';
+                    ItemColor:=RS;
+                    ItemColorCode:=13534854;
+                    ItemBank:=Runite;
+                  end;
+    'Adamantite': begin
+                    ItemCheck:='adamantite';
+                    ItemColor:=Adamrock;
+                    ItemColorCode:=2045735;
+                    ItemBank:=Adam;
+                  end;
+    'Clay':       begin
+                    ItemCheck:='clay';
+                    ItemColor:=Clayrock;
+                    ItemColorCode:=14167;
+                    ItemBank:=Clay;
+                  end;
+    'Tin':        begin
+                    ItemCheck:='tin';
+                    ItemColor:=Tinrock;
+                    ItemColorCode:=4669239;
+                    ItemBank:=Tin;
+                  end;
+    'Gold':       begin
+                    ItemCheck:='gold';
+                    ItemColor:=Goldrock;
+                    ItemColorCode:=28574;
+                    ItemBank:=Gold;
+                  end;
+    'Silver':     begin
+                    ItemCheck:='Silver';
+                    ItemColor:=Silverrock;
+                    ItemColorCode:=8816262;
+                    ItemBank:=Silver;
+                  end;
+    end;
+  Case Play.Text of
+    'Members':  begin
+                  loggin:=1;
+                end;
+    'Free':     begin
+                  Loggin:=2;
+                end;
+    end;
+  Case Sound_Play.Text of
+    'Yes' : Sound:=true;
+    'No': Sound:=false;
+    end;
+  Case Pm.Text of
+    'GuildMine': begin
+                   Powermine:=1;
+                 end;
+    'PowerMine': begin
+                   Powermine:=2;
+                 end;
+    end;
+  GO:=1;
+end;
+
+begin
+  Application:= GetApplication;
+  Self:= GetSelf;
+  Form:= TForm.Create(nil);
+  Form.Width := 350;
+  Form.Height := 154;
+  Form.Position := poScreenCenter;
+  Form.BorderStyle := bsDialog;
+  Form.Color:=ClBlack;
+  Form.Caption := 'GK5K AutoMiner+Banker or PowerMiner';
+  UserLabel := TLabel.Create(Form);
+  UserLabel.Top := 12;
+  UserLabel.Left := 16;
+  UserLabel.Font.Color:= ClLime;
+  UserLabel.Caption := 'Username:';
+  UserLabel.Parent := Form;
+  PassLabel := TLabel.Create(Form);
+  PassLabel.Top := 42;
+  PassLabel.Left := 16;
+  PassLabel.Font.Color:= ClLime;
+  PassLabel.Caption := 'Password:';
+  PassLabel.Parent := Form;
+  OreLabel := TLabel.Create(Form);
+  OreLabel.Top := 12;
+  OreLabel.Left := 217;
+  OreLabel.Font.Color:= ClLime;
+  OreLabel.Caption := 'Ore:';
+  OreLabel.Parent := Form;
+  PmLabel := TLabel.Create(Form);
+  PmLabel.Top := 42;
+  PmLabel.Left := 210;
+  PmLabel.Font.Color:= ClLime;
+  PmLabel.Caption := 'Type:';
+  PmLabel.Parent := Form;
+  PlayLabel := TLabel.Create(Form);
+  PlayLabel.Top := 72;
+  PlayLabel.Left := 155;
+  PlayLabel.Font.Color:= ClLime;
+  PlayLabel.Caption := 'Members or Free:';
+  PlayLabel.Parent := Form;
+  SoundLabel := TLabel.Create(Form);
+  SoundLabel.Top := 102;
+  SoundLabel.Left := 135;
+  SoundLabel.Font.Color:= ClLime;
+  SoundLabel.Caption := 'Play Sound on Sleep:';
+  SoundLabel.Parent := Form;
+  txtUser := TEdit.Create(Form);
+  txtUser.Top := 10;
+  txtUser.Left := 86;
+  txtUser.Width := 100;
+  txtUser.Hint:='Username Goes Here!';
+  txtuser.ShowHint:=true;
+  txtUser.Parent := Form;
+  txtPass := TEdit.Create(Form);
+  txtPass.Top := 40;
+  txtPass.Left := 86;
+  txtPass.Width := 100;
+  txtPass.font.name:='WingDings';
+  txtPass.PasswordChar:= 'N';
+  txtPass.Hint:='Password Goes Here!';
+  txtPass.ShowHint:=true;
+  txtPass.Parent := Form;
+  Ore:= TcomboBox.create(form);
+  Ore.Top := 10;
+  Ore.Left := 250;
+  Ore.Width := 80;
+  Ore.Height := 24;
+  Ore.parent := Form;
+  Ore.DropDownCount:= 2;
+  Ore.Items.Add('Coal');
+  Ore.Items.Add('Mithril');
+  Ore.Hint:='Mine what type of Ore?';
+  Ore.ShowHint:=true;
+  Ore.itemindex:= 0;
+  Sound_Play:= TcomboBox.create(form);
+  Sound_Play.Top := 100;
+  Sound_Play.Left := 250;
+  Sound_Play.Width := 80;
+  Sound_Play.Height := 24;
+  Sound_Play.parent := Form;
+  Sound_Play.DropDownCount:= 2;
+  Sound_Play.Items.Add('No');
+  Sound_Play.Items.Add('Yes');
+  Sound_Play.Hint:='Play Sound On Sleep?';
+  Sound_Play.ShowHint:=true;
+  Sound_Play.itemindex:= 0;
+  Pm:= TcomboBox.create(form);
+  Pm.Top := 40;
+  Pm.Left := 250;
+  Pm.Width := 80;
+  Pm.Height := 24;
+  Pm.parent := Form;
+  Pm.DropDownCount:= 2;
+  Pm.Items.Add('GuildMine');
+  Pm.Items.Add('PowerMine');
+  Pm.Hint:='PowerMine or GuildMine?';
+  Pm.ShowHint:=true;
+  Pm.itemindex:= 0;
+  Play:= TcomboBox.create(form);
+  Play.Top := 70;
+  Play.Left := 250;
+  Play.Width := 80;
+  Play.Height := 24;
+  Play.parent := Form;
+  Play.DropDownCount:= 2;
+  Play.Items.Add('Free');
+  Play.Items.Add('Members');
+  Play.Hint:='Members or Free Version?';
+  Play.ShowHint:=true;
+  Play.itemindex:= 0;
+  PM.onchange := @PmChange;
+  ButtonStart:= TButton.Create(Form);
+  ButtonStart.Left := 30;
+  ButtonStart.Top := 70;
+  ButtonStart.Width := 80;
+  ButtonStart.Height := 24;
+  ButtonStart.Caption := '&Start';
+  ButtonStart.OnClick := @Startbuttonclick;
+  ButtonStart.Parent := Form;
+  ButtonStart.Default := True;
+  ButtonStart.ModalResult := mrOk;
+  VersionLabel := TLabel.Create(Form);
+  VersionLabel.Top := 102;
+  VersionLabel.Left := 16;
+  VersionLabel.Font.Color := ClLime;
+  VersionLabel.Font.Size := 12;
+  VersionLabel.Caption := 'Version: 1.2';
+  VersionLabel.Parent := Form;
+  Form.ShowModal;
+  Form.Free;
+  if go=1 then
+    case powermine of
+      1:  begin
+            GK5KLoggin;
+            mining:=true;
+            repeat
+              if(IsTextAt(7,304,'You are too tired'))then
+                sleep;
+              if go=1 then
+                begin
+                  OpenMap;
+                  if(FindColor(a,b,18440,400,56,505,185))then
+                    begin
+                      loops:=0;
+                      repeat
+                        MoveMouse(495,17);
+                        Wait(100);
+                        loops:=loops+1;
+                      until(GetColor(323,28)=16711423)or (loops>=30);
+                      IsOre:=False;
+                      loops:=0;
+                      repeat
+                        MoveMouse(480,220);
+                        Wait(100);
+                        IsOre:=IsTextAt(6,2,Itemcheck) or (IsTextAt(6,2,'uncut'));
+                        loops:=loops+1;
+                      until(IsOre) or (loops>=5);
+                      if(IsOre)then
+                        begin
+                          OpenMap;
+                            if(FindColor(a,b,1049708,426,106,434,114))then
+                              begin
+                                CloseWin;
+                                bank;
+                              end
+                            else
+                              tobank;
+                        end
+                      else
+                        begin
+                        OpenMap;
+                          if(FindColor(a,b,0,422,102,436,122))then
+                            begin
+                              CloseWin;
+                              downstairs;
+                              mining:=true;
+                            end
+                          else
+                            toguild;
+                        end;
+                      end
+                  else
+                    begin
+                      loops:=0;
+                      repeat
+                        MoveMouse(495,17);
+                        Wait(100);
+                        loops:=loops+1;
+                      until(GetColor(323,28)=16711423)or (loops>=30);
+                      IsOre:=False;
+                      loops:=0;
+                      repeat
+                        MoveMouse(480,220);
+                        Wait(100);
+                        IsOre:=IsTextAt(6,2,ItemCheck) or (IsTextAt(6,2,'uncut'));
+                        loops:=loops+1;
+                      until(IsOre) or (loops>=5);
+                      if(IsOre)then
+                        begin
+                          OpenMap;
+                          FindColor(x,y,7220,356,100,453,185);
+                          if((x+10)>425) and ((x+10)<435)and((y+10)>107) and ((y+10)<117)then
+                            begin
+                              CloseWin;
+                              upstairs;
+                            end
+                          else
+                            begin
+                              toladder;
+                            end;
+                        end
+                      else begin
+                             CloseWin;
+                             mine;
+                           end;
+                    end;
+                end;
+            until(go=0);
+          end;
+      2:  begin
+            PowerMiner;
+          end;
+      end;
+end.

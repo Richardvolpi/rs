@@ -1,0 +1,876 @@
+{========IronMiner&Banker v1.3.1=======}
+//////////////////////////////////////
+//Setup:                            //
+//Set maps cross to be a perfect    //
+//cross pointing north.             //
+//Start at the iron rocks in the    //
+//varrocks east mine.               //
+//Pickaxe in the first slot and     //
+//Sleepingbag in the second slot.   //
+//Set the number in const.          //
+//Use silent mouse off.             //
+//////////////////////////////////////
+//Features:                         //
+//Mines and banks iron in east of   //
+//Varrock.                          //
+//Banks all gems and iron.          //
+//////////////////////////////////////
+{=============By Kingdome============}
+
+program IronOreMinerBanker;
+
+var
+a,b,c,d,x,y,swing,tired,sap,eme,rub,dia,sapphire,emerald,trips,MapFix,gems,found,
+banker,kaksviis,five,one,onered,ironore3,ores,sapp,emer,ruby2,diam: Integer;
+ST: LongInt;
+
+const
+ironores= 0;     //Input the amount of ironores and gems you have in your inventory.
+                 //Like this (1 sapphire and 5 iron ores is 6)
+Nick= ('');      //Your charters nick here.
+Password= ('');  //Your charters password here.
+rock= 461070;    //Change if it doesn't mine well.
+rock2= 197639;   //Change if it doesn't mine well.
+
+Procedure PrintProgressReport;
+var RHours,Minutes,Seconds,RMinutes,RSeconds,avtime:LongInt; Time:String;
+Begin
+ Seconds:=(GetSystemTime-ST) div 1000;
+ Minutes:=Seconds div 60; RHours:=Minutes
+ div 60; Time:=inttostr(Seconds)+' Seconds';
+ avtime:=Seconds/trips;
+ if Minutes<>0 then
+    begin
+       RSeconds:=Seconds Mod (Minutes*60);
+       Time:=inttostr(Minutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+    end;
+ if RHours<>0 then
+    begin
+       RMinutes:=Minutes Mod (RHours*60);
+       RSeconds:=Seconds Mod (Minutes*60);
+       Time:=inttostr(RHours)+' Hours, '+inttostr(RMinutes)+' Minutes and '
+       +inttostr(RSeconds)+' Seconds';
+    end;
+    begin
+ writeln(' ')
+ writeln('Progress Report:');
+ writeln(' ')
+ writeln('Worked for '+Time);
+ writeln('Mined for ('+inttostr(trips)+' Time[s]) '+inttostr(trips*28)+
+ ' Iron Ores');
+ writeln('Gained '+inttostr(trips*980)+' minining Exp');
+ writeln('Currently Averaging '+inttostr(3600/avtime*28)+' Iron Ores and '
+ +inttostr(3600/avtime*980)+' Experience an Hour');
+ writeln(' ')
+ end;
+ end;
+
+procedure LookForRocks;
+begin
+If(FindColorSpiral(x,y,rock,4,6,500,320))or
+(FindColorSpiral(x,y,rock2,4,6,500,320))then
+begin
+MoveMouseSmooth(x,y)
+Wait(20)
+ClickMouse(x,y,True)
+Wait(100)
+c:=0;
+repeat
+c:=c+1;
+Wait(100)
+Until(FindBitMapIn(swing,x,y,7,306,110,320))or
+(FindBitMapIn(tired,x,y,7,306,110,320))or
+(c=20)
+Wait(2000)
+end else
+end;
+
+procedure CloseWindow;
+begin
+Wait(500)
+MoveMouseSmooth(260,232)
+Wait(100)
+ClickMouse(260,232,True)
+repeat
+Wait(200)
+Until(Not(GetColor(442,161)=0))and
+(Not(GetColor(95,125)=0))
+end;
+
+procedure AutoLogin;
+begin
+If(GetColor(445,134)=5524540)and
+(GetColor(367,281)=9861230)then
+begin
+MoveMouseSmooth(367,281)
+Wait(200)
+ClickMouse(367,281,True)
+repeat
+Wait(100)
+Until(GetColor(463,244)=8808800)and
+(GetColor(44,241)=8151127)
+Wait(200)
+SendKeysSilent(Nick)
+Wait(200)
+MoveMouseSmooth(191,312)
+Wait(300)
+ClickMouse(191,312,True)
+Wait(300)
+SendKeysSilent(Password)
+Wait(500)
+MoveMouseSmooth(420,252)
+Wait(200)
+ClickMouse(420,252,True)
+repeat
+Wait(1000)
+Until(Not(GetColor(445,134)=5524540))
+Wait(1000)
+CloseWindow;
+repeat
+LookForRocks;
+Until(FindBitMapIn(swing,x,y,7,306,110,320))or
+(FindBitMapIn(tired,x,y,7,306,110,320))
+end else
+end;
+
+procedure ChatMessages;
+begin
+If(Not(GetColor(460,202)=65280))then
+begin
+MoveMouseSmooth(460,202)
+Wait(20)
+ClickMouse(460,202,True)
+Wait(300)
+end else
+end;
+
+procedure PrivateMessages;
+begin
+If(Not(GetColor(473,216)=65280))then
+begin
+MoveMouseSmooth(473,216)
+Wait(20)
+ClickMouse(473,216,True)
+Wait(300)
+end else
+end;
+
+procedure TradeRequests;
+begin
+If(Not(GetColor(454,234)=65280))then
+begin
+MoveMouseSmooth(454,234)
+Wait(20)
+ClickMouse(454,234,True)
+Wait(200)
+end else
+end;
+
+procedure Blocking;
+begin
+Status('Blocking...')
+MoveMouseSmooth(327,17)
+Wait(100)
+ChatMessages;
+PrivateMessages;
+TradeRequests;
+MoveMouseSmooth(295,222)
+end;
+
+procedure MapFixing;
+begin
+MoveMouseSmooth(458,18)
+Wait(10)
+If(Not(FindBitMapIn(MapFix,x,y,355,37,506,183)))then
+begin
+repeat
+MoveMouseSmooth(458,311)
+MoveMouseSmooth(458,18)
+Wait(10)
+Until(FindBitMapIn(MapFix,x,y,355,37,506,183))
+end else
+end;
+
+procedure Move;
+begin
+MapFixing;
+If(FindColorSpiral(x,y,1049708,391,50,431,114))then
+begin
+MoveMouseSmooth(x+30,y)
+ClickMouse(x+30,y,True)
+end else
+end;
+
+procedure ToMines1;
+begin
+If(FindColorSpiral2(x,y,4210752,463,62,465,105))then
+begin
+MoveMouseSmooth(x,y+5)
+ClickMouse(x,y+5,True)
+c:=c+1;
+Status('To mines '+Inttostr(c)+'/4')
+Wait(6000)
+d:=0;
+repeat
+d:=d+1;
+Wait(500)
+Until(FindColorSpiral2(x,y,143460,431,113,483,141))or
+(d=20)
+If(d=20)then
+begin
+If(FindColorSpiral2(x,y,4210752,463,62,465,105))then
+MoveMouseSmooth(x,y+5)
+ClickMouse(x,y+5,True)
+Wait(6000)
+d:=0;
+repeat
+d:=d+1;
+Wait(500)
+Until(FindColorSpiral2(x,y,143460,431,113,483,141))
+end else
+end else
+end;
+
+procedure ToMines2;
+begin
+If(FindColorSpiral2(x,y,143460,431,113,483,141))then
+begin
+MoveMouseSmooth(x+18,y)
+ClickMouse(x+18,y,True)
+c:=c+1;
+Status('To mines '+Inttostr(c)+'/4')
+Wait(8000)
+d:=0;
+repeat
+d:=d+1;
+Wait(500)
+Until(FindColorSpiral(x,y,143460,401,99,431,119))or
+(d=20)
+If(d=20)then
+begin
+If(FindColorSpiral2(x,y,143460,431,113,483,141))then
+MoveMouseSmooth(x+18,y)
+ClickMouse(x+18,y,True)
+Wait(8000)
+repeat
+Wait(500)
+Until(FindColorSpiral(x,y,143460,401,99,431,119))
+end else
+end else
+end;
+
+procedure ToMines3;
+begin
+If(FindColorSpiral2(x,y,4210752,459,165,494,167))then
+begin
+MoveMouseSmooth(x-10,y+15)
+ClickMouse(x-10,y+15,True)
+c:=c+1;
+Status('To mines '+Inttostr(c)+'/4')
+Wait(10000)
+d:=0;
+repeat
+d:=d+1;
+Wait(500)
+Until(FindColorSpiral2(x,y,1049708,372,106,430,125))or
+(d=20)
+If(Not(FindColorSpiral2(x,y,1049708,372,106,430,125)))then
+begin
+repeat
+MoveMouseSmooth(430,122)
+Wait(20)
+ClickMouse(430,122,True)
+Wait(3000)
+Until(FindColorSpiral2(x,y,1049708,372,106,430,125))
+end else
+end else
+end;
+
+procedure ToMines4;
+begin
+If(FindColorSpiral(x,y,18508,398,140,464,182))then
+begin
+MoveMouseSmooth(x-5,y)
+Wait(100)
+ClickMouse(x-5,y,True)
+c:=c+1;
+Status('To mines '+Inttostr(c)+'/4')
+Wait(10000)
+MoveMouseSmooth(255,119)
+end else
+repeat
+Wait(100)
+Until(FindColorSpiral(x,y,rock,4,6,185,280))or
+(FindColorSpiral(x,y,rock2,4,6,185,280))
+If(FindColorSpiral(x,y,rock,4,6,185,280))or
+(FindColorSpiral(x,y,rock2,4,6,185,280))then
+begin
+repeat
+wait(100)
+Until(FindColorSpiral(x,y,rock,4,6,185,280))or
+(FindColorSpiral(x,y,rock2,4,6,185,280))
+MoveMouseSmooth(x,y)
+Wait(20)
+ClickMouse(x,y,True)
+c:=0;
+repeat
+c:=c+1;
+Wait(100)
+Until(FindBitMapIn(swing,x,y,7,306,110,320))or
+(FindBitMapIn(tired,x,y,7,306,110,320))or
+(c=60)
+AutoLogin;
+end else
+end;
+
+procedure ToMines;
+begin
+MapFixing;
+c:=0;
+ToMines1;
+ToMines2;
+ToMines3;
+ToMines4;
+end;
+
+procedure FindBanker;
+begin
+If(FindColorSpiral2(x,y,131072,10,10,500,320))then
+begin
+Status('Finding banker...')
+MoveMouseSmooth(x,y)
+ClickMouse(x,y,False)
+Wait(50)
+MoveMouseSmooth(x,y+7)
+If(FindBitMap(banker,a,b))then
+begin
+MoveMouseSmooth(a,b)
+ClickMouse(a,b,True)
+Wait(100)
+c:=0;
+repeat
+c:=c+1;
+Wait(500)
+Until(GetColor(170,309)=16777215)or
+(GetColor(219,308)=65535)or
+(c=10)
+end else
+end else
+end;
+
+procedure Open;
+begin
+repeat
+FindBanker;
+Until(GetColor(219,308)=65535)
+Wait(2000)
+If(Not(GetColor(190,8)=16776960))then
+begin
+repeat
+FindBanker;
+Until(GetColor(219,308)=65535)
+Wait(2000)
+end else
+If(GetColor(190,8)=16776960)then
+begin
+Status('Opening bank...')
+MoveMouseSmooth(190,8)
+Wait(30)
+ClickMouse(190,8,True)
+Wait(200)
+c:=0;
+repeat
+c:=c+1;
+Wait(500)
+Until(GetColor(280,7)=12582912)or(c=10)
+end else
+end;
+
+procedure Close;
+begin
+MoveMouseSmooth(422,9)
+Wait(100)
+ClickMouse(422,9,True)
+Wait(100)
+repeat
+Wait(200)
+until(Not(GetColor(280,7)=12582912))
+Wait(500)
+gems:=0;
+trips:= trips+1
+PrintProgressReport;
+ToMines;
+end;
+
+procedure k5;
+begin
+If(FindBitMapIn(kaksviis,x,y,331,265,352,277))then
+begin
+c:=0;
+Status('Depositing...')
+repeat
+c:=c+1;
+MoveMouseSmooth(x+5,y+2)
+Wait(20)
+ClickMouse(x+5,y+2,True)
+wait(100)
+until(c>5)
+MoveMouseSmooth(333,236)
+repeat
+Wait(500)
+until(Not(FindBitMapIn(kaksviis,x,y,331,265,352,277)))
+end else
+end;
+
+procedure viisi;
+begin
+If(FindBitMapIn(five,x,y,303,265,329,278))then
+begin
+c:=0;
+Status('Depositing...')
+repeat
+c:=c+1;
+MoveMouseSmooth(x+5,y+2)
+Wait(20)
+ClickMouse(x+5,y+2,True)
+wait(100)
+until(c>7)
+MoveMouseSmooth(311,236)
+repeat
+Wait(500)
+until(Not(FindBitMapIn(five,x,y,303,265,329,278)))
+end else
+end;
+
+procedure yksi;
+begin
+If(FindBitMapIn(one,x,y,268,262,300,280))then
+begin
+c:=0;
+Status('Depositing...')
+repeat
+c:=c+1;
+MoveMouseSmooth(x+5,y+2)
+Wait(20)
+ClickMouse(x+5,y+2,True)
+wait(100)
+until(c>10)
+MoveMouseSmooth(284,236)
+repeat
+Wait(500)
+until(Not(FindBitMapIn(one,x,y,268,262,300,280)))
+end else
+end;
+
+procedure Deposit;
+begin
+k5;
+viisi;
+yksi;
+MoveMouseSmooth(200,270)
+repeat
+Wait(100)
+until(Not(FindBitMapIn(one,x,y,268,262,300,280)))or
+(Not(FindBitMapIn(onered,x,y,268,262,300,280)))
+end;
+
+procedure sapphire2;
+begin
+If(sapp=1)then
+begin
+repeat
+If(FindBitMap(sap,x,y))then
+MoveMouseSmooth(x,y)
+ClickMouse(x,y,True)
+Wait(200)
+Until(FindBitMapIn(sapphire,x,y,130,238,200,256))
+If(FindBitMapIn(sapphire,x,y,130,238,200,256))then
+begin
+Deposit;
+sapp:=0;
+end else
+end else
+end;
+
+procedure emerald2;
+begin
+If(emer=1)then
+begin
+repeat
+If(FindBitMap(eme,x,y))then
+MoveMouseSmooth(x,y)
+ClickMouse(x,y,True)
+Wait(200)
+Until(FindBitMapIn(emerald,x,y,100,238,200,256))
+If(FindBitMapIn(emerald,x,y,100,238,200,256))then
+begin
+Deposit;
+emer:=0;
+end else
+end else
+end;
+
+procedure ruby;
+begin
+If(ruby2=1)then
+begin
+If(FindBitMap(rub,x,y))then
+MoveMouseSmooth(x,y)
+ClickMouse(x,y,True)
+Wait(200)
+Deposit;
+ruby2:=0;
+end else
+end;
+
+procedure diamond;
+begin
+If(diam=1)then
+begin
+If(FindBitMap(dia,x,y))then
+MoveMouseSmooth(x,y)
+ClickMouse(x,y,True)
+Wait(200)
+Deposit;
+diam:=0;
+end else
+end;
+
+procedure Banking;
+begin
+MoveMouseSmooth(294,19)
+repeat
+Open;
+until(GetColor(280,7)=12582912)
+If(FindColorSpiral(x,y,6381937,59,31,451,235))then
+begin
+MoveMouseSmooth(x,y)
+ClickMouse(x,y,True)
+Wait(100)
+Deposit;
+begin
+sapphire2;
+emerald2;
+ruby;
+diamond;
+Close;
+ores:=0;
+end;
+end else
+end;
+
+procedure ToBank;
+begin
+MapFixing;
+d:=0;
+If(FindColorSpiral(x,y,1049708,391,50,431,114))then
+begin
+Move;
+d:=d+1;
+Status('Going to bank '+IntToStr(d)+'/4')
+c:=0;
+repeat
+c:=c+1;
+Wait(500)
+Until(FindColorSpiral(x,y,1049708,371,112,431,118))or
+(c=15)
+If(c=15)then
+begin
+Move;
+end else
+Wait(500)
+If(FindColorSpiral(x,y,4210752,398,56,465,58))then
+begin
+MoveMouseSmooth(x-22,y-12)
+ClickMouse(x-22,y-12,True)
+d:=d+1;
+Status('Going to bank '+IntToStr(d)+'/4')
+Wait(10000)
+c:=0;
+repeat
+c:=c+1;
+Wait(500)
+Until(FindColorSpiral(x,y,143460,362,63,430,113))or
+(c=15)
+If(c=15)then
+begin
+If(FindColorSpiral(x,y,4210752,398,56,465,58))then
+MoveMouseSmooth(x-22,y-12)
+ClickMouse(x-22,y-12,True)
+Wait(10000)
+end else
+If(FindColorSpiral(x,y,143460,362,63,430,113))then
+begin
+MoveMouseSmooth(x,y-24)
+ClickMouse(x,y-24,True)
+d:=d+1;
+Status('Going to bank '+IntToStr(d)+'/4')
+Wait(8000)
+c:=0;
+repeat
+c:=c+1;
+Wait(500)
+Until(FindColorSpiral(x,y,1049708,354,51,418,181))or
+(c=15)
+If(c=15)then
+begin
+If(FindColorSpiral(x,y,143460,362,63,430,113))then
+MoveMouseSmooth(x,y-24)
+ClickMouse(x,y-24,True)
+Wait(8000)
+end else
+If(FindColorSpiral2(x,y,1049708,354,51,418,181))then
+begin
+MoveMouseSmooth(x-5,y)
+ClickMouse(x-5,y,True)
+d:=d+1;
+Status('Going to bank '+IntToStr(d)+'/4')
+Wait(3000)
+c:=0;
+repeat
+c:=c+1;
+Wait(500)
+Until(FindColorSpiral(x,y,1049708,425,107,437,116))or
+(c=30)
+If(c=30)then
+begin
+If(FindColorSpiral2(x,y,1049708,354,51,418,181))then
+MoveMouseSmooth(x-5,y)
+ClickMouse(x-5,y,True)
+Wait(3000)
+repeat
+Wait(500)
+Until(FindColorSpiral(x,y,1049708,425,107,437,116))
+end else
+Wait(1500)
+Banking;
+end else
+end else
+end else
+end else
+end;
+
+procedure AutoSleep;
+begin
+Status('Sleeping...')
+MoveMouseSmooth(495,18)
+Wait(50)
+MoveMouseSmooth(495,52)
+wait(50)
+MoveMouseSmooth(341,56)
+Wait(100)
+ClickMouse(341,56,True)
+Wait(2000)
+repeat
+Wait(500)
+Until(Not(GetColor(338,49)=65535))
+MoveMouseSmooth(170,135)
+Wait(100)
+end;
+
+procedure Check;
+begin
+If(FindBitMapIn(ironore3,x,y,159,301,210,320))or
+(FindBitMapIn(found,x,y,159,301,210,320))then
+begin
+ores:=ores+1;
+end else
+end;
+
+procedure Check2;
+begin
+If(FindBitMapIn(tired,x,y,7,306,110,320))then
+begin
+AutoSleep;
+end else
+end;
+
+procedure Check3;
+begin
+MoveMouseSmooth(491,19)
+Wait(100)
+If(FindBitMapIn(sap,x,y,266,38,506,237))then
+begin
+sapp:=1;
+end;
+If(FindBitMapIn(eme,x,y,266,38,506,237))then
+begin
+emer:=1;
+end;
+If(FindBitMapIn(rub,x,y,266,38,506,237))then
+begin
+ruby2:=1;
+end;
+If(FindBitMapIn(dia,x,y,266,38,506,237))then
+begin
+diam:=1;
+end;
+end;
+
+procedure Mining;
+begin
+Status('Mining '+IntToStr(ores)+'/28 Iron ores')
+If(ores=28)then
+Begin
+Check3;
+ToBank;
+end else
+c:=0;
+repeat
+c:=c+1;
+Wait(100)
+Until(FindColorSpiral(x,y,rock,130,100,330,200))or
+(FindColorSpiral(x,y,rock2,130,100,330,200))or
+(c=40)
+If(FindColorSpiral(x,y,rock,130,100,330,200))or
+(FindColorSpiral(x,y,rock2,130,100,330,200))then
+begin
+MoveMouseSmooth(x+1,y)
+ClickMouse(x+1,y,True)
+c:=0;
+repeat
+c:=c+1;
+Wait(100)
+Until(FindBitMapIn(swing,x,y,7,306,110,320))or
+(FindBitMapIn(tired,x,y,7,306,110,320))or
+(c=20)
+Check2;
+If(FindBitMapIn(swing,x,y,7,306,110,320))then
+begin
+c:=0;
+repeat
+c:=c+1;
+Wait(100)
+Until(FindColorSpiral(x,y,16777215,189,309,238,311))or
+(FindBitMapIn(ironore3,x,y,7,306,110,320))or
+(FindBitMapIn(found,x,y,7,306,110,320))or
+(c=30)
+Check;
+end;
+end;
+end;
+
+procedure BitMaps;
+begin
+banker := BitmapFromString(22, 2,
+     'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+     '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000000000' +
+     '000000FFFF00FFFF00000000FFFFFF000000000000000000000000' +
+     '000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFF' +
+     'FFFFFF000000000000000000000000FFFF00FFFF00000000');
+kaksviis := BitmapFromString(14, 2,
+     '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF' +
+     'FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000000000' +
+     'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+     '000000');
+five := BitmapFromString(21, 2,
+     'FFFFFFFFFFFF000000000000000000000000000000FFFFFFFFFFFF' +
+     'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+     'FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000000000000000' +
+     '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+     'FFFFFFFFFFFF000000000000FFFFFFFFFFFF');
+one := BitmapFromString(22, 2,
+     'FFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFF000000' +
+     'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF' +
+     'FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000000000000000' +
+     '000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFF' +
+     'FFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF');
+onered := BitmapFromString(22, 2,
+     'FF0000FF0000000000000000000000000000FF0000FF0000000000' +
+     'FF0000FF0000FF0000FF0000FF0000000000000000000000FF0000' +
+     'FF0000FF0000FF0000000000FF0000FF0000000000000000000000' +
+     '000000FF0000FF0000000000FF0000FF0000FF0000000000FF0000' +
+     'FF0000000000FF0000FF0000000000000000FF0000FF0000');
+found := BitmapFromString(18, 2,
+      'FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+      '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+      '000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFF' +
+      'FFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+      '');
+MapFix := BitmapFromString(16, 4,
+     '000000000000000000000000000000000000000000000000000000' +
+     '000000000000000000000000000000000000000000606060606060' +
+     '606060606060606060606060606060606060606060606060606060' +
+     '606060606060606060606060606060606060606060606060606060' +
+     '606060606060606060606060606060606060606060606060606060' +
+     '606060606060606060000000000000000000000000000000000000' +
+     '000000000000000000000000000000000000000000000000000000' +
+     '000000');
+sapphire := BitmapFromString(22, 2,
+     '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF' +
+     'FFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+     'FFFFFF000000000000FFFFFFFFFFFFFFFFFF000000000000FFFFFF' +
+     'FFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+     'FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFF');
+emerald := BitmapFromString(22, 2,
+     '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+     'FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000000000' +
+     '000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF' +
+     'FFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF' +
+     '000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000');
+sap := BitmapFromString(14, 2,
+     '0049F80040D80040D80037BA0037BA0037BA0030A20030A20030A2' +
+     '0030A200298B00206D00206D00206D0049F80040D80037BA0037BA' +
+     '0037BA0037BA0030A20030A20030A200298B00298B00206D00206D' +
+     '00174D');
+eme := BitmapFromString(14, 2,
+      '31C6312BAC2B259525259525259525259525208120208120208120' +
+      '1B6F1B1B6F1B1557151557150F3E0F2BAC2B2BAC2B259525259525' +
+      '2595252595252081202081201B6F1B1B6F1B1557151557150F3E0F' +
+      '0F3E0F');
+rub := BitmapFromString(17, 2,
+     'F83100F83100D82B00D82B00BA2500BA2500BA2500A22000A22000' +
+     'A22000A220008B1B006D15006D15006D15006D15006D1500F83100' +
+     'F83100D82B00BA2500BA2500BA2500BA2500A22000A22000A22000' +
+     '8B1B008B1B006D15006D15004D0F004D0F006D1500');
+dia := BitmapFromString(17, 2,
+     'F8F8F8F8F8F8D8D8D8D8D8D8BABABABABABABABABAA2A2A2A2A2A2' +
+     'A2A2A2A2A2A28B8B8B6D6D6D6D6D6D6D6D6D6D6D6D6D6D6DF8F8F8' +
+     'F8F8F8D8D8D8BABABABABABABABABABABABAA2A2A2A2A2A2A2A2A2' +
+     '8B8B8B8B8B8B6D6D6D6D6D6D4D4D4D4D4D4D6D6D6D');
+tired := BitmapFromString(24, 3,
+      'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF' +
+      '000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+      'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+      'FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF' +
+      '000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFF' +
+      'FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+      'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+      'FFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+      '');
+swing := BitmapFromString(33, 3,
+      'FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+      '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+      '000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFF' +
+      'FFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+      '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF' +
+      'FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+      '000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000' +
+      'FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+      '000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF' +
+      '000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFF' +
+      'FFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+      '');
+ironore3 := BitmapFromString(21, 2,
+      'FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000000000FFFFFF' +
+      'FFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+      'FFFFFF000000000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF' +
+      '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000FFFFFF' +
+      'FFFFFFFFFFFF000000FFFFFFFFFFFF000000');
+end;
+
+begin
+BitMaps;
+ST:=GetSystemTime;
+trips:=0;
+sapp:=0;
+emer:=0;
+ruby2:=0;
+diam:=0;
+ores:=ironores;
+Blocking;
+repeat
+Mining;
+AutoLogin;
+until(False)
+End.

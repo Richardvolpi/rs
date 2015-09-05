@@ -1,0 +1,1290 @@
+{***************************************}
+{            GK5K_LumberJack            }
+{=======================================}
+{Written By: GK5K/GothKing5000          }
+{Contact at: Gothking5000@yahoo.com     }
+{+++++++++++++++++++++++++++++++++++++++}
+{ Version: 1.3                          }
+{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+{ Features:                             }
+{   - Works for Free and Members        }
+{   - AutoReloggin                      }
+{   - AutoSleep                         }
+{   - Option of Play Sound on Sleep     }
+{   - AutoTree Chopper                  }
+{   - Auto Fletching (FULL VERSION)     }
+{     or Auto Firemaker                 }
+{   - For Free: Trees Only              }
+{   - For Members: Trees, Oak, Maple,   }
+{     Willow, Yew, Magic                }
+{---------------------------------------}
+{ Instructions:                         }
+{   - Find Trees of selected type       }
+{   - Have Sleeping bag in inventory    }
+{   - Have Hatchet in inventory         }
+{   - Have Knife in inventory           }
+{   - Have Tinderbox in inventory       }
+{_______________________________________}
+
+Program GK5K_LumberJack;
+var
+  Form, self: TForm;
+  Application: TApplication;
+  PlayLabel, TreeLabel, VersionLabel, FlLabel, SoundLabel, UserLabel, PassLabel, loglabel: TLabel;
+  txtUser, txtPass: TEdit;
+  ButtonStart: TButton;
+  Tree, Play, Sound_Play, logs, Fletching: TComboBox;
+  username, password, ItemCheck, DropItemName, itemname, itemnameuse: string;
+  sound, found, done, check, drop, normtree: Boolean;
+  x, y, Loggin, sets, fire, trys, m, e, d, loops, msg, f, go, itemcolorcode, logop, time, i, Fletchop: Integer;
+
+procedure GK5KLoggin;
+begin
+  case Loggin of
+    1:  begin
+          if(LoginScreen)then
+            begin
+              Writeln('Clearing username, password fields...');
+              ClickMouse(400,280,True);
+              Wait(2000);
+            end;
+          if(StartScreen)then
+            begin
+              Writeln('Choosing Member Login...');
+              ClickMouse(340,280,True);
+              loops:=0;
+              repeat
+                Wait(200);
+                loops:=loops+1;
+              until(LoginScreen)or (loops>=30);
+            end;
+          if(GetColor(338,125)=5524540)and (GetColor(87,145)=3472636)then
+            begin
+              Writeln('Trying to log in...');
+              ClickMouse(260,290,True);
+              Wait(500);
+              SendKeysSilent(username);
+              Wait(2000);
+              ClickMouse(120,310,True);
+              Wait(500);
+              SendKeysSilent(password);
+              Wait(2000);
+              repeat
+                ClickMouse(380,250,True);
+                Wait(1000);
+              until(not loginscreen);
+              Wait(3000);
+            end;
+        end;
+    2:  begin
+          if(LoginScreen)then
+            begin
+              Writeln('Clearing username, password fields...');
+              ClickMouse(400,280,True);
+              Wait(2000);
+            end;
+          if(StartScreen)then
+            begin
+              Writeln('Choosing existing user...');
+              ClickMouse(340,280,True);
+              loops:=0;
+              repeat
+                Wait(200);
+                loops:=loops+1;
+              until(LoginScreen)or (loops>=30);
+            end;
+          if(LoginScreen)then
+            begin
+              Writeln('Trying to log in...');
+              ClickMouse(260,290,True);
+              Wait(500);
+              SendKeysSilent(username);
+              Wait(2000);
+              ClickMouse(120,310,True);
+              Wait(500);
+              SendKeysSilent(password);
+              Wait(2000);
+              repeat
+                ClickMouse(380,250,True);
+                Wait(1000);
+              until(not loginscreen);
+              Wait(3000);
+            end;
+        end;
+    end;
+  if(GetColor(56,117)=16777215)and (GetColor(57,118)=0)and (GetColor(455,216)=16777215)and (GetColor(454,215)=0)then
+    begin
+      Writeln('Closing Welcome box...');
+      if(GetColor(455,281)=16777215)and (GetColor(58,281)=16777215)and (GetColor(250,281)=16777215)then
+        Clickmouse(250,260,True)
+      else ClickMouse(250,232,True);
+      Wait(500);
+      if (GetColor(95,132)=65535) and (GetColor(451,213)=0) and (GetColor(301,189)=0) then
+        begin
+          Writeln('Closing Non-Member Server Box...');
+          clickmouse(255,202,true);
+          wait(2000);
+        end;
+    end;
+  wait(300);
+end;
+
+Procedure move;
+begin
+  writeln('Moving...');
+  GK5KLoggin;
+  movemouse(20,20);
+  wait(100);
+  x:=(random(100)+200);
+  y:=(random(100)+110);
+  clickmouse(x,y,true);
+  wait(time*4);
+end;
+
+procedure Clickitem;
+var
+  nx,ny: integer;
+begin
+  i:=0;
+  found:=false;
+  repeat
+    MoveMouse(490 + random(15),8 + random(3));
+    wait(10);
+    if (getcolor(265,32)=16711423) or (getcolor(293,31)=16711423) or (getcolor(314,32)=16711423) then
+      begin
+        case i of
+          1:  begin
+                nx:=290;
+                ny:=55;
+              end;
+          2:  begin
+                nx:=340;
+                ny:=55;
+              end;
+          3:  begin
+                nx:=390;
+                ny:=55;
+              end;
+          4:  begin
+                nx:=440;
+                ny:=55;
+              end;
+          5:  begin
+                nx:=490;
+                ny:=55;
+              end;
+          6:  begin
+                nx:=290;
+                ny:=90;
+              end;
+          7:  begin
+                nx:=340;
+                ny:=90;
+              end;
+          8:  begin
+                nx:=390;
+                ny:=90;
+              end;
+          9:  begin
+                nx:=440;
+                ny:=90;
+              end;
+          10: begin
+                nx:=490;
+                ny:=90;
+              end;
+          11: begin
+                nx:=290;
+                ny:=120;
+              end;
+          12: begin
+                nx:=340;
+                ny:=120;
+              end;
+          13: begin
+                nx:=390;
+                ny:=120;
+              end;
+          14: begin
+                nx:=440;
+                ny:=120;
+              end;
+          15: begin
+                nx:=490;
+                ny:=120;
+              end;
+          16: begin
+                nx:=290;
+                ny:=155;
+              end;
+          17: begin
+                nx:=340;
+                ny:=155;
+              end;
+          18: begin
+                nx:=390;
+                ny:=155;
+              end;
+          19: begin
+                nx:=440;
+                ny:=155;
+              end;
+          20: begin
+                nx:=490;
+                ny:=155;
+              end;
+          21: begin
+                nx:=290;
+                ny:=190;
+              end;
+          22: begin
+                nx:=340;
+                ny:=190;
+              end;
+          23: begin
+                nx:=390;
+                ny:=190;
+              end;
+          24: begin
+                nx:=440;
+                ny:=190;
+              end;
+          25: begin
+                nx:=490;
+                ny:=190;
+              end;
+          26: begin
+                nx:=290;
+                ny:=225;
+              end;
+          27: begin
+                nx:=340;
+                ny:=225;
+              end;
+          28: begin
+                nx:=390;
+                ny:=225;
+              end;
+          29: begin
+                nx:=440;
+                ny:=225;
+              end;
+          30: begin
+                nx:=490;
+                ny:=225;
+              end;
+          end;
+        movemouse(nx,ny);
+        wait(100);
+        GK5KLoggin;
+        found:=false;
+        if logop=1 then
+          begin
+            if IsTextAt(6,2,'Choose a target') or (IsTextAt(6,2,'Use '+itemnameuse+' with')) then
+              found:=true;
+          end;
+        if IsTextAt(6,2,ItemName) then
+          begin
+            clickmouse(nx,ny,true);
+            wait(25);
+            found:=true;
+          end;
+        i:=i+1;
+      end;
+  until(found=true) or (i=30);
+end;
+
+procedure Dropitem;
+var
+  nx,ny: integer;
+begin
+  i:=0;
+  Drop:=false;
+  repeat
+    MoveMouse(490 + random(15),8 + random(3));
+    wait(10);
+    if (getcolor(265,32)=16711423) or (getcolor(293,31)=16711423) or (getcolor(314,32)=16711423) then
+      begin
+        case i of
+          1:  begin
+                nx:=290;
+                ny:=55;
+              end;
+          2:  begin
+                nx:=340;
+                ny:=55;
+              end;
+          3:  begin
+                nx:=390;
+                ny:=55;
+              end;
+          4:  begin
+                nx:=440;
+                ny:=55;
+              end;
+          5:  begin
+                nx:=490;
+                ny:=55;
+              end;
+          6:  begin
+                nx:=290;
+                ny:=90;
+              end;
+          7:  begin
+                nx:=340;
+                ny:=90;
+              end;
+          8:  begin
+                nx:=390;
+                ny:=90;
+              end;
+          9:  begin
+                nx:=440;
+                ny:=90;
+              end;
+          10: begin
+                nx:=490;
+                ny:=90;
+              end;
+          11: begin
+                nx:=290;
+                ny:=120;
+              end;
+          12: begin
+                nx:=340;
+                ny:=120;
+              end;
+          13: begin
+                nx:=390;
+                ny:=120;
+              end;
+          14: begin
+                nx:=440;
+                ny:=120;
+              end;
+          15: begin
+                nx:=490;
+                ny:=120;
+              end;
+          16: begin
+                nx:=290;
+                ny:=155;
+              end;
+          17: begin
+                nx:=340;
+                ny:=155;
+              end;
+          18: begin
+                nx:=390;
+                ny:=155;
+              end;
+          19: begin
+                nx:=440;
+                ny:=155;
+              end;
+          20: begin
+                nx:=490;
+                ny:=155;
+              end;
+          21: begin
+                nx:=290;
+                ny:=190;
+              end;
+          22: begin
+                nx:=340;
+                ny:=190;
+              end;
+          23: begin
+                nx:=390;
+                ny:=190;
+              end;
+          24: begin
+                nx:=440;
+                ny:=190;
+              end;
+          25: begin
+                nx:=490;
+                ny:=190;
+              end;
+          26: begin
+                nx:=290;
+                ny:=225;
+              end;
+          27: begin
+                nx:=340;
+                ny:=225;
+              end;
+          28: begin
+                nx:=390;
+                ny:=225;
+              end;
+          29: begin
+                nx:=440;
+                ny:=225;
+              end;
+          30: begin
+                nx:=490;
+                ny:=225;
+              end;
+          end;
+        movemouse(nx,ny);
+        wait(100);
+        GK5KLoggin;
+        Drop:=false;
+        if IsTextAt(6,2,DropItemName) then
+          begin
+            clickmouse(nx,ny,false);
+            wait(75);
+            clickmouse(nx,ny+25,true);
+            wait(100);
+            Drop:=true;
+          end;
+        i:=i+1;
+      end;
+  until(Drop=true) or (i=30);
+end;
+
+procedure sleep;
+begin
+  Writeln('Sleeping...')
+  Wait(200);
+  loops:=0;
+  itemname:= 'Sleeping Bag: sleep';
+  e:=0;
+  repeat
+    e:=e+1;
+    clickitem;
+    wait(time);
+  until (found=true) or (e=10);
+  if (found=true) then
+    begin
+      if Sound = true then
+        playsound('C:\WINDOWS\Media\tada.wav');
+      loops:=0;
+      repeat
+        wait(200);
+        loops:=loops+1;
+        GK5KLoggin;
+      until(IsTextAt(168, 293, 'click here')) or (loops>=25);
+      loops:=0;
+      repeat
+        loops:=loops+1;
+        Wait(20);
+        if(GetColor(209,252)=255)then
+          begin
+            loops:=0;
+            Wait(2000);
+          end;
+        if(loops=1700)then
+          begin
+            loops:=0;
+            ClickMouse (200, 300, True);
+            Writeln('Trying again for sw word...');
+          end;
+        GK5KLoggin;
+      until(not IsTextAt(168, 293, 'click here'));
+      MoveMouse(10,10);
+      Wait(100);
+      GK5KLoggin;
+    end
+  else begin
+         go:=0;
+         msg:=4;
+       end;
+end;
+
+procedure Choptree;
+begin
+  repeat
+    f:=f+1;
+    x:=255;
+    y:=165;
+    GK5KLoggin;
+    if (IsTextAt(6,2,'Choose a target')) or (IsTextAt(6,2,'Use'))then
+      begin
+        clickmouse(x,y,true);
+        wait(10);
+      end;
+    if(FindcolorSpiral2(x,y,ItemColorcode,0,0,510,330))then
+      begin
+        MoveMouse(x,y);
+        Wait(200);
+        if(IsTextAt(6,2,ItemCheck))then
+          begin
+            Writeln('Cutting down the Tree...');
+            ClickMouse(x,y,True);
+            Wait(time + Random(500));
+          end
+        else movemouse(255,165);
+      end;
+    if(IsTextAt(7,304,'You are too tired'))then
+      sleep;
+    GK5KLoggin;
+    if(IsTextAt(7,304,'You need an axe to chop this tree down'))then
+      begin
+        go:=0;
+        msg:=1;
+      end;
+    wait(time*2+random(200));
+  until (f=30) or (go=0);
+end;
+
+Procedure LogsChange(sender: TObject);
+begin
+  Case Logs.text of
+    'Nothing' : Begin
+                  Fletching.enabled:=false;
+                  m:=0;
+                end;
+    'Burn' :    Begin
+                  Fletching.enabled:=false;
+                  m:=29;
+                end;
+    'Fletch' :  Begin
+                  Fletching.enabled:=true;
+                  m:=0;
+                end;
+    end;
+end;
+
+Procedure PlayChange(sender: TObject);
+begin
+  Case Play.text of
+    'Members' : Begin
+                    Tree.enabled:=True;
+                    Logs.items.Clear;
+                    Logs.DropDownCount:= 3;
+                    Logs.Items.Add('Nothing');
+                    Logs.Items.Add('Burn');
+                    Logs.Items.Add('Fletch');
+                  end;
+    'Free' : Begin
+                    Tree.ItemIndex:=0;
+                    Tree.enabled:=false;
+                    Logs.items.Clear;
+                    Logs.DropDownCount:= 2;
+                    Logs.Items.Add('Nothing');
+                    Logs.Items.Add('Burn');
+                    Logs.ItemIndex:=0;
+                    Fletching.enabled:=false;
+                  end;
+    end;
+end;
+
+Procedure TreeChange(sender: TObject);
+begin
+  Case Tree.Text of
+    'Tree':    begin
+                 Logs.items.Clear;
+                 Logs.DropDownCount:= 3;
+                 Logs.Items.Add('Nothing');
+                 Logs.Items.Add('Burn');
+                 Logs.Items.Add('Fletch');
+                 Logs.enabled:=true;
+                 normtree:=true;
+                 Fletching.items.clear;
+                 Fletching.Items.Add('Arrow Shafts');
+                 Fletching.Items.Add('Short Bows');
+                 Fletching.Items.Add('Long Bows');
+                 Fletching.itemindex:= 0;
+               end;
+    'Willow':  begin
+                 if logs.text='Burn' then
+                   Logs.itemindex:= 0;
+                 Logs.items.Clear;
+                 Logs.DropDownCount:= 2;
+                 Logs.Items.Add('Nothing');
+                 Logs.Items.Add('Fletch');
+                 if logs.text='Fletch' then
+                   Fletching.enabled:=true
+                 else Fletching.enabled:=false;
+                 normtree:=false;
+                 Fletching.items.clear;
+                 Fletching.Items.Add('Short Bows');
+                 Fletching.Items.Add('Long Bows');
+                 Fletching.itemindex:= 0;
+                 if Fletching.text='Arrow Shafts' then
+                   Fletching.itemindex:= 0;
+               end;
+    'Oak':     begin
+                 if logs.text='Burn' then
+                   Logs.itemindex:= 0;
+                 Logs.items.Clear;
+                 Logs.DropDownCount:= 2;
+                 Logs.Items.Add('Nothing');
+                 Logs.Items.Add('Fletch');
+                 if logs.text='Fletch' then
+                   Fletching.enabled:=true
+                 else Fletching.enabled:=false;
+                 normtree:=false;
+                 Fletching.items.clear;
+                 Fletching.Items.Add('Short Bows');
+                 Fletching.Items.Add('Long Bows');
+                 Fletching.itemindex:= 0;
+                 if Fletching.text='Arrow Shafts' then
+                   Fletching.itemindex:= 0;
+               end;
+    'Yew':     begin
+                 if logs.text='Burn' then
+                   Logs.itemindex:= 0;
+                 Logs.items.Clear;
+                 Logs.DropDownCount:= 2;
+                 Logs.Items.Add('Nothing');
+                 Logs.Items.Add('Fletch');
+                 if logs.text='Fletch' then
+                   Fletching.enabled:=true
+                 else Fletching.enabled:=false;
+                 normtree:=false;
+                 Fletching.items.clear;
+                 Fletching.Items.Add('Short Bows');
+                 Fletching.Items.Add('Long Bows');
+                 Fletching.itemindex:= 0;
+                 if Fletching.text='Arrow Shafts' then
+                   Fletching.itemindex:= 0;
+               end;
+    'Maple':   begin
+                 if logs.text='Burn' then
+                   Logs.itemindex:= 0;
+                 Logs.items.Clear;
+                 Logs.DropDownCount:= 2;
+                 Logs.Items.Add('Nothing');
+                 Logs.Items.Add('Fletch');
+                 if logs.text='Fletch' then
+                   Fletching.enabled:=true
+                 else Fletching.enabled:=false;
+                 normtree:=false;
+                 Fletching.items.clear;
+                 Fletching.Items.Add('Short Bows');
+                 Fletching.Items.Add('Long Bows');
+                 if Fletching.text='Arrow Shafts' then
+                   Fletching.itemindex:= 0;
+               end;
+    'Magic':   begin
+                 if logs.text='Burn' then
+                   Logs.itemindex:= 0;
+                 Logs.items.Clear;
+                 Logs.DropDownCount:= 2;
+                 Logs.Items.Add('Nothing');
+                 Logs.Items.Add('Fletch');
+                 if logs.text='Fletch' then
+                   Fletching.enabled:=true
+                 else Fletching.enabled:=false;
+                 normtree:=false;
+                 Fletching.items.clear;
+                 Fletching.Items.Add('Short Bows');
+                 Fletching.Items.Add('Long Bows');
+                 if Fletching.text='Arrow Shafts' then
+                   Fletching.itemindex:= 0;
+               end;
+    end;
+end;
+
+procedure Startbuttonclick(sender: TObject);
+begin
+  username:= TxtUser.Text;
+  password:= TxtPass.Text;
+  Case Tree.Text of
+    'Tree':     begin
+                  ItemCheck:='Tree: Chop';
+                  ItemColorCode:=290816;
+                  normtree:=true;
+                end;
+    'Willow':   begin
+                  ItemCheck:='Willow Tree: Chop';
+                  ItemColorCode:=290816;
+                  normtree:=false;
+                end;
+    'Oak':      begin
+                  ItemCheck:='Oak Tree: Chop';
+                  ItemColorCode:=290816;
+                  normtree:=false;
+                end;
+    'Yew':      begin
+                  ItemCheck:='Yew Tree: Chop';
+                  ItemColorCode:=2592800;
+                  normtree:=false;
+                end;
+    'Maple':    begin
+                  ItemCheck:='Maple Tree: Chop';
+                  ItemColorCode:=989304;
+                  normtree:=false;
+                end;
+    'Magic':    begin
+                  ItemCheck:='Tree: Chop';
+                  ItemColorCode:=13410440;
+                  normtree:=false;
+                end;
+    end;
+  Case logs.Text of
+    'Nothing' : Logop:=0;
+    'Burn'    : Logop:=1;
+    'Fletch'  : Logop:=2;
+    end;
+  Case Fletching.text of
+    'Arrow Shafts': begin
+                      fletchop:=1;
+                    end;
+    'Short Bows'  : begin
+                      if normtree=false then
+                        fletchop:=1
+                      else fletchop:=2;
+                    end;
+    'Long Bows'   : begin
+                      if normtree=false then
+                        fletchop:=2
+                      else fletchop:=3;
+                    end;
+    end;
+  Case Sound_Play.Text of
+    'Yes' : Sound:=true;
+    'No': Sound:=false;
+    end;
+  Case Play.Text of
+    'Members':  begin
+                  loggin:=1;
+                end;
+    'Free':     begin
+                  Loggin:=2;
+                end;
+    end;
+  GO:=1;
+end;
+
+procedure Checkitem;
+var
+  nx,ny: integer;
+begin
+  i:=0;
+  repeat
+    MoveMouse(490 + random(15),8 + random(3));
+    wait(10);
+    if (getcolor(265,32)=16711423) or (getcolor(293,31)=16711423) or (getcolor(314,32)=16711423) then
+      begin
+        case i of
+          1:  begin
+                nx:=290;
+                ny:=55;
+              end;
+          2:  begin
+                nx:=340;
+                ny:=55;
+              end;
+          3:  begin
+                nx:=390;
+                ny:=55;
+              end;
+          4:  begin
+                nx:=440;
+                ny:=55;
+              end;
+          5:  begin
+                nx:=490;
+                ny:=55;
+              end;
+          6:  begin
+                nx:=290;
+                ny:=90;
+              end;
+          7:  begin
+                nx:=340;
+                ny:=90;
+              end;
+          8:  begin
+                nx:=390;
+                ny:=90;
+              end;
+          9:  begin
+                nx:=440;
+                ny:=90;
+              end;
+          10: begin
+                nx:=490;
+                ny:=90;
+              end;
+          11: begin
+                nx:=290;
+                ny:=120;
+              end;
+          12: begin
+                nx:=340;
+                ny:=120;
+              end;
+          13: begin
+                nx:=390;
+                ny:=120;
+              end;
+          14: begin
+                nx:=440;
+                ny:=120;
+              end;
+          15: begin
+                nx:=490;
+                ny:=120;
+              end;
+          16: begin
+                nx:=290;
+                ny:=155;
+              end;
+          17: begin
+                nx:=340;
+                ny:=155;
+              end;
+          18: begin
+                nx:=390;
+                ny:=155;
+              end;
+          19: begin
+                nx:=440;
+                ny:=155;
+              end;
+          20: begin
+                nx:=490;
+                ny:=155;
+              end;
+          21: begin
+                nx:=290;
+                ny:=190;
+              end;
+          22: begin
+                nx:=340;
+                ny:=190;
+              end;
+          23: begin
+                nx:=390;
+                ny:=190;
+              end;
+          24: begin
+                nx:=440;
+                ny:=190;
+              end;
+          25: begin
+                nx:=490;
+                ny:=190;
+              end;
+          26: begin
+                nx:=290;
+                ny:=225;
+              end;
+          27: begin
+                nx:=340;
+                ny:=225;
+              end;
+          28: begin
+                nx:=390;
+                ny:=225;
+              end;
+          29: begin
+                nx:=440;
+                ny:=225;
+              end;
+          30: begin
+                nx:=490;
+                ny:=225;
+              end;
+          end;
+        movemouse(nx,ny);
+        wait(100);
+        GK5KLoggin;
+        found:=false;
+        check:=false;
+        if IsTextAt(6,2,ItemName) then
+          begin
+            check:=true;
+            found:=true;
+          end
+        else found:=false;
+        i:=i+1;
+      end;
+  until(found=true) or (i=30);
+end;
+
+Procedure FireMaker;
+begin
+  sets:=0;
+  repeat
+    sets:=sets+1;
+    writeln('Finding Tinderbox...');
+    itemname:='tinderbox: Use';
+    itemnameuse:='tinderbox';
+    GK5KLoggin;
+    i:=0;
+    repeat
+      i:=i+1;
+      clickitem;
+      GK5KLoggin;
+    until (i=2) or (found=true);
+    i:=0;
+    repeat
+      wait(10);
+      i:=i+1;
+      GK5KLoggin;
+    until (IsTextAt(6,2,'Choose a target')) or (IsTextAt(6,2,'Use tinderbox with')) or (i>=50);
+    if i=50 then
+      begin
+        go:=0;
+        msg:=2;
+      end;
+    if go=1 then
+      begin
+        writeln('Tinderbox Found...');
+        movemouse(20,20);
+        wait(time div 8);
+        writeln('Finding Logs...');
+        GK5KLoggin;
+        d:=0;
+        repeat
+          d:=d+1;
+          if(FindColorSpiral2(x,y,3758748,0,0,510,330))or (FindColorSpiral2(x,y,4168,0,0,510,330)) or (FindColorSpiral2(x,y,2245762,0,0,510,330)) then
+            movemouse(x,y);
+          wait(10);
+          if (not IsTextAt(6,2,'Use tinderbox with Logs')) then
+            begin
+              x:=random(510);
+              y:=random(330);
+            end;
+          GK5KLoggin;
+        until (IsTextAt(6,2,'Use tinderbox with Logs')) or (d=50);
+        if (IsTextAt(6,2,'Use tinderbox with Logs')) then
+          begin
+            writeln('Logs Found...');
+            wait(time);
+            writeln('Lighting logs on fire...');
+            GK5KLoggin;
+            if (IsTextAt(6,2,'Use tinderbox with Logs')) then
+              begin
+                clickmouse(x,y,true);
+                trys:=0;
+                repeat
+                  trys:=trys+1;
+                  wait(time*2+random(500));
+                until (IsTextAt(7,304,'The fire catches')) or (IsTextAt(7,304,'You just advanced 1 firemaking level!')) or (IsTextAt(7,304,'You are too tired')) or (IsTextAt(7,304,'You can')) or (IsTextAt(7,304,'You fail to light a fire')) or (trys=5);
+                fire:=0;
+                if (IsTextAt(7,304,'The fire catches')) or (IsTextAt(7,304,'You just advanced 1 firemaking level!')) then
+                  begin
+                    writeln('Fire Made Successfully...');
+                    x:=(random(100)+200);
+                    y:=(random(100)+110);
+                    clickmouse(x,y,true);
+                    wait(time*4);
+                    fire:=1;
+                    GK5KLoggin;
+                  end;
+                if (IsTextAt(7,304,'You are too tired')) then
+                  sleep;
+                if (IsTextAt(7,304,'You can')) then
+                  move;
+                GK5KLoggin;
+              end;
+          end;
+      end;
+  until (fire=1) or (go=0) or (sets=3);
+end;
+
+Procedure Fletcher;
+begin
+  done:=false;
+  repeat
+    if go=1 then
+      begin
+        if (IsTextAt(6,2,'Choose a target')) or (IsTextAt(6,2,'Use')) then
+          begin
+            itemname:='Use Knife with Logs';
+            clickitem;
+            writeln('Fletching...');
+            GK5KLoggin;
+            wait(200);
+            if normtree=true then
+              begin
+                case fletchop of
+                  1: movemouse(60,8);
+                  2: movemouse(50,19);
+                  3: movemouse(53,32);
+                  end;
+              end
+            else begin
+                   case fletchop of
+                     2: movemouse(60,8);
+                     3: movemouse(50,19);
+                     end;
+                 end;
+            i:=0;
+            repeat
+              wait(20);
+              i:=i+1;
+              GK5KLoggin;
+            until ((GetColor(7,8)=255) and (GetColor(24,7)=255)) or ((GetColor(6,19)=255) and (GetColor(24,20)=255)) or ((GetColor(6,32)=255) and (GetColor(24,33)=255)) or(i>=100);
+            wait(50);
+            if ((GetColor(7,8)=255) and (GetColor(24,7)=255)) or ((GetColor(6,19)=255) and (GetColor(24,20)=255)) or ((GetColor(6,32)=255) and (GetColor(24,33)=255)) then
+              begin
+                if normtree=true then
+                  begin
+                    case fletchop of
+                      1: clickmouse(60,8,true);
+                      2: clickmouse(50,19,true);
+                      3: clickmouse(53,32,true);
+                      end;
+                  end
+                else begin
+                       case fletchop of
+                         2: clickmouse(60,8,true);
+                         3: clickmouse(50,19,true);
+                         end;
+                     end;
+                done:=true;
+              end
+            else done:=false;
+            wait(time div 8);
+            if(IsTextAt(7,304,'You are too tired'))then
+              sleep;
+            GK5KLoggin;
+          end
+        else begin
+               if go=1 then
+                 begin
+                   itemname:='Logs: Use';
+                   checkitem;
+                   GK5KLoggin;
+                   if check=true then
+                     begin
+                       writeln('Finding Knife...');
+                       itemname:='Knife: Use';
+                       clickitem;
+                       GK5KLoggin;
+                       go:=1;
+                       if i=0 then
+                         begin
+                           go:=0;
+                           msg:=3;
+                         end
+                       else begin
+                              writeln('Knife Found...');
+                              i:=0;
+                              repeat
+                                wait(10);
+                                GK5KLoggin;
+                                i:=i+1;
+                              until (IsTextAt(6,2,'Choose a target')) or (IsTextAt(6,2,'Use')) or (i>=100);
+                            end;
+                     end
+                   else done:=true;
+                   if (go=1) and (done=true) then
+                     move;
+                   GK5KLoggin;
+                 end;
+             end;
+        wait(50);
+        if go=1 then
+          begin
+            if done=true then
+              begin
+                itemname:='Logs: Use';
+                checkitem;
+                wait(100);
+                GK5KLoggin;
+                if check=true then
+                  done:=false;
+              end;
+          end;
+      end;
+  until (done=true) or (go=0);
+  if (fletchop=2) or (fletchop=3) then
+    begin
+      DropItemName:='unstrung';
+      itemname:='unstrung';
+      repeat
+        CheckItem;
+        if check=true then
+          begin
+            repeat
+              Writeln('Droping Unstrung Bow');
+              DropItem;
+              GK5KLoggin;
+            until (Drop=true);
+          end;
+      until (check=false);
+    end;
+  if (go=1) and (done=true) then
+    move;
+end;
+
+begin
+  Application:= GetApplication;
+  Self:= GetSelf;
+  Form:= TForm.Create(nil);
+  Form.Width := 350;
+  Form.Height := 158;
+  Form.Position := poScreenCenter;
+  Form.BorderStyle := bsDialog;
+  Form.Color:=ClBlack;
+  Form.Caption := 'GK5K TreeChopper/Fletcher/FireMaker';
+  UserLabel := TLabel.Create(Form);
+  UserLabel.Top := 12;
+  UserLabel.Left := 16;
+  UserLabel.Font.Color:= ClLime;
+  UserLabel.Caption := 'Username:';
+  UserLabel.Parent := Form;
+  PassLabel := TLabel.Create(Form);
+  PassLabel.Top := 42;
+  PassLabel.Left := 16;
+  PassLabel.Font.Color:= ClLime;
+  PassLabel.Caption := 'Password:';
+  PassLabel.Parent := Form;
+  TreeLabel := TLabel.Create(Form);
+  TreeLabel.Top := 13;
+  TreeLabel.Left := 220;
+  TreeLabel.Font.Color:= ClLime;
+  TreeLabel.Caption := 'Tree:';
+  TreeLabel.Parent := Form;
+  PlayLabel := TLabel.Create(Form);
+  PlayLabel.Top := 72;
+  PlayLabel.Left := 16;
+  PlayLabel.Font.Color:= ClLime;
+  PlayLabel.Caption := 'Members or Free:';
+  PlayLabel.Parent := Form;
+  LogLabel := TLabel.Create(Form);
+  LogLabel.Top := 43;
+  LogLabel.Left := 218;
+  LogLabel.Font.Color:= ClLime;
+  LogLabel.Caption := 'Logs:';
+  LogLabel.Parent := Form;
+  FLLabel := TLabel.Create(Form);
+  FLLabel.Top := 103;
+  FLLabel.Left := 190;
+  FLLabel.Font.Color:= ClLime;
+  FLLabel.Caption := 'Fletch:';
+  FLLabel.Parent := Form;
+  SoundLabel := TLabel.Create(Form);
+  SoundLabel.Top := 73;
+  SoundLabel.Left := 210;
+  SoundLabel.Font.Color:= ClLime;
+  SoundLabel.Caption := 'Sound:';
+  SoundLabel.Parent := Form;
+  txtUser := TEdit.Create(Form);
+  txtUser.Top := 10;
+  txtUser.Left := 86;
+  txtUser.Width := 100;
+  txtUser.Hint:='Username Goes Here!';
+  txtuser.ShowHint:=true;
+  txtUser.Parent := Form;
+  txtPass := TEdit.Create(Form);
+  txtPass.Top := 40;
+  txtPass.Left := 86;
+  txtPass.Width := 100;
+  txtPass.font.name:='WingDings';
+  txtPass.PasswordChar:= 'N';
+  txtPass.Hint:='Password Goes Here!';
+  txtPass.ShowHint:=true;
+  txtPass.Parent := Form;
+  Tree:= TcomboBox.create(form);
+  Tree.Top := 10;
+  Tree.Left := 250;
+  Tree.Width := 80;
+  Tree.Height := 24;
+  Tree.parent := Form;
+  Tree.Items.Add('Tree');
+  Tree.Items.Add('Oak');
+  Tree.Items.Add('Willow');
+  Tree.Items.Add('Maple');
+  Tree.Items.Add('Yew');
+  Tree.Items.Add('Magic');
+  Tree.Hint:='Cut what type of Tree?';
+  Tree.ShowHint:=true;
+  Tree.ItemIndex:=0;
+  Tree.DropDownCount:= 6;
+  Tree.OnChange := @TreeChange;
+  Play:= TcomboBox.create(form);
+  Play.Top := 70;
+  Play.Left := 106;
+  Play.Width := 80;
+  Play.Height := 24;
+  Play.parent := Form;
+  Play.DropDownCount:= 2;
+  Play.Items.Add('Members');
+  Play.Items.Add('Free');
+  Play.Hint:='Members or Free Version?';
+  Play.ShowHint:=true;
+  Play.itemindex:= 0;
+  Play.OnChange := @PlayChange;
+  Fletching:= TcomboBox.create(form);
+  Fletching.Top := 100;
+  Fletching.Left := 230;
+  Fletching.Width := 100;
+  Fletching.Height := 24;
+  Fletching.parent := Form;
+  Fletching.DropDownCount:= 3;
+  Fletching.Items.Add('Arrow Shafts');
+  Fletching.Items.Add('Short Bows');
+  Fletching.Items.Add('Long Bows');
+  Fletching.Hint:='Fletch what?';
+  Fletching.ShowHint:=true;
+  Fletching.itemindex:= 0;
+  Fletching.enabled:=false;
+  Logs:= TcomboBox.create(form);
+  Logs.Top := 40;
+  Logs.Left := 250;
+  Logs.Width := 80;
+  Logs.Height := 24;
+  Logs.parent := Form;
+  Logs.DropDownCount:= 3;
+  Logs.Items.Add('Nothing');
+  Logs.Items.Add('Burn');
+  Logs.Items.Add('Fletch');
+  Logs.Hint:=' Do what with Logs?';
+  Logs.ShowHint:=true;
+  Logs.itemindex:= 0;
+  Logs.OnChange:=@LogsChange;
+  Sound_Play:= TcomboBox.create(form);
+  Sound_Play.Top := 70;
+  Sound_Play.Left := 250;
+  Sound_Play.Width := 80;
+  Sound_Play.Height := 24;
+  Sound_Play.parent := Form;
+  Sound_Play.DropDownCount:= 2;
+  Sound_Play.Items.Add('No');
+  Sound_Play.Items.Add('Yes');
+  Sound_Play.Hint:='Play Sound On Sleep?';
+  Sound_Play.ShowHint:=true;
+  Sound_Play.itemindex:= 0;
+  ButtonStart:= TButton.Create(Form);
+  ButtonStart.Left := 16;
+  ButtonStart.Top := 100;
+  ButtonStart.Width := 84;
+  ButtonStart.Height := 24;
+  ButtonStart.Caption := '&Start';
+  ButtonStart.OnClick := @Startbuttonclick;
+  ButtonStart.Parent := Form;
+  ButtonStart.Default := True;
+  ButtonStart.ModalResult := mrOk;
+  VersionLabel := TLabel.Create(Form);
+  VersionLabel.Top := 102;
+  VersionLabel.Left := 120;
+  VersionLabel.Font.Color := ClLime;
+  VersionLabel.Font.Size := 12;
+  VersionLabel.Caption := 'Ver: 1.3';
+  VersionLabel.Parent := Form;
+  Form.ShowModal;
+  Form.Free;
+  time:=800;
+  if go=1 then
+    begin
+      repeat
+        GK5KLoggin;
+        f:=m;
+        Choptree;
+        if go=1 then
+          begin
+            case logop of
+              0: wait(100);
+              1: FireMaker;
+              2: Fletcher;
+              end;
+          end;
+      until (go=0);
+      case msg of
+        1: writeln('ERROR: You dont have an Axe in your inventory...');
+        2: writeln('ERROR: You dont have a Tinderbox in your inventory...');
+        3: writeln('ERROR: You dont have a Knife in your inventory...');
+        4: writeln('ERROR: You dont have a Sleeping Bag in your inventory...');
+        end;
+    end;
+end.

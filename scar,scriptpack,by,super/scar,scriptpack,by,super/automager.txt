@@ -1,0 +1,143 @@
+{Automager!
+Made by Dr4g0n5h4d0w! Login by Gothking5000
+Modcheck by Barrin.
+Set your monster color and put whatever spell you want first in the list;
+Sleeping bag 1st spot!
+Auto sleep
+and log in.
+A and B at bottom are the x and y(respectively)
+coordinates of your sleeping bag
+}
+program Mager;
+const
+monstercolor = 1315860;
+var
+a,b,x,y,loops:integer;
+Username, password, monster:string;
+
+Procedure Modcheck;
+begin
+if  (istextat(7,304,'Mod '))or
+(istextat(7,292,'Mod '))or
+(istextat(7,280,'Mod '))or
+(istextat(7,268,'Mod '))or
+(istextat(7,304,'Andrew:'))or
+(istextat(7,292,'Andrew:'))or
+(istextat(7,280,'Andrew:'))or
+(istextat(7,268,'Andrew:'))or
+(istextat(7,304,'Paul:'))or
+(istextat(7,292,'Paul:'))or
+(istextat(7,280,'Paul:'))or
+(istextat(7,268,'Paul:'))then
+
+begin
+SendKeysSilent('ahh the lagg!!!' );
+Writeln('A MoD has come to where you were training.');
+Writeln('So i logged you out, now you owe me');
+sendkeyssilent(chr(13));
+MoveMouse(326,16);
+Wait(1000);
+ClickMouse(365,282,True);
+repeat
+wait(250);
+until(false);
+end;
+end;
+
+Procedure Loginifneeded;
+begin
+if(LoginScreen)then
+begin
+Status('Clearing username, password fields...');
+ClickMouse(400,280,True);
+               Wait(2000);
+             end;
+           if(StartScreen)then
+             begin
+               Status('Choosing existing user...');
+               ClickMouse(340,280,True);
+               loops:=0;
+               repeat
+                 Wait(200);
+                 loops:=loops+1;
+               until(LoginScreen)or (loops>=30);
+             end;
+           if(GetColor(338,125)=5524540)and (GetColor(87,145)=3472636)then
+           begin
+Status('Trying to log in...');
+ClickMouse(260,290,True);
+Wait(500);
+SendKeysSilent(username);
+Wait(2000);
+ClickMouse(120,310,True);
+Wait(500);
+SendKeysSilent(password);
+Wait(2000);
+repeat
+ClickMouse(380,250,True);
+Wait(1000);
+until(not loginscreen);
+Wait(3000);
+end;
+if(GetColor(56,117)=16777215)and (GetColor(57,118)=0)and (GetColor(455,216)=16777215)and (GetColor(454,215)=0)then
+begin
+Status('Closing Welcome box...');
+if(GetColor(455,281)=16777215)and (GetColor(58,281)=16777215)and (GetColor(250,281)=16777215)then
+Clickmouse(250,260,True)
+else ClickMouse(250,232,True);
+Wait(500);
+end;
+end;
+
+Procedure Sleep;
+begin
+Status('Sleeping');
+playsound('C:\Program Files\Plus!\Themes\Recycle1.wav');
+Movemouse(a,b);
+Wait(50);
+Clickmouse(a,b,true);
+Repeat
+Wait(500);
+Until(Not(findcolorspiral(x,y,65535,1,1,509,322)));
+end;
+
+Procedure Fight;
+Begin
+Repeat
+Repeat
+Modcheck;
+Status('Maging');
+Movemouse(393,18);
+Wait(250);
+Clickmouse(365,70,true);
+Wait(250);
+Movemouse(10,10);
+Wait(200);
+LogInIfNeeded;
+Modcheck;
+If(((findcolorspiral(x,y,monstercolor,1,1,500,500)))) then;
+LogInIfNeeded;
+If(IsTextAt(6,2,Monster))then;
+Clickmouse(x,y,true);
+Wait(1050);
+LogInIfNeeded;
+Until((Istextat(7,304,'Cast spell')) or (Not(findcolorspiral(x,y,228,1,1,520,350)))or(ISTextAt(7,304,'You are too tired')) or((findcolorspiral(x,y,10387317,95,412,265,292)) and (findcolorspiral(x,y,2376756,80,176,99,163))));
+Until(ISTextAt(7,304,'You are too tired') or((findcolorspiral(x,y,10387317,95,412,265,292)) and (findcolorspiral(x,y,2376756,80,176,99,163))));
+LogInIfNeeded;
+Modcheck;
+Sleep;
+end;
+
+Begin
+a:=388;
+b:=117;
+username:= readln('Username?');
+password:= readln('Password?');
+Monster:= readln('Name of monster?');
+Repeat
+LogInIfNeeded;
+Modcheck;
+Fight;
+Modcheck;
+Until(false);
+end.

@@ -1,0 +1,92 @@
+{>-------------Aut0Money-------------<}
+{>         Written by Reines         <}
+{>-------Features/Instructions-------<}
+{> - Start on the right bank page    <}
+{> - Modes - (1) Depositing          <}
+{>           (2) Withdrawing         <}
+{>-----------------------------------<}
+
+Var
+ Coins,x,y,mode,wdy,tries:integer;
+ start,fmoney:boolean;
+
+Begin
+ mode:=strtoint(Readln('Mode:'));
+ Start:=(true);
+ fmoney:=(true);
+ If(mode=1)Then
+ Begin
+   wdy:=264;
+   Writeln('Aut0Money By Reines');
+   Writeln('Depositing Money');
+ End;
+ If(mode=2)Then
+ Begin
+   wdy:=239;
+   Writeln('Aut0Money By Reines');
+   Writeln('Withdrawing Money');
+ End;
+ If(mode<>1)And(mode<>2)Then
+ Begin
+   Writeln('Aut0Money By Reines');
+   Writeln('Invalid mode');
+   start:=(false);
+ End;
+ coins:=BitmapFromString(14,4,
+      'FEF6606B2C09FEF660FCC000FCC000C7A00B6B2C09FCC000FCC000' +
+      'FCC000FCC000FCC000FCC000FCC000FCC000C7A00B6B2C09C7A00B' +
+      'C7A00B6B2C09FCC000FCC000FCC000FCC000FCC000FEF660FCC000' +
+      'FCC000FCC000FCC000C7A00B6B2C094B280B6B2C09FEF660FCC000' +
+      'FCC000C7A00B6B2C09FCC000FCC000FEF660FCC000FCC000C7A00B' +
+      'FCC000FCC000FCC0006B2C09C7A00BC7A00B6B2C09FCC000FCC000' +
+      'FEF660FCC000');
+ If(start)Then
+ Begin
+   Tries:=0;
+   Repeat
+   Wait(50);
+   tries:=tries+1;
+   If(tries>=50)Then
+   Begin
+     Writeln('Cannot find money');
+     fmoney:=(false);
+   End;
+   Until(findbitmap(coins,x,y))Or(not fmoney);
+   If(fmoney)Then
+   Begin
+     ClickMouse(x,y,True);
+     Wait(200+Random(100));
+     While(IsTextAt(422,wdy,'2500'))Do
+     Begin
+       ClickMouse(433,wdy+6,True);
+       Wait(200+random(100));
+     End;
+     While(IsTextAt(389,wdy,'500'))Do
+     Begin
+       ClickMouse(403,wdy+6,True);
+       Wait(200+random(100));
+     End;
+     While(IsTextAt(359,wdy,'100'))Do
+     Begin
+       ClickMouse(373,wdy+6,True);
+       Wait(200+random(100));
+     End;
+     While(IsTextAt(334,wdy,'25'))Do
+     Begin
+       ClickMouse(343,wdy+6,True);
+       Wait(200+random(100));
+     End;
+     While(IsTextAt(304,wdy,'Five'))Do
+     Begin
+       ClickMouse(313,wdy+6,True);
+       Wait(200+random(100));
+     End;
+     While(IsTextAt(274,wdy,'One'))Do
+     Begin
+       ClickMouse(283,wdy+6,True);
+       Wait(200+random(100));
+     End;
+     Writeln('Done');
+   End;
+ End;
+End.

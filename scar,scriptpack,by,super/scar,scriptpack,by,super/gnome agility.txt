@@ -1,0 +1,477 @@
+   {***************************************}
+{  GK5K_Gnome_Stronghold_Agility_Course }
+{=======================================}
+{Written By: GK5K/GothKing5000          }
+{Contact at: Gothking5000@yahoo.com     }
+{+++++++++++++++++++++++++++++++++++++++}
+{ Version: 1.1                          }
+{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+{ Features:                             }
+{  - AutoLoggin                         }
+{  - AutoSleep                          }
+{  - Members ONLY (DUH)                 }
+{---------------------------------------}
+{ Instructions:                         }
+{  - Enter Gnome Stronghold agility     }
+{    course                             }
+{  - Have Sleeping bad in first slot of }
+{    inventory                          }
+{  - Face map so that WEST is exactly   }
+{     NORTH!                            }
+{_______________________________________}
+
+program GK5K_Agility_Course;
+var
+  form, self: TForm;
+  Application: TApplication;
+  VersionLabel, SoundLabel, UserLabel, PassLabel: TLabel;
+  txtUser, txtPass: TEdit;
+  ButtonStart: TButton;
+  Sound_Play: TComboBox;
+  username, password: string;
+  Sound: Boolean;
+  Go, loggin, loops, x, y, m, n, i, j: Integer;
+
+procedure GK5KLoggin;
+begin
+  if(LoginScreen)then
+    begin
+      Writeln('Clearing username, password fields...');
+      ClickMouse(400,280,True);
+      Wait(2000);
+    end;
+  case Loggin of
+    1:  begin
+          if(StartScreen)then
+            begin
+              Writeln('Choosing existing user...');
+              ClickMouse(340,280,True);
+              loops:=0;
+              repeat
+                Wait(200);
+                loops:=loops+1;
+              until(LoginScreen)or (loops>=30);
+            end;
+          if(GetColor(338,125)=5524540)and (GetColor(87,145)=3472636)then
+            begin
+              Writeln('Trying to log in...');
+              ClickMouse(260,290,True);
+              Wait(500);
+              SendKeysSilent(username);
+              Wait(2000);
+              ClickMouse(120,310,True);
+              Wait(500);
+              SendKeysSilent(password);
+              Wait(2000);
+              repeat
+                ClickMouse(380,250,True);
+                Wait(1000);
+              until(not loginscreen);
+              Wait(1000);
+            end;
+        end
+    2:  begin
+          if(StartScreen)then
+            begin
+              Writeln('Choosing existing user...');
+              ClickMouse(340,280,True);
+              loops:=0;
+              repeat
+                Wait(200);
+                loops:=loops+1;
+              until(LoginScreen)or (loops>=30);
+            end;
+          if(LoginScreen)then
+            begin
+              Writeln('Trying to log in...');
+              ClickMouse(260,290,True);
+              Wait(500);
+              SendKeysSilent(username);
+              Wait(2000);
+              ClickMouse(120,310,True);
+              Wait(500);
+              SendKeysSilent(password);
+              Wait(2000);
+              repeat
+                ClickMouse(380,250,True);
+                Wait(1000);
+              until(not loginscreen);
+              Wait(3000);
+            end;
+        end;
+    end;
+  if(GetColor(56,117)=16777215)and (GetColor(57,118)=0)and (GetColor(455,216)=16777215)and (GetColor(454,215)=0)then
+    begin
+      Writeln('Closing Welcome box...');
+      if(GetColor(455,281)=16777215)and (GetColor(58,281)=16777215)and (GetColor(250,281)=16777215)then
+        Clickmouse(250,260,True)
+      else ClickMouse(250,232,True);
+      Wait(500);
+      if (GetColor(95,132)=65535) and (GetColor(451,213)=0) and (GetColor(301,189)=0) then
+        begin
+          Writeln('Closing Non-Member Server Box...');
+          clickmouse(255,202,true);
+          wait(2000);
+        end;
+    end;
+end;
+
+procedure sleep;
+begin
+  Writeln('Sleeping...')
+  Wait(200);
+  loops:=0;
+  repeat
+    loops:=loops+1;
+    Wait(200)
+    ClickMouse (498, 16, True);
+    Wait(200);
+    Movemouse (296, 47);
+    Wait(100);
+  until(IsTextAt(6,2,'Sleeping Bag: sleep')) or (loops>=5);
+  ClickMouse(296, 46, True);
+  if Sound = true then
+    playsound('C:\WINDOWS\Media\tada.wav');
+  loops:=0;
+  repeat
+    wait(400);
+    loops:=loops+1;
+  until(IsTextAt(168, 293, 'click here')) or (loops>=25);
+  loops:=0;
+  repeat
+    loops:=loops+1;
+    Wait(20);
+    if(GetColor(209,252)=255)then
+      begin
+        Writeln('Resetting wait...');
+        loops:=0;
+        Wait(2000);
+      end;
+    if(loops=1700)then
+      begin
+        loops:=0;
+        ClickMouse (200, 300, True);
+        Writeln('Trying again for sw word...');
+      end;
+  until(not IsTextAt(168, 293, 'click here'));
+  MoveMouse(10,10);
+  Wait(100);
+end;
+
+Procedure Log_Bridge;
+begin
+  i:=0;
+  writeln('Finding Log...');
+  repeat
+    repeat
+      GK5KLoggin;
+      FindColorSpiral(x, y, 10071, 125, 0, 510, 330);
+      movemouse(x,y);
+      wait(50);
+      if not (IsTextAt(6,2,'log: balance on')) then
+        begin
+          x:=random(510);
+          y:=random(330);
+        end;
+      i:=i+1;
+    until (IsTextAt(6,2,'log: balance on')) or (i>=100);
+    m:=x;
+    n:=y;
+    j:=0;
+    if (IsTextAt(6,2,'log: balance on')) then
+      begin
+        repeat
+          movemouse(m+5,n);
+          wait(500);
+          j:=j+1;
+        until (IsTextAt(6,2,'')) or (i>=100) or (j=25);
+      end;
+    wait(50);
+    j:=0;
+    if (IsTextAt(6,2,'')) then
+      begin
+        repeat
+          movemouse(m-5,n);
+          wait(100);
+          j:=j+1;
+        until (IsTextAt(6,2,'log: balance on')) or (i>=100) or (j=25);
+      end;
+    wait(100);
+    if (IsTextAt(6,2,'log: balance on')) then
+      begin
+        clickmouse(m,n,true);
+        writeln('Walking Across the Log...');
+        wait(4000);
+      end;
+    x:=random(510);
+    y:=random(330);
+    if (IsTextAt(7,304,'you are too tired to train')) then
+      sleep;
+    wait(300);
+  until (IsTextAt(7,304,'and walk across')) or (IsTextAt(7,304,'You just advanced 1 agility level!')) or (i>=100);
+  wait(2000);
+end;
+
+Procedure Climb_Net;
+begin
+  i:=0;
+  writeln('Finding Net...');
+  wait(500);
+  repeat
+    repeat
+      GK5KLoggin;
+      FindColorSpiral(x, y, 3424344, 0, 100, 510, 200);
+      movemouse(x,y);
+      wait(50);
+      if not (IsTextAt(6,2,'net: climb')) then
+        begin
+          x:=random(510);
+          y:=random(330);
+        end;
+      i:=i+1;
+    until (IsTextAt(6,2,'net: climb')) or (i>=100);
+    wait(1000);
+    if (IsTextAt(6,2,'net: climb')) then
+      begin
+        clickmouse(x,y,true);
+        writeln('Climbing Net...');
+      end;
+    if (IsTextAt(7,304,'you are too tired to train')) then
+      sleep;
+    wait(2500);
+  until (IsTextAt(7,304,'and run towards the net')) or (IsTextAt(7,304,'and pull yourself onto the platform')) or (IsTextAt(7,304,'You just advanced 1 agility level!')) or (i>=100);
+  wait(2000);
+end;
+
+Procedure Climb_UPTower;
+begin
+  i:=0;
+  writeln('Finding Watch Tower...');
+  repeat
+    repeat
+      GK5KLoggin;
+      FindColorSpiral(x, y, 5275803, 0, 0, 510, 330);
+      movemouse(x,y);
+      wait(50);
+      if not (IsTextAt(6,2,'Watch tower: climb')) then
+        begin
+          x:=random(510);
+          y:=random(330);
+        end;
+      i:=i+1;
+    until (IsTextAt(6,2,'Watch tower: climb')) or (i>=100);
+    wait(1000);
+    if (IsTextAt(6,2,'Watch tower: climb')) then
+      begin
+        clickmouse(x,y,true);
+        writeln('Climbing up the Watch Tower...');
+      end;
+    wait(1000);
+    if (IsTextAt(7,304,'you are too tired to train')) then
+      sleep;
+  until (IsTextAt(7,304,'to the platform above')) or (IsTextAt(7,304,'You just advanced 1 agility level!')) or (i>=100);
+  wait(500);
+end;
+
+Procedure Rope_Climb;
+begin
+  i:=0;
+  writeln('Finding Rope...');
+  clickmouse(190,280,true);
+  wait(3000);
+  repeat
+    repeat
+      GK5KLoggin;
+      FindColorSpiral(x, y, 3602, 0, 0, 510, 330);
+      movemouse(x,y);
+      wait(50);
+      if not (IsTextAt(6,2,'ropeswing: grab')) then
+        begin
+          x:=random(510);
+          y:=random(330);
+        end;
+      i:=i+1;
+    until (IsTextAt(6,2,'ropeswing: grab')) or (i>=100);
+    wait(1000);
+    if (IsTextAt(6,2,'ropeswing: grab')) then
+      begin
+        clickmouse(x,y,true);
+        writeln('Climbing Rope...');
+      end;
+    if (IsTextAt(7,304,'you are too tired to train')) then
+      sleep;
+    wait(1000);
+  until (IsTextAt(7,304,'you reach out and grab the rope swing')) or (IsTextAt(7,304,'you hold on tight')) or (IsTextAt(7,304,'and swing to the oppisite platform')) or (IsTextAt(7,304,'You just advanced 1 agility level!')) or (i>=100);
+  wait(500);
+end;
+
+Procedure Climb_DownTower;
+begin
+  i:=0;
+  writeln('Finding Watch tower...');
+  repeat
+    repeat
+      GK5KLoggin;
+      FindColorSpiral(x, y, 5592405, 0, 250, 510, 330);
+      movemouse(x,y);
+      wait(50);
+      if not (IsTextAt(6,2,'Watch tower: climb')) then
+        begin
+          x:=random(510);
+          y:=random(330);
+        end;
+      i:=i+1;
+    until (IsTextAt(6,2,'Watch tower: climb')) or (i>=100);
+    wait(100);
+    if (IsTextAt(6,2,'Watch tower: climb')) then
+      begin
+        clickmouse(x,y,true);
+        writeln('Climbing Down the Watch tower...');
+      end;
+    if (IsTextAt(7,304,'you are too tired to train')) then
+      sleep;
+    wait(5500);
+  until (IsTextAt(7,304, username+': Ooof')) or (IsTextAt(7,304,'You just advanced 1 agility level!')) or (i>=100);
+  wait(2000);
+end;
+
+Procedure Pipe;
+begin
+  i:=0;
+  writeln('Finding Pipe...');
+  wait(3000);
+  repeat
+    repeat
+      GK5KLoggin;
+      FindColorSpiral(x, y, 5197647, 250, 60, 510, 330);
+      movemouse(x,y);
+      wait(50);
+      if not (IsTextAt(6,2,'pipe: enter')) then
+        begin
+          x:=random(510);
+          y:=random(330);
+        end;
+      i:=i+1;
+    until (IsTextAt(6,2,'pipe: enter')) or (i>=100);
+    wait(500);
+    if (IsTextAt(6,2,'pipe: enter')) then
+      begin
+        clickmouse(x,y,true);
+        writeln('Climbing through Pipe...');
+      end;
+    if (IsTextAt(7,304,'you are too tired to train')) then
+      sleep;
+    wait(1000);
+  until (IsTextAt(7,304,'and you shuffle down into it')) or (IsTextAt(7,304,'Gnome Trainer: That')) or (IsTextAt(7,304,'You just advanced 1 agility level!')) or (i>=100);
+  wait(5000);
+  clickmouse(266,80,true);
+  wait(3500);
+end;
+
+Procedure Agility;
+begin
+  repeat
+    GK5KLoggin;
+    Log_Bridge;
+    climb_Net;
+    Climb_UPTower;
+    Rope_Climb;
+    Climb_DownTower;
+    climb_Net;
+    Pipe;
+  until(false);
+end;
+
+procedure Startbuttonclick(sender: TObject);
+begin
+  username:= TxtUser.Text;
+  password:= TxtPass.Text;
+  Case Sound_Play.Text of
+    'Yes' : Sound:=true;
+    'No': Sound:=false;
+    end;
+  GO:=1;
+end;
+
+begin
+  Application:= GetApplication;
+  Self:= GetSelf;
+  Form:= TForm.Create(nil);
+  Form.Width := 350;
+  Form.Height := 125;
+  Form.Position := poScreenCenter;
+  Form.BorderStyle := bsDialog;
+  Form.Color:=ClBlack;
+  Form.Caption := 'GK5K Gnome Agility Course';
+  UserLabel := TLabel.Create(Form);
+  UserLabel.Top := 12;
+  UserLabel.Left := 16;
+  UserLabel.Font.Color:= ClLime;
+  UserLabel.Caption := 'Username:';
+  UserLabel.Parent := Form;
+  PassLabel := TLabel.Create(Form);
+  PassLabel.Top := 42;
+  PassLabel.Left := 16;
+  PassLabel.Font.Color:= ClLime;
+  PassLabel.Caption := 'Password:';
+  PassLabel.Parent := Form;
+  SoundLabel := TLabel.Create(Form);
+  SoundLabel.Top := 12;
+  SoundLabel.Left := 210;
+  SoundLabel.Font.Color:= ClLime;
+  SoundLabel.Caption := 'Sound:';
+  SoundLabel.Parent := Form;
+  txtUser := TEdit.Create(Form);
+  txtUser.Top := 10;
+  txtUser.Left := 86;
+  txtUser.Width := 100;
+  txtUser.Hint:='Username Goes Here!';
+  txtuser.ShowHint:=true;
+  txtUser.Parent := Form;
+  txtPass := TEdit.Create(Form);
+  txtPass.Top := 40;
+  txtPass.Left := 86;
+  txtPass.Width := 100;
+  txtPass.font.name:='WingDings';
+  txtPass.PasswordChar:= 'N';
+  txtPass.Hint:='Password Goes Here!';
+  txtPass.ShowHint:=true;
+  txtPass.Parent := Form;
+  Sound_Play:= TcomboBox.create(form);
+  Sound_Play.Top := 10;
+  Sound_Play.Left := 250;
+  Sound_Play.Width := 80;
+  Sound_Play.Height := 24;
+  Sound_Play.parent := Form;
+  Sound_Play.DropDownCount:= 2;
+  Sound_Play.Items.Add('No');
+  Sound_Play.Items.Add('Yes');
+  Sound_Play.Hint:='Play Sound On Sleep?';
+  Sound_Play.ShowHint:=true;
+  Sound_Play.itemindex:= 0;
+  ButtonStart:= TButton.Create(Form);
+  ButtonStart.Left := 30;
+  ButtonStart.Top := 70;
+  ButtonStart.Width := 80;
+  ButtonStart.Height := 24;
+  ButtonStart.Caption := '&Start';
+  ButtonStart.OnClick := @Startbuttonclick;
+  ButtonStart.Parent := Form;
+  ButtonStart.Default := True;
+  ButtonStart.ModalResult := mrOk;
+  VersionLabel := TLabel.Create(Form);
+  VersionLabel.Top := 40;
+  VersionLabel.Left := 210;
+  VersionLabel.Font.Color := ClLime;
+  VersionLabel.Font.Size := 16;
+  VersionLabel.Caption := 'Version: 1.1';
+  VersionLabel.Parent := Form;
+  loggin:=2;
+  Form.ShowModal;
+  Form.Free;
+  FindRSWindow;
+  if Go= 1 then
+    begin
+      Agility;
+    end;
+end.
