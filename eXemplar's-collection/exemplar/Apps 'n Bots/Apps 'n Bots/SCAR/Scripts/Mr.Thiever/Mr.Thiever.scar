@@ -1,0 +1,299 @@
+///By JangleBits
+//Face north
+
+
+program MrThiever;
+
+var x,x1,y,y1,c,G,Swait,Wht_P,Eat_Now,F,M,W,flag:integer;
+{.include Jgsi.txt}
+{.include BoxBreaker2.txt}
+const
+StealWait=2;//Seconds To wait Before Thieveing Next Victim.
+Victim=1122718;//Color Of First Victim.
+Victim2=3232620;//Second Color of Victim That is real close to the first color.
+Eat=1;//When Hp is low If 0 will do nothing. 1 will eat. 2 will logout
+EatLimit=2;//pieces of food to eat when hp low
+FoodColor1=1335737;//Color of food you want to eat
+FoodColor2=1335737;//Color of food you want to eat
+
+procedure flagpause;
+begin
+c:=0;
+  wait(500+random(200));
+  if FindBitmapIn(flag,x,y,572,9,720,160)then
+  repeat
+  c:=c+1;
+  wait(500);
+  until(not(FindBitmapIn(flag,x,y,572,9,720,160)))or(c>100)
+  c:=0;
+  wait(500+random(200));
+end;
+
+procedure BoxSetup;
+begin
+loadchars('');
+ldbmp;
+foundboxcount:= 0;
+end;
+
+procedure SetupJgsi;
+begin
+ LoadChars('');
+ SetMouseMode(false);
+ LoadBMP;
+ StartTime:=GetSystemTime;
+ Walk(False);
+ OpenInv;
+end;
+
+procedure CheckHealth;
+begin
+If((FindBitmapToleranceIn(Eat_Now,x,y,238,135,285,170,5)))and(Not(Eat<1))or(Not(Eat>2))then
+begin//Eat
+If(Eat=1)and((FindBitmapToleranceIn(Eat_Now,x,y,238,135,285,170,5)))and(not(Eatlimit=0))then//eat
+begin
+If(FindColorSpiral(x,y,FoodColor1,558,207,740,460))or
+(FindColorSpiral(x,y,FoodColor2,558,207,740,460))then
+begin
+c:=0;
+repeat
+If((FindColorSpiral(x,y,FoodColor1,558,207,740,460)))then
+begin
+MoveMouseSmoothex(x+random(5),y+random(5),1,6,15,20,20);
+Wait(100+random(250))
+GetmousePos(x,y);
+Clickmouse(x,y,true)
+wait(1000+random(2000));
+end;
+If(Not(FindColorSpiral(x,y,FoodColor1,558,207,740,460)))then
+begin
+FindColorSpiral(x,y,FoodColor2,558,207,740,460);
+MoveMouseSmoothex(x+random(5),y+random(5),1,6,15,20,20);
+Wait(100+random(250))
+GetmousePos(x,y);
+Clickmouse(x,y,true)
+wait(1000+random(2000));
+end;
+c:=c+1;
+until(Not(FindColorSpiral(x,y,FoodColor1,558,207,740,460)))and
+(Not(FindColorSpiral(x,y,FoodColor2,558,207,740,460)))or
+(Not(FindBitmapToleranceIn(Eat_Now,x,y,238,135,285,170,5)))and(c=EatLimit)or(c>EatLimit)
+end;
+c:=0;
+end;
+//LoGouT
+If(Eat=2)or(Not(FindColorSpiral(x,y,FoodColor1,558,207,740,460)))and
+(Not(FindColorSpiral(x,y,FoodColor2,558,207,740,460)))then
+begin
+Logout('--Logout Reason--');
+WriteLn('This Script Logs Out if there is no food in your inventory')
+WriteLn('Sorry For the in Convinience')
+WriteLn('Next Time Select an Empty Inventory Spot as the Food Color')
+WriteLn('And Set EatLimit to 1')
+WriteLn('Or Just Set Eat to 0 and Pray you dont Die')
+WriteLn('Have A Good Day')
+Repeat
+Break;
+until(false);
+end;
+end;
+end;
+
+procedure DropRandomItem;
+begin
+DropBeer; wait(400+random(100));
+DropKebab; wait(400+random(100));
+DropEmerald; wait(400+random(100));
+DropSapphire; wait(400+random(100));
+UseLamp; wait(400+random(100));
+end;
+
+procedure WalkBack(runx,runy:Integer);
+begin
+If(FightFound=true)then
+begin
+Walk(FightFound);
+Wait(4000);
+MoveMouseSmoothEx(660-Random(35),39+random(5),1,6,15,15,10);
+wait(100+random(200))
+GetMousePos(x,y);
+Clickmouse(x,y,true);
+end;
+end;
+
+function CheckRandom:boolean;
+begin
+ FindYelText;
+ FindStrangeBox;
+ OpenInv;
+ if(TalkedTo)or(foundboxcount>0)then
+ begin
+  TalkedTo:=false;
+  foundboxcount:=0;
+  DropRandomItem;
+ end;
+ if(FightFound)or(TalkedTo)then
+  result:=true;
+end;
+
+procedure FightDetect;
+begin
+If(FindColortolerance(x1,y1,65280,230,135,260,170,4))then
+begin
+MoveMouseSmoothex(650+random(5),82+random(15),1,6,15,20,20);
+Wait(100+random(250))
+GetmousePos(x,y);
+Clickmouse(x,y,true)
+repeat
+wait(100+random(25));
+c:=c+1;
+until(Not(FindColortolerance(x1,y1,65280,230,135,260,170,4)))or(c=25)
+end;
+If(FindColortolerance(x1,y1,65280,230,135,260,170,4))then
+begin
+FindFight(645+random(10),120+random(7));
+WalkBack(645+random(10),25+random(10));
+end;
+end;
+
+procedure PickWait;
+begin
+c:=0;
+If(not(FindColortolerance(x,y,65280,230,135,260,170,4)))then
+begin
+Swait:=0;
+Repeat
+Wait(85+random(50));
+CheckHealth;
+Swait:=Swait+1;
+until(FindColortolerance(x,y,65280,230,135,260,170,4))or(Swait=StealWait*10)
+end;
+If(FindColortolerance(x,y,65280,230,135,260,170,4))then
+begin
+repeat
+wait(100+random(50));
+CheckRandom;
+CheckHealth;
+FindColortolerance(x1,y1,65280,230,135,260,170,4);
+c:=c+1;
+until(not(FindColortolerance(x1,y1,65280,230,135,260,170,4)))or(c>38+random(4));
+c:=0;
+end;
+FightDetect;
+end;
+
+Procedure Steal;
+begin
+x:=268;
+y:=168;
+wait(100)
+If not((FindColorSpiralTolerance(x1,y1,Victim,5,25,514,335,9))and
+  (FindColorSpiralTolerance(x,y,Victim2,x1-5,y1-5,x1+5,y1+5,10)))and
+  (not(FindColortolerance(x1,y1,65280,230,135,260,170,4)))then
+begin
+repeat
+wait(59+random(20));
+until((FindColorSpiralTolerance(x1,y1,Victim,5,25,514,335,9))and
+(FindColorSpiralTolerance(x,y,Victim2,x1-5,y1-5,x1+5,y1+5,10)))
+end;
+If(FindColorSpiralTolerance(x1,y1,Victim,5,25,514,335,9))and
+  (FindColorSpiralTolerance(x,y,Victim2,x1-5,y1-5,x1+5,y1+5,10))then
+begin
+MoveMouseSmoothex(x+random(5),y+10+random(15),1,6,15,20,20);
+wait(100+random(200));
+If(FindBitmapToleranceIn(G,x,y,4,4,514,340,100))or
+(FindBitmapToleranceIn(F,x,y,4,4,514,340,100))or
+(FindBitmapToleranceIn(M,x,y,4,4,514,340,100))or
+(FindBitmapToleranceIn(W,x,y,4,4,514,340,100))then
+begin
+GetMousePos(x,y);
+ClickMouse(x,y,False);
+CheckHealth;
+wait(100+random(200));
+end;
+end;
+If(FindBitmapToleranceIn(Wht_P,x,y,4,4,514,340,100))then
+begin
+MoveMouseSmoothex(x+10+random(50),y+3+random(4),1,6,15,20,20);
+wait(100+random(200));
+GetMousePos(x,y);
+ClickMouse(x,y,True);
+wait(100+random(200));
+Flagpause;
+If(FindColorSpiralTolerance(x1,y1,Victim,5,5,514,310,9))and
+  (FindColorSpiralTolerance(x,y,Victim2,x1-5,y1-5,x1+5,y1+5,10))then
+begin
+MoveMouseSmoothex(x-random(5),y+10+random(15),1,6,15,20,20);
+wait(100+random(200));
+end;
+PickWait;
+end;
+end;
+
+Procedure LoadBmps;
+begin
+flag := BitmapFromString(2, 2,
+       'FF00005D3311C656045D3311');
+Wht_P := BitmapFromString(6, 10,
+       'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       'FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       'FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFF000000' +
+       '000000000000000000FFFFFFFFFFFF000000000000000000000000' +
+       'FFFFFFFFFFFF000000000000000000000000');
+G := BitmapFromString(7, 10,
+       '000000000000D6D607D6D607D6D607D6D607000000000000D6D607' +
+       'D6D607000000000000C6C601C6C601D6D607D6D607000000000000' +
+       '000000000000000000D6D607C6C601000000000000000000000000' +
+       '000000D6D607C6C601000000D6D607D6D607D6D607000000D6D607' +
+       'C6C601000000000000000000C6C601C6C601D6D607C6C601000000' +
+       '000000000000D6D607C6C601D6D607C6C601000000000000000000' +
+       'D6D607C6C601000000C6C601C6C601000000000000D6D607C6C601' +
+       '000000000000C6C601C6C601D6D607D6D607000000');
+Eat_Now := BitmapFromString(13, 2,
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000');
+F := BitmapFromString(6, 10,
+       'FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000' +
+       '000000000000000000FFFF00FFFF00000000000000000000000000' +
+       'FFFF00FFFF00000000000000000000000000FFFF00FFFF00FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00000000000000000000000000' +
+       'FFFF00FFFF00000000000000000000000000FFFF00FFFF00000000' +
+       '000000000000000000FFFF00FFFF00000000000000000000000000' +
+       'FFFF00FFFF00000000000000000000000000');
+M := BitmapFromString(8, 10,
+       'FFFF00FFFF00000000000000000000000000FFFF00FFFF00FFFF00' +
+       'FFFF00000000000000000000000000FFFF00FFFF00FFFF00FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00' +
+       'FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000FFFF00' +
+       'FFFF00000000FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+       '000000FFFF00FFFF00FFFF00FFFF00000000000000000000000000' +
+       'FFFF00FFFF00FFFF00FFFF00000000000000000000000000FFFF00' +
+       'FFFF00FFFF00FFFF00000000000000000000000000FFFF00FFFF00' +
+       'FFFF00FFFF00000000000000000000000000FFFF00FFFF00');
+W := BitmapFromString(8, 10,
+       'FFFF00FFFF00000000000000000000000000FFFF00FFFF00FFFF00' +
+       'FFFF00000000000000000000000000FFFF00FFFF00FFFF00FFFF00' +
+       '000000000000000000000000FFFF00FFFF00FFFF00FFFF00000000' +
+       '000000000000000000FFFF00FFFF00FFFF00FFFF00000000FFFF00' +
+       'FFFF00000000FFFF00FFFF00FFFF00FFFF00000000FFFF00FFFF00' +
+       '000000FFFF00FFFF00FFFF00FFFF00000000FFFF00FFFF00000000' +
+       'FFFF00FFFF00FFFF00FFFF00000000FFFF00FFFF00000000FFFF00' +
+       'FFFF00000000FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000' +
+       '000000000000FFFF00FFFF00FFFF00FFFF00000000000000');
+end;
+
+begin
+LoadBmps;
+SetupJgsi;
+BoxSetup;
+FixChat;
+repeat
+Steal;
+CheckRandom;
+CheckHealth;
+FightDetect;
+until(x=1000000000)
+end.

@@ -1,0 +1,514 @@
+//STILL A WORK IN PROGRESS
+//This file is free. You may redistribute JGsi.txt
+//but you may not sell it.  You may use it to make
+//your own scripts.
+
+//Color Picked: 928894 at (49,428) Found mime random event (red lips left side)
+
+var
+QuickBank,Drop,Talk:Integer;
+StartTime:LongInt;
+FightFound,FightFoundNR,TalkedTo,LoggedOut:boolean;
+TotalTime:string;
+
+procedure Mouse(x,y,rx,ry:Integer);
+var
+xx,yy:Integer;
+begin
+ xx:=random(rx); yy:=random(ry);
+ x:=x+xx-rx/2; y:=y+yy-ry/2;
+ MoveMouseSmoothEx(x,y,1,6,15+random(5)-2,20+random(5)-2,10+random(5)-2);
+end;
+
+procedure CMouse(x,y,rx,ry:Integer; left:boolean);
+var
+xx,yy,x1,y1,rand:Integer;
+begin
+ xx:=random(rx); yy:=random(ry);
+ x:=x+xx-rx/2; y:=y+yy-ry/2;
+ MoveMouseSmoothEx(x,y,1,6,15+random(5)-2,20+random(5)-2,10+random(5)-2);
+ GetMousePos(x1,y1);
+ wait(50+random(50));
+ HoldMouse(x1,y1,left);
+ if(left)then
+ begin
+  rand:=random(5);
+  if(rand=4)then
+   MoveMouseSmoothEx(x1+random(3)-1,y1+random(3)-1,1,6,15+random(5)-2,20+random(5)-2,10+random(5)-2);
+ end;
+ GetMousePos(x1,y1);
+ wait(10+random(80));
+ ReleaseMouse(x1,y1,left);
+ if(left)then
+ begin
+  rand:=random(4);
+  if(rand=3)then
+   MoveMouseSmoothEx(x1+random(3)-1,y1+random(3)-1,1,6,15+random(5)-2,20+random(5)-2,10+random(5)-2);
+ end;
+end;
+
+procedure OpenInv;
+begin
+if(not(GetColor(630,185)=2171233))then
+ CMouse(650,185,22,22,true);
+end;
+
+procedure FixChat;
+begin
+ if(not(GetColor(51,490)=255))then
+  begin
+  repeat
+   CMouse(55,485,8,8,true);
+  until(GetColor(51,490)=255);
+  end;
+ if(not(GetColor(180,490)=255))then
+  begin
+  repeat
+   CMouse(185,485,8,8,true);
+  until(GetColor(180,490)=255);
+  end;
+ if(not(GetColor(320,490)=255))then
+  begin
+  repeat
+   CMouse(325,485,8,8,true);
+  until(GetColor(320,490)=255);
+  end;
+end;
+
+procedure Run(inv:boolean);
+begin
+ if(not(GetColor(700,485)=2434414))then
+ begin
+  CMouse(710,480,6,10,true);
+  wait(200+random(500));
+ end;
+ if(not(GetColor(615,275)=1974666))then
+  CMouse(625,265,26,26,true);
+ if(inv)then
+ begin
+  wait(250+random(300));
+  OpenInv;
+ end;
+end;
+
+procedure Walk(inv:boolean);
+begin
+ if(not(GetColor(700,485)=2434414))then
+ begin
+  CMouse(710,480,6,10,true);
+  wait(200+random(500));
+ end;
+ if(not(GetColor(580,275)=1974666))then
+  CMouse(580,265,26,26,true);
+ if(inv)then
+ begin
+  wait(250+random(300));
+  OpenInv;
+ end;
+end;
+
+procedure LogOut(why:string);
+begin
+ CMouse(648,483,18,18,true);
+ wait(200+random(500));
+ CMouse(645,375,32,4,true);
+ writeln(why);
+ LoggedOut:=true;
+end;
+
+function FullInv:boolean;
+begin
+ Mouse(710,445,6,6);
+ wait(300);
+ if(IsTextAt2(9,9,'Use',40))then result:=true;
+end;
+
+procedure FlagWait;
+var
+x,y:Integer;
+begin
+ repeat
+  wait(100);
+ until(not(FindColorSpiral(x,y,1127261,570,5,725,160)));
+ wait(100+random(100));
+end;
+
+function FindMinimap(var x,y:Integer; color:Integer):boolean;
+begin
+ if(FindColorSpiral(x,y,color,570,5,725,160))then
+  result:=true;
+end;
+
+procedure KeepTime;
+var
+Hours,Minutes,RealMins,Seconds,RealSecs:Integer;
+begin
+ Seconds:=(GetSystemTime-StartTime) div 1000;
+ Minutes:=Seconds div 60;
+ Hours:=Minutes div 60;
+ if(not(Minutes=0))then
+  RealSecs:=Seconds mod (Minutes*60);
+ if(not(Hours=0))then
+ begin
+  RealSecs:=Seconds mod (Minutes*60);
+  RealMins:=Minutes mod (Hours*60);
+ end;
+ if(Minutes=0)then
+  if(Seconds<10)then
+   TotalTime:=(inttostr(Hours)+':0'+inttostr(Minutes)+':0'+inttostr(Seconds)) else
+   TotalTime:=(inttostr(Hours)+':0'+inttostr(Minutes)+':'+inttostr(Seconds));
+ if(Hours=0)then
+ begin
+  if(not(Minutes=0))then
+  begin
+   if(Minutes<10)then
+   begin
+    if(RealSecs<10)then
+     TotalTime:=(inttostr(Hours)+':0'+inttostr(Minutes)+':0'+inttostr(RealSecs)) else
+     TotalTime:=(inttostr(Hours)+':0'+inttostr(Minutes)+':'+inttostr(RealSecs));
+    end else
+    begin
+     if(RealSecs<10)then
+      TotalTime:=(inttostr(Hours)+':'+inttostr(Minutes)+':0'+inttostr(RealSecs)) else
+      TotalTime:=(inttostr(Hours)+':'+inttostr(Minutes)+':'+inttostr(RealSecs));
+    end;
+   end;
+  end;
+ if(not(Hours=0))then
+ begin
+  if(RealMins<10)then
+  begin
+   if(RealSecs<10)then
+    TotalTime:=(inttostr(Hours)+':0'+inttostr(RealMins)+':0'+inttostr(RealSecs)) else
+    TotalTime:=(inttostr(Hours)+':0'+inttostr(RealMins)+':'+inttostr(RealSecs));
+  end else
+  begin
+   if(RealSecs<10)then
+    TotalTime:=(inttostr(Hours)+':'+inttostr(RealMins)+':0'+inttostr(RealSecs)) else
+    TotalTime:=(inttostr(Hours)+':'+inttostr(RealMins)+':'+inttostr(RealSecs));
+  end;
+ end;
+end;
+
+//------------Anti-Randoms-Start------------//
+
+procedure TalkToRandom;
+var
+x,y:Integer;
+begin
+ if(FindColorSpiral(x,y,16711680,125,360,495,455))then
+ begin
+  wait(750+random(250));
+  if(not(GetColor(25,434)=0))then
+  begin
+   repeat
+    FindColorSpiral(x,y,16711680,20,360,495,455);
+    CMouse(x,y,0,0,true);
+    wait(750+random(500));
+   until(GetColor(25,434)=0);
+   TalkedTo:=true;
+  end;
+ end;
+end;
+
+procedure DropBeer;
+var
+x,y:Integer;
+begin
+ status('Looking for beer');
+ if(FindColorSpiralTolerance(x,y,1678802,560,210,735,460,10))then
+ begin
+  Mouse(x+6,y+6,2,2);
+  GetMousePos(x,y);
+  wait(600+random(400));
+  if(IsTextAt2(9,9,'Dr',80))then  //Beer
+  begin
+   status('Dropping beer');
+   CMouse(x,y,0,0,false);
+   wait(500+random(250));
+   FindBitmapSpiralTolerance(Drop,x,y,560,210,735,460,80);
+   CMouse(x,y,4,0,true);
+   wait(800+random(200));
+  end;
+ end;
+end;
+
+procedure DropKebab;
+var
+x,y:Integer;
+begin
+ status('Looking for kebab');
+ if(FindColorSpiralTolerance(x,y,1347600,560,210,735,460,10))then
+ begin
+  Mouse(x+6,y+6,2,2);
+  GetMousePos(x,y);
+  wait(600+random(400));
+  if(IsTextAt2(9,9,'Ea',80))then  //Kebab
+  begin
+   status('Dropping kebab');
+   CMouse(x,y,0,0,false);
+   wait(500+random(250));
+   FindBitmapSpiralTolerance(Drop,x,y,560,210,735,460,80);
+   CMouse(x,y,4,0,true);
+   wait(800+random(200));
+  end;
+ end;
+end;
+
+procedure DropCoins;
+var
+x,y:Integer;
+begin
+ status('Looking for coins');
+ if(FindColorSpiralTolerance(x,y,1347504,560,210,735,460,10))then
+ begin
+  Mouse(x+6,y+6,2,2);
+  GetMousePos(x,y);
+  wait(600+random(400));
+  if(IsTextAt2(9,9,'Use C',200))then  //Coins
+  begin
+   status('Dropping coins');
+   CMouse(x,y,0,0,false);
+   wait(500+random(250));
+   FindBitmapSpiralTolerance(Drop,x,y,560,210,735,460,80);
+   CMouse(x,y,4,0,true);
+   wait(800+random(200));
+  end;
+ end;
+end;
+
+procedure DropEmerald;
+var
+x,y:Integer;
+begin
+ status('Looking for uncut emerald');
+ if(FindColorSpiralTolerance(x,y,1413905,560,210,735,460,10))then
+ begin
+  Mouse(x+6,y+6,2,2);
+  GetMousePos(x,y);
+  wait(600+random(400));
+  if(IsTextAt2(9,9,'Use Un',100))then  //Uncut Emerald
+  begin
+   status('Dropping uncut emerald');
+   CMouse(x,y,0,0,false);
+   wait(500+random(250));
+   FindBitmapSpiralTolerance(Drop,x,y,560,210,735,460,80);
+   CMouse(x,y,4,0,true);
+   wait(800+random(200));
+  end;
+ end;
+end;
+
+procedure DropSapphire;
+var
+x,y:Integer;
+begin
+ status('Looking for uncut sapphire');
+ if(FindColorSpiralTolerance(x,y,10032657,560,210,735,460,10))then
+ begin
+  Mouse(x+6,y+6,2,2);
+  GetMousePos(x,y);
+  wait(600+random(400));
+  if(IsTextAt2(9,9,'Use Un',100))then  //Uncut Sapphire
+  begin
+   status('Dropping uncut sapphire');
+   CMouse(x,y,0,0,false);
+   wait(500+random(250));
+   FindBitmapSpiralTolerance(Drop,x,y,560,210,735,460,80);
+   CMouse(x,y,4,0,true);
+   wait(800+random(200));
+  end;
+ end;
+end;
+
+procedure UseLamp;
+var
+x,y:Integer;
+begin
+ status('Looking for genie lamp');
+ if(FindColorSpiralTolerance(x,y,1355440,560,210,735,460,10))then
+ begin
+  Mouse(x+6,y+6,2,2);
+  GetMousePos(x,y);
+  wait(600+random(400));
+  if(IsTextAt2(9,9,'Rub',100))then
+  begin
+   status('Rubbing genie lamp');
+   CMouse(x,y,0,0,true);
+   repeat
+    wait(100+random(10));
+   until(GetColor(398,126)=65535);
+   CMouse(278,192,10,10,true);
+   wait(800+random(400));
+   CMouse(258,256,12,2,true);
+   wait(1000+random(750));
+   TalkToRandom;
+  end;
+ end;
+end;
+
+procedure DropRandomItems;
+begin
+DropBeer; wait(400+random(100));
+DropKebab; wait(400+random(100));
+DropCoins; wait(400+random(100));
+DropEmerald; wait(400+random(100));
+DropSapphire; wait(400+random(100));
+UseLamp; wait(400+random(100));
+end;
+
+procedure FindFight(rx,ry:Integer);
+var
+x,y:Integer;
+begin
+ if(FindColor(x,y,65280,230,135,260,170))then wait(1000);
+ if(FindColor(x,y,65280,230,135,260,170))then
+ begin
+  status('Fight found');
+  FightFound:=true;
+  Run(false);
+  CMouse(rx,ry,0,0,true);
+  FlagWait;
+  wait(10000+random(2000));
+ end else
+  FightFound:=false;
+end;
+
+procedure FindFightNoRun;
+var
+x,y:Integer;
+begin
+ if(FindColorSpiral(x,y,65280,230,135,260,170))then wait(1000);
+ if(FindColorSpiral(x,y,65280,230,135,260,170))then
+ begin
+  status('Fight found');
+  FightFoundNR:=true;
+ end else
+  FightFoundNR:=false;
+end;
+
+procedure FindYelText;
+var
+x,y,x1,y1,ax,ay:Integer;
+begin
+ if(FindColor(x,y,65535,5,20,515,335))then wait(250);
+ if(FindColor(x,y,65535,5,20,515,335))then
+ begin
+  x1:=515; y1:=180;
+  FindColorSpiral(x1,y1,65535,5,20,515,335);
+  ax:=x+((x1-x)/2);
+  ay:=y+20+random(3)-1;
+  Mouse(ax,ay,0,0);
+  wait(200+random(200));
+  if(IsTextAt2(9,9,'Tal',80))then
+  begin
+   GetMousePos(x,y);
+   CMouse(x,y,0,0,false);
+   wait(400+random(250));
+   FindBitmapSpiralTolerance(Talk,x,y,5,5,500,325,80);
+   CMouse(x,y,4,0,true);
+   wait(1500+random(1000));
+   TalkToRandom;
+  end else
+  begin
+   repeat
+    Mouse(x,y+20+random(3)-1,0,0);
+    x:=x+2+random(3)-1;
+    wait(10);
+    if(x>515)then break;
+   until(IsTextAt2(9,9,'Tal',80));
+   if(IsTextAt2(9,9,'Tal',80))then
+   begin
+    GetMousePos(x,y);
+    CMouse(x,y,0,0,false);
+    wait(400+random(250));
+    FindBitmapSpiralTolerance(Talk,x,y,5,5,500,325,80);
+    CMouse(x,y,4,0,true);
+    wait(1500+random(1000));
+    TalkToRandom;
+   end;
+  end;
+ end;
+end;
+
+function CheckRandoms(runx,runy:Integer):boolean;
+begin
+ FindYelText;
+ FindFight(runx,runy);
+ if(TalkedTo)then
+ begin
+  TalkedTo:=false;
+  DropRandomItems;
+ end;
+ if(FightFound)or(TalkedTo)then
+  result:=true;
+end;
+
+function CheckText:boolean;
+begin
+ FindYelText;
+ if(TalkedTo)then
+ begin
+  TalkedTo:=false;
+  DropRandomItems;
+  result:=true;
+ end;
+end;
+
+function CheckFight:boolean;
+begin
+ FindFightNoRun;
+ if(FightFoundNR)then
+ begin
+  FightFoundNR:=false;
+  result:=true;
+ end;
+end;
+
+//------------Anti-Randoms-End------------//
+
+procedure LoadBMP;
+begin
+  QuickBank := BitmapFromString(14, 4,
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D544700FFFF00FFFF0000005D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D544700FFFF00FFFF' +
+       '000000FFFFFF5D54475D5447FFFFFFFFFFFF5D54475D54475D5447' +
+       '5D54475D54475D544700FFFF00FFFF00FFFFFFFFFF0000005D5447' +
+       'FFFFFFFFFFFF0000005D54475D54475D54475D54475D544700FFFF' +
+       '00FFFF000000');
+  Drop := BitmapFromString(15, 6,
+       'FFFFFF5D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D5447FFFFFFFFFFFF5D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D5447FFFFFFFFFFFF0000005D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       'FFFFFFFFFFFF0000005D5447FFFFFFFFFFFFFFFFFFFFFFFF5D5447' +
+       '5D54475D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFFFFFFFF0000000000005D5447FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+       '0000000000005D54475D5447FFFFFFFFFFFF0000005D5447FFFFFF' +
+       '');
+  Talk := BitmapFromString(13, 5,
+       'FFFFFFFFFFFF0000005D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+       '5D54475D54475D54475D54475D54475D54475D54475D5447FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF0000000000005D5447FFFFFFFFFFFFFFFFFF' +
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000000005D5447' +
+       '5D54475D5447000000000000000000000000000000FFFFFFFFFFFF' +
+       'FFFFFFFFFFFF5D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447');
+end;
+
+//------------------END----------------//
+
+procedure JeffIsGod;
+begin
+ LoadChars('');
+ SetMouseMode(false);
+ LoadBMP;
+ StartTime:=GetSystemTime;
+ writeln('');
+ writeln('--Using Jeffs Godly Scripting include, remember that Jeff OWNS you!--');
+ writeln('');
+end;
