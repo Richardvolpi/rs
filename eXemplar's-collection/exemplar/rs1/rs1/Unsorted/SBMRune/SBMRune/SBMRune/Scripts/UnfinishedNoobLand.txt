@@ -1,0 +1,79 @@
+TalkToNPC(494) - TYPE 476
+Answer(1)
+MoveTo(221,743)
+OpenDoor(222,743,1)
+TalkToNPC(502) - TYPE 499
+MoveTo(224,737)
+OpenDoor(224,737,0)
+TalkToNPC(506) - TYPE 474
+TalkToNPC(506) - TYPE 474
+AttackNPC(550) - TYPE 473
+TalkToNPC(511) - TYPE 474
+MoveTo(221,727)
+OpenDoor(220,727,1)
+TalkToNPC(491) - TYPE 478
+MoveTo(218,729)
+MoveTo(217,729)
+DropItem(5)
+TalkToNPC(491) - TYPE 478
+TakeItem(217,729,503)
+AtObjectWithItem(216,731,2)
+AtObjectWithItem(216,731,2)
+TalkToNPC(491) - TYPE 478
+TalkToNPC(498) - TYPE 478
+MoveTo(212,729)
+MoveTo(212,729)
+OpenDoor(212,729,1)
+TalkToNPC(486) - TYPE 480
+MoveTo(206,730)
+OpenDoor(206,730,1)
+MoveTo(197,727)
+TalkToNPC(473) - TYPE 479
+AtObject(196,726)
+TalkToNPC(472) - TYPE 479
+MoveTo(201,733)
+OpenDoor(201,734,0)
+TalkToNPC(479) - TYPE 482
+MoveTo(202,739)
+AtObject2(203,740)
+TalkToNPC(479) - TYPE 482
+TalkToNPC(479) - TYPE 482
+MoveTo(203,739)
+MoveTo(204,739)
+AtObject(203,740)
+AtObject(203,740)
+AtObject(203,740)
+TalkToNPC(478) - TYPE 482
+MoveTo(198,743)
+OpenDoor(198,746,0)
+TalkToNPC(476) - TYPE 485
+MoveTo(203,752)
+OpenDoor(204,752,1)
+TalkToNPC(481) - TYPE 489
+Answer(0)
+MoveTo(209,753)
+OpenDoor(209,754,0)
+TalkToNPC(487) - TYPE 493
+Answer(0)
+Answer(0)
+MoveTo(215,759)
+OpenDoor(217,760,1)
+TalkToNPC(497) - TYPE 494
+Answer(1)
+TalkToNPC(497) - TYPE 494
+TalkToNPC(497) - TYPE 494
+DropItem(11)
+DropItem(11)
+TalkToNPC(497) - TYPE 494
+OpenDoor(222,760,1)
+TalkToNPC(501) - TYPE 774
+AtObject(222,761)
+AtObject(222,761)
+TalkToNPC(501) - TYPE 774
+OpenDoor(226,760,1)
+TalkToNPC(509) - TYPE 496
+Answer(1)
+Answer(1)
+OpenDoor(230,759,0)
+TalkToNPC(507) - TYPE 497
+Answer(0)

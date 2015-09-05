@@ -1,0 +1,42 @@
+;Advanced AutoFighter by Sbm007 and Br0ken
+UJK7JJ9
+@Main:
+SetVar(%Eat, 0) ; Use AutoEat? 0 = No, 1 = Ye.
+SetVar(%At, 0) ; If AutoEat, Eat at what HP?
+SetVar(%FT, 0) ; ID of Food to AutoEat.
+SetVar(%Log, 0) ; Critical HP to Stop and Logout?
+GoTo(@Fight)
+
+@Fight:
+FightMode(1) ;  0 = Cntrl, 1 = Str, 2 = Atk, 3 = Def
+SetVarsNearestNPC(%X, %Y, %ID, 6)
+; Dont change anything below this line! May cause script damage!
+SetVarFatigue(%Fatigue)
+SetVarHP(%MyHP)
+GotoIfVarIsLessThanVar(@Logout, %Log, %MyHP)
+GoToIfVarIsLessThanVar(@Eat, %At, %MyHP)
+GoToIfVarIsGreaterThan(@Sleep, %Fatigue, 95)
+GoToIfPlayerInCombat(@Wait)
+AttackNPCVar(%ID)
+Sleep(100)
+GoTo(@Fight)
+
+@Wait:
+Wait(1)
+GoToIfPlayerNotInCombat(@Fight)
+GoTo(@Wait)
+
+@Logout:
+StopAndLogout()
+
+@Eat:
+GoToIfVarEquals(@EatReally, %Eat)
+GoTo(@Fight)
+
+@EatReally:
+UseItemVar(%FT)
+GoTo(%Fight)
+
+@Sleep:
+UseItemByID(1263)
+GoTo(@Fight)
