@@ -1,0 +1,171 @@
+<html><title>Bot 1.00 by RaW</title>
+<body bgcolor = "#000000" text = "red">
+<p><b><font color="#FFFFFF" size="1" face="Verdana, Arial, Helvetica, sans-serif">Bot 
+  1.00</font></b><font color="#FFFFFF" size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
+  --------------<br>
+  <font color="#0000FF"><strong>Command List</strong></font><br>
+  --------------<br>
+  <font color="#0000FF">GoTo's</font><br>
+  -----<br>
+  <b>GoTo</b>(label)<br>
+  <b>GoToIfInWild</b>(label)<br>
+  <b>GoToIfLastServerMessageIs</b>(label,string)<br>
+  <b>GoToIfLastQuestMessageIs</b>(label,string)<br>
+  <b>GoToIfLastPrivateMessageIs</b>(label,string)<br>
+  <b>GoToIfLastPMerIs</b>(label,string)<br>
+  <b>GoToIfLastChatterIs</b>(label,string)<br>
+  <b>GoToIfCoordsIn</b> <b>GoToIfWildLvlEquals</b>(lvl,label)<br>
+  <b>GoToIfAmountUnder</b>(amount,id,label)<br>
+  <b>GoToIfAmountOver</b>(amount,id,label)<br>
+  <b>GoToIfHpUnder</b>(nr,label)<br>
+  <b>GoToIfHpOver</b>(nr,label)<br>
+  <b>GoToIfSleeping</b>(label)<br>
+  <b>GoToIfStatUnder</b>(nr,stat,label)<br>
+  <b>GoToIfStatOver</b>(nr,stat,label)<br>
+  <b>GoToIfInCombat</b>(label)<br>
+  <b>GoToIfNotInCombat</b>(label)<br>
+  <b>GoToIfShopWindowClosed</b>(label)<br>
+  <b>GoToIfShopWindowOpen</b>(label)<br>
+  <b>GoToIfBankWindowOpen</b>(label)<br>
+  <b>GoToIfNrItemsInBag</b>(nr,label)<br>
+  <b>GoToIfBankWindowClosed</b>(label)<br>
+  <b>GoToIfVarAbove</b>(label,%b,%c)<br>
+  <b>GoToIfVarAbovelNum</b>(label,%b,num)<br>
+  <b>GoToIfVarBelow</b>(label,%b,%c)<br>
+  <b>GoToIfVarBelowNum</b>(label,%b,num)<br>
+  <b>GoToIfVarBetween</b>(label,%b,%c,%d)<br>
+  <b>GoToIfVarBetweenNum</b>(label,%b,num,num)<br>
+  <b>GoToIfVarEqual</b>(label,%b,%c) <br>
+  <b>GoToIfVarEqualNum</b>(label,%b,num) <br>
+  <b>GoToIfVarNotEqual</b>(label,%b,%c) <br>
+  <b>GoToIfNpcNear</b>(label,id)<br>
+  <b>GoToIfNpcVarNear</b>(label,%id)<br>
+  <b>GoToIfBagFull</b>(label)<br>
+  ---------<br>
+  <font color="#0000FF">Wait's</font><br>
+  ---------<br>
+  <b>Wait</b>(ms)<br>
+  <b>WaitForBankWindow</b>(ms)<br>
+  <b>WaitForLoad</b>()<br>
+  <b>WaitForQuestMenu</b>(ms)<br>
+  <b>WaitForShopWindow</b>(ms)<br>
+  ---------<br>
+  <b>returnlastservermessage</b>()<br>
+  <b>getpcs</b>()<br>
+  <b>returnlastpmer</b>()<br>
+  <b>returnlastchatter</b>()<br>
+  <b>returnlastquestmessage</b>()<br>
+  <b>returnlastprivatemessage</b>()<br>
+  <b>spawn</b>(id)<br>
+  <b>logout()</b><br>
+  <b>showbank()</b><br>
+  <b>hidebank()</b><br>
+  <b>showshop()</b><br>
+  <b>hideshop()</b><br>
+  <b>closemsgwindow()</b><br>
+  <b>atobjectwithitem</b>(xo,yo,itempos) - Example atobjectwithitem(0,1,5) Would 
+  use the item on slot 5 in your <br>
+  inventory on an object wich is located y+1 from you. You can also use AtObjectWithItem(xo,yo,itempos) 
+  here<br>
+  <b>atobjectwithitembyid</b>(xo,yo,id) - This command is the same as the previous 
+  one but here you use the items id instead of<br>
+  the position in the inventory.You can also use AtObjectWithItemById(xo,yo,id)<br>
+  <b>atdoorwithitem</b>(x,y,dir,id)<br>
+  <b>attacknpclvl</b>(lvl)<br>
+  <b>atobjectcoordswithitem</b>(x,y,pos)<br>
+  <b>atobjectcoordswithitembyid</b>(x,y,id)<br>
+  <b>atobject</b>(xo,yo)<br>
+  <b>atobject2</b>(xo,yo)<br>
+  <b>atobjectcoords</b>(x,y)<br>
+  <b>atobjectcoords2</b>(x,y)<br>
+  <b>atobjectuntilgetid</b>(xo,yo,id)<br>
+  <b>atobject2untilgetid</b>(xo,yo,id)<br>
+  <b>atobjectcoordsuntilgetid</b>(x,y,id)<br>
+  <b>atobjectcoords2untilgetid</b>(x,y,id)<br>
+  <b>ReturnLoc()</b><br>
+  <b>print</b>(string)<br>
+  <b>useitem</b>(pos)<br>
+  <b>useitembyid</b>(id)<br>
+  <b>dropitem</b>(pos)<br>
+  <b>dropitembyid</b>(id)<br>
+  <b>removeitem</b>(pos)<br>
+  <b>removeitembyid</b>(id)<br>
+  <b>wielditem</b>(pos)<br>
+  <b>wielditembyid</b>(id)<br>
+  <b>say</b>(string)<br>
+  <b>prayer</b>(id,true or false)<br>
+  <b>answer</b>(nr)<br>
+  <b>tradewith</b>(id)<br>
+  <b>duelwith</b>(id)<br>
+  <b>attackplayer</b>(id)<br>
+  <b>follow</b>(id)<br>
+  <b>closeloginwindow()</b><br>
+  <b>rotate</b>(degrees)<br>
+  <b>switchworld</b>(servenr)<br>
+  <b>closewindow()</b><br>
+  <b>closewildwindow()</b><br>
+  <b>action</b>(x,y)<br>
+  <b>ActionVarVar</b>(%x,%y)<br>
+  <b>talkto</b>(id)<br>
+  <b>talktotype</b>(id)<br>
+  <b>talktountil</b>(id)<br>
+  <b>talktotypeuntil</b>(id)<br>
+  <b>attacknpc</b>(id)<br>
+  <b>attacknpctype</b>(id)<br>
+  <b>attacknpcvar</b>(%id)<br>
+  <b>ThieveNpcVar</b>(%id)<br>
+  <b>fightnpc()</b><br>
+  <b>thievenpc()</b><br>
+  <b>thievenpc</b>(id)<br>
+  <b>thievenpctype</b>(id)<br>
+  <b>castspellonnpc</b>(spell,npc)<br>
+  <b>castspellonnpcvar</b>(%spell,npc)<br>
+  <b>castspellonself</b>(id)<br>
+  <b>castspellonitembyid</b>(spell,id)<br>
+  <b>castspellonitem</b>(spell,pos)<br>
+  <b>useitemwithnpc</b>(pos,npc)<br>
+  <b>useitembyidwithnpc</b>(id,npc)<br>
+  <b>useitemwithitem</b>(pos,pos)<br>
+  <b>useitemwithitembyid</b>(id,id)<br>
+  <b>sleepifover</b>(fat)<br>
+  <b>zoom</b>(nr)<br>
+  <b>walkto</b>(x,y,[xo,yo...])<br>
+  <b>moveto</b>(x,y,[xo,yo...])<br>
+  <b>MoveToVarVar</b>(%x,%y)<br>
+  <b>walkto</b>(x,y,wait)<br>
+  <b>walktoempty</b>(x,y,wait)<br>
+  <b>pickid</b>(id)<br>
+  <b>atobjectid</b>(id)<br>
+  <b>pickatcoords</b>(x,y)<br>
+  <b>castspellonground</b>(x,y,spell)<br>
+  <b>fightmode</b>(nr)<br>
+  <b>opendoor</b>(x,y)<br>
+  <b>setfire</b>(x,y)<br>
+  <b>closedoor</b>(x,y)<br>
+  <b>buyitemid</b>(id,price)<br>
+  <b>sellitemid</b>(id,price)<br>
+  <b>depositstack</b>(id,amount)<br>
+  <b>deposit</b>(id,amount)<br>
+  <b>depositallid</b>(id[id])<br>
+  <b>withdrawstack</b>(id,amount)<br>
+  <b>withdraw</b>(id,amount)<br>
+  <b>puttrade</b>(id,amount)<br>
+  <b>accepttrade</b>()<br>
+  <b>accepttradesecondscreen</b>()<br>
+  <b>getitemsininv()</b><br>
+  <b>SetVarNum</b>(%a,nr)<br>
+  <b>AddVar</b>(%a,%b) - Adds %b to %a<br>
+  <b>SubVar</b>(%a,%b)<br>
+  <b>SubVarNum</b>(%a,num)<br>
+  <b>AddVarNum</b>(%a,#a) - Adds # to %a<br>
+  <b>SetVar</b>(%a,%b)<br>
+  <b>openbank()</b><br>
+  <b>SetVarFatigue</b>(%a)<br>
+  <b>SetVarItemCount</b>(%a)<br>
+  <b>SetVarMyX</b>(%a)<br>
+  <b>SetVarMyY</b>(%a)<br>
+  <b>SetVarMyHP</b>(%a)</font></p>
+<p><font color="#FFFFFF" size="1" face="Verdana, Arial, Helvetica, sans-serif">---------</font> 
+</p>
+</body></html>
+ 

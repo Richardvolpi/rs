@@ -1,0 +1,53 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 22/12/2005 19:18:52
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   mb.java
+
+
+public class mb
+    implements Runnable
+{
+
+    public mb(mudclient mudclient1)
+    {
+        e = mudclient1;
+        b = 0;
+        c = 0;
+        d = false;
+    }
+
+    public void run()
+    {
+        e.c(this);
+        a[0] = mudclient.a(e, e.Wh, e.Xh, b - mudclient.i(e), c - mudclient.j(e), b - mudclient.i(e), c - mudclient.j(e), false, false);
+        synchronized(a)
+        {
+            a.notifyAll();
+        }
+    }
+
+    public boolean a(int i, int j, boolean flag)
+    {
+        b = i;
+        c = j;
+        d = flag;
+        e.b(this);
+        try
+        {
+            synchronized(a)
+            {
+                a.wait();
+            }
+        }
+        catch(InterruptedException interruptedexception) { }
+        return a[0];
+    }
+
+    volatile boolean a[] = {
+        false
+    };
+    volatile int b;
+    volatile int c;
+    boolean d;
+    private final mudclient e;
+}

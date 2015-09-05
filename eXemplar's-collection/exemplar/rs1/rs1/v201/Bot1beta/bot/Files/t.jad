@@ -1,0 +1,1433 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 22/12/2005 19:18:21
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   t.java
+
+import java.io.PrintStream;
+
+public class t
+{
+
+    public static void a(p p1, p p2, p p3, p p4)
+    {
+        b(p2);
+        c(p3);
+        d(p1);
+        a(p4);
+    }
+
+    public static void a(p p1)
+    {
+        int i2 = bb.Q;
+        int i1 = q.A;
+        int j1 = p1.c();
+        h = new char[j1][];
+        l = new int[j1];
+        int k1 = 0;
+label0:
+        do
+        {
+            if(k1 >= j1)
+                break;
+            l[k1] = p1.a();
+            char ac[] = new char[p1.a()];
+            int l1 = 0;
+            do
+            {
+                if(l1 >= ac.length)
+                    break;
+                ac[l1] = (char)p1.a();
+                l1++;
+                if(i2 != 0)
+                    continue label0;
+            } while(i2 == 0);
+            h[k1] = ac;
+            k1++;
+        } while(i2 == 0);
+    }
+
+    public static void b(p p1)
+    {
+        int i1 = p1.c();
+        f = new char[i1][];
+        d = new byte[i1][][];
+        a(p1, f, d);
+    }
+
+    public static void c(p p1)
+    {
+        int i1 = p1.c();
+        g = new char[i1][];
+        e = new byte[i1][][];
+        a(p1, g, e);
+    }
+
+    public static void d(p p1)
+    {
+        k = new int[p1.c()];
+        int i1 = 0;
+        do
+        {
+            if(i1 >= k.length)
+                break;
+            k[i1] = p1.b();
+            i1++;
+        } while(bb.Q == 0);
+    }
+
+    public static void a(p p1, char ac[][], byte abyte0[][][])
+    {
+        int i2 = bb.Q;
+        int i1 = q.A;
+        int j1 = 0;
+label0:
+        do
+        {
+label1:
+            {
+                if(j1 >= ac.length)
+                    break label0;
+                char ac1[] = new char[p1.a()];
+                int k1 = 0;
+                do
+                {
+                    if(k1 >= ac1.length)
+                        break;
+                    ac1[k1] = (char)p1.a();
+                    k1++;
+                    if(i2 != 0)
+                        break label1;
+                } while(i2 == 0);
+                ac[j1] = ac1;
+            }
+            byte abyte1[][] = new byte[p1.c()][2];
+            int l1 = 0;
+            do
+            {
+                if(l1 >= abyte1.length)
+                    break;
+                abyte1[l1][0] = (byte)p1.a();
+                abyte1[l1][1] = (byte)p1.a();
+                l1++;
+                if(i2 != 0)
+                    continue label0;
+            } while(i2 == 0);
+            if(abyte1.length > 0)
+                abyte0[j1] = abyte1;
+            j1++;
+        } while(i2 == 0);
+    }
+
+    public static String a(String s)
+    {
+        char ac[];
+        int j1;
+        int i2;
+        i2 = bb.Q;
+        int i1 = q.A;
+        ac = s.toLowerCase().toCharArray();
+        d(ac);
+        b(ac);
+        c(ac);
+        e(ac);
+        j1 = 0;
+_L8:
+        if(j1 >= i.length)
+            break; /* Loop/switch isn't completed */
+        -1;
+        if(i2 != 0) goto _L2; else goto _L1
+_L1:
+        int k1;
+        k1;
+_L4:
+        char ac1[];
+        int l1;
+        if((k1 = s.indexOf(i[j1], k1 + 1)) == -1)
+            break; /* Loop/switch isn't completed */
+        ac1 = i[j1].toCharArray();
+        l1 = 0;
+_L6:
+        if(l1 >= ac1.length) goto _L4; else goto _L3
+_L3:
+        ac[l1 + k1] = ac1[l1];
+        l1++;
+        if(i2 != 0 || i2 != 0)
+            continue; /* Loop/switch isn't completed */
+        if(i2 == 0) goto _L6; else goto _L5
+_L5:
+        j1++;
+        if(i2 == 0) goto _L8; else goto _L7
+_L7:
+        c;
+_L2:
+        JVM INSTR ifeq 148;
+           goto _L9 _L10
+_L9:
+        break MISSING_BLOCK_LABEL_136;
+_L10:
+        break MISSING_BLOCK_LABEL_148;
+        a(s.toCharArray(), ac);
+        a(ac);
+        return new String(ac);
+    }
+
+    public static void a(char ac[], char ac1[])
+    {
+        int i1 = 0;
+        do
+        {
+            if(i1 >= ac.length)
+                break;
+            if(ac1[i1] != '*' && g(ac[i1]))
+                ac1[i1] = ac[i1];
+            i1++;
+        } while(bb.Q == 0);
+    }
+
+    public static void a(char ac[])
+    {
+        int k1 = bb.Q;
+        int i1 = q.A;
+        boolean flag = true;
+        int j1 = 0;
+label0:
+        do
+        {
+label1:
+            {
+                if(j1 >= ac.length)
+                    break label0;
+                char c1 = ac[j1];
+                if(d(c1))
+                {
+                    if(flag)
+                    {
+                        if(!f(c1))
+                            break label1;
+                        flag = false;
+                        if(k1 == 0)
+                            break label1;
+                    }
+                    if(!g(c1))
+                        break label1;
+                    ac[j1] = (char)((c1 + 97) - 65);
+                    if(k1 == 0)
+                        break label1;
+                }
+                flag = true;
+            }
+            j1++;
+        } while(k1 == 0);
+    }
+
+    public static void b(char ac[])
+    {
+        int l1 = bb.Q;
+        int i1 = q.A;
+        int j1 = 0;
+label0:
+        do
+        {
+            if(j1 >= 2)
+                break;
+            int k1 = f.length - 1;
+            do
+            {
+                if(k1 < 0)
+                    break;
+                a(ac, f[k1], d[k1]);
+                k1--;
+                if(l1 != 0)
+                    continue label0;
+            } while(l1 == 0);
+            j1++;
+        } while(l1 == 0);
+    }
+
+    public static void c(char ac[])
+    {
+        int i1 = g.length - 1;
+        do
+        {
+            if(i1 < 0)
+                break;
+            a(ac, g[i1], e[i1]);
+            i1--;
+        } while(bb.Q == 0);
+    }
+
+    public static void d(char ac[])
+    {
+        char ac1[] = (char[])ac.clone();
+        char ac2[] = {
+            'd', 'o', 't'
+        };
+        a(ac1, ac2, (byte[][])null);
+        char ac3[] = (char[])ac.clone();
+        char ac4[] = {
+            's', 'l', 'a', 's', 'h'
+        };
+        a(ac3, ac4, (byte[][])null);
+        int i1 = 0;
+        do
+        {
+            if(i1 >= h.length)
+                break;
+            a(ac, ac1, ac3, h[i1], l[i1]);
+            i1++;
+        } while(bb.Q == 0);
+    }
+
+    public static void a(char ac[], char ac1[], char ac2[], char ac3[], int i1)
+    {
+        int k1;
+        int j4;
+        j4 = bb.Q;
+        int j1 = q.A;
+        if(ac3.length > ac.length)
+            return;
+        k1 = 0;
+_L32:
+        int l1;
+        int i2;
+        if(k1 > ac.length - ac3.length)
+            break; /* Loop/switch isn't completed */
+        l1 = k1;
+        i2 = 0;
+_L6:
+        int l2;
+        int i3;
+        if(l1 >= ac.length)
+            break; /* Loop/switch isn't completed */
+        boolean flag = false;
+        l2 = ac[l1];
+        i3 = 0;
+        l1 + 1;
+        ac.length;
+        if(j4 != 0) goto _L2; else goto _L1
+_L1:
+        JVM INSTR icmpge 79;
+           goto _L3 _L4
+_L3:
+        break MISSING_BLOCK_LABEL_71;
+_L4:
+        break MISSING_BLOCK_LABEL_79;
+        i3 = ac[l1 + 1];
+        int j2;
+        if(i2 >= ac3.length || (j2 = a(ac3[i2], l2, i3)) <= 0)
+            break; /* Loop/switch isn't completed */
+        l1 += j2;
+        i2++;
+        if(j4 == 0) goto _L6; else goto _L5
+_L5:
+        if(i2 == 0 && j4 == 0)
+            break; /* Loop/switch isn't completed */
+        int k2;
+        if((k2 = a(ac3[i2 - 1], l2, i3)) <= 0)
+            break; /* Loop/switch isn't completed */
+        l1 += k2;
+        if(j4 == 0) goto _L6; else goto _L7
+_L7:
+        if(i2 >= ac3.length || !b(l2) && j4 == 0)
+            break; /* Loop/switch isn't completed */
+        l1++;
+        if(j4 == 0) goto _L6; else goto _L8
+_L8:
+        i2;
+        ac3.length;
+_L2:
+        JVM INSTR icmplt 815;
+           goto _L9 _L10
+_L9:
+        break MISSING_BLOCK_LABEL_194;
+_L10:
+        break MISSING_BLOCK_LABEL_815;
+        int j3;
+        int k3;
+        boolean flag1 = false;
+        l2 = a(ac, ac1, k1);
+        i3 = b(ac, ac2, l1 - 1);
+        if(a)
+            System.out.println(z[10] + ac3 + z[2] + k1 + z[9] + i1 + z[8] + l2 + z[6] + i3 + ")");
+        if(i1 == 1 && l2 > 0 && i3 > 0)
+            flag1 = true;
+        if(i1 == 2 && (l2 > 2 && i3 > 0 || l2 > 0 && i3 > 2))
+            flag1 = true;
+        if(i1 == 3 && l2 > 0 && i3 > 2)
+            flag1 = true;
+        boolean flag2 = i1 == 3 && l2 > 2 && i3 > 0;
+        if(!flag1)
+            break MISSING_BLOCK_LABEL_815;
+        if(a)
+            System.out.println(z[7] + ac3 + z[2] + k1);
+        j3 = k1;
+        k3 = l1 - 1;
+        if(l2 <= 2) goto _L12; else goto _L11
+_L11:
+        if(l2 != 4) goto _L14; else goto _L13
+_L13:
+        boolean flag3;
+        int i4;
+        flag3 = false;
+        i4 = j3 - 1;
+_L17:
+        if(i4 < 0)
+            break; /* Loop/switch isn't completed */
+        flag3;
+        if(j4 != 0) goto _L16; else goto _L15
+_L15:
+label0:
+        {
+            if(flag3)
+            {
+                if(ac1[i4] != '*' && j4 == 0)
+                    break; /* Loop/switch isn't completed */
+                j3 = i4;
+                if(j4 == 0)
+                    break label0;
+            }
+            if(ac1[i4] == '*')
+            {
+                j3 = i4;
+                flag3 = true;
+            }
+        }
+        i4--;
+        if(j4 == 0) goto _L17; else goto _L14
+_L14:
+        flag3 = false;
+        j3 - 1;
+_L16:
+        i4;
+_L20:
+        if(i4 < 0)
+            break; /* Loop/switch isn't completed */
+        flag3;
+        if(j4 != 0) goto _L19; else goto _L18
+_L18:
+label1:
+        {
+            if(flag3)
+            {
+                if(b(ac[i4]) && j4 == 0)
+                    break; /* Loop/switch isn't completed */
+                j3 = i4;
+                if(j4 == 0)
+                    break label1;
+            }
+            if(!b(ac[i4]))
+            {
+                flag3 = true;
+                j3 = i4;
+            }
+        }
+        i4--;
+        if(j4 == 0) goto _L20; else goto _L12
+_L12:
+        i3;
+_L19:
+        2;
+        JVM INSTR icmple 785;
+           goto _L21 _L22
+_L21:
+        if(i3 != 4) goto _L24; else goto _L23
+_L23:
+        flag3 = false;
+        i4 = k3 + 1;
+_L27:
+        if(i4 >= ac.length)
+            break; /* Loop/switch isn't completed */
+        flag3;
+        if(j4 != 0) goto _L26; else goto _L25
+_L25:
+label2:
+        {
+            if(flag3)
+            {
+                if(ac2[i4] != '*' && j4 == 0)
+                    break; /* Loop/switch isn't completed */
+                k3 = i4;
+                if(j4 == 0)
+                    break label2;
+            }
+            if(ac2[i4] == '*')
+            {
+                k3 = i4;
+                flag3 = true;
+            }
+        }
+        i4++;
+        if(j4 == 0) goto _L27; else goto _L24
+_L24:
+        flag3 = false;
+        k3 + 1;
+_L26:
+        i4;
+_L30:
+        if(i4 >= ac.length)
+            break; /* Loop/switch isn't completed */
+        flag3;
+        if(j4 != 0) goto _L29; else goto _L28
+_L28:
+label3:
+        {
+            if(flag3)
+            {
+                if(b(ac[i4]) && j4 == 0)
+                    break; /* Loop/switch isn't completed */
+                k3 = i4;
+                if(j4 == 0)
+                    break label3;
+            }
+            if(!b(ac[i4]))
+            {
+                flag3 = true;
+                k3 = i4;
+            }
+        }
+        i4++;
+        if(j4 == 0) goto _L30; else goto _L22
+_L22:
+        j3;
+_L29:
+        int l3;
+        l3;
+        do
+        {
+            if(l3 > k3)
+                break;
+            ac[l3] = '*';
+            l3++;
+            if(j4 != 0)
+                continue; /* Loop/switch isn't completed */
+        } while(j4 == 0);
+        k1++;
+        if(j4 == 0) goto _L32; else goto _L31
+_L31:
+    }
+
+    public static int a(char ac[], char ac1[], int i1)
+    {
+        int k1;
+        int i2;
+        i2 = bb.Q;
+        int j1 = q.A;
+        if(i1 == 0)
+            return 2;
+        k1 = i1 - 1;
+_L6:
+        if(k1 < 0)
+            break; /* Loop/switch isn't completed */
+        b(ac[k1]);
+        if(i2 != 0) goto _L2; else goto _L1
+_L1:
+        JVM INSTR ifne 45;
+           goto _L3 _L4
+_L3:
+        break MISSING_BLOCK_LABEL_40;
+_L4:
+        break MISSING_BLOCK_LABEL_45;
+        if(i2 == 0)
+            break; /* Loop/switch isn't completed */
+        if(ac[k1] == ',' || ac[k1] == '.')
+            return 3;
+        k1--;
+        if(i2 == 0) goto _L6; else goto _L5
+_L5:
+        k1 = 0;
+        i1 - 1;
+_L2:
+        int l1;
+        l1;
+_L12:
+        if(l1 < 0)
+            break; /* Loop/switch isn't completed */
+        b(ac1[l1]);
+        if(i2 != 0) goto _L8; else goto _L7
+_L7:
+        JVM INSTR ifne 106;
+           goto _L9 _L10
+_L9:
+        break MISSING_BLOCK_LABEL_101;
+_L10:
+        break MISSING_BLOCK_LABEL_106;
+        if(i2 == 0)
+            break; /* Loop/switch isn't completed */
+        if(ac1[l1] == '*')
+            k1++;
+        l1--;
+        if(i2 == 0) goto _L12; else goto _L11
+_L11:
+        k1;
+_L8:
+        3;
+        JVM INSTR icmplt 134;
+           goto _L13 _L14
+_L13:
+        break MISSING_BLOCK_LABEL_132;
+_L14:
+        break MISSING_BLOCK_LABEL_134;
+        return 4;
+        return b(ac[i1 - 1]) ? 1 : 0;
+    }
+
+    public static int b(char ac[], char ac1[], int i1)
+    {
+        int k1;
+        int i2;
+        i2 = bb.Q;
+        int j1 = q.A;
+        if(i1 + 1 == ac.length)
+            return 2;
+        k1 = i1 + 1;
+_L6:
+        if(k1 >= ac.length)
+            break; /* Loop/switch isn't completed */
+        b(ac[k1]);
+        if(i2 != 0) goto _L2; else goto _L1
+_L1:
+        JVM INSTR ifne 51;
+           goto _L3 _L4
+_L3:
+        break MISSING_BLOCK_LABEL_46;
+_L4:
+        break MISSING_BLOCK_LABEL_51;
+        if(i2 == 0)
+            break; /* Loop/switch isn't completed */
+        if(ac[k1] == '\\' || ac[k1] == '/')
+            return 3;
+        k1++;
+        if(i2 == 0) goto _L6; else goto _L5
+_L5:
+        k1 = 0;
+        i1 + 1;
+_L2:
+        int l1;
+        l1;
+_L12:
+        if(l1 >= ac.length)
+            break; /* Loop/switch isn't completed */
+        b(ac1[l1]);
+        if(i2 != 0) goto _L8; else goto _L7
+_L7:
+        JVM INSTR ifne 114;
+           goto _L9 _L10
+_L9:
+        break MISSING_BLOCK_LABEL_109;
+_L10:
+        break MISSING_BLOCK_LABEL_114;
+        if(i2 == 0)
+            break; /* Loop/switch isn't completed */
+        if(ac1[l1] == '*')
+            k1++;
+        l1++;
+        if(i2 == 0) goto _L12; else goto _L11
+_L11:
+        k1;
+_L8:
+        5;
+        JVM INSTR icmplt 142;
+           goto _L13 _L14
+_L13:
+        break MISSING_BLOCK_LABEL_140;
+_L14:
+        break MISSING_BLOCK_LABEL_142;
+        return 4;
+        return b(ac[i1 + 1]) ? 1 : 0;
+    }
+
+    public static void a(char ac[], char ac1[], byte abyte0[][])
+    {
+        int j1;
+        int j3;
+        j3 = bb.Q;
+        int i1 = q.A;
+        if(ac1.length > ac.length)
+            return;
+        j1 = 0;
+_L25:
+        j1;
+        ac.length - ac1.length;
+_L14:
+        JVM INSTR icmpgt 730;
+           goto _L1 _L2
+_L1:
+        break MISSING_BLOCK_LABEL_30;
+_L2:
+        break; /* Loop/switch isn't completed */
+        int k1;
+        int l1;
+        boolean flag;
+        k1 = j1;
+        l1 = 0;
+        flag = false;
+_L8:
+        char c1;
+        char c3;
+        if(k1 >= ac.length)
+            break; /* Loop/switch isn't completed */
+        boolean flag1 = false;
+        c1 = ac[k1];
+        c3 = '\0';
+        k1 + 1;
+        ac.length;
+        if(j3 != 0) goto _L4; else goto _L3
+_L3:
+        JVM INSTR icmpge 81;
+           goto _L5 _L6
+_L5:
+        break MISSING_BLOCK_LABEL_73;
+_L6:
+        break MISSING_BLOCK_LABEL_81;
+        c3 = ac[k1 + 1];
+        int i2;
+        if(l1 >= ac1.length || (i2 = b(ac1[l1], c1, c3)) <= 0)
+            break; /* Loop/switch isn't completed */
+        k1 += i2;
+        l1++;
+        if(j3 == 0) goto _L8; else goto _L7
+_L7:
+        if(l1 == 0 && j3 == 0)
+            break; /* Loop/switch isn't completed */
+        int j2;
+        if((j2 = b(ac1[l1 - 1], c1, c3)) <= 0)
+            break; /* Loop/switch isn't completed */
+        k1 += j2;
+        if(j3 == 0) goto _L8; else goto _L9
+_L9:
+        if(l1 >= ac1.length || !c(c1) && j3 == 0)
+            break; /* Loop/switch isn't completed */
+        if(b(c1) && c1 != '\'')
+            flag = true;
+        k1++;
+        if(j3 == 0) goto _L8; else goto _L10
+_L10:
+        l1;
+        ac1.length;
+_L4:
+        JVM INSTR icmplt 722;
+           goto _L11 _L12
+_L11:
+        break MISSING_BLOCK_LABEL_214;
+_L12:
+        break MISSING_BLOCK_LABEL_722;
+        boolean flag2;
+        boolean flag5;
+        int l2;
+        flag2 = true;
+        if(a)
+            System.out.println(z[3] + ac1 + z[2] + j1);
+        if(!flag)
+        {
+            char c2 = ' ';
+            if(j1 - 1 >= 0)
+                c2 = ac[j1 - 1];
+            char c4 = ' ';
+            if(k1 < ac.length)
+                c4 = ac[k1];
+            byte byte0 = a(c2);
+            byte byte1 = a(c4);
+            if(abyte0 == null || !a(abyte0, byte0, byte1))
+                break MISSING_BLOCK_LABEL_640;
+            flag2 = false;
+            if(j3 == 0)
+                break MISSING_BLOCK_LABEL_640;
+        }
+        boolean flag3 = false;
+        boolean flag4 = false;
+        if(j1 - 1 < 0 || b(ac[j1 - 1]) && ac[j1 - 1] != '\'')
+            flag3 = true;
+        if(k1 >= ac.length || b(ac[k1]) && ac[k1] != '\'')
+            flag4 = true;
+        if(flag3 && flag4)
+            break MISSING_BLOCK_LABEL_640;
+        flag5 = false;
+        l2 = j1 - 2;
+        if(flag3)
+            l2 = j1;
+_L23:
+        if(flag5)
+            break; /* Loop/switch isn't completed */
+        l2;
+        k1;
+        if(j3 != 0) goto _L14; else goto _L13
+_L13:
+        JVM INSTR icmpge 632;
+           goto _L15 _L16
+_L15:
+        break MISSING_BLOCK_LABEL_455;
+_L16:
+        break; /* Loop/switch isn't completed */
+        char ac2[];
+        int i3;
+        if(l2 < 0 || b(ac[l2]) && ac[l2] != '\'')
+            break MISSING_BLOCK_LABEL_624;
+        ac2 = new char[3];
+        i3 = 0;
+_L21:
+        if(i3 >= 3)
+            break; /* Loop/switch isn't completed */
+        l2 + i3;
+        ac.length;
+        if(j3 != 0) goto _L14; else goto _L17
+_L17:
+        JVM INSTR icmpge 558;
+           goto _L18 _L19
+_L18:
+        break MISSING_BLOCK_LABEL_508;
+_L19:
+        break; /* Loop/switch isn't completed */
+        if(b(ac[l2 + i3]) && ac[l2 + i3] != '\'' && j3 == 0)
+            break; /* Loop/switch isn't completed */
+        ac2[i3] = ac[l2 + i3];
+        i3++;
+        if(j3 == 0) goto _L21; else goto _L20
+_L20:
+        boolean flag6 = true;
+        if(i3 == 0)
+            flag6 = false;
+        if(i3 < 3 && l2 - 1 >= 0 && (!b(ac[l2 - 1]) || ac[l2 - 1] == '\''))
+            flag6 = false;
+        if(flag6 && !f(ac2))
+            flag5 = true;
+        l2++;
+        if(j3 == 0) goto _L23; else goto _L22
+_L22:
+        if(!flag5)
+            flag2 = false;
+        if(flag2)
+        {
+            if(b)
+                System.out.println(z[1] + ac1 + z[2] + j1);
+            int k2 = j1;
+            do
+            {
+                if(k2 >= k1)
+                    break;
+                ac[k2] = '*';
+                k2++;
+                if(j3 != 0)
+                    continue; /* Loop/switch isn't completed */
+            } while(j3 == 0);
+        }
+        j1++;
+        if(j3 == 0) goto _L25; else goto _L24
+_L24:
+    }
+
+    public static boolean a(byte abyte0[][], byte byte0, byte byte1)
+    {
+        int i1;
+        int j1;
+        int l1;
+        l1 = bb.Q;
+        i1 = 0;
+        if(abyte0[i1][0] == byte0 && abyte0[i1][1] == byte1)
+            return true;
+        j1 = abyte0.length - 1;
+        if(abyte0[j1][0] == byte0 && abyte0[j1][1] == byte1)
+            return true;
+_L4:
+        int k1;
+        k1 = (i1 + j1) / 2;
+        if(abyte0[k1][0] == byte0 && abyte0[k1][1] == byte1)
+            return true;
+        byte0;
+_L6:
+        abyte0[k1][0];
+        JVM INSTR icmplt 115;
+           goto _L1 _L2
+_L1:
+        break MISSING_BLOCK_LABEL_95;
+_L2:
+        break MISSING_BLOCK_LABEL_115;
+        if(byte0 != abyte0[k1][0] || byte1 >= abyte0[k1][1])
+            break MISSING_BLOCK_LABEL_124;
+        j1 = k1;
+        if(l1 == 0)
+            continue; /* Loop/switch isn't completed */
+        i1 = k1;
+        if(i1 != j1 && i1 + 1 != j1) goto _L4; else goto _L3
+_L3:
+        false;
+        if(l1 != 0) goto _L6; else goto _L5
+_L5:
+        return;
+    }
+
+    public static int a(char c1, char c2, char c3)
+    {
+        if(c1 == c2)
+            return 1;
+        if(c1 == 'e' && c2 == '3')
+            return 1;
+        if(c1 == 't' && (c2 == '7' || c2 == '+'))
+            return 1;
+        if(c1 == 'a' && (c2 == '4' || c2 == '@'))
+            return 1;
+        if(c1 == 'o' && c2 == '0')
+            return 1;
+        if(c1 == 'i' && c2 == '1')
+            return 1;
+        if(c1 == 's' && c2 == '5')
+            return 1;
+        if(c1 == 'f' && c2 == 'p' && c3 == 'h')
+            return 2;
+        else
+            return c1 == 'g' && c2 == '9' ? 1 : 0;
+    }
+
+    public static int b(char c1, char c2, char c3)
+    {
+        if(c1 == '*')
+            return 0;
+        if(c1 == c2)
+            return 1;
+        if(c1 >= 'a' && c1 <= 'z')
+        {
+            if(c1 == 'e')
+                return c2 == '3' ? 1 : 0;
+            if(c1 == 't')
+                return c2 == '7' ? 1 : 0;
+            if(c1 == 'a')
+                return c2 == '4' || c2 == '@' ? 1 : 0;
+            if(c1 == 'o')
+                if(c2 == '0' || c2 == '*')
+                    return 1;
+                else
+                    return c2 == '(' && c3 == ')' ? 2 : 0;
+            if(c1 == 'i')
+                return c2 == 'y' || c2 == 'l' || c2 == 'j' || c2 == '1' || c2 == '!' || c2 == ':' || c2 == ';' ? 1 : 0;
+            if(c1 == 'n')
+                return 0;
+            if(c1 == 's')
+                return c2 == '5' || c2 == 'z' || c2 == '$' ? 1 : 0;
+            if(c1 == 'r')
+                return 0;
+            if(c1 == 'h')
+                return 0;
+            if(c1 == 'l')
+                return c2 == '1' ? 1 : 0;
+            if(c1 == 'd')
+                return 0;
+            if(c1 == 'c')
+                return c2 == '(' ? 1 : 0;
+            if(c1 == 'u')
+                return c2 == 'v' ? 1 : 0;
+            if(c1 == 'm')
+                return 0;
+            if(c1 == 'f')
+                return c2 == 'p' && c3 == 'h' ? 2 : 0;
+            if(c1 == 'p')
+                return 0;
+            if(c1 == 'g')
+                return c2 == '9' || c2 == '6' ? 1 : 0;
+            if(c1 == 'w')
+                return c2 == 'v' && c3 == 'v' ? 2 : 0;
+            if(c1 == 'y')
+                return 0;
+            if(c1 == 'b')
+                return c2 == '1' && c3 == '3' ? 2 : 0;
+            if(c1 == 'v')
+                return 0;
+            if(c1 == 'k')
+                return 0;
+            if(c1 == 'x')
+                return c2 == ')' && c3 == '(' ? 2 : 0;
+            if(c1 == 'j')
+                return 0;
+            if(c1 == 'q')
+                return 0;
+            if(c1 == 'z')
+                return 0;
+        }
+        if(c1 >= '0' && c1 <= '9')
+        {
+            if(c1 == '0')
+                if(c2 == 'o' || c2 == 'O')
+                    return 1;
+                else
+                    return c2 == '(' && c3 == ')' ? 2 : 0;
+            if(c1 == '1')
+                return c2 == 'l' ? 1 : 0;
+            if(c1 == '2')
+                return 0;
+            if(c1 == '3')
+                return 0;
+            if(c1 == '4')
+                return 0;
+            if(c1 == '5')
+                return 0;
+            if(c1 == '6')
+                return 0;
+            if(c1 == '7')
+                return 0;
+            if(c1 == '8')
+                return 0;
+            if(c1 == '9')
+                return 0;
+        }
+        if(c1 == '-')
+            return 0;
+        if(c1 == ',')
+            return c2 == '.' ? 1 : 0;
+        if(c1 == '.')
+            return c2 == ',' ? 1 : 0;
+        if(c1 == '(')
+            return 0;
+        if(c1 == ')')
+            return 0;
+        if(c1 == '!')
+            return c2 == 'i' ? 1 : 0;
+        if(c1 == '\'')
+            return 0;
+        if(b)
+            System.out.println(z[4] + c1 + z[5]);
+        return 0;
+    }
+
+    public static byte a(char c1)
+    {
+        if(c1 >= 'a' && c1 <= 'z')
+            return (byte)((c1 - 97) + 1);
+        if(c1 == '\'')
+            return 28;
+        if(c1 >= '0' && c1 <= '9')
+            return (byte)((c1 - 48) + 29);
+        else
+            return 27;
+    }
+
+    public static void e(char ac[])
+    {
+        int k1;
+        int l1;
+        int i2;
+        int j3;
+        j3 = bb.Q;
+        int i1 = q.A;
+        boolean flag = false;
+        k1 = 0;
+        l1 = 0;
+        i2 = 0;
+_L10:
+        int j1 = a(ac, k1);
+        -1;
+_L4:
+        JVM INSTR icmpeq 220;
+           goto _L1 _L2
+_L1:
+        break MISSING_BLOCK_LABEL_30;
+_L2:
+        break; /* Loop/switch isn't completed */
+        boolean flag1;
+        int j2;
+        flag1 = false;
+        j2 = k1;
+_L8:
+        if(j2 < 0)
+            break; /* Loop/switch isn't completed */
+        j2;
+        j1;
+        if(j3 != 0) goto _L4; else goto _L3
+_L3:
+        JVM INSTR icmpge 88;
+           goto _L5 _L6
+_L5:
+        break MISSING_BLOCK_LABEL_52;
+_L6:
+        break; /* Loop/switch isn't completed */
+        if(flag1)
+            break; /* Loop/switch isn't completed */
+        if(!b(ac[j2]) && !c(ac[j2]))
+            flag1 = true;
+        j2++;
+        if(j3 == 0) goto _L8; else goto _L7
+_L7:
+label0:
+        {
+label1:
+            {
+                if(flag1)
+                    l1 = 0;
+                if(l1 == 0)
+                    i2 = j1;
+                k1 = b(ac, j1);
+                int k2 = 0;
+                int l2 = j1;
+                do
+                {
+                    if(l2 >= k1)
+                        break;
+                    k2 = (k2 * 10 + ac[l2]) - 48;
+                    l2++;
+                    if(j3 != 0)
+                        break label1;
+                } while(j3 == 0);
+                if(k2 <= 255 && k1 - j1 <= 8)
+                    break label0;
+                l1 = 0;
+            }
+            if(j3 == 0)
+                continue; /* Loop/switch isn't completed */
+        }
+        l1++;
+        if(l1 != 4) goto _L10; else goto _L9
+_L9:
+        int i3 = i2;
+        do
+        {
+            if(i3 >= k1)
+                break;
+            ac[i3] = '*';
+            i3++;
+            if(j3 != 0)
+                continue; /* Loop/switch isn't completed */
+        } while(j3 == 0);
+        l1 = 0;
+        if(j3 == 0) goto _L10; else goto _L11
+_L11:
+    }
+
+    public static int a(char ac[], int i1)
+    {
+        int j1;
+        int k1;
+        k1 = bb.Q;
+        j1 = i1;
+_L4:
+        if(j1 >= ac.length)
+            break; /* Loop/switch isn't completed */
+        j1;
+        if(k1 != 0) goto _L2; else goto _L1
+_L1:
+        if(j1 < 0)
+            break; /* Loop/switch isn't completed */
+        if(ac[j1] >= '0' && ac[j1] <= '9')
+            return j1;
+        j1++;
+        if(k1 == 0) goto _L4; else goto _L3
+_L3:
+        -1;
+_L2:
+        return;
+    }
+
+    public static int b(char ac[], int i1)
+    {
+        int j1;
+        int k1;
+        k1 = bb.Q;
+        j1 = i1;
+_L4:
+        if(j1 >= ac.length)
+            break; /* Loop/switch isn't completed */
+        j1;
+        if(k1 != 0) goto _L2; else goto _L1
+_L1:
+        if(j1 < 0)
+            break; /* Loop/switch isn't completed */
+        if(ac[j1] < '0' || ac[j1] > '9')
+            return j1;
+        j1++;
+        if(k1 == 0) goto _L4; else goto _L3
+_L3:
+        ac.length;
+_L2:
+        return;
+    }
+
+    public static boolean b(char c1)
+    {
+        return !d(c1) && !e(c1);
+    }
+
+    public static boolean c(char c1)
+    {
+        if(c1 < 'a' || c1 > 'z')
+            return true;
+        else
+            return c1 == 'v' || c1 == 'x' || c1 == 'j' || c1 == 'q' || c1 == 'z';
+    }
+
+    public static boolean d(char c1)
+    {
+        return c1 >= 'a' && c1 <= 'z' || c1 >= 'A' && c1 <= 'Z';
+    }
+
+    public static boolean e(char c1)
+    {
+        return c1 >= '0' && c1 <= '9';
+    }
+
+    public static boolean f(char c1)
+    {
+        return c1 >= 'a' && c1 <= 'z';
+    }
+
+    public static boolean g(char c1)
+    {
+        return c1 >= 'A' && c1 <= 'Z';
+    }
+
+    public static boolean f(char ac[])
+    {
+        boolean flag;
+        int j1;
+        int j2;
+        j2 = bb.Q;
+        int i1 = q.A;
+        flag = true;
+        j1 = 0;
+_L6:
+        if(j1 >= ac.length)
+            break; /* Loop/switch isn't completed */
+        e(ac[j1]);
+        if(j2 != 0) goto _L2; else goto _L1
+_L1:
+        JVM INSTR ifne 41;
+           goto _L3 _L4
+_L3:
+        break MISSING_BLOCK_LABEL_33;
+_L4:
+        break MISSING_BLOCK_LABEL_41;
+        if(ac[j1] != 0)
+            flag = false;
+        j1++;
+        if(j2 == 0) goto _L6; else goto _L5
+_L5:
+        flag;
+_L2:
+        JVM INSTR ifeq 55;
+           goto _L7 _L8
+_L7:
+        break MISSING_BLOCK_LABEL_53;
+_L8:
+        break MISSING_BLOCK_LABEL_55;
+        return true;
+        int k1;
+        int l1;
+        j1 = g(ac);
+        k1 = 0;
+        l1 = k.length - 1;
+        if(j1 == k[k1] || j1 == k[l1])
+            return true;
+_L12:
+        int i2;
+        i2 = (k1 + l1) / 2;
+        if(j1 == k[i2])
+            return true;
+        j1;
+_L14:
+        k[i2];
+        JVM INSTR icmpge 133;
+           goto _L9 _L10
+_L9:
+        break MISSING_BLOCK_LABEL_124;
+_L10:
+        break MISSING_BLOCK_LABEL_133;
+        l1 = i2;
+        if(j2 == 0)
+            continue; /* Loop/switch isn't completed */
+        k1 = i2;
+        if(k1 != l1 && k1 + 1 != l1) goto _L12; else goto _L11
+_L11:
+        false;
+        if(j2 != 0) goto _L14; else goto _L13
+_L13:
+        return;
+    }
+
+    public static int g(char ac[])
+    {
+        int j1;
+        int k1;
+        int l1;
+        l1 = bb.Q;
+        int i1 = q.A;
+        if(ac.length > 6)
+            return 0;
+        j1 = 0;
+        k1 = 0;
+_L6:
+        char c1;
+        if(k1 >= ac.length)
+            break; /* Loop/switch isn't completed */
+        c1 = ac[ac.length - k1 - 1];
+        c1;
+        if(l1 != 0) goto _L2; else goto _L1
+_L1:
+        'a';
+        JVM INSTR icmplt 75;
+           goto _L3 _L4
+_L3:
+        break MISSING_BLOCK_LABEL_50;
+_L4:
+        break MISSING_BLOCK_LABEL_75;
+        if(c1 <= 'z')
+        {
+            j1 = j1 * 38 + ((c1 - 97) + 1);
+            if(l1 == 0)
+                break MISSING_BLOCK_LABEL_176;
+        }
+        if(c1 == '\'')
+        {
+            j1 = j1 * 38 + 27;
+            if(l1 == 0)
+                break MISSING_BLOCK_LABEL_176;
+        }
+        if(c1 >= '0' && c1 <= '9')
+        {
+            j1 = j1 * 38 + ((c1 - 48) + 28);
+            if(l1 == 0)
+                break MISSING_BLOCK_LABEL_176;
+        }
+        if(c1 != 0)
+        {
+            if(b)
+                System.out.println(z[0] + new String(ac));
+            return 0;
+        }
+        k1++;
+        if(l1 == 0) goto _L6; else goto _L5
+_L5:
+        j1;
+_L2:
+        return;
+    }
+
+    private static char[] z(String s)
+    {
+        char ac[] = s.toCharArray();
+        ac;
+        ac;
+_L4:
+        JVM INSTR arraylength .length;
+        JVM INSTR dup_x1 ;
+        2;
+        JVM INSTR icmpge 24;
+           goto _L1 _L2
+_L1:
+        JVM INSTR dup_x1 ;
+        JVM INSTR swap ;
+        JVM INSTR ifeq 5;
+           goto _L3 _L4
+_L3:
+        0;
+        JVM INSTR dup_x2 ;
+        JVM INSTR dup2 ;
+        JVM INSTR caload ;
+        2;
+        JVM INSTR ixor ;
+        (char);
+        JVM INSTR castore ;
+_L2:
+        return;
+    }
+
+    private static String z(char ac[])
+    {
+        ac;
+        ac.length;
+        JVM INSTR swap ;
+        int i1 = 0;
+        JVM INSTR swap ;
+        JVM INSTR dup_x1 ;
+        1;
+        JVM INSTR icmpgt 84;
+           goto _L1 _L2
+_L1:
+        JVM INSTR dup ;
+        i1;
+_L10:
+        JVM INSTR dup2 ;
+        JVM INSTR caload ;
+        i1 % 5;
+        byte byte0;
+        JVM INSTR tableswitch 0 3: default 67
+    //                   0 48
+    //                   1 53
+    //                   2 57
+    //                   3 62;
+           goto _L3 _L4 _L5 _L6 _L7
+_L4:
+        byte0 = 0x20;
+          goto _L8
+_L5:
+        byte0 = 4;
+          goto _L8
+_L6:
+        byte0 = 62;
+          goto _L8
+_L7:
+        byte0 = 78;
+          goto _L8
+_L3:
+        byte0 = 2;
+_L8:
+        byte0;
+        JVM INSTR ixor ;
+        (char);
+        JVM INSTR castore ;
+        i1++;
+        JVM INSTR swap ;
+        JVM INSTR dup_x1 ;
+        JVM INSTR ifne 84;
+           goto _L9 _L2
+_L9:
+        JVM INSTR dup2 ;
+        JVM INSTR swap ;
+          goto _L10
+_L2:
+        JVM INSTR swap ;
+        JVM INSTR dup_x1 ;
+        i1;
+        JVM INSTR icmpgt 12;
+           goto _L11 _L1
+_L11:
+        JVM INSTR new #30  <Class String>;
+        JVM INSTR dup_x1 ;
+        JVM INSTR swap ;
+        String();
+        intern();
+        return;
+    }
+
+    static boolean a;
+    static boolean b;
+    static boolean c = true;
+    static byte d[][][];
+    static byte e[][][];
+    static char f[][];
+    static char g[][];
+    static char h[][];
+    static String i[];
+    static int j = 3;
+    static int k[];
+    static int l[];
+    private static String z[];
+
+    static 
+    {
+        String as[] = new String[11];
+        as[0] = "WkL*0HeM&\"FeW\"gD$Q \"";
+        as[1] = "fmR:gRaZnuOvZt\"";
+        as[2] = "\000eJnaHeLn";
+        as[3] = "pkJ+lTm_\"\"WkL*8\0";
+        as[4] = "laJ:gR9";
+        as[5] = "\000jQ:\"MeJ-jE`";
+        as[6] = "\f$[ fMeJ-j\035";
+        as[7] = "fmR:gRaZnvL`\004n";
+        as[8] = "\f$M:cRpS/vCl\003";
+        as[9] = "\000,J7rE9";
+        as[10] = z(z("pkJ+lTm_\"\"ThZt\""));
+        z = as;
+        String as1[] = new String[5];
+        as1[0] = "CkQ%";
+        as1[1] = "CkQ%%S";
+        as1[2] = "CkQ%q";
+        as1[3] = "Sa[%q";
+        as1[4] = z(z("Sl[+v"));
+        i = as1;
+    }
+}
