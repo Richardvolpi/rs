@@ -1,0 +1,45 @@
+<project name="Apello" default="compile" basedir=".">
+    <property name="build.dir" location="build" />
+    <property name="src.dir" location="src" />
+    <property name="plugin.dir" location="plugins" />
+
+    <description>
+        Apello - A Scriptable IRC Bot
+    </description>
+
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${src.dir}" />
+        <mkdir dir="${plugin.dir}" />
+    </target>
+
+    <target name="compile" depends="init"> 
+        <javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" target="1.5" source="5">
+            <classpath>
+                <pathelement location="lib/mysql-connector.jar" />
+                <pathelement path="${java.class.path}/"/>
+            </classpath>
+        </javac>
+        <javac srcdir="${plugin.dir}" destdir="${plugin.dir}" debug="on" target="1.5" source="5">
+            <classpath>
+                <pathelement location="lib/mysql-connector.jar" />
+                <pathelement path="${java.class.path}/"/>
+                <pathelement path="${build.dir}/"/>
+            </classpath>
+        </javac>
+    </target> 
+    
+    <target name="run" description="Run Apello">
+        <java classname="org.apello.Apello" fork="true">
+            <classpath>
+                <pathelement location="lib/mysql-connector.jar" />
+                <pathelement path="${build.dir}"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.dir}" />
+    </target>
+</project>

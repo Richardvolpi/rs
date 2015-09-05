@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <!-- Connection Settings -->
+    <entry key="server">irc.securitychat.org</entry>
+    <entry key="port">6667</entry>
+    <entry key="server-password"></entry>
+    
+    <!-- Desired bot nickname on the server
+         values: string, no spaces
+         default value: "aPello"
+    -->
+    <entry key="nick">aPello</entry>
+    
+    <!-- Desired bot "realname" or "username", also known as ident
+         values: any string, no spaces
+         default value: "ABotIdent"
+    -->
+    <entry key="ident">apello</entry>
+    
+    <!-- Maximum number of times we can be disconnected from the server 
+             before the bot shuts down
+         values: 0 for unlimited tries, or any integer greater than 0
+         default value: 0 (unlimited)
+    -->
+    <entry key="max-disconnects">0</entry>
+    
+    <!-- Number of times to attempt to re-connect to the server 
+             after a disconnect, shutdown if reached, 
+         values: 0 for unlimited attempts, or any integer greater than 0
+         default value: 100 
+    -->
+    <entry key="max-reconnect-attempts">0</entry>
+    
+    <!-- Delay, in seconds, between connection attempts, 
+         values: any positive integer
+         default value: 30
+    -->
+    <entry key="reconnect-delay">30</entry>
+    
+    <!-- Full path to the plugin directory
+         values: "./plugins", any valid path to the plugin directory
+         default value: "./plugins"
+     -->
+    <entry key="plugins-path">./plugins</entry>
+    
+    <!-- Now for the plugins, these are what control the bot.
+         the Key for a plugin should be "PLUGIN:PluginName", PluginName
+         being the name of the plugin, and also is not Case Sensitive. 
+         Place any arguments needed to be passed to the plugin as the 
+         value.
+    -->
+    <!--entry key="plugin:Test">Test Args "pls"</entry-->
+    <entry key="plugin:AdminHandler">user1:pass1 user2:pass2 user3:pass3</entry>
+    <entry key="plugin:AutoIdentify">aPello:nickservpass</entry>
+    <entry key="plugin:ChannelLock">10 #apello #rsca #ausbot</entry>
+    <entry key="plugin:AliasHandler"></entry>
+    <entry key="plugin:RIAA"></entry>
+    
+</properties>
