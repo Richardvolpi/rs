@@ -1,0 +1,9 @@
+'[WasteDBoT]
+@Sub Main()
+If GetInputYesNo("Do you want to eat food?") = 1 Then
+BotChat("Go eat some then?")
+else
+BotChat("Oh well, maybe another time?")
+End If
+Sleep(1000)
+@End

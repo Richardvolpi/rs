@@ -1,0 +1,14 @@
+'[WasteDBoT]
+Dim Penis
+@Sub Main()
+Penis = 0
+Call Loopr
+@End
+
+@Sub Loopr()
+If Penis < 100 Then 
+Raw "BotC Hello:" & Penis
+Penis = Penis + 1
+Call Loopr
+End If
+@End

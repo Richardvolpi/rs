@@ -1,0 +1,7 @@
+'[WasteDBoT]
+@Sub Main()
+CreateText 1, 200, 100, "This is a rectangle"
+CreateRect 300, 200, 100, 50
+Sleep(3000)
+DestroyRect()
+@End

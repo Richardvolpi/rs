@@ -1,0 +1,9 @@
+'[WasteDBoT]
+'ID 2 Nick Player Test
+@Sub Main()
+Dim Player
+BotChat("Select a Player")
+Player = GetPlayer()
+BotChat("Player Chosen [" & GetPlayerID2Nick(Player) & "]")
+Sleep(500)
+@End

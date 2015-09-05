@@ -1,0 +1,7 @@
+'[WasteDBoT]
+@Sub Main()
+Dim Msg
+Msg = GetInput("Enter some input text")
+BotChat("Input: " + Msg)
+Sleep(1000)
+@End
