@@ -1,0 +1,53 @@
+FightMode(1)
+EnableEvents()
+SetCheatDestMode(1)
+SetCheatDestTime(1)
+SetRetryDestMode(1)
+SetRetryDestTime(1)
+OnLogin(@Fight)
+
+@Mainloop:
+GoToIfInLastServerMessageIs(@Sleep,"tired")
+GoToIfCoordsIn(@Ne,144,560,144,559)
+GoTo(@Back)
+@Ne:
+GoToIfNPCNearIn(@Attack1,145,557,147,562,3)
+Wait(0,001)
+GoTo(@Mainloop)
+
+@Fight:
+FightMode(1)
+ERet()
+
+@Attack1:
+SetVarsNearestNPCIn(%X,%Y,%ID,145,557,147,562,3)
+FarActionVar(%X,%Y)
+AttackNPCVar(%ID)
+OnStatsChanged(@StatsChange,%Stat)
+Wait(10)
+GoTo(@Mainloop)
+
+
+@Back:
+DebugRS("the charter has moved, trying to move back to area")
+MoveToRandomly(144,560,144,559)
+DebugRS("Succesfully moved back to the start posittion")
+GoTo(@Mainloop)
+
+@Sleep:
+SetVarNum(%Sleep,0)
+UseItemByID(1263)
+Wait(5)
+@WaitForWakeUp:
+Wait(5,6)
+GoToIfLastServerMessageIs(@Mainloop,"You wake up - feeling refreshed")
+ResetLastServerMessage()
+AddVarNum(%Sleep,1)
+GoToIfVarEqualNum(@Mainloop,%Sleep,28)
+GoTo(@WaitForWakeUp)
+
+@StatsChange:
+DebugRS("xp noticted")
+GoToIfVarEqualNum(@Mainloop,%Stat,4)
+ERet()
+

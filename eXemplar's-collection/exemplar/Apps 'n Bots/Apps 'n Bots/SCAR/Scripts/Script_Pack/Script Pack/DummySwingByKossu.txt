@@ -1,0 +1,93 @@
+-This Script Is Made By Kossu
+-You May Not Edit This Script or
+-Take Any Part Of It Without
+-Adding My Name To It
+-Thx
+
+-IT DRINKS Dwarven Stout
+-SLEEPING BAG IN FIRST SLOT
+-ALL 29 SLOTS WITH BEER IN IT
+-START AT DUMMIES
+
+
+@DummySwing:
+Action(105,504,0,0)
+AtObject(106,504)
+Wait(5)
+GoToIfInLastServerMessageIs(@Sleep,"tired")
+GoToIfCountInInventoryGreater(@ToBank,28,620)
+GoToIfLastServerMessageIs(@Drink,"@gam@There is nothing more you can learn from hitting a dummy")
+ResetLastServerMessage()
+GoTo(@DummySwing)
+
+@Drink:
+UseItem(1)
+Wait(20)
+GoTo(@DummySwing)
+
+@Sleep:
+SetVarNum(%Sleep,0)
+UseItem(0)
+Wait(5)
+@WaitForWakeUp:
+Wait(5,6)
+GoToIfLastServerMessageIs(@DummySwing,"You wake up - feeling refreshed")
+ResetLastServerMessage()
+AddVarNum(%Sleep,1)
+GoToIfVarEqualNum(@DummySwing,%Sleep,28)
+GoTo(@WaitForWakeUp)
+
+@ToBank:
+MoveToRandomly(104,505,104,504)
+MoveToRandomly(104,507,104,508)
+MoveToRandomly(103,509,102,509)
+MoveToRandomly(102,512,103,513)
+GoTo(@Bank)
+
+@Bank:
+ResetLastServerMessage()
+SetVarsNearestNPC(%X,%Y,%ID,95)
+FarActionVar(%X,%Y)
+TalkToNPCVar(%ID)
+WaitForQuestMenu(15)
+GoToIfInLastServerMessageIsNot(@BankerTalked,"busy")
+GoTo(@Bank)
+
+@BankerTalked:
+ResetQuestMenu()
+WaitForQuestMenu(20)
+GoToIfQuestMenu(@TalkBanker)
+GoTo(@Bank)
+
+@TalkBanker:
+Answer(0)
+WaitForBankWindow(55)
+GoTo(@Deposit)
+
+@Deposit:
+Sleep(55)
+Deposit(620,1)
+Deposit(620,1)
+Deposit(620,1)
+GoToIfInInventory(@Deposit,620)
+GoTo(@Withdraw)
+
+@Withdraw:
+GoToIfBagFull(@Banky)
+Withdraw(269,1)
+Withdraw(269,1)
+Withdraw(269,1)
+Wait(5)
+GoTo(@Withdraw)
+
+@Banky:
+Wait(24)
+CloseBank()
+GoTo(@WalkBacK)
+
+@WalkBacK:
+MoveToRandomly(103,509,102,509)
+MoveToRandomly(104,505,104,504)
+Wait(1)
+GoTo(@DummySwing)
+
