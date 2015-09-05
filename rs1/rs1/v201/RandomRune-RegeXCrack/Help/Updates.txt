@@ -1,0 +1,162 @@
+__________                    .___            __________                     
+\______   \_____    ____    __| _/____   _____\______   \__ __  ____   ____  
+ |       _/\__  \  /    \  / __ |/  _ \ /     \|       _/  |  \/    \_/ __ \ 
+ |    |   \ / __ \|   |  \/ /_/ (  <_> )  Y Y  \    |   \  |  /   |  \  ___/ 
+ |____|_  /(____  /___|  /\____ |\____/|__|_|  /____|_  /____/|___|  /\___  >
+        \/      \/     \/      \/            \/       \/           \/     \/ 
+      ________   ________________   .___
+___  _\_____  \  \   _  \______  \__| _/
+\  \/ / _(__  <  /  /_\  \  /    / __ | 
+ \   / /       \ \  \_/   \/    / /_/ | 
+  \_/ /______  / /\_____  /____/\____ | 
+             \/  \/     \/           \/ 
+
+:-:-:-:-:Updates:-:-:-:-:
+
+[Added in 3.07d]
+
+As befor, i havnt got my own computer to work on so the updates are slow, but theres allways
+an handy upgrade in every new version of randomrune :) what ive fixed for 3.07d is:
+- fixed talktountil(id) so it will talk 6k times w00t, and dubble as fast!
+- added the wanted ifidinviequalsto(id,nr,:label:)
+- fixed so you can play with several characters on same server!
+- fixed some minor bugs.
+- added now you can choose between lefties in the automenu!! omg p00nage!!
+- fixed the autothiever, it now runs away from combat if u attacks the npc!
+w00t age i hopes ya will enjoy :) stay tuned, RapeIT will be here someday ;)
+
+
+
+[Added in 3.07c]
+
+Ive been quite busy so i havnt beeen able to fix much stuffs, but i fixed some few:
+- fixed talktountil(id), it only talked 10 times befor quit trying, now it talks 60 times!
+- fixed a new auth server! omg here it goes, time to save up some money and buy an auth eh?
+- fixed so you dont need to type down your auth/pass any more! (well only once) but its in the 
+setup.ini file!,
+- fixed so the hc.bmp are being saved outside the files folder, so its esier to find.
+- fixed so it reads the slword.txt outside the files folder, so its easier to find.
+thats about all ive fixed in v3.07c, more to come in 3.08a!
+
+
+[Added in 3.07b]
+
+Fixed chat problem! omg w00t, (i think i havnt tried it out yet, please do so!) also fixed
+the slword.txt problem omg now you will be able to use elmo, ocr1,1 wuss2, and so on :)
+ive also fixed sum other minor stuffs i just cant remember atm!
+
+
+[Added in 3.07a]
+
+fixed logout problem <3, also fixed sum other minor bugs, and im fixing the color theme.
+sry its like 15% complete, lolz.. also fixed the fightmode window to have a green color,
+and if something is under it the colors gets inverted! very cool ;)
+
+[Added in 3.06b]
+
+fixed some minor stuffs 
+- added autoeater!
+- added walkback!
+*Read. ReadMe.txt for new commands!
+
+[Added in 3.06]
+
+fixed the autocatcher, made it stop by pressing ctrl+a
+
+[Added in 3.05]
+
+Added autosleeper, toggle it on/off by pressing F6, also added a client autofighter,
+autothiever & autocatcher! also edited the commands, so please read the readme.txt!
+
+
+[Added in 3.04]
+
+Fixed some minor bugs
+- Added command: runaway() - it will make your char runaway from a combat!
+
+[Added in 3.03]
+
+Fixed some commands to work after the update from mc199 to mc201 wich is,
+answer(nr), duelwith(id), tradewith(id).. 
+
+
+[Added in 3.02]
+
+Fixed randomrune to work with mudclient 201.
+
+
+[Added in 3.0]
+
+Fixed randomrune to work with mudclient 199..
+
+
+[Added in 2.0]
+
+This is randomrune fixed for mudclient 198. This version is the best version ever.
+I added alot of commands, and also i have added a new style scripting system wich ressembles
+Subanarks IT. Check the Commands.txt and JCommands.txt. Also dont forget to read the readme.
+
+
+[Added in 1.7]
+
+Some more shit for pkers added, check the f keys also pk minimap.
+Added bunch of commands. Fixed alot of em too :)
+
+[Added in 1.61]
+
+Added a new picture to loading. Also added spawn function.
+spawn(itemid)
+Some of you might remember that from sab :)
+
+[Added in 1.6]
+
+Fixed sw. Now works perfectly... same code as evos runebot used and same as richyt sbot uses.
+Added graffix off function <-- F4 -->
+Now when dump is activated it dumps more commands then before :).
+Cheers!
+Dont forget to set the sleepwalker arpath to randomrune files fodler :D
+
+[Added in 1.55]
+
+Fixed the buying and selling of items. Now the command is buyitemid(id,price) and sellitemid(id,price)
+Also put in a putitem(id) command for trading... but it doesnt seem to work.
+Also added atobject2(xo,yo) and atobjectcoords2(x,y)
+Also when the vb launcher tells you to update... dont do that.
+
+[Added in 1.5]
+
+I realised that sw still didnt work with sw... wich sucks. Well just wait a lil.
+RichyT promised to teach me :)
+Anyways finally added buyitemid(id) and sellitemid(id)
+
+[Added in 1.4]
+
+Added a few functions... also added better screenshot saving, now all screenshots
+will be saved to screenshots folder... also now u can save more then 1 screenshot.
+Btw the nr in the end of the bmp name is just a random number ;)
+
+[Shoit in 1.35]
+
+
+I didnt add much here, maybe a few commands... Anyways the main thing is i got to save the 
+sleepword as bmp, now everytime u sleep the sleepword is saved in the rr file folder.
+Now dont forget to set the arpath in sleepwalker.ini to the rr files folder.
+ie ARPATH = C:\RR\Files
+P.S. F3 saves screenshot to files folder
+
+[Shit added in 1.3]
+
+I added some shit, atobjectwithitem should work better now, also fixed the ifhpover part.
+Added a beta on the dump function, it saves all (not all yet :P) ur actions to dump.txt when
+its on. You can switch it on and off with F2. Also make sure Dump.txt exists in the Scripts folder
+or else youll get tons of errors ;).
+
+
+[Added in 1.2]
+
+As usual i added some commands, wich you can just see from the commands.txt.
+To point out firemaking is working now with command setfire(x,y) :).
+Also /add(msg) ingame adds a msg to hi.txt in files folder.
+Anyways peace out :)
+I would also like to say is that randomrune will not be dead for long when mudclient updates
+so dont fear that, also everyone who has bought an auth before that will still keep there auth :)

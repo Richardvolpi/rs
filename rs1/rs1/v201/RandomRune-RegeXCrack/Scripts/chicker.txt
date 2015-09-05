@@ -1,0 +1,10 @@
+:start:
+print(@red@Chicken @gre@fighter!@bla@ :])
+goto(:chicken:)
+
+:chicken:
+sleepifover(95)
+fightmode(1)
+wait(100)
+goto(:chicken:)
+

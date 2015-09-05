@@ -1,0 +1,5 @@
+:fish:
+action(221,663)
+atobject(221,664)
+wait(500)
+goto(:fish:)

@@ -1,0 +1,1291 @@
+[0]  name=Iron Mace; desc=A spiky mace; cmd=; price = 63; member=0
+[1]  name=Iron Short Sword; desc=A razor sharp sword; cmd=; price = 91; member=0
+[2]  name=Iron Kite Shield; desc=A large metal shield; cmd=; price = 238; member=0
+[3]  name=Iron Square Shield; desc=A medium metal shield; cmd=; price = 168; member=0
+[4]  name=Wooden Shield; desc=A solid wooden shield; cmd=; price = 20; member=0
+[5]  name=Medium Iron Helmet; desc=A medium sized helmet; cmd=; price = 84; member=0
+[6]  name=Large Iron Helmet; desc=A full face helmet; cmd=; price = 154; member=0
+[7]  name=Iron Chain Mail Body; desc=A series of connected metal rings; cmd=; price = 210; member=0
+[8]  name=Iron Plate Mail Body; desc=Provides excellent protection; cmd=; price = 560; member=0
+[9]  name=Iron Plate Mail Legs; desc=These look pretty heavy; cmd=; price = 280; member=0
+[10]  name=Coins; desc=Lovely money!; cmd=; price = 1; member=0
+[11]  name=Bronze Arrows; desc=Arrows with bronze heads; cmd=; price = 2; member=0
+[12]  name=Iron Axe; desc=A woodcutters axe; cmd=; price = 56; member=0
+[13]  name=Knife; desc=A dangerous looking knife; cmd=; price = 6; member=0
+[14]  name=Logs; desc=A number of wooden logs; cmd=; price = 4; member=0
+[15]  name=Leather Armour; desc=Better than no armour!; cmd=; price = 21; member=0
+[16]  name=Leather Gloves; desc=These will keep my hands warm!; cmd=; price = 6; member=0
+[17]  name=Boots; desc=Comfortable leather boots; cmd=; price = 6; member=0
+[18]  name=Cabbage; desc=Yuck I don't like cabbage; cmd=Eat; price = 1; member=0
+[19]  name=Egg; desc=A nice fresh egg; cmd=; price = 4; member=0
+[20]  name=Bones; desc=Ew it's a pile of bones; cmd=Bury; price = 1; member=0
+[21]  name=Bucket; desc=It's a wooden bucket; cmd=; price = 2; member=0
+[22]  name=Milk; desc=It's a bucket of milk; cmd=; price = 6; member=0
+[23]  name=Flour; desc=A little heap of flour; cmd=; price = 2; member=0
+[24]  name=Amulet of GhostSpeak; desc=It lets me talk to ghosts; cmd=; price = 35; member=0
+[25]  name=Silverlight key 1; desc=A key given to me by Wizard Traiborn; cmd=; price = 1; member=0
+[26]  name=Silverlight key 2; desc=A key given to me by Captain Rovin; cmd=; price = 1; member=0
+[27]  name=skull; desc=A spooky looking skull; cmd=; price = 1; member=0
+[28]  name=Iron dagger; desc=Short but pointy; cmd=; price = 35; member=0
+[29]  name=grain; desc=Some wheat heads; cmd=; price = 2; member=0
+[30]  name=Book; desc=; cmd=read; price = 1; member=0
+[31]  name=Fire-Rune; desc=One of the 4 basic elemental runes; cmd=; price = 4; member=0
+[32]  name=Water-Rune; desc=One of the 4 basic elemental runes; cmd=; price = 4; member=0
+[33]  name=Air-Rune; desc=One of the 4 basic elemental runes; cmd=; price = 4; member=0
+[34]  name=Earth-Rune; desc=One of the 4 basic elemental runes; cmd=; price = 4; member=0
+[35]  name=Mind-Rune; desc=Used for low level missile spells; cmd=; price = 3; member=0
+[36]  name=Body-Rune; desc=Used for curse spells; cmd=; price = 3; member=0
+[37]  name=Life-Rune; desc=Used for summon spells; cmd=; price = 1; member=1
+[38]  name=Death-Rune; desc=Used for high level missile spells; cmd=; price = 20; member=0
+[39]  name=Needle; desc=Used with a thread to make clothes; cmd=; price = 1; member=0
+[40]  name=Nature-Rune; desc=Used for alchemy spells; cmd=; price = 7; member=0
+[41]  name=Chaos-Rune; desc=Used for mid level missile spells; cmd=; price = 10; member=0
+[42]  name=Law-Rune; desc=Used for teleport spells; cmd=; price = 12; member=0
+[43]  name=Thread; desc=Used with a needle to make clothes; cmd=; price = 1; member=0
+[44]  name=Holy Symbol of saradomin; desc=This needs a string putting on it; cmd=; price = 200; member=0
+[45]  name=Unblessed Holy Symbol; desc=This needs blessing; cmd=; price = 200; member=0
+[46]  name=Cosmic-Rune; desc=Used for enchant spells; cmd=; price = 15; member=0
+[47]  name=key; desc=The key to get into the phoenix gang; cmd=; price = 1; member=0
+[48]  name=key; desc=The key to the phoenix gang's weapons store; cmd=; price = 1; member=0
+[49]  name=scroll; desc=An intelligence Report; cmd=; price = 5; member=0
+[50]  name=Water; desc=It's a bucket of water; cmd=; price = 6; member=0
+[51]  name=Silverlight key 3; desc=A key I found in a drain; cmd=; price = 1; member=0
+[52]  name=Silverlight; desc=A magic sword; cmd=; price = 50; member=0
+[53]  name=Broken shield; desc=Half of the shield of Arrav; cmd=; price = 1; member=0
+[54]  name=Broken shield; desc=Half of the shield of Arrav; cmd=; price = 1; member=0
+[55]  name=Cadavaberries; desc=Poisonous berries; cmd=; price = 1; member=0
+[56]  name=message; desc=A message from Juliet to Romeo; cmd=; price = 1; member=0
+[57]  name=Cadava; desc=I'm meant to give this to Juliet; cmd=; price = 1; member=0
+[58]  name=potion; desc=this is meant to be good for spots; cmd=; price = 1; member=0
+[59]  name=Phoenix Crossbow; desc=Former property of the phoenix gang; cmd=; price = 4; member=0
+[60]  name=Crossbow; desc=This fires crossbow bolts; cmd=; price = 70; member=0
+[61]  name=Certificate; desc=I can use this to claim a reward from the king; cmd=; price = 1; member=0
+[62]  name=bronze dagger; desc=Short but pointy; cmd=; price = 10; member=0
+[63]  name=Steel dagger; desc=Short but pointy; cmd=; price = 125; member=0
+[64]  name=Mithril dagger; desc=Short but pointy; cmd=; price = 325; member=0
+[65]  name=Adamantite dagger; desc=Short but pointy; cmd=; price = 800; member=0
+[66]  name=Bronze Short Sword; desc=A razor sharp sword; cmd=; price = 26; member=0
+[67]  name=Steel Short Sword; desc=A razor sharp sword; cmd=; price = 325; member=0
+[68]  name=Mithril Short Sword; desc=A razor sharp sword; cmd=; price = 845; member=0
+[69]  name=Adamantite Short Sword; desc=A razor sharp sword; cmd=; price = 2080; member=0
+[70]  name=Bronze Long Sword; desc=A razor sharp sword; cmd=; price = 40; member=0
+[71]  name=Iron Long Sword; desc=A razor sharp sword; cmd=; price = 140; member=0
+[72]  name=Steel Long Sword; desc=A razor sharp sword; cmd=; price = 500; member=0
+[73]  name=Mithril Long Sword; desc=A razor sharp sword; cmd=; price = 1300; member=0
+[74]  name=Adamantite Long Sword; desc=A razor sharp sword; cmd=; price = 3200; member=0
+[75]  name=Rune long sword; desc=A razor sharp sword; cmd=; price = 32000; member=0
+[76]  name=Bronze 2-handed Sword; desc=A very large sword; cmd=; price = 80; member=0
+[77]  name=Iron 2-handed Sword; desc=A very large sword; cmd=; price = 280; member=0
+[78]  name=Steel 2-handed Sword; desc=A very large sword; cmd=; price = 1000; member=0
+[79]  name=Mithril 2-handed Sword; desc=A very large sword; cmd=; price = 2600; member=0
+[80]  name=Adamantite 2-handed Sword; desc=A very large sword; cmd=; price = 6400; member=0
+[81]  name=rune 2-handed Sword; desc=A very large sword; cmd=; price = 64000; member=0
+[82]  name=Bronze Scimitar; desc=A vicious curved sword; cmd=; price = 32; member=0
+[83]  name=Iron Scimitar; desc=A vicious curved sword; cmd=; price = 112; member=0
+[84]  name=Steel Scimitar; desc=A vicious curved sword; cmd=; price = 400; member=0
+[85]  name=Mithril Scimitar; desc=A vicious curved sword; cmd=; price = 1040; member=0
+[86]  name=Adamantite Scimitar; desc=A vicious curved sword; cmd=; price = 2560; member=0
+[87]  name=bronze Axe; desc=A woodcutters axe; cmd=; price = 16; member=0
+[88]  name=Steel Axe; desc=A woodcutters axe; cmd=; price = 200; member=0
+[89]  name=Iron battle Axe; desc=A vicious looking axe; cmd=; price = 182; member=0
+[90]  name=Steel battle Axe; desc=A vicious looking axe; cmd=; price = 650; member=0
+[91]  name=Mithril battle Axe; desc=A vicious looking axe; cmd=; price = 1690; member=0
+[92]  name=Adamantite battle Axe; desc=A vicious looking axe; cmd=; price = 4160; member=0
+[93]  name=Rune battle Axe; desc=A vicious looking axe; cmd=; price = 41600; member=0
+[94]  name=Bronze Mace; desc=A spiky mace; cmd=; price = 18; member=0
+[95]  name=Steel Mace; desc=A spiky mace; cmd=; price = 225; member=0
+[96]  name=Mithril Mace; desc=A spiky mace; cmd=; price = 585; member=0
+[97]  name=Adamantite Mace; desc=A spiky mace; cmd=; price = 1440; member=0
+[98]  name=Rune Mace; desc=A spiky mace; cmd=; price = 14400; member=0
+[99]  name=Brass key; desc=I wonder what this is the key to; cmd=; price = 1; member=0
+[100]  name=staff; desc=It's a slightly magical stick; cmd=; price = 15; member=0
+[101]  name=Staff of Air; desc=A Magical staff; cmd=; price = 1500; member=0
+[102]  name=Staff of water; desc=A Magical staff; cmd=; price = 1500; member=0
+[103]  name=Staff of earth; desc=A Magical staff; cmd=; price = 1500; member=0
+[104]  name=Medium Bronze Helmet; desc=A medium sized helmet; cmd=; price = 24; member=0
+[105]  name=Medium Steel Helmet; desc=A medium sized helmet; cmd=; price = 300; member=0
+[106]  name=Medium Mithril Helmet; desc=A medium sized helmet; cmd=; price = 780; member=0
+[107]  name=Medium Adamantite Helmet; desc=A medium sized helmet; cmd=; price = 1920; member=0
+[108]  name=Large Bronze Helmet; desc=A full face helmet; cmd=; price = 44; member=0
+[109]  name=Large Steel Helmet; desc=A full face helmet; cmd=; price = 550; member=0
+[110]  name=Large Mithril Helmet; desc=A full face helmet; cmd=; price = 1430; member=0
+[111]  name=Large Adamantite Helmet; desc=A full face helmet; cmd=; price = 3520; member=0
+[112]  name=Large Rune Helmet; desc=A full face helmet; cmd=; price = 35200; member=0
+[113]  name=Bronze Chain Mail Body; desc=A series of connected metal rings; cmd=; price = 60; member=0
+[114]  name=Steel Chain Mail Body; desc=A series of connected metal rings; cmd=; price = 750; member=0
+[115]  name=Mithril Chain Mail Body; desc=A series of connected metal rings; cmd=; price = 1950; member=0
+[116]  name=Adamantite Chain Mail Body; desc=A series of connected metal rings; cmd=; price = 4800; member=0
+[117]  name=Bronze Plate Mail Body; desc=Provides excellent protection; cmd=; price = 160; member=0
+[118]  name=Steel Plate Mail Body; desc=Provides excellent protection; cmd=; price = 2000; member=0
+[119]  name=Mithril Plate Mail Body; desc=Provides excellent protection; cmd=; price = 5200; member=0
+[120]  name=Adamantite Plate Mail Body; desc=Provides excellent protection; cmd=; price = 12800; member=0
+[121]  name=Steel Plate Mail Legs; desc=These look pretty heavy; cmd=; price = 1000; member=0
+[122]  name=Mithril Plate Mail Legs; desc=These look pretty heavy; cmd=; price = 2600; member=0
+[123]  name=Adamantite Plate Mail Legs; desc=These look pretty heavy; cmd=; price = 6400; member=0
+[124]  name=Bronze Square Shield; desc=A medium metal shield; cmd=; price = 48; member=0
+[125]  name=Steel Square Shield; desc=A medium metal shield; cmd=; price = 600; member=0
+[126]  name=Mithril Square Shield; desc=A medium metal shield; cmd=; price = 1560; member=0
+[127]  name=Adamantite Square Shield; desc=A medium metal shield; cmd=; price = 3840; member=0
+[128]  name=Bronze Kite Shield; desc=A large metal shield; cmd=; price = 68; member=0
+[129]  name=Steel Kite Shield; desc=A large metal shield; cmd=; price = 850; member=0
+[130]  name=Mithril Kite Shield; desc=A large metal shield; cmd=; price = 2210; member=0
+[131]  name=Adamantite Kite Shield; desc=A large metal shield; cmd=; price = 5440; member=0
+[132]  name=cookedmeat; desc=Mmm this looks tasty; cmd=Eat; price = 4; member=0
+[133]  name=raw chicken; desc=I need to cook this first; cmd=; price = 1; member=0
+[134]  name=burntmeat; desc=Oh dear; cmd=; price = 1; member=0
+[135]  name=pot; desc=This pot is empty; cmd=; price = 1; member=0
+[136]  name=flour; desc=There is flour in this pot; cmd=; price = 10; member=0
+[137]  name=bread dough; desc=Some uncooked dough; cmd=; price = 1; member=0
+[138]  name=bread; desc=Nice crispy bread; cmd=Eat; price = 12; member=0
+[139]  name=burntbread; desc=This bread is ruined!; cmd=; price = 1; member=0
+[140]  name=jug; desc=This jug is empty; cmd=; price = 1; member=0
+[141]  name=water; desc=It's full of water; cmd=; price = 1; member=0
+[142]  name=wine; desc=It's full of wine; cmd=Drink; price = 1; member=0
+[143]  name=grapes; desc=Good grapes for wine making; cmd=; price = 1; member=0
+[144]  name=shears; desc=For shearing sheep; cmd=; price = 1; member=0
+[145]  name=wool; desc=I think this came from a sheep; cmd=; price = 1; member=0
+[146]  name=fur; desc=This would make warm clothing; cmd=; price = 10; member=0
+[147]  name=cow hide; desc=I should take this to the tannery; cmd=; price = 1; member=0
+[148]  name=leather; desc=It's a piece of leather; cmd=; price = 1; member=0
+[149]  name=clay; desc=Some hard dry clay; cmd=; price = 1; member=0
+[150]  name=copper ore; desc=this needs refining; cmd=; price = 3; member=0
+[151]  name=iron ore; desc=this needs refining; cmd=; price = 17; member=0
+[152]  name=gold; desc=this needs refining; cmd=; price = 150; member=0
+[153]  name=mithril ore; desc=this needs refining; cmd=; price = 162; member=0
+[154]  name=adamantite ore; desc=this needs refining; cmd=; price = 400; member=0
+[155]  name=coal; desc=hmm a non-renewable energy source!; cmd=; price = 45; member=0
+[156]  name=Bronze Pickaxe; desc=Used for mining; cmd=; price = 1; member=0
+[157]  name=uncut diamond; desc=this would be worth more cut; cmd=; price = 200; member=0
+[158]  name=uncut ruby; desc=this would be worth more cut; cmd=; price = 100; member=0
+[159]  name=uncut emerald; desc=this would be worth more cut; cmd=; price = 50; member=0
+[160]  name=uncut sapphire; desc=this would be worth more cut; cmd=; price = 25; member=0
+[161]  name=diamond; desc=this looks valuable; cmd=; price = 2000; member=0
+[162]  name=ruby; desc=this looks valuable; cmd=; price = 1000; member=0
+[163]  name=emerald; desc=this looks valuable; cmd=; price = 500; member=0
+[164]  name=sapphire; desc=this looks valuable; cmd=; price = 250; member=0
+[165]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[166]  name=tinderbox; desc=useful for lighting a fire; cmd=; price = 1; member=0
+[167]  name=chisel; desc=good for detailed crafting; cmd=; price = 1; member=0
+[168]  name=hammer; desc=good for hitting things!; cmd=; price = 1; member=0
+[169]  name=bronze bar; desc=it's a bar of bronze; cmd=; price = 8; member=0
+[170]  name=iron bar; desc=it's a bar of iron; cmd=; price = 28; member=0
+[171]  name=steel bar; desc=it's a bar of steel; cmd=; price = 100; member=0
+[172]  name=gold bar; desc=this looks valuable; cmd=; price = 300; member=0
+[173]  name=mithril bar; desc=it's a bar of mithril; cmd=; price = 300; member=0
+[174]  name=adamantite bar; desc=it's a bar of adamantite; cmd=; price = 640; member=0
+[175]  name=Pressure gauge; desc=It looks like part of a machine; cmd=; price = 1; member=0
+[176]  name=Fish Food; desc=Keeps  your pet fish strong and healthy; cmd=; price = 1; member=0
+[177]  name=Poison; desc=This stuff looks nasty; cmd=; price = 1; member=0
+[178]  name=Poisoned fish food; desc=Doesn't seem very nice to the poor fishes; cmd=; price = 1; member=0
+[179]  name=spinach roll; desc=A home made spinach thing; cmd=Eat; price = 1; member=0
+[180]  name=Bad wine; desc=Oh dear; cmd=Drink; price = 1; member=0
+[181]  name=Ashes; desc=A heap of ashes; cmd=; price = 2; member=0
+[182]  name=Apron; desc=A mostly clean apron; cmd=; price = 2; member=0
+[183]  name=Cape; desc=A bright red cape; cmd=; price = 2; member=0
+[184]  name=Wizards robe; desc=I can do magic better in this; cmd=; price = 15; member=0
+[185]  name=wizardshat; desc=A silly pointed hat; cmd=; price = 2; member=0
+[186]  name=Brass necklace; desc=I'd prefer a gold one; cmd=; price = 30; member=0
+[187]  name=skirt; desc=A ladies skirt; cmd=; price = 2; member=0
+[188]  name=Longbow; desc=A Nice sturdy bow; cmd=; price = 80; member=0
+[189]  name=Shortbow; desc=Short but effective; cmd=; price = 50; member=0
+[190]  name=Crossbow bolts; desc=Good if you have a crossbow!; cmd=; price = 3; member=0
+[191]  name=Apron; desc=this will help keep my clothes clean; cmd=; price = 2; member=0
+[192]  name=Chef's hat; desc=What a silly hat; cmd=; price = 2; member=0
+[193]  name=Beer; desc=A glass of frothy ale; cmd=drink; price = 2; member=0
+[194]  name=skirt; desc=A ladies skirt; cmd=; price = 2; member=0
+[195]  name=skirt; desc=A ladies skirt; cmd=; price = 2; member=0
+[196]  name=Black Plate Mail Body; desc=Provides excellent protection; cmd=; price = 3840; member=0
+[197]  name=Staff of fire; desc=A Magical staff; cmd=; price = 1500; member=0
+[198]  name=Magic Staff; desc=A Magical staff; cmd=; price = 200; member=0
+[199]  name=wizardshat; desc=A silly pointed hat; cmd=; price = 2; member=0
+[200]  name=silk; desc=It's a sheet of silk; cmd=; price = 30; member=0
+[201]  name=flier; desc=Get your axes from Bob's axes; cmd=; price = 1; member=0
+[202]  name=tin ore; desc=this needs refining; cmd=; price = 3; member=0
+[203]  name=Mithril Axe; desc=A powerful axe; cmd=; price = 520; member=0
+[204]  name=Adamantite Axe; desc=A powerful axe; cmd=; price = 1280; member=0
+[205]  name=bronze battle Axe; desc=A vicious looking axe; cmd=; price = 52; member=0
+[206]  name=Bronze Plate Mail Legs; desc=These look pretty heavy; cmd=; price = 80; member=0
+[207]  name=Ball of wool; desc=Spun from sheeps wool; cmd=; price = 2; member=0
+[208]  name=Oil can; desc=Its pretty full; cmd=; price = 3; member=0
+[209]  name=Cape; desc=A warm black cape; cmd=; price = 7; member=0
+[210]  name=Kebab; desc=A meaty Kebab; cmd=eat; price = 3; member=0
+[211]  name=Spade; desc=A fairly small spade; cmd=Dig; price = 3; member=0
+[212]  name=Closet Key; desc=A slightly smelly key; cmd=; price = 1; member=0
+[213]  name=rubber tube; desc=Its slightly charred; cmd=; price = 3; member=0
+[214]  name=Bronze Plated Skirt; desc=Designer leg protection; cmd=; price = 80; member=0
+[215]  name=Iron Plated Skirt; desc=Designer leg protection; cmd=; price = 280; member=0
+[216]  name=Black robe; desc=I can do magic better in this; cmd=; price = 13; member=0
+[217]  name=stake; desc=A very pointy stick; cmd=; price = 8; member=0
+[218]  name=Garlic; desc=A clove of garlic; cmd=; price = 3; member=0
+[219]  name=Red spiders eggs; desc=eewww; cmd=; price = 7; member=0
+[220]  name=Limpwurt root; desc=the root of a limpwurt plant; cmd=; price = 7; member=0
+[221]  name=Strength Potion; desc=4 doses of strength potion; cmd=Drink; price = 14; member=0
+[222]  name=Strength Potion; desc=3 doses of strength potion; cmd=Drink; price = 13; member=0
+[223]  name=Strength Potion; desc=2 doses of strength potion; cmd=Drink; price = 13; member=0
+[224]  name=Strength Potion; desc=1 dose of strength potion; cmd=Drink; price = 11; member=0
+[225]  name=Steel Plated skirt; desc=designer leg protection; cmd=; price = 1000; member=0
+[226]  name=Mithril Plated skirt; desc=Designer Leg protection; cmd=; price = 2600; member=0
+[227]  name=Adamantite Plated skirt; desc=Designer leg protection; cmd=; price = 6400; member=0
+[228]  name=Cabbage; desc=Yuck I don't like cabbage; cmd=Eat; price = 1; member=0
+[229]  name=Cape; desc=A thick blue cape; cmd=; price = 32; member=0
+[230]  name=Large Black Helmet; desc=A full face helmet; cmd=; price = 1056; member=0
+[231]  name=Red Bead; desc=A small round red bead; cmd=; price = 4; member=0
+[232]  name=Yellow Bead; desc=A small round yellow bead; cmd=; price = 4; member=0
+[233]  name=Black Bead; desc=A small round black bead; cmd=; price = 4; member=0
+[234]  name=White Bead; desc=A small round white bead; cmd=; price = 4; member=0
+[235]  name=Amulet of accuracy; desc=It increases my aim; cmd=; price = 100; member=0
+[236]  name=Redberries; desc=Very bright red berries; cmd=; price = 3; member=0
+[237]  name=Rope; desc=A Coil of rope; cmd=; price = 18; member=0
+[238]  name=Reddye; desc=A little bottle of dye; cmd=; price = 5; member=0
+[239]  name=Yellowdye; desc=A little bottle of dye; cmd=; price = 5; member=0
+[240]  name=Paste; desc=A bottle off skin coloured paste; cmd=; price = 5; member=0
+[241]  name=Onion; desc=A strong smelling onion; cmd=; price = 3; member=0
+[242]  name=Bronze key; desc=A heavy key; cmd=; price = 1; member=0
+[243]  name=Soft Clay; desc=Clay that's ready to be used; cmd=; price = 2; member=0
+[244]  name=wig; desc=A blonde wig; cmd=; price = 2; member=0
+[245]  name=wig; desc=A wig made from wool; cmd=; price = 2; member=0
+[246]  name=Half full wine jug; desc=It's half full of wine; cmd=Drink; price = 1; member=0
+[247]  name=Keyprint; desc=An imprint of a key in a lump of clay; cmd=; price = 2; member=0
+[248]  name=Black Plate Mail Legs; desc=These look pretty heavy; cmd=; price = 1920; member=0
+[249]  name=banana; desc=Mmm this looks tasty; cmd=Eat; price = 2; member=0
+[250]  name=pastry dough; desc=Some uncooked dough; cmd=; price = 1; member=0
+[251]  name=Pie dish; desc=For making pies in; cmd=; price = 3; member=0
+[252]  name=cooking apple; desc=I wonder what i can make with this; cmd=; price = 1; member=0
+[253]  name=pie shell; desc=I need to find a filling for this pie; cmd=; price = 1; member=0
+[254]  name=Uncooked apple pie; desc=I need to cook this first; cmd=; price = 1; member=0
+[255]  name=Uncooked meat pie; desc=I need to cook this first; cmd=; price = 1; member=0
+[256]  name=Uncooked redberry pie; desc=I need to cook this first; cmd=; price = 1; member=0
+[257]  name=apple pie; desc=Mmm Apple pie; cmd=eat; price = 30; member=0
+[258]  name=Redberry pie; desc=Looks tasty; cmd=eat; price = 12; member=0
+[259]  name=meat pie; desc=Mighty and meaty; cmd=eat; price = 15; member=0
+[260]  name=burntpie; desc=Oops; cmd=empty dish; price = 1; member=0
+[261]  name=Half a meat pie; desc=Mighty and meaty; cmd=eat; price = 10; member=0
+[262]  name=Half a Redberry pie; desc=Looks tasty; cmd=eat; price = 4; member=0
+[263]  name=Half an apple pie; desc=Mmm Apple pie; cmd=eat; price = 5; member=0
+[264]  name=Portrait; desc=It's a picture of a knight; cmd=; price = 3; member=0
+[265]  name=Faladian Knight's sword; desc=A razor sharp sword; cmd=; price = 200; member=0
+[266]  name=blurite ore; desc=What Strange stuff; cmd=; price = 3; member=0
+[267]  name=Asgarnian Ale; desc=A glass of frothy ale; cmd=drink; price = 2; member=0
+[268]  name=Wizard's Mind Bomb; desc=It's got strange bubbles in it; cmd=drink; price = 2; member=0
+[269]  name=Dwarven Stout; desc=A Pint of thick dark beer; cmd=drink; price = 2; member=0
+[270]  name=Eye of newt; desc=It seems to be looking at me; cmd=; price = 3; member=0
+[271]  name=Rat's tail; desc=A bit of rat; cmd=; price = 3; member=0
+[272]  name=Bluedye; desc=A little bottle of dye; cmd=; price = 5; member=0
+[273]  name=Goblin Armour; desc=Armour Designed to fit Goblins; cmd=; price = 40; member=0
+[274]  name=Goblin Armour; desc=Armour Designed to fit Goblins; cmd=; price = 40; member=0
+[275]  name=Goblin Armour; desc=Armour Designed to fit Goblins; cmd=; price = 40; member=0
+[276]  name=unstrung Longbow; desc=I need to find a string for this; cmd=; price = 60; member=1
+[277]  name=unstrung shortbow; desc=I need to find a string for this; cmd=; price = 23; member=1
+[278]  name=Unfired Pie dish; desc=I need to put this in a pottery oven; cmd=; price = 3; member=0
+[279]  name=unfired pot; desc=I need to put this in a pottery oven; cmd=; price = 1; member=0
+[280]  name=arrow shafts; desc=I need to attach feathers to these; cmd=; price = 1; member=1
+[281]  name=Woad Leaf; desc=slightly bluish leaves; cmd=; price = 1; member=0
+[282]  name=Orangedye; desc=A little bottle of dye; cmd=; price = 5; member=0
+[283]  name=Gold ring; desc=A valuable ring; cmd=; price = 350; member=0
+[284]  name=Sapphire ring; desc=A valuable ring; cmd=; price = 900; member=0
+[285]  name=Emerald ring; desc=A valuable ring; cmd=; price = 1275; member=0
+[286]  name=Ruby ring; desc=A valuable ring; cmd=; price = 2025; member=0
+[287]  name=Diamond ring; desc=A valuable ring; cmd=; price = 3525; member=0
+[288]  name=Gold necklace; desc=I wonder if this is valuable; cmd=; price = 450; member=0
+[289]  name=Sapphire necklace; desc=I wonder if this is valuable; cmd=; price = 1050; member=0
+[290]  name=Emerald necklace; desc=I wonder if this is valuable; cmd=; price = 1425; member=0
+[291]  name=Ruby necklace; desc=I wonder if this is valuable; cmd=; price = 2175; member=0
+[292]  name=Diamond necklace; desc=I wonder if this is valuable; cmd=; price = 3675; member=0
+[293]  name=ring mould; desc=Used to make gold rings; cmd=; price = 5; member=0
+[294]  name=Amulet mould; desc=Used to make gold amulets; cmd=; price = 5; member=0
+[295]  name=Necklace mould; desc=Used to make gold necklaces; cmd=; price = 5; member=0
+[296]  name=Gold Amulet; desc=It needs a string so I can wear it; cmd=; price = 350; member=0
+[297]  name=Sapphire Amulet; desc=It needs a string so I can wear it; cmd=; price = 900; member=0
+[298]  name=Emerald Amulet; desc=It needs a string so I can wear it; cmd=; price = 1275; member=0
+[299]  name=Ruby Amulet; desc=It needs a string so I can make wear it; cmd=; price = 2025; member=0
+[300]  name=Diamond Amulet; desc=It needs a string so I can wear it; cmd=; price = 3525; member=0
+[301]  name=Gold Amulet; desc=I wonder if I can get this enchanted; cmd=; price = 350; member=0
+[302]  name=Sapphire Amulet; desc=I wonder if I can get this enchanted; cmd=; price = 900; member=0
+[303]  name=Emerald Amulet; desc=I wonder if I can get this enchanted; cmd=; price = 1275; member=0
+[304]  name=Ruby Amulet; desc=I wonder if I can get this enchanted; cmd=; price = 2025; member=0
+[305]  name=Diamond Amulet; desc=I wonder if I can get this enchanted; cmd=; price = 3525; member=0
+[306]  name=superchisel; desc=I wonder if I can get this enchanted; cmd=twiddle; price = 3525; member=1
+[307]  name=Mace of Zamorak; desc=This mace gives me the creeps; cmd=; price = 4500; member=0
+[308]  name=Bronze Plate Mail top; desc=Armour designed for females; cmd=; price = 160; member=0
+[309]  name=Steel Plate Mail top; desc=Armour designed for females; cmd=; price = 2000; member=0
+[310]  name=Mithril Plate Mail top; desc=Armour designed for females; cmd=; price = 5200; member=0
+[311]  name=Adamantite Plate Mail top; desc=Armour designed for females; cmd=; price = 12800; member=0
+[312]  name=Iron Plate Mail top; desc=Armour designed for females; cmd=; price = 560; member=0
+[313]  name=Black Plate Mail top; desc=Armour designed for females; cmd=; price = 3840; member=0
+[314]  name=Sapphire Amulet of magic; desc=It improves my magic; cmd=; price = 900; member=0
+[315]  name=Emerald Amulet of protection; desc=It improves my defense; cmd=; price = 1275; member=0
+[316]  name=Ruby Amulet of strength; desc=It improves my damage; cmd=; price = 2025; member=0
+[317]  name=Diamond Amulet of power; desc=A powerful amulet; cmd=; price = 3525; member=0
+[318]  name=Karamja Rum; desc=A very strong spirit brewed in Karamja; cmd=; price = 30; member=0
+[319]  name=Cheese; desc=It's got holes in it; cmd=Eat; price = 4; member=0
+[320]  name=Tomato; desc=This would make good ketchup; cmd=Eat; price = 4; member=0
+[321]  name=Pizza Base; desc=I need to add some tomato next; cmd=; price = 4; member=0
+[322]  name=Burnt Pizza; desc=Oh dear!; cmd=; price = 1; member=0
+[323]  name=Incomplete Pizza; desc=I need to add some cheese next; cmd=; price = 10; member=0
+[324]  name=Uncooked Pizza; desc=This needs cooking; cmd=; price = 25; member=0
+[325]  name=Plain Pizza; desc=A cheese and tomato pizza; cmd=Eat; price = 40; member=0
+[326]  name=Meat Pizza; desc=A pizza with bits of meat on it; cmd=Eat; price = 50; member=0
+[327]  name=Anchovie Pizza; desc=A Pizza with Anchovies; cmd=Eat; price = 60; member=0
+[328]  name=Half Meat Pizza; desc=Half of this pizza has been eaten; cmd=Eat; price = 25; member=0
+[329]  name=Half Anchovie Pizza; desc=Half of this pizza has been eaten; cmd=Eat; price = 30; member=0
+[330]  name=Cake; desc=A plain sponge cake; cmd=Eat; price = 50; member=0
+[331]  name=Burnt Cake; desc=Argh what a mess!; cmd=; price = 1; member=0
+[332]  name=Chocolate Cake; desc=This looks very tasty!; cmd=Eat; price = 70; member=0
+[333]  name=Partial Cake; desc=Someone has eaten a big chunk of this cake; cmd=Eat; price = 30; member=0
+[334]  name=Partial Chocolate Cake; desc=Someone has eaten a big chunk of this cake; cmd=Eat; price = 50; member=0
+[335]  name=Slice of Cake; desc=I'd rather have a whole cake!; cmd=Eat; price = 10; member=0
+[336]  name=Chocolate Slice; desc=A slice of chocolate cake; cmd=Eat; price = 30; member=0
+[337]  name=Chocolate Bar; desc=It's a bar of chocolate; cmd=Eat; price = 10; member=0
+[338]  name=Cake Tin; desc=Useful for baking cakes; cmd=; price = 10; member=0
+[339]  name=Uncooked cake; desc=Now all I need to do is cook it; cmd=; price = 20; member=0
+[340]  name=Unfired bowl; desc=I need to put this in a pottery oven; cmd=; price = 2; member=0
+[341]  name=Bowl; desc=Useful for mixing things; cmd=; price = 4; member=0
+[342]  name=Bowl of water; desc=It's a bowl of water; cmd=; price = 3; member=0
+[343]  name=Incomplete stew; desc=I need to add some meat too; cmd=; price = 4; member=0
+[344]  name=Incomplete stew; desc=I need to add some potato too; cmd=; price = 4; member=0
+[345]  name=Uncooked stew; desc=I need to cook this; cmd=; price = 10; member=0
+[346]  name=Stew; desc=It's a meat and potato stew; cmd=Eat; price = 20; member=0
+[347]  name=Burnt Stew; desc=Eew it's horribly burnt; cmd=Empty; price = 1; member=0
+[348]  name=Potato; desc=Can be used to make stew; cmd=; price = 1; member=0
+[349]  name=Raw Shrimp; desc=I should try cooking this; cmd=; price = 5; member=0
+[350]  name=Shrimp; desc=Some nicely cooked fish; cmd=Eat; price = 5; member=0
+[351]  name=Raw Anchovies; desc=I should try cooking this; cmd=; price = 15; member=0
+[352]  name=Anchovies; desc=Some nicely cooked fish; cmd=Eat; price = 15; member=0
+[353]  name=Burnt fish; desc=Oops!; cmd=; price = 1; member=0
+[354]  name=Raw Sardine; desc=I should try cooking this; cmd=; price = 10; member=0
+[355]  name=Sardine; desc=Some nicely cooked fish; cmd=Eat; price = 10; member=0
+[356]  name=Raw Salmon; desc=I should try cooking this; cmd=; price = 50; member=0
+[357]  name=Salmon; desc=Some nicely cooked fish; cmd=Eat; price = 50; member=0
+[358]  name=Raw Trout; desc=I should try cooking this; cmd=; price = 20; member=0
+[359]  name=Trout; desc=Some nicely cooked fish; cmd=Eat; price = 20; member=0
+[360]  name=Burnt fish; desc=Oops!; cmd=; price = 1; member=0
+[361]  name=Raw Herring; desc=I should try cooking this; cmd=; price = 15; member=0
+[362]  name=Herring; desc=Some nicely cooked fish; cmd=Eat; price = 15; member=0
+[363]  name=Raw Pike; desc=I should try cooking this; cmd=; price = 25; member=0
+[364]  name=Pike; desc=Some nicely cooked fish; cmd=Eat; price = 25; member=0
+[365]  name=Burnt fish; desc=Oops!; cmd=; price = 1; member=0
+[366]  name=Raw Tuna; desc=I should try cooking this; cmd=; price = 100; member=0
+[367]  name=Tuna; desc=Wow this is a big fish; cmd=Eat; price = 100; member=0
+[368]  name=Burnt fish; desc=Oops!; cmd=; price = 1; member=0
+[369]  name=Raw Swordfish; desc=I should try cooking this; cmd=; price = 200; member=0
+[370]  name=Swordfish; desc=I'd better be careful eating this!; cmd=Eat; price = 200; member=0
+[371]  name=Burnt Swordfish; desc=Oops!; cmd=; price = 1; member=0
+[372]  name=Raw Lobster; desc=I should try cooking this; cmd=; price = 150; member=0
+[373]  name=Lobster; desc=This looks tricky to eat; cmd=Eat; price = 150; member=0
+[374]  name=Burnt Lobster; desc=Oops!; cmd=; price = 1; member=0
+[375]  name=Lobster Pot; desc=Useful for catching lobsters; cmd=; price = 20; member=0
+[376]  name=Net; desc=Useful for catching small fish; cmd=; price = 5; member=0
+[377]  name=Fishing Rod; desc=Useful for catching sardine or herring; cmd=; price = 5; member=0
+[378]  name=Fly Fishing Rod; desc=Useful for catching salmon or trout; cmd=; price = 5; member=0
+[379]  name=Harpoon; desc=Useful for catching really big fish; cmd=; price = 5; member=0
+[380]  name=Fishing Bait; desc=For use with a fishing rod; cmd=; price = 3; member=0
+[381]  name=Feather; desc=Used for fly-fishing; cmd=; price = 2; member=0
+[382]  name=Chest key; desc=A key to One eyed Hector's chest; cmd=; price = 1; member=0
+[383]  name=Silver; desc=this needs refining; cmd=; price = 75; member=0
+[384]  name=silver bar; desc=this looks valuable; cmd=; price = 150; member=0
+[385]  name=Holy Symbol of saradomin; desc=This improves my prayer; cmd=; price = 300; member=0
+[386]  name=Holy symbol mould; desc=Used to make Holy Symbols; cmd=; price = 5; member=0
+[387]  name=Disk of Returning; desc=Used to get out of Thordur's blackhole; cmd=spin; price = 12; member=0
+[388]  name=Monks robe; desc=I feel closer to the God's when I am wearing this; cmd=; price = 40; member=0
+[389]  name=Monks robe; desc=Keeps a monk's legs nice and warm; cmd=; price = 30; member=0
+[390]  name=Red key; desc=A painted key; cmd=; price = 1; member=0
+[391]  name=Orange Key; desc=A painted key; cmd=; price = 1; member=0
+[392]  name=yellow key; desc=A painted key; cmd=; price = 1; member=0
+[393]  name=Blue key; desc=A painted key; cmd=; price = 1; member=0
+[394]  name=Magenta key; desc=A painted key; cmd=; price = 1; member=0
+[395]  name=black key; desc=A painted key; cmd=; price = 1; member=0
+[396]  name=rune dagger; desc=Short but pointy; cmd=; price = 8000; member=0
+[397]  name=Rune short sword; desc=A razor sharp sword; cmd=; price = 20800; member=0
+[398]  name=rune Scimitar; desc=A vicious curved sword; cmd=; price = 25600; member=0
+[399]  name=Medium Rune Helmet; desc=A medium sized helmet; cmd=; price = 19200; member=0
+[400]  name=Rune Chain Mail Body; desc=A series of connected metal rings; cmd=; price = 50000; member=0
+[401]  name=Rune Plate Mail Body; desc=Provides excellent protection; cmd=; price = 65000; member=0
+[402]  name=Rune Plate Mail Legs; desc=These look pretty heavy; cmd=; price = 64000; member=0
+[403]  name=Rune Square Shield; desc=A medium metal shield; cmd=; price = 38400; member=0
+[404]  name=Rune Kite Shield; desc=A large metal shield; cmd=; price = 54400; member=0
+[405]  name=rune Axe; desc=A powerful axe; cmd=; price = 12800; member=0
+[406]  name=Rune skirt; desc=Designer leg protection; cmd=; price = 64000; member=0
+[407]  name=Rune Plate Mail top; desc=Armour designed for females; cmd=; price = 65000; member=0
+[408]  name=Runite bar; desc=it's a bar of runite; cmd=; price = 5000; member=0
+[409]  name=runite ore; desc=this needs refining; cmd=; price = 3200; member=0
+[410]  name=Plank; desc=This doesn't look very useful; cmd=; price = 1; member=0
+[411]  name=Tile; desc=This doesn't look very useful; cmd=; price = 1; member=0
+[412]  name=skull; desc=A spooky looking skull; cmd=; price = 1; member=0
+[413]  name=Big Bones; desc=Ew it's a pile of bones; cmd=Bury; price = 1; member=0
+[414]  name=Muddy key; desc=It looks like a key to a chest; cmd=; price = 1; member=0
+[415]  name=Map; desc=A map showing the way to the Isle of Crandor; cmd=; price = 1; member=0
+[416]  name=Map Piece; desc=I need some more of the map for this to be useful; cmd=; price = 1; member=0
+[417]  name=Map Piece; desc=I need some more of the map for this to be useful; cmd=; price = 1; member=0
+[418]  name=Map Piece; desc=I need some more of the map for this to be useful; cmd=; price = 1; member=0
+[419]  name=Nails; desc=Nails made from steel; cmd=; price = 3; member=0
+[420]  name=Anti dragon breath Shield; desc=Helps prevent damage from dragons; cmd=; price = 20; member=0
+[421]  name=Maze key; desc=The key to the entrance of Melzar's maze; cmd=; price = 1; member=0
+[422]  name=Pumpkin; desc=Happy halloween; cmd=eat; price = 30; member=0
+[423]  name=Black dagger; desc=Short but pointy; cmd=; price = 240; member=0
+[424]  name=Black Short Sword; desc=A razor sharp sword; cmd=; price = 624; member=0
+[425]  name=Black Long Sword; desc=A razor sharp sword; cmd=; price = 960; member=0
+[426]  name=Black 2-handed Sword; desc=A very large sword; cmd=; price = 1920; member=0
+[427]  name=Black Scimitar; desc=A vicious curved sword; cmd=; price = 768; member=0
+[428]  name=Black Axe; desc=A sinister looking axe; cmd=; price = 384; member=0
+[429]  name=Black battle Axe; desc=A vicious looking axe; cmd=; price = 1248; member=0
+[430]  name=Black Mace; desc=A spikey mace; cmd=; price = 432; member=0
+[431]  name=Black Chain Mail Body; desc=A series of connected metal rings; cmd=; price = 1440; member=0
+[432]  name=Black Square Shield; desc=A medium metal shield; cmd=; price = 1152; member=0
+[433]  name=Black Kite Shield; desc=A large metal shield; cmd=; price = 1632; member=0
+[434]  name=Black Plated skirt; desc=designer leg protection; cmd=; price = 1920; member=0
+[435]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[436]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[437]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[438]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[439]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[440]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[441]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[442]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[443]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[444]  name=Guam leaf; desc=A herb used in attack potion making; cmd=; price = 3; member=1
+[445]  name=Marrentill; desc=A herb used in poison cures; cmd=; price = 5; member=1
+[446]  name=Tarromin; desc=A useful herb; cmd=; price = 11; member=1
+[447]  name=Harralander; desc=A useful herb; cmd=; price = 20; member=1
+[448]  name=Ranarr Weed; desc=A useful herb; cmd=; price = 25; member=1
+[449]  name=Irit Leaf; desc=A useful herb; cmd=; price = 40; member=1
+[450]  name=Avantoe; desc=A useful herb; cmd=; price = 48; member=1
+[451]  name=Kwuarm; desc=A powerful herb; cmd=; price = 54; member=1
+[452]  name=Cadantine; desc=A powerful herb; cmd=; price = 65; member=1
+[453]  name=Dwarf Weed; desc=A powerful herb; cmd=; price = 70; member=1
+[454]  name=Unfinished potion; desc=I need another ingredient to finish this Guam potion; cmd=; price = 3; member=1
+[455]  name=Unfinished potion; desc=I need another ingredient to finish this Marrentill potion; cmd=; price = 5; member=1
+[456]  name=Unfinished potion; desc=I need another ingredient to finish this Tarromin potion; cmd=; price = 11; member=1
+[457]  name=Unfinished potion; desc=I need another ingredient to finish this Harralander potion; cmd=; price = 20; member=1
+[458]  name=Unfinished potion; desc=I need another ingredient to finish this Ranarr potion; cmd=; price = 25; member=1
+[459]  name=Unfinished potion; desc=I need another ingredient to finish this Irit potion; cmd=; price = 40; member=1
+[460]  name=Unfinished potion; desc=I need another ingredient to finish this Avantoe potion; cmd=; price = 48; member=1
+[461]  name=Unfinished potion; desc=I need another ingredient to finish this Kwuarm potion; cmd=; price = 54; member=1
+[462]  name=Unfinished potion; desc=I need another ingredient to finish this Cadantine potion; cmd=; price = 65; member=1
+[463]  name=Unfinished potion; desc=I need another ingredient to finish this Dwarfweed potion; cmd=; price = 70; member=1
+[464]  name=Vial; desc=It's full of water; cmd=; price = 2; member=0
+[465]  name=Vial; desc=This vial is empty; cmd=; price = 2; member=0
+[466]  name=Unicorn horn; desc=Poor unicorn; cmd=; price = 20; member=1
+[467]  name=Blue dragon scale; desc=A large shiny scale; cmd=; price = 50; member=1
+[468]  name=Pestle and mortar; desc=I can grind things for potions in this; cmd=; price = 4; member=1
+[469]  name=Snape grass; desc=Strange spikey grass; cmd=; price = 10; member=1
+[470]  name=Medium black Helmet; desc=A medium sized helmet; cmd=; price = 576; member=0
+[471]  name=White berries; desc=Poisonous berries; cmd=; price = 10; member=1
+[472]  name=Ground blue dragon scale; desc=This stuff isn't good for you; cmd=; price = 40; member=1
+[473]  name=Ground unicorn horn; desc=A useful potion ingredient; cmd=; price = 20; member=1
+[474]  name=attack Potion; desc=3 doses of attack potion; cmd=Drink; price = 12; member=1
+[475]  name=attack Potion; desc=2 doses of attack potion; cmd=Drink; price = 9; member=1
+[476]  name=attack Potion; desc=1 dose of attack potion; cmd=Drink; price = 6; member=1
+[477]  name=stat restoration Potion; desc=3 doses of stat restoration potion; cmd=Drink; price = 88; member=1
+[478]  name=stat restoration Potion; desc=2 doses of stat restoration potion; cmd=Drink; price = 66; member=1
+[479]  name=stat restoration Potion; desc=1 dose of stat restoration potion; cmd=Drink; price = 44; member=1
+[480]  name=defense Potion; desc=3 doses of defense potion; cmd=Drink; price = 120; member=1
+[481]  name=defense Potion; desc=2 doses of defense potion; cmd=Drink; price = 90; member=1
+[482]  name=defense Potion; desc=1 dose of defense potion; cmd=Drink; price = 60; member=1
+[483]  name=restore prayer Potion; desc=3 doses of restore prayer potion; cmd=Drink; price = 152; member=1
+[484]  name=restore prayer Potion; desc=2 doses of restore prayer potion; cmd=Drink; price = 114; member=1
+[485]  name=restore prayer Potion; desc=1 dose of restore prayer potion; cmd=Drink; price = 76; member=1
+[486]  name=Super attack Potion; desc=3 doses of attack potion; cmd=Drink; price = 180; member=1
+[487]  name=Super attack Potion; desc=2 doses of attack potion; cmd=Drink; price = 135; member=1
+[488]  name=Super attack Potion; desc=1 dose of attack potion; cmd=Drink; price = 90; member=1
+[489]  name=fishing Potion; desc=3 doses of fishing potion; cmd=Drink; price = 200; member=1
+[490]  name=fishing Potion; desc=2 doses of fishing potion; cmd=Drink; price = 150; member=1
+[491]  name=fishing Potion; desc=1 dose of fishing potion; cmd=Drink; price = 100; member=1
+[492]  name=Super strength Potion; desc=3 doses of strength potion; cmd=Drink; price = 220; member=1
+[493]  name=Super strength Potion; desc=2 doses of strength potion; cmd=Drink; price = 165; member=1
+[494]  name=Super strength Potion; desc=1 dose of strength potion; cmd=Drink; price = 110; member=1
+[495]  name=Super defense Potion; desc=3 doses of defense potion; cmd=Drink; price = 264; member=1
+[496]  name=Super defense Potion; desc=2 doses of defense potion; cmd=Drink; price = 198; member=1
+[497]  name=Super defense Potion; desc=1 dose of defense potion; cmd=Drink; price = 132; member=1
+[498]  name=ranging Potion; desc=3 doses of ranging potion; cmd=Drink; price = 288; member=1
+[499]  name=ranging Potion; desc=2 doses of ranging potion; cmd=Drink; price = 216; member=1
+[500]  name=ranging Potion; desc=1 dose of ranging potion; cmd=Drink; price = 144; member=1
+[501]  name=wine of Zamorak; desc=It's full of wine; cmd=Drink; price = 1; member=0
+[502]  name=raw bear meat; desc=I need to cook this first; cmd=; price = 1; member=0
+[503]  name=raw rat meat; desc=I need to cook this first; cmd=; price = 1; member=0
+[504]  name=raw beef; desc=I need to cook this first; cmd=; price = 1; member=0
+[505]  name=enchanted bear meat; desc=I don't fancy eating this now; cmd=; price = 1; member=1
+[506]  name=enchanted rat meat; desc=I don't fancy eating this now; cmd=; price = 1; member=1
+[507]  name=enchanted beef; desc=I don't fancy eating this now; cmd=; price = 1; member=1
+[508]  name=enchanted chicken meat; desc=I don't fancy eating this now; cmd=; price = 1; member=1
+[509]  name=Dramen Staff; desc=A magical staff cut from the dramen tree; cmd=; price = 15; member=1
+[510]  name=Dramen Branch; desc=I need to make this into a staff; cmd=; price = 15; member=1
+[511]  name=Cape; desc=A thick Green cape; cmd=; price = 32; member=0
+[512]  name=Cape; desc=A thick yellow cape; cmd=; price = 32; member=0
+[513]  name=Cape; desc=A thick Orange cape; cmd=; price = 32; member=0
+[514]  name=Cape; desc=A thick purple cape; cmd=; price = 32; member=0
+[515]  name=Greendye; desc=A little bottle of dye; cmd=; price = 5; member=0
+[516]  name=Purpledye; desc=A little bottle of dye; cmd=; price = 5; member=0
+[517]  name=Iron ore certificate; desc=Each certificate exchangable at draynor market for 5 iron ore; cmd=; price = 10; member=0
+[518]  name=Coal certificate; desc=Each certificate exchangable at draynor market for 5 coal; cmd=; price = 20; member=0
+[519]  name=Mithril ore certificate; desc=Each certificate exchangable at draynor market for 5 mithril ore; cmd=; price = 30; member=0
+[520]  name=silver certificate; desc=Each certificate exchangable at draynor market for 5 silver nuggets; cmd=; price = 15; member=0
+[521]  name=Gold certificate; desc=Each certificate exchangable at draynor market for 5 gold nuggets; cmd=; price = 25; member=0
+[522]  name=Dragonstone Amulet; desc=A very powerful amulet; cmd=; price = 17625; member=1
+[523]  name=Dragonstone; desc=This looks very valuable; cmd=; price = 10000; member=1
+[524]  name=Dragonstone Amulet; desc=It needs a string so I can wear it; cmd=; price = 17625; member=1
+[525]  name=Crystal key; desc=A very shiny key; cmd=; price = 1; member=1
+[526]  name=Half of a key; desc=A very shiny key; cmd=; price = 1; member=1
+[527]  name=Half of a key; desc=A very shiny key; cmd=; price = 1; member=1
+[528]  name=Iron bar certificate; desc=Each certificate exchangable at draynor market for 5 iron bars; cmd=; price = 10; member=0
+[529]  name=steel bar certificate; desc=Each certificate exchangable at draynor market for 5 steel bars; cmd=; price = 20; member=0
+[530]  name=Mithril bar certificate; desc=Each certificate exchangable at draynor market for 5 mithril bars; cmd=; price = 30; member=0
+[531]  name=silver bar certificate; desc=Each certificate exchangable at draynor market for 5 silver bars; cmd=; price = 15; member=0
+[532]  name=Gold bar certificate; desc=Each certificate exchangable at draynor market for 5 gold bars; cmd=; price = 25; member=0
+[533]  name=Lobster certificate; desc=Each certificate exchangable at draynor market for 5 lobsters; cmd=; price = 10; member=0
+[534]  name=Raw lobster certificate; desc=Each certificate exchangable at draynor market for 5 raw lobsters; cmd=; price = 10; member=0
+[535]  name=Swordfish certificate; desc=Each certificate exchangable at draynor market for 5 swordfish; cmd=; price = 10; member=0
+[536]  name=Raw swordfish certificate; desc=Each certificate exchangable at draynor market for 5 raw swordfish; cmd=; price = 10; member=0
+[537]  name=Diary; desc=Property of Nora.T.Hag; cmd=read; price = 1; member=1
+[538]  name=Front door key; desc=A house key; cmd=; price = 1; member=1
+[539]  name=Ball; desc=A child's ball; cmd=; price = 1; member=1
+[540]  name=magnet; desc=A very attractive magnet; cmd=; price = 3; member=1
+[541]  name=Grey wolf fur; desc=This would make warm clothing; cmd=; price = 50; member=1
+[542]  name=uncut dragonstone; desc=this would be worth more cut; cmd=; price = 1000; member=1
+[543]  name=Dragonstone ring; desc=A valuable ring; cmd=; price = 17625; member=1
+[544]  name=Dragonstone necklace; desc=I wonder if this is valuable; cmd=; price = 18375; member=1
+[545]  name=Raw Shark; desc=I should try cooking this; cmd=; price = 300; member=1
+[546]  name=Shark; desc=I'd better be careful eating this!; cmd=Eat; price = 300; member=1
+[547]  name=Burnt Shark; desc=Oops!; cmd=; price = 1; member=1
+[548]  name=Big Net; desc=Useful for catching lots of fish; cmd=; price = 20; member=1
+[549]  name=Casket; desc=I hope there is treasure in it; cmd=open; price = 50; member=1
+[550]  name=Raw cod; desc=I should try cooking this; cmd=; price = 25; member=1
+[551]  name=Cod; desc=Some nicely cooked fish; cmd=Eat; price = 25; member=1
+[552]  name=Raw Mackerel; desc=I should try cooking this; cmd=; price = 17; member=1
+[553]  name=Mackerel; desc=Some nicely cooked fish; cmd=Eat; price = 17; member=1
+[554]  name=Raw Bass; desc=I should try cooking this; cmd=; price = 120; member=1
+[555]  name=Bass; desc=Wow this is a big fish; cmd=Eat; price = 120; member=1
+[556]  name=Ice Gloves; desc=These will keep my hands cold!; cmd=; price = 6; member=1
+[557]  name=Firebird Feather; desc=A red hot feather; cmd=; price = 2; member=1
+[558]  name=Firebird Feather; desc=This is cool enough to hold now; cmd=; price = 2; member=1
+[559]  name=Poisoned Iron dagger; desc=Short but pointy; cmd=; price = 35; member=1
+[560]  name=Poisoned bronze dagger; desc=Short but pointy; cmd=; price = 10; member=1
+[561]  name=Poisoned Steel dagger; desc=Short but pointy; cmd=; price = 125; member=1
+[562]  name=Poisoned Mithril dagger; desc=Short but pointy; cmd=; price = 325; member=1
+[563]  name=Poisoned Rune dagger; desc=Short but pointy; cmd=; price = 8000; member=1
+[564]  name=Poisoned Adamantite dagger; desc=Short but pointy; cmd=; price = 800; member=1
+[565]  name=Poisoned Black dagger; desc=Short but pointy; cmd=; price = 240; member=1
+[566]  name=Cure poison Potion; desc=3 doses of cure poison potion; cmd=Drink; price = 288; member=1
+[567]  name=Cure poison Potion; desc=2 doses of cure poison potion; cmd=Drink; price = 216; member=1
+[568]  name=Cure poison Potion; desc=1 dose of cure poison potion; cmd=Drink; price = 144; member=1
+[569]  name=Poison antidote; desc=3 doses of anti poison potion; cmd=Drink; price = 288; member=1
+[570]  name=Poison antidote; desc=2 doses of anti poison potion; cmd=Drink; price = 216; member=1
+[571]  name=Poison antidote; desc=1 dose of anti poison potion; cmd=Drink; price = 144; member=1
+[572]  name=weapon poison; desc=For use on daggers and arrows; cmd=; price = 144; member=1
+[573]  name=ID Paper; desc=ID of Hartigen the black knight; cmd=; price = 1; member=1
+[574]  name=Poison Bronze Arrows; desc=Venomous looking arrows; cmd=; price = 2; member=1
+[575]  name=Christmas cracker; desc=Use on another player to pull it; cmd=; price = 1; member=0
+[576]  name=Party Hat; desc=Party!!!; cmd=; price = 2; member=0
+[577]  name=Party Hat; desc=Party!!!; cmd=; price = 2; member=0
+[578]  name=Party Hat; desc=Party!!!; cmd=; price = 2; member=0
+[579]  name=Party Hat; desc=Party!!!; cmd=; price = 2; member=0
+[580]  name=Party Hat; desc=Party!!!; cmd=; price = 2; member=0
+[581]  name=Party Hat; desc=Party!!!; cmd=; price = 2; member=0
+[582]  name=Miscellaneous key; desc=I wonder what this unlocks; cmd=; price = 1; member=1
+[583]  name=Bunch of keys; desc=Some keys on a keyring; cmd=; price = 2; member=1
+[584]  name=Whisky; desc=A bottle of Draynor Malt; cmd=drink; price = 5; member=1
+[585]  name=Candlestick; desc=A valuable candlestick; cmd=; price = 5; member=1
+[586]  name=Master thief armband; desc=This denotes a great act of thievery; cmd=; price = 2; member=1
+[587]  name=Blamish snail slime; desc=Yuck; cmd=; price = 5; member=1
+[588]  name=Blamish oil; desc=made from the finest snail slime; cmd=; price = 10; member=1
+[589]  name=Oily Fishing Rod; desc=A rod covered in Blamish oil; cmd=; price = 15; member=1
+[590]  name=lava eel; desc=Strange it looks cooler now it's been cooked; cmd=eat; price = 150; member=1
+[591]  name=Raw lava eel; desc=A very strange eel; cmd=; price = 150; member=1
+[592]  name=Poison Crossbow bolts; desc=Good if you have a crossbow!; cmd=; price = 3; member=1
+[593]  name=Dragon sword; desc=A Razor sharp sword; cmd=; price = 100000; member=1
+[594]  name=Dragon axe; desc=A vicious looking axe; cmd=; price = 200000; member=1
+[595]  name=Jail keys; desc=Keys to the black knight jail; cmd=; price = 2; member=1
+[596]  name=Dusty Key; desc=A key given to me by Velrak; cmd=; price = 1; member=1
+[597]  name=Charged Dragonstone Amulet; desc=A very powerful amulet; cmd=rub; price = 17625; member=1
+[598]  name=Grog; desc=A murky glass of some sort of drink; cmd=drink; price = 3; member=1
+[599]  name=Candle; desc=An unlit candle; cmd=; price = 3; member=1
+[600]  name=black Candle; desc=A spooky but unlit candle; cmd=; price = 3; member=1
+[601]  name=Candle; desc=A small slowly burning candle; cmd=; price = 3; member=1
+[602]  name=black Candle; desc=A spooky candle; cmd=; price = 3; member=1
+[603]  name=insect repellant; desc=Drives away all known 6 legged creatures; cmd=; price = 3; member=1
+[604]  name=Bat bones; desc=Ew it's a pile of bones; cmd=Bury; price = 1; member=1
+[605]  name=wax Bucket; desc=It's a wooden bucket; cmd=; price = 2; member=1
+[606]  name=Excalibur; desc=This used to belong to king Arthur; cmd=; price = 200; member=1
+[607]  name=Druids robe; desc=I feel closer to the Gods when I am wearing this; cmd=; price = 40; member=1
+[608]  name=Druids robe; desc=Keeps a druids's knees nice and warm; cmd=; price = 30; member=1
+[609]  name=Eye patch; desc=It makes me look very piratical; cmd=; price = 2; member=1
+[610]  name=Unenchanted Dragonstone Amulet; desc=I wonder if I can get this enchanted; cmd=; price = 17625; member=1
+[611]  name=Unpowered orb; desc=I'd prefer it if it was powered; cmd=; price = 100; member=1
+[612]  name=Fire orb; desc=A magic glowing orb; cmd=; price = 300; member=1
+[613]  name=Water orb; desc=A magic glowing orb; cmd=; price = 300; member=1
+[614]  name=Battlestaff; desc=It's a slightly magical stick; cmd=; price = 7000; member=1
+[615]  name=Battlestaff of fire; desc=A Magical staff; cmd=; price = 15500; member=1
+[616]  name=Battlestaff of water; desc=A Magical staff; cmd=; price = 15500; member=1
+[617]  name=Battlestaff of air; desc=A Magical staff; cmd=; price = 15500; member=1
+[618]  name=Battlestaff of earth; desc=A Magical staff; cmd=; price = 15500; member=1
+[619]  name=Blood-Rune; desc=Used for high level missile spells; cmd=; price = 25; member=1
+[620]  name=Beer glass; desc=I need to fill this with beer; cmd=; price = 2; member=0
+[621]  name=glassblowing pipe; desc=Use on molten glass to make things; cmd=; price = 2; member=1
+[622]  name=seaweed; desc=slightly damp seaweed; cmd=; price = 2; member=1
+[623]  name=molten glass; desc=hot glass ready to be blown; cmd=; price = 2; member=1
+[624]  name=soda ash; desc=one of the ingredients for making glass; cmd=; price = 2; member=1
+[625]  name=sand; desc=one of the ingredients for making glass; cmd=; price = 2; member=1
+[626]  name=air orb; desc=A magic glowing orb; cmd=; price = 300; member=1
+[627]  name=earth orb; desc=A magic glowing orb; cmd=; price = 300; member=1
+[628]  name=bass certificate; desc=Each certificate exchangable at Catherby for 5 bass; cmd=; price = 10; member=1
+[629]  name=Raw bass certificate; desc=Each certificate exchangable at Catherby for 5 raw bass; cmd=; price = 10; member=1
+[630]  name=shark certificate; desc=Each certificate exchangable at Catherby for 5 shark; cmd=; price = 10; member=1
+[631]  name=Raw shark certificate; desc=Each certificate exchangable at Catherby for 5 raw shark; cmd=; price = 10; member=1
+[632]  name=Oak Logs; desc=Logs cut from an oak tree; cmd=; price = 20; member=1
+[633]  name=Willow Logs; desc=Logs cut from a willow tree; cmd=; price = 40; member=1
+[634]  name=Maple Logs; desc=Logs cut from a maple tree; cmd=; price = 80; member=1
+[635]  name=Yew Logs; desc=Logs cut from a yew tree; cmd=; price = 160; member=1
+[636]  name=Magic Logs; desc=Logs made from magical wood; cmd=; price = 320; member=1
+[637]  name=Headless Arrows; desc=I need to attach arrow heads to these; cmd=; price = 1; member=1
+[638]  name=Iron Arrows; desc=Arrows with iron heads; cmd=; price = 6; member=1
+[639]  name=Poison Iron Arrows; desc=Venomous looking arrows; cmd=; price = 6; member=1
+[640]  name=Steel Arrows; desc=Arrows with steel heads; cmd=; price = 24; member=1
+[641]  name=Poison Steel Arrows; desc=Venomous looking arrows; cmd=; price = 24; member=1
+[642]  name=Mithril Arrows; desc=Arrows with mithril heads; cmd=; price = 64; member=1
+[643]  name=Poison Mithril Arrows; desc=Venomous looking arrows; cmd=; price = 64; member=1
+[644]  name=Adamantite Arrows; desc=Arrows with adamantite heads; cmd=; price = 160; member=1
+[645]  name=Poison Adamantite Arrows; desc=Venomous looking arrows; cmd=; price = 160; member=1
+[646]  name=Rune Arrows; desc=Arrows with rune heads; cmd=; price = 800; member=1
+[647]  name=Poison Rune Arrows; desc=Venomous looking arrows; cmd=; price = 800; member=1
+[648]  name=Oak Longbow; desc=A Nice sturdy bow; cmd=; price = 160; member=1
+[649]  name=Oak Shortbow; desc=Short but effective; cmd=; price = 100; member=1
+[650]  name=Willow Longbow; desc=A Nice sturdy bow; cmd=; price = 320; member=1
+[651]  name=Willow Shortbow; desc=Short but effective; cmd=; price = 200; member=1
+[652]  name=Maple Longbow; desc=A Nice sturdy bow; cmd=; price = 640; member=1
+[653]  name=Maple Shortbow; desc=Short but effective; cmd=; price = 400; member=1
+[654]  name=Yew Longbow; desc=A Nice sturdy bow; cmd=; price = 1280; member=1
+[655]  name=Yew Shortbow; desc=Short but effective; cmd=; price = 800; member=1
+[656]  name=Magic Longbow; desc=A Nice sturdy bow; cmd=; price = 2560; member=1
+[657]  name=Magic Shortbow; desc=Short but effective; cmd=; price = 1600; member=1
+[658]  name=unstrung Oak Longbow; desc=I need to find a string for this; cmd=; price = 80; member=1
+[659]  name=unstrung Oak Shortbow; desc=I need to find a string for this; cmd=; price = 50; member=1
+[660]  name=unstrung Willow Longbow; desc=I need to find a string for this; cmd=; price = 160; member=1
+[661]  name=unstrung Willow Shortbow; desc=I need to find a string for this; cmd=; price = 100; member=1
+[662]  name=unstrung Maple Longbow; desc=I need to find a string for this; cmd=; price = 320; member=1
+[663]  name=unstrung Maple Shortbow; desc=I need to find a string for this; cmd=; price = 200; member=1
+[664]  name=unstrung Yew Longbow; desc=I need to find a string for this; cmd=; price = 640; member=1
+[665]  name=unstrung Yew Shortbow; desc=I need to find a string for this; cmd=; price = 400; member=1
+[666]  name=unstrung Magic Longbow; desc=I need to find a string for this; cmd=; price = 1280; member=1
+[667]  name=unstrung Magic Shortbow; desc=I need to find a string for this; cmd=; price = 800; member=1
+[668]  name=barcrawl card; desc=The official Alfred Grimhand barcrawl; cmd=read; price = 10; member=1
+[669]  name=bronze arrow heads; desc=Not much use without the rest of the arrow!; cmd=; price = 1; member=1
+[670]  name=iron arrow heads; desc=Not much use without the rest of the arrow!; cmd=; price = 3; member=1
+[671]  name=steel arrow heads; desc=Not much use without the rest of the arrow!; cmd=; price = 12; member=1
+[672]  name=mithril arrow heads; desc=Not much use without the rest of the arrow!; cmd=; price = 32; member=1
+[673]  name=adamantite arrow heads; desc=Not much use without the rest of the arrow!; cmd=; price = 80; member=1
+[674]  name=rune arrow heads; desc=Not much use without the rest of the arrow!; cmd=; price = 400; member=1
+[675]  name=flax; desc=I should use this with a spinning wheel; cmd=; price = 5; member=1
+[676]  name=bow string; desc=I need a bow handle to attach this too; cmd=; price = 10; member=1
+[677]  name=Easter egg; desc=Happy Easter; cmd=eat; price = 10; member=0
+[678]  name=scorpion cage; desc=I need to catch some scorpions in this; cmd=; price = 10; member=1
+[679]  name=scorpion cage; desc=It has 1 scorpion in it; cmd=; price = 10; member=1
+[680]  name=scorpion cage; desc=It has 2 scorpions in it; cmd=; price = 10; member=1
+[681]  name=scorpion cage; desc=It has 3 scorpions in it; cmd=; price = 10; member=1
+[682]  name=Enchanted Battlestaff of fire; desc=A Magical staff; cmd=; price = 42500; member=1
+[683]  name=Enchanted Battlestaff of water; desc=A Magical staff; cmd=; price = 42500; member=1
+[684]  name=Enchanted Battlestaff of air; desc=A Magical staff; cmd=; price = 42500; member=1
+[685]  name=Enchanted Battlestaff of earth; desc=A Magical staff; cmd=; price = 42500; member=1
+[686]  name=scorpion cage; desc=It has 1 scorpion in it; cmd=; price = 10; member=1
+[687]  name=scorpion cage; desc=It has 1 scorpion in it; cmd=; price = 10; member=1
+[688]  name=scorpion cage; desc=It has 2 scorpions in it; cmd=; price = 10; member=1
+[689]  name=scorpion cage; desc=It has 2 scorpions in it; cmd=; price = 10; member=1
+[690]  name=gold; desc=this needs refining; cmd=; price = 150; member=1
+[691]  name=gold bar; desc=this looks valuable; cmd=; price = 300; member=1
+[692]  name=Ruby ring; desc=A valuable ring; cmd=; price = 2025; member=1
+[693]  name=Ruby necklace; desc=I wonder if this is valuable; cmd=; price = 2175; member=1
+[694]  name=Family crest; desc=The crest of a varrocian noble family; cmd=; price = 10; member=1
+[695]  name=Crest fragment; desc=Part of the Fitzharmon family crest; cmd=; price = 10; member=1
+[696]  name=Crest fragment; desc=Part of the Fitzharmon family crest; cmd=; price = 10; member=1
+[697]  name=Crest fragment; desc=Part of the Fitzharmon family crest; cmd=; price = 10; member=1
+[698]  name=Steel gauntlets; desc=Very handy armour; cmd=; price = 6; member=1
+[699]  name=gauntlets of goldsmithing; desc=metal gloves for gold making; cmd=; price = 6; member=1
+[700]  name=gauntlets of cooking; desc=Used for cooking fish; cmd=; price = 6; member=1
+[701]  name=gauntlets of chaos; desc=improves bolt spells; cmd=; price = 6; member=1
+[702]  name=robe of Zamorak; desc=A robe worn by worshippers of Zamorak; cmd=; price = 40; member=1
+[703]  name=robe of Zamorak; desc=A robe worn by worshippers of Zamorak; cmd=; price = 30; member=1
+[704]  name=Address Label; desc=To lord Handelmort- Handelmort mansion; cmd=; price = 10; member=1
+[705]  name=Tribal totem; desc=It represents some sort of tribal god; cmd=; price = 10; member=1
+[706]  name=tourist guide; desc=Your definitive guide to Ardougne; cmd=read; price = 1; member=1
+[707]  name=spice; desc=Put it in uncooked stew to make curry; cmd=; price = 230; member=1
+[708]  name=Uncooked curry; desc=I need to cook this; cmd=; price = 10; member=1
+[709]  name=curry; desc=It's a spicey hot curry; cmd=Eat; price = 20; member=1
+[710]  name=Burnt curry; desc=Eew it's horribly burnt; cmd=Empty; price = 1; member=1
+[711]  name=yew logs certificate; desc=Each certificate exchangable at Ardougne for 5 yew logs; cmd=; price = 10; member=1
+[712]  name=maple logs certificate; desc=Each certificate exchangable at Ardougne for 5 maple logs; cmd=; price = 20; member=1
+[713]  name=willow logs certificate; desc=Each certificate exchangable at Ardougne for 5 willow logs; cmd=; price = 30; member=1
+[714]  name=lockpick; desc=It makes picking some locks easier; cmd=; price = 20; member=1
+[715]  name=Red vine worms; desc=Strange little red worms; cmd=; price = 3; member=1
+[716]  name=Blanket; desc=A child's blanket; cmd=; price = 5; member=1
+[717]  name=Raw giant carp; desc=I should try cooking this; cmd=; price = 50; member=1
+[718]  name=giant Carp; desc=Some nicely cooked fish; cmd=Eat; price = 50; member=1
+[719]  name=Fishing competition Pass; desc=Admits one to the Hemenster fishing competition; cmd=; price = 10; member=1
+[720]  name=Hemenster fishing trophy; desc=Hurrah you won a fishing competition; cmd=; price = 20; member=1
+[721]  name=Pendant of Lucien; desc=Gets me through the chamber of fear; cmd=; price = 12; member=1
+[722]  name=Boots of lightfootedness; desc=Wearing these makes me feel like I am floating; cmd=; price = 6; member=1
+[723]  name=Ice Arrows; desc=Can only be fired with yew or magic bows; cmd=; price = 2; member=1
+[724]  name=Lever; desc=This was once attached to something; cmd=; price = 20; member=1
+[725]  name=Staff of Armadyl; desc=A Magical staff; cmd=; price = 15; member=1
+[726]  name=Pendant of Armadyl; desc=Allows me to fight Lucien; cmd=; price = 12; member=1
+[727]  name=Large cog; desc= A large old cog; cmd=; price = 10; member=1
+[728]  name=Large cog; desc= A large old cog; cmd=; price = 10; member=1
+[729]  name=Large cog; desc= A large old cog; cmd=; price = 10; member=1
+[730]  name=Large cog; desc= A large old cog; cmd=; price = 10; member=1
+[731]  name=Rat Poison; desc=This stuff looks nasty; cmd=; price = 1; member=1
+[732]  name=shiny Key; desc=Quite a small key; cmd=; price = 1; member=1
+[733]  name=khazard Helmet; desc=A medium sized helmet; cmd=; price = 10; member=1
+[734]  name=khazard chainmail; desc=A series of connected metal rings; cmd=; price = 10; member=1
+[735]  name=khali brew; desc=A bottle of khazard's worst brew; cmd=drink; price = 5; member=1
+[736]  name=khazard cell keys; desc=Keys for General Khazard's cells; cmd=; price = 1; member=1
+[737]  name=Poison chalice; desc=A strange looking drink; cmd=drink; price = 20; member=1
+[738]  name=magic whistle; desc=A small tin whistle; cmd=blow; price = 10; member=1
+[739]  name=Cup of tea; desc=A nice cup of tea; cmd=drink; price = 10; member=1
+[740]  name=orb of protection; desc=a strange glowing green orb; cmd=; price = 1; member=1
+[741]  name=orbs of protection; desc=two strange glowing green orbs; cmd=; price = 1; member=1
+[742]  name=Holy table napkin; desc=a cloth given to me by sir Galahad; cmd=; price = 10; member=1
+[743]  name=bell; desc=I wonder what happens when i ring it; cmd=ring; price = 1; member=1
+[744]  name=Gnome Emerald Amulet of protection; desc=It improves my defense; cmd=; price = 0; member=1
+[745]  name=magic golden feather; desc=It will point the way for me; cmd=blow on; price = 2; member=1
+[746]  name=Holy grail; desc=A holy and powerful artifact; cmd=; price = 1; member=1
+[747]  name=Script of Hazeel; desc=An old scroll with strange ancient text; cmd=; price = 1; member=1
+[748]  name=Pineapple; desc=It can be cut up with a knife; cmd=; price = 1; member=1
+[749]  name=Pineapple ring; desc=Exotic fruit; cmd=eat; price = 1; member=1
+[750]  name=Pineapple Pizza; desc=A tropicana pizza; cmd=Eat; price = 100; member=1
+[751]  name=Half pineapple Pizza; desc=Half of this pizza has been eaten; cmd=Eat; price = 50; member=1
+[752]  name=Magic scroll; desc=Maybe I should read it; cmd=read; price = 1; member=1
+[753]  name=Mark of Hazeel; desc=A large metal amulet; cmd=; price = 0; member=1
+[754]  name=bloody axe of zamorak; desc=A vicious looking axe; cmd=; price = 5000; member=1
+[755]  name=carnillean armour; desc=the carnillean family armour; cmd=; price = 65; member=1
+[756]  name=Carnillean Key; desc=An old rusty key; cmd=; price = 1; member=1
+[757]  name=Cattle prod; desc=An old cattle prod; cmd=; price = 15; member=1
+[758]  name=Plagued sheep remains; desc=These sheep remains are infected; cmd=; price = 0; member=1
+[759]  name=Poisoned animal feed; desc=This looks nasty; cmd=; price = 0; member=1
+[760]  name=Protective jacket; desc=A thick heavy leather top; cmd=; price = 50; member=1
+[761]  name=Protective trousers; desc=A thick pair of leather trousers; cmd=; price = 50; member=1
+[762]  name=Plagued sheep remains; desc=These sheep remains are infected; cmd=; price = 0; member=1
+[763]  name=Plagued sheep remains; desc=These sheep remains are infected; cmd=; price = 0; member=1
+[764]  name=Plagued sheep remains; desc=These sheep remains are infected; cmd=; price = 0; member=1
+[765]  name=dwellberries; desc=some rather pretty blue berries; cmd=eat; price = 4; member=1
+[766]  name=Gasmask; desc=Stops me breathing nasty stuff; cmd=; price = 2; member=1
+[767]  name=picture; desc=A picture of a lady called Elena; cmd=; price = 2; member=1
+[768]  name=Book; desc=Turnip growing for beginners; cmd=read; price = 1; member=1
+[769]  name=Seaslug; desc=a rather nasty looking crustacean; cmd=; price = 4; member=1
+[770]  name=chocolaty milk; desc=Milk with chocolate in it; cmd=drink; price = 2; member=1
+[771]  name=Hangover cure; desc=It doesn't look very tasty; cmd=; price = 2; member=1
+[772]  name=Chocolate dust; desc=I prefer it in a bar shape; cmd=; price = 2; member=1
+[773]  name=Torch; desc=A unlit home made torch; cmd=; price = 4; member=1
+[774]  name=Torch; desc=A lit home made torch; cmd=; price = 4; member=1
+[775]  name=warrant; desc=A search warrant for a house in Ardougne; cmd=; price = 5; member=1
+[776]  name=Damp sticks; desc=Some damp wooden sticks; cmd=; price = 0; member=1
+[777]  name=Dry sticks; desc=Some dry wooden sticks; cmd=rub together; price = 0; member=1
+[778]  name=Broken glass; desc=Glass from a broken window pane; cmd=; price = 0; member=1
+[779]  name=oyster pearls; desc=I could work wonders with these and a chisel; cmd=; price = 1400; member=1
+[780]  name=little key; desc=Quite a small key; cmd=; price = 1; member=1
+[781]  name=Scruffy note; desc=It seems to say hongorer lure; cmd=read; price = 2; member=1
+[782]  name=Glarial's amulet; desc=A bright green gem set in a necklace; cmd=; price = 1; member=1
+[783]  name=Swamp tar; desc=A foul smelling thick tar like substance; cmd=; price = 1; member=1
+[784]  name=Uncooked Swamp paste; desc=A thick tar like substance mixed with flour; cmd=; price = 1; member=1
+[785]  name=Swamp paste; desc=A tar like substance mixed with flour and warmed; cmd=; price = 30; member=1
+[786]  name=Oyster pearl bolts; desc=Great if you have a crossbow!; cmd=; price = 110; member=1
+[787]  name=Glarials pebble; desc=A small pebble with elven inscription; cmd=; price = 1; member=1
+[788]  name=book on baxtorian; desc=A book on elven history in north runescape; cmd=read; price = 2; member=1
+[789]  name=large key; desc=I wonder what this is the key to; cmd=; price = 1; member=1
+[790]  name=Oyster pearl bolt tips; desc=Can be used to improve crossbow bolts; cmd=; price = 56; member=1
+[791]  name=oyster; desc=It's empty; cmd=; price = 5; member=1
+[792]  name=oyster pearls; desc=I could work wonders with these and a chisel; cmd=; price = 112; member=1
+[793]  name=oyster; desc=It's a rare oyster; cmd=open; price = 200; member=1
+[794]  name=Soil; desc=It's a bucket of fine soil; cmd=; price = 2; member=1
+[795]  name=Dragon medium Helmet; desc=A medium sized helmet; cmd=; price = 100000; member=1
+[796]  name=Mithril seed; desc=Magical seeds in a mithril case; cmd=open; price = 200; member=1
+[797]  name=An old key; desc=A door key; cmd=; price = 1; member=1
+[798]  name=pigeon cage; desc=It's for holding pigeons; cmd=; price = 1; member=1
+[799]  name=Messenger pigeons; desc=some very plump birds; cmd=release; price = 1; member=1
+[800]  name=Bird feed; desc=A selection of mixed seeds; cmd=; price = 1; member=1
+[801]  name=Rotten apples; desc=Yuck!; cmd=eat; price = 1; member=1
+[802]  name=Doctors gown; desc=I do feel clever wearing this; cmd=; price = 40; member=1
+[803]  name=Bronze key; desc=A heavy key; cmd=; price = 1; member=1
+[804]  name=Distillator; desc=It's for seperating compounds; cmd=; price = 1; member=1
+[805]  name=Glarial's urn; desc=An urn containing glarials ashes; cmd=; price = 1; member=0
+[806]  name=Glarial's urn; desc=An empty metal urn; cmd=; price = 1; member=0
+[807]  name=Priest robe; desc=I feel closer to saradomin in this; cmd=; price = 5; member=0
+[808]  name=Priest gown; desc=I feel closer to saradomin in this; cmd=; price = 5; member=0
+[809]  name=Liquid Honey; desc=This isn't worth much; cmd=; price = 0; member=1
+[810]  name=Ethenea; desc=An expensive colourless liquid; cmd=; price = 10; member=1
+[811]  name=Sulphuric Broline; desc=it's highly poisonous; cmd=; price = 1; member=1
+[812]  name=Plague sample; desc=An air tight tin container; cmd=; price = 1; member=1
+[813]  name=Touch paper; desc=For scientific testing; cmd=; price = 1; member=1
+[814]  name=Dragon Bones; desc=Ew it's a pile of bones; cmd=Bury; price = 1; member=1
+[815]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[816]  name=Snake Weed; desc=A very rare jungle herb; cmd=; price = 5; member=1
+[817]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[818]  name=Ardrigal; desc=An interesting; cmd=; price = 5; member=1
+[819]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[820]  name=Sito Foil; desc=An rare species of jungle herb; cmd=; price = 5; member=1
+[821]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[822]  name=Volencia Moss; desc=A very rare species of jungle herb; cmd=; price = 5; member=1
+[823]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[824]  name=Rogues Purse; desc= A rare species of jungle herb; cmd=; price = 5; member=1
+[825]  name=Soul-Rune; desc=Used for high level curse spells; cmd=; price = 2500; member=1
+[826]  name=king lathas Amulet; desc=The amulet is red; cmd=; price = 10; member=1
+[827]  name=Bronze Spear; desc=A bronze tipped spear; cmd=; price = 4; member=1
+[828]  name=halloween mask; desc=aaaarrrghhh ... i'm a monster; cmd=; price = 15; member=0
+[829]  name=Dragon bitter; desc=A glass of frothy ale; cmd=drink; price = 2; member=1
+[830]  name=Greenmans ale; desc=A glass of frothy ale; cmd=drink; price = 2; member=1
+[831]  name=halloween mask; desc=aaaarrrghhh ... i'm a monster; cmd=; price = 15; member=0
+[832]  name=halloween mask; desc=aaaarrrghhh ... i'm a monster; cmd=; price = 15; member=0
+[833]  name=cocktail glass; desc=For sipping cocktails; cmd=; price = 0; member=1
+[834]  name=cocktail shaker; desc=For mixing cocktails; cmd=pour; price = 2; member=1
+[835]  name=Bone Key; desc=A key delicately carved key made from a single piece of bone; cmd=Look; price = 1; member=1
+[836]  name=gnome robe; desc=A high fashion robe; cmd=; price = 180; member=1
+[837]  name=gnome robe; desc=A high fashion robe; cmd=; price = 180; member=1
+[838]  name=gnome robe; desc=A high fashion robe; cmd=; price = 180; member=1
+[839]  name=gnome robe; desc=A high fashion robe; cmd=; price = 180; member=1
+[840]  name=gnome robe; desc=A high fashion robe; cmd=; price = 180; member=1
+[841]  name=gnomeshat; desc=A silly pointed hat; cmd=; price = 160; member=1
+[842]  name=gnomeshat; desc=A silly pointed hat; cmd=; price = 160; member=1
+[843]  name=gnomeshat; desc=A silly pointed hat; cmd=; price = 160; member=1
+[844]  name=gnomeshat; desc=A silly pointed hat; cmd=; price = 160; member=1
+[845]  name=gnomeshat; desc=A silly pointed hat; cmd=; price = 160; member=1
+[846]  name=gnome top; desc=rometti - the ultimate in gnome design; cmd=; price = 180; member=1
+[847]  name=gnome top; desc=rometti - the only name in gnome fashion!; cmd=; price = 180; member=1
+[848]  name=gnome top; desc=rometti - the only name in gnome fashion!; cmd=; price = 180; member=1
+[849]  name=gnome top; desc=rometti - the only name in gnome fashion!; cmd=; price = 180; member=1
+[850]  name=gnome top; desc=rometti - the only name in gnome fashion!; cmd=; price = 180; member=1
+[851]  name=gnome cocktail guide; desc=A book on tree gnome cocktails; cmd=read; price = 2; member=1
+[852]  name=Beads of the dead; desc=A curious looking neck ornament; cmd=; price = 35; member=1
+[853]  name=cocktail glass; desc=For sipping cocktails; cmd=drink; price = 2; member=1
+[854]  name=cocktail glass; desc=For sipping cocktails; cmd=drink; price = 2; member=1
+[855]  name=lemon; desc=It's very fresh; cmd=eat; price = 2; member=1
+[856]  name=lemon slices; desc=It's very fresh; cmd=eat; price = 2; member=1
+[857]  name=orange; desc=It's very fresh; cmd=eat; price = 2; member=1
+[858]  name=orange slices; desc=It's very fresh; cmd=eat; price = 2; member=1
+[859]  name=Diced orange; desc=Fresh chunks of orange; cmd=eat; price = 2; member=1
+[860]  name=Diced lemon; desc=Fresh chunks of lemon; cmd=eat; price = 2; member=1
+[861]  name=Fresh Pineapple; desc=It can be cut up with a knife; cmd=eat; price = 1; member=1
+[862]  name=Pineapple chunks; desc=Fresh chunks of pineapple; cmd=eat; price = 1; member=1
+[863]  name=lime; desc=It's very fresh; cmd=eat; price = 2; member=1
+[864]  name=lime chunks; desc=Fresh chunks of lime; cmd=eat; price = 1; member=1
+[865]  name=lime slices; desc=It's very fresh; cmd=eat; price = 2; member=1
+[866]  name=fruit blast; desc=A cool refreshing fruit mix; cmd=drink; price = 2; member=1
+[867]  name=odd looking cocktail; desc=A cool refreshing mix; cmd=drink; price = 2; member=1
+[868]  name=Whisky; desc=A locally brewed Malt; cmd=drink; price = 5; member=1
+[869]  name=vodka; desc=A strong spirit; cmd=drink; price = 5; member=1
+[870]  name=gin; desc=A strong spirit; cmd=drink; price = 5; member=1
+[871]  name=cream; desc=Fresh cream; cmd=eat; price = 2; member=1
+[872]  name=Drunk dragon; desc=A warm creamy alcoholic beverage; cmd=drink; price = 2; member=1
+[873]  name=Equa leaves; desc=Small sweet smelling leaves; cmd=eat; price = 2; member=1
+[874]  name=SGG; desc=A short green guy..looks good; cmd=drink; price = 2; member=1
+[875]  name=Chocolate saturday; desc=A warm creamy alcoholic beverage; cmd=drink; price = 2; member=1
+[876]  name=brandy; desc=A strong spirit; cmd=drink; price = 5; member=1
+[877]  name=blurberry special; desc=Looks good..smells strong; cmd=drink; price = 2; member=1
+[878]  name=wizard blizzard; desc=Looks like a strange mix; cmd=drink; price = 2; member=1
+[879]  name=pineapple punch; desc=A fresh healthy fruit mix; cmd=drink; price = 2; member=1
+[880]  name=gnomebatta dough; desc=Dough formed into a base; cmd=; price = 2; member=1
+[881]  name=gianne dough; desc=It's made from a secret recipe; cmd=mould; price = 2; member=1
+[882]  name=gnomebowl dough; desc=Dough formed into a bowl shape; cmd=; price = 2; member=1
+[883]  name=gnomecrunchie dough; desc=Dough formed into cookie shapes; cmd=; price = 2; member=1
+[884]  name=gnomebatta; desc=A baked dough base; cmd=; price = 2; member=1
+[885]  name=gnomebowl; desc=A baked dough bowl; cmd=eat; price = 2; member=1
+[886]  name=gnomebatta; desc=It's burnt to a sinder; cmd=; price = 2; member=1
+[887]  name=gnomecrunchie; desc=They're burnt to a sinder; cmd=; price = 2; member=1
+[888]  name=gnomebowl; desc=It's burnt to a sinder; cmd=; price = 2; member=1
+[889]  name=Uncut Red Topaz; desc=A semi precious stone; cmd=; price = 40; member=1
+[890]  name=Uncut Jade; desc=A semi precious stone; cmd=; price = 30; member=1
+[891]  name=Uncut Opal; desc=A semi precious stone; cmd=; price = 20; member=1
+[892]  name=Red Topaz; desc=A semi precious stone; cmd=; price = 200; member=1
+[893]  name=Jade; desc=A semi precious stone; cmd=; price = 150; member=1
+[894]  name=Opal; desc=A semi precious stone; cmd=; price = 100; member=1
+[895]  name=Swamp Toad; desc=Slippery little blighters; cmd=remove legs; price = 2; member=1
+[896]  name=Toad legs; desc=Gnome delicacy apparently; cmd=eat; price = 2; member=1
+[897]  name=King worm; desc=Gnome delicacy apparently; cmd=eat; price = 2; member=1
+[898]  name=Gnome spice; desc=Aluft Giannes secret reciepe; cmd=; price = 2; member=1
+[899]  name=gianne cook book; desc=Aluft Giannes favorite dishes; cmd=read; price = 2; member=1
+[900]  name=gnomecrunchie; desc=yum ... smells good; cmd=eat; price = 2; member=1
+[901]  name=cheese and tomato batta; desc=Smells really good; cmd=eat; price = 2; member=1
+[902]  name=toad batta; desc=actually smells quite good; cmd=eat; price = 2; member=1
+[903]  name=gnome batta; desc=smells like pants; cmd=eat; price = 2; member=1
+[904]  name=worm batta; desc=actually smells quite good; cmd=eat; price = 2; member=1
+[905]  name=fruit batta; desc=actually smells quite good; cmd=eat; price = 2; member=1
+[906]  name=Veg batta; desc=well..it looks healthy; cmd=eat; price = 2; member=1
+[907]  name=Chocolate bomb; desc=Looks great; cmd=eat; price = 2; member=1
+[908]  name=Vegball; desc=Looks pretty healthy; cmd=eat; price = 2; member=1
+[909]  name=worm hole; desc=actually smells quite good; cmd=eat; price = 2; member=1
+[910]  name=Tangled toads legs; desc=actually smells quite good; cmd=eat; price = 2; member=1
+[911]  name=Choc crunchies; desc=yum ... smells good; cmd=eat; price = 2; member=1
+[912]  name=Worm crunchies; desc=actually smells quite good; cmd=eat; price = 2; member=1
+[913]  name=Toad crunchies; desc=actually smells quite good; cmd=eat; price = 2; member=1
+[914]  name=Spice crunchies; desc=yum ... smells good; cmd=eat; price = 2; member=1
+[915]  name=Crushed Gemstone; desc=A gemstone that has been smashed; cmd=; price = 2; member=1
+[916]  name=Blurberry badge; desc=an official cocktail maker; cmd=; price = 2; member=1
+[917]  name=Gianne badge; desc=an official gianne chef; cmd=; price = 2; member=1
+[918]  name=tree gnome translation; desc=Translate the old gnome tounge; cmd=read; price = 2; member=1
+[919]  name=Bark sample; desc=A sample from the grand tree; cmd=; price = 2; member=1
+[920]  name=War ship; desc=A model of a karamja warship; cmd=play with; price = 2; member=1
+[921]  name=gloughs journal; desc=Glough's private notes; cmd=read; price = 2; member=1
+[922]  name=invoice; desc=A note with foreman's timber order; cmd=read; price = 2; member=1
+[923]  name=Ugthanki Kebab; desc=A strange smelling Kebab made from Ugthanki meat - it doesn't look too good; cmd=eat; price = 20; member=1
+[924]  name=special curry; desc=It's a spicy hot curry; cmd=Eat; price = 20; member=1
+[925]  name=glough's key; desc=Glough left this at anita's; cmd=; price = 1; member=1
+[926]  name=glough's notes; desc=Scribbled notes and diagrams; cmd=read; price = 2; member=1
+[927]  name=Pebble; desc=The pebble has an inscription; cmd=; price = 2; member=1
+[928]  name=Pebble; desc=The pebble has an inscription; cmd=; price = 2; member=1
+[929]  name=Pebble; desc=The pebble has an inscription; cmd=; price = 2; member=1
+[930]  name=Pebble; desc=The pebble has an inscription; cmd=; price = 2; member=1
+[931]  name=Daconia rock; desc=A magicaly crafted stone; cmd=; price = 40; member=1
+[932]  name=Sinister key; desc=You get a sense of dread from this key; cmd=; price = 1; member=1
+[933]  name=Herb; desc=I need a closer look to identify this; cmd=Identify; price = 1; member=1
+[934]  name=Torstol; desc=A useful herb; cmd=; price = 25; member=1
+[935]  name=Unfinished potion; desc=I need Jangerberries to finish this Torstol potion; cmd=; price = 25; member=1
+[936]  name=Jangerberries; desc=They don't look very ripe; cmd=eat; price = 1; member=1
+[937]  name=fruit blast; desc=A cool refreshing fruit mix; cmd=drink; price = 30; member=1
+[938]  name=blurberry special; desc=Looks good..smells strong; cmd=drink; price = 30; member=1
+[939]  name=wizard blizzard; desc=Looks like a strange mix; cmd=drink; price = 30; member=1
+[940]  name=pineapple punch; desc=A fresh healthy fruit mix; cmd=drink; price = 30; member=1
+[941]  name=SGG; desc=A short green guy..looks good; cmd=drink; price = 30; member=1
+[942]  name=Chocolate saturday; desc=A warm creamy alcoholic beverage; cmd=drink; price = 30; member=1
+[943]  name=Drunk dragon; desc=A warm creamy alcoholic beverage; cmd=drink; price = 30; member=1
+[944]  name=cheese and tomato batta; desc=Smells really good; cmd=eat; price = 120; member=1
+[945]  name=toad batta; desc=actually smells quite good; cmd=eat; price = 120; member=1
+[946]  name=gnome batta; desc=smells like pants; cmd=eat; price = 120; member=1
+[947]  name=worm batta; desc=actually smells quite good; cmd=eat; price = 120; member=1
+[948]  name=fruit batta; desc=actually smells quite good; cmd=eat; price = 120; member=1
+[949]  name=Veg batta; desc=well..it looks healthy; cmd=eat; price = 120; member=1
+[950]  name=Chocolate bomb; desc=Looks great; cmd=eat; price = 160; member=1
+[951]  name=Vegball; desc=Looks pretty healthy; cmd=eat; price = 150; member=1
+[952]  name=worm hole; desc=actually smells quite good; cmd=eat; price = 150; member=1
+[953]  name=Tangled toads legs; desc=actually smells quite good; cmd=eat; price = 160; member=1
+[954]  name=Choc crunchies; desc=yum ... smells good; cmd=eat; price = 85; member=1
+[955]  name=Worm crunchies; desc=actually smells quite good; cmd=eat; price = 85; member=1
+[956]  name=Toad crunchies; desc=actually smells quite good; cmd=eat; price = 85; member=1
+[957]  name=Spice crunchies; desc=yum ... smells good; cmd=eat; price = 85; member=1
+[958]  name=Stone-Plaque; desc=A stone plaque with carved letters in it; cmd=Read; price = 5; member=1
+[959]  name=Tattered Scroll; desc=An ancient tattered scroll; cmd=Read; price = 5; member=1
+[960]  name=Crumpled Scroll; desc=An ancient crumpled scroll; cmd=Read; price = 5; member=1
+[961]  name=Bervirius Tomb Notes; desc=Notes taken from the tomb of Bervirius; cmd=Read; price = 5; member=1
+[962]  name=Zadimus Corpse; desc=The remains of Zadimus; cmd=Bury; price = 1; member=1
+[963]  name=Potion of Zamorak; desc=It looks scary; cmd=drink; price = 25; member=1
+[964]  name=Potion of Zamorak; desc=It looks scary; cmd=drink; price = 25; member=1
+[965]  name=Potion of Zamorak; desc=It looks scary; cmd=drink; price = 25; member=1
+[966]  name=Boots; desc=They're soft and silky; cmd=; price = 200; member=1
+[967]  name=Boots; desc=They're soft and silky; cmd=; price = 200; member=1
+[968]  name=Boots; desc=They're soft and silky; cmd=; price = 200; member=1
+[969]  name=Boots; desc=They're soft and silky; cmd=; price = 200; member=1
+[970]  name=Boots; desc=They're soft and silky; cmd=; price = 200; member=1
+[971]  name=Santa's hat; desc=It's a santa claus' hat; cmd=; price = 160; member=0
+[972]  name=Locating Crystal; desc=A magical crystal sphere; cmd=Activate; price = 100; member=1
+[973]  name=Sword Pommel; desc=An ivory sword pommel; cmd=; price = 100; member=1
+[974]  name=Bone Shard; desc=A slender piece of bone; cmd=Look; price = 1; member=1
+[975]  name=Steel Wire; desc=Useful for crafting items; cmd=; price = 200; member=1
+[976]  name=Bone Beads; desc=Beads carved out of bone; cmd=; price = 1; member=1
+[977]  name=Rashiliya Corpse; desc=The remains of the Zombie Queen; cmd=Bury; price = 1; member=1
+[978]  name=ResetCrystal; desc=Helps reset things in game; cmd=Activate; price = 100; member=1
+[979]  name=Bronze Wire; desc=Useful for crafting items; cmd=; price = 20; member=1
+[980]  name=Present; desc=Click to use this on a friend; cmd=open; price = 160; member=0
+[981]  name=Gnome Ball; desc=Lets play; cmd=shoot; price = 10; member=1
+[982]  name=Papyrus; desc=Used for making notes; cmd=; price = 9; member=1
+[983]  name=A lump of Charcoal; desc=a lump of cooked coal good for making marks.; cmd=; price = 45; member=1
+[984]  name=Arrow; desc=linen wrapped around an arrow head; cmd=; price = 10; member=1
+[985]  name=Lit Arrow; desc=A flamming arrow; cmd=; price = 10; member=1
+[986]  name=Rocks; desc=A few Large rocks; cmd=; price = 10; member=1
+[987]  name=Paramaya Rest Ticket; desc=Allows you to rest in the luxurius Paramaya Inn; cmd=; price = 5; member=1
+[988]  name=Ship Ticket; desc=Allows you passage on the 'Lady of the Waves' ship.; cmd=; price = 5; member=1
+[989]  name=Damp cloth; desc=It smells as if it's been doused in alcohol; cmd=; price = 10; member=1
+[990]  name=Desert Boots; desc=Boots made specially for the desert; cmd=; price = 20; member=1
+[991]  name=Orb of light; desc=The orb gives you a safe peaceful feeling; cmd=; price = 10; member=1
+[992]  name=Orb of light; desc=The orb gives you a safe peaceful feeling; cmd=; price = 10; member=1
+[993]  name=Orb of light; desc=The orb gives you a safe peaceful feeling; cmd=; price = 10; member=1
+[994]  name=Orb of light; desc=The orb gives you a safe peaceful feeling; cmd=; price = 10; member=1
+[995]  name=Railing; desc=A broken metal rod; cmd=; price = 10; member=1
+[996]  name=Randas's journal; desc=An old journal with several pages missing; cmd=read; price = 1; member=1
+[997]  name=Unicorn horn; desc=Poor unicorn went splat!; cmd=; price = 20; member=1
+[998]  name=Coat of Arms; desc=A symbol of truth and all that is good; cmd=; price = 10; member=1
+[999]  name=Coat of Arms; desc=A symbol of truth and all that is good; cmd=; price = 10; member=1
+[1000]  name=Staff of Iban; desc=It's a slightly magical stick; cmd=; price = 15; member=1
+[1001]  name=Dwarf brew; desc=It's a bucket of home made brew; cmd=; price = 2; member=1
+[1002]  name=Ibans Ashes; desc=A heap of ashes; cmd=; price = 2; member=1
+[1003]  name=Cat; desc=She's sleeping..i think!; cmd=; price = 2; member=1
+[1004]  name=A Doll of Iban; desc=A strange doll made from sticks and cloth; cmd=search; price = 2; member=1
+[1005]  name=Old Journal; desc=I wonder who wrote this!; cmd=read; price = 1; member=1
+[1006]  name=Klank's gauntlets; desc=Heavy hand protection; cmd=; price = 6; member=1
+[1007]  name=Iban's shadow; desc=A dark mystical liquid; cmd=; price = 2; member=1
+[1008]  name=Iban's conscience; desc=The remains of a dove that died long ago; cmd=; price = 2; member=1
+[1009]  name=Amulet of Othainian; desc=A strange looking amulet; cmd=; price = 0; member=1
+[1010]  name=Amulet of Doomion; desc=A strange looking amulet; cmd=; price = 0; member=1
+[1011]  name=Amulet of Holthion; desc=A strange looking amulet; cmd=; price = 0; member=1
+[1012]  name=keep key; desc=A small prison key; cmd=; price = 1; member=1
+[1013]  name=Bronze Throwing Dart; desc=A deadly throwing dart with a bronze tip.; cmd=; price = 2; member=1
+[1014]  name=Prototype Throwing Dart; desc=A proto type of a deadly throwing dart.; cmd=; price = 70; member=1
+[1015]  name=Iron Throwing Dart; desc=A deadly throwing dart with an iron tip.; cmd=; price = 5; member=1
+[1016]  name=Full Water Skin; desc=A skinful of water; cmd=; price = 30; member=1
+[1017]  name=Lens mould; desc=A peculiar mould in the shape of a disc; cmd=; price = 10; member=1
+[1018]  name=Lens; desc=A perfectly formed glass disc; cmd=; price = 10; member=1
+[1019]  name=Desert Robe; desc=Cool light robe to wear in the desert; cmd=; price = 40; member=1
+[1020]  name=Desert Shirt; desc=A light cool shirt to wear in the desert; cmd=; price = 40; member=1
+[1021]  name=Metal Key; desc=A large metalic key.; cmd=; price = 1; member=1
+[1022]  name=Slaves Robe Bottom; desc=A dirty desert skirt; cmd=; price = 40; member=1
+[1023]  name=Slaves Robe Top; desc=A dirty desert shirt; cmd=; price = 40; member=1
+[1024]  name=Steel Throwing Dart; desc=A deadly throwing dart with a steel tip.; cmd=; price = 20; member=1
+[1025]  name=Astrology Book; desc=A book on Astrology in runescape; cmd=Read; price = 2; member=1
+[1026]  name=Unholy Symbol mould; desc=use this with silver in a furnace; cmd=; price = 200; member=1
+[1027]  name=Unholy Symbol of Zamorak; desc=this needs stringing; cmd=; price = 200; member=1
+[1028]  name=Unblessed Unholy Symbol of Zamorak; desc=this needs blessing; cmd=; price = 200; member=1
+[1029]  name=Unholy Symbol of Zamorak; desc=a symbol indicating allegiance to Zamorak; cmd=; price = 200; member=1
+[1030]  name=Shantay Desert Pass; desc=Allows you into the desert through the Shantay pass worth 5 gold.; cmd=; price = 5; member=1
+[1031]  name=Staff of Iban; desc=The staff is damaged; cmd=wield; price = 15; member=1
+[1032]  name=Dwarf cannon base; desc=bang; cmd=set down; price = 200000; member=1
+[1033]  name=Dwarf cannon stand; desc=bang; cmd=; price = 200000; member=1
+[1034]  name=Dwarf cannon barrels; desc=bang; cmd=; price = 200000; member=1
+[1035]  name=Dwarf cannon furnace; desc=bang; cmd=; price = 200000; member=1
+[1036]  name=Fingernails; desc=Ugh gross!; cmd=; price = 0; member=1
+[1037]  name=Powering crystal1; desc=An intricately cut gemstone; cmd=; price = 0; member=1
+[1038]  name=Mining Barrel; desc=A roughly constructed barrel for carrying rock.; cmd=; price = 100; member=1
+[1039]  name=Ana in a Barrel; desc=A roughly constructed barrel with an Ana in it!; cmd=Look; price = 100; member=1
+[1040]  name=Stolen gold; desc=I wish I could spend it; cmd=; price = 300; member=1
+[1041]  name=multi cannon ball; desc=A heavy metal spiked ball; cmd=; price = 10; member=1
+[1042]  name=Railing; desc=A metal railing replacement; cmd=; price = 10; member=1
+[1043]  name=Ogre tooth; desc=big sharp and nasty; cmd=; price = 0; member=1
+[1044]  name=Ogre relic; desc=A grotesque symbol of the ogres; cmd=; price = 0; member=1
+[1045]  name=Skavid map; desc=A map of cave locations; cmd=; price = 0; member=1
+[1046]  name=dwarf remains; desc=The remains of a dwarf savaged by goblins; cmd=; price = 1; member=1
+[1047]  name=Key; desc=A key for a chest; cmd=; price = 1; member=1
+[1048]  name=Ogre relic part; desc=A piece of a statue; cmd=; price = 0; member=1
+[1049]  name=Ogre relic part; desc=A piece of a statue; cmd=; price = 0; member=1
+[1050]  name=Ogre relic part; desc=A piece of a statue; cmd=; price = 0; member=1
+[1051]  name=Ground bat bones; desc=The ground bones of a bat; cmd=; price = 20; member=1
+[1052]  name=Unfinished potion; desc=I need another ingredient to finish the shaman potion; cmd=; price = 3; member=1
+[1053]  name=Ogre potion; desc=A strange liquid; cmd=; price = 120; member=1
+[1054]  name=Magic ogre potion; desc=A strange liquid that bubbles with power; cmd=; price = 120; member=1
+[1055]  name=Tool kit; desc=These could be handy!; cmd=; price = 120; member=1
+[1056]  name=Nulodion's notes; desc=Construction notes for dwarf cannon ammo; cmd=read; price = 1; member=1
+[1057]  name=cannon ammo mould; desc=Used to make cannon ammo; cmd=; price = 5; member=1
+[1058]  name=Tenti Pineapple; desc=The most delicious in the whole of Kharid; cmd=; price = 1; member=1
+[1059]  name=Bedobin Copy Key; desc=A copy of a key for the captains of the mining camps chest; cmd=; price = 20; member=1
+[1060]  name=Technical Plans; desc=Very technical looking plans for making a thrown weapon of some sort; cmd=Read; price = 500; member=1
+[1061]  name=Rock cake; desc=Yum... I think!; cmd=eat; price = 0; member=1
+[1062]  name=Bronze dart tips; desc=Dangerous looking dart tips - need feathers for flight; cmd=; price = 1; member=1
+[1063]  name=Iron dart tips; desc=Dangerous looking dart tips - need feathers for flight; cmd=; price = 3; member=1
+[1064]  name=Steel dart tips; desc=Dangerous looking dart tips - need feathers for flight; cmd=; price = 9; member=1
+[1065]  name=Mithril dart tips; desc=Dangerous looking dart tips - need feathers for flight; cmd=; price = 25; member=1
+[1066]  name=Adamantite dart tips; desc=Dangerous looking dart tips - need feathers for flight; cmd=; price = 65; member=1
+[1067]  name=Rune dart tips; desc=Dangerous looking dart tips - need feathers for flight; cmd=; price = 350; member=1
+[1068]  name=Mithril Throwing Dart; desc=A deadly throwing dart with a mithril tip.; cmd=; price = 50; member=1
+[1069]  name=Adamantite Throwing Dart; desc=A deadly throwing dart with an adamantite tip.; cmd=; price = 130; member=1
+[1070]  name=Rune Throwing Dart; desc=A deadly throwing dart with a runite tip.; cmd=; price = 700; member=1
+[1071]  name=Prototype dart tip; desc=Dangerous looking dart tip - needs feathers for flight; cmd=; price = 1; member=1
+[1072]  name=info document; desc=read to access variable choices; cmd=read; price = 2; member=1
+[1073]  name=Instruction manual; desc=An old note book; cmd=read; price = 1; member=1
+[1074]  name=Unfinished potion; desc=I need another ingredient to finish this potion; cmd=; price = 3; member=1
+[1075]  name=Iron throwing knife; desc=A finely balanced knife; cmd=; price = 6; member=1
+[1076]  name=Bronze throwing knife; desc=A finely balanced knife; cmd=; price = 2; member=1
+[1077]  name=Steel throwing knife; desc=A finely balanced knife; cmd=; price = 21; member=1
+[1078]  name=Mithril throwing knife; desc=A finely balanced knife; cmd=; price = 54; member=1
+[1079]  name=Adamantite throwing knife; desc=A finely balanced knife; cmd=; price = 133; member=1
+[1080]  name=Rune throwing knife; desc=A finely balanced knife; cmd=; price = 333; member=1
+[1081]  name=Black throwing knife; desc=A finely balanced knife; cmd=; price = 37; member=1
+[1082]  name=Water Skin mostly full; desc=A half full skin of water; cmd=; price = 27; member=1
+[1083]  name=Water Skin mostly empty; desc=A half empty skin of water; cmd=; price = 24; member=1
+[1084]  name=Water Skin mouthful left; desc=A waterskin with a mouthful of water left; cmd=; price = 18; member=1
+[1085]  name=Empty Water Skin; desc=A completely empty waterskin; cmd=; price = 15; member=1
+[1086]  name=nightshade; desc=Deadly!; cmd=eat; price = 30; member=1
+[1087]  name=Shaman robe; desc=This has been left by one of the dead ogre shaman; cmd=search; price = 40; member=1
+[1088]  name=Iron Spear; desc=An iron tipped spear; cmd=; price = 13; member=1
+[1089]  name=Steel Spear; desc=A steel tipped spear; cmd=; price = 46; member=1
+[1090]  name=Mithril Spear; desc=A mithril tipped spear; cmd=; price = 119; member=1
+[1091]  name=Adamantite Spear; desc=An adamantite tipped spear; cmd=; price = 293; member=1
+[1092]  name=Rune Spear; desc=A rune tipped spear; cmd=; price = 1000; member=1
+[1093]  name=Cat; desc=it's fluffs; cmd=Stroke; price = 2; member=1
+[1094]  name=Seasoned Sardine; desc=They don't smell any better; cmd=; price = 10; member=1
+[1095]  name=Kittens; desc=purrr; cmd=; price = 2; member=1
+[1096]  name=Kitten; desc=purrr; cmd=stroke; price = 2; member=1
+[1097]  name=Wrought iron key; desc=This key clears unlocks a very sturdy gate of some sort.; cmd=; price = 1; member=1
+[1098]  name=Cell Door Key; desc=A roughly hewn key; cmd=; price = 1; member=1
+[1099]  name=A free Shantay Disclaimer; desc=Very important information.; cmd=Read; price = 1; member=1
+[1100]  name=Doogle leaves; desc=Small sweet smelling leaves; cmd=; price = 2; member=1
+[1101]  name=Raw Ugthanki Meat; desc=I need to cook this first; cmd=; price = 2; member=1
+[1102]  name=Tasty Ugthanki Kebab; desc=A fresh Kebab made from Ugthanki meat; cmd=eat; price = 20; member=1
+[1103]  name=Cooked Ugthanki Meat; desc=Freshly cooked Ugthanki meat; cmd=Eat; price = 5; member=1
+[1104]  name=Uncooked Pitta Bread; desc=I need to cook this.; cmd=; price = 4; member=1
+[1105]  name=Pitta Bread; desc=Mmmm I need to add some other ingredients yet.; cmd=; price = 10; member=1
+[1106]  name=Tomato Mixture; desc=A mixture of tomatoes in a bowl; cmd=; price = 3; member=1
+[1107]  name=Onion Mixture; desc=A mixture of onions in a bowl; cmd=; price = 3; member=1
+[1108]  name=Onion and Tomato Mixture; desc=A mixture of onions and tomatoes in a bowl; cmd=; price = 3; member=1
+[1109]  name=Onion and Tomato and Ugthanki Mix; desc=A mixture of onions and tomatoes and Ugthanki meat in a bowl; cmd=; price = 3; member=1
+[1110]  name=Burnt Pitta Bread; desc=Urgh - it's all burnt; cmd=; price = 1; member=1
+[1111]  name=Panning tray; desc=used for panning gold; cmd=search; price = 1; member=1
+[1112]  name=Panning tray; desc=this tray contains gold nuggets; cmd=take gold; price = 1; member=1
+[1113]  name=Panning tray; desc=this tray contains mud; cmd=search; price = 1; member=1
+[1114]  name=Rock pick; desc=a sharp pick for cracking rocks; cmd=; price = 1; member=1
+[1115]  name=Specimen brush; desc=stiff brush for cleaning specimens; cmd=; price = 1; member=1
+[1116]  name=Specimen jar; desc=a jar for holding soil samples; cmd=; price = 1; member=1
+[1117]  name=Rock Sample; desc=A rock sample; cmd=; price = 1; member=1
+[1118]  name=gold Nuggets; desc=Real gold pieces!; cmd=; price = 1; member=1
+[1119]  name=cat; desc=looks like a healthy one; cmd=; price = 1; member=1
+[1120]  name=Scrumpled piece of paper; desc=A piece of paper with barely legible writing - looks like a recipe!; cmd=Read; price = 10; member=1
+[1121]  name=Digsite info; desc=IAN ONLY; cmd=read; price = 63; member=1
+[1122]  name=Poisoned Bronze Throwing Dart; desc=A venomous throwing dart with a bronze tip.; cmd=; price = 2; member=1
+[1123]  name=Poisoned Iron Throwing Dart; desc=A venomous throwing dart with an iron tip.; cmd=; price = 5; member=1
+[1124]  name=Poisoned Steel Throwing Dart; desc=A venomous throwing dart with a steel tip.; cmd=; price = 20; member=1
+[1125]  name=Poisoned Mithril Throwing Dart; desc=A venomous throwing dart with a mithril tip.; cmd=; price = 50; member=1
+[1126]  name=Poisoned Adamantite Throwing Dart; desc=A venomous throwing dart with an adamantite tip.; cmd=; price = 130; member=1
+[1127]  name=Poisoned Rune Throwing Dart; desc=A deadly venomous dart with a runite tip.; cmd=; price = 700; member=1
+[1128]  name=Poisoned Bronze throwing knife; desc=A finely balanced knife with a coating of venom; cmd=; price = 2; member=1
+[1129]  name=Poisoned Iron throwing knife; desc=A finely balanced knife with a coating of venom; cmd=; price = 6; member=1
+[1130]  name=Poisoned Steel throwing knife; desc=A finely balanced knife with a coating of venom; cmd=; price = 21; member=1
+[1131]  name=Poisoned Mithril throwing knife; desc=A finely balanced knife with a coating of venom; cmd=; price = 54; member=1
+[1132]  name=Poisoned Black throwing knife; desc=A finely balanced knife with a coating of venom; cmd=; price = 37; member=1
+[1133]  name=Poisoned Adamantite throwing knife; desc=A finely balanced knife with a coating of venom; cmd=; price = 133; member=1
+[1134]  name=Poisoned Rune throwing knife; desc=A finely balanced knife with a coating of venom; cmd=; price = 333; member=1
+[1135]  name=Poisoned Bronze Spear; desc=A bronze tipped spear with added venom ; cmd=; price = 4; member=1
+[1136]  name=Poisoned Iron Spear; desc=An iron tipped spear with added venom; cmd=; price = 13; member=1
+[1137]  name=Poisoned Steel Spear; desc=A steel tipped spear with added venom; cmd=; price = 46; member=1
+[1138]  name=Poisoned Mithril Spear; desc=A mithril tipped spear with added venom; cmd=; price = 119; member=1
+[1139]  name=Poisoned Adamantite Spear; desc=An adamantite tipped spear with added venom; cmd=; price = 293; member=1
+[1140]  name=Poisoned Rune Spear; desc=A rune tipped spear with added venom; cmd=; price = 1000; member=1
+[1141]  name=Book of experimental chemistry; desc=A book on experiments with volatile chemicals; cmd=read; price = 1; member=1
+[1142]  name=Level 1 Certificate; desc=A Certificate of education; cmd=read; price = 1; member=1
+[1143]  name=Level 2 Certificate; desc=A Certificate of education; cmd=read; price = 1; member=1
+[1144]  name=Level 3 Certificate; desc=A Certificate of education; cmd=read; price = 1; member=1
+[1145]  name=Trowel; desc=A small device for digging; cmd=; price = 1; member=1
+[1146]  name=Stamped letter of recommendation; desc=A stamped scroll with a recommendation on it; cmd=; price = 1; member=1
+[1147]  name=Unstamped letter of recommendation; desc=I hereby recommend this student to undertake the Varrock City earth sciences exams; cmd=; price = 5; member=1
+[1148]  name=Rock Sample; desc=A rock sample; cmd=; price = 1; member=1
+[1149]  name=Rock Sample; desc=A rock sample; cmd=; price = 1; member=1
+[1150]  name=Cracked rock Sample; desc=It's been cracked open; cmd=; price = 1; member=1
+[1151]  name=Belt buckle; desc=been here some time; cmd=; price = 1; member=1
+[1152]  name=Powering crystal2; desc=An intricately cut gemstone; cmd=; price = 0; member=1
+[1153]  name=Powering crystal3; desc=An intricately cut gemstone; cmd=; price = 0; member=1
+[1154]  name=Powering crystal4; desc=An intricately cut gemstone; cmd=; price = 0; member=1
+[1155]  name=Old boot; desc=that's been here some time; cmd=; price = 1; member=1
+[1156]  name=Bunny ears; desc=Get another from the clothes shop if you die; cmd=; price = 1; member=0
+[1157]  name=Damaged armour; desc=that's been here some time; cmd=; price = 1; member=1
+[1158]  name=Damaged armour; desc=that's been here some time; cmd=; price = 1; member=1
+[1159]  name=Rusty sword; desc=that's been here some time; cmd=; price = 1; member=1
+[1160]  name=Ammonium Nitrate; desc=An acrid chemical; cmd=; price = 20; member=1
+[1161]  name=Nitroglycerin; desc=A strong acidic formula; cmd=; price = 2; member=1
+[1162]  name=Old tooth; desc=a large single tooth; cmd=; price = 0; member=1
+[1163]  name=Radimus Scrolls; desc=Scrolls that Radimus gave you; cmd=Read Scrolls; price = 5; member=1
+[1164]  name=chest key; desc=A small key for a chest; cmd=; price = 1; member=1
+[1165]  name=broken arrow; desc=that's been here some time; cmd=; price = 1; member=1
+[1166]  name=buttons; desc=they've been here some time; cmd=; price = 1; member=1
+[1167]  name=broken staff; desc=that's been here some time; cmd=; price = 1; member=1
+[1168]  name=vase; desc=An old vase; cmd=; price = 1; member=1
+[1169]  name=ceramic remains; desc=some ancient pottery; cmd=; price = 1; member=1
+[1170]  name=Broken glass; desc=smashed glass; cmd=; price = 0; member=1
+[1171]  name=Unidentified powder; desc=who knows what this is for?; cmd=; price = 20; member=1
+[1172]  name=Machette; desc=A purpose built tool for cutting through thick jungle.; cmd=; price = 40; member=1
+[1173]  name=Scroll; desc=A letter written by the expert; cmd=read; price = 5; member=1
+[1174]  name=stone tablet; desc=some ancient script is engraved on here; cmd=read; price = 1; member=1
+[1175]  name=Talisman of Zaros; desc=an ancient item; cmd=; price = 1; member=1
+[1176]  name=Explosive compound; desc=A dark mystical powder; cmd=; price = 2; member=1
+[1177]  name=Bull Roarer; desc=A sound producing instrument - it may attract attention; cmd=Swing; price = 1; member=1
+[1178]  name=Mixed chemicals; desc=A pungent mix of 2 chemicals; cmd=; price = 2; member=1
+[1179]  name=Ground charcoal; desc=Powdered charcoal!; cmd=; price = 20; member=1
+[1180]  name=Mixed chemicals; desc=A pungent mix of 3 chemicals; cmd=; price = 2; member=1
+[1181]  name=Spell scroll; desc=A magical scroll; cmd=read; price = 5; member=1
+[1182]  name=Yommi tree seed; desc=A magical seed that grows into a Yommi tree - these need to be germinated; cmd=Inspect; price = 200; member=1
+[1183]  name=Totem Pole; desc=A well crafted totem pole; cmd=; price = 500; member=1
+[1184]  name=Dwarf cannon base; desc=bang; cmd=set down; price = 200000; member=1
+[1185]  name=Dwarf cannon stand; desc=bang; cmd=; price = 200000; member=1
+[1186]  name=Dwarf cannon barrels; desc=bang; cmd=; price = 200000; member=1
+[1187]  name=Dwarf cannon furnace; desc=bang; cmd=; price = 150000; member=1
+[1188]  name=Golden Bowl; desc=A specially made bowl constructed out of pure gold; cmd=; price = 1000; member=1
+[1189]  name=Golden Bowl with pure water; desc=A golden bowl filled with pure water; cmd=; price = 1000; member=1
+[1190]  name=Raw Manta ray; desc=A rare catch!; cmd=; price = 500; member=1
+[1191]  name=Manta ray; desc=A rare catch!; cmd=eat; price = 500; member=1
+[1192]  name=Raw Sea turtle; desc=A rare catch!; cmd=; price = 500; member=1
+[1193]  name=Sea turtle; desc=Tasty!; cmd=eat; price = 500; member=1
+[1194]  name=Annas Silver Necklace; desc=A necklace coated with silver; cmd=; price = 1; member=1
+[1195]  name=Bobs Silver Teacup; desc=A tea cup coated with silver; cmd=; price = 1; member=1
+[1196]  name=Carols Silver Bottle; desc=A little bottle coated with silver; cmd=; price = 1; member=1
+[1197]  name=Davids Silver Book; desc=An ornamental book coated with silver; cmd=; price = 1; member=1
+[1198]  name=Elizabeths Silver Needle; desc=An ornamental needle coated with silver; cmd=; price = 1; member=1
+[1199]  name=Franks Silver Pot; desc=A small pot coated with silver; cmd=; price = 1; member=1
+[1200]  name=Thread; desc=A piece of red thread discovered at the scene of the crime; cmd=; price = 1; member=1
+[1201]  name=Thread; desc=A piece of green thread discovered at the scene of the crime; cmd=; price = 1; member=1
+[1202]  name=Thread; desc=A piece of blue thread discovered at the scene of the crime; cmd=; price = 1; member=1
+[1203]  name=Flypaper; desc=Sticky paper for catching flies; cmd=; price = 1; member=1
+[1204]  name=Murder Scene Pot; desc=The pot has a sickly smell of poison mixed with wine; cmd=; price = 1; member=1
+[1205]  name=A Silver Dagger; desc=Dagger Found at crime scene; cmd=; price = 1; member=1
+[1206]  name=Murderers fingerprint; desc=An impression of the murderers fingerprint; cmd=; price = 1; member=1
+[1207]  name=Annas fingerprint; desc=An impression of Annas fingerprint; cmd=; price = 1; member=1
+[1208]  name=Bobs fingerprint; desc=An impression of Bobs fingerprint; cmd=; price = 1; member=1
+[1209]  name=Carols fingerprint; desc=An impression of Carols fingerprint; cmd=; price = 1; member=1
+[1210]  name=Davids fingerprint; desc=An impression of Davids fingerprint; cmd=; price = 1; member=1
+[1211]  name=Elizabeths fingerprint; desc=An impression of Elizabeths fingerprint; cmd=; price = 1; member=1
+[1212]  name=Franks fingerprint; desc=An impression of Franks fingerprint; cmd=; price = 1; member=1
+[1213]  name=Zamorak Cape; desc=A cape from the almighty zamorak; cmd=; price = 100; member=1
+[1214]  name=Saradomin Cape; desc=A cape from the almighty saradomin; cmd=; price = 100; member=1
+[1215]  name=Guthix Cape; desc=A cape from the almighty guthix; cmd=; price = 100; member=1
+[1216]  name=Staff of zamorak; desc=It's a stick of the gods; cmd=; price = 80000; member=1
+[1217]  name=Staff of guthix; desc=It's a stick of the gods; cmd=; price = 80000; member=1
+[1218]  name=Staff of Saradomin; desc=It's a stick of the gods; cmd=; price = 80000; member=1
+[1219]  name=A chunk of crystal; desc=A reddish crystal fragment - it looks like it formed a shape at one time.; cmd=; price = 2000; member=1
+[1220]  name=A lump of crystal; desc=A reddish crystal fragment - it looks like it formed a shape at one time.; cmd=; price = 2000; member=1
+[1221]  name=A hunk of crystal; desc=A reddish crystal fragment - it looks like it formed a shape at one time.; cmd=; price = 2000; member=1
+[1222]  name=A red crystal; desc=A heart shaped red crystal ; cmd=Inspect; price = 2000; member=1
+[1223]  name=Unidentified fingerprint; desc=An impression of the murderers fingerprint; cmd=; price = 1; member=1
+[1224]  name=Annas Silver Necklace; desc=A silver necklace coated with flour; cmd=; price = 1; member=1
+[1225]  name=Bobs Silver Teacup; desc=A silver tea cup coated with flour; cmd=; price = 1; member=1
+[1226]  name=Carols Silver Bottle; desc=A little silver bottle coated with flour; cmd=; price = 1; member=1
+[1227]  name=Davids Silver Book; desc=An ornamental silver book coated with flour; cmd=; price = 1; member=1
+[1228]  name=Elizabeths Silver Needle; desc=An ornamental silver needle coated with flour; cmd=; price = 1; member=1
+[1229]  name=Franks Silver Pot; desc=A small silver pot coated with flour; cmd=; price = 1; member=1
+[1230]  name=A Silver Dagger; desc=Dagger Found at crime scene coated with flour; cmd=; price = 1; member=1
+[1231]  name=A glowing red crystal; desc=A glowing heart shaped red crystal - great magic must be present in this item; cmd=; price = 2000; member=1
+[1232]  name=Unidentified liquid; desc=A strong acidic formula; cmd=; price = 2; member=1
+[1233]  name=Radimus Scrolls; desc=Mission briefing and the completed map of Karamja - Sir Radimus will be pleased...; cmd=Read Scrolls; price = 5; member=1
+[1234]  name=Robe; desc=A worn robe; cmd=; price = 15; member=1
+[1235]  name=Armour; desc=An unusually red armour; cmd=; price = 40; member=1
+[1236]  name=Dagger; desc=Short but pointy; cmd=; price = 35; member=1
+[1237]  name=eye patch; desc=It makes me look very piratical; cmd=; price = 2; member=1
+[1238]  name=Booking of Binding; desc=An ancient tome on Demonology; cmd=read; price = 1; member=1
+[1239]  name=Holy Water Vial; desc=A deadly potion against evil kin; cmd=Throw; price = 3; member=1
+[1240]  name=Enchanted Vial; desc=This enchanted vial is empty - but is ready for magical liquids.; cmd=; price = 200; member=1
+[1241]  name=Scribbled notes; desc=It looks like a page ripped from a book; cmd=Read; price = 20; member=1
+[1242]  name=Scrawled notes; desc=It looks like a page ripped from a book; cmd=Read; price = 20; member=1
+[1243]  name=Scatched notes; desc=It looks like a page ripped from a book; cmd=Read; price = 20; member=1
+[1244]  name=Shamans Tome; desc=An ancient tome on various subjects...; cmd=read; price = 1; member=1
+[1245]  name=Edible seaweed; desc=slightly damp seaweed; cmd=eat; price = 2; member=1
+[1246]  name=Rough Sketch of a bowl; desc=A roughly sketched picture of a bowl made from metal; cmd=Read; price = 5; member=1
+[1247]  name=Burnt Manta ray; desc=oops!; cmd=; price = 500; member=1
+[1248]  name=Burnt Sea turtle; desc=oops!; cmd=; price = 500; member=1
+[1249]  name=Cut reed plant; desc=A narrow long tube - it might be useful for something; cmd=; price = 2; member=1
+[1250]  name=Magical Fire Pass; desc=A pass which allows you to cross the flaming walls into the Flaming Octagon; cmd=; price = 1; member=1
+[1251]  name=Snakes Weed Solution; desc=Snakes weed in water - part of a potion; cmd=; price = 1; member=1
+[1252]  name=Ardrigal Solution; desc=Ardrigal herb in water - part of a potion; cmd=; price = 1; member=1
+[1253]  name=Gujuo Potion; desc=A potion to help against fear of the supernatural; cmd=Drink; price = 1; member=1
+[1254]  name=Germinated Yommi tree seed; desc=A magical seed that grows into a Yommi tree - these have been germinated.; cmd=Inspect; price = 200; member=1
+[1255]  name=Dark Dagger; desc=An unusual looking dagger made of dark shiny obsidian; cmd=; price = 91; member=1
+[1256]  name=Glowing Dark Dagger; desc=An unusual looking dagger made of dark shiny obsidian - it has an unnatural glow .; cmd=; price = 91; member=1
+[1257]  name=Holy Force Spell; desc=A powerful incantation - it affects spirits of the underworld; cmd=Cast; price = 1; member=1
+[1258]  name=Iron Pickaxe; desc=Used for mining; cmd=; price = 140; member=0
+[1259]  name=Steel Pickaxe; desc=Requires level 6 mining to use; cmd=; price = 500; member=0
+[1260]  name=Mithril Pickaxe; desc=Requires level 21 mining to use; cmd=; price = 1300; member=0
+[1261]  name=Adamantite Pickaxe; desc=Requires level 31 mining to use; cmd=; price = 3200; member=0
+[1262]  name=Rune Pickaxe; desc=Requires level 41 mining to use; cmd=; price = 32000; member=0
+[1263]  name=Sleeping Bag; desc=Not as comfy as a bed but better than nothing; cmd=sleep; price = 30; member=0
+[1264]  name=A blue wizards hat; desc=An ancient wizards hat.; cmd=; price = 2; member=1
+[1265]  name=Gilded Totem Pole; desc=A well crafted totem pole - given to you as a gift from Gujuo; cmd=Inspect; price = 20; member=1
+[1266]  name=Blessed Golden Bowl; desc=A specially made bowl constructed out of pure gold - it looks magical somehow; cmd=; price = 1000; member=1
+[1267]  name=Blessed Golden Bowl with Pure Water; desc=A golden bowl filled with pure water - it looks magical somehow; cmd=; price = 1000; member=1
+[1268]  name=Raw Oomlie Meat; desc=Raw meat from the Oomlie bird; cmd=; price = 10; member=1
+[1269]  name=Cooked Oomlie meat Parcel; desc=Deliciously cooked Oomlie meat in a palm leaf pouch.; cmd=eat; price = 35; member=1
+[1270]  name=Dragon Bone Certificate; desc=Each certificate exchangable at Yanille for 5 Dragon Bones; cmd=; price = 10; member=1
+[1271]  name=Limpwurt Root Certificate; desc=Each certificate exchangable at Yanille for 5 Limpwort roots; cmd=; price = 10; member=1
+[1272]  name=Prayer Potion Certificate; desc=Each certificate exchangable at Yanille for 5 prayer potions; cmd=; price = 10; member=1
+[1273]  name=Super Attack Potion Certificate; desc=Exchangable at Yanille for 5; cmd=; price = 10; member=1
+[1274]  name=Super Defense Potion Certificate; desc=Exchangable at Yanille for 5; cmd=; price = 10; member=1
+[1275]  name=Super Strength Potion Certificate; desc=Exchangable at Yanille for 5; cmd=; price = 10; member=1
+[1276]  name=Half Dragon Square Shield; desc=The Right Half of an ancient and powerful looking Dragon Square shield.; cmd=; price = 500000; member=1
+[1277]  name=Half Dragon Square Shield; desc=Left Half of an ancient and powerful looking Dragon Square shield.; cmd=; price = 110000; member=1
+[1278]  name=Dragon Square Shield; desc=An ancient and powerful looking Dragon Square shield.; cmd=; price = 500000; member=1
+[1279]  name=Palm tree leaf; desc=A thick green plam leaf - natives use this to cook meat in; cmd=; price = 5; member=1
+[1280]  name=Raw Oomlie Meat Parcel; desc=Oomlie meat in a palm leaf pouch - just needs to be cooked.; cmd=; price = 16; member=1
+[1281]  name=Burnt Oomlie Meat parcel; desc=Oomlie meat in a palm leaf pouch - it's burnt.; cmd=; price = 1; member=1
+[1282]  name=Bailing Bucket; desc=It's a water tight bucket; cmd=bail with ; price = 10; member=1
+[1283]  name=Plank; desc=Damaged remains of the ship; cmd=; price = 1; member=1
+[1284]  name=Arcenia root; desc=the root of an arcenia plant; cmd=; price = 7; member=1
+[1285]  name=display tea; desc=A nice cup of tea - for display only; cmd=; price = 10; member=1
+[1286]  name=Blessed Golden Bowl with plain water; desc=A golden bowl filled with plain water; cmd=Empty; price = 1000; member=1
+[1287]  name=Golden Bowl with plain water; desc=A golden bowl filled with plain water; cmd=Empty; price = 1000; member=1
+[1288]  name=Cape of legends; desc=Shows I am a member of the legends guild; cmd=; price = 450; member=1
+[1289]  name=Scythe; desc=Get another from the clothes shop if you die; cmd=; price = 15; member=0
+

@@ -1,0 +1,12 @@
+:Main:
+spawn(795)
+spawn(574)
+spawn(580)
+spawn(593)
+spawn(594)
+OmgTemp()
+OmgTemp()
+OmgTemp()
+OmgTemp()
+ShowMessage(@WHI@You have defeated Mod Mark!)
+Stop()

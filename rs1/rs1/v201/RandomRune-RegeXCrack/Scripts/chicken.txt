@@ -1,0 +1,35 @@
+:start:
+sleepifover(95)
+fightmode(1)
+print(@gre@AutoFighter Monster:@ora@ Chicken @gre@level: @ora@3 @gre@WalkProtection: @ora@True @gre@Version: @ora@1.0)
+wait(100)
+print(@gre@By: @ora@On3)
+goto(:fight:)
+
+
+:fight:
+sleepifover(95)
+fightmode(1)
+attacknpc(3)
+wait(100)
+ifnotincombatgoto(:wait:)
+goto(:fight2:)
+
+:fight2:
+sleepifover(95)
+fightmode(1)
+attacknpc(3)
+wait(100)
+ifnotincombatgoto(:wait:)
+goto(:fight:)
+
+:wait:
+wait(100)
+goto(:walk:)
+
+:walk:
+sleepifover(95)
+fightmode(1)
+wait(100)
+walkto(273,604)
+goto(:fight:)
