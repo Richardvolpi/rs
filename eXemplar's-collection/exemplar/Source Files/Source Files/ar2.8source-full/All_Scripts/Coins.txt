@@ -1,0 +1,12 @@
+--- Money Collector
+@LookForCoins:
+Wait(5)
+GoToIfNearItem(@GrabItem,10,3)
+GoTo(@LookForCoins)
+@GrabItem:
+SetVarsItemXY(10,11,10,3)
+--MoveToVarVar(10,11)
+ActionVarVar(10,11)
+TakeItemVarVar(10,11,10)
+GoTo(@LookForCoins)
+--- End

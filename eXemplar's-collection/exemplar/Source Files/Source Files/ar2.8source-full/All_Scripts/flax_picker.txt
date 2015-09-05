@@ -1,0 +1,45 @@
+---Flax Picker by IaMsToNeD---
+---Version 1.1---
+---Start in Flax Field by Catherby---
+@start:
+GoToIfBagFull(@bankwalk)
+Action(431,487)
+AtObject2(432,487)
+GoTo(@start)
+
+@bankwalk:
+
+MoveTo(422,487)
+MoveTo(414,487)
+MoveTo(414,493)
+MoveTo(414,501,-1,1)
+MoveTo(397,502,-1,-1)
+MoveTo(392,497)
+MoveTo(392,496)
+MoveToRandomly(392,494,392,493)
+GoTo(@bank)
+
+@bank:
+RepeatNextCommandUntilQuestMenu(50,2)
+Action(394,495)
+TalkToNPC(2005,2007,2008)
+WaitForQuestMenu(20)
+Answer(0)
+WaitForBankWindow(50)
+DepositEverything()
+Wait(10)
+CloseBank()
+Wait(20)
+GoToIfInInventory(@bank,370)
+GoTo(@return)
+
+@return:
+
+MoveTo(392,497)
+MoveTo(396,497)
+MoveTo(401,497)
+MoveTo(405,497)
+MoveTo(405,495)
+MoveTo(408,495,8,-8)
+MoveTo(431,487)
+GoTo(@start)

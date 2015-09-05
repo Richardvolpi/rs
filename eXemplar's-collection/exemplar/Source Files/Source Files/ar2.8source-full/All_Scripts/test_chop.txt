@@ -1,0 +1,87 @@
+-- Chops 3 trees in South of Falador
+-- outside of Falador
+-- use it as example of
+-- firemaking scripts
+
+OnStatsChanged(@sc,%sn)
+OnServerMessage(@servmes)
+SetVarNum(%tree,1)
+
+-- Check if we have/see tinderbox
+GoToIfInInventory(@Chop,166)
+GoTo(@errorNoTinderbox)
+
+@Chop:
+Debug("Swinging axe")
+GoSub(@SwingAxe)
+Wait(30)
+GoToIfInInventory(@NextTree,14)
+GoTo(@Chop)
+
+@SwingAxe:
+GoToCase(%tree,@Tree1,@Tree2,@Tree3)
+@Tree1:
+Action(231,589)
+AtObject(231,590)
+Ret()
+@Tree2:
+Action(234,587)
+AtObject(235,587)
+Ret()
+@Tree3:
+Action(233,586)
+AtObject(233,585)
+Ret()
+
+@NextTree:
+Debug("Choosing next tree")
+AddVarNum(%tree,1)
+--- Change 3 in next line
+--- To number of trees you
+--- want to use.
+GoToIfVarAboveNum(@SetTreeTo1,%tree,3)
+GoToIfInInventory(@Drop,14)
+GoTo(@Chop)
+@SetTreeTo1:
+SetVarNum(%tree,1)
+
+GoToIfInInventory(@Drop,14)
+GoTo(@Chop)
+
+
+@Drop:
+Debug("Dropping wood")
+DropItemByID(14)
+Wait(30)
+
+@Fire:
+Debug("Trying to set fire")
+SetVarNum(%fire,0)
+SetFire()
+Wait(30)
+SetVarNum(%a,0)
+GoToIfVarEqual(@Fire,%fire,%a)
+
+GoTo(@Chop)
+
+@sc:
+Debug("stats changed")
+SetVarNum(%a,11)
+GoToIfVarEqual(@HaveFire,%a,%sn)
+ERet()
+@HaveFire:
+SetVarNum(%fire,1)
+ERet()
+
+@servmes:
+GoToIfLastServerMessageIs(@GoToNextTree,"@gam@You can't light a fire here")
+ERet()
+@GoToNextTree:
+Debug("Bah, a fire already here!")
+EnableEvents()
+GoTo(@NextTree)
+
+
+@errorNoTinderbox:
+MessageBox("To use this script you must have tinderbox. If you do have it, please drop it and take it")
+Stop()

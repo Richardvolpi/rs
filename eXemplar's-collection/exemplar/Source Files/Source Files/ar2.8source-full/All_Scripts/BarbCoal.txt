@@ -1,0 +1,74 @@
+-- Coal Script
+-- By Bl4ck1E
+-- Starting at Barbarian
+-- Village Coal rocks
+
+@Rock1:
+GoToIfBagFull(@tobank)
+ResetLastItemGained()
+Action(179,505)
+AtObject(180,505)
+Wait(20)
+GoToIfLastItem(@Rock2,155)
+GoTo(@Rock1)
+
+@Rock2:
+GoToIfBagFull(@tobank)
+ResetLastItemGained()
+Action(178,505)
+AtObject(177,505)
+Wait(20)
+GoToIfLastItem(@Rock3,155)
+GoTo(@Rock2)
+
+@Rock3:
+GoToIfBagFull(@tobank)
+ResetLastItemGained()
+Action(179,506)
+AtObject(179,507)
+Wait(20)
+GoToIfLastItem(@Rock4,155)
+GoTo(@Rock3)
+
+@Rock4:
+GoToIfBagFull(@tobank)
+ResetLastItemGained()
+Action(178,504)
+AtObject(177,504)
+Wait(20)
+GoToIfLastItem(@Rock1,155)
+GoTo(@Rock4)
+
+@tobank:
+---- Leave coal rocks
+MoveTo(177,512)
+MoveTo(166,512)
+MoveTo(155,512)
+MoveTo(155,515)
+MoveTo(139,515)
+MoveTo(130,515)
+MoveTo(128,515,-9,-9)
+MoveTo(110,506)
+MoveTo(110,507)
+MoveTo(102,507)
+MoveToRandomly(102,501,101,503)
+MoveToRandomly(103,499,103,500)
+RepeatNextCommandUntilQuestMenu(50,2)
+Action(99,505)
+TalkToNPC(557,556,559)
+Answer(0)
+WaitForBankWindow(50)
+DepositEverything()
+Wait(10)
+CloseBank()
+Wait(10)
+
+--- Exit bank
+MoveTo(102,505,1,1)
+MoveTo(103,508)
+MoveTo(109,508)
+MoveTo(117,508,2,-2)
+MoveTo(131,506,8,8)
+MoveTo(154,514,2,-2)
+MoveTo(174,512)
+MoveTo(177,508)

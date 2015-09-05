@@ -1,0 +1,71 @@
+--- Made By : Neotrack
+---Get Alot Of Feathers And 1 Fly Fishing Rod ( Make Sure They Are Invisble To AutoRune )
+---Make Sure You Have Enough Feathers To End The Last One With A Full Load.
+---You Have To Be Able To Fish Trout
+---Fishes For Trout And Salmon And Keeps Them In Bank
+---Start At Barbarian Village
+---Get As Near As Possible To The Fishing Spot Furthurst From The Bridge
+--
+-- Fishing
+GoToIfBagFull(6)
+ResetLastItemGained()
+Action(161,501)
+AtObject(160,501)
+Wait(30)
+GoTo(-6)
+-- Going To The Bank In A Very Natural Way
+MoveToRandomly(165,501,166,501)
+MoveTo(166,500,5,-5)
+MoveTo(171,492,-3,-3)
+MoveTo(168,483,2,-2)
+MoveTo(170,477)
+MoveTo(171,477,1,-1)
+MoveTo(172,474,1,-1,1,-3,0,-4)
+MoveTo(174,470)
+-- Going Into The Bank
+MoveTo(176,470)
+MoveTo(176,464)
+MoveTo(176,461)
+MoveTo(176,456)
+MoveTo(173,453)
+MoveTo(173,445)
+MoveTo(170,445)
+MoveTo(170,448)
+-- Banking The Fishes
+RepeatNextCommandUntilQuestMenu(50,2)
+Action(171,448)
+TalkToNPC(675,674,671)
+Answer(0)
+WaitForBankWindow(50)
+DepositEverything()
+Wait(10)
+CloseBank()
+Wait(10)
+-- Going Back To Fishing Spot In A Very Natural Way
+MoveToRandomly(170,449,169,449)
+MoveToRandomly(169,446,170,446)
+MoveToRandomly(171,447,172,447)
+MoveTo(173,446)
+MoveToRandomly(173,449,173,449)
+MoveToRandomly(173,453,173,454)
+MoveToRandomly(173,456,173,458)
+MoveTo(173,459)
+MoveTo(176,459)
+MoveToRandomly(176,462,176,463)
+MoveToRandomly(176,466,176,467)
+MoveToRandomly(176,468,176,469)
+MoveTo(176,470)
+MoveToRandomly(173,470,172,470)
+MoveTo(173,471,0,2,-1,2)
+MoveToRandomly(172,474,172,478)
+MoveToRandomly(172,478,170,478)
+MoveToRandomly(169,479,169,482)
+MoveToRandomly(169,483,169,485)
+MoveToRandomly(169,486,169,489)
+MoveToRandomly(169,490,169,493)
+MoveToRandomly(169,494,169,497)
+MoveToRandomly(169,498,169,501,169,502)
+--Back To Fishing
+MoveTo(166,502)
+MoveTo(163,502,-1,-1,-2,-1)
+
