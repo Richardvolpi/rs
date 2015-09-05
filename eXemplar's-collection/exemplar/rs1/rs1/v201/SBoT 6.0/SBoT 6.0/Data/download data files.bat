@@ -1,0 +1,14 @@
+@echo off
+wget http://uk1.runescape.com/client2/config85.jag
+wget http://uk1.runescape.com/client2/entity24.jag
+wget http://uk1.runescape.com/client2/filter2.jag
+wget http://uk1.runescape.com/client2/jagex.jag
+wget http://uk1.runescape.com/client2/land63.jag
+wget http://uk1.runescape.com/client2/maps63.jag
+wget http://uk1.runescape.com/client2/media58.jag
+wget http://uk1.runescape.com/client2/models36.jag
+wget http://uk1.runescape.com/client2/textures17.jag
+wget http://uk1.runescape.com/client2/entity24.mem
+wget http://uk1.runescape.com/client2/land63.mem
+wget http://uk1.runescape.com/client2/maps63.mem
+wget http://uk1.runescape.com/client2/maps63.mem
