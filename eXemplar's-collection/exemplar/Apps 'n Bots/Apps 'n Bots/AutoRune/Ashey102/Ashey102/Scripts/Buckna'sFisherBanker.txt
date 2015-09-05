@@ -1,0 +1,205 @@
+;Buckna's Lure fisher with Banking
+;Remove the friends you don't really have
+;Block everything...
+;Perfect Move
+;Server 5 is mine
+
+
+DebugLastServerMessage()
+SetCheatDestTime(3)
+SetRetryDestTime(5)
+SetOnPlaceTime(600)
+OnLogin(@Init)
+@Init:
+EnableEvents()
+; Set up some events
+;OnNPCAppeared(@NewNPC,%ID,%x,%y,%type)
+OnCoordsChanged(@Moving,%NewX,%NewY)
+OnPrivateMessage(@Log)
+OnChatMessage(@Log)
+OnServerMessage(@ServMes)
+SetVarMyX(%NewX)
+SetVarMyY(%NewY)
+GoTo(@MainLoop)
+
+
+@MainLoop:
+Action(209,501)
+AtObject(208,501)
+Wait(5)
+GoToIfBagFull(@ToBank)
+GoTo(@MainLoop)
+
+@ServMes:
+GoToIfLastServerMessageIs(@Sleep,"@gam@You are too tired to catch this fish")
+ERet()
+
+@Sleep:
+SetVarNum(%nig,100)
+UseItem(0)
+GoTo(@Rest)
+
+@Rest:
+Wait(5)
+AddVarNum(%nig,-1)
+GoToIfVarEqualNum(@Done,%nig,0)
+GoToIfLastServerMessageIs(@Done,"You wake up - feeling refreshed")
+GoTo(@Rest)
+
+@Done:
+FightMode(0)
+ResetLastServerMessage()
+ERet()
+
+@Moving:
+DebugVar(%NewX,%NewY)
+SetVarMyX(%NewX)
+SetVarMyY(%NewY)
+DebugVar(%NewX,%NewY)
+Debug("---")
+GoToIfCoordsIn(@MoveBack,211,503,210,495)
+GoToIfCoordsIn(@MoveBack,209,500,209,500)
+GoToIfVarAboveNum(@Log,%NewX,235)
+GoToIfVarBelowNum(@Log,%NewX,200)
+GoToIfVarAboveNum(@Log,%NewY,520)
+GoToIfVarBelowNum(@Log,%NewY,490)
+ERet()
+
+
+@Log:
+DebugVar(%NewX,%NewY)
+DebugLastChatMessage()
+Debug("OMG, had to log - Edited by Buckna")
+SaveScreenshot()
+Wait(1)
+StopAndLogOut()
+ERet()
+
+@MoveBack:
+MoveTo(209,501)
+Wait(10)
+ERet()
+
+
+@NewNPC:
+GoToIfVarEqualNum(@BankerAppeared,%type,95)
+ERet()
+@BankerAppeared:
+PutVarInArray(%ID,%BankerI,%B1,%B2,%B3,%B4,%B5)
+AddVarNum(%BankerI,1)
+ERet()
+
+
+
+;-------
+
+@ToBank:
+OnLogin(-1)
+OnCoordsChanged(-1,%NewX,%NewY)
+GoToIfCoordsIn(@ToEntrance,219,503,209,487)
+GoToIfCoordsIn(@InEntrance,219,502,209,471)
+GoToIfCoordsIn(@UpPath,222,502,209,471)
+GoToIfCoordsIn(@IntoBank,218,447,217,446)
+GoToIfCoordsIn(@InBank,220,448,212,453)
+Debug("InCoordToFail --1")
+Stop()
+
+
+
+@ToEntrance:
+MoveTo(216,484)
+Debug("Movetowork --1")
+GoTo(@ToBank)
+
+@InEntrance:
+MoveTo(221,471)
+Debug("Movetowork --2")
+GoTo(@ToBank)
+
+@UpPath:
+MoveTo(224,470)
+MoveTo(224,458)
+MoveTo(221,458)
+MoveTo(221,446)
+MoveTo(218,447)
+Debug("Movetowork --3")
+GoTo(@ToBank)
+
+@IntoBank:
+MoveTo(218,447)
+Wait(5)
+Action(218,447)
+AtObject(217,447)
+Wait(5)
+MoveTo(218,448)
+Debug("Movetowork --4")
+GoTo(@ToBank)
+
+@InBank:
+ResetQuestMenu()
+GoToIfNPCNearIn(@Banking,220,448,212,453,95)
+Debug("bankerFail")
+Stop()
+@Banking:
+SetVarsNearestNPC(%x,%y,%r,95)
+;SetVarRandom(%r,5)
+;GetVarFromArray(%r,%r,%B1,%B2,%B3,%B4,%B5)
+;SetVarNPCCoordsVar(%x,%y,%r)
+DebugVar(%x,%y,%r)
+ActionVarVar(%x,%y)
+TalkToNPCVar(%r)
+WaitForQuestMenu(50)
+GoToIfQuestMenu(@BankerTalks)
+GoTo(@InBank)
+@BankerTalks:
+Answer(0)
+WaitForBankWindow(50)
+DepositEverything()
+Wait(10)
+Withdraw(381,100)
+CloseBank()
+Wait(10)
+Debug("Movetowork --Bank")
+GoTo(@ToFishing)
+
+;------
+
+@ToFishing:
+GoToIfCoordsIn(@OutBank,220,448,212,453)
+GoToIfCoordsIn(@DownPath,218,447,217,446)
+GoToIfCoordsIn(@OutEntrance,222,490,209,471)
+GoToIfCoordsIn(@AwayEntrance,219,503,209,487)
+Debug("InCoordToFail --2")
+Stop()
+
+@OutBank:
+MoveTo(218,448)
+Wait(5)
+Action(218,448)
+AtObject(217,447)
+Wait(5)
+MoveTo(218,447)
+Debug("Movetowork --5")
+GoTo(@ToFishing)
+
+@DownPath:
+MoveTo(221,447)
+MoveTo(221,458)
+MoveTo(224,458)
+MoveTo(224,470)
+MoveTo(221,471)
+Debug("Movetowork --6")
+GoTo(@ToFishing)
+
+@OutEntrance:
+MoveTo(221,473)
+MoveTo(216,492)
+Debug("Movetowork --7")
+GoTo(@ToFishing)
+
+@AwayEntrance:
+MoveTo(212,500)
+Debug("Movetowork --8")
+OnLogin(@Init)
+GoTo(@Init)
+

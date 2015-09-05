@@ -1,0 +1,76 @@
+;;;;;;;;;;;;;;;;;
+;   AutoCatch   ;
+;               ;
+GoTo(@Start)
+;               ;
+;   by Ignite   ;
+;;;;;;;;;;;;;;;;;
+
+
+;vv ONLY EDIT THIS PART vv
+@Eat:
+;UseItem(0)
+;^ Set to your food's position ^
+UseItemByID(373)
+;^  Lobster   ^
+;UseItemByID(370)
+;^  Swordfish   ^
+;UseItemByID(546)
+;^   Sharks    ^
+GoTo(@Back)
+@Run:
+GoToIfFighting(@Wait)
+AddVarNum(%att,1)
+SetVarLastPlayerID(%ID)
+SetVarsPlayer(%ID,%x,%y,%lvl,%HP)
+MoveToNoWaitVarVar(%x,%y)
+SetVarMyHP(%myHP)
+GoToIfVarBelowNum(@Eat,%myHP,43)
+;^ Set to about 10 below max hp ^
+@Back:
+Sleep(100)
+GoToIfVarAboveNum(@Attack,%att,26)
+GoTo(@Run)
+;^^ ONLY EDIT THIS PART ^^
+
+@Start:
+FightMode(1)
+SetVarNum(%att,0)
+SetVarNum(%fight,0)
+SetVarNum(%wep,0)
+GoToIfFighting(@Wait)
+GoTo(@Run)
+@k:
+GoTo(@Dead)
+@Attack:
+GoToIfFighting(@Wait)
+AddVarNum(%fight,1)
+AttackPlayerVar(%ID)
+Sleep(111)
+AttackPlayerVar(%ID)
+GoToIfInLastChatMessageIs(@o,"advanced")
+GoToIfVarAboveNum(@Start,%fight,9)
+GoTo(@Attack)
+@o:
+GoTo(@k)
+@Wait:
+Wait(1)
+GoToIfInLastServerMessageIs(@Sec,"Your opponent")
+GoToIfInLastChatMessageIs(@o,"advanced")
+GoToIfInLastServerMessageIs(@Stop,"You have defeated")
+GoTo(@Wait)
+@Sec:
+ResetLastServerMessage()
+Sleep(222)
+GoTo(@Start)
+@Dead:
+Unwield(%wep)
+Wait(7)
+AddVarNum(%wep,1)
+ResetLastChatMessage()
+GoToIfVarAboveNum(%wep,30)
+GoTo(@Dead)
+@Stop:
+ResetLastServerMessage()
+Debug("** KILL **")
+Stop()

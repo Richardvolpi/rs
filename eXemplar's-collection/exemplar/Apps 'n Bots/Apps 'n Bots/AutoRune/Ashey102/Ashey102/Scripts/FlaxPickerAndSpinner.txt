@@ -1,0 +1,109 @@
+--Concept by fuckA and Ghost_ID
+--Grats to them
+--Fixed by Buckna
+---Coord protection and
+---chat back added
+----By Buckna
+
+@VeryStart:
+EnableEvents()
+ResetLastServerMessage()
+SetVarTime(%LastChatTime)
+OnChatMessage(@Chat)
+
+
+@Flax:
+GoToIfCoordsIn(@DownLadder,680,1400,700,1500)
+MoveTo(693,525)
+Wait(3)
+@Pick:
+Action(693,525)
+AtObject2(693,524)
+Wait(3)
+GoToIfBagFull(@Ladder)
+GoTo(@Pick)
+
+@Ladder:
+MoveTo(693,525)
+Wait(3)
+Action(693,525)
+AtObject(692,525)
+Wait(25)
+GoToIfCoordsIn(@Ladder,680,500,700,550)
+MoveTo(693,1470)
+GoTo(@Spin)
+
+@Spin:
+GoToIfCoordsIn(@Ladder,680,500,700,550)
+ResetLastServerMessage()
+Action(693,1469)
+AtObjectWithItem(694,1469,1)
+Wait(3)
+SetVarFatigue(%v)
+GoToIfVarAboveNum(@Sleep,%v,746)
+GoToIfLastServerMessageIs(@Drop, "Nothing interesting happens")
+GoTo(@Spin)
+
+@Sleep:
+@GetSomeSleep:
+OnTimer(@VeryStart,1,4200)
+SetVarNum(%runs,0)
+UseItem(0)
+ResetLastServerMessage()
+SetVarNum(%secs,0)
+@JustWait:
+Wait(10)
+AddVarNum(%secs,1)
+GoToIfVarAboveNum(@GetSomeSleep,%secs,70)
+GoToIfLastServerMessageIsNot(@JustWait,"You wake up - feeling refreshed")
+SetVarNum(%times,0)
+ResetLastServerMessage()
+GoTo(@Spin)
+
+@Drop:
+ResetLastServerMessage()
+DropItem(1)
+Wait(3)
+GoToIfInInventory(@Drop,676)
+GoTo(@DownLadder)
+
+@DownLadder:
+Action(693,1469)
+AtObject(692,1469)
+Wait(25)
+GoTo(@Flax)
+
+
+;=== On Chat message
+@Chat:
+GoToIfInLastChatMessageIs(@MeMentioned,"ashey")
+GoToIfInLastChatMessageIs(@MeMentioned,"kill me")
+GoToIfInLastChatMessageIs(@MeMentioned,"ash")
+ERet()
+@MeMentioned:
+SaveScreenshot()
+Debug("Someone has mentioned my name")
+SetVarTime(%t)
+SubVar(%t,%LastChatTime)
+DebugVar(%t)
+GoToIfVarAboveNum(@MustReply,%t,2000)
+ERet()
+@MustReply:
+Wait(50,70,100)
+SetVarTime(%LastChatTime)
+GoToRandom(@SayGoAway,@SayLeaveAlone,@SayGiveBreak)
+ERet()
+@SayGoAway:
+Say(D5 40 3D 13 D3 EB EB EB )
+Debug("Saying: go away...")
+ERet()
+@SayLeaveAlone:
+Say(B1 3D 81 0D 01 03 B4 71 )
+Debug("Saying: leave me alone")
+ERet()
+@SayGiveBreak:
+Say(D5 5D 81 0D 01 03 0D 79 13 D9 )
+Debug("Saying: give me a break")
+ERet()
+
+

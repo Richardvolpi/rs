@@ -1,0 +1,85 @@
+:Blood rune thiever
+;Made by ??????
+
+@main:
+GoToIfFighting(@fighting)
+Wait(1)
+GoToIfLastServerMessageIs(@sleep,"@gam@You are too tired to thieve here")
+GoToIfLastServerMessageIs(@main,"It looks like this chest has already been looted")
+GoToIfLastServerMessageIs(@walk,"suddenly a second magical trap triggers")
+Wait(1)
+ResetLastServerMessage()
+Wait(1)
+GoToIfVarEqualNum(@chest2,%chest,1)
+GoToIfVarEqualNum(@chest1,%chest,2)
+GoTo(@chest1)
+
+@chest1:
+Action(614,3400)
+AtObject2(614,3399)
+Wait(20)
+SetVarNum(%chest,1)
+GoToIfLastServerMessageIs(@walk,"@gam@suddenly a second magical trap triggers")
+ResetLastServerMessage()
+GoTo(@main)
+
+@chest2:
+Action(614,3400)
+AtObject2(614,3401)
+GoToIfLastServerMessageIs(@sleep,"@gam@You are too tired to thieve here")
+GoToIfLastServerMessageIs(@main,"@gam@It looks like this chest has already been looted")
+Wait(5)
+GoToIfLastServerMessageIs(@walk,"@gam@suddenly a second magical trap triggers")
+ResetLastServerMessage()
+GoTo(@main)
+
+@fighting:
+MoveTo(615,3400)
+GoToIfFighting(@fighting)
+GoTo(@main)
+
+@wait:
+Wait(5)
+GoTo(@main)
+
+@sleep:
+Wait(10)
+UseItem(0)
+Wait(250)
+GoToIfLastServerMessageIs(@main,"You wake up - feeling refreshed")
+Wait(10)
+GoTo(@main)
+
+@walk:
+Wait(5)
+MoveTo(612,573)
+Wait(10)
+MoveTo(609,573)
+Wait(10)
+MoveTo(610,570,-1,-1,-1,-6,0,-7,0,-10,1,-11)
+Wait(10)
+MoveTo(614,559,3,-3)
+Wait(10)
+GoTo(@opendoor)
+
+@opendoor:
+Action(617,556)
+CloseDoor(617,556,0)
+Wait(15)
+GoToIfLastServerMessageIs(@ladder,"@gam@You have already unlocked the door")
+Wait(5)
+GoTo(@opendoor)
+
+@ladder:
+MoveTo(618,552)
+Wait(5)
+Action(618,552)
+AtObject(618,551)
+Wait(10)
+GoToIfLastServerMessageIs(@post,"@gam@You climb down the ladder")
+GoTo(@ladder)
+
+@post:
+MoveTo(618,3399)
+Wait(10)
+GoTo(@main)

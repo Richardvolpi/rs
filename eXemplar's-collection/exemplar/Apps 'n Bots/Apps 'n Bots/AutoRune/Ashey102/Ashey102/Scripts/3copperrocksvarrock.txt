@@ -1,0 +1,107 @@
+
+
+-Made By Buckna
+
+-3 Rocks in varrock south east...
+
+WatchObjects(1)
+SetVarNum(%times,0)
+OnItemLost(@ItemLost,%ItemID,%ItemPos)
+OnCoordsChanged(@CoordsChanged,%LX,%LY)
+OnItemAppeared(@NewItem,%ID,%x,%y)
+
+@MiningStart:
+
+GoToIfInLastServerMessageIs(@GetSomeSleep,"@gam@You are too tired to")
+; If north rock has respawned, mine it
+SetVarObject(%d,70,543)
+GoToIfVarEqualNum(@MineNRock,%d,100)
+; If south rock has respawned, mine it
+SetVarObject(%d,69,544)
+GoToIfVarEqualNum(@MineSRock,%d,100)
+; If corner rock has respawned
+SetVarObject(%d,70,544)
+;DebugVar(%d)
+;Disable next line to not mine corner rock
+;GoToIfVarEqualNum(@MineCornerRock,%d,100)
+
+Wait(2)
+GoTo(@MiningStart)
+
+@MineNRock:
+Action(69,543)
+AtObject(70,543)
+Wait(25,27)
+AddVarNum(%times,1)
+GoTo(@MiningStart)
+
+@MineSRock:
+Action(69,543)
+AtObject(69,544)
+Wait(25,27)
+AddVarNum(%times,1)
+GoTo(@MiningStart)
+
+@MineCornerRock:
+--Debug("Mining corner")
+Action(69,543)
+AtObject(70,544)
+Wait(25,27)
+AddVarNum(%times,1)
+GoTo(@MiningStart)
+
+
+@GetSomeSleep:
+UseItem(0)
+ResetLastServerMessage()
+SetVarNum(%secs,0)
+@JustWait:
+Wait(10)
+AddVarNum(%secs,1)
+GoToIfVarAboveNum(@GetSomeSleep,%secs,40)
+GoToIfLastServerMessageIsNot(@JustWait,"You wake up - feeling refreshed")
+SetVarNum(%times,0)
+GoTo(@MiningStart)
+
+
+;===Event OnItemLost
+; Log ot if we lost invisible item
+@ItemLost:
+GoToIfVarEqualNum(@RunAndHidePick,%ItemID,-2)
+ERet()
+@RunAndHidePick:
+Debug("Ooops we just lost pickaxe! Must be an admin!!!")
+SaveScreenshot()
+StopAndLogOut()
+
+
+;====Event OcCoordsChanged
+@CoordsChanged:
+GoToIfCoordsIn(@GoodCoords,60,540,80,550)
+Debug("Oooops, we are not at mining site. Teleported?")
+SaveScreenshot()
+Wait(20)
+StopAndLogOut()
+
+@GoodCoords:
+ERet()
+
+;====Event OnItemAppeaered
+@NewItem:
+GoToIfVarBetweenNum(@IsGem,%ID,156,161)
+ERet()
+@IsGem:
+GoToIfVarEqualNum(@GoodX,%x,69)
+ERet()
+@GoodX:
+GoToIfVarEqualNum(@GoodY,%y,543)
+ERet()
+@GoodY:
+OnItemLost(-1,%ItemID,%ItemPos)
+DropItem(8)
+Wait(15)
+TakeItemVarVarVar(%x,%y,%ID)
+Wait(15)
+Debug("Taking a gem")
+OnItemLost(@ItemLost,%ItemID,%ItemPos)
+ERet()

@@ -1,0 +1,112 @@
+; Cuts trees at Varrock North
+; and makes arrow shafts
+;  Created by Kaitnieks
+;   Not tested
+
+WatchObjects(1)
+
+GoToIfInInventory(@ResetBoo,13)
+MessageBox("You need knife to be visible. Drop it and pick up")
+Stop()
+
+
+
+
+@ResetBoo:
+Debug("Start cutting")
+SetObject(73,443,1)
+SetObject(72,445,1)
+SetObject(70,444,1)
+SetObject(70,438,1)
+SetObject(70,441,1)
+SetObject(72,440,1)
+SetObject(74,437,1)
+SetObject(76,433,1)
+SetObject(78,436,1)
+SetObject(79,434,1)
+SetObject(79,438,1)
+SetObject(78,440,1)
+SetObject(77,442,1)
+SetObject(80,442,1)
+SetObject(83,442,1)
+SetObject(83,438,1)
+SetObject(81,438,1)
+SetObject(82,435,1)
+SetObject(79,434,1)
+SetObject(79,438,1)
+@WBoo:
+Wait(10)
+@Boo:
+SetObject(73,443,1,4)
+SetObject(72,445,1,4)
+SetObject(70,444,1,4)
+SetObject(70,438,1,4)
+SetObject(70,441,1,4)
+SetObject(72,440,1,4)
+SetObject(74,437,1,4)
+SetObject(76,433,1,4)
+SetObject(78,436,1,4)
+SetObject(79,434,1,4)
+SetObject(79,438,1,4)
+SetObject(78,440,1,4)
+SetObject(77,442,1,4)
+SetObject(80,442,1,4)
+SetObject(83,442,1,4)
+SetObject(83,438,1,4)
+SetObject(81,438,1,4)
+SetObject(82,435,1,4)
+SetObject(79,434,1,4)
+SetObject(79,438,1,4)
+
+--MineNearestIn(68,433,84,443,1)
+SetVarsNearestObjectXY(%x,%y,20,1)
+SetVarNum(%t,4)
+;DebugVar(%x,%y)
+SetObjectVar(%x,%y,%t)
+GoToIfVarEqualNum(@ResetBoo,%x,0)
+GoToIfVarBelowNum(@WBoo,%x,68)
+GoToIfVarAboveNum(@WBoo,%x,84)
+GoToIfVarBelowNum(@WBoo,%y,433)
+GoToIfVarAboveNum(@WBoo,%y,443)
+FarActionVar(%x,%y)
+AtObjectVar(%x,%y)
+SetVarNum(%i,0)
+ResetLastServerMessage()
+@WaitLoop:
+Wait(10)
+AddVarNum(%i,1)
+GoToIfVarAboveNum(@EndWaitLoop,%i,10)
+GoToIfLastServerMessageIs(@EndWaitLoop,"@gam@You get some wood")
+GoToIfLastServerMessageIs(@EndWaitLoop,"Nothing interesting happens")
+GoToIfLastServerMessageIs(@BedWalk,"@gam@You are too tired to cut the tree")
+GoTo(@WaitLoop)
+@EndWaitLoop:
+GoToIfBagFull(@MakeShafts)
+GoTo(@Boo)
+
+@MakeShafts:
+GoToIfInInventory(@HaveLogs,14)
+GoTo(@Boo)
+@HaveLogs:
+UseItemWithItemByID(13,14)
+WaitForQuestMenu(30)
+Answer(0)
+Wait(10)
+GoTo(@MakeShafts)
+
+@BedWalk:
+Wait(10)
+SetVarNum(%Seconds,100)
+UseItem(0)
+GoTo(@Rest)
+
+@Rest:
+Wait(5)
+AddVarNum(%Seconds,-1)
+GoToIfVarEqualNum(@BedWalk,%Seconds,0)
+GoToIfLastServerMessageIs(@Done,"You wake up - feeling refreshed")
+GoTo(@Rest)
+
+@Done:
+ResetLastServerMessage()
+GoTo(@ResetBoo)

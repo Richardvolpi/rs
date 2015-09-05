@@ -1,0 +1,49 @@
+;Start near Sear's village
+;to the east of the bank
+;Made by Buckna
+
+@Chopping1:
+MoveTo(490,448)
+Action(490,448)
+AtObject(491,447)
+Wait(9)
+GoToIfLastServerMessageIs(@Sleep1, "@gam@You are too tired to cut the tree")
+GoToIfLastServerMessageIs(@Chopping2,"Nothing interesting happens")
+GoToIfBagFull(@Fletching)
+GoTo(@Chopping1)
+@Chopping2:
+Action(490,448)
+AtObject(488,448)
+Wait(9)
+GoToIfLastServerMessageIs(@Sleep1, "@gam@You are too tired to cut the tree")
+GoToIfLastServerMessageIs(@Chopping1,"Nothing interesting happens")
+GoToIfBagFull(@Fletching)
+GoTo(@Chopping2)
+
+
+@Fletching:
+UseItemWithItemByID(13,632)
+Wait(15)
+Answer(1)
+Wait(9)
+GoToIfLastServerMessageIs(@Sleep2,"@gre@You are too tired to gain experience, get some rest!")
+GoToIfInInventory(@Fletching,632)
+GoTo(@Dropping)
+
+@Dropping:
+DropItemByID(658)
+Wait(4)
+GoToIfCountInInventoryEqual(@Chopping1,0,658)
+GoTo(@Dropping)
+
+@Sleep1:
+MoveTo(490,448)
+UseItem(0)
+Wait(250)
+GoTo(@Chopping1)
+
+@Sleep2:
+MoveTo(490,448)
+UseItem(0)
+Wait(250)
+GoTo(@Fletching)

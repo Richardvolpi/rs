@@ -1,0 +1,53 @@
+;Willow Fletcher
+;Start East of Ardounouge
+;South of Barb agility course
+;Knife must be visible to AR
+;Made by Buckna
+
+
+@Chopping1:
+MoveTo(496,578)
+Action(496,578)
+AtObject(494,577)
+Wait(9)
+GoToIfLastServerMessageIs(@Sleep1, "@gam@You are too tired to cut the tree")
+GoToIfLastServerMessageIs(@Chopping2,"Nothing interesting happens")
+GoToIfBagFull(@Fletching)
+GoTo(@Chopping1)
+@Chopping2:
+MoveTo(497,579)
+Action(497,579)
+AtObject(497,580)
+Wait(9)
+GoToIfLastServerMessageIs(@Sleep1, "@gam@You are too tired to cut the tree")
+GoToIfLastServerMessageIs(@Chopping1,"Nothing interesting happens")
+GoToIfBagFull(@Fletching)
+GoTo(@Chopping2)
+
+
+@Fletching:
+UseItemWithItemByID(13,633)
+Wait(15)
+Answer(1)
+Wait(9)
+GoToIfLastServerMessageIs(@Sleep2,"@gre@You are too tired to gain experience, get some rest!")
+GoToIfInInventory(@Fletching,633)
+GoTo(@Dropping)
+
+@Dropping:
+DropItemByID(660)
+Wait(4)
+GoToIfCountInInventoryEqual(@Chopping1,0,660)
+GoTo(@Dropping)
+
+@Sleep1:
+MoveTo(496,578)
+UseItem(0)
+Wait(250)
+GoTo(@Chopping1)
+
+@Sleep2:
+MoveTo(496,578)
+UseItem(0)
+Wait(250)
+GoTo(@Fletching)
