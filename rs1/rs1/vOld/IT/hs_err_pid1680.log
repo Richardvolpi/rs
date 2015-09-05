@@ -1,0 +1,65 @@
+
+An unexpected exception has been detected in native code outside the VM.
+Unexpected Signal : EXCEPTION_ACCESS_VIOLATION (0xc0000005) occurred at PC=0x1B121AA5
+Function=[Unknown.]
+Library=C:\temp\runescape\win32.dll
+
+NOTE: We are unable to locate the function name symbol for the error
+      just occurred. Please refer to release documentation for possible
+      reason and solutions.
+
+
+Current Java thread:
+	at Main.setTopWindow(Native Method)
+	at Main.main(Main.java:294)
+
+Dynamic libraries:
+0x00400000 - 0x00406000 	C:\bin\lang\j2sdk1.4.2_beta\jre\bin\java.exe
+0x77F80000 - 0x77FFB000 	C:\WINNT\system32\ntdll.dll
+0x7C2D0000 - 0x7C332000 	C:\WINNT\system32\ADVAPI32.dll
+0x7C570000 - 0x7C623000 	C:\WINNT\system32\KERNEL32.DLL
+0x77D30000 - 0x77D9E000 	C:\WINNT\system32\RPCRT4.DLL
+0x78000000 - 0x78045000 	C:\WINNT\system32\MSVCRT.dll
+0x08000000 - 0x08136000 	C:\bin\lang\j2sdk1.4.2_beta\jre\bin\client\jvm.dll
+0x77E10000 - 0x77E6F000 	C:\WINNT\system32\USER32.dll
+0x77F40000 - 0x77F79000 	C:\WINNT\system32\GDI32.dll
+0x77570000 - 0x775A0000 	C:\WINNT\system32\WINMM.dll
+0x10000000 - 0x10007000 	C:\bin\lang\j2sdk1.4.2_beta\jre\bin\hpi.dll
+0x007C0000 - 0x007CE000 	C:\bin\lang\j2sdk1.4.2_beta\jre\bin\verify.dll
+0x007D0000 - 0x007E8000 	C:\bin\lang\j2sdk1.4.2_beta\jre\bin\java.dll
+0x007F0000 - 0x007FD000 	C:\bin\lang\j2sdk1.4.2_beta\jre\bin\zip.dll
+0x18470000 - 0x1857A000 	C:\bin\lang\j2sdk1.4.2_beta\jre\bin\awt.dll
+0x77800000 - 0x7781E000 	C:\WINNT\system32\WINSPOOL.DRV
+0x76620000 - 0x76631000 	C:\WINNT\system32\MPR.DLL
+0x75E60000 - 0x75E7A000 	C:\WINNT\system32\IMM32.dll
+0x77A50000 - 0x77B3C000 	C:\WINNT\system32\ole32.dll
+0x18580000 - 0x185D0000 	C:\bin\lang\j2sdk1.4.2_beta\jre\bin\fontmanager.dll
+0x51000000 - 0x51047000 	C:\WINNT\system32\ddraw.dll
+0x728A0000 - 0x728A6000 	C:\WINNT\system32\DCIMAN32.dll
+0x5C000000 - 0x5C0C8000 	C:\WINNT\system32\D3DIM700.DLL
+0x60000000 - 0x60045000 	C:\WINNT\system32\MSCTF.dll
+0x779B0000 - 0x77A4B000 	C:\WINNT\system32\OLEAUT32.DLL
+0x1B110000 - 0x1B13D000 	C:\temp\runescape\win32.dll
+0x1B140000 - 0x1B145000 	C:\bin\lang\j2sdk1.4.2_beta\jre\bin\jawt.dll
+0x77920000 - 0x77943000 	C:\WINNT\system32\imagehlp.dll
+0x72A00000 - 0x72A2D000 	C:\WINNT\system32\DBGHELP.dll
+0x690A0000 - 0x690AB000 	C:\WINNT\system32\PSAPI.DLL
+
+Heap at VM Abort:
+Heap
+ def new generation   total 576K, used 147K [0x10010000, 0x100b0000, 0x104f0000)
+  eden space 512K,  28% used [0x10010000, 0x10034fc8, 0x10090000)
+  from space 64K,   0% used [0x10090000, 0x10090000, 0x100a0000)
+  to   space 64K,   0% used [0x100a0000, 0x100a0000, 0x100b0000)
+ tenured generation   total 2552K, used 1529K [0x104f0000, 0x1076e000, 0x14010000)
+   the space 2552K,  59% used [0x104f0000, 0x1066e778, 0x1066e800, 0x1076e000)
+ compacting perm gen  total 5888K, used 5677K [0x14010000, 0x145d0000, 0x18010000)
+   the space 5888K,  96% used [0x14010000, 0x1459b4e8, 0x1459b600, 0x145d0000)
+
+Local Time = Thu Oct 30 11:52:43 2003
+Elapsed Time = 4
+#
+# The exception above was detected in native code outside the VM
+#
+# Java VM: Java HotSpot(TM) Client VM (1.4.2-beta-b19 mixed mode)
+#
