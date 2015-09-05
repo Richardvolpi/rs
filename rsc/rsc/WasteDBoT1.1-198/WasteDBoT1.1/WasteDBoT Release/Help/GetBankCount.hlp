@@ -1,0 +1,6 @@
+Usage: GetBankCount(Integer BankID)
+Returns an bank count of a bank spot
+eg.
+Variable = GetBankCount(21)
+or
+If GetBankCount(21) = 1 Then...

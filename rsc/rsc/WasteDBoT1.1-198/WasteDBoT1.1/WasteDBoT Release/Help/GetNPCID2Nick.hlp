@@ -1,0 +1,6 @@
+Usage: GetNPCID2Nick(Integer ID)
+Returns the name of a NPC ID
+eg.
+Variable = GetNPCID2Nick(Integer ID)
+or
+If GetNPCID2Nick(34) = "spider" Then...

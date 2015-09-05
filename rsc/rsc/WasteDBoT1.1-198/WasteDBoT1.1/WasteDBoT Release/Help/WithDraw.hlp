@@ -1,0 +1,2 @@
+Usage: WithDraw(Integer ID, Amount as integre)
+Withdraws an item from the bank, you have to be in your bank!

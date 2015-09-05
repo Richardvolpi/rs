@@ -1,0 +1,4 @@
+Usage: Variable = GetXP(Integer StatNumber, "Current" or "Total")
+Gets your xp into your chosen variable, use for comparing etc.
+eg.
+Variable = GetXP(0, Current)

@@ -1,0 +1,2 @@
+Usage: TakeItem(Integer ID)
+Takes an Item by its ID

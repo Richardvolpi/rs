@@ -1,0 +1,6 @@
+Usage: LastMyChat()
+Returns your last Chat Message
+eg.
+Variable = LastMyChat
+or
+If LastMyChat = "I feel gay" Then...

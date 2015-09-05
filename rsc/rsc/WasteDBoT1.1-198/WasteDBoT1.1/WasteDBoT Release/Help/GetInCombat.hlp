@@ -1,0 +1,6 @@
+Usage: GetInCombat()
+Returns 1 if in combat, 0 if not
+eg.
+Variable = GetInCombat
+or
+If GetInCombat = 1 Then...

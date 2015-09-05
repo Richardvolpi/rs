@@ -1,0 +1,2 @@
+Usage: OpenDoorIfClosed(X, Y)
+Opens the door if its closed by its position

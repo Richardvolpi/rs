@@ -1,0 +1,2 @@
+Usage: Sleep(Integer Time)
+Waits a specified amount of time (in milliseconds) before continueing.

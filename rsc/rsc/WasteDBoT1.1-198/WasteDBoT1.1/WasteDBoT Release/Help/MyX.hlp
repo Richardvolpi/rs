@@ -1,0 +1,6 @@
+Usage: MyX()
+Returns your X Position
+eg.
+Variable = MyX
+or
+If MyX = 50 Then...

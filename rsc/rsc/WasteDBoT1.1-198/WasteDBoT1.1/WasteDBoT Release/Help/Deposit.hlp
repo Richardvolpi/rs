@@ -1,0 +1,2 @@
+Usage: Deposit(Integer ID, Amount as integre)
+Deposits an item into the bank, you have to be in your bank!

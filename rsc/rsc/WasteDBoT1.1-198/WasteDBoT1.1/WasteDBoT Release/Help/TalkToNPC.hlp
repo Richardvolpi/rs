@@ -1,0 +1,2 @@
+Usage: TalkToNPC(Integer ID)
+Talks to an NPC by a selected NPC ID

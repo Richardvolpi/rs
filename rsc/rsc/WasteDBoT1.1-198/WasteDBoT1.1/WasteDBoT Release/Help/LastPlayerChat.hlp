@@ -1,0 +1,6 @@
+Usage: LastPlayerChat()
+Returns the Player Chat Message
+eg.
+Variable = LastPlayerChat
+or
+If LastPlayerChat = "Banker: Hello" Then...
