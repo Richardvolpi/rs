@@ -1,0 +1,939 @@
+(* USS v Beta   3-06-05*)
+(* By: GenoDemoN *)
+
+{ a work IN progress}
+
+(* settings line  105 *)
+(*
+
+
+exp script:
+
+program USSexp;
+vars here
+{ .include USS.scar }
+
+    :::procedures here::
+
+begin
+usssetup;
+repeat
+
+    :::maincycle here:::
+
+  suprwait(100);
+until(runscript=false);
+endscript;
+end.
+
+
+Done:
+UberWait(wai:integer);
+HumanMMouse(x,y,xb,yb,spe:integer);
+HumanMouse(x,y,xb,yb,spe:integer; left:boolean);
+typehuman(text:string;pause:integer);
+logout;
+loginifneeded(username,password:string);
+OpenBag;
+findcolorex(cmc,l,u,r,d,rl,ru,rr,rd:integer):boolean;
+FindColorInc(color,x1,y2,x2,y2,toll,inc:integer):boolean;
+findcolorexinc(cmc,l,u,r,d,rl,ru,rr,rd,toll,inc:integer):boolean;
+ItemCollector(itemcolor,colit:integer);
+settalkred;
+setrun;
+findnpccolor(ncolor1,ncolor2,ncolor3,l,r,u,d:integer):boolean;
+MapFlag;
+MapFlagWalk;
+Runaway(dir(1-4)); //will be smarter than just click  1-up 2-left 3-down 4-right
+Runback(dir(1-4)); //will be smarter than just click  1-up 2-left 3-down 4-right <-- where u came from
+-Infight
+zonesetup(x1,y1,x2,y2,x3,y3,x4,y4:integer);
+zone1:boolean;
+zone2:boolean;
+-AMP:
+mime maze aren't going to be attempted but it loggouts for them
+loggout if poisoned and do not have a anti-poision pot
+FindText;
+FindLamp;
+FindMiscRandoms;
+RandomCheck;
+findhpbar;
+gasfinder; by: atm999
+USSSetup;
+-Litithum:
+runovernight; //Runs script for 9 to 10 hours then stops
+run; //Runs no w/ no restrictions
+runhuman; //Runs script like a human (runs for 15-16 hours with random breaks and 3 scheduled meals with a loop, all other time is clasified as sleeping)
+*)
+(*
+To be coded:
+-procedures:
+openbank; //finds and opens bank
+closebank;
+picwithdraw(picture,amount);       -- didn't feel like makin
+SlotWithdraw(row,colum,amount);
+picdeposit(picture,amount);
+-AMP
+tree ent -- not in this verision
+strangeplant -- not in this verision
+boxbreaker -- not in this verision
+-Autotalker
+talkifneeded; -- not in this verision
+-Debugwindow     -- not in this verision
+displaywindow(val1,val2,val3,val4:integer;n1,n2,n3,n4:string);
+-Forms     -- not in this verision
+need to decide to do menu or 1-screen
+*)
+
+const
+tol=10;
+wa1=220;
+wa2=150;
+wa3=275;
+wa4=180;
+
+var
+x,y,resultx,resulty,xz1,yz1,xz2,yz2,xz3,yz3,xz4,yz4,flag,ilamp,talkw,talky,
+randomwait,mealwait,breakfast,lunch,dinner,hourz,minz:integer;
+overnighttime,now,hour,RHours,Minutes,Seconds,hours,RMinutes,RSeconds,days,waittime,
+lithtime,st,rt:longint;
+username,password,time,dir:string;
+rhuman,rovernight,rindef,runscript,eatbreakfast,eatlunch,eatdinner:boolean;
+
+procedure settings;
+begin
+username:='gulix';
+password:='951753';
+dir:= '1'; //direction you can run away to 1-up 2-left 3-down 4-right
+rhuman:=true; //Runhuman
+hourz:=15;// current hour in military time
+minz:=7;// curent minutes
+breakfast:=9; //time for
+lunch:=13;   //use military time
+dinner:=19;  // ^^^
+mealwait:=25; //time it takes for a meal   in mins
+randomwait:=11; //random wait times in mins   it is random
+rindef:=false; //Run forever
+rovernight:=false; //run overnight
+overnighttime:=9;
+end;
+
+
+procedure UberWait(wai:integer);
+var waii:longint;
+begin
+ waii:=wai+random(wai/2)+getsystemtime;
+ repeat
+  wait(random(10));
+ until(getsystemtime>waii);
+end;
+
+
+Procedure HumanMMouse(x,y,xb,yb,spe:integer);
+begin
+ x:=x+random(xb);
+ y:=y+random(yb);
+ IF(x<1) then x:=1;
+ IF(y<1) then y:=1;
+ IF(x>788) then x:=788;
+ IF(y>591) then y:=591;
+ Wait(random(5));
+ MoveMouseSmoothEx(x,y,1*(spe/8),3*spe,44+5*spe/10,21,11);
+ GetMousePos(x,y);
+ Wait(200+random(100));
+end;
+
+Procedure HumanMouse(x,y,xb,yb,spe:integer; left:boolean);
+begin
+HumanMMouse(x,y,xb,yb,spe);
+GetMousePos(x,y);
+Wait(50+random(50));
+HoldMouse(x,y,left);
+Wait(10+random(70));
+ReleaseMouse(x,y,left);
+wait(100+random(100));
+end;
+
+procedure typehuman(text:string;pause:integer);
+begin
+repeat
+sendkeyssilent(copy(text,1,1));
+uberwait(pause+50+random(20));
+delete(text,1,1);
+uberwait(50);
+until(length(text)=0);
+uberwait(100+random(50));
+end;
+
+procedure runaway(direction:string);
+begin
+end;
+
+procedure runback(direction:string);
+begin
+end;
+
+procedure logout;
+begin
+IF ((findcolorspiraltolerance(x,y,83627,554,10,578,31,30)))then
+repeat
+IF (findcolorspiraltolerance(x,y,2500207,632,473,663,494,15)=false)then
+humanmouse(632,473,30,20,5,true);
+sleep(300+random(300));
+humanmouse(607,372,70,5,5,true);
+uberwait(900);
+until(false=(findcolorspiraltolerance(x,y,83627,554,10,578,31,30)));
+end;
+
+procedure loginifneeded(username,password:string);
+var counter:integer;
+begin
+IF (false=(findcolorspiraltolerance(x,y,83627,554,10,578,31,30)))then
+begin
+humanmouse(438,289,28,6,4,true);
+uberwait(990);
+typehuman(username,5);
+uberWait(400+random(150));
+typehuman(chr(13),5);
+uberWait(400+random(150));
+typehuman(password,5);
+uberWait(400+random(100));
+humanMouse(300,322,20,5,3,true);
+uberwait(2300+random(500));
+counter:=0;
+repeat
+counter:=counter+1;
+uberwait(1400);
+until((counter>10) or (findcolorspiraltolerance(x,y,83627,554,10,578,31,30)));
+uberwait(1700);
+humanmouse(437,92,37,5,3,true);
+uberwait(700);
+end;
+end;
+
+Procedure OpenBag;
+begin
+if(false=(findcolorspiraltolerance(x,y,2829182,631,174,663,198,tol)))then
+begin
+ wait(400+random(100));
+ HumanMouse(635,176,15,15,3,true);
+ wait(400+random(100));
+end;
+end;
+
+function findcolorex(cmc,l,u,r,d,rl,ru,rr,rd:integer):boolean;
+var                                 { by GenoDemoN }
+x1,x2,x3,x4,y1,y2,y3,y4,xxx,yyy,d1,d2,d3,d4:integer ;
+b1,b2,b3,b4:boolean;
+begin
+xxx:=(rl+rr)/2;
+yyy:=(ru+rd)/2;
+b1:=false;
+b2:=false;
+b3:=false;
+b4:=false;
+IF (findcolorspiraltolerance(x1,y1,cmc,l,u,r,ru,tol)) then b1:=true;
+IF (findcolorspiraltolerance(x2,y2,cmc,l,ru,rl,rd,tol)) then b2:=true;
+IF (findcolorspiraltolerance(x3,y3,cmc,rr,ru,r,rd,tol)) then b3:=true;
+IF (findcolorspiraltolerance(x4,y4,cmc,l,rd,r,d,tol)) then b4:=true;
+IF (b1 or b2 or b3 or b4) then
+begin
+d1:=(xxx-x1)*(xxx-x1)+(yyy-y1)*(yyy-y1);
+d2:=(xxx-x2)*(xxx-x2)+(yyy-y2)*(yyy-y2);
+d3:=(xxx-x3)*(xxx-x3)+(yyy-y3)*(yyy-y3);
+d4:=(xxx-x4)*(xxx-x4)+(yyy-y4)*(yyy-y4);
+result:=false;
+If ((d1<d2)and(d1<d3)and(d1<d4)and(b1)) then
+begin
+x:=x1;
+y:=y1;
+result:=true;
+end;
+If ((d2<d1)and(d2<d3)and(d2<d4)and(b2)) then
+begin
+x:=x2;
+y:=y2;
+result:=true;
+end;
+If ((d3<d2)and(d3<d1)and(d3<d4)and(b3)) then
+begin
+x:=x3;
+y:=y3;
+result:=true;
+end;
+If ((d4<d2)and(d4<d3)and(d4<d1)and(b4)) then
+begin
+x:=x4;
+y:=y4;
+result:=true;
+end;
+resultx:=x;
+resulty:=y;
+
+end;
+end;
+
+function FindColorInc(color,x1,y2,x2,y2,toll,inc:integer):boolean;
+var
+c,tolll:integer;
+begin
+tolll:=1;
+c:=-1;
+result:=false;
+repeat
+c:=c+1;
+tolll:=1+c*inc;
+IF (findcolorspiraltolerance(resultx,resulty,color,x1,y2,x2,y2,tolll)) then
+result:=true;
+until((result)or(tolll>toll));
+end;
+
+function findcolorexinc(cmc,l,u,r,d,rl,ru,rr,rd,toll,inc:integer):boolean;
+var                                 { by GenoDemoN }
+x1,x2,x3,x4,y1,y2,y3,y4,xxx,yyy,d1,d2,d3,d4:integer ;
+b1,b2,b3,b4:boolean;
+begin
+xxx:=(rl+rr)/2;
+yyy:=(ru+rd)/2;
+b1:=false;
+b2:=false;
+b3:=false;
+b4:=false;
+IF (FindColorInc(cmc,l,u,r,ru,toll,inc)) then b1:=true;
+x1:=resultx;
+y1:=resulty;
+IF (FindColorInc(cmc,l,ru,rl,rd,toll,inc)) then b2:=true;
+x2:=resultx;
+y2:=resulty;
+IF (FindColorInc(cmc,rr,ru,r,rd,toll,inc)) then b3:=true;
+x3:=resultx;
+y3:=resulty;
+IF (FindColorInc(cmc,l,rd,r,d,toll,inc)) then b4:=true;
+x4:=resultx;
+y4:=resulty;
+IF (b1 or b2 or b3 or b4) then
+begin
+d1:=(xxx-x1)*(xxx-x1)+(yyy-y1)*(yyy-y1);
+d2:=(xxx-x2)*(xxx-x2)+(yyy-y2)*(yyy-y2);
+d3:=(xxx-x3)*(xxx-x3)+(yyy-y3)*(yyy-y3);
+d4:=(xxx-x4)*(xxx-x4)+(yyy-y4)*(yyy-y4);
+result:=false;
+If ((d1<d2)and(d1<d3)and(d1<d4)and(b1)) then
+begin
+x:=x1;
+y:=y1;
+result:=true;
+end;
+If ((d2<d1)and(d2<d3)and(d2<d4)and(b2)) then
+begin
+x:=x2;
+y:=y2;
+result:=true;
+end;
+If ((d3<d2)and(d3<d1)and(d3<d4)and(b3)) then
+begin
+x:=x3;
+y:=y3;
+result:=true;
+end;
+If ((d4<d2)and(d4<d3)and(d4<d1)and(b4)) then
+begin
+x:=x4;
+y:=y4;
+result:=true;
+end;
+resultx:=x;
+resulty:=y;
+end;
+end;
+
+
+
+Procedure ItemCollector(itemcolor,colit:integer);
+var
+c,asdx,zz:integer;
+begin
+c:=0;
+   Wait(200+random(100));
+   x:=262;
+   y:=174;
+   repeat
+   asdx:=asdx+1;
+   If(FindColorex((ItemColor),180,130,325,258,240,164,276,181)or ((asdx=3)and(findcolorspiraltolerance(x,y,(ItemColor),5,5,510,330,tol))))then
+   begin
+      HumanmMouse(x,y,0,0,3);
+      repeat
+      c:=c+1;
+      wait(20+random(35));
+      until(c>10);
+      If(istextat2(9,9,'Take',150))then
+      begin
+         humanMouse(x,y,0,0,3,false);
+         zz:=0;
+         wait(150+random(200));
+             uberwait(300);
+
+           IF ((FindBitmapSpiralTolerance(colit,x,y,10,20,505,320,100))) then
+           begin
+           humanMouse(x,y,0,0,3,true);
+           Wait(15+random(5));
+           uberwait(500+random(100));
+            end;
+           wait(300);
+      end;
+   end;
+   until(asdx>2);
+   wait(300);
+     humanmmouse(x-20,y-20,20,20,3);
+end;
+
+Procedure settalkred;
+begin
+IF ((FindColorSpiraltolerance(x,y,255,44,484,62,492,50))=false) then
+repeat
+humanmouse(44+random(18),484+random(8),1,1,3,true);
+uberwait(621);
+until(FindColorSpiraltolerance(x,y,255,44,484,62,492,50));
+IF ((FindColorSpiraltolerance(x,y,255,174,484,191,492,50))=false) then
+repeat
+humanmouse(174+random(17),484+random(8),1,1,3,true);
+uberwait(621);
+until(FindColorSpiraltolerance(x,y,255,174,484,191,492,50));
+IF ((FindColorSpiraltolerance(x,y,255,313,484,330,492,50))=false) then
+repeat
+humanmouse(313+random(17),484+random(8),1,1,3,true);
+uberwait(621);
+until(FindColorSpiraltolerance(x,y,255,313,484,330,492,50));
+end;
+
+procedure setrun;
+begin
+humanmouse(707,475,10,10,3,true);
+uberwait(200);
+IF ((findcolorspiraltolerance(x,y,1974666,612,257,633,277,30))=false) then
+humanmouse(615,261,15,10,3,true);
+uberwait(200);
+end;
+
+function findnpccolor(ncolor1,ncolor2,ncolor3,l,r,u,d:integer):boolean;
+var
+cmc,i,mcc,rl,ru,rd,rr,x1,x2,x3,x4,y1,y2,y3,y4,xxx,yyy,d1,d2,d3,d4:integer ;
+b1,b2,b3,b4,isnpc:boolean;
+begin
+result:=false;
+repeat
+
+repeat
+mcc:=mcc+1;
+If Mcc>3 then
+Mcc:=1;
+case mcc of
+1:cmc:=ncolor1 ;
+2:cmc:=ncolor2 ;
+3:cmc:=ncolor3 ;
+end;
+until((cmc=0)=false);
+rl:=220;
+ru:=150;
+rr:=290;
+rd:=210;
+xxx:=(rl+rr)/2;
+yyy:=(ru+rd)/2;
+IF ((findcolorspiraltolerance(x1,y1,cmc,l,u,r,ru,tol)) or
+(findcolorspiraltolerance(x2,y2,cmc,l,ru,rl,rd,tol))or
+(findcolorspiraltolerance(x3,y3,cmc,rr,ru,r,rd,tol))or
+(findcolorspiraltolerance(x4,y4,cmc,l,rd,r,d,tol)))then
+begin
+b1:=false;
+b2:=false;
+b3:=false;
+b4:=false;
+IF (findcolorspiraltolerance(x1,y1,cmc,l,u,r,ru,tol)) then b1:=true;
+IF (findcolorspiraltolerance(x2,y2,cmc,l,ru,rl,rd,tol)) then b2:=true;
+IF (findcolorspiraltolerance(x3,y3,cmc,rr,ru,r,rd,tol)) then b3:=true;
+IF (findcolorspiraltolerance(x4,y4,cmc,l,rd,r,d,tol)) then b4:=true;
+d1:=(xxx-x1)*(xxx-x1)+(yyy-y1)*(yyy-y1);
+d2:=(xxx-x2)*(xxx-x2)+(yyy-y2)*(yyy-y2);
+d3:=(xxx-x3)*(xxx-x3)+(yyy-y3)*(yyy-y3);
+d4:=(xxx-x4)*(xxx-x4)+(yyy-y4)*(yyy-y4);
+If ((d1<d2)and(d1<d3)and(d1<d4)and(b1)) then
+begin
+x:=x1;
+y:=y1;
+end;
+If ((d2<d1)and(d2<d3)and(d2<d4)and(b2)) then
+begin
+x:=x2;
+y:=y2;
+end;
+If ((d3<d2)and(d3<d1)and(d3<d4)and(b3)) then
+begin
+x:=x3;
+y:=y3;
+end;
+If ((d4<d2)and(d4<d3)and(d4<d1)and(b4)) then
+begin
+x:=x4;
+y:=y4;
+end;
+
+humanmMouse(x,y,0,0,6);
+i:=0;
+isnpc:=false;
+
+repeat
+uberwait(5);
+If (Istextat2(9,9,'Tal',100)) then isnpc:= true;
+i:=i+1;
+until((I>15)or (isnpc));
+
+If (isnpc) then
+begin
+  humanmMouse(x,y,1,1,3);
+  wait(150+random(50));
+   result:=true;
+   resultx:=x;
+   resulty:=y;
+end;
+end;
+until(Mcc>3);
+end;
+
+Procedure MapFlag;
+var m,mapx,mapy:integer;
+begin
+ Wait(300+random(100));
+ while(FindBitmapIn(flag,mapx,mapy,570,5,725,162))or(M<10)do
+  begin
+   wait(100+random(50));
+   M:=M+1;
+  end;
+end;
+
+Procedure MapFlagWalk;
+var M:integer;
+begin
+  Wait(300+random(100));
+  while(FindBitmapIn(flag,x,y,570,5,725,162))and(not(FindBitmapIn(flag,x,y,633,64,665,90)))or(M<11)do
+  begin
+   wait(200+random(100));
+   M:=M+1;
+  end;
+end;
+
+procedure zonesetup(x1,y1,x2,y2,x3,y3,x4,y4:integer);
+begin
+xz1:=x1;
+yz1:=y1;
+xz2:=x2;
+yz2:=y2;
+xz3:=x3;
+yz3:=y3;
+xz4:=x4;
+yz4:=y4;
+writeln('--InFight Detecion setup   Zone v1.3');
+end;
+
+function zone1:boolean;
+begin
+result:=false;
+IF(findcolorex(65280,xz1,yz1,xz2,yz2,xz3,yz3,xz4,yz4))then
+result:=true;
+end;
+
+function zone2:boolean;
+begin
+result:=false;
+IF(findcolorex(65280,xz3,yz3,xz4,yz4,xz1,yz1,xz2,yz2))then
+result:=true;
+end;
+
+procedure FindText;
+var counter,c,xs1,xs2,xd,yd,yt:integer; Talked:boolean;
+begin
+if(FindColor(x,yd,65535,5,5,514,337))then wait(200);
+if(FindColor(x,yd,65535,5,5,514,337))then
+ begin
+       y:=yd;
+       counter:=0;
+  repeat
+      counter:=counter+1;
+  until(false = (findcolorspiraltolerance(xs1,yt,65535,x+counter,y-5,x+counter+9,y+10,10)))
+       counter:=0;
+     repeat
+      counter:=counter+1;
+  until(false = (findcolorspiraltolerance(xs2,yt,65535,x-counter,y-5,x-counter+9,y+10,10)))
+         xd:=(xs1+xs2)/2
+              counter:=0;
+      talked:=false;
+      repeat
+         counter:=counter+1;
+    humanmMouse(xd-5,yd+counter,10,0,7);
+   wait(5);
+    if(IsTextAt2(9,9,'Ta',100))then
+    begin
+     GetMousePos(x,y);
+     humanMouse(x,y,0,0,3,false);
+     Wait(200+random(100));
+     if(FindBitmap(TalkW,x,y))or(FindBitmap(TalkY,x,y))then
+      begin
+       humanMouse(x,y,40,5,3,true);
+       MapFlag;
+       wait(1000+random(1000));
+       while((FindColor(x,y,16711680,5,345,510,465))or
+            (FindColor(x,y,16777215,5,345,510,465)))and
+            (not(GetColor(20,434)=0))and(c<=10)do
+        begin
+         humanMouse(x,y,50,2,3,true);
+         wait(2000+random(1000));
+         c:=c+1;
+        end;
+       Talked:=true;
+      end;
+    end;
+    until(talked or (counter>20));
+ end;
+end;
+
+
+Procedure FindLamp;
+begin
+while(FindBitmapSpiralTolerance(iLamp,x,y,550,200,745,470,100)) do
+ begin
+  humanMouse(x+random(2),y+random(2),10,10,3,true);
+  wait(3000+random(1000));
+  humanMouse(157+random(2),220+random(2),12,12,3,true)
+  wait(3000+random(1000));
+  humanMouse(248+random(2),255+random(2),10,2,3,true);
+  wait(3000+random(1000));
+  humanMouse(226+random(2),442+random(2),10,3,3,true);
+  wait(3000+random(1000));
+  end;
+end;
+
+procedure FindMiscRandoms;
+var ax,ay:integer;
+begin
+ if(FindColortolerance(ax,ay,786423,10,350,150,433,4))then
+  begin
+    writeln('<--Mod Detected-->');
+   LogOut;
+  end;
+ if(GetColor(30,418)=0)and(GetColor(72,429)=0)then
+  begin
+  writeln('<--Death Detected-->');
+   LogOut;
+  end;
+ if(FindColortolerance(ax,ay,11503238,10,350,479,433,4))then
+  begin
+  writeln('<--Mime Detected-->');
+   LogOut;
+  end;
+ (* IF (findcolortolerance(ax,ay,00000,256,146,270,158,5)then
+  begin
+  writeln('<--Poison Detected-->');
+ //try to take antidote
+   LogOut;    //else loggout
+  end;      *)
+  
+end;
+
+procedure GasFinder;
+begin
+if(FindColor(x,y,12370886,7,6,512,334))or //If you want, you can remove those "//" in the begin of a line, to make gas finding more accurate. Notice: This will cause a MASSIVE lagg!!
+(FindColor(x,y,7771043,7,6,512,334))or
+//(FindColor(x,y,6850712,7,6,512,334))or
+//(FindColor(x,y,6915991,7,6,512,334))or
+//(FindColor(x,y,6127504,7,6,512,334))or
+//(FindColor(x,y,6850712,7,6,512,334))or
+//(FindColor(x,y,4155518,7,6,512,334))or
+//(FindColor(x,y,6719384,7,6,512,334))or
+//(FindColor(x,y,6718611,7,6,512,334))or
+//(FindColor(x,y,6719384,7,6,512,334))or
+//(FindColor(x,y,4812158,7,6,512,334))or
+//(FindColor(x,y,10399412,7,6,512,334))or
+//(FindColor(x,y,13028558,7,6,512,334))or
+//(FindColor(x,y,11188414,7,6,512,334))or
+//(FindColor(x,y,8821679,7,6,512,334))or
+(FindColor(x,y,9084582,7,6,512,334))then
+begin
+humanmouse(648,88,0,0,3,true);
+writeln('Rock Gas found');
+//Gasers:=Gasers+1;
+uberwait(20000);
+end;
+end;
+
+procedure findhpbar;
+begin
+IF(zone2)then
+begin
+writeln('Under attack');
+Runaway(dir);
+uberwait(3333);
+runback(dir);
+end;
+end;
+
+Procedure RandomCheck;
+begin
+LoginIfNeeded(username,password);
+FindText;
+Findhpbar;
+//FindBox;
+Gasfinder;
+FindMiscRandoms;
+end;
+
+procedure establishtime;
+begin
+now:=getsystemtime-st+rt;
+IF (now>24*60*60*1000) then
+repeat
+ now:=now-24*60*60*1000;
+until(now<24*60*60*1000);
+minutes:=now/1000/60;
+hour:=minutes/60;
+end;
+
+procedure setnewtimes;
+var c,randomwaitt:integer;
+begin
+establishtime;
+IF (rhuman) then
+begin
+IF (hour<breakfast) then
+begin
+eatbreakfast:=false;
+eatlunch:=false;
+eatdinner:=false;
+end;
+randomwaitt:= randomwait-5+random(10);
+If ((hour>breakfast)and(hour<lunch)and (eatbreakfast)) then
+begin
+waittime:=randomwaitt-3+random(7);
+c:=1+random(3);
+case c of
+1:lithtime:=(23+random(4))*60*1000;
+2:lithtime:=(42+random(4))*60*1000;
+3:lithtime:=(56+random(4))*60*1000;
+end;
+end;
+If ((hour>breakfast)and(hour<lunch) and (eatlunch)) then
+begin
+waittime:=randomwaitt-3+random(7);
+c:=1+random(3);
+case c of
+1:lithtime:=(23+random(4))*60*1000;
+2:lithtime:=(42+random(4))*60*1000;
+3:lithtime:=(56+random(4))*60*1000;
+end;
+end;
+If ((hour>dinner)and(hour<25) and (eatdinner)) then
+begin
+waittime:=randomwaitt-3+random(7);
+c:=1+random(3);
+case c of
+1:lithtime:=(23+random(4))*60*1000;
+2:lithtime:=(42+random(4))*60*1000;
+3:lithtime:=(56+random(4))*60*1000;
+end;
+end;
+If ((hour<breakfast)and(hour>0) and (eatdinner)) then
+begin
+waittime:=randomwaitt-3+random(7);
+c:=1+random(3);
+case c of
+1:lithtime:=(23+random(4))*60*1000;
+2:lithtime:=(42+random(4))*60*1000;
+3:lithtime:=(56+random(4))*60*1000;
+end;
+end;
+IF ((hour>breakfast)and(eatbreakfast=false)) then
+begin
+waittime:=mealwait-3+random(7);
+case c of
+1:lithtime:=(23+random(4))*60*1000;
+2:lithtime:=(42+random(4))*60*1000;
+3:lithtime:=(56+random(4))*60*1000;
+end;
+end;
+IF ((hour>lunch)and(eatlunch=false)) then
+begin
+waittime:=mealwait-3+random(7);
+case c of
+1:lithtime:=(23+random(4))*60*1000;
+2:lithtime:=(42+random(4))*60*1000;
+3:lithtime:=(56+random(4))*60*1000;
+end;
+end;
+IF ((hour>dinner)and(eatdinner=false)) then
+begin
+waittime:=mealwait-3+random(7);
+case c of
+1:lithtime:=(23+random(4))*60*1000;
+2:lithtime:=(42+random(4))*60*1000;
+3:lithtime:=(56+random(4))*60*1000;
+end;
+end;
+end;
+IF (rovernight) then
+begin
+  runscript:=false;
+end;
+end;
+
+procedure setuplithium;
+begin
+Writeln('--Setup Lithium v1.1');
+IF (rovernight) then
+lithtime:=getsystemtime+overnighttime*60*60*1000;
+setnewtimes;
+runscript:=true;
+end;
+
+procedure lithwait;
+begin
+logout;
+uberwait(waittime);
+lithtime:=lithtime+getsystemtime;
+LoginIfNeeded(username,password);
+end;
+
+procedure lithium;
+begin
+IF (getsystemtime>lithtime) then
+begin
+lithwait;
+setnewtimes;
+end;
+end;
+
+procedure endscript;
+begin
+Writeln('Script Ended');
+Writeln('Setup:Notes:');
+//writeln(edu);
+//writeln(edp);
+  Seconds:=(getsystemtime-st) div 1000;
+  Minutes:=Seconds div 60;
+  Hours:=Minutes div 60;
+  Time:=inttostr(Seconds)+' Seconds';
+  days:=hours div 24;
+  if Minutes<>0 then
+  begin
+   rSeconds:=Seconds Mod (Minutes*60);
+   Time:=inttostr(Minutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+  end;
+  if RHours<>0 then
+  begin
+
+   RMinutes:=Minutes Mod (RHours*60);
+   Rhours:=Seconds Mod (Minutes*60);
+    Time:=(inttostr(RHours)+' Hours and '+inttostr(rminutes)+' minutes');
+  end;
+  IF  days<>0 then
+  begin
+   hours:=hours mod (days*24);
+   Time:=inttostr(RHours)+' Hours, '+inttostr(days )+' Days';
+  end;
+writeln('Time Ran: '+time);
+end;
+
+procedure suprwait(wai:integer);
+var waii,rang:longint;
+begin
+ waii:=wai+random(wai/2)+getsystemtime;
+ repeat
+  wait(random(10));
+  IF (getsystemtime>rang) then
+  begin
+  randomcheck;
+  IF(rindef=false) then  lithium;
+   rang:=getsystemtime+800;
+   IF (runscript=false) then
+   endscript;
+  end;
+ until(getsystemtime>waii);
+end;
+
+
+procedure loadpics;
+begin
+ iLamp := BitmapFromString(17, 6,
+       '000001000001000001000001BAB815B2B015AEAD15ABAA159C9A12' +
+       '9291128C8A1275740E000001000001000001000001000001D0CE18' +
+       'CBC918C8C618C5C418C5C418C0BE18BAB815B5B315ABAA15A3A112' +
+       '99971292911284820E79780E6968095C5A09A6A415CECC18C5C418' +
+       'C2C118C0BE18BDBB18BAB815B8B615B5B315B2B015A8A715A3A112' +
+       '9C9A129594128E8D1281800E999712AEAD15CECC18CBC918C0BE18' +
+       'BDBB18BAB815B5B315B2B015AEAD15A8A715A3A1129F9E12999712' +
+       '88860E84820E8C8A129291129C9A12000001CBC918CBC918BAB815' +
+       'B8B615B5B315B2B015AEAD15A8A715A3A1129C9A1295941281800E' +
+       '79780E84820E000001000001000001CBC918CBC918C0BE18B8B615' +
+       'B2B015AEAD15ABAA15A6A4159F9E129997128C8A1279780E75740E' +
+       '000001000001C2C118');
+ TalkW := BitmapFromString(17, 10,
+        'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+        '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+        '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+        'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF');
+TalkY := BitmapFromString(17, 10,
+        'FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+        '000000000000000000000000000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000000000000000FFFF00FFFF00FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+        '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000FFFF00FFFF00000000000000000000000000FFFF00' +
+        'FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00');
+flag := BitmapFromString(2, 2,
+        'FF00005D3311C656045D3311');
+        Writeln('--Bmps Loaded');
+end;
+
+procedure USSSetup;
+begin
+writeln('USS UberScriptShell');
+writeln('       By: GenoDemoN');
+writeln('Loading');
+st:=getsystemtime;
+loadpics;
+setmousemode(false);
+setuplithium;
+settings;
+zonesetup(130,60,400,260,wa1,wa2,wa3,wa4);
+loadchars('')
+setmousemode(false);
+writeln('USS Beta Loaded sucessful');
+
+end;
+
+
+

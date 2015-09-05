@@ -1,0 +1,98 @@
+procedure CheckCommunication;
+var
+cont:boolean;
+begin
+ cont:=true;
+  if (ReadInterSCARMessage('WAAMP')=('SCRIPT:PAUSE')) then
+   begin
+   wait(10)
+    SendInterScarMessage('WAAMP','SCRIPT:PAUSE:OK');
+    repeat
+    wait(50)
+     if (cont) then writeln('Paused By WAAMP. Waiting for WAAMP to continue...');
+     if (ReadInterSCARMessage('WAAMP')=('SCRIPT:RUN')) then cont:=true else cont:=false;
+    until (cont);
+  end;
+end;
+
+procedure PauseWAAMPScript;
+var
+cont:boolean;
+begin
+writeln('Pausing WAAMP script...');
+SendInterScarMessage('WAAMP','WAAMP:PAUSE');
+sleep(50)
+repeat
+if (ReadInterSCARMessage('WAAMP')=('WAAMP:PAUSE:OK')) then cont:=true else cont:=false;
+sleep(100)
+until (cont)
+writeln('WAAMP has been paused, main script will now continue...');
+end;
+
+
+procedure UnPauseWAAMPScript;
+begin
+writeln('un-pausing WAAMP script');
+SendInterScarMessage('WAAMP','WAAMP:RUN');
+sleep(50)
+end;
+
+
+procedure Send(UserName,Password,str1,str2,str3,str4,str5,str6,str7,str8,str9,str10:string);
+var
+count:integer;
+cont:boolean;
+massage:string;
+begin
+  writeln('WaG scripting Sending and Reciveing');
+  writeln('    Concept by: Wallfire');
+  writeln('      Uber l33t Coding bY:');
+  writeln('        GenoDemoN');
+  writeln('    Made in a mear 47 minutes!');
+  SendInterSCARMessage('COMM2WAAMP', 'CLEAR');
+  SendInterSCARMessage('SHARE', 'CLEAR');
+  SendInterSCARMessage('COMM2MAIN', 'CLEAR');
+  wait(500);
+  repeat                  (* Only Clean Code GenoDemoN ever MADE!*)
+   sleep(10)
+   status('synching up...');
+   sleep(50)
+   cont:=false;
+   if ( ReadInterSCARMessage('COMM2MAIN')='READY' ) then
+    begin
+    writeln('ready')
+     SendInterSCARMessage('COMM2WAAMP','OK')
+     cont:=true
+   end;
+  until (cont)
+  sleep(2000)
+  count:=0;
+  repeat
+  count:=count+1;
+  IF (count>strtoint(ReadInterSCARMessage('Recivedd'))+1) and (count>1) then
+  count:=strtoint(ReadInterSCARMessage('Recivedd'))+1;
+  IF (count>12) then count:=1;
+  case count of
+  1:massage:=UserName;
+  2:massage:=Password;
+  3:massage:=str1;
+  4:massage:=str2;                      (* Only Clean Code GenoDemoN ever MADE!*)
+  5:massage:=str3;
+  6:massage:=str4;
+  7:massage:=str5;
+  8:massage:=str6;
+  9:massage:=str7;
+  10:massage:=str8;
+  11:massage:=str9;
+  12:massage:=str10;
+  end;
+   writeln('Sending packet #'+inttostr(count)+' Consists of:'+massage);
+  SendInterSCARMessage('COMM2WAAMP',inttostr(count));
+  SendInterSCARMessage('SHARE',massage);
+  wait(1000);
+  repeat  (* Only Clean Code GenoDemoN ever MADE!*)
+   wait(150);
+  until(ReadInterSCARMessage('Recived')='Yes')
+  until (ReadInterSCARMessage('COMM2MAIN')='DONE')
+  SendInterSCARMessage('SHARE','OK')
+end;

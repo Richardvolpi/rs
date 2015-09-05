@@ -1,0 +1,31 @@
+procedure LoginIfNeeded;
+begin
+if(Getcolor(274,291)=16777215) then
+begin
+mouse(461,293,75,15,true)
+wait(500 + random(250))
+SendKeysSilentSmooth(username,50+random(50))
+wait(300 + random(250))
+Mouse(405,271,50,5,true)
+wait(500 + random(1000))
+SendKeysSilentSmooth(password,50+random(50))
+wait(1000 + random(500))
+mouse(305,325,75,25,true)
+wait(4500 + random(10000))
+Mouse(245,321,20,5,true)
+wait(1000 + random(250))
+end;
+end;
+Procedure FindGas;
+begin
+if(findColorSpiralTolerance(x,y,4872819,5,5,515,335,5))then
+begin
+writeln(inttostr(x) + ', ' + inttostr(y))
+uberwait(250+random(250))
+StandStill;
+repeat
+uberwait(1000+random(250))
+until(not findColorSpiralTolerance(x,y,4872819,5,5,515,335,5))
+end;
+end;
+

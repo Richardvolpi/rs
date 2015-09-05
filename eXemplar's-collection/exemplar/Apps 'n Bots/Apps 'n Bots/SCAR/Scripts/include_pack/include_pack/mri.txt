@@ -1,0 +1,377 @@
+Var HeadColor,ItemColor,AxeHandleColor,AxeHeadColor,Mlamp,Mstat,Mrub:integer;
+
+Const
+MRIVersion='2.1';
+
+Procedure GetHeadColorPick;
+begin
+ if(not(GetColor(593,220)=65536))then
+ begin
+      Logout
+      writeln('Missing Pick')
+repeat wait(100) until(false)
+ end else HeadColor:=GetColor(589,220);
+end;
+
+Function HeadGone:boolean;
+var tsearched:integer;
+begin
+ if(not(GetColor(589,220)=HeadColor))then
+  begin
+   Mouse(711,445,3,3,false);
+   wait(450);
+   Mouse(672,428,1,1,true);
+   repeat
+    tsearched:=tsearched+1;
+   until(tsearched>=5)or(FindObj('Take',HeadColor,25)) or(Scan4Object(5,5,headcolor,30,'Take'))
+   Mouse(x,y,0,0,True);
+   Flag;
+   wait(500);
+   if(FindColor(x,y,HeadColor,565,215,731,453))then
+    Mouse(x,y,1,1,true);
+   wait(250);
+   Mouse(582,227,0,0,true);
+   Result:=true;
+  end;
+end;
+
+Function PickBroke:boolean;
+begin
+ if(not(HeadGone))then
+   if(not(GetColor(593,220)=65536))then
+   begin
+    Result:=true;
+   end;
+end;
+
+Function GasFound(RockOreColor:integer):boolean;
+begin
+if(FindColorSpiralTolerance(x,y,RockOrecolor,9,9,515,338,1))then
+begin
+  if((FindColoredAreaTolerance(x,y,6189176,x-50,y-50,x+50,y+50,5,5)) or
+  (FindColoredAreaTolerance(x,y,4484482,x-50,y-50,x+50,y+50,5,5)) or
+  (FindColoredAreaTolerance(x,y,4286846,x-50,y-50,x+50,y+50,5,5)))then
+  begin
+      result:=true writeln('Found Gas')
+      Mouse(648,83,0,0,true) flag;
+      wait(40000)
+  end;
+end;
+end;
+
+Function FindText:boolean;
+begin
+if(FindColor(x,y,65535,5,5,514,337))then wait(100)
+if(FindColor(x,y,65535,5,5,514,337))then
+ begin
+ result:=True;
+ end;
+ end;
+
+Procedure Talk;
+var counter,c:integer; Talked2Rand:boolean;
+begin
+If(FindText)Then
+ repeat
+  Begin
+   counter:=counter+2+random(1);
+   if((x+counter) < 515)and((y+18) < 338)then
+    MoveMouseSmoothEx(x+counter,y+15+random(3),1,6,15,20,20);
+   wait(5);
+   if(FindColorSpiral(x,y,65280,180,90,320,230))then
+    break;
+   if(IsTextAt2(9,9,'Ta',100))then
+    begin
+     GetMousePos(x,y);
+     Mouse(x,y,0,0,false);
+     Wait(200+random(100));
+     if(SearchForText(3,3,515,336,'Talk',2))then
+      begin
+       ClickText(3,3,515,336,'Talk',2)
+       Flag;
+       wait(1000+random(1000));
+       while((FindColor(x,y,16711680,5,345,510,465))or //Replaces TalkToRand
+            (FindColor(x,y,16777215,5,345,510,465)))and
+            (not(GetColor(20,434)=0))and(c<=10)do
+        begin
+         Mouse(x,y,50,2,true);
+         wait(2000+random(1000));
+         c:=c+1;
+        end;
+       Talked2Rand:=true;
+      end;
+      end;
+      end;
+  until(counter>=250)or(Talked2Rand);
+ end;
+
+Function Fight:boolean;
+begin
+ if(FindColorSpiral(x,y,65280,230,115,284,150))then
+  begin
+   Result:=true;
+  end;
+end;
+
+Procedure FindMiscRandoms;
+var ax,ay:integer;
+begin
+ if(FindColor(ax,ay,786423,10,350,150,433))then
+  begin
+   LogOut;
+repeat wait(100) until(false)
+  end;
+ if(GetColor(30,418)=0)and(GetColor(72,429)=0)then
+  begin
+   LogOut;
+repeat wait(100) until(false)
+  end;
+ if(FindColor(ax,ay,11503238,10,350,479,433))then
+  begin
+   LogOut;
+repeat wait(100) until(false)
+  end;
+end;
+
+Procedure GetFishEquipColor(Equip:string);
+begin
+If(Equip='Pot')Then
+begin
+ if(not(GetColor(598,221)=65536))then
+ begin
+      Logout;
+      writeln('Missing Equipment')
+repeat wait(100) until(false)
+ end else ItemColor:=GetColor(582,230);
+ end;
+ If(Equip='Harpoon')Then
+begin
+ if(not(GetColor(594,214)=65536))then
+ begin
+      Logout;
+      writeln('Missing Equipment')
+repeat wait(100) until(false)
+ end else ItemColor:=GetColor(582,230);
+ end;
+end;
+
+Function FishEquip:Boolean;
+begin
+If(Not(GetColor(582,230)=ItemColor))Then
+begin
+Result:=true;
+end;
+end;
+
+Function AxeDamaged:boolean;
+begin
+if(GetColor(595,220)=4345174)then
+begin
+Result:=true;
+end;
+end;
+
+Procedure GetAxeColors;
+begin
+ if(not(GetColor(593,216)=65536))then
+ begin
+      Logout;
+      writeln('Missing Equipment')
+repeat wait(100) until(false)
+ end else AxeHeadColor:=GetColor(590,219);
+          AxeHandleColor:=GetColor(580,227);;
+ end;
+
+function AxeHeadGone:boolean;
+begin
+if(Not(GetColor(590,219)=AxeHeadColor))then
+begin
+Result:=true;
+end;
+end;
+
+Procedure FixAxe;
+begin
+if(findcolor(x,y,AxeHeadColor,545,192,755,580))then
+ Mouse(x,y,0,0,true)
+if(findcolor(x,y,AxeHandleColor,545,192,755,580))then
+ Mouse(x,y,0,0,true)
+wait(2000)
+GetAxeColors;
+end;
+ 
+Function Dead:boolean;
+begin
+If(SearchForText(10,350,500,450,'Oh dear, you are dead!',2))then
+begin
+Result:=true;
+end;
+end;
+
+Procedure UseTheLamp(skill:string);
+begin
+     writeln('Clicking on "' + skill + '" skill.');
+     if(skill='attack')then
+     begin
+          mouse(152,144,25,25,true);
+     end;
+     if(skill='strength')then
+     begin
+          mouse(184,144,25,25,true);
+     end;
+     if(skill='ranged')then
+     begin
+          mouse(216,155,25,25,true);
+     end;
+     if(skill='magic')then
+     begin
+          mouse(248,144,25,25,true);
+     end;
+     if(skill='defence')then
+     begin
+          mouse(280,144,25,25,true);
+     end;
+     if(skill='hitpoints')then
+     begin
+          mouse(312,144,25,25,true);
+     end;
+     if(skill='prayer')then
+     begin
+          mouse(344,144,25,25,true);
+     end;
+     if(skill='agility')then
+     begin
+          mouse(184,180,25,25,true);
+     end;
+     if(skill='herblaw')then
+     begin
+          mouse(216,180,25,25,true);
+     end;
+     if(skill='theiving')then
+     begin
+          mouse(248,180,25,25,true);
+     end;
+     if(skill='crafting')then
+     begin
+          mouse(280,180,25,25,true);
+     end;
+     if(skill='runecrafting')then
+     begin
+          mouse(312,180,25,25,true);
+     end;
+     if(skill='mining')then
+     begin
+          mouse(152,216,25,25,true);
+     end;
+     if(skill='smithing')then
+     begin
+          mouse(184,216,25,25,true);
+     end;
+     if(skill='fishing')then
+     begin
+          mouse(216,216,25,25,true);
+     end;
+     if(skill='cooking')then
+     begin
+          mouse(248,216,25,25,true);
+     end;
+     if(skill='firemaking')then
+     begin
+          mouse(280,216,25,25,true);
+     end;
+     if(skill='woodcutting')then
+     begin
+          mouse(312,216,25,25,true);
+     end;
+     if(skill='fletching')then
+     begin
+          mouse(344,216,25,25,true);
+     end;
+     mouse(237,250,42,10,true);
+end;
+
+procedure UseLamp(usage:string);
+begin
+     while(FindBitmapToleranceIn(Mlamp,x,y,560,210,740,465,40))do
+     begin
+          mouse(x+2,y,5,5,false);
+          if(FindBitmapToleranceIn(Mrub,x,y,520,190,760,490,40))then
+          begin
+               mouse(x+2,y,5,2,true);
+               if(FindBitmapToleranceIn(Mstat,x,y,4,4,516,338,40))then
+               begin
+                    writeln('Found a Lamp!');
+                    UseTheLamp(usage);
+               end;
+          end;
+     end;
+end;
+
+Procedure LoadMBMPs;
+begin
+Mrub := BitmapFromString(22, 7,
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000000000' +
+       '000000000000000000000000000000000000000000FFFFFFFFFFFF' +
+       '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000000000000000000000000000000000000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000000000000000' +
+       '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+       '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000FFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFF' +
+       '000000FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF000000000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF');
+Mstat := BitmapFromString(22, 7,
+       '000000000000000000000000000000000000000000FFFF00000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000FFFF00000000000000000000FFFF00FFFF00FFFF00000000' +
+       'FFFF00FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00' +
+       '000000000000FFFF00000000000000FFFF00000000000000000000' +
+       '000000FFFF00000000000000FFFF00000000000000000000FFFF00' +
+       '000000000000000000000000FFFF00000000000000000000000000' +
+       'FFFF00000000000000000000000000000000000000FFFF00FFFF00' +
+       '000000000000000000FFFF00000000000000000000000000000000' +
+       'FFFF00000000000000000000FFFF00000000000000000000000000' +
+       '000000FFFF00000000FFFF00000000000000000000FFFF00000000' +
+       '000000000000FFFF00000000000000FFFF00000000000000FFFF00' +
+       '000000000000000000000000FFFF00000000000000FFFF00FFFF00' +
+       '000000000000FFFF00000000000000000000FFFF00FFFF00FFFF00' +
+       '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00FFFF00000000FFFF00000000000000000000FFFF00FFFF00' +
+       '000000');
+Mlamp := BitmapFromString(23, 7,
+       'C0BF19000001000001000001000001000001BBB916B2B116AFAE16' +
+       'ACAB169D9B129392128D8B1276750E000001000001000001000001' +
+       '000001000000000000000000000000C6C519C6C519D1CF19CCC919' +
+       'C9C719C6C519C6C519C0BF19BBB916B5B416ACAB16A4A2129A9812' +
+       '93921285840E7A790E6B69095D5C09A7A516000001000000000000' +
+       '000000CCC919CCC919CECC19C6C519C3C219C0BF19BEBC19BBB916' +
+       'B8B716B5B416B2B116A9A816A4A2129D9B129695128F8F1282810E' +
+       '9A9812AFAE1689870E000001000000000000000001D4D21CCECC19' +
+       'CCC919C0BF19BEBC19BBB916B5B416B2B116AFAE16A9A816A4A212' +
+       'A09F129A981289870E85840E8D8B129392129D9B12B8B716666509' +
+       '000001000000000000000001000001CCC919CCC919BBB916B8B716' +
+       'B5B416B2B116AFAE16A9A816A4A2129D9B1296951282810E7A790E' +
+       '85840E000001000001000001C3C219A9A816000000000000000000' +
+       '000001CCC919CCC919C0BF19B8B716B2B116AFAE16ACAB16A7A516' +
+       'A09F129A98128D8B127A790E76750E000001000001C3C219B5B416' +
+       'A7A516000001000000000000000000000000000001CECC19CCC919' +
+       'C0BF19B2B116AFAE16ACAB16A7A516A09F128F8F1282810E6F6E0E' +
+       '535309000001000000000001000001000001000000000000');
+end;
+
+Procedure LoadMRI;
+begin
+WriteLn('Using Mutants Random Include Version '+MRIVersion+' By Mutant Squirrle')
+LoadMBMPs;
+end;
+
+

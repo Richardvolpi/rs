@@ -1,0 +1,2571 @@
+{==================================================]
+                        Squig
+                         v2.2.2
+                     by Squigglyo
+[==================================================]
+ Credits:
+ Squigglyo          => The Creator (me)
+ BrokenSkateBoard   => My Tester for Version 2
+ Odie5583           => Some of my procedures are based on his in Osi
+ Akumara            => My box solver is based on his BoxBreaker2 just reprogrammed slightly
+ 
+[==================================================}
+
+{Squig should only be downloaded on Kaitnieks' forum}
+{No other site has my permission to have it on thier site}
+{To learn how to use it, use the guide found in the download}
+
+
+{You are not allowed to edit and/or change this in
+ any way. You are not allowed to take any piece(s)
+ from/out of Squig, all parts must be left in and the
+ only way to use it's procedures is to include Squig
+ in your script(s). All procedures and/or functions
+ in Squig were created by Squigglyo. All items in
+ this script are Copyrighted to Squigglyo. This
+ script may not be sold, traded, exchanged,
+ and/or redistributed unless you have been
+ given direct written consent to do so by me and me only.}
+
+{=============================
+ Versions
+  Version 1.0, First Release
+  Version 1.1, Bank Opener
+  Version 2.0, Alot of new procedures, including a Box opener
+               Also updated alot of things including Global Variables
+               and a Lamp Decider.
+  Version 2.1, Added a ScreenShot Taker, and all random events
+               will be screenshotted and placed in the script folder.
+  Version 2.2, Updated the Coding, Updated MouseC, Added ClickHuman
+               Added BuyItemColor and SellItemColor
+  Version 2.2.1, Updated some things
+  Version 2.2.2, Updated the Find Text random event finder procedure
+                 and the login procedure.
+=============================}
+
+var
+  Modcrown, Staffcrown, Talk, TalkY, c33, lampa, lampb : integer;
+  Runescapeflag, BlueStar, AllText, number1, TheLamp : integer;
+  number5, number10, LetterX, droptext : integer;
+  Strangebox, Star, Circle, Square, Triangle, Halfmoon : integer;
+  Red, Blue, Yellow, talktopic, tradepic, quicklytext : integer;
+  YellowTextTotal, AttacksTotal, TotalBoxes, TotalLamps : integer;
+  user, pass, direction, LampSkill : string;
+  randomtalked, fightfound, tradeb, screenshots : boolean;
+  checktext, checkfights, checkboxes, checklamps, checkmods : boolean;
+
+  //<<<<<<<<<<<<<<<<<<<<<====Anti Randoms=================>>>>>>>>>>>>>>>>>>>>>>
+procedure Clickhuman(x, y : integer; left : boolean);
+begin
+  holdmouse(x,y,left);
+  wait(random(20)+15);
+  releasemouse(x,y,left);
+end;
+
+procedure Mousec(x1, y1, click : integer);
+begin
+  MoveMouseSmoothEx(x1,y1,1,6,15,20,20);
+  wait(random(150)+100);
+  if(click=1)then
+    clickhuman(x1,y1,true)
+  else if(click=2)then
+    clickhuman(x1,y1,false);
+end;
+
+procedure SellItemColor(ItemColor, Ammount : integer; name : string);
+var
+  a, b, x1, y1, x2, y2, txt1, col : integer;
+begin
+  x1:=570;
+  y1:=210;
+  x2:=610;
+  y2:=245;
+  col:=1;
+  if(findcolor(a,b,ItemColor,555,200,735,465))then
+    repeat
+      txt1:=40;
+      if(findcolor(a,b,ItemColor,x1,y1,x2,y2))then
+        begin
+          MouseC(a+random(3),b+random(3),0);
+          while(istextat2(9,9,'Value '+ name,100)=false)do
+            begin
+              txt1:=txt1+1;
+              if(istextat2(txt1,9,name,100))or(txt1=130)then
+                break;
+            end;
+          if(txt1<>130)then
+            begin
+              MouseC(a,b,2);
+              wait(random(300)+600);
+              if(ammount=1)then
+                findbitmaptolerancein(Number1,a,b,555,200,735,465,100)
+              else if(ammount=5)then
+                findbitmaptolerancein(Number5,a,b,555,200,735,465,100)
+              else
+                findbitmaptolerancein(Number10,a,b,555,200,735,465,100);
+              MouseC(a+random(10),b+random(3),1);
+              Exit;
+            end;
+        end;
+        if(col=1)or(col=3)or(col=7)or(col=4)or(col=5)then
+          begin
+            y1:=y1+35;
+            y2:=y2+35;
+          end
+        else if(col=6)then
+          begin
+            y1:=y1+45;
+            y2:=y2+45;
+          end
+        else if(col=2)then
+          begin
+            y1:=y1+40;
+            y2:=y2+40;
+          end;
+        col:=col+1;
+        wait(random(100)+50);
+        if(col=8)then
+          begin
+            x1:=x1+40;
+            x2:=x2+40;
+            y1:=210;
+            y2:=245;
+            col:=1;
+          end;
+        wait(random(100)+100);
+  until(x1>720);
+end;
+
+procedure BuyItemColor(ItemColor, ammount : integer; name : string);
+var
+  a, b, x1, y1, x2, y2, txt1 : integer;
+begin
+  x1:=75;
+  y1:=60;
+  x2:=110;
+  y2:=100;
+  if(findcolor(a,b,ItemColor,75,60,475,290))then
+    repeat
+      txt1:=40
+      if(findcolor(a,b,ItemColor,x1,y1,x2,y2))then
+        begin
+          MouseC(a+random(3),b+random(3),0);
+          while(istextat2(9,9,'Value '+ name,100)=false)do
+            begin
+              txt1:=txt1+1;
+              if(istextat2(txt1,9,name,100))or(txt1=130)then
+                break;
+            end;
+          if(txt1<>130)then
+            begin
+              MouseC(a,b,2);
+              wait(random(300)+600);
+              if(ammount=1)then
+                findbitmaptolerancein(Number1,a,b,20,55,500,320,100)
+              else if(ammount=5)then
+                findbitmaptolerancein(Number5,a,b,20,55,500,320,100)
+              else
+                findbitmaptolerancein(Number10,a,b,20,55,500,320,100);
+              MouseC(a+random(10),b+random(3),1);
+              Exit;
+            end;
+        end;
+        x1:=x1+50;
+        x2:=x2+50;
+        wait(random(100)+50);
+        if(x1>445)then
+          begin
+            x1:=75;
+            x2:=110;
+            y1:=y1+55;
+            y2:=y2+55;
+          end;
+  until(y1>290)
+end;
+
+procedure LoadRandomPics;
+begin
+  TheLamp := BitmapFromString(29, 8,
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000939212A7A516000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000D4D21C000000000000000000' +
+       '000000000000000000000000000000000000B9B716C0BF19B3B116' +
+       'A7A5169D9C12939212000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000D1CF19C0BF19C0BF19' +
+       'C0BF19C0BF19000000000000000000000000000000BBB916B3B116' +
+       'B0AE16ACAB169D9C129392128D8B1276750E000000000000000000' +
+       '000000000000000000000000000000000000000000D1CF19C0BF19' +
+       'B0AE16B6B416BEBC19C6C519C6C519D1CF19CCCA19C9C719C6C519' +
+       'C6C519C0BF19BBB916B6B416ACAB16A4A2129A981293921286840E' +
+       '7A790E6B6A095D5C09A7A516000000000000000000000000000000' +
+       '000000000000000000000000000000CCCA19CCCA19CECC19C6C519' +
+       'C3C219C0BF19BEBC19BBB916B9B716B6B416B3B116A9A816A4A212' +
+       '9D9C12979612908F1282810E9A9812B0AE1689880E000000000000' +
+       '000000000000000000000000000000000000000000000000D4D21C' +
+       'CECC19CCCA19C0BF19BEBC19BBB916B6B416B3B116B0AE16A9A816' +
+       'A4A212A19F129A981289880E86840E8D8B129392129D9C12B9B716' +
+       '666509000000000000000000000000000000000000000000000000' +
+       '000000000000000000CCCA19CCCA19BBB916B9B716B6B416B3B116' +
+       'B0AE16A9A816A4A2129D9C1297961282810E7A790E86840E000000' +
+       '000000000000C3C219A9A816000000000000000000000000000000' +
+       '000000000000000000000000000000CCCA19CCCA19C0BF19B9B716' +
+       'B3B116B0AE16ACAB16A7A516A19F129A98128D8B127A790E76750E' +
+       '000000000000C3C219B6B416A7A516000000000000');
+  tradepic := BitmapFromString(22, 6,
+       '5D5447FFFFFFFFFFFFFFFFFFFFFFFF5D54475D54475D54475D5447' +
+       '5D5447FFFFFFFFFFFFFFFFFFFFFFFF0000005D54475D5447FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF5D5447FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF5D54475D54475D5447FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+       '0000005D5447FFFFFFFFFFFF000000000000FFFFFFFFFFFF5D5447' +
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '0000005D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF' +
+       '0000005D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF000000000000' +
+       '0000000000005D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '5D54475D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000005D5447' +
+       '5D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF');
+  runescapeflag := BitmapFromString(7, 7,
+       '000000000000000000000000000000000000FF0000000000000000' +
+       '000000000000000000FF0000FF0000000000000000000000000000' +
+       'FF0000FF0000FF0000000000000000000000FF0000FF0000FF0000' +
+       'FF0000000000000000FF0000FF0000FF0000FF0000FF0000000000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000');
+
+    ModCrown := BitmapFromString(13, 11,
+       '979797000000000000000000000000000000979797000000000000' +
+       '000000000000000000979797E0E0E0979797000000000000000000' +
+       'E0E0E0A2A2A2979797000000000000000000E0E0E0979797E0E0E0' +
+       '979797000000000000000000E0E0E0A2A2A2979797000000000000' +
+       '000000E0E0E0979797E0E0E0A2A2A2979797000000E0E0E0A2A2A2' +
+       'A2A2A2A2A2A2979797000000E0E0E0A2A2A2979797E0E0E0A2A2A2' +
+       '979797000000E0E0E0A2A2A2A2A2A2A2A2A2979797000000E0E0E0' +
+       'A2A2A2979797000000E0E0E0A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2979797000000000000E0E0E0A2A2A2' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2979797' +
+       '000000000000000000E0E0E0sA2A2A2000000000000A2A2A2000000' +
+       '000000A2A2A2979797000000000000000000000000E0E0E0A2A2A2' +
+       '000000A2A2A2000000A2A2A2000000A2A2A2979797000000000000' +
+       '000000000000E0E0E0A2A2A2000000A2A2A2000000A2A2A2000000' +
+       'A2A2A2979797000000000000000000000000979797979797979797' +
+       '979797979797979797979797979797979797000000000000');
+  staffcrown := BitmapFromString(13, 11,
+       'D69E21000000000000000000000000000000D69E21000000000000' +
+       '000000000000000000D69E21FFFF84D69E21000000000000000000' +
+       'FFFF84F7FF08D69E21000000000000000000FFFF84D69E21FFFF84' +
+       'D69E21000000000000000000FFFF84F7FF08D69E21000000000000' +
+       '000000FFFF84D69E21FFFF84F7FF08D69E21000000FFFF84F7FF08' +
+       'F7FF08F7FF08D69E21000000FFFF84F7FF08D69E21FFFF84F7FF08' +
+       'D69E21000000FFFF84F7FF08F7FF08F7FF08D69E21000000FFFF84' +
+       'F7FF08D69E21000000FFFF84F7FF08F7FF08F7FF08F7FF08F7FF08' +
+       'F7FF08F7FF08F7FF08F7FF08D69E21000000000000FFFF84F7FF08' +
+       'F7FF08F7FF08F7FF08F7FF08F7FF08F7FF08F7FF08F7FF08D69E21' +
+       '000000000000000000FFFF84F7FF08000000000000F7FF08000000' +
+       '000000F7FF08D69E21000000000000000000000000FFFF84F7FF08' +
+       '000000F7FF08000000F7FF08000000F7FF08D69E21000000000000' +
+       '000000000000FFFF84F7FF08000000F7FF08000000F7FF08000000' +
+       'F7FF08D69E21000000000000000000000000D69E21D69E21D69E21' +
+       'D69E21D69E21D69E21D69E21D69E21D69E21000000000000');
+  Talk := BitmapFromString(17, 10,
+        'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+        '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+        '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+        'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF');
+  TalkY := BitmapFromString(17, 10,
+        'FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+        '000000000000000000000000000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000000000000000FFFF00FFFF00FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+        '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000FFFF00FFFF00000000000000000000000000FFFF00' +
+        'FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00');
+  BlueStar := BitmapFromString(8, 6,
+       '000000000000000000000080000080000000000000000000000000' +
+       '000000000000000080000080000000000000000000000080000080' +
+       '000080000080000080000080000080000080000000000000000000' +
+       '000080000080000000000000000000000000000000000080000080' +
+       '000080000080000000000000000000000080000080000000000000' +
+       '000080000080000000');
+  talktopic := BitmapFromString(20, 9,
+       '5D54475D54475D54475D54475D54475D54475D54475D5447FFFFFF' +
+       'FFFFFF5D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D5447FFFFFFFFFFFF0000005D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D5447FFFFFFFFFFFF0000005D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '5D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF5D5447FFFFFF' +
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D54475D5447FFFFFFFFFFFF' +
+       '0000000000000000005D5447FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF5D54470000000000000000000000000000000000005D5447' +
+       'FFFFFFFFFFFF0000005D54475D54475D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFF5D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFFFFFFFFFF0000005D54475D54475D5447FFFFFF' +
+       'FFFFFF0000005D5447FFFFFFFFFFFF5D54475D54475D54475D5447' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFF0000005D54475D5447' +
+       '5D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF5D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D5447FFFFFFFFFFFF' +
+       'FFFFFF5D54475D54475D5447FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '');
+end;
+
+procedure TakeScreenShot(reason:string; number:Integer);  //Idea gotten from Osi, changed slightly.
+begin
+  if(screenshots=true)then
+    begin
+      SaveScreenshot(apppath + 'scripts\' + reason + inttostr(number) + '.bmp');
+      writeln('Screenshot taken: '+reason+' #'+inttostr(number));
+    end;
+end;
+
+
+procedure sendkeyshuman(text:string);
+var
+  a1 : integer;
+begin
+  a1:=1;
+  repeat
+    wait(random(220)+15);
+    sendkeys(copy(text,a1,1));
+    a1:=a1+1;
+  until a1 > length(text);
+end;
+
+procedure sendkeyshuman2(text:string);
+var
+  a1, a2 : integer;
+begin
+  a1:=1;
+  repeat
+    a2:=random(20);
+    if(a2<>5)then
+      begin
+        wait(random(220)+15);
+        sendkeys(copy(text,a1,1));
+      end;
+    a1:=a1+1;
+  until a1 > length(text);
+end;
+
+procedure SetChat;
+var
+  a, b : integer;
+begin
+  //Setting Public Chat off//
+  if(findcolortolerance(a,b,65535,30,468,101,502,100))=true then
+    begin
+      Status('Setting Public Chat Off');
+      MouseC(random(70)+19,random(15)+475,1);
+      wait(random(500)+250);
+    end;
+
+  if(findcolortolerance(a,b,65280,30,468,101,502,100))=true then
+    begin
+      Status('Setting Public Chat Off');
+      MouseC(random(70)+19,random(15)+475,1);
+      wait(random(300)+300);
+      MouseC(random(70)+19,random(15)+475,1);
+      wait(random(500)+250);
+    end;
+
+  if(findcolortolerance(a,b,16776960,30,468,101,502,100))=true then
+    begin
+      Status('Setting Public Chat Off');
+      MouseC(random(70)+19,random(15)+475,1);
+      wait(random(300)+300);
+      MouseC(random(70)+19,random(15)+475,1);
+      wait(random(300)+300);
+      MouseC(random(70)+19,random(15)+475,1);
+      wait(random(500)+250);
+    end;
+
+  //Setting Private Chat off//
+  if(findcolortolerance(a,b,65535,145,466,219,492,100))=true then
+    begin
+      Status('Setting Private Chat off');
+      MouseC(random(70)+150,random(15)+475,1);
+      wait(random(500)+250)
+    end;
+
+  if(findcolortolerance(a,b,65280,145,466,219,492,100))=true then
+    begin
+      Status('Setting Private Chat off');
+      MouseC(random(70)+150,random(15)+475,1);
+      wait(random(500)+250);
+      MouseC(random(70)+150,random(15)+475,1);
+    end;
+
+  if(findcolortolerance(a,b,16776960,145,466,219,492,100))=true then
+    begin
+      Status('Setting Private Chat off');
+      MouseC(random(70)+150,random(15)+475,1);
+      wait(random(300)+300);
+      MouseC(random(70)+150,random(15)+475,1);
+      wait(random(300)+300);
+      MouseC(random(70)+150,random(15)+475,1);
+      wait(random(500)+250);
+    end;
+
+  //Setting Trade off//
+  if(findcolortolerance(a,b,65535,281,466,361,496,100))=true then
+    begin
+      Status('Setting Trade/Compete off');
+      MouseC(random(70)+285,random(15)+475,1);
+      wait(random(500)+250);
+    end;
+
+  if(findcolortolerance(a,b,65280,281,466,361,496,100))=true then
+    begin
+      Status('Setting Trade/Compete off');
+      MouseC(random(70)+285,random(15)+475,1);
+      wait(random(500)+300);
+      MouseC(random(70)+285,random(15)+475,1);
+      wait(random(300)+300);
+    end;
+end;
+
+procedure Logout;
+begin
+  MouseC(random(10)+635,random(10)+475,1);
+  wait(random(300)+300);
+  MouseC(random(30)+600,random(5)+370,1);
+end;
+
+procedure setrunon;
+begin
+  Status('Setting Run On');
+  MouseC(random(10)+705,random(10)+490,1);
+  wait(random(500)+100);
+  MouseC(random(10)+615,random(10)+275,1);
+  wait(random(200)+200);
+  MouseC(random(10)+640,random(10)+195,1);
+end;
+
+procedure setrunoff;
+begin
+  Status('Setting Run Off');
+  MouseC(random(10)+705,random(10)+490,1);
+  wait(random(500)+100);
+  MouseC(random(10)+565,random(10)+275,1);
+  wait(random(100)+250);
+  MouseC(random(10)+640,random(10)+195,1);
+end;
+
+procedure TalkToRand;
+var
+  a, b : integer;
+begin
+  repeat
+  if (FindColorSpiral(a,b,16711680,5,345,510,430))or
+  (FindColorSpiral(a,b,16777215,5,345,510,430))then
+      begin
+        yellowTextTotal:=YellowTextTotal+1;
+        TakeScreenShot('Talked To Random',YellowTextTotal);
+        Status('Talking To Random Event');
+        MouseC(a,b,1);
+        wait(2000+random(1000));
+        randomtalked:=true;
+      end;
+  until(GetColor(20,434)=0);
+end;
+
+procedure FindFlag;
+var
+  m, a, b : integer;
+begin
+  Wait(200);
+  M:=0;
+  if(FindBitmapIn(RunescapeFlag,a,b,570,5,725,162))then
+    begin
+      repeat
+        wait(500);
+        M:=M+1;
+      until(FindBitmapIn(RunescapeFlag,a,b,633,64,665,90))and
+      (not(GetColor(200,148)=16777215))or
+      (not FindBitmapIn(RunescapeFlag,a,b,570,5,725,160))and(M>9);
+       Wait(100);
+    end;
+end;
+
+procedure FindFight;
+var
+  leaveloop, placecheck, a, b : integer;
+begin
+  if(Findcolorspiral(a,b,65280,215,115,330,185))then wait(1000);
+  if(FindColorSpiral(a,b,65280,215,115,330,185))then
+    begin
+      AttacksTotal:=AttacksTotal+1;
+      TakeScreenShot('Fight Found',AttacksTotal);
+      SetRunon;
+      wait(random(10)+50);
+      if(Direction='NE')or(direction='')then
+        MouseC(random(5)+680,random(5)+35,1);
+      if(direction='N')then
+        MouseC(random(5)+660,random(5)+20,1);
+      if(direction='NW')then
+        MouseC(random(5)+620,random(5)+25,1);
+      if(direction='W')then
+        MouseC(random(5)+600,random(5)+70,1);
+      if(direction='SW')then
+        MouseC(random(5)+620,random(5)+130,1);
+      if(direction='S')then
+        MouseC(random(5)+645,random(5)+145,1);
+      if(direction='SE')then
+        MouseC(random(5)+688,random(5)+124,1);
+      if(direction='E')then
+        MouseC(random(5)+703,random(5)+93,1);
+      wait(100);
+      findFlag;
+      wait(random(1000)+1000);
+      ClickHuman(615,110,true);
+      Wait(100);
+      findFlag;
+      SetRunOff;
+      MouseC(random(5)+675,random(5)+45,1);
+      leaveloop:=0;
+      fightfound:=true;
+      repeat
+        placecheck:= getcolor(27,36);
+        wait(100);
+        if(getcolor(27,36) = placecheck)then
+          Leaveloop:=1;
+      until(Leaveloop=1);
+    end;
+end;
+
+
+procedure FindText;
+var
+  counter, a, b, c, d : integer;
+begin
+  if(findcolor(a,b,65535,0,0,515,338))and(IsTextAt2(185,36,'The Bank',100)=false)then
+    wait(200)
+  if(findcolor(a,b,65535,0,0,515,338))and(IsTextAt2(185,36,'The Bank',100)=false)then
+    begin
+      repeat
+        counter:=counter+2+random(1);
+        MoveMouseSmoothEx(a+counter,b+15+random(3),1,6,15,20,20);
+        wait(1)
+        if(findbitmaptolerancein(Talk,c,d,01,1,500,500,100))or(findbitmaptolerancein(TalkY,c,d,01,1,500,500,100))then
+          begin
+            MouseC(a,b,2);
+            findflag;
+            wait(random(100)+200);
+            if(findbitmap(Talk,c,d))or(FindBitmap(TalkY,c,d))then
+              begin
+                MouseC(c,d,1);
+                TalkToRand;
+              end;
+          end;
+      until(counter>=150);
+    end;
+end;
+
+procedure Login;
+begin
+  Status('Logging In');
+  MouseC(random(5)+465,random(5)+275,1);
+  wait(random(500)+1000);
+  MouseC(random(20)+370,random(3)+251,1);
+  wait(random(100)+100);
+  sendkeyshuman(User);
+  MouseC(random(5)+465,random(3)+266,1);
+  wait(random(100)+100);
+  sendkeyshuman(Pass);
+  MouseC(random(10)+255,random(20)+305,1);
+  repeat
+    wait(100);
+  until(getcolor(178,90)=65535);
+end;
+
+function LoggedIn:boolean;
+begin
+  result:=true;
+  if(getcolor(249,99)=2071708)then
+    result:=false;
+end;
+
+procedure CheckForMods;
+var
+  a, b : integer;
+begin
+  if (findbitmaptolerancein(StaffCrown,a,b,1,345,110,430,50)) or (findbitmaptolerancein(ModCrown,a,b,1,345,110,430,50)) then
+    begin
+      TakeScreenShot('Mod/Staff Found',1);
+      Status('Oh crap a staff member or mod');
+      Logout;
+    end;
+end;
+
+procedure MapFlagging;
+var
+  color1, color2, color3, x1, c, d : integer;
+begin
+  x1:=0;
+  repeat
+    wait(100);
+    x1:=x1+1;
+    if(Findbitmaptolerancein(RuneScapeFlag,c,d,561,15,745,160,100)=false)then
+      wait(2000);
+    if(Findbitmaptolerancein(RuneScapeFlag,c,d,561,15,745,160,100)=false)then
+      begin
+        color1:=getcolor(70,185);
+        color2:=getcolor(436,68);
+        color3:=getcolor(45,52);
+        wait(500);
+        if(getcolor(45,52)=color3)or(getcolor(70,185)=color1)or(getcolor(436,68)=color2)then
+          if(Findbitmaptolerancein(RuneScapeFlag,c,d,615,70,800,230,75)=false)then
+            break;
+      end;
+  until(x1=150);
+end;
+
+procedure CheckIntro;
+begin
+  if(getcolor(264,91)=65535)then
+    MouseC(random(20)+430,random(3)+91,1);
+end;
+
+procedure LoadBoxPics;
+begin
+  strangebox := BitmapFromString(7, 8,
+       '908686908686908686908686575ABC908686908686575ABC908686' +
+       '908686575ABC575ABC908686908686908686575ABC575ABC575ABC' +
+       '575ABC908686908686575ABC575ABC575ABC575ABC575ABC575ABC' +
+       '575ABC575ABC575ABC575ABC575ABC575ABC908686908686575ABC' +
+       '908686908686575ABC575ABC908686908686908686908686908686' +
+       '908686575ABC908686908686908686908686908686908686575ABC' +
+       '908686908686');
+  halfmoon := BitmapFromString(18, 10,
+       'BBB949BBB949000000000000BBB949BBB949000000000000000000' +
+       '000000000000000000000000000000000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000000000' +
+       '000000000000000000000000000000000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000000000' +
+       '000000000000000000000000000000000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000000000' +
+       '000000000000000000000000000000000000000000BBB949BBB949' +
+       'BBB949BBB949BBB949BBB949BBB949BBB949000000000000000000' +
+       'BBB949BBB949BBB949BBB949000000000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000BBB949' +
+       'BBB949000000000000BBB949BBB949000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000000000' +
+       'BBB949BBB949BBB949BBB949BBB949000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000BBB949' +
+       'BBB949000000000000BBB949BBB949000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000BBB949' +
+       'BBB949000000000000BBB949BBB949000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000000000' +
+       'BBB949BBB949BBB949BBB949BBB949000000000000BBB949BBB949' +
+       '');
+  star := BitmapFromString(12, 10,
+       '000000000000BBB949BBB949BBB949000000000000000000000000' +
+       '000000000000000000000000BBB949BBB949000000BBB949BBB949' +
+       '000000000000BBB949BBB949000000000000BBB949BBB949000000' +
+       '000000000000000000000000000000BBB949BBB949000000000000' +
+       '000000BBB949BBB949000000000000000000000000000000BBB949' +
+       'BBB949000000000000000000000000BBB949BBB949000000000000' +
+       '000000000000BBB949BBB949BBB949BBB949000000000000000000' +
+       'BBB949BBB949000000000000000000BBB949BBB949000000000000' +
+       '000000000000000000000000BBB949BBB949000000000000BBB949' +
+       'BBB949000000000000000000000000000000000000BBB949BBB949' +
+       '000000000000BBB949BBB949000000000000BBB949BBB949000000' +
+       'BBB949BBB949000000000000000000BBB949BBB949000000000000' +
+       '000000BBB949BBB949BBB949000000000000000000000000000000' +
+       'BBB949BBB949BBB949');
+  triangle := BitmapFromString(16, 7,
+       '000000000000000000000000000000000000BBB949BBB949000000' +
+       '000000000000000000000000000000000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000000000000000000000000000000000' +
+       'BBB949BBB949BBB949BBB949000000BBB949BBB949BBB949000000' +
+       '000000000000BBB949BBB949000000000000BBB949BBB949000000' +
+       '000000BBB949BBB949BBB949BBB949000000000000000000000000' +
+       'BBB949BBB949000000000000000000BBB949BBB949BBB949BBB949' +
+       'BBB949BBB949BBB949000000000000000000000000BBB949BBB949' +
+       '000000000000BBB949BBB949000000000000BBB949BBB949BBB949' +
+       'BBB949000000000000000000000000BBB949BBB949000000000000' +
+       'BBB949BBB949000000000000BBB949BBB949BBB949BBB949000000' +
+       '000000000000000000BBB949BBB949000000000000000000BBB949' +
+       'BBB949BBB949BBB949BBB949');
+ square := BitmapFromString(14, 14,
+       '000000000000BBB949BBB949BBB949000000000000000000000000' +
+       '000000000000000000000000000000000000BBB949BBB949000000' +
+       'BBB949BBB949000000000000000000000000000000000000000000' +
+       '000000BBB949BBB949000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000BBB949BBB949' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000BBB949BBB949000000000000000000' +
+       '000000000000000000BBB949BBB949BBB949000000000000000000' +
+       '000000BBB949BBB949000000000000000000000000BBB949BBB949' +
+       '000000BBB949BBB949000000000000000000000000BBB949BBB949' +
+       '000000000000BBB949BBB949000000000000BBB949BBB949000000' +
+       '000000000000000000BBB949BBB949000000000000BBB949BBB949' +
+       '000000000000BBB949BBB949BBB949BBB949000000BBB949BBB949' +
+       '000000000000000000000000BBB949BBB949000000BBB949BBB949' +
+       '000000BBB949BBB949BBB949000000000000000000000000000000' +
+       '000000BBB949BBB949BBB949BBB949000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000BBB949' +
+       'BBB949000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000BBB949BBB949000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       'BBB949BBB949000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000BBB949BBB949');
+  circle := BitmapFromString(10, 10,
+       '000000000000BBB949BBB949BBB949000000000000000000000000' +
+       '000000000000BBB949BBB949000000BBB949BBB949000000000000' +
+       '000000000000BBB949BBB949000000000000000000000000000000' +
+       '000000000000000000BBB949BBB949000000000000000000000000' +
+       '000000000000BBB949BBB949BBB949BBB949000000000000000000' +
+       '000000000000000000000000000000BBB949BBB949000000000000' +
+       '000000000000000000000000BBB949BBB949BBB949BBB949000000' +
+       '000000000000000000000000000000BBB949BBB949BBB949BBB949' +
+       '000000000000000000000000000000000000BBB949BBB949000000' +
+       'BBB949BBB949000000BBB949BBB949000000000000BBB949BBB949' +
+       '000000000000BBB949BBB949BBB949000000000000000000BBB949' +
+       'BBB949');
+  red := BitmapFromString(6, 10,
+       'BBB949BBB949BBB949BBB949BBB949000000BBB949BBB949000000' +
+       '000000BBB949BBB949BBB949BBB949000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949BBB949BBB949000000' +
+       'BBB949BBB949000000BBB949BBB949BBB949BBB949000000000000' +
+       'BBB949BBB949BBB949BBB949000000000000BBB949BBB949000000' +
+       'BBB949BBB949000000BBB949BBB949000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949');
+  blue := BitmapFromString(18, 10,
+       'BBB949BBB949BBB949BBB949BBB949000000000000000000BBB949' +
+       'BBB949000000000000000000000000000000000000000000000000' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000BBB949' +
+       'BBB949000000000000000000000000000000000000000000000000' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000BBB949' +
+       'BBB949000000000000000000000000000000000000000000000000' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000BBB949' +
+       'BBB949000000000000000000000000000000000000000000000000' +
+       'BBB949BBB949BBB949BBB949BBB949000000000000000000BBB949' +
+       'BBB949000000000000BBB949BBB949000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000BBB949' +
+       'BBB949000000000000BBB949BBB949000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000BBB949' +
+       'BBB949000000000000BBB949BBB949000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000BBB949' +
+       'BBB949000000000000BBB949BBB949000000000000BBB949BBB949' +
+       'BBB949BBB949000000000000BBB949BBB949000000000000BBB949' +
+       'BBB949000000000000BBB949BBB949000000000000BBB949BBB949' +
+       'BBB949BBB949BBB949BBB949BBB949000000000000000000BBB949' +
+       'BBB949000000000000000000BBB949BBB949BBB949BBB949000000' +
+       '');
+  yellow := BitmapFromString(6, 10,
+       'BBB949BBB949000000000000BBB949BBB949BBB949BBB949000000' +
+       '000000BBB949BBB949BBB949BBB949000000000000BBB949BBB949' +
+       '000000BBB949BBB949BBB949BBB949000000000000000000BBB949' +
+       'BBB949000000000000000000000000BBB949BBB949000000000000' +
+       '000000000000BBB949BBB949000000000000000000000000BBB949' +
+       'BBB949000000000000000000000000BBB949BBB949000000000000' +
+       '000000000000BBB949BBB949000000000000');
+end;
+
+function GetQuestion : integer;
+begin
+  result:=0 ;
+  if IsTextAt2(194,260,'Which shape is Y',100) then
+    result:= 1; //Color Yellow
+  if IsTextAt2(200,260,'Which shape is B',100) then
+    result:= 2; //Color Blue
+  if IsTextAt2(202,260,'Which shape is R',100) then
+    result:= 3; //Color Red
+  if IsTextAt2(185,260,'What colour is the C',100) then
+    result:= 4; //Shape Cirlce
+  if IsTextAt2(180,260,'What colour is the Sq',100) then
+    result:= 5; //Shape Square
+  if IsTextAt2(173,260,'What colour is the H',100) then
+    result:= 6; //Shape Halfmoon
+  if IsTextAt2(178,260,'What colour is the T',100) then
+    result:= 7; //Shape Triangle
+  if IsTextAt2(189,260,'What colour is the St',100) then
+    result:= 8; //Shape Star
+end;
+
+procedure OpenBox(z1,z2:integer);
+var
+  a1, a2, a3, a4, a5, a6, a7, a8, a, b, switch, qw, totala : integer;
+  Star1, Circle1, Halfmoon1, Square1, Triangle1, answer : string;
+begin
+  Answer:='Error';
+  star1:='0';
+  circle1:='0';
+  Halfmoon1:='0';
+  Square1:='0';
+  Triangle1:='0';
+  qw:=getcolor(446,23);
+  z1:=z1+random(10);
+  z2:=z2+random(5);
+  MouseC(z1,z2,1);
+  wait(random(500)+500);
+  TotalBoxes:=TotalBoxes+1;
+  TakeScreenShot('Strange Box Found',TotalBoxes);
+  totala:=0;
+  repeat
+    wait(100);
+  until(getcolor(446,23)<>qw);
+  wait(random(220)+220);
+  switch:=0;
+  repeat //Find Star
+    wait(1);
+    switch:=switch+1;
+    a1:=GetColor(233,119);
+    a2:=GetColor(263,142);
+    a3:=GetColor(243,125);
+    a4:=GetColor(275,82);
+    a5:=GetColor(277,96);
+    a6:=GetColor(263,143);
+    a7:=GetColor(279,131);
+    a8:=GetColor(274,87);
+    switch:=switch+1;
+    if(a3=a4)then
+      begin
+        a1:=a3;
+        a2:=a4;
+      end;
+    if(a5=a6)then
+      begin
+        a1:=a5;
+        a2:=a6;
+      end;
+    if(a7=a8)then
+      begin
+        a1:=a7;
+        a2:=a8;
+      end;
+  until(a1=a2)and((similarcolors(a1,4084651,22))or(similarcolors(a1,5613239,22))or(similarcolors(a1,9524307,22)))or(switch=2000);
+  if(a1=a2)and(similarcolors(a1,5613239,22))then Star1:='Yellow';
+  if(a1=a2)and(similarcolors(a1,4084651,22))then Star1:='Red';
+  if(a1=a2)and(similarcolors(a1,9524307,22))then Star1:='Blue';
+  if(star1='Yellow')or(star1='Red')or(star1='Blue')then
+    Totala:=totala+1;
+  switch:=0;
+
+  repeat //Finding The Circle
+    wait(1);
+    a1:=GetColor(286,113);
+    a2:=GetColor(228,88);
+    a3:=GetColor(271,132);//Blue circle
+    a4:=GetColor(275,140);
+    a5:=GetColor(258,128);//Red circle
+    a6:=GetColor(294,110);
+    a7:=GetColor(281,134);//Red circle 2
+    a8:=GetColor(262,90);
+    switch:=switch+1;
+    if(a3=a4)then
+      begin
+        a1:=a3;
+        a2:=a4;
+      end;
+    if(a5=a6)then
+      begin
+        a1:=a5;
+        a6:=a6;
+      end;
+  until(a1=a2)and((similarcolors(a1,4084651,22))or(similarcolors(a1,5613239,22))or(similarcolors(a1,9524307,22)))or(switch=2000);
+  if(a1=a2)and(similarcolors(a1,5613239,22))then circle1:='Yellow';
+  if(a1=a2)and(similarcolors(a1,4084651,22))then circle1:='Red';
+  if(a1=a2)and(similarcolors(a1,9524307,22))then circle1:='Blue';
+  if(circle1='Yellow')or(circle1='Red')or(circle1='Blue')then
+    Totala:=totala+1;
+  switch:=0;
+
+  repeat //Finding The Square
+    wait(1)
+    a1:=GetColor(215,104);
+    a2:=GetColor(291,103);
+    a3:=GetColor(304,110);
+    a4:=GetColor(236,112);
+    switch:=switch+1
+    if(a3=a4)then
+      begin
+        a1:=a3;
+        a2:=a4;
+      end;
+  until(a1=a2)and((similarcolors(a1,4084651,22))or(similarcolors(a1,5613239,22))or(similarcolors(a1,9524307,22)))or(switch=2000);
+  if(a1=a2)and(similarcolors(a1,5613239,22))then square1:='Yellow';
+  if(a1=a2)and(similarcolors(a1,4084651,22))then square1:='Red';
+  if(a1=a2)and(similarcolors(a1,9524307,22))then square1:='Blue';
+  if(square1='Yellow')or(square1='Red')or(square1='Blue')then
+    Totala:=totala+1;
+  switch:=0;
+
+  if(totala<3)then
+  repeat //Finding The Half Moon
+    wait(1);
+    a1:=GetColor(312,115);
+    a2:=GetColor(302,120);
+    switch:=switch+1;
+  until(a1=a2)and((similarcolors(a1,4084651,22))or(similarcolors(a1,5613239,22))or(similarcolors(a1,9524307,22)))or(switch=2000);
+  if(a1=a2)and(similarcolors(a1,5613239,22))then halfmoon1:='Yellow';
+  if(a1=a2)and(similarcolors(a1,4084651,22))then halfmoon1:='Red';
+  if(a1=a2)and(similarcolors(a1,9524307,22))then halfmoon1:='Blue';
+  if(halfmoon1='Yellow')or(halfmoon1='Red')or(halfmoon1='Blue')then
+    Totala:=totala+1;
+  switch:=0;
+  
+  if(totala<3)then
+  repeat //Finding The Triangle
+    wait(1)
+    a1:=GetColor(258,72);
+    a2:=GetColor(275,106);
+    switch:=switch+1;
+  until(a1=a2)and((similarcolors(a1,4084651,22))or(similarcolors(a1,5613239,22))or(similarcolors(a1,9524307,22)))or(switch=2000);
+  if(a1=a2)and(similarcolors(a1,5613239,22))then triangle1:='Yellow';
+  if(a1=a2)and(similarcolors(a1,4084651,22))then triangle1:='Red';
+  if(a1=a2)and(similarcolors(a1,9524307,22))then triangle1:='Blue';
+  switch:=0;
+
+qw:=getquestion;
+  if(qw=1)then
+    if(Square1='Yellow')then
+      Answer:='Square'
+    else if (Circle1='Yellow')then
+      Answer:='Circle'
+    else if (Star1='Yellow')then
+      Answer:='Star'
+    else if (Halfmoon1='Yellow')then
+      Answer:='Halfmoon'
+    else if (Triangle1='Yellow')then
+      Answer:='Triangle'
+    else
+      Answer:='Error';
+    
+  if(qw=2)then
+    if(Square1='Blue')then
+      Answer:='Square'
+    else if (Circle1='Blue')then
+      Answer:='Circle'
+    else if (Star1='Blue')then
+      Answer:='Star'
+    else if (Halfmoon1='Blue')then
+      Answer:='Halfmoon'
+    else if (Triangle1='Blue')then
+      Answer:='Triangle'
+    else
+      Answer:='Error';
+
+  if(qw=3)then
+    if(Square1='Red')then
+      Answer:='Square'
+    else if (Circle1='Red')then
+      Answer:='Circle'
+    else if (Star1='Red')then
+     Answer:='Star'
+    else if (Halfmoon1='Red')then
+      Answer:='Halfmoon'
+    else if (Triangle1='Red')then
+      Answer:='Triangle'
+    else
+      Answer:='Error';
+    
+  if(qw=4)then
+    if (Circle1<>'0')then
+      Answer:= circle1
+    else
+      Answer:='Error';
+
+  if(qw=5)then
+    if (Square1<>'0')then
+      Answer:= square1
+    else
+      Answer:='Error';
+
+  if(qw=6)then
+    if (Halfmoon1<>'0')then
+      Answer:= halfmoon1
+    else
+      Answer:='Error'
+
+  if(qw=7)then
+    if (Triangle1<>'0')then
+      Answer:= triangle1
+    else
+      Answer:='Error';
+    
+  if(qw=8)then
+    if (Star1<>'0')then
+      Answer:= Star1
+    else
+      Answer:='Error';
+
+  if(answer='Red')then
+    if(findbitmaptolerancein(Red,a,b,115,280,435,315,100))then
+      MouseC(a+random(20),b+random(5),1)
+    else
+      answer:='Error';
+  if(answer='Blue')then
+    if(findbitmaptolerancein(Blue,a,b,115,280,435,315,100))then
+      MouseC(a+random(15),b+random(5),1)
+    else
+      answer:='Error';
+  if (answer='Yellow')then
+    if(findbitmaptolerancein(Yellow,a,b,115,280,435,315,100))then
+      MouseC(a+random(10),b+random(5),1)
+    else
+      answer:='Error';
+    if (answer='Circle')then
+      if(findbitmaptolerancein(Circle,a,b,115,280,435,315,100))then
+        MouseC(a+random(10),b+random(5),1)
+      else
+        answer:='Error';
+  if (answer='Triangle')then
+    if(findbitmaptolerancein(Triangle,a,b,115,280,435,315,100))then
+      Mousec(a+random(10),b+random(5),1)
+    else
+      answer:='Error';
+  if (answer='Square')then
+    if(findbitmaptolerancein(Square,a,b,115,280,435,315,100))then
+      MouseC(a+random(10),b+random(5),1)
+    else
+      answer:='Error';
+  if (answer='Halfmoon')then
+    if(findbitmaptolerancein(Halfmoon,a,b,115,280,435,315,100))then
+      MouseC(a+random(30),b+random(5),1)
+    else
+        answer:='Error';
+  if (answer='Star')then
+    if(findbitmaptolerancein(star,a,b,115,280,435,315,100))then
+      MouseC(a+random(10),b+random(5),1)
+    else
+      answer:='Error';
+  if (answer='Error')then
+    MouseC(random(15)+440,random(3)+18,1);
+  wait(random(400)+2000);
+end;
+
+procedure CheckBox;
+var a, b : integer;
+begin
+  if(findbitmaptolerancein(StrangeBox,a,b,555,200,745,465,100))then
+    begin
+      repeat
+        if(findbitmaptolerancein(StrangeBox,a,b,555,200,745,465,100))then
+          OpenBox(a,b);
+      until(findbitmaptolerancein(Strangebox,a,b,555,200,745,465,100)=false);
+    end;
+
+end;
+
+procedure OpenBag;
+begin
+  MouseC(random(10)+635,random(10)+175,1);
+end;
+
+procedure CheckLamp;
+var
+  a, b : integer;
+begin
+  if(getcolor(631,175)<>2829182)then
+    OpenBag;
+  if(findbitmaptolerancein(TheLamp,a,b,550,190,745,465,100))then
+    begin
+      MouseC(random(5)+a,random(5)+b,1);
+      repeat
+        wait(100);
+      until(getcolor(127,118)=65535)
+      TotalLamps:=TotalLamps+1;
+      TakeScreenShot('Lamp Found',TotalLamps);
+      a:=0;
+      b:=random(5)+145;
+      if(LampSkill='Attack')or(LampSkill='Atk')or(LampSkill='attack')or(LampSkill='atk')then
+        a:=random(5)+155;
+      if(LampSkill='Strength')or(LampSkill='strength')or(LampSkill='Str')or(LampSkill='str')then
+        a:=random(5)+185;
+      if(lampskill='Range')or(lampskill='Ranger')or(lampskill='range')or(lampskill='ranger')then
+        a:=random(5)+220;
+      if(lampskill='Magic')or(lampskill='magic')or(lampskill='Mage')or(lampskill='mage')then
+        a:=random(5)+250;
+      if(lampskill='Defence')or(lampskill='defence')or(lampskill='Def')or(lampskill='def')then
+        a:=random(5)+285;
+      if(lampskill='Hitpoints')or(lampskill='hitpoints')or(lampskill='Health')or(lampskill='health')or(lampskill='Hits')or(lampskill='hits')then
+        a:=random(5)+315;
+      if(lampskill='Prayer')or(lampskill='prayer')or(lampskill='Pray')or(lampskill='pray')then
+        a:=random(5)+345;
+      if(a=0)then
+        b:=random(5)+185;
+      if(lampskill='Agility')or(lampskill='agility')then
+        a:=random(5)+175;
+      if(lampskill='Herblore')or(lampskill='herblore')or(lampskill='Herb')or(lampskill='herb')or(lampskill='Herblaw')or(lampskill='herblaw')then
+        a:=random(5)+205;
+      if(lampskill='Thieving')or(lampskill='thieving')or(lampskill='Theiving')or(lampskill='theiving')or(lampskill='Thief')or(lampskill='thief')then
+        a:=random(5)+235;
+      if(lampskill='Crafting')or(lampskill='Crafter')or(lampskill='crafting')or(lampskill='crafter')or(lampskill='Craft')or(lampskill='craft')then
+        a:=random(5)+270;
+      if(lampskill='Runecrafting')or(lampskill='runecrafting')or(lampskill='RuneCrafting')or(lampskill='runeCrafting')or(lampskill='RC')or(lampskill='Rc')or(lampskill='rc')or(lampskill='rC')then
+        a:=random(5)+305;
+      if(lampskill='Slayer')or(lampskill='slayer')then
+        a:=random(5)+335;
+      if(a=0)then
+        b:=random(5)+220;
+      if(LampSkill='Mining')or(LampSkill='mining')then
+        a:=random(5)+155;
+      if(lampskill='Smithing')or(lampskill='smithing')or(lampskill='Smith')or(lampskill='smith')or(lampskill='Smither')or(lampskill='smither')then
+        a:=random(5)+185;
+      if(lampskill='Fishing')or(lampskill='fishing')or(lampskill='Fish')or(lampskill='fish')then
+        a:=random(5)+220;
+      if(Lampskill='Cooking')or(Lampskill='cooking')or(Lampskill='Cook')or(Lampskill='cook')then
+        a:=random(5)+250;
+      if(Lampskill='FireMaking')or(Lampskill='Firemaking')or(Lampskill='fireMaking')or(Lampskill='firemaking')or(Lampskill='Fire')or(Lampskill='fire')then
+        a:=random(5)+285;
+      if(Lampskill='Woodcutting')or(Lampskill='WoodCutting')or(Lampskill='woodCutting')or(Lampskill='woodcutting')then
+        a:=random(5)+315;
+      if(LampSkill='Fletching')or(LampSkill='Fletcher')or(LampSkill='fletching')or(LampSkill='fletcher')then
+        a:=random(5)+345;
+      if(a=0)then
+        begin
+          a:=random(5)+185;
+          b:=random(5)+145;
+        end;
+      MouseC(a,b,1);
+      wait(random(300)+1000);
+      MouseC(random(20)+240,random(5)+250,1);
+      wait(random(500)+2000);
+  end;
+end;
+
+function IsDead : boolean;
+begin
+result:=false;
+ if(GetColor(30,418)=0)and(GetColor(72,429)=0)then
+  begin
+   TakeScreenshot('Died',1);
+   result:=true;
+ end;
+end;
+
+procedure findrandoms;
+var
+  a, b : integer;
+begin
+  if(LoggedIn=true)then
+    begin
+      if(getcolor(631,173)<>2500207)then
+        openbag;
+      if(checklamps=true)then
+        begin
+          CheckLamp;
+          if(findbitmaptolerancein(TheLamp,a,b,550,190,745,465,100))then
+            begin
+              TotalLamps:=TotalLamps-1;
+              LampSkill:='Attack';
+              CheckLamp;
+            end;
+        end;
+      CheckIntro;
+      if(checkfights=true)then
+        Findfight;
+      if(checktext=true)then
+        FindText;
+      if(checkmods=true)then
+        CheckForMods;
+      if(checkboxes=true)then
+        CheckBox;
+      exit;
+    end;
+  login;
+end;
+//<<<<<<<<<<<<<=====End of Anti Randoms==================>>>>>>>>>>>>>>>>>>>>>
+
+//<<<<<<<<<<<<=====Other Things===============>>>>>>>>>>>>>>>>>>
+procedure LoadInventoryPics;
+begin
+  droptext := BitmapFromString(12, 10,
+       'FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000000000000000' +
+       '000000000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+       '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000000000000000000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+       '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFF000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF' +
+       'FFFFFF000000000000');
+end;
+
+//Open Bag has been moved into the anti random procedures because
+//the strange box needs it.
+
+procedure UseItem(col, row : integer);
+var
+  b : integer;
+begin
+  if(getcolor(633,172)<>2500207)then
+    OpenBag;
+  b:=(35*row)+185+random(10);
+  if(row=4)then
+    b:=b+5;
+  MouseC((40*col)+535+random(10),b,1);
+end;
+
+procedure DropItem (row, col : integer);
+var
+  b1, a : integer;
+begin
+  if(getcolor(633,172)<>2500207)then
+    OpenBag;
+  if(col>0)and(col<8)and(row>0)and(row<5)then
+    b1:=(col*35)+180+random(5);
+  if(col>3)then
+    b1:=b1+10;
+  MouseC((row*45)+535+random(5),b1,2);
+  wait(random(500)+500);
+  findbitmaptolerancein(DropText,a,b1,545,190,750,480,100);
+  MouseC(random(20)+a,b1+random(3),1);
+end;
+
+procedure DropAll;
+var
+  q, w, a, b, c, d, qw, compare, a1, b1 : integer;
+begin
+  qw:=0;
+  a1:=random(10)+580;
+  b1:=random(10)+220;
+  repeat
+  if(findbitmaptolerancein(TheLamp,a,b,550,190,745,465,100))then
+    begin
+      MouseC(a,b,0);
+      wait(random(200)+400);
+      if(findbitmaptolerancein(lampa,a,b,5,5,230,30,100))or(findbitmaptolerancein(lampb,a,b,5,5,230,30,100))then
+        begin
+          CheckLamp;
+          wait(random(500)+2000);
+          if(findbitmaptolerancein(TheLamp,a,b,550,190,745,465,100))then
+            begin
+              LampSkill:='Attack';
+              CheckLamp;
+            end;
+        end;
+    end;
+  if(findbitmaptolerancein(strangebox,a,b,550,190,745,465,75))then
+    CheckBox;
+  Status('Dropping EveryThing');
+  q:=0;
+  MouseC(a1,b1,0);
+  repeat
+    wait(random(10)+5);
+    b1:=b1+1
+    MoveMouseSmoothEx(a1,b1,1,6,15,20,20);
+    if(b1>455)then
+      begin
+        b1:=210;
+        q:=q+1;
+        if(q=1)then
+          a1:=random(2)+625;
+        if(q=2)then
+          a1:=random(2)+670;
+        if(q=3)then
+          a1:=random(2)+710;
+        MouseC(a1,b1,0);
+        if(q=4)then
+          exit;
+      end;
+      compare:=getcolor(10,15);
+  until(similarcolors(compare,14211802,100));
+  getmousepos(a,b);
+  a:=a+5;
+  MouseC(a,b,2);
+  wait(random(500)+500);
+  w:=0;
+  repeat
+    w:=w+1;
+    wait(100);
+  until(findbitmaptolerancein(DropText,c,d,535,170,750,475,100))or(w=50);
+  if(w<50)then
+    begin
+      MouseC(c+random(10),d+random(3)+3,1);
+      wait(random(500)+1250)
+    end;
+  if(w=50)then
+    OpenBag;
+  until(q=4);
+end;
+{<<<<<<<=========Quest Options>>>>>>>>========}
+
+procedure OpenQuests;
+begin
+  MouseC(random(10)+605,random(10)+175,1);
+end;
+
+{<<<<<<<<========End of Quest Options>>>>>>>=======}
+
+{<<<<<<<<<=======Stat Options>>>>>>>>>==========}
+
+procedure OpenStats;
+begin
+  MouseC(random(10)+575,random(10)+175,1);
+end;
+
+{<<<<<<<<<==========Stat Options>>>>>>>>>>>=========}
+
+{<<<<<<<<<<<============Combat Options>>>>>>>>>>>>>>>>>>>============}
+procedure OpenCombat;
+begin
+  MouseC(random(10)+550,random(10)+175,1);
+end;
+
+procedure CombatType(choice : integer);
+begin
+  if(getcolor(563,177)<>2829182)then
+    OpenCombat;
+  wait(random(200)+400);
+  if(choice<2)then
+    MouseC(random(30)+570,random(5)+280,1);
+  if(choice=2)then
+    MouseC(random(30)+570,random(5)+320,1);
+  if(choice=3)then
+    MouseC(random(30)+570,random(5)+365,1);
+  if(choice>3)then
+    MouseC(random(30)+570,random(5)+405,1);
+end;
+{<<<<<<<<<<<<<<===========End of Combat Options>>>>>>>>>>>>>>>>.=============}
+
+{<<<<<<<<<<<<<=========Equiptment Options>>>>>>>>>>>>>>>.===============}
+procedure OpenEquip;
+begin
+  MouseC(random(10)+675,random(10)+175,1);
+end;
+
+procedure TakeoffHelm;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300);
+  MouseC(random(10)+640,random(10)+215,1);
+end;
+
+procedure TakeoffCape;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300);
+  MouseC(random(10)+595,random(10)+255,1);
+end;
+
+procedure TakeoffNecklace;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300);
+  MouseC(random(10)+640,random(10)+255,1);
+end;
+
+procedure TakeoffArrows;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300);
+  MouseC(random(10)+680,random(10)+255,1);
+end;
+
+procedure TakeoffSword;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300);
+  MouseC(random(10)+580,random(10)+300,1);
+end;
+
+procedure TakeoffBody;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300);
+  MouseC(random(10)+650,random(10)+300,1);
+end;
+
+procedure TakeoffShield;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300);
+  MouseC(random(10)+695,random(10)+300,1);
+end;
+
+procedure TakeoffLegs;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300);
+  MouseC(random(10)+635,random(10)+335,1);
+end;
+
+procedure TakeoffGloves;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300);
+  MouseC(random(10)+580,random(10)+375,1);
+end;
+
+procedure TakeoffBoots;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300);
+  MouseC(random(10)+640,random(10)+375,1);
+end;
+
+procedure Takeoffring;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300);
+  MouseC(random(10)+695,random(10)+375,1);
+end;
+
+Function WearingRing:boolean;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300);
+  if(getcolor(705,384)<>2304814)then
+    Result:=true
+  else
+    result:=false;
+end;
+
+{<<<<<<<<<<<<<=========End of Equiptment Options>>>>>>>>>>>>>============}
+
+{<<<<<<<<<<<<=========Prayer Options>>>>>>>>>>>>>=============}
+
+procedure OpenPrayer;
+begin
+  MouseC(random(10)+700,random(10)+175,1);
+end;
+
+procedure Prayer(choice : integer);
+begin
+  if(getcolor(715,177)<>2171233)then
+    OpenPrayer;
+  wait(random(300)+300);
+  if(choice<2)then
+    MouseC(random(10)+580,random(10)+215,1)
+  else if(choice=2)then
+    MouseC(random(10)+640,random(10)+215,1)
+  else if(choice=3)then
+    MouseC(random(10)+700,random(10)+215,1)
+  else if(choice=4)then
+    MouseC(random(10)+580,random(10)+250,1)
+  else if(choice=5)then
+    MouseC(random(10)+640,random(10)+250,1)
+  else if(choice=6)then
+    MouseC(random(10)+700,random(10)+250,1)
+  else if(choice=7)then
+    MouseC(random(10)+580,random(10)+290,1)
+  else if(choice=8)then
+    MouseC(random(10)+640,random(10)+290,1)
+  else if(choice=9)then
+    MouseC(random(10)+700,random(10)+290,1)
+  else if(choice=10)then
+    MouseC(random(10)+580,random(10)+325,1)
+  else if(choice=11)then
+    MouseC(random(10)+640,random(10)+325,1)
+  else if(choice=12)then
+    MouseC(random(10)+700,random(10)+325,1)
+  else if(choice=13)then
+    MouseC(random(10)+580,random(10)+360,1)
+  else if(choice=14)then
+    MouseC(random(10)+640,random(10)+360,1)
+  else if(choice>14)then
+    MouseC(random(10)+700,random(10)+360,1);
+end;
+{<<<<<<<<<<<<<<============End of Prayer Options=====>>>>>>>>>>}
+
+{<<<<<<<<<<<<<<<<<=============Magic Option=========>>>>>>>>>>}
+procedure OpenMagic;
+begin
+  MouseC(random(10)+730,random(10)+175,1);
+end;
+
+procedure CastSpell(choice : integer);
+var
+  a, b : integer;
+begin
+  if(getcolor(730,178)<>2829182)then
+    OpenMagic;
+  wait(random(300)+300);
+  if(choice<50)and(getcolor(726,232)=1777699)then
+    begin
+      MouseC(random(5)+725,random(5)+220,0);
+      wait(random(300)+300);
+      holdmouse(a,b,true);
+      wait(random(300)+750);
+      releasemouse(a,b,true);
+    end
+  else if(choice>49)and(getcolor(725,366)=1777699)then
+    begin
+      MouseC(random(5)+725,random(5)+370,0);
+      wait(random(300)+300);
+      holdmouse(a,b,true);
+      wait(random(300)+750);
+      releasemouse(a,b,true);
+    end;
+  if(choice=1)or(choice=8)or(choice=15)or(choice=22)or(choice=29)or(choice=36)or(choice=43)or(choice=50)or(choice>56)then
+    a:=random(5)+555
+  else if(choice=2)or(choice=9)or(choice=16)or(choice=23)or(choice=30)or(choice=37)or(choice=44)or(choice=51)then
+    a:=random(5)+580
+  else if(choice=3)or(choice=10)or(choice=17)or(choice=24)or(choice=31)or(choice=38)or(choice=45)or(choice=52)then
+    a:=random(5)+605
+  else if(choice=4)or(choice=11)or(choice=18)or(choice=25)or(choice=32)or(choice=39)or(choice=46)or(choice=53)then
+    a:=random(5)+630
+  else if(choice=5)or(choice=12)or(choice=19)or(choice=26)or(choice=33)or(choice=40)or(choice=47)or(choice=54)then
+    a:=random(5)+650
+  else if(choice=6)or(choice=13)or(choice=20)or(choice=27)or(choice=34)or(choice=41)or(choice=48)or(choice=55)then
+    a:=random(5)+675
+  else if(choice=7)or(choice=14)or(choice=21)or(choice=28)or(choice=35)or(choice=42)or(choice=49)or(choice=56)then
+    a:=random(5)+700;
+  if(choice<8)then
+    b:=random(5)+220
+  else if(choice>7)and(choice<15)then
+    b:=random(5)+245
+  else if(choice>14)and(choice<22)then
+    b:=random(5)+270
+  else if(choice>21)and(choice<29)then
+    b:=random(5)+295
+  else if(choice>28)and(choice<36)then
+    b:=random(5)+315
+  else if(choice>35)and(choice<43)then
+    b:=random(5)+340
+  else if(choice>42)and(choice<50)then
+    b:=random(5)+365
+  else if(choice>49)and(choice<57)then
+    b:=random(5)+340
+  else if(choice>56)then
+    b:=random(5)+365;
+  MouseC(a,b,1);
+end;
+
+{<<<<<<<<<<============End of Magic Options>>>>>>>>>>===========}
+
+{<<<<<<<<<<==========Friend Options>>>>>>>>>>==============}
+
+procedure OpenFriends;
+begin
+  MouseC(random(10)+575,random(10)+470,1);
+end;
+
+procedure AddFriend(name : string);
+begin
+  if(getcolor(577,495)<>1579079)then
+    OpenFriends;
+  wait(random(300)+300);
+  MouseC(random(20)+580,random(10)+435,1);
+  repeat
+    wait(random(500)+100);
+  until(getcolor(254,409)=8388608);
+  wait(random(300)+300);
+  sendkeyshuman(Name);
+  wait(random(300)+300);
+  sendkeys(chr(13));
+end;
+
+procedure DeleteFriend(name : string);
+begin
+  if(getcolor(577,495)<>1579076)then
+    OpenFriends;
+  wait(random(300)+300);
+  MouseC(random(20)+655,random(10)+435,1);
+  repeat
+    wait(100);
+  until(getcolor(254,409)=8388608);
+  wait(random(300)+300);
+  sendkeyshuman(Name);
+  wait(random(300)+300);
+  sendkeys(chr(13));
+end;
+
+{<<<<<<<<<<<<<<<============End of Friend Options>>>>>>>>>=========}
+
+{<<<<<<<<<<===========Ignore Options>>>>>>>>>===============}
+
+procedure OpenIgnore;
+begin
+  MouseC(random(10)+605,random(10)+470,1);
+end;
+
+procedure AddIgnore(name : string);
+begin
+  if(getcolor(607,497)<>2171233)then
+    OpenIgnore;
+  wait(random(300)+300);
+  MouseC(random(20)+580,random(10)+435,1);
+  repeat
+    wait(100);
+  until(getcolor(254,409)=8388608);
+  wait(random(300)+300);
+  sendkeyshuman(Name);
+  wait(random(300)+300);
+  sendkeys(chr(13));
+end;
+
+procedure DeleteIgnore(name : string);
+begin
+  if(getcolor(607,497)<>2171233)then
+    OpenIgnore;
+  wait(random(300)+300);
+  MouseC(random(20)+655,random(10)+435,1);
+  repeat
+    wait(100);
+  until(getcolor(254,409)=8388608);
+  wait(random(300)+300);
+  sendkeyshuman(Name);
+  wait(random(300)+300);
+  sendkeys(chr(13));
+end;
+{<<<<<<<<<<========End of Ignore Options>>>>>>>>>>========}
+
+{>>>>>>>>======Game Options========<<<<<<<<<<<<<<}
+procedure OpenOptions;
+begin
+  MouseC(random(10)+675,random(10)+470,1);
+end;
+
+procedure SetQuality(choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+150);
+  if(choice<2)then
+    MouseC(random(10)+561,random(10)+250,1)
+  else if(choice=2)then
+    MouseC(random(10)+615,random(10)+250,1)
+  else if(choice=3)then
+    MouseC(random(10)+655,random(10)+250,1)
+  else if(choice>3)then
+    MouseC(random(10)+700,random(10)+250,1);
+end;
+
+procedure SetMouseButtons(Choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+150);
+  if(choice<2)then
+    MouseC(random(10)+565,random(10)+310,1)
+  else if(choice>1)then
+    MouseC(random(10)+605,random(10)+310,1);
+end;
+
+procedure SetChatEffects(Choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+150);
+  if(choice<2)then
+    MouseC(random(10)+660,random(10)+310,1)
+  else if(choice>1)then
+    MouseC(random(10)+700,random(10)+310,1);
+end;
+
+procedure SetPrivate(Choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+150);
+  if(choice<2)then
+    MouseC(random(10)+565,random(10)+365,1)
+  else if(choice>1)then
+    MouseC(random(10)+605,random(10)+365,1);
+end;
+
+procedure SetAid(Choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+150);
+  if(choice<2)then
+    MouseC(random(10)+660,random(10)+365,1)
+  else if(choice>1)then
+    MouseC(random(10)+700,random(10)+365,1);
+end;
+
+procedure MusicVolume(choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+300);
+  if(choice<1)then
+    MouseC(random(10)+610,random(10)+405,1)
+  else if(choice=1)then
+    MouseC(random(10)+635,random(10)+405,1)
+  else if(choice=2)then
+    MouseC(random(10)+660,random(10)+405,1)
+  if(choice=3)then
+    MouseC(random(10)+685,random(10)+405,1)
+  if(choice>=4)then
+    MouseC(random(10)+712,random(10)+405,1);
+end;
+
+procedure EffectVolume(choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+300);
+  if(choice<1)then
+    MouseC(random(10)+610,random(10)+435,1)
+  else if(choice=1)then
+    MouseC(random(10)+635,random(10)+435,1)
+  else if(choice=2)then
+    MouseC(random(10)+660,random(10)+435,1)
+  else if(choice=3)then
+    MouseC(random(10)+685,random(10)+435,1)
+  else if(choice>=4)then
+    MouseC(random(10)+712,random(10)+435,1);
+end;
+
+{>>>>>>>>======End of Game Options========<<<<<<<<<<<<<<}
+
+{>>>>>>>>======Game Controls========<<<<<<<<<<<<<<}
+
+procedure OpenControls;
+begin
+  MouseC(random(10)+700,random(10)+470,1);
+end;
+
+procedure SetMove(Choice : integer);
+begin
+  if(getcolor(703,474)<>2171233)then
+    OpenControls;
+  wait(random(300)+150);
+  if(choice<2)then
+    MouseC(random(10)+565,random(10)+250,1)
+  else if(choice>1)then
+    MouseC(random(10)+610,random(10)+255,1);
+end;
+
+procedure SetAuto(Choice : integer);
+begin
+  if(getcolor(703,474)<>2171233)then
+    OpenControls;
+  wait(random(300)+150);
+  if(choice<2)then
+    MouseC(random(10)+610,random(10)+315,1)
+  else if(choice>1)then
+    MouseC(random(10)+655,random(10)+315,1);
+end;
+
+procedure Emote(Choice : integer);
+var
+  a, b : integer;
+begin
+  if(getcolor(703,474)<>2171233)then
+    OpenControls;
+  if(choice<13)and(getcolor(732,389)=1777699)then
+    begin
+      MouseC(random(5)+727,random(5)+376,0);
+      wait(random(300)+300);
+      holdmouse(a,b,true);
+      wait(random(200)+500);
+      releasemouse(a,b,true);
+    end
+  else if(choice>12)and(getcolor(730,447)=1777699)then
+    begin
+      MouseC(random(5)+727,random(5)+450,0);
+      wait(random(300)+300);
+      holdmouse(a,b,true);
+      wait(random(200)+500);
+      releasemouse(a,b,true);
+    end;
+  wait(random(300)+150);
+//Yes
+  if(choice<2)then
+    MouseC(random(10)+561,random(10)+380,1)
+//No
+  else if(choice=2)then
+    MouseC(random(10)+605,random(10)+380,1)
+//Think
+  else if(choice=3)then
+    MouseC(random(10)+645,random(10)+380,1)
+//Bow
+  else if(choice=4)then
+    MouseC(random(10)+685,random(10)+380,1)
+//Angry
+  else if(choice=5)then
+    MouseC(random(10)+561,random(10)+410,1)
+//Cry
+  else if(choice=6)then
+    MouseC(random(10)+605,random(10)+410,1)
+//Laugh
+  else if(choice=7)then
+    MouseC(random(10)+645,random(10)+410,1)
+//Cheer
+  else if(choice=8)then
+    MouseC(random(10)+685,random(10)+410,1)
+//Wave
+  else if(choice=9)then
+    MouseC(random(10)+561,random(10)+440,1)
+//Beckon
+  else if(choice=10)then
+    MouseC(random(10)+605,random(10)+440,1)
+//Clap
+  else if(choice=11)then
+    MouseC(random(10)+645,random(10)+440,1)
+//Dance
+  else if(choice=12)then
+    MouseC(random(10)+685,random(10)+440,1)
+//Glass Wall
+  else if(choice=13)then
+    MouseC(random(10)+561,random(10)+410,1)
+//Glass Box
+  else if(choice=14)then
+    MouseC(random(10)+605,random(10)+410,1)
+//Glass Climb Rope
+  else if(choice=15)then
+    MouseC(random(10)+645,random(10)+410,1)
+//Lean
+  else if(choice=16)then
+    MouseC(random(10)+685,random(10)+410,1)
+//Blow Kiss
+  else if(choice>=16)then
+    MouseC(random(10)+561,random(10)+440,1);
+end;
+
+{>>>>>>>>======End of Game Controls========<<<<<<<<<<<<<<}
+
+
+{>>>>>>>======Music Options==========<<<<<<<<<<<<<}
+
+procedure OpenMusic;
+begin
+  MouseC(random(10)+730,random(10)+470,1);
+end;
+
+procedure MusicPlayer(choice : integer);
+begin
+  if(getcolor(730,495)<>2829182)then
+    OpenMusic;
+  wait(random(300)+300);
+  if(choice<2)then
+    MouseC(random(10)+625,random(10)+215,1)
+  else if(choice=2)then
+    MouseC(random(10)+660,random(10)+215,1)
+  else
+    MouseC(random(10)+700,random(10)+215,1);
+end;
+
+procedure RandomSong;
+var a, b, ab : integer;
+begin
+  if(getcolor(730,495)<>2829182)then
+    OpenMusic;
+  wait(random(300)+300);
+  ab:=random(2);
+  if(ab<2)then
+    begin
+      a:=random(5)+725;
+      b:=random(5)+265;
+      MouseC(a,b,0);
+      wait(random(300)+300);
+      holdmouse(a,b,true);
+      wait(random(400)+200);
+      releasemouse(a,b,true);
+    end
+  else if(ab=2)then
+    begin
+      a:=random(5)+725;
+      b:=random(5)+435;
+      MouseC(a,b,0);
+      wait(random(300)+300);
+      holdmouse(a,b,true);
+      wait(random(400)+200);
+      releasemouse(a,b,true);
+    end;
+  ab:=0;
+  repeat
+    ab:=ab+1;
+    a:=random(40)+570;
+    b:=random(5)+325;
+    wait(100);
+  until(findcolor(a,b,65280,a+10,b+5,a-10,b-5))or(ab=50);
+  MouseC(a,b,1);
+end;
+
+{>>>>>>>>==========End of Music Options<<<<<<<<<<<<<==========}
+
+{<<<<<<IN GAME STUFF>>>>>>>}
+procedure Stopmoving;
+begin
+  MouseC(random(1)+657,random(1)+84,1);
+end;
+{<<<<<END OF IN GAME STUFF>>>>>}
+
+{>>>>>>======Bank Options<<<<<=====}
+procedure LoadBankPics;
+begin
+  AllText := BitmapFromString(15, 5,
+     '000000000000000000000000000000000000000000000000000000' +
+     '000000000000000000000000000000000000000000000000FFFFFF' +
+     'FFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFF000000' +
+     '000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+     '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+     'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+     'FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+     '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+     '000000FFFFFFFFFFFF');
+  number1 := BitmapFromString(4, 9,
+       '000000000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '');
+       
+  number5 := BitmapFromString(6, 10,
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '000000000000000000FFFFFFFFFFFF000000000000000000000000' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000000000000000' +
+       'FFFFFFFFFFFF000000000000000000000000000000FFFFFFFFFFFF' +
+       '000000000000000000000000FFFFFFFFFFFF000000000000000000' +
+       '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000FFFFFFFFFFFFFFFFFFFFFFFF000000');
+  number10 := BitmapFromString(14, 10,
+       '000000000000FFFFFFFFFFFF000000000000000000000000000000' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFFFFFFFF' +
+       '000000000000000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+       '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF' +
+       'FFFFFF000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000000000FFFFFFFFFFFF000000000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+       'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       '000000FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+       'FFFFFFFFFFFFFFFFFF000000000000');
+  LetterX := BitmapFromString(6, 10,
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF' +
+       'FFFFFF000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF');
+  BlueStar := BitmapFromString(8, 6,
+       '000000000000000000000080000080000000000000000000000000' +
+       '000000000000000080000080000000000000000000000080000080' +
+       '000080000080000080000080000080000080000000000000000000' +
+       '000080000080000000000000000000000000000000000080000080' +
+       '000080000080000000000000000000000080000080000000000000' +
+       '000080000080000000');
+  Quicklytext := BitmapFromString(45, 3,
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000000000000000000000' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000000000000000000000' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000000000000000000000' +
+       'FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '');
+  lampA := BitmapFromString(31, 10,
+       'DC7C37DC7C37000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000DC7C37DC7C37000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000DC7C37' +
+       'DC7C37000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000DC7C37DC7C37000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000DC7C37DC7C37' +
+       '000000000000000000000000000000000000DC7C37DC7C37DC7C37' +
+       'DC7C37000000000000000000000000DC7C37DC7C37DC7C37DC7C37' +
+       'DC7C37DC7C37000000000000000000000000DC7C37DC7C37DC7C37' +
+       'DC7C37000000DC7C37DC7C37000000000000000000000000000000' +
+       'DC7C37DC7C37000000000000DC7C37DC7C37000000000000DC7C37' +
+       'DC7C37000000DC7C37DC7C37000000DC7C37DC7C37000000000000' +
+       'DC7C37DC7C37000000000000DC7C37DC7C37DC7C37DC7C37000000' +
+       '000000000000000000000000000000DC7C37DC7C37DC7C37DC7C37' +
+       'DC7C37000000000000DC7C37DC7C37000000DC7C37DC7C37000000' +
+       'DC7C37DC7C37000000000000DC7C37DC7C37000000000000DC7C37' +
+       'DC7C37DC7C37DC7C37000000000000000000000000000000DC7C37' +
+       'DC7C37000000000000DC7C37DC7C37000000000000DC7C37DC7C37' +
+       '000000DC7C37DC7C37000000DC7C37DC7C37000000000000DC7C37' +
+       'DC7C37000000000000DC7C37DC7C37DC7C37DC7C37000000000000' +
+       '000000000000000000DC7C37DC7C37000000000000DC7C37DC7C37' +
+       '000000000000DC7C37DC7C37000000DC7C37DC7C37000000DC7C37' +
+       'DC7C37000000000000DC7C37DC7C37000000000000DC7C37DC7C37' +
+       'DC7C37DC7C37DC7C37DC7C37DC7C37DC7C37000000000000DC7C37' +
+       'DC7C37DC7C37DC7C37DC7C37000000000000DC7C37DC7C37000000' +
+       'DC7C37DC7C37000000DC7C37DC7C37000000000000DC7C37DC7C37' +
+       'DC7C37DC7C37DC7C37000000');
+  lampB := BitmapFromString(33, 10,
+       'DE7D37DE7D37000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000DE7D37DE7D37000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000DE7D37DE7D37000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       'DE7D37DE7D37000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000DE7D37DE7D37000000' +
+       '000000000000000000000000000000DE7D37DE7D37DE7D37DE7D37' +
+       '000000000000000000000000000000DE7D37DE7D37DE7D37DE7D37' +
+       'DE7D37DE7D37000000000000000000000000000000DE7D37DE7D37' +
+       'DE7D37DE7D37000000DE7D37DE7D37000000000000000000000000' +
+       '000000DE7D37DE7D37000000000000DE7D37DE7D37000000000000' +
+       '000000DE7D37DE7D37000000DE7D37DE7D37000000DE7D37DE7D37' +
+       '000000000000000000DE7D37DE7D37000000000000DE7D37DE7D37' +
+       'DE7D37DE7D37000000000000000000000000000000000000DE7D37' +
+       'DE7D37DE7D37DE7D37DE7D37000000000000000000DE7D37DE7D37' +
+       '000000DE7D37DE7D37000000DE7D37DE7D37000000000000000000' +
+       'DE7D37DE7D37000000000000DE7D37DE7D37DE7D37DE7D37000000' +
+       '000000000000000000000000DE7D37DE7D37000000000000DE7D37' +
+       'DE7D37000000000000000000DE7D37DE7D37000000DE7D37DE7D37' +
+       '000000DE7D37DE7D37000000000000000000DE7D37DE7D37000000' +
+       '000000DE7D37DE7D37DE7D37DE7D37000000000000000000000000' +
+       '000000DE7D37DE7D37000000000000DE7D37DE7D37000000000000' +
+       '000000DE7D37DE7D37000000DE7D37DE7D37000000DE7D37DE7D37' +
+       '000000000000000000DE7D37DE7D37000000000000DE7D37DE7D37' +
+       'DE7D37DE7D37DE7D37DE7D37DE7D37DE7D37000000000000DE7D37' +
+       'DE7D37DE7D37DE7D37DE7D37000000000000000000DE7D37DE7D37' +
+       '000000DE7D37DE7D37000000DE7D37DE7D37000000000000000000' +
+       'DE7D37DE7D37DE7D37DE7D37DE7D37000000');
+end;
+
+procedure CloseBank;
+begin
+  if(istextat2(185,36,'The Bank of RuneScape',100))then
+    MouseC(random(20)+430,random(3)+37,1);
+end;
+
+function FindObject(text : string; color, tol : integer) : boolean;
+var
+  a, b, x1, y1, x2, y2, Lookchange : integer;
+begin
+  x1:=10;
+  y1:=10;
+  x2:=100;
+  y2:=100;
+  c33:=0;
+  lookchange:=1;
+  result:=true;
+  repeat
+    if(istextat2(185,36,'The Bank of RuneScape',100))then
+      exit;
+    if(getcolor(215,435)= 16711680)then
+      MouseC(random(20)+265,random(5)+436,1);
+    GetMousePos(a,b);
+    if(findcolortolerance(a,b,color,x1,y1,x2,y2,tol))then
+      MoveMouseSmoothEx(a+random(3),b+random(3),1,6,15,20,20)
+    else
+      MoveMouseSmoothEx(x1+random(10),y1+random(10),1,6,15,20,20);
+    if(lookchange=1)then
+      begin
+        x1:=x1+10;
+        y1:=y1+7;
+        x2:=x2+10;
+        y2:=y2+7;
+       end;
+     if(lookchange=2)then
+       begin
+         x1:=x1-10;
+         y1:=y1+7;
+         x2:=x2-10;
+         y2:=y2+7;
+       end;
+     if(lookchange>2)then
+       begin
+         x1:=x1+10;
+         x2:=x2+10;
+       end;
+    if(lookchange=1)then
+      if(x2>500) and (y2>300) then
+        begin
+          x1:=510;
+          y1:=10;
+          x2:=450;
+          y2:=70;
+          lookchange:=2;
+        end;
+    if(lookchange=2)then
+      if(x2<25) and (y2>300)then
+        begin
+          x1:=10;
+          y1:=10;
+          x2:=90;
+          y2:=90;
+          lookchange:=3;
+        end;
+    if(lookchange=3)then
+      if(x2>500)then
+        begin
+          x1:=10;
+          y1:=110;
+          x2:=90;
+          y2:=190;
+          lookchange:=4;
+        end;
+      if(lookchange=4)then
+        if(x2>500)then
+          begin
+            x1:=10;
+            y1:=200;
+            x2:=90;
+            y2:=280;
+            lookchange:=5;
+          end;
+      if(lookchange=5)then
+        if(x2>500)then
+          begin
+            x1:=10;
+            y1:=10;
+            x2:=100;
+            y2:=100;
+            lookchange:=1;
+          end;
+      wait(random(25)+100);
+      c33:=c33+1;
+      if(c33=215)then
+        begin
+          result:=false;
+          exit;
+        end;
+    until(istextat2(9,9,text,100));
+  result:=true;
+end;
+
+function OpenBank : boolean;
+var a, b : integer;
+begin
+  result:=false
+  repeat
+    if(IsTextAt2(185,36,'The Bank of RuneScape',100)=false)then
+      begin
+        if(findobject('Use Bank',2710643,15))then
+          begin
+            getmousepos(a,b);
+            clickHuman(a,b,false);
+            wait(random(300)+250);
+            if(findbitmaptolerancein(QuicklyText,a,b,10,10,500,330,100))then
+              begin
+                MouseC(a+random(15),b+random(3),1);
+                MapFlagging;
+              end;
+          end
+          else
+          begin
+            result:=false;
+            exit;
+          end;
+      end;
+  wait(random(300)+1500);
+  until(istextat2(185,36,'The Bank of RuneScape',100));
+  result:=true;
+end;
+
+procedure Withdraw(row, col, amount : integer);
+var
+  a, b, a1, b1 : integer;
+begin
+  if(getcolor(334,42)=2070783)and(col>0)and(col<7)and(row>0)and(row<9)then
+    begin
+      a1:=(row*50)+30+random(5);
+      b1:=(col*40)+25+random(5);
+      MouseC((row*50)+30+random(5),(col*40)+25+random(5),2);
+      wait(random(500)+1000);
+      if(amount=0)then
+        begin
+          findbitmaptolerancein(AllText,a,b,20,20,500,335,100);
+          MouseC(a-random(20),b+random(3),1);
+        end
+      else if(amount=1)then
+        begin
+          findbitmaptolerancein(Number1,a,b,20,20,500,335,100);
+          MouseC(a-random(20),b+random(3),1);
+        end
+      else if(amount=5)then
+        begin
+          findbitmaptolerancein(Number5,a,b,20,20,500,335,100);
+          MouseC(a-random(20),b+random(3),1);
+        end
+      else if(amount=10)then
+        begin
+          findbitmaptolerancein(Number10,a,b,20,20,500,335,100);
+          MouseC(a-random(20),b+random(3),1);
+        end
+      else
+        begin
+          findbitmaptolerancein(LetterX,a,b,20,20,500,335,100);
+          MouseC(a-random(20),b+random(3),1);
+          repeat
+            wait(100);
+          until(findbitmaptolerancein(BlueStar,a,b,220,380,295,435,100));
+          wait(random(200)+300);
+          sendkeyshuman(inttostr(amount));
+          wait(random(100)+200);
+          sendkeys(chr(13));
+        end;
+    end;
+    
+end;
+
+procedure Deposit(row, col, amount : integer);
+var
+  a, b, a1, b1 : integer;
+begin
+  a1:=500;
+  b1:=300;
+  if(findbitmaptolerancein(TheLamp,a,b,550,190,745,465,100))then
+    begin
+      CloseBank;
+      MouseC(a+random(5),b+random(5),0);
+      wait(random(200)+400)
+      if(findbitmaptolerancein(lampa,a,b,5,5,230,30,100))or(findbitmaptolerancein(lampb,a,b,5,5,230,30,100))then
+        begin
+          CheckLamp;
+          wait(random(500)+2000);
+          if(findbitmaptolerancein(TheLamp,a,b,550,190,745,465,100))then
+            begin
+              LampSkill:='Attack';
+              CheckLamp;
+            end;
+        end;
+        OpenBank;
+    end;
+  if(findbitmaptolerancein(strangebox,a,b,550,190,745,465,75))then
+    begin
+      CloseBank;
+      CheckBox;
+      OpenBank;
+    end;
+  if(getcolor(334,42)=2070783)and(col>0)and(col<8)and(row>0)and(row<5)then
+    begin
+      a1:=(row*45)+535+random(5)
+      b1:=(col*35)+180+random(5);
+      if(col>3)then
+        b1:=b1+10;
+      MouseC((row*45)+535+random(5),b1,2);
+      wait(random(300)+300);
+    end;
+  wait(random(500)+300);
+  if(amount=0)then
+    if(findbitmaptolerancein(AllText,a,b,545,175,750,500,100))then
+      MouseC(a-random(20),b+random(3),1)
+  else if(amount=1)then
+    if(findbitmaptolerancein(Number1,a,b,545,175,750,500,100))then
+      MouseC(a-random(20),b+random(3),1)
+  else if(amount=5)then
+    if(findbitmaptolerancein(Number5,a,b,545,175,750,500,100))then
+      MouseC(a-random(20),b+random(3),1)
+  else if(amount=10)then
+    if(findbitmaptolerancein(Number10,a,b,545,175,750,500,100))then
+      MouseC(a-random(20),b+random(3),1)
+  else
+    if(findbitmaptolerancein(LetterX,a,b,545,175,750,500,100))then
+      begin
+        MouseC(a-random(20),b+random(3),1);
+        repeat
+          wait(100);
+        until(findbitmaptolerancein(BlueStar,a,b,220,380,295,435,100));
+        wait(random(200)+300);
+        sendkeyshuman(inttostr(amount));
+        wait(random(100)+200);
+        sendkeys(chr(13));
+      end;
+end;
+
+procedure DepositAll;
+var
+  q, w, a, b, c, d, qw, a1, b1 : integer;
+begin
+  qw:=0;
+  a1:=random(10)+580;
+  b1:=random(10)+220;
+  if(findbitmaptolerancein(TheLamp,a,b,550,190,745,465,100))then
+    begin
+      MouseC(a+random(5),b+random(5),0);
+      wait(random(200)+400)
+      if(findbitmaptolerancein(lampa,a,b,5,5,230,30,100))or(findbitmaptolerancein(lampb,a,b,5,5,230,30,100))then
+        begin
+          CloseBank;
+          CheckLamp;
+          wait(random(500)+2000);
+          if(findbitmaptolerancein(TheLamp,a,b,550,190,745,465,100))then
+            begin
+              LampSkill:='Attack';
+              CheckLamp;
+            end;
+          OpenBank;
+        end;
+    end;
+  if(findbitmaptolerancein(strangebox,a,b,550,190,745,465,75))then
+    begin
+      CloseBank;
+      CheckBox;
+      OpenBank;
+    end;
+  q:=0;
+  repeat
+  Status('Putting Stuff in the Bank');
+  MouseC(a1,b1,0);
+  repeat
+    c:=45;
+    wait(random(10)+5);
+    b1:=b1+random(10);
+    MoveMouseSmoothEx(a1,b1,1,6,15,20,20);
+    if(b1>455)then
+      begin
+        b1:=230;
+        q:=q+1;
+        if(q=1)then
+          a1:=random(2)+625;
+        if(q=2)then
+          a1:=random(2)+670;
+        if(q=3)then
+          a1:=random(2)+710;
+        MouseC(a1,b1,0);
+        if(q=4)then
+          exit;
+      end;
+  until(istextat2(9,9,'Store',100));
+  getmousepos(a,b);
+  a:=a+5;
+  MouseC(a,b,2);
+  wait(random(500)+500);
+  w:=0;
+  repeat
+    w:=w+1;
+    wait(100);
+    if(w=25)then
+      begin
+        getmousepos(a,b);
+        b:=b-10
+        MouseC(a,b,0);
+      end;
+  until(findbitmaptolerancein(AllText,c,d,535,170,750,475,100))or(w=50);
+  if(w<50)then
+    begin
+      MouseC(c+random(10),d+random(3)+3,1);
+      wait(random(500)+1250)
+    end
+    else
+    begin
+      OpenBag;
+    end;
+  until(q=4);
+end;
+
+{<<<<<<<=======End of Bank Options>>>>>>>=======}
+
+function TalkTo(name : string; color : integer):boolean;
+var  a, b, x1, y1, z1, z2, x2, y2, Lookchange, c : integer;
+begin
+  z1:=55;
+  z2:=9;
+  result:=false;
+  x1:=10;
+  y1:=10;
+  x2:=100;
+  y2:=100;
+  c:=0;
+  lookchange:=1;
+  repeat
+  repeat
+    z1:=55;
+    if(getcolor(215,435)= 16711680)then
+      MouseC(random(20)+265,random(5)+436,1);
+    if(findcolor(a,b,color,x1,y1,x2,y2))then
+      MouseC(a+random(3),b-random(3),0)
+    else
+      MouseC(x1+random(10),y1+random(10),0);
+    if(lookchange=1)then
+      begin
+        x1:=x1+10;
+        y1:=y1+7;
+        x2:=x2+10;
+        y2:=y2+7;
+       end;
+     if(lookchange=2)then
+       begin
+         x1:=x1-10;
+         y1:=y1+7;
+         x2:=x2-10;
+         y2:=y2+7;
+       end;
+     if(lookchange>2)then
+       begin
+         x1:=x1+10;
+         x2:=x2+10;
+       end;
+    if(lookchange=1)then
+      if(x2>500) and (y2>300) then
+        begin
+          x1:=510;
+          y1:=10;
+          x2:=450;
+          y2:=70;
+          lookchange:=2;
+        end;
+    if(lookchange=2)then
+      if(x2<25) and (y2>300)then
+        begin
+          x1:=10;
+          y1:=10;
+          x2:=90;
+          y2:=90;
+          lookchange:=3;
+        end;
+    if(lookchange=3)then
+      if(x2>500)then
+        begin
+          x1:=10;
+          y1:=110;
+          x2:=90;
+          y2:=190;
+          lookchange:=4;
+        end;
+      if(lookchange=4)then
+        if(x2>500)then
+          begin
+            x1:=10;
+            y1:=200;
+            x2:=90;
+            y2:=280;
+            lookchange:=5;
+          end;
+      if(lookchange=5)then
+        if(x2>500)then
+          begin
+            x1:=10;
+            y1:=10;
+            x2:=100;
+            y2:=100;
+            lookchange:=1;
+          end;
+      wait(random(25)+100);
+      c:=c+1;
+      if(c=215)then
+        begin
+          result:=false;
+          exit;
+        end;
+    if(istextat2(9,9,'Talk',100))then
+      repeat
+        if(istextat2(z1,z2,name,100))then
+          break;
+        z1:=z1+1;
+      until(z1=70);
+    until(istextat2(z1,z2,name,100));
+   wait(random(100)+100);
+   getmousepos(a,b);
+   clickHuman(a,b,false);
+   wait(random(300)+400);
+   findbitmaptolerancein(talktopic,a,b,10,10,500,330,100);
+   if(tradeb=true)then
+     begin
+       findbitmaptolerancein(tradepic,a,b,10,10,500,330,100);
+       if(istextat2(a+28,b-4,name,100))then
+         begin
+           tradeb:=false;
+           result:=true;
+           a:=a+random(20);
+           b:=b+random(4);
+           MouseC(a,b,1);
+         end;
+     end;
+   if(istextat2(a+26,b-1,name,100))then
+     begin
+       result:=true;
+       a:=a+random(20);
+       b:=b+random(4);
+       MouseC(a,b,1);
+     end;
+   until(result=true);
+end;
+
+function TradeNpc(name : string; color : integer) : boolean;
+begin
+  tradeb:=true;
+  if(talkto(name,color))then
+    result:=true
+  else
+    result:=false;
+end;
+
+procedure SetupSquig;
+var
+  z1, z2 : integer;
+begin
+  loadchars('');
+  LoadinventoryPics;
+  LoadBankPics;
+  LoadRandomPics;
+  LoadBoxPics;
+  z1:=9;
+  z2:=9;
+  setmousemode(false);
+  tradeb:=false;
+  totalboxes:=0;
+  screenshots:=true;
+  checktext:=true;
+  checkfights:=true;
+  checkboxes:=true;
+  checklamps:=true;
+  checkmods:=true;
+  direction:='';
+  LampSkill:='Attack';
+  user:='';
+  pass:='';
+  writeln('');
+  Writeln('Using Squig Version 2.2 - Created by Squigglyo!');
+  writeln('');
+end;

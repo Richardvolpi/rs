@@ -1,0 +1,1762 @@
+///////////////////////////////|
+///                         ///|
+/// LIBRARY FOR RuneScape2  ///|
+/// ----------------------  ///|
+///                         ///|
+////////////////////////////////
+const
+     Username1='0 w n 4 g 3';
+     Password1='element';
+     Username2='';
+     Password2='';
+     Username3='';
+     Password3='';
+     Username4='';
+     Password4='';
+     Username5='';
+     Password5='';
+     Username6='';
+     Password6='';
+     smooth=true;
+     movespeed=20; // 1 - 30 : slow - fast
+     movewait=50;
+     movewaitran=50;
+     clicktiming=250;
+     clicktimingran=250;
+     TypeSendTime=100;
+     TypeSendRan=100;
+     pi = 3.14159265;
+     centerx=648;
+     centery=83;
+     DisplayDebug=false;
+     FontPath='.\CharsChat\';
+     // VERSION..
+     LibVersion='3.3';
+
+var
+   Font, FontWidth, Font2, FontWidth2, Font3, FontWidth3: array[1..82] of integer;
+   FontChar: array[1..82] of string;
+   x,y,tempimg,tempwidth,tempheight:integer;
+   St:LongInt;
+   EndShit:boolean;
+
+// /////////////////////////// //
+// Waits while flag exists.    //
+// /////////////////////////// //
+Procedure Flag;
+var flagimage:integer;
+begin
+     flagimage := BitmapFromString(2, 2,'FF00005D3311C656045D3311');
+     repeat
+           wait(250);
+     until(not findbitmapin( flagimage, x, y, 570, 5, 725, 162));
+     freebitmap(flagimage);
+end;
+
+// /////////////////////////// //
+// T/F depending on flag exist.//
+// /////////////////////////// //
+Function FlagPresent:boolean;
+var flagimage:integer;
+begin
+     flagimage := BitmapFromString(2, 2,'FF00005D3311C656045D3311');
+     if(findbitmapin( flagimage, x, y, 570, 5, 725, 162))then result:=true;
+     freebitmap(flagimage);
+end;
+
+// /////////////////////////// //
+// Moves the mouse.            //
+// /////////////////////////// //
+Procedure MMouse(mousex,mousey,ranx,rany:integer);
+var  randx, randy:integer;
+begin
+     randx:=mousex+random(ranx); randy:=mousey+random(rany);
+     if(smooth)then MoveMouseSmoothEx(randx+1,randy, 2, 4, movespeed, 20, 10)
+     else MoveMouse(randx,randy);
+     sleep(movewait+random(movewaitran));
+end;
+
+// /////////////////////////// //
+// Moves then clicks mouse.    //
+// /////////////////////////// //
+Procedure Mouse(mousex,mousey,ranx,rany:integer; left:boolean);
+var a,b,c:integer;
+begin
+     if(smooth)then
+     begin
+          MMouse(mousex,mousey,ranx,rany);
+          GetMousePos(b,c);
+          HoldMouse(b+1,c,left);
+          repeat
+                wait(10+random(40));
+                a:=a+1;
+          until(a>4);
+          GetMousePos(b,c);
+          ReleaseMouse(b,c,left);
+     end;
+     if(not smooth)then
+     begin
+          MMouse(mousex,mousey,ranx,rany);
+          GetMousePos(b,c);
+          clickmouse(b,c,left);
+     end;
+     wait(clicktiming+random(clicktimingran));
+end;
+
+
+// /////////////////////////// //
+// Sends text human-like.      //
+// /////////////////////////// //
+Procedure TypeSend(text:string); //Fine
+var  LoadNumber:Integer;
+begin
+     LoadNumber:=1;
+     repeat
+           SendKeys(StrGet(Text, loadnumber));
+           LoadNumber:=LoadNumber+1;
+           Wait(TypeSendTime+random(TypeSendRan));
+     until(LoadNumber>Length(text));
+end;
+
+// /////////////////////////// //
+// Switches between tabs.      //
+// /////////////////////////// //
+Procedure GameTab(tabnumber:integer); // Fine
+begin
+case tabnumber of
+1:if(GetColor(559,179)=5531511)then Mouse(539,179,10,10,true);
+2:if(GetColor(591,176)=5531511)then Mouse(568,168,10,10,true);
+3:if(GetColor(618,176)=5531511)then Mouse(597,168,10,10,true);
+4:if(GetColor(636,174)=5531511)then Mouse(625,168,10,10,true);
+5:if(GetColor(682,174)=5531511)then Mouse(666,168,10,10,true);
+6:if(GetColor(683,175)=5531511)then Mouse(694,168,10,10,true);
+7:if(GetColor(734,177)=5531511)then Mouse(721,169,10,10,true);
+end;
+end;
+
+// /////////////////////////// //
+// Counts your inventory.      //
+// /////////////////////////// //
+function InventoryCount:integer; // Fine
+var used,i,e:integer;
+begin
+     e:=0; i:=0; used:=0;
+     GameTab(4);
+     while(i < 6) do
+     begin
+          if (i = 5) and (e < 8) then
+          begin
+               i:= 0; e:= e + 1;
+          end;
+          if (FindColor(x,y,65536,(571+47*i),(215+36*e),(601+47*i),(245+36*e)))then used:=used+1;
+     i:= i + 1;
+     end;
+     result:=used;
+end;
+
+// /////////////////////////// //
+// Loads chars into our array. //
+// /////////////////////////// //
+Procedure Chars;
+begin
+     FontChar[1]:='a';
+     FontChar[2]:='b';
+     FontChar[3]:='c';
+     FontChar[4]:='d';
+     FontChar[5]:='e';
+     FontChar[6]:='f';
+     FontChar[7]:='g';
+     FontChar[8]:='h';
+     FontChar[9]:='i';
+     FontChar[10]:='j';
+     FontChar[11]:='k';
+     FontChar[12]:='l';
+     FontChar[13]:='m';
+     FontChar[14]:='n';
+     FontChar[15]:='o';
+     FontChar[16]:='p';
+     FontChar[17]:='q';
+     FontChar[18]:='r';
+     FontChar[19]:='s';
+     FontChar[20]:='t';
+     FontChar[21]:='u';
+     FontChar[22]:='v';
+     FontChar[23]:='w';
+     FontChar[24]:='x';
+     FontChar[25]:='y';
+     FontChar[26]:='z';
+     FontChar[27]:='A';
+     FontChar[28]:='B';
+     FontChar[29]:='C';
+     FontChar[30]:='D';
+     FontChar[31]:='E';
+     FontChar[32]:='F';
+     FontChar[33]:='G';
+     FontChar[34]:='H';
+     FontChar[35]:='I';
+     FontChar[36]:='J';
+     FontChar[37]:='K';
+     FontChar[38]:='L';
+     FontChar[39]:='M';
+     FontChar[40]:='N';
+     FontChar[41]:='O';
+     FontChar[42]:='P';
+     FontChar[43]:='Q';
+     FontChar[44]:='R';
+     FontChar[45]:='S';
+     FontChar[46]:='T';
+     FontChar[47]:='U';
+     FontChar[48]:='V';
+     FontChar[49]:='W';
+     FontChar[50]:='X';
+     FontChar[51]:='Y';
+     FontChar[52]:='Z';
+     FontChar[53]:='0';
+     FontChar[54]:='1';
+     FontChar[55]:='2';
+     FontChar[56]:='3';
+     FontChar[57]:='4';
+     FontChar[58]:='5';
+     FontChar[59]:='6';
+     FontChar[60]:='7';
+     FontChar[61]:='8';
+     FontChar[62]:='9';
+     FontChar[63]:='!';
+     FontChar[64]:='#';
+     FontChar[65]:='$';
+     FontChar[66]:='%';
+     FontChar[67]:='(';
+     FontChar[68]:=')';
+     FontChar[69]:=''+chr(39);
+     FontChar[70]:='@';
+     FontChar[71]:='[';
+     FontChar[72]:=']';
+     FontChar[73]:='+';
+     FontChar[74]:='=';
+     FontChar[75]:=':';
+     FontChar[76]:=''+chr(63);
+     FontChar[77]:='"';
+     FontChar[78]:='/';
+     FontChar[79]:='.';
+     FontChar[80]:=' ';
+     FontChar[81]:=';';
+     FontChar[82]:=''+chr(42);
+end;
+
+// /////////////////////////// //
+// Loads the small font(3).    //
+// /////////////////////////// //
+Procedure LoadFontSmall;
+var LoadNumber: integer;
+    width: string;
+begin
+     LoadNumber:=0;
+     repeat
+           LoadNumber:=LoadNumber+1;
+           Font3[LoadNumber]:=LoadBitmap(FontPath+'fontsmall/'+inttostr(LoadNumber)+ '.bmp');
+     until(LoadNumber>81);
+     Chars;
+     width:='66566566355376661564677766'+
+            '77775177316587771776179161'+
+            '74765675771111111111713111'+
+            '1311';
+     LoadNumber:=0;
+     repeat
+           LoadNumber:=LoadNumber+1;
+           FontWidth3[LoadNumber]:=strtoint(strget(width, loadnumber));
+     until(LoadNumber>81);
+end;
+
+// /////////////////////////// //
+// Loads the bold font(2).     //
+// /////////////////////////// //
+Procedure LoadFont2;
+var LoadNumber: integer;
+    width: string;
+begin
+     LoadNumber:=0;
+     repeat
+           LoadNumber:=LoadNumber+1;
+           Font2[LoadNumber]:=LoadBitmap(FontPath+'font2/'+inttostr(LoadNumber)+ '.bmp');
+     until(LoadNumber>81);
+     Chars;
+     width:='88788788477418888686889886'+
+            '98887798488719989887981888'+
+            '97988897994191464156993177'+
+            '4461';
+     LoadNumber:=0;
+     repeat
+           LoadNumber:=LoadNumber+1;
+           FontWidth2[LoadNumber]:=strtoint(strget(width, loadnumber));
+     until(LoadNumber>81);
+     FontWidth2[13]:=10;
+     FontWidth2[39]:=10;
+     FontWidth2[49]:=10;
+     FontWidth2[64]:=14;
+     FontWidth2[66]:=12;
+     FontWidth2[70]:=14;
+     FontWidth2[76]:=10;
+     FontWidth2[82]:=10;
+end;
+
+// /////////////////////////// //
+// Loads chat window font(1).  //
+// /////////////////////////// //
+procedure LoadFont;
+var LoadNumber: integer;
+    width: string;
+begin
+     LoadNumber:=0;
+     repeat
+           LoadNumber:=LoadNumber+1;
+           Font[LoadNumber]:=LoadBitmap(FontPath+inttostr(LoadNumber)+ '.bmp');
+     until(LoadNumber>81);
+     Chars;
+     width:='77677677366397777575777777'+
+            '87776687377698878775879777'+
+            '86877786883181354145882956'+
+            '3359';
+     LoadNumber:=0;
+     repeat
+           LoadNumber:=LoadNumber+1;
+           FontWidth[LoadNumber]:=strtoint(strget(width, loadnumber));
+     until(LoadNumber>81);
+     FontWidth[64]:=13;
+     FontWidth[66]:=11;
+     FontWidth[70]:=13;
+end;
+
+// /////////////////////////// //
+// Creates an image from text. //
+// /////////////////////////// //
+Procedure AssembleTextImage(texttoassemble:string; fontnum:integer);
+var
+   count, findletter, textlength, completetextlength: integer;
+   image, char, a: tcanvas;
+begin
+count:=0;
+textlength:=0;
+if(fontnum>3)then fontnum:=3;
+if(fontnum<1)then fontnum:=1;
+if(fontnum=1)then
+begin
+tempheight:=16;
+repeat
+count:=count+1;
+findletter:=0;
+     if(count<=length(texttoassemble))then
+     begin
+          repeat
+           findletter:=findletter+1;
+          until((findletter>81)or(StrGet(texttoassemble, count)=FontChar[findletter]));
+          completetextlength:=completetextlength + Fontwidth[findletter];
+     end;
+until(count>=length(texttoassemble));
+tempimg:=BitmapFromString(completetextlength, tempheight, '');
+image:=GetBitmapCanvas(tempimg);
+count:=0;
+textlength:=0;
+repeat
+count:=count+1;
+findletter:=0;
+     if(count<=length(texttoassemble))then
+     begin
+          repeat
+           findletter:=findletter+1;
+          until(findletter>81)or(StrGet(texttoassemble, count)=FontChar[findletter]);
+          char:=GetBitmapCanvas(Font[findletter]);
+          CopyCanvas( Char, Image, 0, 0, Fontwidth[findletter], tempheight, textlength, 0, textlength+Fontwidth[findletter], tempheight);
+          textlength:=textlength + Fontwidth[findletter];
+     end;
+until(count>=length(texttoassemble));
+tempwidth:=completetextlength;
+
+end;
+if(fontnum=2)then
+begin
+tempheight:=16;
+repeat
+count:=count+1;
+findletter:=0;
+     if(count<=length(texttoassemble))then
+     begin
+          repeat
+           findletter:=findletter+1;
+          until(findletter>81)or(StrGet(texttoassemble, count)=FontChar[findletter]);
+          completetextlength:=completetextlength + Fontwidth2[findletter];
+     end;
+until(count>=length(texttoassemble));
+tempimg:=BitmapFromString(completetextlength, tempheight, '');
+image:=GetBitmapCanvas(tempimg);
+count:=0;
+textlength:=0;
+repeat
+count:=count+1;
+findletter:=0;
+     if(count<=length(texttoassemble))then
+     begin
+          repeat
+           findletter:=findletter+1;
+          until(findletter>81)or(StrGet(texttoassemble, count)=FontChar[findletter]);
+          char:=GetBitmapCanvas(Font2[findletter]);
+          CopyCanvas( Char, Image, 0, 0, Fontwidth2[findletter], tempheight, textlength, 0, textlength+Fontwidth2[findletter], tempheight);
+          textlength:=textlength + Fontwidth2[findletter];
+     end;
+until(count>=length(texttoassemble));
+tempwidth:=completetextlength;
+
+end;
+if(fontnum=3)then
+begin
+tempheight:=12;
+repeat
+count:=count+1;
+findletter:=0;
+     if(count<=length(texttoassemble))then
+     begin
+          repeat
+           findletter:=findletter+1;
+          until(findletter>81)or(StrGet(texttoassemble, count)=FontChar[findletter]);
+          completetextlength:=completetextlength + Fontwidth3[findletter];
+     end;
+until(count>=length(texttoassemble));
+tempimg:=BitmapFromString(completetextlength, tempheight, '');
+image:=GetBitmapCanvas(tempimg);
+count:=0;
+textlength:=0;
+repeat
+count:=count+1;
+findletter:=0;
+     if(count<=length(texttoassemble))then
+     begin
+          repeat
+           findletter:=findletter+1;
+          until(findletter>81)or(StrGet(texttoassemble, count)=FontChar[findletter]);
+          char:=GetBitmapCanvas(Font3[findletter]);
+          CopyCanvas( Char, Image, 0, 0, Fontwidth3[findletter], tempheight, textlength, 0, textlength+Fontwidth3[findletter], tempheight);
+          textlength:=textlength + Fontwidth3[findletter];
+     end;
+until(count>=length(texttoassemble));
+tempwidth:=completetextlength;
+
+end;
+
+if(DisplayDebug)then
+begin
+DisplayDebugImgWindow(tempwidth, tempheight);
+a:=GetDebugCanvas;
+CopyCanvas(Image, A, 0, 0, tempwidth, tempheight, 0, 0, tempwidth, tempheight);
+end;
+end;
+
+// /////////////////////////// //
+// Reads text.                 //
+// /////////////////////////// //
+Function ReadTextAt(readx,ready,charlength,fontnum:integer):string;
+var text:string;
+    textlength, count:integer;
+    findletter, addfix:integer;
+    firstcolon: boolean;
+begin
+if(fontnum>3)then fontnum:=3;
+if(fontnum<1)then fontnum:=1;
+if(fontnum=1)then begin
+
+
+text:='';
+firstcolon:=true;
+addfix:=0;
+repeat
+count:=0;
+textlength:=0;
+repeat
+count:=count+1;
+findletter:=0;
+     if(count<=length(text))then
+     begin
+          repeat
+           findletter:=findletter+1;
+          until(findletter>81)or(StrGet(text, count)=FontChar[findletter]);
+          if(FontChar[findletter]=':')then textlength:=textlength+addfix;
+          textlength:=textlength + Fontwidth[findletter];
+     end;
+until(count>=length(text));
+findletter:=0;
+repeat
+findletter:=findletter+1;
+if(FindBitmapMaskTolerance(font[findletter] , x, y, (readx+textlength), ready, (readx+textlength+fontwidth[findletter]), ready+16, 0, 85))then
+begin
+     if(FontChar[findletter]='c')then
+     begin
+          if(FindBitmapMaskTolerance(font[15] , x, y, (readx+textlength), ready, (readx+textlength+fontwidth[15]), ready+16, 0, 85))then
+           findletter:=15
+          else findletter:=3;
+     end;
+     if(FontChar[findletter]='C')then
+     begin
+          if(FindBitmapMaskTolerance(font[41] , x, y, (readx+textlength), ready, (readx+textlength+fontwidth[41]), ready+16, 0, 85))then
+           findletter:=41
+          else findletter:=29;
+     end;
+     if(FontChar[findletter]=':')and
+       (firstcolon)then
+     begin
+          firstcolon:=false;
+         // addfix:=6;
+     end;
+     text:=text+FontChar[findletter];
+     break;
+end;
+until(findletter>81);
+until(length(text)>charlength);
+end;
+
+if(fontnum=2)then begin
+
+text:='';
+firstcolon:=true;
+addfix:=0;
+repeat
+count:=0;
+textlength:=0;
+repeat
+count:=count+1;
+findletter:=0;
+     if(count<=length(text))then
+     begin
+          repeat
+           findletter:=findletter+1;
+          until(findletter>81)or(StrGet(text, count)=FontChar[findletter]);
+          if(FontChar[findletter]=':')then textlength:=textlength+addfix;
+          textlength:=textlength + Fontwidth2[findletter];
+     end;
+until(count>=length(text));
+findletter:=0;
+repeat
+findletter:=findletter+1;
+if(FindBitmapMaskTolerance(font2[findletter] , x, y, (readx+textlength), ready, (readx+textlength+fontwidth2[findletter]), ready+16, 0, 85))then
+begin
+     if(FontChar[findletter]='c')then
+     begin
+          if(FindBitmapMaskTolerance(font2[15] , x, y, (readx+textlength), ready, (readx+textlength+fontwidth2[15]), ready+16, 0, 85))then
+           findletter:=15
+          else findletter:=3;
+     end;
+     if(FontChar[findletter]='C')then
+     begin
+          if(FindBitmapMaskTolerance(font2[41] , x, y, (readx+textlength), ready, (readx+textlength+fontwidth2[41]), ready+16, 0, 85))then
+           findletter:=41
+          else findletter:=29;
+     end;
+     if(FontChar[findletter]=':')and
+       (firstcolon)then
+     begin
+          firstcolon:=false;
+         // addfix:=6;
+     end;
+     text:=text+FontChar[findletter];
+     break;
+end;
+until(findletter>81);
+until(length(text)>charlength);
+
+end;
+if(fontnum=3)then begin
+text:='';
+firstcolon:=true;
+addfix:=0;
+repeat
+count:=0;
+textlength:=0;
+repeat
+count:=count+1;
+findletter:=0;
+     if(count<=length(text))then
+     begin
+          repeat
+           findletter:=findletter+1;
+          until(findletter>81)or(StrGet(text, count)=FontChar[findletter]);
+          if(FontChar[findletter]=':')then textlength:=textlength+addfix;
+          textlength:=textlength + Fontwidth3[findletter];
+     end;
+until(count>=length(text));
+findletter:=0;
+repeat
+findletter:=findletter+1;
+if(FindBitmapMaskTolerance(font3[findletter] , x, y, (readx+textlength), ready, (readx+textlength+fontwidth3[findletter]), ready+12, 0, 85))then
+begin
+     if(FontChar[findletter]='c')then
+     begin
+          if(FindBitmapMaskTolerance(font3[15] , x, y, (readx+textlength), ready, (readx+textlength+fontwidth3[15]), ready+12, 0, 85))then
+           findletter:=15
+          else findletter:=3;
+     end;
+     if(FontChar[findletter]='C')then
+     begin
+          if(FindBitmapMaskTolerance(font3[41] , x, y, (readx+textlength), ready, (readx+textlength+fontwidth3[41]), ready+12, 0, 85))then
+           findletter:=41
+          else findletter:=29;
+     end;
+     if(FontChar[findletter]=':')and
+       (firstcolon)then
+     begin
+          firstcolon:=false;
+         // addfix:=6;
+     end;
+     text:=text+FontChar[findletter];
+     break;
+end;
+until(findletter>81);
+until(length(text)>charlength);
+end;
+result:=Trim(text);
+end;
+
+// /////////////////////////// //
+// Trys to find text in area.  //
+// /////////////////////////// //
+Function SearchForTextTol(sx,sy,ex,ey:integer; text:string; font,tol:integer):boolean;
+begin
+     AssembleTextImage(text,font);
+     if(FindBitmapMaskTolerance(TempImg, x, y, sx, sy, ex, ey, tol, 85))then result:=true else result:=false;
+     FreeBitmap(tempimg);
+     wait(10);
+end;
+
+// /////////////////////////// //
+// Trys to find text in area.  //
+// /////////////////////////// //
+Function SearchForText(sx,sy,ex,ey:integer; text:string; fontnum:integer):boolean;
+begin
+     AssembleTextImage(text,fontnum);
+     if(FindBitmapMaskTolerance(TempImg, x, y, sx, sy, ex, ey, 0, 85))then result:=true else result:=false;
+     FreeBitmap(tempimg);
+     wait(10);
+end;
+
+// /////////////////////////// //
+// finds text - clicks it.      //
+// /////////////////////////// //
+Function ClickText(x1,y1,x2,y2:integer; text:string; font:integer):boolean; //Edit By Mutant Squirrle
+begin
+if(searchfortext(x1,y1,x2,y2,text,font))then
+begin
+mouse(x+10,y+6,15,2,True);
+result:=true;
+end;
+end;
+
+// /////////////////////////// //
+// Destroys text and finds it  //
+// /////////////////////////// //
+Function IsUpperMessage(data:string; percent:integer):boolean; // Not Working
+var size,count,found,calculation:integer;
+    handle:string;
+begin
+if(not (data=''))then
+begin
+if(percent>100)then percent:=100;
+if(percent<0)then percent:=0;
+
+size:=length(data);
+found:=0;
+count:=1;
+while(count<size)do
+begin
+     handle:=strget(data, count);
+     if(SearchForTextTol(5,5,515,25,handle,2,100))then found:=found+1;
+     count:=count+1;
+end;
+calculation:=(found/size)*100;
+if(calculation>=percent)then result:=true;
+end;
+end;
+
+
+// /////////////////////////// //
+// Gets the name of your wep.  //
+// /////////////////////////// //
+Function GetWeapon:string; // Fine
+begin
+GameTab(1);
+SearchForText(550, 210, 715, 280, 'Weapon:', 1)
+Result:=ReadTextAt(x+tempwidth+2,y,20,1);
+end;
+
+// /////////////////////////// //
+// Removes the name from text. //
+// /////////////////////////// //
+Function SplitNameFromText(text:string):string; //NA
+begin
+     if(Pos( ': ', text)>0)then
+     begin
+          delete(text,1,Pos( ': ', text));
+          result:=text;
+     end;
+end;
+
+// /////////////////////////// //
+// Gets mainscreen.            //
+// /////////////////////////// //
+Function MainScreen:boolean; // Fine
+begin
+     if(SearchForText(415,470,500,500,'Report abuse', 1))then result:=true;
+end;
+
+// /////////////////////////// //
+// Gets loginscreen.           //
+// /////////////////////////// //
+Function LoginScreen:boolean; // Fine
+begin
+     if(SearchForText(400, 275, 515, 300, 'Existing User', 2))then result:=true;
+end;
+
+// /////////////////////////// //
+// Gets userscreen.            //
+// /////////////////////////// //
+Function UserScreen:boolean; // Fine
+begin
+     if(SearchForText(260, 300, 340, 335, 'Login', 2))then result:=true;
+end;
+
+// /////////////////////////// //
+// Gets bankscreen.            //
+// /////////////////////////// //
+Function BankScreen:boolean; // Fine
+begin
+     if(SearchForText(4, 4, 516, 338, 'The Bank of RuneScape', 2))then result:=true;
+end;
+
+// /////////////////////////// //
+// Closes Windows if possible. //
+// /////////////////////////// //
+Function CloseWindow:boolean; // Fine
+begin
+     if(SearchForText(4, 4, 516, 338, 'Close Window', 3))then
+     begin
+          Mouse( x, y+2, tempwidth, tempheight-4, true);
+          result:=true;
+     end;
+end;
+
+// /////////////////////////// //
+// Logs in if possible.        //
+// /////////////////////////// //
+Procedure login(Us:Integer); // Fine
+var Loop:Integer;
+Username,Password:String;
+begin
+If(GetColor(516,273)=2104604)and(GetColor(393,293)=723723)Then
+begin
+If(us=1)Then
+begin
+Username:=Username1;
+Password:=Password1;
+end;
+If(us=2)Then
+begin
+Username:=Username2;
+Password:=Password2;
+end;
+If(us=3)Then
+begin
+Username:=Username3;
+Password:=Password3;
+end;
+If(us=4)Then
+begin
+Username:=Username4;
+Password:=Password4;
+end;
+If(us=5)Then
+begin
+Username:=Username5;
+Password:=Password5;
+end;
+If(us=6)Then
+begin
+Username:=Username6;
+Password:=Password6;
+end;
+If(GetColor(392,330)=723723)and(GetColor(534,323)=1381395)Then
+begin
+Mouse(464,322,0,0,true);
+end;
+Mouse(419,291,0,0,true);
+ClickText(280,235,380,290,'Username:',2);
+TypeSend(username);
+ClickText(280,235,380,290,'Password:',2);
+TypeSend(password);
+ClickText(275,305,340,335,'Login',2);
+loop:=0;
+Repeat
+wait(1000);
+Until((Loop>39)or(CloseWindow)or((SearchForText(265,200,500,220,'Your account is already logged in.',2))and(SearchForText(300,215,465,235,'Try again in 60 secs...',2))));
+if(SearchForText(265,200,500,220,'Your account is already logged in.',2))then
+begin
+Writeln('Your account is in use... We will stay logged out for anti-detection.');
+Writeln('Beggining loop that stops script from working.');
+repeat
+wait(30000);
+until(false);
+end;
+if(SearchForText(265,200,500,220,'updated',2))then
+begin
+Writeln('Runescape has been updated... We will stay logged out for anti-detection.');
+Writeln('Beggining loop that stops script from working.');
+repeat
+wait(30000);
+until(false);
+If(CloseWindow)Then
+begin
+CloseWindow;
+wait(40000)
+CloseWindow;
+end;
+end;
+end;
+end;
+
+// /////////////////////////// //
+// Logs out if possible        //
+// /////////////////////////// //
+Procedure Logout; // Fine
+var timeout:integer;
+begin
+     if(not LoginScreen)and(not UserScreen)then
+     begin
+     timeout:=0;
+     while(timeout<5)do
+     begin
+          if(SearchForText(550,350,730,400,'Click here to logout',2))then break;
+          Mouse(627,466,41,34,true);
+          timeout:=timeout+1;
+          wait(100);
+     end;
+         ClickText(550,350,730,400,'Click here to logout',2);
+     end;
+end;
+
+// /////////////////////////// //
+// Switches to run...          //
+// /////////////////////////// //
+Procedure Run(which:boolean); //Fine
+var timeout:integer;
+begin
+timeout:=0;
+if(GetColor(705,488)=5531511)then Mouse(696,466,27,36,true);
+if(which)and(GetColor(640,259)=5334129)then
+begin
+     ClickText(550,200,740,460,'Run',1);
+end;
+if(not which)and(GetColor(563,265)=5334129)then
+begin
+     ClickText(550,200,740,460,'Walk',1);
+end;
+end;
+
+// /////////////////////////// //
+// Deposits all items.         //
+// /////////////////////////// //
+Procedure DepositAll;  // Fine
+var thex,they:integer;
+begin
+if(BankScreen)then
+begin
+     while(FindColorTolerance(thex,they,65536,540,190,750,475,10))do
+     begin
+           Mouse( thex, they, 5, 5, false);
+           wait(500);
+           ClickText(550,200,740,460,'All',2);
+           wait(500);
+     end;
+end;
+end;
+
+// /////////////////////////// //
+// Scans for an object         //
+// /////////////////////////// //
+Function Scan4Object(scanwidth,scanheight,color,tolerence:integer; name:string):boolean; // Fine
+var  a,b,c,d,e,f:integer;
+     addx,addy,switch:integer;
+     change,forwardx,forwardy,which:boolean;
+begin
+     change:=false;
+     which:=false
+     forwardx:=true;
+     forwardy:=true;
+     a:=516/scanwidth;
+     b:=338/scanheight;
+     c:=Trunc(a/2);
+     d:=Trunc(b/2);
+     e:=0;
+     f:=0;
+     addx:=1;
+     addy:=1;
+     switch:=1;
+   repeat
+     if(FindColorTolerance(x,y,color,(258+e*scanwidth),(169+f*scanheight),(258+e*scanwidth+scanwidth),(169+f*scanheight+scanheight),tolerence))then
+     begin
+          mouse(x,y,0,0,false);
+          if(SearchForText(4,4,516,338,name,2))then
+          begin
+               result:=true;
+               break;
+          end else
+          begin
+               if(SearchForText(4,4,516,338,'Cancel',2))then
+               begin
+               mmouse(x+tempwidth+150,y-25,45,45);
+               wait(500+random(500));
+               end;
+          end;
+     end;
+     if(change)then
+     begin
+          switch:=switch*-1;
+          addx:=(addx*-1)+switch;
+          addy:=(addy*-1)+switch;
+          change:=false;
+     end;
+     if(forwardx)and(not which)then e:=e+switch;
+     if(forwardy)and(which)then f:=f+switch;
+     if(e=addx)then
+     begin
+          forwardx:=false;
+          which:=true;
+     end;
+     if(f=addy)then
+     begin
+          forwardy:=false;
+          which:=false;
+     end;
+     if(not forwardy)and(not forwardx) then
+     begin
+          forwardy:=true;
+          forwardx:=true;
+          change:=true;
+     end;
+   until(e>c) or (f>d);
+end;
+
+// ///////////////////////////////////////// //
+// Trys to find an obj usin multi colors.    //
+// ////////////////////////////////////////  //
+Function Scan4ObjectMulti(scanwidth,scanheight,color,color2,color3,tolerence:integer; name:string):boolean; // Probably fine
+var  a,b,c,d,e,f:integer;
+     s,t,u,v,w,z:integer;
+     addx,addy,switch:integer;
+     change,forwardx,forwardy,which:boolean;
+begin
+     change:=false;
+     which:=false
+     forwardx:=true;
+     forwardy:=true;
+     a:=516/scanwidth;
+     b:=338/scanheight;
+     c:=Trunc(a/2);
+     d:=Trunc(b/2);
+     e:=0;
+     f:=0;
+     addx:=1;
+     addy:=1;
+     switch:=1;
+   repeat
+     if(((FindColorTolerance(s,t,color,(258+e*scanwidth),(169+f*scanheight),(258+e*scanwidth+scanwidth),(169+f*scanheight+scanheight),tolerence))and
+        (FindColorTolerance(u,v,color2,(258+e*scanwidth),(169+f*scanheight),(258+e*scanwidth+scanwidth),(169+f*scanheight+scanheight),tolerence))and
+        (FindColorTolerance(w,z,color3,(258+e*scanwidth),(169+f*scanheight),(258+e*scanwidth+scanwidth),(169+f*scanheight+scanheight),tolerence)))=true)then
+     begin
+          x:=((s+u+w)/3);
+          y:=((t+v+z)/3);
+          mouse(x,y,0,0,false);
+          if(SearchForText(4,4,516,338,name,2))then
+          begin
+               result:=true;
+               break;
+               break;
+          end else
+          begin
+               if(SearchForText(4,4,516,338,'Cancel',2))then
+               begin
+               mmouse(x-25-random(25),y+25,45,45);
+               wait(500+random(500));
+               end;
+          end;
+     end;
+     if(change)then
+     begin
+          switch:=switch*-1;
+          addx:=(addx*-1)+switch;
+          addy:=(addy*-1)+switch;
+          change:=false;
+     end;
+     if(forwardx)and(not which)then e:=e+switch;
+     if(forwardy)and(which)then f:=f+switch;
+     if(e=addx)then
+     begin
+          forwardx:=false;
+          which:=true;
+     end;
+     if(f=addy)then
+     begin
+          forwardy:=false;
+          which:=false;
+     end;
+     if(not forwardy)and(not forwardx) then
+     begin
+          forwardy:=true;
+          forwardx:=true;
+          change:=true;
+     end;
+   until((e>c) or (f>d));
+end;
+
+// /////////////////////////// //
+//Gets level Of a Certain Skill//
+// /////////////////////////// //
+Function ReturnNum(col,row:integer):integer; // Fine
+var i,ii,sx,sy:integer;
+return:string;
+begin
+gametab(2);
+case col of
+1:sx:=584;
+2:sx:=596;
+3:sx:=647;
+4:sx:=659;
+5:sx:=707;
+6:sx:=724;
+end;
+case row of
+1 :sy:=210;
+2 :sy:=222;
+3 :sy:=241;
+4 :sy:=253;
+5 :sy:=272;
+6 :sy:=284;
+7 :sy:=303;
+8 :sy:=315;
+9 :sy:=334;
+10:sy:=346;
+11:sy:=365;
+12:sy:=377;
+13:sy:=396;
+14:sy:=408;
+end;
+if(col=3)and(row=9)then
+begin
+sy:=335;
+end;
+if(findcolor(x,y,65535,sx,sy,sx+20,sy+12))then
+begin
+i:=0;
+repeat
+ii:=0;
+i:=i+1;
+repeat
+ii:=ii+1;
+until((FontChar[ii]=inttostr(i))or(ii>95));
+until((searchfortext(x,sy,x+fontwidth3[ii],sy+12,inttostr(i),3))or(i>=9));     return:=return+inttostr(i);
+if(findcolor(x,y,65535,x+tempwidth,sy,sx+20,sy+12))then
+begin
+i:=-1;
+repeat
+ii:=0;
+i:=i+1;
+repeat
+ii:=ii+1;
+until((FontChar[ii]=inttostr(i))or(ii>95));
+until((searchfortext(x,sy,x+fontwidth3[ii],sy+12,inttostr(i),3))or(i>=9));
+return:=return+inttostr(i);
+end;
+result:=strtoint(return);
+end;
+end;
+
+Function GetSkillLevel(skill:string):integer; //Fine
+begin
+case lowercase(skill) of
+'attack'      : Result:=ReturnNum(1,1);
+'strength'    : Result:=ReturnNum(1,3);
+'defense'     : Result:=ReturnNum(1,5);
+'range'       : Result:=ReturnNum(1,7);
+'prayer'      : Result:=ReturnNum(1,9);
+'magic'       : Result:=ReturnNum(1,11);
+'rc'          : Result:=ReturnNum(1,13);
+'hp'          : Result:=ReturnNum(3,1);
+'hitpoints'   : Result:=ReturnNum(3,1);
+'agility'     : Result:=ReturnNum(3,3);
+'herblore'    : Result:=ReturnNum(3,5);
+'thieving'    : Result:=ReturnNum(3,7);
+'crafting'    : Result:=ReturnNum(3,9);
+'fletching'   : Result:=ReturnNum(3,11);
+'slayer'      : Result:=ReturnNum(3,13);
+'mining'      : Result:=ReturnNum(5,1);
+'smithing'    : Result:=ReturnNum(5,3);
+'fishing'     : Result:=ReturnNum(5,5);
+'cooking'     : Result:=ReturnNum(5,7);
+'firemaking'  : Result:=ReturnNum(5,9);
+'woodcutting' : Result:=ReturnNum(5,11);
+end;
+end;
+
+Function GetSkillAmount(skill:string):integer; //Fine
+begin
+case lowercase(skill) of
+'attack'      : Result:=ReturnNum(1,1);
+'strength'    : Result:=ReturnNum(1,3);
+'defense'     : Result:=ReturnNum(1,5);
+'range'       : Result:=ReturnNum(1,7);
+'prayer'      : Result:=ReturnNum(1,9);
+'magic'       : Result:=ReturnNum(1,11);
+'rc'          : Result:=ReturnNum(1,13);
+'hp'          : Result:=ReturnNum(3,1);
+'hitpoints'   : Result:=ReturnNum(3,1);
+'agility'     : Result:=ReturnNum(3,3);
+'herblore'    : Result:=ReturnNum(3,5);
+'thieving'    : Result:=ReturnNum(3,7);
+'crafting'    : Result:=ReturnNum(3,9);
+'fletching'   : Result:=ReturnNum(3,11);
+'slayer'      : Result:=ReturnNum(3,13);
+'mining'      : Result:=ReturnNum(5,1);
+'smithing'    : Result:=ReturnNum(5,3);
+'fishing'     : Result:=ReturnNum(5,5);
+'cooking'     : Result:=ReturnNum(5,7);
+'firemaking'  : Result:=ReturnNum(5,9);
+'woodcutting' : Result:=ReturnNum(5,11);
+end;
+end;
+
+// /////////////////////////// //
+// Searches for an item in bank//
+// /////////////////////////// //
+Function SearchInBank(image:integer):boolean; // Cant get this to work
+var randomclickx,randomclicky:integer;
+Begin
+randomclickx:=random(10)+470;
+randomclicky:=random(6)+275;
+if(bankscreen)then
+begin
+if (FindBitmapToleranceIn(image, x, y, 80, 60, 445, 290, 10))then
+begin
+     result:=true;
+end else
+begin
+     mouse(475,75,0,0,true);
+     wait(500);
+while(((GetColor(475,270)=1777699))and(not FindBitmapToleranceIn(image, x, y, 80, 60, 445, 290, 10)))do
+begin
+    mouse(randomclickx,randomclicky,0,0,true);
+end;
+if(FindBitmapToleranceIn(image, x, y, 80, 60, 445, 290, 10))then result:=true;
+end;
+end;
+End;
+
+
+
+// /////////////////////////// //
+// Opens the bank screen.      //
+// /////////////////////////// //
+Function OpenBank:boolean; // Works fine! (great)
+var a,b:integer;
+begin
+if(MainScreen)then
+if(not(BankScreen))then
+while(b<16)do
+begin
+ wait(10);
+ if(a = 27)then
+  begin
+   a:= 0;
+   b:= b + 1;
+  end;
+ if(b > 15)then break;
+ if(FindColorSpiralTolerance(x,y,2842230,a*20+4,b*20+4,a*20+24,b*20+24,11))then
+  begin
+   MMouse(x,y,0,0);
+   wait(150+random(50));
+   if(istextat2(9,9,'Use Bank',100))then
+    begin
+     break;
+    end;
+  end;
+ a:=a+1;
+end;
+   if(istextat2(9,9,'Use Bank',100))then
+    begin
+     Mouse( x, y, 0, 0, false);
+     ClickText(4,4,516,338,'quickly',2);
+     flag;
+     wait(500);
+    end;
+if(BankScreen)then result:=true;
+end;
+
+// /////////////////////////// //
+// Gets quest information .    //
+// /////////////////////////// //
+Function GetQuest(questname:string):integer; //Fine
+var randomx,randomy:integer;
+begin
+if(MainScreen)then
+begin
+
+randomx:=random(13);
+randomy:=random(13);
+GameTab(3)
+begin
+
+if((not SearchForText(560,230,715,445,questname,1))and(FindColorTolerance( x, y, 1777699, 732, 241, 733, 241, 25)))then mouse(726,241,14,0,true);
+
+while(not (SearchForText(560,230,715,445,questname,1)))do
+begin
+     mouse(728+randomx,440+randomy,0,0,true);
+end;
+
+if(FindColorSpiralTolerance(x,y,clred,x,y,x+tempwidth,y+tempheight,20))then result:=1;
+
+if(FindColorSpiralTolerance(x,y,clyellow,x,y,x+tempwidth,y+tempheight,20))then result:=2;
+
+if(FindColorSpiralTolerance(x,y,63488,x,y,x+tempwidth,y+tempheight,20))then result:=3;
+
+end;
+end;
+end;
+
+
+// /////////////////////////// //
+// Used by other chat funcs.   //
+// /////////////////////////// //
+Function GetChatState(offset:integer):string; // Fine
+begin
+if(FindColorSpiral(x,y,65280,49+offset,482,64+offset,498))then
+result:='On';
+if(FindColorSpiral(x,y,clyellow,35+offset,482,77+offset,498))then
+result:='Friends';
+if(FindColorSpiral(x,y,clred,46+offset,482,66+offset,498))then
+result:='Off';
+if(FindColorSpiral(x,y,16776960,44+offset,482,68+offset,498))then
+result:='Hide';
+end;
+
+Function GetPublicChat:string;// Fine
+begin
+result:=GetChatState(0);
+end;
+
+Function GetPrivateChat:string;// Fine
+begin
+result:=GetChatState(129);
+end;
+
+Function GetTradeDuel:string;// Fine
+begin
+result:=GetChatState(269);
+end;
+
+Procedure SetPublicChat(state:string);// Fine
+var randomx,randomy:integer;
+begin
+randomx:=random(101);
+randomy:=random(30);
+
+case state of
+'On':      While(not (GetPublicChat='On'))do
+                mouse(6+randomx,469+randomy,0,0,true);
+'Friends': While(not (GetPublicChat='Friends'))do
+                mouse(6+randomx,469+randomy,0,0,true);
+'Off':     While(not (GetPublicChat='Off'))do
+                mouse(6+randomx,469+randomy,0,0,true);
+'Hide':    While(not (GetPublicChat='Hide'))do
+                mouse(6+randomx,467+randomy,0,0,true);
+'on':      While(not (GetPublicChat='On'))do
+                mouse(6+randomx,469+randomy,0,0,true);
+'friends': While(not (GetPublicChat='Friends'))do
+                mouse(6+randomx,469+randomy,0,0,true);
+'off':     While(not (GetPublicChat='Off'))do
+                mouse(6+randomx,469+randomy,0,0,true);
+'hide':    While(not (GetPublicChat='Hide'))do
+                mouse(6+randomx,467+randomy,0,0,true);
+end;
+end;
+
+Procedure SetPrivateChat(state:string);// Fine
+var randomx,randomy:integer;
+begin
+randomx:=random(101); randomy:=random(30);
+case state of
+'On':      While(not (GetPrivateChat='On'))do
+                mouse(135+randomx,469+randomy,0,0,true);
+'Friends': While(not (GetPrivateChat='Friends'))do
+                mouse(135+randomx,469+randomy,0,0,true);
+'Off':     While(not (GetPrivateChat='Off'))do
+                mouse(135+randomx,469+randomy,0,0,true);
+'on':      While(not (GetPrivateChat='On'))do
+                mouse(135+randomx,469+randomy,0,0,true);
+'friends': While(not (GetPrivateChat='Friends'))do
+                mouse(135+randomx,469+randomy,0,0,true);
+'off':     While(not (GetPrivateChat='Off'))do
+                mouse(135+randomx,469+randomy,0,0,true);
+
+end;
+end;
+
+Procedure SetTradeDuel(state:string);// Fine
+var randomx,randomy:integer;
+begin
+randomx:=random(101); randomy:=random(30);
+case state of
+'On':      While(not (GetTradeDuel='On'))do
+                mouse(273+randomx,469+randomy,0,0,true);
+'Friends': While(not (GetTradeDuel='Friends'))do
+                mouse(273+randomx,469+randomy,0,0,true);
+'Off':     While(not (GetTradeDuel='Off'))do
+                mouse(273+randomx,469+randomy,0,0,true);
+'on':      While(not (GetTradeDuel='On'))do
+                mouse(273+randomx,469+randomy,0,0,true);
+'friends': While(not (GetTradeDuel='Friends'))do
+                mouse(273+randomx,469+randomy,0,0,true);
+'off':     While(not (GetTradeDuel='Off'))do
+                mouse(273+randomx,469+randomy,0,0,true);
+end;
+end;
+
+
+// ////////////////////////////// //
+// Sets all chats to what you want//
+// ////////////////////////////// //
+Procedure SetChat(state:string); // Fine (careful with caps)
+begin
+if(mainscreen)then
+begin
+SetPublicChat(state);
+SetPrivateChat(state);
+SetTradeDuel(state);
+end;
+end;
+
+// /////////////////////////////////// //
+// Sets the Brightness to what you want//
+// /////////////////////////////////// //
+Procedure SetBrightness(state:string);   //By Mutant Squirrle
+					//Fine (modded by sythe)
+begin
+Mouse(685,481,5,5,True)
+If(GetColor(688,491)=1579079)Then
+begin
+case state of
+'VBright': While(not(GetColor(712,271)=1974666))do
+                mouse(719,262,5,5,true);
+'V-Bright': While(not(GetColor(712,271)=1974666))do
+                mouse(719,262,5,5,true);
+'Bright': While(not(GetColor(664,271)=1908611))do
+                mouse(664,271,5,5,true);
+'Normal': While(not(GetColor(624,269)=1974666))do
+                mouse(624,269,5,5,true);
+'Dark': While(not(GetColor(576,273)=1974666))do
+                mouse(576,273,5,5,true);
+'vbright': While(not(GetColor(712,271)=1974666))do
+                mouse(719,262,5,5,true);
+'v-bright': While(not(GetColor(712,271)=1974666))do
+                mouse(719,262,5,5,true);
+'bright': While(not(GetColor(664,271)=1908611))do
+                mouse(664,271,5,5,true);
+'normal': While(not(GetColor(624,269)=1974666))do
+                mouse(624,269,5,5,true);
+'dark': While(not(GetColor(576,273)=1974666))do
+                mouse(576,273,5,5,true);
+end;
+Mouse(646,185,5,5,True)
+end;
+end;
+
+// ///////////////////////// //
+// For More Random Wait Times//
+// ///////////////////////// //
+Procedure RandWait(W1,W2,W3,RandW:integer); //By Mutant Squirrle // wtf // fine i guess (usless)
+Var J,Wah:integer;
+begin
+J:=RandW/4
+Wah:=random(6);
+case Wah of
+  1: Begin Wait(W1+Random(RandW)) end;
+  2: Begin Wait(W1-Random(J)) end;
+  3: Begin Wait(W2+Random(RandW)) end;
+  4: Begin Wait(W2-Random(J)) end;
+  5: Begin Wait(W3+Random(RandW)) end;
+  6: Begin Wait(W3-Random(J)) end;
+end;
+end;
+
+// ///////////////////////// //
+// Find Objects By Hatlesscow//
+// ///////////////////////// //
+function FindObj(objtext:string; objcolor,tol:integer):boolean; // Fine
+var ax,ay:integer;
+xi,yi,TempHold2,i,TempHold:extended;
+begin
+ if(FindColorTolerance(x,y,objcolor,1,1,514,336,tol))then
+ begin
+ ax:=257; ay:=168;
+ repeat
+  i:=i+1
+  yi:=0;
+  repeat
+   yi:=yi+1;
+   TempHold:=Trunc(i/2);
+   TempHold2:=i/2;
+   if(TempHold=TempHold2)then
+   begin
+    ay:=ay+10;
+   end else ay:=ay-10;
+   if(FindColorTolerance(x,y,objcolor,ax-5,ay-5,ax+5,ay+5,tol))then
+    begin
+     MMouse(x,y,1,1);
+     wait(450);
+     if(IsTextAt2(9,9,objtext,100))then
+      result:=true;
+    end;
+  until(yi=i)or(result=true)
+  xi:=0;
+  repeat
+   xi:=xi+1;
+   TempHold:=Trunc(i/2);
+   TempHold2:=i/2;
+   if(TempHold=TempHold2)then
+   begin
+    ax:=ax+10;
+   end else ax:=ax-10;
+   if(FindColorTolerance(x,y,objcolor,ax-5,ay-5,ax+5,ay+5,tol))then
+    begin
+     MMouse(x,y,1,1);
+     wait(450);
+     if(IsTextAt2(9,9,objtext,100))then
+      result:=true;
+    end;
+  until(xi=i)or(result=true)
+ until(ax>=514)or(result=true)
+ end;
+end;
+
+// ////////////////////////////// //
+// Edited By Mutant Squirrle (UEA)//
+// ////////////////////////////// //
+Procedure Withdraw(Col,Row,Amount:integer); //Fine
+var rx,ry,c:integer;
+begin
+if(bankscreen)and(col>0)and(row>0)and(col<5)and(row<8)then
+begin
+ rx:=35+(col*47)
+ ry:=27+(row*38)
+if(amount=1)then
+begin
+ Mouse(rx,ry,23,23,true);
+ wait(600+random(200));
+end;
+if(amount=0)or(amount>1)then
+begin
+ Mouse(rx,ry,23,23,false)
+ wait(200+random(100));
+ if(amount=0)then
+ begin
+ if(SearchForText(3,24,500,328,'Withdraw All',2))then
+  begin
+   ClickText(3,24,500,328,'Withdraw All',2)
+  wait(600+random(200));
+ end;
+ end else
+ begin
+  GetMousePos(x,y)
+  Mouse(x,y+81,20,10,true);
+  repeat
+   c:=c+1;
+   wait(75);
+  until(c>20)or(GetColor(258,412)=8388608)
+  wait(500+random(200));
+  if(GetColor(258,412)=8388608)then
+   TypeSend(inttostr(amount)+chr(13))
+  wait(500+random(200));
+ end;
+end;
+end;
+end;
+
+// ////////////////////////////// //
+// Edited By Mutant Squirrle (UEA)//
+// ////////////////////////////// //
+Procedure Deposit(Col,Row,Amount:integer); //Fine
+var rx,ry,c:integer;
+begin
+if(bankscreen)then
+begin
+ rx:=532+(col*42)
+ ry:=178+(row*36)
+if(row=0)and(amount=0)then
+begin
+if(col=0)then col:=1
+   repeat
+   begin
+    if(findcolorspiral(x,y,65536,570,250,725,460))or(findcolorspiral(x,y,65536,rx,210,725,245))then
+    begin
+    c:=c+1
+     Mouse(x,y,2,2,false);
+     wait(150+random(50));
+     if(SearchForText(555,200,741,468,'Store All',2))then
+     begin
+      ClickText(555,200,741,468,'Store All',2)
+      wait(600+random(200));
+     end;
+    MMouse(650,185,5,5);
+    wait(400+random(200));
+    end;
+   end;
+   until(not FindColorSpiral(x,y,65536,570,250,725,460))and(not findcolorspiral(x,y,65536,rx,210,725,245))or(c>28)
+end;
+if(col>0)and(col<5)and(row>0)and(row<8)then
+begin
+ wait(200+random(100));
+ if(amount=1)then
+ begin
+  Mouse(rx,ry,20,20,true);
+  wait(600+random(200));
+ end else
+ begin
+  Mouse(rx,ry,20,20,false)
+  wait(150+random(50));
+  if(amount=0)then
+  begin
+  if(SearchForText(555,200,741,468,'Store All',2))then
+  begin
+   ClickText(555,200,741,468,'Store All',2)
+   wait(600+random(200));
+  end;
+  end else
+  begin
+   GetMousePos(x,y)
+   Mouse(x,y+81,20,10,true);
+   wait(900+random(300));
+   TypeSend(inttostr(amount)+chr(13))
+   wait(600+random(200));
+   end;
+ end;
+end;
+end;
+end;
+
+// ////////////////////////////// //
+// Edited By Mutant Squirrle (UEA)//
+// ////////////////////////////// //
+procedure SetFightMode(oFightMode:integer); // Fine now
+begin
+if(GetColor(559,179)=5531511)then
+Mouse(548,176,10,15,true);
+wait(200+random(50));
+if(oFightMode=1)and(not (GetColor(565,282)=2303647))then
+Mouse(598,287,55,15,true);
+if(oFightMode=2)and(not (GetColor(565,323)=2303647))then
+Mouse(597,334,55,15,true);
+if(oFightMode=3)and(not (GetColor(565,367)=2303647))then
+Mouse(597,381,55,15,true);
+if(not (GetColor(633,179)=2829182))then
+begin
+wait(400+random(100));
+Mouse(635,176,15,15,true);
+wait(400+random(100));
+end;
+end;
+
+// ////////////////////////////////// //
+// By Mutant Squirrle Pick Up Anything//
+// ////////////////////////////////// //
+Procedure PickUp(PickUpName,ClickIt:String; PickUpColor,x1,y1,x2,y2,Tol:integer); //By Mutant Squirrle
+begin
+repeat
+If(FindColorSpiralTolerance(x,y,PickUpColor,x1,y1,x2,y2,Tol))Then
+Begin
+MMouse(x,y,0,0)
+wait(200);
+If(IsTextAt2(9,9,PickUpName,100))Then
+wait(200);
+If(FindColorSpiralTolerance(x,y,PickUpColor,x1,y1,x2,y2,Tol))Then Mouse(x,y,2,2,False);
+wait(500);
+ClickText(3,3,515,336,ClickIt,2)
+EndShit:=True;
+end;
+If(Not(FindColorSpiralTolerance(x,y,PickUpColor,x1,y1,x2,y2,Tol)))Then
+Begin
+RandWait(100,200,300,200)
+EndShit:=True;
+end;
+until(EndShit=True)
+end;
+
+Procedure PickUpObject(objname:string; objcolor:integer); //Made By Mutant
+begin
+ PickUp(objname,'Take',objcolor,3,3,516,340,1);
+end;
+
+procedure SW(clickx,clicky:integer);  //Addition by Sythe
+begin
+ mouse(clickx,clicky,2,2,true);
+ wait(200);
+ flag;
+ wait(500);
+end;
+
+// ///////////////////////////// //
+//  ROAD WALK N/S/E/W            //
+// ///////////////////////////// //
+Function RoadWalk(colorofroad:integer; direction:string; leftright:boolean):boolean; //Fine
+var tempcolor:integer;
+    scanner:integer;
+    updown:boolean;
+    bounds:Array[1..4] of integer;
+Begin
+
+case Lowercase(Direction) of
+'n': begin
+     bounds[1]:=600;
+     bounds[2]:=25;
+     bounds[3]:=700;
+     bounds[4]:=35;
+     end;
+'e': begin
+     bounds[1]:=690;
+     bounds[2]:=25;
+     bounds[3]:=700;
+     bounds[4]:=125;
+     end;
+'s': begin
+     bounds[1]:=595;
+     bounds[2]:=120;
+     bounds[3]:=695;
+     bounds[4]:=130;
+     end;
+'w': begin
+     bounds[1]:=595;
+     bounds[2]:=25;
+     bounds[3]:=605;
+     bounds[4]:=125;
+     end;
+end;
+
+if((bounds[3]-bounds[1])<(bounds[4]-bounds[2]))then
+     updown:=true;
+
+
+if(MainScreen)then
+begin
+if(FindColorSpiralTolerance(x,y,colorofroad, bounds[1],bounds[2],bounds[3],bounds[4],5))then
+   begin
+        tempcolor:=getcolor(x,y);
+        scanner:=0;
+        while(scanner<10)do
+        begin
+             if(leftright)then
+             begin
+                  if(updown)then
+                  if (FindColorSpiral2(x,y,tempcolor, bounds[1],bounds[2],bounds[3],bounds[2]+(scanner*10)))then mouse(x,y,0,0,true);
+                  if(not updown)then
+                  if (FindColorSpiral2(x,y,tempcolor, bounds[1],bounds[2],bounds[1]+(scanner*10),bounds[4]))then mouse(x,y,0,0,true);
+             end;
+
+             if((leftright=false)and(scanner>1))then
+             begin
+                  if(updown)then
+                  if (FindColorSpiral2(x,y,tempcolor, bounds[1],bounds[4]-(10+(scanner*10)),bounds[3],bounds[4]-(scanner*10)))then mouse(x,y,0,0,true);
+                  if(not updown)then
+                  if (FindColorSpiral2(x,y,tempcolor, bounds[3]-(10+(scanner*10)),bounds[2],bounds[3]-(scanner*10),bounds[4]))then mouse(x,y,0,0,true);
+             end;
+             scanner:=scanner+1;
+             if(flagpresent)then scanner:=20;
+        end;
+        if(scanner=20)then
+        begin
+             flag;
+             result:=true;
+        end;
+        if(scanner=10)then
+             result:=false;
+   end;
+end;
+
+
+End;
+
+Function TheTime:string; //Fine
+var  Hour, Min, Sec, MSec: Word;
+     PM:string;
+begin
+     DecodeTime(Now, Hour, Min, Sec, MSec);
+     PM:='AM';
+     if(hour>12)then
+     begin
+          hour:=hour-12;
+          PM:='PM';
+     end;
+     result:=(inttostr(hour) + ':' + inttostr(min) + ':' + inttostr(sec) + ' ' + PM);
+end;
+
+Procedure DisguiseScar(disguise:string); // Fine
+var application:tapplication;
+    Self: TForm;
+begin
+    Application:= GetApplication;
+    Application.Title:= disguise;
+    Self:= GetSelf;
+    Self.Caption:= disguise;
+end;
+
+Procedure LoadLibrary(disguise:string); // Fine
+begin
+LoadFont;
+LoadFont2;
+LoadFontSmall;
+LoadChars('');
+DisguiseScar(disguise);
+St:=GetSystemTime;
+writeln('You are using Library2 Version: ' + LibVersion+' By Mutant Squirrle')
+end;
+
+
+////////////////////////////////////////////
+/// --- Sythe's Angluar walk function --- //
+////////////////////////////////////////////
+///  EXAMPLE: AWalk(90,bank); // walks    //
+///  north until it sees the bank icon.   //
+///  EXAMPLE2: AWalk(225,dirt); // walks  //
+///  southwest until it sees what ever    //
+///  color dirt is set to.                //
+////////////////////////////////////////////
+Procedure AWalk(angle,color:integer); //Fine
+var awx,awy,tout:integer;
+begin
+ tout:=0;
+ angle:=360-angle;
+ repeat
+  tout:=tout+1;
+  mouse(Round(60*cos(angle * (pi/180)))+centerx,Round(60*sin(angle * (pi/180)))+centery,1,1,true);
+  wait(100);
+  if (FlagPresent=false) then
+  begin
+   repeat
+    mouse(Round(60*cos(angle * (pi/180)))+centerx,Round(60*sin(angle * (pi/180)))+centery,10,10,true);
+    wait(100);
+    tout:=tout+1;
+   until (FlagPresent) or (findcolor(awx,awy,color,569,8,723,160)) or (tout > 20);
+   if (tout > 20) then writeln('Library (Sythe`s Walker): Could not click on a spot due to something in the way.');
+  end;
+  flag;
+  wait(300);
+  awx:=centerx;
+  awy:=centery;
+ until (findcolorspiral(awx,awy,color,569,8,723,160)) or (tout > 20);
+end;
+
+procedure ClickTxt(s:string);
+begin
+ Wait(300);
+ ClickText(4,4,755,488,s,2);
+end;
+
