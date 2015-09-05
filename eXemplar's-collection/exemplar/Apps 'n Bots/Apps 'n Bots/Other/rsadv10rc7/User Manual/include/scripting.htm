@@ -1,0 +1,205 @@
+<html>
+<head>
+<title>RuneScape Advanced :: User Manual</title>
+</head>
+<body>
+<font color="#990000" size="1" face="Verdana, Arial, Helvetica, sans-serif"> RuneScape 
+Advanced</font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"> <font color="#FFCC00">v1.0</font> 
+by <strong>RANCID</strong> </font> 
+<hr>
+<font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+<h2>Scripting Reference</h2>
+<strong>In RS Advanced you can easily create and debug your custom scripts through 
+the Script Editor. Continue reading on to learn more about the commands available 
+and syntax (the programming language) used to create scripts.</strong><br>
+
+<UL>
+<h3>Commands</h3>
+<table width="95%" border="0" cellpadding="3" cellspacing="1" bgcolor="#333333">
+<tr bgcolor="#CCCCCC"> 
+<td><strong>Functions:</strong></td>
+<td><strong>Description:</strong></td>
+<td><strong>Example:</strong></td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>FindColorEx(color As Long, Optional XStart = 0, Optional YStart = 0, Optional Xwidth = 511, Optional YWidth = 344, Optional Steps = 1) As Long</td>
+<td>Scans the specified portion of the window for the specified color.</td>
+<td>lngPos = FindColorEx(0, 353, 73, 155, 115)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>FindColor(color As Long, Optional Steps = 1) As Long</td>
+<td>Scans the entire window for a color and returns the LONG coordinates. If color is not found returns -1. Steps is the number of pixels to scan (ie; every 5)</td>
+<td>lngPos = FindColor(vbRed)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>GetX(lngCoords as long) as Integer</td>
+<td>Returns the X coordinate from a LONG value.</td>
+<td>GetX(7864520)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>GetY(lngCoords as long) as Integer</td>
+<td>Returns the Y coordinate from a LONG value.</td>
+<td>GetY(7864520)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>SetFightMode(Mode As Integer)</td>
+<td>Sets the current fight mode [if fighting].</td>
+<td>SetFightMode(1)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>ChangeWorld(World As Integer)</td>
+<td>Loads/changes to the specified world in the client window</td>
+<td>ChangeWorld(10)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>ClickRune(X As Integer, Y As Integer)</td>
+<td>Sends a left click message at the specified coordinates</td>
+<td>ClickRune(120, 200)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>rClickRune(X As Integer, Y As Integer)</td>
+<td>Sends a right click message at the specified coordinates</td>
+<td>rClickRune(120, 200)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>lClickRune(lngPos as Long)</td>
+<td>Sends a click message at the specified LONG type coordinate [this is a intermediate 
+command, if you don't understand it do not try to use it]</td>
+<td>lClickRune(7864520)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>MoveRune(X As Integer, Y As Integer)</td>
+<td>Sends a mouse move message to the specified coordinates</td>
+<td>MoveRune(120, 200)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>lMoveRune(lngPos as Long)</td>
+<td>Sends a move message at the specified LONG type coordinate [this is a intermediate 
+command, if you don't understand it do not try to use it]</td>
+<td>lMoveRune(7864520)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>TypeRune(strMessage as string)</td>
+<td>Types out the specified message. Note; the message will send in lowercase 
+and will not display &quot;!@#$%^&amp;*()_+|{}:&quot;&lt;&gt;?&quot; unless the 
+user is holding shift down</td>
+<td>TypeRune(&quot;hello&quot;)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>DebugMessage(strMessage As String)</td>
+<td>Displays the message in the debug window in Script Editor</td>
+<td>DebugMessage(&quot;Logged in? &quot; &amp; LoggedIn)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>MoveToColor(Xstart As Long, YStart As Long, color1 As Long, Optional color2 
+As Long, Optional color3 As Long, Optional color4 As Long, Optional Secs2Scan 
+As Integer) As Long</td>
+<td>Scans the window until the color is found (or time limit hit), then sends MoveRune command to it. Xstart 
+and Ystart are and optional way to specify where to start the search from. Secs2Scan 
+is the amount of time to take scanning in seconds. MoveToColor also 
+returns the Long position of the coords</td>
+<td>lResult = MoveToColor(0, 0, 733305, 533335, 1132725,,2)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>CompareImage(imageFile As String, x As Integer, y As Integer, Optional transColor 
+As Long) As Boolean</td>
+<td>Compares the image with the current pixels in the window at the x and y coordinates 
+and returns True or False. TransColor is if you would like to specify a transparent 
+background for the image your comparing.</td>
+<td>CompareImage(&quot;c:\images\accessbank.bmp&quot;, 6, 5, vbMagenta)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>StatusText(strStatus As String, Color As Long, Optional x = 6, Optional y = 5) As Boolean</td>
+<td>Compares if the current Status Text (Example: "Guard (Level-27)") is the same 
+string.</td>
+<td>StatusText(&quot;Guard&quot;, vbYellow)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>Wait(interval)</td>
+<td>Waits the specified amount of seconds before continuing in the script</td>
+<td>Wait(1.5)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>GetColor(X, Y) As Long</td>
+<td>Returns the color found at the specified X and Y coordinates</td>
+<td>lColor = GetColor(12, 12)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>msgInput(strMessage As String, strDefault As String)</td>
+<td>Prompts the user of the script for input strMessage is the question/message 
+to prompt them with strDefault is the default input.</td>
+<td>strUserName = msgInput(&quot;Type your username&quot;, &quot;[type here]&quot;)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>LockWindow(bLock As Boolean)</td>
+<td>Locks the RuneScape window; allowing no input from the user. Use this to allow 
+the user to hover around, and in the rs window, without interupting the script.</td>
+<td>LockWindow(True)</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>SaveScreenShot()</td>
+<td>Writes a screenshot to file</td>
+<td>SaveScreenShot()</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>FindObject(strObject As String, objCol As Long, SearchColor As Long, Optional xStart = 0, Optional yStart = 0, Optional xWidth = 511, Optional YWidth = 328)</td>
+<td>This will search the window for the specified color, then compare the StatusText - if its true the function will end and return the LONG coordinate, if it is false it will continure searching until it has reached the end of the search range. Returns -1 if the Object was not Found.</td>
+<td>lResult = FindObject("Ladder", 16776960, 9547)</td>
+</tr>
+</table>
+<br>
+<h3>Properties</h3>
+<table width="95%" border="0" cellpadding="3" cellspacing="1" bgcolor="#333333">
+<tr bgcolor="#CCCCCC"> 
+<td><strong>Property:</strong></td>
+<td><strong>Description:</strong></td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>Fighting As Boolean</td>
+<td>Returns if you are currently Fighting.</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>IsSleeping As Boolean</td>
+<td>Returns if you are currently Sleeping.</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>WelcomeScreen As Boolean</td>
+<td>Returns if the f2p welcome screen [black box on login] is currently displayed or not.</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>LoggedIn As Boolean</td>
+<td>Returns if you are currently at the f2p login screen.</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>p2pLoggedIn As Boolean</td>
+<td>Returns if you are currently at the p2p login screen.</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>p2pLoggedIn As Boolean</td>
+<td>Returns if you are currently at the p2p login screen.</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>LoginScreen As Boolean</td>
+<td>Returns if you are currently at the p2p/f2p login credential screen [ie; UserName and Password screen].</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>CurrentWorld as Integer</td>
+<td>Returns the currently loaded RS World.</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>UserName as String</td>
+<td>Returns the UserName specified in the options dialog [note; this may be removed in future versions].</td>
+</tr>
+<tr bgcolor="#FFFFFF"> 
+<td>Password as String</td>
+<td>Returns the Password specified in the options dialog [note; this may be removed in future versions].</td>
+</tr>
+</table>
+</UL>
+</font>
+<hr>
+<font color="#990000" size="1" face="Verdana, Arial, Helvetica, sans-serif"> 
+<div align="right"><a href="../manual.htm">&lt;&lt; Back</a></div>
+</font>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<html>
+<head>
+<title>RuneScape Advanced :: User Manual</title>
+</head>
+<body>
+<font color="#990000" size="1" face="Verdana, Arial, Helvetica, sans-serif"> RuneScape 
+Advanced</font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"> <font color="#FFCC00">v1.0</font> 
+by <strong>RANCID</strong> </font> 
+<hr>
+<font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+<h2>Scripting Tutorial</h2>
+<strong>Here is a quick easy to follow Tutorial on the basics of writing a script 
+in RuneScape advanced:</strong><br>
+<UL>
+<strong>Requirements:</strong> 
+<UL>
+• At least a very basic knowledge of the Basic language (no pun intended :-))<br>
+• Some knowledge of clicker-based automaters<br>
+• About 10 minutes of free time (shouldnt be hard, I mean shit you play RuneScape?) 
+:-)<br>
+• Mountain Dew (because its the shit)<br>
+</UL>
+First of all I should be clear in stating that the Scripting engine utilizes VBScript; 
+unfortunatly a common language used in virus-making (sorry if it set off your 
+anti-virus) . Well anyway VBScript is the basic language which is a very commonly 
+used programming language. If you do not know anything about basic it isnt a hard 
+language to learn. So, anyway enough intro - lets get started. <br>
+<br>
+First of all open up RS Advanced and goto View&gt; Script Editor.<br>
+<br>
+When a script is loaded the Sub Main() is called - this is what we will refer 
+to as the Script Entry point. So in your blank script in Script Editor go ahead 
+and write the following; <br>
+<br>
+<UL>
+<textarea name="txtCode" style="width: 100%; height: 100;" wrap="OFF">
+Sub Main()
+
+End Sub
+</textarea>
+</UL>
+<br>
+So we have our script entry point written and ready, now we just need to figure 
+out what we want our script to do? Well, nothing is impossible to make but some 
+things can be very difficult - so I'm going to go ahead and choose something a 
+little more difficult than your basic script. <br>
+<br>
+<b>Wood-Cutter Fire Maker</b> by RANCID <br>
+<UL>
+This script should be fun - and it should utilize most of the Functions available 
+in RuneScape Advanced so this should make a good tutorial. Okay now, lets actually 
+get started haha. 
+</UL>
+<br>
+We have out Script Editor open and our Entry Point ready - lets get coding. First 
+of all lets start by making our woodcutting script - shouldnt be too hard if we 
+utilize the MoveToColor and StatusText function. Let me explain how this is going 
+to work before I actually display the code. MoveToColor is going to search the 
+window for a color, then send a MoveRune message to the position of the color 
+and it will also return the position (in long form, see Script Reference), we 
+can then use StatusText to compare the Text &quot;Tree&quot; to the window to 
+check if MoveToColor moved over a tree, if it returned true (it does say tree) 
+we can then send a ClickRune message to that point to 'Chop' that tree we found. 
+Okay, enough explaination lets take a look at the code ;-). <br>
+<br>
+<UL>
+<textarea name="txtCode" style="width: 100%; height: 200;" wrap="OFF">
+Sub ChopTree()
+lResult = 0
+do until ScriptStop = true
+	lResult = FindColorEx(16270, GetX(lResult)-5, GetY(lResult)-5,,,5) ' Find the color of the Tree
+	call lMoveRune(lResult) 'Move to that color
+	wait(0.4) 'wait for a moment before comparing the Text
+	if StatusText("Tree:", 16776960) = true then
+	'the Status Text said Tree:!
+		Call lClickRune(lResult)
+		wait(8)
+		Exit Do
+	end if
+	wait(1)
+loop
+End Sub
+</textarea>
+Here we see our new Sub ChopTree() - basicly just a find tree color and click 
+it - then exit the loop. Paste that into your script now ;-) and then take a moment 
+to study the sub until you understand it. <br>
+<br>
+Notice the way I looped I used 'Do Until ScriptStop = True' - <strong>That is 
+important!</strong> If you fail to use Until ScriptStop = True the script <strong>will 
+not stop</strong> when you tell it to in Script Editor.<br>
+<br>
+Now that we have our chop tree sub we should call it from our script entry point 
+(sub main) and test it. 
+<textarea name="txtCode" style="width: 100%; height: 100;" wrap="OFF">
+Sub Main()
+	Call ChopTree()
+End Sub
+</textarea>
+<br>
+That should find a tree and chop it down, if it didnt use the color picker and 
+change the long color in FindColorEx or something. <br>
+<br>
+Thats pretty basic, not many lines involved in ChopTree. So now, lets move on 
+to MakeFire(). <br>
+<br>
+MakeFire() is going to utilize the FindImage function as well as FindColorEx. 
+First of all I'll go ahead and get the images of the logs and the tinder box to 
+use for our FindImage search.<br>
+<br>
+heres our logs <img src="../images/logs.bmp" align="absmiddle"> and heres our 
+tinderbox <img src="../images/tinderbox.bmp" align="absmiddle"><br>
+<br>
+Lets take a look at the code now; 
+<textarea name="txtCode" style="width: 100%; height: 200;" wrap="OFF">
+sub MakeFire()
+	call MoveRune(494, 19) 'move over the inventory spot
+	wait 0.5
+	lResult = FindImage("images/logs.bmp") 'Search the window for the logs image
+	call rClickRune(GetX(lResult), GetY(lResult)) 'right click on the logs
+	wait 0.3
+	Call ClickRune(GetX(lResult), GetY(lResult)+32) 'click drop
+	wait 0.5
+	call MoveRune(494, 19) 'move over the inventory window again
+	wait 0.5
+	lClickRune FindImage("images/tinderbox.bmp") ' find the tinder box and click on it
+	wait 0.8
+	lResult = FindColorEx(3758748, 215, 128, 65, 40) 'find the logs on the ground
+	lClickRune lResult 'click on the logs
+end sub
+</textarea>
+I commented in the code well enough I believe, go ahead and go over it until you 
+understand it. <br>
+<br>
+Go ahead and add Call MakeFire() after your ChopTree sub in your entry point. 
+Run the script and it should now chop a tree, then build a fire ;-). You'll probobly 
+want to loop the script now, so it doesnt end - thats easy just go like... 
+<textarea name="txtCode" style="width: 100%; height: 100;" wrap="OFF">
+Sub Main()
+do until ScriptStop = true
+	Call ChopTree()
+	Call MakeFire()
+loop
+End Sub
+</textarea>
+The script will now loop until you stop it.<br>
+<br>
+Now thats all great right - but what about fatigue? RuneScape Advanced makes max 
+fatigue detection easy. First we need to find the message received when your too 
+tired to chop a tree - so add the following sub. 
+<textarea name="txtCode" style="width: 100%; height: 100;" wrap="OFF">
+sub MessageListener(strText)
+	DebugMessage(strText)
+end sub
+</textarea>
+The MessageListener sub returns raw server messages via a Socket Wrapper. Se when 
+say, your to tired to mine a rock the server sends you a packet with the message 
+"You are too tired to mine this roc" - and RS Advanced detects that and fires 
+your MessageListener sub with strText. Anyway, what we are doing is just sending 
+the message to the debug box when we receive a message. <br>
+<br>
+Go ahead and get 100% fatigue. Now when it clicks a tree you should see...<br>
+<br>
+<font color="#009900">You are too tired to cut the tre</font> <br>
+<br>
+In the debug box. So, now we just have to click your sleeping bag when strText 
+equals that message, like so... 
+<textarea name="txtCode" style="width: 100%; height: 100;" wrap="OFF">
+sub MessageListener(strText)
+	debugmessage(strText)
+	if strText = "You are too tired to cut the tre" then
+		call MoveRune(495, 15)
+		wait(0.5)
+		call MoveRune(485, 51)
+		wait(0.7)
+		Call MoveRune(286, 53)
+		wait(0.3)
+		if StatusText("Sleeping Bag", 4231423) = true then Call ClickRune(286, 53)
+	end if
+end sub
+</textarea>
+That will click the sleeping bag if it exists in the first slot, overwise it will 
+probobly just die. You could search for it if you like using the FindImage command, 
+but really that works fine so whatever. You could also handle failed Chop tree 
+events and what not in the script using the MessageListener - so play around with 
+it. <br><br>
+That just about concludes this tutorial- theres your basic script with just about 
+everything covered. So go ahead and play around and have fun ;-) .
+</UL>
+</UL>
+</font> 
+<hr>
+<font color="#990000" size="1" face="Verdana, Arial, Helvetica, sans-serif"> 
+<div align="right"><a href="../manual.htm">&lt;&lt; Back</a></div>
+</font>
+</body>
+</html>
