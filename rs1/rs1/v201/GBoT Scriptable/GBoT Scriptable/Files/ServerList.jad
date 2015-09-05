@@ -1,0 +1,38 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 13/03/2005 15:19:04
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   ServerList.java
+
+
+public class ServerList
+{
+
+    public ServerList()
+    {
+    }
+
+    public static String getWorld()
+    {
+        return worldip[world - 81];
+    }
+
+    public static int getPort()
+    {
+        return world != 81 && world != 83 && world != 85 ? 43595 : 43594;
+    }
+
+    public static void setWorld(int i)
+    {
+        if(i < 87 && i > 80)
+            world = i;
+    }
+
+    public static String worldname[] = {
+        "http://uk1.runescape.com/client2/", "http://uk1.runescape.com/client2/", "http://ul3.runescape.com/client2/", "http://ul3.runescape.com/client2/", "http://cet3b.runescape.com/client2/", "http://cet3b.runescape.com/client2/"
+    };
+    public static String worldip[] = {
+        "uk1.runescape.com", "uk1.runescape.com", "ul3.runescape.com", "ul3.runescape.com", "cet3b.runescape.com", "cet3b.runescape.com"
+    };
+    public static int world = 81;
+
+}
