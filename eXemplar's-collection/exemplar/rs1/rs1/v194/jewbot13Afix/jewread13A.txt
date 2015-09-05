@@ -1,0 +1,57 @@
+JeWbot v1.3Afix features:
+*fixed server hopping*
+
+F3: Record: similar to the first runebot by vee, press f3 click the objects or npcs and hit f3 again. It will record the actions and replay them in the same order and speed, set at least 2 actions for now its still buggy. DONT TRY TO RECORD FIGHTING THATS WHAT f6 is for..right now you can record: object commands(fishing mining), object 2 commands(right click fishing), walk commands, open door commands. 
+
+F2: Playback: f2, it will play back what you recorded, press it again to stop the macro.It's buggy but next release in couple of days should have better support for npc's, and include pickup which looks like it's there but its not just so you know.
+
+F4: Autofighter: yea I think it's pretty good actually, all you gotta do is attack a monster and press f5 when you're standing in the spot you want it to go when there's no monsters. It always attacks the closest monster incase your wondering.
+
+F5: AutoCatch: Attack Speed: the speed it clicks attack at when you're at the opportunity to attack
+
+f6: AutoCatch: Walk/follow speed: the speed it clicks to follow/ walk to their destination
+
+Home: Autocatch: Attack a player then press this once you set your speeds for following and attacking
+
+F7: Hiscores: When you're first on the default is to follow normally. if you hit f7 you'll switch into hiscore mode only, this mode allows you to click follow on someone and retrieve their hiscores in the debug window, hitting it again will put you into both mode where if you follow it will follow like normal and it will get their hiscores. then of course hit again and you're back to just following.
+
+F8: Fight mode: use this to scroll through the fight modes for the autoattack, these only apply when using autofight not when manually fighting.
+
+F10: AutoLogin: this thing will log you back in when you log out, interesting concept isn't it :P, it's on by default.
+
+F11: fight speed: This sets the speed between clicks when autofighting, This sets it DOWN.
+
+F12: fight speed: This sets the speed between clicks when autofighting, This sets it UP.
+
+Page Up: Sleep level: this little piece of machinery here sets the fatigue lvl to sleep at, crazy huh. This sets it UP.
+
+Page Down: Sleep level: this little piece of machinery here sets the fatigue lvl to sleep at, crazy huh. This sets it DOWN.
+
+Feature list:
+
+World Select: Added a box, just type the world to go to in it, if nothing is entered it goes to 31 by default.
+Checks your version: On the login screen it will check if you're using the current version if not it will tell you to download it, once it says "Client Authenticated" you're good to login.
+Wild Map: When you walk into the wild the map changes a bit to distinguish players levels and such.
+On Screen info: when you do an action the last one stays on the bottom right.
+Position: this just tells your x and y at all times, later it will come in handy with scripting.
+
+
+Tools Menu (New):
+
+FAst server hopping: click the number of the world you want to switch to, then click "Fast server hop to: server" and it will switch to it in about 2 secondsish.
+
+Player Info above head (Thanks to RichyT and Sbm007): this sorts through the different things you can see over a players head duh. you'll see
+
+Manual fighting: by default you cant attack monsters you can select them for the autofighter though, pressing this makes you able to attack them manually.
+this was moved from the function key to make room.
+
+Attacking npc type: you can have it search for the exact npc type or you can have it search for the name and attack every npc with that name without the levels playing a part.
+this was moved from the function key to make room.
+
+Fixes:
+wont stop fighting on loadings, shouldnt logout randomly, uhh probably other things i forgot :P 
+
+just open the bat file and have fun :) this uses sun java so it must be installed in order to use it.
+
+jB 
+Ps: discuss problems to be addressed in the irc channel #jewbot in icy and widge
