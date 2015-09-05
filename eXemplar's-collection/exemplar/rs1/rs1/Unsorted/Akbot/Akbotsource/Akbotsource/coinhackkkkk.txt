@@ -1,0 +1,65 @@
+private final void fbk()
+    {
+        boolean flag1 = false;
+        if(elf != 0 && ejn == 0)
+            ejn = 1;
+        if(ejn > 0)
+        {
+            int i = super.flg - 22;
+            int j = super.flh - 36;
+            if(i >= 0 && j >= 0 && i < 468 && j < 262)
+            {
+                if(i > 216 && j > 30 && i < 462 && j < 235)
+                {
+                    int k = (i - 217) / 49 + ((j - 31) / 34) * 5;
+                    if(k >= 0 && k < djn)
+                    {
+                        boolean flag = false;
+                        int l1 = 1;
+                        int k2 = dka[k];
+                        for(int k3 = 1; k3 < djf; k3++)
+                            if(djg[k3] == k2)
+                                if(ahd.ahl[k2] == 1)
+                                {
+                                    for(int i4 = 1; i4 < ejn; i4++)
+                                    {
+                                        if(djh[k3] < dkb[k])
+                                            djh[k3]++;
+                                        flag = true;
+                                    }
+
+                                } else
+                                {
+                                    l1++;
+                                }
+
+                        if(fec(k2) <= l1)
+                            flag = false;
+                        if(ahd.aib[k2] == 0)
+                        {
+                            fci("This object cannot be traded with other players", 3);
+                            flag = false;
+                        }
+                        if(!flag && djf < 12)
+                        {
+                            djg[djf] = k2;
+                            djh[djf] = 1;
+                            djf++;
+                            flag = false;
+                        }
+                        if(flag)
+                        {
+                          super.aah.hfj(1);
+                            super.aah.hfa(djf);
+                            for(int j4 = 0; j4 < djf; j4++)
+                            {
+                                super.aah.hen(djg[j4]);
+                                super.aah.hfb(djh[j4]);
+                            }
+
+                            super.aah.hff();
+                            eib = false;
+                            eic = false;
+                        }
+                    }
+                }
