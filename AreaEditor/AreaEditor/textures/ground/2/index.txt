@@ -1,0 +1,10 @@
+8
+-1 [-1] Null
+1 [1] Gray
+2 [2] Water
+3 [3] Wooden floor
+4 [4] Wooden bridge
+5 [5] Gray
+9 [9] Light grey
+11 [11] Lava
+250 [250] Water
