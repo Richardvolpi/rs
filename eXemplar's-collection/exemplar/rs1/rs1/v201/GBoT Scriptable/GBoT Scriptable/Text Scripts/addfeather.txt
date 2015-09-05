@@ -1,0 +1,16 @@
+@start:
+GoToIfFatigueAbove(@sleep,95)
+UseWithInventory(637,671)
+Wait(1000)
+GoTo(@start)
+
+@wait:
+Wait(1000)
+GoToIfSleeping(@wait)
+GoTo(@start)
+
+@sleep:
+UseItemByID(1263)
+Wait(1000)
+GoToIfSleeping(@wait)
+GoTo(@start)
