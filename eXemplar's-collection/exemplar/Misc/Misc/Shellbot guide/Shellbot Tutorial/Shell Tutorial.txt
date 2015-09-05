@@ -1,0 +1,72 @@
+-Hey Bitches.
+--Time for the tutorial to save your RAM and your modem bandwith.
+---All files needed for shell are included in this .zip
+----Before you proceed with this tutorial paste the data folder from your IxBot into the "Files" folder that this document came in 
+-----(it made the difference of being able to attach to forums or not so i had to delete it out)
+
+-	Well, first I made a shell control center file, which is not necessary but easier so you can keep all logs in 1 spot.
+-	If you did this you will need to paste your IxBot data and scripts into the folder (already done in the “Files” folder).
+-	If not, just skip part 1.
+
+
+----If you want shell control center as separate folder
+-	After you have made your control center file simply paste all contents of the “Files” folder into it. 
+-	This folder is for keeping shell logs and using the Shell Control Center to kill bots, resume bots, stop bots, and watch bots.
+
+-----Getting files in place
+-	Take the “Files2” folder and paste it into all IxBot folders.
+
+----Starting the control center
+-	Start up “shellbot.bat” in either your new control center folder or in any regular IxBot folder.
+-	When started should read “Starting Control Center on 0.0.0.0:55555”
+
+----Setting up individual shells
+-	Start “shellbot.bat” (this will connect to control center, or if first one you opened will act as control center)
+-	Start “copy of shellbot.bat” (this will open the individual shell)
+-	The new dos window should read “Welcome to ixBot control center master!”
+
+-----Open the needed AutoRune
+-	If you are still in the folder you opened the new shell from open an “AutoRune.exe”
+-	Auth the AutoRune with your ix auth user/pass
+-	Go to “Misc ->Login Settings-> Prevent Logouts” and choose it
+-	Go to “Misc -> Lag Safe Mode” and choose it
+-	Set the world you wish to log into
+
+-----Setting up your shell
+-	You will now have to get a little technical.
+-	Type “Start bot1” (bot1 can be anything, I use numbers according to folders, and folders according to names that I have specified)
+-	This should make it respond “Paste properties for bot "bot1" here (a dot on a single line ends the input):”
+-	Now you must configure your properties, for the property setup just open the “Shell Properties.txt” in the folder with this tutorial.
+-	After modifying the properties to fit your needs simply copy them, including the # lines(the shell excludes them) and then paste into your shell (right click->paste)
+-	Then if you are on the line below all of the info press “.” then the “Enter/Return” key.
+-	It should connect through the AutoRune you have opened from the same folder.
+
+------Paste/open your script
+-	Now paste or open the AutoRune script you wanted if you choose “ScriptStep0 = 66”, make sure you are at the starting point so it works correctly.
+
+-----Other shell commands
+-	I know of a few shell commands that you type either into the shell or the control center, they are:
+-kill “name” –will stop the script and stop writing to the log.
+-stop “name” –stops the AutoRune script or the ix script running
+-resume “name” –will resume script after stopping
+-watch “name” –displays EVERYTHING that is said, recieved,debugged
+
+----How to totally stop a char
+-	To totally stop a char running on shell type these 2 commands
+-	Stop “name” -> kill “name”
+-	Then exit the AutoRune used to connect.
+
+
+--Thank you to:
+Fighter      (Helped me most of the way through learning shell)(That is also his shell properties layout that is included)
+iTaL         (Filled in spots Fighter left out)
+RaW          (For the Ar auth a while back, and the Ix auth that made me write this and learn about shell)
+TheSaint     (Called me insignificant so i made this to show him up)(alot of good times with him in the past..funny guy)
+FriskyDonkey (Was always up for cs until he went source, great person, awesome scripter..respect him for all he ahs done.)
+beyondhope   (Logan, the ladies man...he helped me with the NatureThiever w/ ID check which got me 1id and made me get 26k natures..hidden miracles)
+Nude         (Used to talk to this kid everyday on irc b4 he took a break, he is back and funnier than ever)
+KaMiKaZeWoRm (Andy, great guy and fun to talk to..we discussed everything back in the day..still do.)
+endoskelet0n (Helped me with Ar when i was nub and has been funny, he can be a very good debater to some but he has good intentions.)
+-And everyone else who is awesome at Tarc. <3
+--This has been an AndrewNP tutorial
+---Any questions of comments please email AndrewNP@gmail.com / catch me on irc

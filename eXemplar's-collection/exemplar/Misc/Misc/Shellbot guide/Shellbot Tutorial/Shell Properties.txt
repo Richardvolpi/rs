@@ -1,0 +1,128 @@
+############################################################################# 
+numPlayers = 1 
+############################################################################# 
+PlayerName0 = namehere
+PlayerPass0 = passwordhere
+AlterName0  = nickhere
+
+# CombatStyle: 0=controlled, 1=streght, 2=attack, 3=defensive 
+CombatStyle0 = stylehere 
+
+# Worlds you want your bot to run on (that is 1,3,5 for f2p and 2,4,6 for p2p) 
+Worlds0 = 2,4,6
+
+# Give each of your chars another uid (8 digits) 
+Uid0 = 8randomnumbershere
+
+## reject resumptions after this (hours only!) 
+SleepStart0 = 15 
+## allow resumptions after this 
+SleepEnd0 = 15 
+
+############################# internal scripts ############################## 
+## iron mining at south fally mine 
+#ScriptStep0 = 0 
+## get coal from mining guild (##newGd) 
+#ScriptStep0 = 71 
+## mining silver in crafting guild (##silver) 
+#ScriptStep0 = 91 
+## mining gold in crafting guild (##gold) 
+#ScriptStep0 = 94 
+## mining silver and gold in crafting guild (##silvergold) 
+#ScriptStep0 = 93 
+
+## ##nat 
+#ScriptStep0 = 80 
+## ##thiev 
+#ScriptStep0 = 81 
+## ranging in jail (##rang) 
+#ScriptStep0 = 60 
+## ranging at chickens in champions guild (##cham) 
+#ScriptStep0 = 61 
+## certing 
+#ScriptStep0 = 10 
+## uncerting 
+#ScriptStep0 = 11 
+
+## autofighting at chicken without burying bones (##chick) 
+#ScriptStep0 = 54 
+## autofighting at chicken with burying bones (##chickpray) 
+#ScriptStep0 = 53 
+## autofighting at cows without buriing bones (##cow) 
+#ScriptStep0 = 55 
+## cook raw beef at cows in lumby without fighting (##beef) 
+#ScriptStep0 = 57 
+## autofighting at cows/chickens without burying bones (##lumb) 
+
+#ScriptStep0 = 56 
+## autobuying arrows (##shop) 
+#ScriptStep0 = 6050 
+## autobuying runes (##mshop) 
+#ScriptStep0 = 6051 
+
+## net fishing in draynor (##fs) 
+#ScriptStep0 = 5005 
+## bait fishing in draynor (##bait) 
+#ScriptStep0 = 5006 
+## lure fishing in barbarian village (##fly) 
+#ScriptStep0 = 5002 
+## lure fishing in barbarian village with banking in varrock (##flyfish) 
+#ScriptStep0 = 92 
+
+## cooking in draynor (from and to certs) (##cook) 
+#ScriptStep0 = 5010 
+## cooking bot in alkharid (##ck) 
+#ScriptStep0 = 77 
+
+## bar smelting in al kharid (##smelt) 
+#ScriptStep0 = 72 
+## crafting in al kharid (##craft) 
+#ScriptStep0 = 74 
+## iron/steel bar smithing (to plate) (##smith) <-- DEAD! 
+#ScriptStep0 = 70 
+## make softclay in fallador old bank (##soft) 
+#ScriptStep0 = 6010 
+## bowl crafting (##bowl) 
+#ScriptStep0 = 90 
+## high alching script - must be in alkharid (##alc) 
+#ScriptStep0 = 5050 
+## smelting by using superheat item - must be in alkharid (##sh) 
+#ScriptStep0 = 73 
+
+
+############################# external scripts ############################## 
+## 66: custom scripts (aka external scripts that are located in scripts/ folder) 
+## uncomment, if you're going to use external scripts, if not, make sure to 
+## comment this out 
+ScriptStep0 = 66 
+## syntax is exactly the same as the one you use in the client version 
+CustomScript0 = ##SCRIPT NAME HERE!?!?
+
+############################################################################# 
+############################################################################# 
+############################################################################# 
+
+
+## The following applies to all bots specified in this configuration 
+
+## value to reach in order to trigger forcedLogOut 
+ForceLogLimit = 2 
+
+
+## All times are specified in seconds! 
+## take a break of 1-2 minutes 
+SuspendTimeBase = 60 
+SuspendTimeAdd  = 60 
+
+## stay many hours logged in 
+RunTimeBase = 56000
+RunTimeAdd  = 3600 
+
+## how long to wait on error (lost connection, timeouts, ...) 
+## 60-120 seconds (don't use lower than that) 
+ErrorTimeBase = 60 
+ErrorTimeAdd  = 60 
+
+## Proxy this bot is using 
+ProxyServer = 127.0.0.1
+ProxyPort = PORT NUMBER
