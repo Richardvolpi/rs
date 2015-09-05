@@ -1,0 +1,42 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 5/4/05 4:02:37 AM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   TriControlCraft.java
+
+
+public class TriControlCraft$SmeltClass
+    implements Runnable
+{
+
+    public void run()
+    {
+        while(SmeltingBars) 
+        {
+            UseOnObject(FurnaceX, FurnaceY, FindInv(MetalForFurnace));
+            Wait(Rand(2000, 2500));
+            CheckSleep(99);
+        }
+        for(; CraftingItems; CheckSleep(99))
+        {
+            for(; !QuestMenu(); Wait(Rand(1000, 1500)))
+                UseOnObject(FurnaceX, FurnaceY, FindInv(BarForFurnace));
+
+            Answer(AnswerChoice);
+            Wait(Rand(2000, 2500));
+            if(!Metal.equalsIgnoreCase("Gold"))
+                continue;
+            for(; !QuestMenu(); Wait(Rand(500, 100)));
+            Answer(AnswerChoice2);
+            Wait(Rand(2000, 2500));
+        }
+
+    }
+
+    final TriControlCraft this$0;
+
+    public TriControlCraft$SmeltClass()
+    {
+        this$0 = TriControlCraft.this;
+        super();
+    }
+}

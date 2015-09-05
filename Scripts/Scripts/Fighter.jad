@@ -1,0 +1,201 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 25/08/2004 11:45:18 AM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Fighter.java
+
+import java.io.PrintStream;
+
+public class Fighter extends Script
+{
+
+    public Fighter(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "fighter"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        int ai[] = new int[4];
+        for(int i = 0; i < ai.length; i++)
+            ai[i] = GetStat(i);
+
+        String as1[] = new String[4];
+        as1[0] = "Attack";
+        as1[1] = "Defence";
+        as1[2] = "Strength";
+        as1[3] = "Hits";
+        int j = 373;
+        int k = 1;
+        byte byte0 = 12;
+        int i1 = 0;
+        boolean flag = false;
+        char c = '\u03E8';
+        j = Integer.parseInt(as[0]);
+        k = Integer.parseInt(as[1]);
+        int l = Integer.parseInt(as[2]);
+        String s1;
+        switch(k)
+        {
+        case 0: // '\0'
+            s1 = "Controlled";
+            break;
+
+        case 1: // '\001'
+            s1 = "Aggressive";
+            break;
+
+        case 2: // '\002'
+            s1 = "Accurate";
+            break;
+
+        case 3: // '\003'
+            s1 = "Defensive";
+            break;
+
+        default:
+            s1 = "Incorrect";
+            break;
+        }
+        String s2;
+        switch(j)
+        {
+        case 373: 
+            s2 = "Lobster";
+            byte0 = 12;
+            break;
+
+        case 546: 
+            s2 = "Shark";
+            byte0 = 20;
+            break;
+
+        case 359: 
+            s2 = "Trout";
+            byte0 = 7;
+            break;
+
+        case 357: 
+            s2 = "Salmon";
+            byte0 = 8;
+            break;
+
+        case 330: 
+            s2 = "Cake";
+            byte0 = 4;
+            break;
+
+        default:
+            s2 = "" + j;
+            break;
+        }
+        DisplayMessage("@yel@Notice: @whi@All information will be showed in DOS screen to reduce lag.", 3);
+        for(int j1 = 0; j1 < 30; j1++)
+            System.out.println();
+
+        System.out.println("Ultimate Fight Script Started - Created by XRoader / TomX");
+        System.out.println("---------------------------------------------------------");
+        System.out.println("Fight Mode: " + s1);
+        System.out.println("Type of Food: " + s2 + "(" + j + ")");
+        System.out.println("Quantity of " + s2 + ": " + InvCount(j) + "(" + byte0 * InvCount(j) + ")");
+        System.out.println("NPC ID: " + l);
+        System.out.println("Stats: " + ai[0] + "-" + ai[1] + "-" + ai[2] + "-" + ai[3]);
+        System.out.println();
+        do
+        {
+            if(!Running() || (j == 330 || InvCount(j) <= 0) && (j != 330 || InvCount(330) <= 0 && InvCount(333) <= 0 && InvCount(335) <= 0))
+                break;
+            do
+            {
+                if(GetStat(3) - GetCurrentStat(3) <= byte0 || !Running() || (j == 330 || InvCount(j) <= 0) && (j != 330 || InvCount(330) <= 0 && InvCount(333) <= 0 && InvCount(335) <= 0))
+                    break;
+                if(j == 330)
+                {
+                    if(InvCount(335) > 0)
+                    {
+                        Use(FindInv(335));
+                        Wait(c + 250);
+                        System.out.println("Hits: " + GetCurrentStat(3) + "/" + GetStat(3) + " - Ate a slice of cake.");
+                        break;
+                    }
+                    if(InvCount(333) > 0)
+                    {
+                        Use(FindInv(333));
+                        Wait(c + 250);
+                        System.out.println("Hits: " + GetCurrentStat(3) + "/" + GetStat(3) + " - Ate a piece of cake.");
+                        break;
+                    }
+                    if(InvCount(330) > 0)
+                    {
+                        Use(FindInv(330));
+                        Wait(c + 250);
+                        System.out.println("Hits: " + GetCurrentStat(3) + "/" + GetStat(3) + " - Ate a cake.");
+                        break;
+                    }
+                    System.out.println("Number of Cakes: " + ((double)InvCount(330) + (double)InvCount(333) * 0.66600000000000004D + (double)InvCount(335) * 0.33300000000000002D));
+                } else
+                {
+                    Use(FindInv(j));
+                    Wait(c + 250);
+                    System.out.println("Hits: " + GetCurrentStat(3) + "/" + GetStat(3) + " - Ate a " + s2 + ".");
+                    System.out.println("Number of " + s2 + "s: " + InvCount(j));
+                }
+            } while(true);
+            if(Fatigue() >= 95 && Running())
+            {
+                System.out.println("Fatigue is " + Fatigue() + "%");
+                for(; !Sleeping() && Running(); Wait(2500))
+                {
+                    System.out.println("Sleeping...");
+                    Use(FindInv(1263));
+                }
+
+                for(; Sleeping() && Running(); Wait(100));
+                System.out.println("Successfully Slept");
+            }
+            do
+            {
+                if(Sleeping() || InCombat())
+                    break;
+                int k1 = GetNearestNPC(l);
+                if(k1 != -1)
+                {
+                    SetFightMode(k);
+                    AttackNPC(k1);
+                    Wait(c);
+                }
+            } while(true);
+            for(; InCombat(); Wait(1));
+            i1++;
+            System.out.println("Killed " + i1 + " NPCs");
+            for(int l1 = 0; l1 < as1.length; l1++)
+                if(GetStat(l1) > ai[l1])
+                    System.out.println("You have gained a " + as1[l1] + " level!");
+
+            if(i1 % 10 == 0)
+            {
+                System.out.println();
+                System.out.println("Stats: " + GetStat(0) + "-" + GetStat(1) + "-" + GetStat(2) + "-" + GetStat(3));
+                System.out.println("Number of " + s2 + "s : " + InvCount(j));
+                System.out.println();
+            }
+        } while(true);
+        System.out.println();
+        System.out.println("Script Stopped");
+        System.out.println("Stats: " + GetStat(0) + "-" + GetStat(1) + "-" + GetStat(2) + "-" + GetStat(3));
+        System.out.println("Killed " + i1 + " NPCs");
+        if(j != 330 && InvCount(j) == 0 || j == 330 && InvCount(330) == 0 && InvCount(333) == 0 && InvCount(335) == 0)
+            System.out.println("Out of " + s2);
+        else
+        if(j == 330)
+            System.out.println("Number of Cakes left: " + ((double)InvCount(330) + (double)InvCount(333) * 0.33000000000000002D + (double)InvCount(335) * 0.66000000000000003D));
+        else
+            System.out.println("Number of " + s2 + ": " + InvCount(j));
+    }
+}

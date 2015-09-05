@@ -1,0 +1,68 @@
+public class Alcher extends Script 
+{
+    public Alcher(mudclient rs)
+    {
+        super(rs); 
+    }
+    public String[] getCommands()
+    {
+        return new String[]{"alch"}; 
+    }
+
+	int spellCount = 0;
+
+    public void start(String command, String parameter[])
+    {
+		Println("##### High Alcher Started");
+		int gold = InvCount(10);
+		int exp = GetExperience(6);
+		while (Running())
+		{
+			Println("## Opening Bank");
+
+			while (InvCount(8) < 1)
+			{
+				OpenBank();
+				if (BankCount(8) < 1)
+					return;
+				
+				for (int i = 0; i < 30 - InvCount(); i++)
+					Withdraw(8,1);
+			
+				CloseBank();
+
+				Wait(2000);
+			}
+			
+
+			while (InvCount(118) > 0)
+			{
+				if (Fatigue() > 75 && !Sleeping())
+				{
+					Println("### Sleeping");
+					Wait(Rand(2000,3000));
+					Use(FindInv(1263));
+					Wait(Rand(4000,5000));
+				} else if (!Sleeping())
+				{
+					spellCount++;
+					Println("## Casting Spell (" + spellCount + ")" + " (" + (InvCount(10) - gold) + ")" + " " + (GetExperience(6) - exp) + ")");
+					MagicInventory(FindInv(8),28);
+					ResetLastServerMessage();
+					long T = TickCount();
+					while (TickCount() - T < 3000 && !InLastServerMessage("spell"))
+						Wait(1);
+					if (InLastServerMessage("fail"))
+						Wait(20000);
+					if (InLastServerMessage("1 seconds"))
+						Wait(Rand(250,500));
+					else if (InLastServerMessage("seconds"))
+						Wait(Rand(5000,7500));
+					Wait(Rand(1000,1250));
+				} else
+					Wait(1);
+			}
+		}
+		Println("#### Script Ended ####");
+    }
+}

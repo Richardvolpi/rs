@@ -1,0 +1,58 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 01/10/2004 8:23:53 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   AutoMage.java
+
+
+public class AutoMage extends Script
+{
+
+    public AutoMage(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "mageit"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        if(as.length != 2)
+        {
+            DisplayMessage("@gre@SBoT: @whi@Invalid number of parameters. /RUN mage [STYLE] [NPC TYPE]", 3);
+        } else
+        {
+            int i = Integer.parseInt(as[0]);
+            char c = '\u02EE';
+            int j = Integer.parseInt(as[1]);
+            CheckFighters(true);
+            DisplayMessage("@gre@SBoT: @whi@AutoMage - Jake", 3);
+            do
+            {
+                if(!Running())
+                    break;
+                if(Fatigue() > 97 && !Sleeping())
+                {
+                    DisplayMessage("@gre@SBoT: @whi@Sleeping", 3);
+                    Use(FindInv(1263));
+                    Wait(5000);
+                } else
+                if(!Sleeping())
+                {
+                    int k = GetNearestNPC(j);
+                    if(k != -1)
+                    {
+                        long l = System.currentTimeMillis();
+                        MagicNPC(k, i);
+                        Wait(700);
+                    }
+                }
+            } while(true);
+        }
+        DisplayMessage("@gre@SBoT: @whi@AutoMage - @red@STOPPED", 3);
+    }
+}

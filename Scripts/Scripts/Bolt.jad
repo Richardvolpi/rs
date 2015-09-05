@@ -1,0 +1,41 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 06/08/2004 2:01:50 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Bolt.java
+
+
+public class Bolt extends Script
+{
+
+    public Bolt(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "bolt"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        DisplayMessage(" @bla@luk3 @ran@luk3 @yel@luk3 @blu@Black knight mager@yel@luk3 @ran@luk3 @bla@luk3", 3);
+        DisplayMessage(" @bla@luk3 @ran@luk3 @bla@luk3 @mag@shoots earth strike @bla@luk3 @ran@luk3 @bla@luk3", 3);
+        while(Running()) 
+            while(InvCount(41) >= 0 && Running()) 
+            {
+                if(Fatigue() >= 95 && Running())
+                {
+                    for(; !Sleeping() && Running(); Wait(2500))
+                        Use(FindInv(1263));
+
+                    for(; Sleeping() && Running(); Wait(100));
+                }
+                MagicNPC(GetNearestNPC(96), 4);
+                Wait(2000);
+            }
+        DisplayMessage("@red@STOPPED", 3);
+    }
+}

@@ -1,0 +1,1020 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 5/4/05 4:53:00 AM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Smith.java
+
+
+public class Smith extends Script
+{
+
+    public Smith(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "smith"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        if(as.length != 2)
+        {
+            DisplayMessage("@gre@Jake: @whi@Invalid number of parameters. /run smith [bar] [item]", 3);
+        } else
+        {
+            String s1 = as[0];
+            String s2 = as[1];
+            for(; Running(); Walk(150, 503))
+            {
+                char c = '\n';
+                byte byte0 = 10;
+                byte byte1 = 10;
+                byte byte2 = 10;
+                char c1 = '\n';
+                byte byte3 = 10;
+                String s3 = "null";
+                String s4 = "null";
+                if(s1.equalsIgnoreCase("Bronze"))
+                {
+                    c = '\251';
+                    s3 = "Bronze";
+                    if(s2.equalsIgnoreCase("legs"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 2;
+                        c1 = '\316';
+                        byte3 = 3;
+                        s4 = "Plate Mail Legs";
+                    }
+                    if(s2.equalsIgnoreCase("plate"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 1;
+                        c1 = 'u';
+                        byte3 = 5;
+                        s4 = "Plate Mail Body";
+                    }
+                    if(s2.equalsIgnoreCase("Skirt"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 3;
+                        c1 = '\326';
+                        byte3 = 3;
+                        s4 = "Plated Skirt";
+                    }
+                    if(s2.equalsIgnoreCase("chain"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 0;
+                        c1 = 'q';
+                        byte3 = 3;
+                        s4 = "Chain Mail Body";
+                    }
+                    if(s2.equalsIgnoreCase("twohander"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 3;
+                        c1 = 'L';
+                        byte3 = 3;
+                        s4 = "Two-handed Sword";
+                    }
+                    if(s2.equalsIgnoreCase("kite"))
+                    {
+                        byte0 = 1;
+                        byte1 = 1;
+                        byte2 = 1;
+                        c1 = '\200';
+                        byte3 = 3;
+                        s4 = "Kite Shield";
+                    }
+                    if(s2.equalsIgnoreCase("battle"))
+                    {
+                        byte0 = 0;
+                        byte1 = 3;
+                        byte2 = 1;
+                        c1 = '\315';
+                        byte3 = 3;
+                        s4 = "Battle Axe";
+                    }
+                    if(s2.equalsIgnoreCase("square"))
+                    {
+                        byte0 = 1;
+                        byte1 = 1;
+                        byte2 = 0;
+                        c1 = '|';
+                        byte3 = 2;
+                        s4 = "Square Shield";
+                    }
+                    if(s2.equalsIgnoreCase("large"))
+                    {
+                        byte0 = 1;
+                        byte1 = 0;
+                        byte2 = 1;
+                        c1 = 'l';
+                        byte3 = 2;
+                        s4 = "Great Helmet";
+                    }
+                    if(s2.equalsIgnoreCase("long"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 1;
+                        c1 = 'F';
+                        byte3 = 2;
+                        s4 = "Long Sword";
+                    }
+                    if(s2.equalsIgnoreCase("scim"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 2;
+                        c1 = 'R';
+                        byte3 = 2;
+                        s4 = "Scimitar";
+                    }
+                    if(s2.equalsIgnoreCase("short"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 0;
+                        c1 = 'B';
+                        byte3 = 1;
+                        s4 = "Short Sword";
+                    }
+                    if(s2.equalsIgnoreCase("heads"))
+                    {
+                        byte0 = 2;
+                        byte1 = 0;
+                        c1 = '\u029D';
+                        byte3 = 1;
+                        s4 = "Arrow Heads";
+                    }
+                    if(s2.equalsIgnoreCase("med"))
+                    {
+                        byte0 = 1;
+                        byte1 = 0;
+                        byte2 = 0;
+                        c1 = 'h';
+                        byte3 = 1;
+                        s4 = "Medium Helmet";
+                    }
+                    if(s2.equalsIgnoreCase("mace"))
+                    {
+                        byte0 = 0;
+                        byte1 = 4;
+                        c1 = '^';
+                        byte3 = 1;
+                        s4 = "Mace";
+                    }
+                    if(s2.equalsIgnoreCase("hatchet"))
+                    {
+                        byte0 = 0;
+                        byte1 = 3;
+                        byte2 = 0;
+                        c1 = 'W';
+                        byte3 = 1;
+                        s4 = "Hatchet";
+                    }
+                    if(s2.equalsIgnoreCase("Dagger"))
+                    {
+                        byte0 = 0;
+                        byte1 = 0;
+                        c1 = '>';
+                        byte3 = 1;
+                        s4 = "Dagger";
+                    }
+                }
+                if(s1.equalsIgnoreCase("iron"))
+                {
+                    c = '\252';
+                    s3 = "Iron";
+                    if(s2.equalsIgnoreCase("legs"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 2;
+                        c1 = '\t';
+                        byte3 = 3;
+                        s4 = "Plate Mail Legs";
+                    }
+                    if(s2.equalsIgnoreCase("plate"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 1;
+                        c1 = '\b';
+                        byte3 = 5;
+                        s4 = "Plate Mail Body";
+                    }
+                    if(s2.equalsIgnoreCase("Skirt"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 3;
+                        c1 = '\327';
+                        byte3 = 3;
+                        s4 = "Plated Skirt";
+                    }
+                    if(s2.equalsIgnoreCase("chain"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 0;
+                        c1 = '\007';
+                        byte3 = 3;
+                        s4 = "Chain Mail Body";
+                    }
+                    if(s2.equalsIgnoreCase("twohander"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 3;
+                        c1 = 'M';
+                        byte3 = 3;
+                        s4 = "Two-handed Sword";
+                    }
+                    if(s2.equalsIgnoreCase("kite"))
+                    {
+                        byte0 = 1;
+                        byte1 = 1;
+                        byte2 = 1;
+                        c1 = '\002';
+                        byte3 = 3;
+                        s4 = "Kite Shield";
+                    }
+                    if(s2.equalsIgnoreCase("battle"))
+                    {
+                        byte0 = 0;
+                        byte1 = 3;
+                        byte2 = 1;
+                        c1 = 'Y';
+                        byte3 = 3;
+                        s4 = "Battle Axe";
+                    }
+                    if(s2.equalsIgnoreCase("square"))
+                    {
+                        byte0 = 1;
+                        byte1 = 1;
+                        byte2 = 0;
+                        c1 = '\003';
+                        byte3 = 2;
+                        s4 = "Square Shield";
+                    }
+                    if(s2.equalsIgnoreCase("large"))
+                    {
+                        byte0 = 1;
+                        byte1 = 0;
+                        byte2 = 1;
+                        c1 = '\006';
+                        byte3 = 2;
+                        s4 = "Great Helmet";
+                    }
+                    if(s2.equalsIgnoreCase("long"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 1;
+                        c1 = 'G';
+                        byte3 = 2;
+                        s4 = "Long Sword";
+                    }
+                    if(s2.equalsIgnoreCase("scim"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 2;
+                        c1 = 'S';
+                        byte3 = 2;
+                        s4 = "Scimitar";
+                    }
+                    if(s2.equalsIgnoreCase("short"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 0;
+                        c1 = 'C';
+                        byte3 = 1;
+                        s4 = "Short Sword";
+                    }
+                    if(s2.equalsIgnoreCase("heads"))
+                    {
+                        byte0 = 2;
+                        byte1 = 0;
+                        c1 = '\u029E';
+                        byte3 = 1;
+                        s4 = "Arrow Heads";
+                    }
+                    if(s2.equalsIgnoreCase("med"))
+                    {
+                        byte0 = 1;
+                        byte1 = 0;
+                        byte2 = 0;
+                        c1 = '\005';
+                        byte3 = 1;
+                        s4 = "Medium Helmet";
+                    }
+                    if(s2.equalsIgnoreCase("mace"))
+                    {
+                        byte0 = 0;
+                        byte1 = 4;
+                        c1 = '\0';
+                        byte3 = 1;
+                        s4 = "Mace";
+                    }
+                    if(s2.equalsIgnoreCase("hatchet"))
+                    {
+                        byte0 = 0;
+                        byte1 = 3;
+                        byte2 = 0;
+                        c1 = '\f';
+                        byte3 = 1;
+                        s4 = "Hatchet";
+                    }
+                    if(s2.equalsIgnoreCase("Dagger"))
+                    {
+                        byte0 = 0;
+                        byte1 = 0;
+                        c1 = '?';
+                        byte3 = 1;
+                        s4 = "Dagger";
+                    }
+                }
+                if(s1.equalsIgnoreCase("steel"))
+                {
+                    c = '\253';
+                    s3 = "Steel";
+                    if(s2.equalsIgnoreCase("plate"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 1;
+                        c1 = 'v';
+                        byte3 = 5;
+                        s4 = "Plate Mail Body";
+                    }
+                    if(s2.equalsIgnoreCase("Skirt"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 3;
+                        c1 = '\327';
+                        byte3 = 3;
+                        s4 = "Plated Skirt";
+                    }
+                    if(s2.equalsIgnoreCase("chain"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 0;
+                        c1 = 'r';
+                        byte3 = 3;
+                        s4 = "Chain Mail Body";
+                    }
+                    if(s2.equalsIgnoreCase("legs"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 2;
+                        c1 = '\317';
+                        byte3 = 3;
+                        s4 = "Plate Mail Legs";
+                    }
+                    if(s2.equalsIgnoreCase("twohander"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 3;
+                        c1 = 'N';
+                        byte3 = 3;
+                        s4 = "Two-handed Sword";
+                    }
+                    if(s2.equalsIgnoreCase("kite"))
+                    {
+                        byte0 = 1;
+                        byte1 = 1;
+                        byte2 = 1;
+                        c1 = '\201';
+                        byte3 = 3;
+                        s4 = "Kite Shield";
+                    }
+                    if(s2.equalsIgnoreCase("battle"))
+                    {
+                        byte0 = 0;
+                        byte1 = 3;
+                        byte2 = 1;
+                        c1 = '\316';
+                        byte3 = 3;
+                        s4 = "Battle Axe";
+                    }
+                    if(s2.equalsIgnoreCase("square"))
+                    {
+                        byte0 = 1;
+                        byte1 = 1;
+                        byte2 = 0;
+                        c1 = '}';
+                        byte3 = 2;
+                        s4 = "Square Shield";
+                    }
+                    if(s2.equalsIgnoreCase("large"))
+                    {
+                        byte0 = 1;
+                        byte1 = 0;
+                        byte2 = 1;
+                        c1 = 'm';
+                        byte3 = 2;
+                        s4 = "Great Helmet";
+                    }
+                    if(s2.equalsIgnoreCase("long"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 1;
+                        c1 = 'G';
+                        byte3 = 2;
+                        s4 = "Long Sword";
+                    }
+                    if(s2.equalsIgnoreCase("scim"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 2;
+                        c1 = 'S';
+                        byte3 = 2;
+                        s4 = "Scimitar";
+                    }
+                    if(s2.equalsIgnoreCase("short"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 0;
+                        c1 = 'C';
+                        byte3 = 1;
+                        s4 = "Short Sword";
+                    }
+                    if(s2.equalsIgnoreCase("heads"))
+                    {
+                        byte0 = 2;
+                        byte1 = 0;
+                        c1 = '\u029F';
+                        byte3 = 1;
+                        s4 = "Arrow Heads";
+                    }
+                    if(s2.equalsIgnoreCase("med"))
+                    {
+                        byte0 = 1;
+                        byte1 = 0;
+                        byte2 = 0;
+                        c1 = 'i';
+                        byte3 = 1;
+                        s4 = "Medium Helmet";
+                    }
+                    if(s2.equalsIgnoreCase("mace"))
+                    {
+                        byte0 = 0;
+                        byte1 = 4;
+                        c1 = '_';
+                        byte3 = 1;
+                        s4 = "Mace";
+                    }
+                    if(s2.equalsIgnoreCase("hatchet"))
+                    {
+                        byte0 = 0;
+                        byte1 = 3;
+                        byte2 = 0;
+                        c1 = 'X';
+                        byte3 = 1;
+                        s4 = "Hatchet";
+                    }
+                    if(s2.equalsIgnoreCase("Dagger"))
+                    {
+                        byte0 = 0;
+                        byte1 = 0;
+                        c1 = '?';
+                        byte3 = 1;
+                        s4 = "Dagger";
+                    }
+                }
+                if(s1.equalsIgnoreCase("mith"))
+                {
+                    c = '\255';
+                    s3 = "Mithril";
+                    if(s2.equalsIgnoreCase("plate"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 1;
+                        c1 = 'w';
+                        byte3 = 5;
+                        s4 = "Plate Mail Body";
+                    }
+                    if(s2.equalsIgnoreCase("Skirt"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 3;
+                        c1 = '\330';
+                        byte3 = 3;
+                        s4 = "Plated Skirt";
+                    }
+                    if(s2.equalsIgnoreCase("chain"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 0;
+                        c1 = 's';
+                        byte3 = 3;
+                        s4 = "Chain Mail Body";
+                    }
+                    if(s2.equalsIgnoreCase("legs"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 2;
+                        c1 = '\320';
+                        byte3 = 3;
+                        s4 = "Plate Mail Legs";
+                    }
+                    if(s2.equalsIgnoreCase("twohander"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 3;
+                        c1 = 'O';
+                        byte3 = 3;
+                        s4 = "Two-handed Sword";
+                    }
+                    if(s2.equalsIgnoreCase("kite"))
+                    {
+                        byte0 = 1;
+                        byte1 = 1;
+                        byte2 = 1;
+                        c1 = '\202';
+                        byte3 = 3;
+                        s4 = "Kite Shield";
+                    }
+                    if(s2.equalsIgnoreCase("battle"))
+                    {
+                        byte0 = 0;
+                        byte1 = 3;
+                        byte2 = 1;
+                        c1 = '\317';
+                        byte3 = 3;
+                        s4 = "Battle Axe";
+                    }
+                    if(s2.equalsIgnoreCase("square"))
+                    {
+                        byte0 = 1;
+                        byte1 = 1;
+                        byte2 = 0;
+                        c1 = '~';
+                        byte3 = 2;
+                        s4 = "Square Shield";
+                    }
+                    if(s2.equalsIgnoreCase("large"))
+                    {
+                        byte0 = 1;
+                        byte1 = 0;
+                        byte2 = 1;
+                        c1 = 'n';
+                        byte3 = 2;
+                        s4 = "Great Helmet";
+                    }
+                    if(s2.equalsIgnoreCase("long"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 1;
+                        c1 = 'H';
+                        byte3 = 2;
+                        s4 = "Long Sword";
+                    }
+                    if(s2.equalsIgnoreCase("scim"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 2;
+                        c1 = 'T';
+                        byte3 = 2;
+                        s4 = "Scimitar";
+                    }
+                    if(s2.equalsIgnoreCase("short"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 0;
+                        c1 = 'D';
+                        byte3 = 1;
+                        s4 = "Short Sword";
+                    }
+                    if(s2.equalsIgnoreCase("heads"))
+                    {
+                        byte0 = 2;
+                        byte1 = 0;
+                        c1 = '\u02A0';
+                        byte3 = 1;
+                        s4 = "Arrow Heads";
+                    }
+                    if(s2.equalsIgnoreCase("med"))
+                    {
+                        byte0 = 1;
+                        byte1 = 0;
+                        byte2 = 0;
+                        c1 = 'j';
+                        byte3 = 1;
+                        s4 = "Medium Helmet";
+                    }
+                    if(s2.equalsIgnoreCase("mace"))
+                    {
+                        byte0 = 0;
+                        byte1 = 4;
+                        c1 = '`';
+                        byte3 = 1;
+                        s4 = "Mace";
+                    }
+                    if(s2.equalsIgnoreCase("hatchet"))
+                    {
+                        byte0 = 0;
+                        byte1 = 3;
+                        byte2 = 0;
+                        c1 = 'Y';
+                        byte3 = 1;
+                        s4 = "Hatchet";
+                    }
+                    if(s2.equalsIgnoreCase("Dagger"))
+                    {
+                        byte0 = 0;
+                        byte1 = 0;
+                        c1 = '@';
+                        byte3 = 1;
+                        s4 = "Dagger";
+                    }
+                }
+                if(s1.equalsIgnoreCase("addy"))
+                {
+                    c = '\256';
+                    s3 = "Adamantite";
+                    if(s2.equalsIgnoreCase("plate"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 1;
+                        c1 = 'x';
+                        byte3 = 5;
+                        s4 = "Plate Mail Body";
+                    }
+                    if(s2.equalsIgnoreCase("Skirt"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 3;
+                        c1 = '\331';
+                        byte3 = 3;
+                        s4 = "Plated Skirt";
+                    }
+                    if(s2.equalsIgnoreCase("chain"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 0;
+                        c1 = 't';
+                        byte3 = 3;
+                        s4 = "Chain Mail Body";
+                    }
+                    if(s2.equalsIgnoreCase("legs"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 2;
+                        c1 = '\321';
+                        byte3 = 3;
+                        s4 = "Plate Mail Legs";
+                    }
+                    if(s2.equalsIgnoreCase("twohander"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 3;
+                        c1 = 'P';
+                        byte3 = 3;
+                        s4 = "Two-handed Sword";
+                    }
+                    if(s2.equalsIgnoreCase("kite"))
+                    {
+                        byte0 = 1;
+                        byte1 = 1;
+                        byte2 = 1;
+                        c1 = '\203';
+                        byte3 = 3;
+                        s4 = "Kite Shield";
+                    }
+                    if(s2.equalsIgnoreCase("battle"))
+                    {
+                        byte0 = 0;
+                        byte1 = 3;
+                        byte2 = 1;
+                        c1 = '\320';
+                        byte3 = 3;
+                        s4 = "Battle Axe";
+                    }
+                    if(s2.equalsIgnoreCase("square"))
+                    {
+                        byte0 = 1;
+                        byte1 = 1;
+                        byte2 = 0;
+                        c1 = '\177';
+                        byte3 = 2;
+                        s4 = "Square Shield";
+                    }
+                    if(s2.equalsIgnoreCase("large"))
+                    {
+                        byte0 = 1;
+                        byte1 = 0;
+                        byte2 = 1;
+                        c1 = 'o';
+                        byte3 = 2;
+                        s4 = "Great Helmet";
+                    }
+                    if(s2.equalsIgnoreCase("long"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 1;
+                        c1 = 'I';
+                        byte3 = 2;
+                        s4 = "Long Sword";
+                    }
+                    if(s2.equalsIgnoreCase("scim"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 2;
+                        c1 = 'U';
+                        byte3 = 2;
+                        s4 = "Scimitar";
+                    }
+                    if(s2.equalsIgnoreCase("short"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 0;
+                        c1 = 'E';
+                        byte3 = 1;
+                        s4 = "Short Sword";
+                    }
+                    if(s2.equalsIgnoreCase("heads"))
+                    {
+                        byte0 = 2;
+                        byte1 = 0;
+                        c1 = '\u02A1';
+                        byte3 = 1;
+                        s4 = "Arrow Heads";
+                    }
+                    if(s2.equalsIgnoreCase("med"))
+                    {
+                        byte0 = 1;
+                        byte1 = 0;
+                        byte2 = 0;
+                        c1 = 'k';
+                        byte3 = 1;
+                        s4 = "Medium Helmet";
+                    }
+                    if(s2.equalsIgnoreCase("mace"))
+                    {
+                        byte0 = 0;
+                        byte1 = 4;
+                        c1 = 'a';
+                        byte3 = 1;
+                        s4 = "Mace";
+                    }
+                    if(s2.equalsIgnoreCase("hatchet"))
+                    {
+                        byte0 = 0;
+                        byte1 = 3;
+                        byte2 = 0;
+                        c1 = 'Z';
+                        byte3 = 1;
+                        s4 = "Hatchet";
+                    }
+                    if(s2.equalsIgnoreCase("Dagger"))
+                    {
+                        byte0 = 0;
+                        byte1 = 0;
+                        c1 = 'A';
+                        byte3 = 1;
+                        s4 = "Dagger";
+                    }
+                }
+                if(s1.equalsIgnoreCase("rune"))
+                {
+                    c = '\u0198';
+                    s3 = "Rune";
+                    if(s2.equalsIgnoreCase("plate"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 1;
+                        c1 = '\u0191';
+                        byte3 = 5;
+                        s4 = "Plate Mail Body";
+                    }
+                    if(s2.equalsIgnoreCase("Skirt"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 3;
+                        c1 = '\u0196';
+                        byte3 = 3;
+                        s4 = "Plated Skirt";
+                    }
+                    if(s2.equalsIgnoreCase("chain"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 0;
+                        c1 = '\u0191';
+                        byte3 = 3;
+                        s4 = "Chain Mail Body";
+                    }
+                    if(s2.equalsIgnoreCase("legs"))
+                    {
+                        byte0 = 1;
+                        byte1 = 2;
+                        byte2 = 2;
+                        c1 = '\u0192';
+                        byte3 = 3;
+                        s4 = "Plate Mail Legs";
+                    }
+                    if(s2.equalsIgnoreCase("twohander"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 3;
+                        c1 = 'Q';
+                        byte3 = 3;
+                        s4 = "Two-handed Sword";
+                    }
+                    if(s2.equalsIgnoreCase("kite"))
+                    {
+                        byte0 = 1;
+                        byte1 = 1;
+                        byte2 = 1;
+                        c1 = '\u0194';
+                        byte3 = 3;
+                        s4 = "Kite Shield";
+                    }
+                    if(s2.equalsIgnoreCase("battle"))
+                    {
+                        byte0 = 0;
+                        byte1 = 3;
+                        byte2 = 1;
+                        c1 = ']';
+                        byte3 = 3;
+                        s4 = "Battle Axe";
+                    }
+                    if(s2.equalsIgnoreCase("square"))
+                    {
+                        byte0 = 1;
+                        byte1 = 1;
+                        byte2 = 0;
+                        c1 = '\u0193';
+                        byte3 = 2;
+                        s4 = "Square Shield";
+                    }
+                    if(s2.equalsIgnoreCase("large"))
+                    {
+                        byte0 = 1;
+                        byte1 = 0;
+                        byte2 = 1;
+                        c1 = 'p';
+                        byte3 = 2;
+                        s4 = "Great Helmet";
+                    }
+                    if(s2.equalsIgnoreCase("long"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 1;
+                        c1 = 'K';
+                        byte3 = 2;
+                        s4 = "Long Sword";
+                    }
+                    if(s2.equalsIgnoreCase("scim"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 2;
+                        c1 = '\u018E';
+                        byte3 = 2;
+                        s4 = "Scimitar";
+                    }
+                    if(s2.equalsIgnoreCase("short"))
+                    {
+                        byte0 = 0;
+                        byte1 = 2;
+                        byte2 = 0;
+                        c1 = '\u018D';
+                        byte3 = 1;
+                        s4 = "Short Sword";
+                    }
+                    if(s2.equalsIgnoreCase("heads"))
+                    {
+                        byte0 = 2;
+                        byte1 = 0;
+                        c1 = '\u02A2';
+                        byte3 = 1;
+                        s4 = "Arrow Heads";
+                    }
+                    if(s2.equalsIgnoreCase("med"))
+                    {
+                        byte0 = 1;
+                        byte1 = 0;
+                        byte2 = 0;
+                        c1 = '\u018F';
+                        byte3 = 1;
+                        s4 = "Medium Helmet";
+                    }
+                    if(s2.equalsIgnoreCase("mace"))
+                    {
+                        byte0 = 0;
+                        byte1 = 4;
+                        c1 = 'b';
+                        byte3 = 1;
+                        s4 = "Mace";
+                    }
+                    if(s2.equalsIgnoreCase("hatchet"))
+                    {
+                        byte0 = 0;
+                        byte1 = 3;
+                        byte2 = 0;
+                        c1 = '\u0195';
+                        byte3 = 1;
+                        s4 = "Hatchet";
+                    }
+                    if(s2.equalsIgnoreCase("Dagger"))
+                    {
+                        byte0 = 0;
+                        byte1 = 0;
+                        c1 = '\u018C';
+                        byte3 = 1;
+                        s4 = "Dagger";
+                    }
+                }
+                String s5 = "@gre@Jake: @whi@Smithing " + s3 + " " + s4 + "";
+                DisplayMessage(s5, 3);
+                for(; !QuestMenu() && Running(); Wait(2000))
+                {
+                    int i = GetNearestNPC(95);
+                    TalkToNPC(i);
+                }
+
+                Answer(0);
+                for(; !Bank() && Running(); Wait(50));
+                for(; Bank() && Running(); CloseBank())
+                {
+                    for(; InvCount(c1) > 0; Wait(50))
+                        Deposit(c1, 1);
+
+                    for(; InvCount() < 30; Wait(50))
+                        Withdraw(c, 1);
+
+                }
+
+                Walk(150, 503);
+                Walk(150, 507);
+                Walk(148, 512);
+                for(; InvCount(c) > byte3 && Running(); Wait(500))
+                {
+                    if(Fatigue() > 99 && Running())
+                    {
+                        for(; !Sleeping(); Wait(3000))
+                            Use(FindInv(1263));
+
+                        for(; Sleeping(); Wait(200));
+                    }
+                    UseOnObject(148, 513, FindInv(c));
+                    Wait(500);
+                    for(; !QuestMenu(); Wait(100));
+                    Answer(byte0);
+                    for(; !QuestMenu(); Wait(100));
+                    Answer(byte1);
+                    if(byte2 == 10)
+                        continue;
+                    for(; !QuestMenu(); Wait(100));
+                    Answer(byte2);
+                }
+
+            }
+
+            DisplayMessage("@gre@Jake: @red@Smither Stopped", 3);
+        }
+    }
+}

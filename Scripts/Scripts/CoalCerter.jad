@@ -1,0 +1,58 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 03/09/2004 12:55:35 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   CoalCerter.java
+
+
+public class CoalCerter extends Script
+{
+
+    public CoalCerter(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "certcoal"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        DisplayMessage("@blu@SBoT: @red@Certing Coal - Vegunks", 3);
+        for(; Running(); Walk(226, 631))
+        {
+            for(; !QuestMenu(); Wait(2000))
+            {
+                int i = GetNearestNPC(225);
+                TalkToNPC(i);
+            }
+
+            for(; !QuestMenu(); Wait(25));
+            Answer(1);
+            for(; !QuestMenu(); Wait(25));
+            Answer(1);
+            for(; !QuestMenu(); Wait(25));
+            Answer(4);
+            Wait(1000);
+            Walk(224, 632);
+            for(; !QuestMenu(); Wait(1500))
+            {
+                int j = GetNearestNPC(95);
+                TalkToNPC(j);
+                while(QuestMenu()) ;
+            }
+
+            Answer(0);
+            for(; !Bank(); Wait(1500));
+            for(; InvCount(155) < 25; Wait(500))
+                Withdraw(155, 1);
+
+            CloseBank();
+        }
+
+        DisplayMessage("@red@STOPPED", 3);
+    }
+}

@@ -1,0 +1,42 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 27/08/2004 11:01:49 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   AgilityNet.java
+
+
+public class AgilityNet extends Script
+{
+
+    public AgilityNet(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "agilitynet"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        DisplayMessage("Gnome Agility Net - Flop", 3);
+        do
+        {
+            if(!Running())
+                break;
+            AtObject(683, 502);
+            Wait(100);
+            if(Fatigue() >= 95 && Running())
+            {
+                for(; !Sleeping() && Running(); Wait(2500))
+                    Use(FindInv(1263));
+
+                while(Sleeping() && Running()) 
+                    Wait(100);
+            }
+        } while(true);
+        DisplayMessage("@red@STOPPED", 3);
+    }
+}

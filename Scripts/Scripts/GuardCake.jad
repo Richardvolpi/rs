@@ -1,0 +1,312 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/10/2004 2:57:11 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   GuardCake.java
+
+import java.io.PrintStream;
+
+public class GuardCake extends Script
+{
+
+    public GuardCake(mudclient mudclient)
+    {
+        super(mudclient);
+        thieved = 0;
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "guardme"
+        });
+    }
+
+    public void ServerMessage(String s)
+    {
+        if(s.equals("@gam@You pick the guard's pocket"))
+            thieved++;
+    }
+
+    public void start(String s, String as[])
+    {
+        if(as.length != 2)
+        {
+            DisplayMessage("@gre@Bruncle: @whi@Invalid number of parameters. /RUN guardmep [STYLE]@[Time till report]", 3);
+        } else
+        {
+            int i = Integer.parseInt(as[0]);
+            int j = Integer.parseInt(as[1]);
+            char c = '\u02EE';
+            int ai[] = {
+                330, 333, 335
+            };
+            int k = 0;
+            long l = 0L;
+            int i1 = 0;
+            int j1 = 0;
+            double d = 0.0D;
+            long l2 = System.currentTimeMillis();
+            long l3 = System.currentTimeMillis();
+            int k1 = GetStat(17);
+            CheckFighters(true);
+            DisplayMessage("@gre@Bruncle: @whi@Guard Thiever @ran@Started- @whi@Bruncle", 3);
+            do
+            {
+                if(!Running())
+                    break;
+                if(System.currentTimeMillis() - l2 > (long)(j * 60000))
+                {
+                    int i2 = GetStat(17) - k1;
+                    l2 = System.currentTimeMillis();
+                    for(int i3 = 0; i3 < 20; i3++)
+                    {
+                        System.out.print("-");
+                        Wait(10);
+                    }
+
+                    Wait(5);
+                    System.out.println("");
+                    String as1[] = {
+                        "P ", "R ", "O ", "G ", "R ", "E ", "S ", "S ", " R ", "E ", 
+                        "P ", "O ", "R ", "T:"
+                    };
+                    for(int j3 = 0; j3 < 14;)
+                    {
+                        System.out.print(as1[j3]);
+                        j3++;
+                        Wait(20);
+                    }
+
+                    for(int k3 = 0; k3 < 20; k3++)
+                    {
+                        System.out.print("-");
+                        Wait(10);
+                    }
+
+                    double d1 = (double)thieved * 56.5D;
+                    long l1 = (System.currentTimeMillis() - l3) / 60000L;
+                    int i4 = 0;
+                    System.out.println("");
+                    String as2[] = {
+                        "Y", "o", "u", " ", "h", "a", "v", "e", " ", "b", 
+                        "e", "e", "n", " ", "a", "u", "t", "o", "i", "n", 
+                        "g", " ", "f", "o", "r"
+                    };
+                    while(i4 < 25) 
+                    {
+                        System.out.print(as2[i4]);
+                        i4++;
+                        Wait(50);
+                    }
+                    System.out.print(" " + l1);
+                    i4 = 0;
+                    String as3[] = {
+                        " M", "i", "n", "u", "t", "e", "s"
+                    };
+                    while(i4 <= 6) 
+                    {
+                        System.out.print(as3[i4]);
+                        i4++;
+                        Wait(50);
+                    }
+                    System.out.println("");
+                    String as4[] = {
+                        "Y", "o", "u", " ", "h", "a", "v", "e", " ", "t", 
+                        "h", "i", "e", "v", "e", "d "
+                    };
+                    for(int j4 = 0; j4 <= 15;)
+                    {
+                        System.out.print(as4[j4]);
+                        j4++;
+                        Wait(50);
+                    }
+
+                    System.out.print(thieved);
+                    String as5[] = {
+                        " G", "u", "a", "r", "d", "s!"
+                    };
+                    for(int k4 = 0; k4 <= 5;)
+                    {
+                        System.out.print(as5[k4]);
+                        k4++;
+                        Wait(50);
+                    }
+
+                    System.out.println("");
+                    String as6[] = {
+                        "Y", "o", "u", " ", "h", "a", "v", "e", " ", "g", 
+                        "a", "i", "n", "e", "d "
+                    };
+                    for(int l4 = 0; l4 <= 14;)
+                    {
+                        System.out.print(as6[l4]);
+                        l4++;
+                        Wait(50);
+                    }
+
+                    System.out.print(d1);
+                    String as7[] = {
+                        " e", "x", "p", "e", "r", "i", "e", "n", "c", "e"
+                    };
+                    for(int i5 = 0; i5 <= 9;)
+                    {
+                        System.out.print(as7[i5]);
+                        i5++;
+                        Wait(50);
+                    }
+
+                    System.out.println("");
+                    for(int j5 = 0; j5 <= 14;)
+                    {
+                        System.out.print(as6[j5]);
+                        j5++;
+                        Wait(50);
+                    }
+
+                    System.out.print(i2);
+                    String as8[] = {
+                        " t", "h", "i", "e", "v", "i", "n", "g", " ", "l", 
+                        "e", "v", "e", "l", "s"
+                    };
+                    for(int k5 = 0; k5 <= 14;)
+                    {
+                        System.out.print(as8[k5]);
+                        k5++;
+                        Wait(50);
+                    }
+
+                    System.out.println("");
+                    String as9[] = {
+                        "Y", "o", "u", " ", "h", "a", "v", "e", " ", "t", 
+                        "h", "i", "e", "v", "e", "d "
+                    };
+                    for(int l5 = 0; l5 <= 15;)
+                    {
+                        System.out.print(as9[l5]);
+                        l5++;
+                        Wait(50);
+                    }
+
+                    System.out.print(thieved * 30);
+                    String as10[] = {
+                        " g", "p"
+                    };
+                    for(int i6 = 0; i6 <= 1;)
+                    {
+                        System.out.print(as10[i6]);
+                        i6++;
+                        Wait(50);
+                    }
+
+                    System.out.println("");
+                    String as11[] = {
+                        "Y", "o", "u", " ", "h", "a", "v", "e", " ", "s", 
+                        "l", "e", "p", "t "
+                    };
+                    for(int j6 = 0; j6 <= 13;)
+                    {
+                        System.out.print(as11[j6]);
+                        j6++;
+                        Wait(50);
+                    }
+
+                    System.out.print(j1);
+                    String as12[] = {
+                        " t", "i", "m", "e", "s"
+                    };
+                    for(int k6 = 0; k6 <= 4;)
+                    {
+                        System.out.print(as12[k6]);
+                        k6++;
+                        Wait(50);
+                    }
+
+                    System.out.println("");
+                    String as13[] = {
+                        "Y", "o", "u", " ", "h", "a", "v", "e", " ", "g", 
+                        "o", "n", "e", " ", "f", "o", "r", " ", "f", "o", 
+                        "o", "d "
+                    };
+                    for(int l6 = 0; l6 <= 21;)
+                    {
+                        System.out.print(as13[l6]);
+                        l6++;
+                        Wait(50);
+                    }
+
+                    System.out.print(i1);
+                    for(int i7 = 0; i7 <= 4;)
+                    {
+                        System.out.print(as12[i7]);
+                        i7++;
+                        Wait(50);
+                    }
+
+                    for(int j7 = 0; j7 < 20; j7++)
+                    {
+                        System.out.print("-");
+                        Wait(10);
+                    }
+
+                }
+                if(Fatigue() >= 95 && Running())
+                {
+                    for(; !Sleeping() && Running(); Wait(2500))
+                        Use(FindInv(1263));
+
+                    for(; Sleeping() && Running(); Wait(100));
+                }
+                if(GetCurrentStat(3) <= GetStat(3) - 5 && Running() && !InCombat())
+                {
+                    if(InvCount(ai[0]) > 0)
+                        k = FindInv(ai[0]);
+                    if(InvCount(ai[1]) > 0)
+                        k = FindInv(ai[1]);
+                    if(InvCount(ai[2]) > 0)
+                        k = FindInv(ai[2]);
+                    Use(k);
+                    Wait(2500);
+                }
+                if(!InCombat() && Running() && GetCurrentStat(3) > GetStat(3) - 5)
+                {
+                    SetFightMode(i);
+                    int j2 = GetNearestNPC(321);
+                    ThieveNPC(j2);
+                    Wait(700);
+                }
+                for(; InCombat() && Running(); Wait(2000))
+                {
+                    SetFightMode(i);
+                    WalkNoWait(GetX(), GetY());
+                }
+
+                if(InvCount(ai[0]) == 0 && InvCount(ai[1]) == 0 && InvCount(ai[2]) == 0 && Running() && !InCombat())
+                {
+                    Wait(2000);
+                    Walk(543, 600);
+                    Wait(1000);
+                    int k2 = 30 - InvCount();
+                    while(InvCount(ai[0]) < k2 && Running() && Fatigue() < 100) 
+                    {
+                        if(ObjectAt(544, 599) == 322 && !InCombat())
+                        {
+                            AtObject2(544, 599);
+                            Wait(200);
+                        }
+                        while(InCombat() && Running()) 
+                        {
+                            WalkNoWait(GetX() + 2, GetY());
+                            WalkNoWait(GetX() - 2, GetY());
+                            WalkNoWait(GetX(), GetY() + 2);
+                            WalkNoWait(GetX(), GetY() - 2);
+                            SetFightMode(i);
+                        }
+                    }
+                }
+            } while(true);
+            DisplayMessage("@gre@Bruncle: @whi@Guard Thiever - @red@STOPPED", 3);
+        }
+    }
+
+    public int thieved;
+}

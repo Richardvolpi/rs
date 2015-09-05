@@ -1,0 +1,76 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 18/09/2004 3:32:26 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   bronzearrowhead.java
+
+
+public class bronzearrowhead extends Script
+{
+
+    public bronzearrowhead(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "smithheads"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        DisplayMessage("@cya@F@gr2@e@cya@r@gr2@t@cya@y@gr2@<@cya@3@gr2@: @whi@Bronze Arow Head Smither script by - @cya@F@gr2@e@cya@r@gr2@t@cya@y@gr2@<@cya@3", 3);
+        do
+        {
+            if(!Running())
+                break;
+            Walk(150, 503);
+            Wait(100);
+            for(; !QuestMenu() && Running(); Wait(2000))
+            {
+                int i = GetNearestNPC(95);
+                TalkToNPC(i);
+            }
+
+            Answer(0);
+            for(; !Bank() && Running(); Wait(50));
+            for(; Bank() && Running(); CloseBank())
+            {
+                for(; InvCount(669) > 0; Wait(100))
+                    Deposit(669, 5);
+
+                for(; InvCount(169) < 25; Wait(100))
+                    Withdraw(169, 1);
+
+            }
+
+            Walk(150, 503);
+            Wait(100);
+            Walk(150, 507);
+            Wait(100);
+            Walk(148, 512);
+            Wait(100);
+            for(; Running() && InvCount(669) < 250; Wait(1000))
+            {
+                UseOnObject(148, 513, 5);
+                Wait(1000);
+                for(; !QuestMenu(); Wait(10));
+                Answer(2);
+                for(; !QuestMenu(); Wait(10));
+                Answer(0);
+            }
+
+            if(Fatigue() > 90 && Running())
+            {
+                for(; !Sleeping(); Wait(3000))
+                    Use(FindInv(1263));
+
+                while(Sleeping()) 
+                    Wait(200);
+            }
+        } while(true);
+        DisplayMessage("@cya@F@gr2@e@cya@r@gr2@t@cya@y@gr2@<@cya@3@gr2@: @whi@Bronze Arow Head Smither script by - @cya@F@gr2@e@cya@r@gr2@t@cya@y@gr2@<@cya@3 - @red@Stopped", 3);
+    }
+}

@@ -1,0 +1,1 @@
+/run guardme [fightmode]@[time between progress reports] 

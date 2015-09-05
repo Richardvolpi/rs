@@ -1,0 +1,43 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 05/10/2004 7:10:18 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   AutoDuel.java
+
+
+public class AutoDuel extends Script
+{
+
+    public AutoDuel(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "mage"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        if(as.length != 1)
+        {
+            DisplayMessage("@gre@SBoT: @whi@Invalid number of parameters. /RUN MAGE [PLAYER ID]", 3);
+        } else
+        {
+            int i = Integer.parseInt(as[0]);
+            DisplayMessage("@gre@SBoT: @whi@AutoMageStake - yomama`", 3);
+            for(; Running(); Wait(750))
+            {
+                DisplayMessage("@Gre@SBoT: @whi@Set to defence", 3);
+                SetFightMode(3);
+                Wait(700);
+                DisplayMessage("@Gre@SBoT: @whi@Maging", 3);
+                MagicPlayer(i, 34);
+            }
+
+        }
+        DisplayMessage("@gre@SBoT: @whi@AutoMager - @red@STOPPED", 3);
+    }
+}

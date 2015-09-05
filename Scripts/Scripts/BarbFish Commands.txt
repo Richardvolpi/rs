@@ -1,0 +1,4 @@
+/run powerfish (obviously just fishes and sleeps)
+/run cookfish (this one fishes a full load then cooks on the fire in barb village and doesnt bank)
+/run bankfish (this one banks the fish raw when ur inventory is full)
+/run cookbank (this one cooks the fish at the range in edgeville when ur load is full and then banks)

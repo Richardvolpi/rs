@@ -1,0 +1,225 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 5/4/05 4:02:02 AM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   TriControlCraft.java
+
+
+public class TriControlCraft extends Script
+{
+    public class SmeltClass
+        implements Runnable
+    {
+
+        public void run()
+        {
+            while(SmeltingBars) 
+            {
+                UseOnObject(FurnaceX, FurnaceY, FindInv(MetalForFurnace));
+                Wait(Rand(2000, 2500));
+                CheckSleep(99);
+            }
+            for(; CraftingItems; CheckSleep(99))
+            {
+                for(; !QuestMenu(); Wait(Rand(1000, 1500)))
+                    UseOnObject(FurnaceX, FurnaceY, FindInv(BarForFurnace));
+
+                Answer(AnswerChoice);
+                Wait(Rand(2000, 2500));
+                if(!Metal.equalsIgnoreCase("Gold"))
+                    continue;
+                for(; !QuestMenu(); Wait(Rand(500, 100)));
+                Answer(AnswerChoice2);
+                Wait(Rand(2000, 2500));
+            }
+
+        }
+
+        final TriControlCraft this$0;
+
+        public SmeltClass()
+        {
+            this$0 = TriControlCraft.this;
+            super();
+        }
+    }
+
+
+    public TriControlCraft(mudclient mudclient)
+    {
+        super(mudclient);
+        SmeltObject = new SmeltClass();
+        GoldID = 152;
+        SilverID = 383;
+        GoldBarID = 172;
+        SilverBarID = 384;
+        GoldRockX = 75;
+        GoldRockY = 597;
+        GoldRockID = 112;
+        SilverRockX = 75;
+        SilverRockY = 589;
+        SilverRockID = 195;
+        FurnaceX = 85;
+        FurnaceY = 679;
+        AnswerChoice2 = 1;
+        SymbolMold = 386;
+        AmmyMold = 294;
+        NecklaceMold = 295;
+        RingMold = 293;
+        AmmyID = 296;
+        NecklaceID = 288;
+        RingID = 283;
+        SymbolID = 45;
+        SmeltingBars = false;
+        CraftingItems = false;
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "TriControlCraft"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        Metal = as[0];
+        ItemToMake = as[1];
+        Bank = "No";
+        if(Metal.equalsIgnoreCase("Silver"))
+        {
+            MetalForFurnace = SilverID;
+            BarForFurnace = SilverBarID;
+            Metal = "Silver";
+        } else
+        if(Metal.equalsIgnoreCase("Gold"))
+        {
+            MetalForFurnace = GoldID;
+            BarForFurnace = GoldBarID;
+            Metal = "Gold";
+        } else
+        {
+            DisplayMessage("Wrong INI settings...", 3);
+        }
+        if(ItemToMake.equalsIgnoreCase("Symbol"))
+        {
+            AnswerChoice = 0;
+            ItemID = SymbolID;
+        } else
+        if(ItemToMake.equalsIgnoreCase("Ring"))
+        {
+            AnswerChoice = 0;
+            ItemID = RingID;
+        } else
+        if(ItemToMake.equalsIgnoreCase("Ammy"))
+        {
+            AnswerChoice = 2;
+            ItemID = AmmyID;
+        } else
+        if(ItemToMake.equalsIgnoreCase("Necklace"))
+        {
+            AnswerChoice = 1;
+            ItemID = NecklaceID;
+        } else
+        {
+            DisplayMessage("Wrong params...", 3);
+        }
+        MyX = GetX();
+        MyY = GetY();
+        do
+        {
+            if(!Running())
+                break;
+            while(InvCount() < 30 && Metal.equalsIgnoreCase("Gold") && Running()) 
+            {
+                for(; ObjectAt(GoldRockX, GoldRockY) == GoldRockID && Running(); CheckSleep(85))
+                {
+                    AtObject(GoldRockX, GoldRockY);
+                    Wait(Rand(2000, 2500));
+                }
+
+                while(ObjectAt(GoldRockX, GoldRockY) != GoldRockID && InvCount() < 30 && Running()) 
+                    Wait(Rand(1000, 1500));
+            }
+            while(InvCount() < 30 && Metal.equals("Silver") && Running()) 
+            {
+                for(; ObjectAt(SilverRockX, SilverRockY) == SilverRockID && Running(); CheckSleep(85))
+                {
+                    AtObject(SilverRockX, SilverRockY);
+                    Wait(Rand(2000, 2500));
+                }
+
+                while(ObjectAt(SilverRockX, SilverRockY) != SilverRockID && InvCount() < 30 && Running()) 
+                    Wait(Rand(1000, 1500));
+            }
+            if(Running())
+                WalkPath(WalkPathToFurnaceX, WalkPathToFurnaceY);
+            SmeltingBars = true;
+            Thread thread = new Thread(SmeltObject);
+            thread.start();
+            for(; InvCount(MetalForFurnace) > 0; Wait(Rand(1000, 1500)));
+            SmeltingBars = false;
+            CraftingItems = true;
+            for(; InvCount(BarForFurnace) > 0; Wait(Rand(1000, 1500)));
+            CraftingItems = false;
+            for(; InvCount(ItemID) > 0; Wait(100))
+                Drop(FindInv(ItemID));
+
+            if(Running())
+                WalkPathReverse(WalkPathToFurnaceX, WalkPathToFurnaceY);
+        } while(true);
+    }
+
+    public void CheckSleep(int i)
+    {
+        if(Fatigue() > i)
+        {
+            Use(FindInv(1263));
+            Wait(2000);
+            for(; Sleeping(); Wait(1000));
+        } else
+        {
+            Wait(20);
+        }
+    }
+
+    String Metal;
+    String ItemToMake;
+    String Bank;
+    SmeltClass SmeltObject;
+    public int MyX;
+    public int MyY;
+    public int GoldID;
+    public int SilverID;
+    public int GoldBarID;
+    public int SilverBarID;
+    public int GoldRockX;
+    public int GoldRockY;
+    public int GoldRockID;
+    public int SilverRockX;
+    public int SilverRockY;
+    public int SilverRockID;
+    public int FurnaceX;
+    public int FurnaceY;
+    public int MetalForFurnace;
+    public int BarForFurnace;
+    public int AnswerChoice;
+    public int AnswerChoice2;
+    public int SymbolMold;
+    public int AmmyMold;
+    public int NecklaceMold;
+    public int RingMold;
+    public int AmmyID;
+    public int NecklaceID;
+    public int RingID;
+    public int SymbolID;
+    public int ItemID;
+    public int WalkPathToFurnaceX[] = {
+        71, 69, 67, 76, 81, 83
+    };
+    public int WalkPathToFurnaceY[] = {
+        605, 618, 639, 658, 678, 679
+    };
+    public int WalkPathToBank[];
+    public boolean SmeltingBars;
+    public boolean CraftingItems;
+}

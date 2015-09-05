@@ -1,0 +1,80 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 24/08/2004 3:50:57 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   AutoFightnPick.java
+
+
+public class AutoFightnPick extends Script
+{
+
+    public AutoFightnPick(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "fight"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        if(as.length != 3)
+        {
+            DisplayMessage(" @whi@ Bruncle:Bad syntax fool: it's /RUN FIGHT StYLe @ NpC @ ItEm iD", 3);
+        } else
+        {
+            int i = Integer.parseInt(as[0]);
+            int j = 200;
+            int k = Integer.parseInt(as[1]);
+            int l = Integer.parseInt(as[2]);
+            CheckFighters(true);
+            DisplayMessage("@gre@SBoT: @whi@AutoFighter - RichyT", 3);
+            do
+            {
+                if(!Running() || GetCurrentStat(3) <= 5)
+                    break;
+                if(GetFightMode() != i)
+                {
+                    SetFightMode(i);
+                    DisplayMessage("@gre@SBoT: @whi@FightMode Changed To " + GetFightMode(), 3);
+                }
+                if(!InCombat())
+                {
+                    if(Fatigue() > 97 && !Sleeping())
+                    {
+                        DisplayMessage("@gre@SBoT: @whi@Sleeping", 3);
+                        Use(FindInv(1263));
+                        Wait(5000);
+                    } else
+                    if(!Sleeping())
+                    {
+                        int i1 = GetNearestNPC(k);
+                        if(i1 != -1)
+                        {
+                            long l1 = System.currentTimeMillis();
+                            AttackNPC(i1);
+                            while(System.currentTimeMillis() - l1 <= (long)j && !InCombat() && Running()) 
+                                Wait(1);
+                        } else
+                        {
+                            int ai[] = GetNearestItem(l);
+                            if(ai != null)
+                            {
+                                TakeItem(ai[0], ai[1], l);
+                                Wait(20);
+                            }
+                        }
+                    }
+                } else
+                {
+                    while(InCombat() && Running()) 
+                        Wait(1);
+                }
+            } while(true);
+        }
+        DisplayMessage("@gre@SBoT: @whi@AutoFighter - @red@STOPPED", 3);
+    }
+}

@@ -1,0 +1,102 @@
+public class DrayPowerNet extends Script { 
+    
+    public DrayPowerNet(mudclient rs) { 
+        super(rs); 
+    } 
+    public String[] getCommands() { 
+        return new String[]{"draynet"}; 
+    } 
+    public void start(String command, String parameter[]) { 
+        Msg("Draynor powernet, by @ran@eXemplar"); 
+        int place = Rand(1,3); 
+        long stime = TickCount(); 
+        Msg("Fishing at place " + place); 
+        while(Running() == true) { 
+            int numInv = InvCount(); 
+            while(numInv == InvCount() && Running()) { 
+                switch(place) { 
+                    case 1: 
+                        AtObject(224,659); 
+                        break; 
+                    case 2: 
+                        AtObject(224,661); 
+                        break; 
+                    default: 
+                        AtObject(221,664); 
+                        break; 
+                } 
+                long t = TickCount(); 
+                while(numInv == InvCount() && TickCount() - t < Rand(1500,2500) && Running()) 
+                    Wait(1); 
+                if(TickCount() - stime > Rand(50000,60000) * Rand(3,4)) { // switch spots every 3-4 minutes 
+                    stime = TickCount(); 
+                    place++; 
+                    if(place > 3) 
+                        place = 1; 
+                    Msg("Fishing at place " + place + "..."); 
+                } 
+                CheckSleep(); 
+                CheckCombat(); 
+            } 
+        } 
+        Msg("@red@Stopped Draynor Powerfisher."); 
+    } 
+    private void WalkWait(int x, int y) { 
+        while(Loading() && Running()) 
+            Wait(100); 
+        if (Running()) { 
+            ForceWalk(x,y); 
+            Wait(Rand(100,200)); 
+        } 
+    } 
+    private void WalkRan(int x, int y) { 
+        while(Loading() && Running()) 
+            Wait(100); 
+        if (Running()) { 
+            ForceWalk(Rand(x - 2,x + 2),Rand(y - 2,y + 2)); 
+            Wait(Rand(100,200)); 
+        } 
+        return; 
+    } 
+    private void CheckSleep() { 
+        if(Fatigue() >= Rand(80,85) && Running()) { 
+            Msg("Pre sleep wait"); 
+            Wait(Rand(1000,2500)); 
+            Msg("Sleeping..."); 
+            while(!Sleeping() && Running()) { 
+                Use(FindInv(1263)); 
+                long Time = TickCount(); 
+                while(!Sleeping() && TickCount() - Time < 3000 && Running()) 
+                    Wait(1); 
+            } 
+            Msg("Waiting for sleep word..."); 
+            while(Sleeping() && Running()) { 
+                long T = TickCount(); 
+                while(Sleeping() && Running() && TickCount() - T < Rand(50000,60000) * Rand(3,4)) { // change sleepword every 2 - 3 minutes 
+                    Wait(1); 
+                } 
+                if(Sleeping() && Running()) 
+                    SleepWord(); 
+            } 
+            Wait(Rand(1000,2000)); 
+            Msg("Finished sleeping"); 
+        } 
+    } 
+    private void Msg(String str) { 
+        if(Running()) { 
+            DisplayMessage("@gre@SBoT: @whi@" + str,3); 
+            str = str.replaceAll("@...@", ""); 
+            Println("SBoT: " + str); 
+        } 
+    } 
+    private void CheckCombat() { 
+        while(InCombat() && Running()) { 
+            int oldx = GetX(); 
+            int oldy = GetY(); 
+            Msg("In combat, running back to fishing area!"); 
+            WalkNoWait(218,659); 
+            Wait(1000); 
+            Walk(oldx,oldy); 
+        } 
+    } 
+}

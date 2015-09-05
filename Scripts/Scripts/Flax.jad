@@ -1,0 +1,55 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 9/17/04 9:39:26 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Flax.java
+
+
+public class Flax extends Script
+{
+
+    public Flax(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "flax"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        DisplayMessage("XRoaders Flax Spinning Scripting started...", 3);
+        for(; Running(); Wait(1500))
+        {
+            for(; InvCount() < 30; Wait(500))
+                AtObject2(693, 524);
+
+            AtObject(692, 525);
+            Wait(1500);
+            do
+            {
+                if(InvCount(675) <= 0)
+                    break;
+                UseOnObject(694, 1469, FindInv(675));
+                Wait(500);
+                if(Fatigue() >= 95 && Running())
+                {
+                    for(; !Sleeping() && Running(); Wait(2500))
+                        Use(FindInv(1263));
+
+                    while(Sleeping() && Running()) 
+                        Wait(100);
+                }
+            } while(true);
+            for(; InvCount(676) > 0; Wait(500))
+                Drop(FindInv(676));
+
+            AtObject(692, 1469);
+        }
+
+        DisplayMessage("Script Finished", 3);
+    }
+}
