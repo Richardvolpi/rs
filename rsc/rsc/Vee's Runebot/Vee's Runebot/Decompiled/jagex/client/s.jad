@@ -1,0 +1,46 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/18/2004 10:43:09 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) nonlb 
+// Source File Name:   s.java
+
+package jagex.client;
+
+import java.io.InputStream;
+import sun.audio.AudioPlayer;
+
+public class s extends InputStream {
+
+    public s() {
+        AudioPlayer.player.start(this);
+    }
+
+    public void up() {
+        AudioPlayer.player.stop(this);
+    }
+
+    public void vp(byte abyte0[], int i, int j) {
+        onb = abyte0;
+        pnb = i;
+        qnb = i + j;
+    }
+
+    public int read(byte abyte0[], int i, int j) {
+        for(int k = 0; k < j; k++)
+            if(pnb < qnb)
+                abyte0[i + k] = onb[pnb++];
+            else
+                abyte0[i + k] = -1;
+
+        return j;
+    }
+
+    public int read() {
+        byte abyte0[] = new byte[1];
+        read(abyte0, 0, 1);
+        return abyte0[0];
+    }
+
+    byte onb[];
+    int pnb;
+    int qnb;
+}

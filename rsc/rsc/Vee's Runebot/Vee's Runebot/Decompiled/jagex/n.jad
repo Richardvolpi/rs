@@ -1,0 +1,566 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/18/2004 10:42:32 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: fullnames nonlb 
+// Source File Name:   n.java
+
+package jagex;
+
+import java.io.PrintStream;
+
+// Referenced classes of package jagex:
+//            b
+
+public class n {
+
+    public static int xj(byte abyte0[], int i, byte abyte1[], int j, int k) {
+        jagex.b b1 = new b();
+        b1.t = abyte1;
+        b1.u = k;
+        b1.y = abyte0;
+        b1.z = 0;
+        b1.v = j;
+        b1.ab = i;
+        b1.hb = 0;
+        b1.gb = 0;
+        b1.w = 0;
+        b1.x = 0;
+        b1.bb = 0;
+        b1.cb = 0;
+        b1.jb = 0;
+        jagex.n.yj(b1);
+        i -= b1.ab;
+        return i;
+    }
+
+    private static void zj(jagex.b b1) {
+        byte byte0 = b1.db;
+        int i = b1.eb;
+        int j = b1.ob;
+        int k = b1.mb;
+        int ai[] = jagex.b.rb;
+        int l = b1.lb;
+        byte abyte0[] = b1.y;
+        int i1 = b1.z;
+        int j1 = b1.ab;
+        int k1 = j1;
+        int l1 = b1.fc + 1;
+label0:
+        do {
+            if(i > 0) {
+                do {
+                    if(j1 == 0)
+                        break label0;
+                    if(i == 1)
+                        break;
+                    abyte0[i1] = byte0;
+                    i--;
+                    i1++;
+                    j1--;
+                } while(true);
+                if(j1 == 0) {
+                    i = 1;
+                    break;
+                }
+                abyte0[i1] = byte0;
+                i1++;
+                j1--;
+            }
+            boolean flag = true;
+            while(flag)  {
+                flag = false;
+                if(j == l1) {
+                    i = 0;
+                    break label0;
+                }
+                byte0 = (byte)k;
+                l = ai[l];
+                byte byte1 = (byte)(l & 0xff);
+                l >>= 8;
+                j++;
+                if(byte1 != k) {
+                    k = byte1;
+                    if(j1 == 0) {
+                        i = 1;
+                    } else {
+                        abyte0[i1] = byte0;
+                        i1++;
+                        j1--;
+                        flag = true;
+                        continue;
+                    }
+                    break label0;
+                }
+                if(j != l1)
+                    continue;
+                if(j1 == 0) {
+                    i = 1;
+                    break label0;
+                }
+                abyte0[i1] = byte0;
+                i1++;
+                j1--;
+                flag = true;
+            }
+            i = 2;
+            l = ai[l];
+            byte byte2 = (byte)(l & 0xff);
+            l >>= 8;
+            if(++j != l1)
+                if(byte2 != k) {
+                    k = byte2;
+                } else {
+                    i = 3;
+                    l = ai[l];
+                    byte byte3 = (byte)(l & 0xff);
+                    l >>= 8;
+                    if(++j != l1)
+                        if(byte3 != k) {
+                            k = byte3;
+                        } else {
+                            l = ai[l];
+                            byte byte4 = (byte)(l & 0xff);
+                            l >>= 8;
+                            j++;
+                            i = (byte4 & 0xff) + 4;
+                            l = ai[l];
+                            k = (byte)(l & 0xff);
+                            l >>= 8;
+                            j++;
+                        }
+                }
+        } while(true);
+        int i2 = b1.bb;
+        b1.bb += k1 - j1;
+        if(b1.bb < i2)
+            b1.cb++;
+        b1.db = byte0;
+        b1.eb = i;
+        b1.ob = j;
+        b1.mb = k;
+        jagex.b.rb = ai;
+        b1.lb = l;
+        b1.y = abyte0;
+        b1.z = i1;
+        b1.ab = j1;
+    }
+
+    private static void yj(jagex.b b1) {
+        boolean flag = false;
+        boolean flag1 = false;
+        boolean flag2 = false;
+        boolean flag3 = false;
+        boolean flag4 = false;
+        boolean flag5 = false;
+        boolean flag6 = false;
+        boolean flag7 = false;
+        boolean flag8 = false;
+        boolean flag9 = false;
+        boolean flag10 = false;
+        boolean flag11 = false;
+        boolean flag12 = false;
+        boolean flag13 = false;
+        boolean flag14 = false;
+        boolean flag15 = false;
+        boolean flag16 = false;
+        boolean flag17 = false;
+        boolean flag18 = false;
+        int i = 0;
+        int ai[] = null;
+        int ai1[] = null;
+        int ai2[] = null;
+        b1.ib = 1;
+        if(jagex.b.rb == null)
+            jagex.b.rb = new int[b1.ib * 0x186a0];
+        boolean flag19 = true;
+        while(flag19)  {
+            byte byte0 = jagex.n.wj(b1);
+            if(byte0 == 23)
+                return;
+            byte0 = jagex.n.wj(b1);
+            byte0 = jagex.n.wj(b1);
+            byte0 = jagex.n.wj(b1);
+            byte0 = jagex.n.wj(b1);
+            byte0 = jagex.n.wj(b1);
+            b1.jb++;
+            byte0 = jagex.n.wj(b1);
+            byte0 = jagex.n.wj(b1);
+            byte0 = jagex.n.wj(b1);
+            byte0 = jagex.n.wj(b1);
+            byte0 = jagex.n.bk(b1);
+            if(byte0 != 0)
+                b1.fb = true;
+            else
+                b1.fb = false;
+            if(b1.fb)
+                java.lang.System.out.println("PANIC! RANDOMISED BLOCK!");
+            b1.kb = 0;
+            byte0 = jagex.n.wj(b1);
+            b1.kb = b1.kb << 8 | byte0 & 0xff;
+            byte0 = jagex.n.wj(b1);
+            b1.kb = b1.kb << 8 | byte0 & 0xff;
+            byte0 = jagex.n.wj(b1);
+            b1.kb = b1.kb << 8 | byte0 & 0xff;
+            for(int j = 0; j < 16; j++) {
+                byte byte1 = jagex.n.bk(b1);
+                if(byte1 == 1)
+                    b1.ub[j] = true;
+                else
+                    b1.ub[j] = false;
+            }
+
+            for(int k = 0; k < 256; k++)
+                b1.tb[k] = false;
+
+            for(int l = 0; l < 16; l++)
+                if(b1.ub[l]) {
+                    for(int i1 = 0; i1 < 16; i1++) {
+                        byte byte2 = jagex.n.bk(b1);
+                        if(byte2 == 1)
+                            b1.tb[l * 16 + i1] = true;
+                    }
+
+                }
+
+            jagex.n.ak(b1);
+            int j1 = b1.sb + 2;
+            int k1 = jagex.n.ck(3, b1);
+            int l1 = jagex.n.ck(15, b1);
+            for(int i2 = 0; i2 < l1; i2++) {
+                int j2 = 0;
+                do {
+                    byte byte3 = jagex.n.bk(b1);
+                    if(byte3 == 0)
+                        break;
+                    j2++;
+                } while(true);
+                b1.zb[i2] = (byte)j2;
+            }
+
+            byte abyte0[] = new byte[6];
+            for(byte byte4 = 0; byte4 < k1; byte4++)
+                abyte0[byte4] = byte4;
+
+            for(int k2 = 0; k2 < l1; k2++) {
+                byte byte5 = b1.zb[k2];
+                byte byte6 = abyte0[byte5];
+                for(; byte5 > 0; byte5--)
+                    abyte0[byte5] = abyte0[byte5 - 1];
+
+                abyte0[0] = byte6;
+                b1.yb[k2] = byte6;
+            }
+
+            for(int l2 = 0; l2 < k1; l2++) {
+                int i3 = jagex.n.ck(5, b1);
+                for(int k3 = 0; k3 < j1; k3++) {
+                    do {
+                        byte byte8 = jagex.n.bk(b1);
+                        if(byte8 == 0)
+                            break;
+                        byte8 = jagex.n.bk(b1);
+                        if(byte8 == 0)
+                            i3++;
+                        else
+                            i3--;
+                    } while(true);
+                    b1.ac[l2][k3] = (byte)i3;
+                }
+
+            }
+
+            for(int j3 = 0; j3 < k1; j3++) {
+                byte byte7 = 32;
+                int i4 = 0;
+                for(int k4 = 0; k4 < j1; k4++) {
+                    if(b1.ac[j3][k4] > i4)
+                        i4 = b1.ac[j3][k4];
+                    if(b1.ac[j3][k4] < byte7)
+                        byte7 = b1.ac[j3][k4];
+                }
+
+                jagex.n.dk(b1.bc[j3], b1.cc[j3], b1.dc[j3], b1.ac[j3], byte7, i4, j1);
+                b1.ec[j3] = byte7;
+            }
+
+            int l3 = b1.sb + 1;
+            int j4 = 0x186a0 * b1.ib;
+            int l4 = -1;
+            int i5 = 0;
+            for(int j5 = 0; j5 <= 255; j5++)
+                b1.nb[j5] = 0;
+
+            int k5 = 4095;
+            for(int l5 = 15; l5 >= 0; l5--) {
+                for(int i6 = 15; i6 >= 0; i6--) {
+                    b1.wb[k5] = (byte)(l5 * 16 + i6);
+                    k5--;
+                }
+
+                b1.xb[l5] = k5 + 1;
+            }
+
+            int j6 = 0;
+            if(i5 == 0) {
+                l4++;
+                i5 = 50;
+                byte byte9 = b1.yb[l4];
+                i = b1.ec[byte9];
+                ai = b1.bc[byte9];
+                ai2 = b1.dc[byte9];
+                ai1 = b1.cc[byte9];
+            }
+            i5--;
+            int k6 = i;
+            int l6;
+            byte byte10;
+            for(l6 = jagex.n.ck(k6, b1); l6 > ai[k6]; l6 = l6 << 1 | byte10) {
+                k6++;
+                byte10 = jagex.n.bk(b1);
+            }
+
+            for(int i7 = ai2[l6 - ai1[k6]]; i7 != l3;)
+                if(i7 == 0 || i7 == 1) {
+                    int j7 = -1;
+                    int i8 = 1;
+                    do {
+                        if(i7 == 0)
+                            j7 += i8;
+                        else
+                        if(i7 == 1)
+                            j7 += 2 * i8;
+                        i8 *= 2;
+                        if(i5 == 0) {
+                            l4++;
+                            i5 = 50;
+                            byte byte12 = b1.yb[l4];
+                            i = b1.ec[byte12];
+                            ai = b1.bc[byte12];
+                            ai2 = b1.dc[byte12];
+                            ai1 = b1.cc[byte12];
+                        }
+                        i5--;
+                        int k8 = i;
+                        int l9;
+                        byte byte16;
+                        for(l9 = jagex.n.ck(k8, b1); l9 > ai[k8]; l9 = l9 << 1 | byte16) {
+                            k8++;
+                            byte16 = jagex.n.bk(b1);
+                        }
+
+                        i7 = ai2[l9 - ai1[k8]];
+                    } while(i7 == 0 || i7 == 1);
+                    j7++;
+                    byte byte13 = b1.vb[b1.wb[b1.xb[0]] & 0xff];
+                    b1.nb[byte13 & 0xff] += j7;
+                    for(; j7 > 0; j7--) {
+                        jagex.b.rb[j6] = byte13 & 0xff;
+                        j6++;
+                    }
+
+                } else {
+                    int k7 = i7 - 1;
+                    byte byte11;
+                    if(k7 < 16) {
+                        int l8 = b1.xb[0];
+                        byte11 = b1.wb[l8 + k7];
+                        for(; k7 > 3; k7 -= 4) {
+                            int i10 = l8 + k7;
+                            b1.wb[i10] = b1.wb[i10 - 1];
+                            b1.wb[i10 - 1] = b1.wb[i10 - 2];
+                            b1.wb[i10 - 2] = b1.wb[i10 - 3];
+                            b1.wb[i10 - 3] = b1.wb[i10 - 4];
+                        }
+
+                        for(; k7 > 0; k7--)
+                            b1.wb[l8 + k7] = b1.wb[(l8 + k7) - 1];
+
+                        b1.wb[l8] = byte11;
+                    } else {
+                        int i9 = k7 / 16;
+                        int j10 = k7 % 16;
+                        int l10 = b1.xb[i9] + j10;
+                        byte11 = b1.wb[l10];
+                        for(; l10 > b1.xb[i9]; l10--)
+                            b1.wb[l10] = b1.wb[l10 - 1];
+
+                        b1.xb[i9]++;
+                        for(; i9 > 0; i9--) {
+                            b1.xb[i9]--;
+                            b1.wb[b1.xb[i9]] = b1.wb[(b1.xb[i9 - 1] + 16) - 1];
+                        }
+
+                        b1.xb[0]--;
+                        b1.wb[b1.xb[0]] = byte11;
+                        if(b1.xb[0] == 0) {
+                            int i11 = 4095;
+                            for(int j11 = 15; j11 >= 0; j11--) {
+                                for(int k11 = 15; k11 >= 0; k11--) {
+                                    b1.wb[i11] = b1.wb[b1.xb[j11] + k11];
+                                    i11--;
+                                }
+
+                                b1.xb[j11] = i11 + 1;
+                            }
+
+                        }
+                    }
+                    b1.nb[b1.vb[byte11 & 0xff] & 0xff]++;
+                    jagex.b.rb[j6] = b1.vb[byte11 & 0xff] & 0xff;
+                    j6++;
+                    if(i5 == 0) {
+                        l4++;
+                        i5 = 50;
+                        byte byte14 = b1.yb[l4];
+                        i = b1.ec[byte14];
+                        ai = b1.bc[byte14];
+                        ai2 = b1.dc[byte14];
+                        ai1 = b1.cc[byte14];
+                    }
+                    i5--;
+                    int j9 = i;
+                    int k10;
+                    byte byte17;
+                    for(k10 = jagex.n.ck(j9, b1); k10 > ai[j9]; k10 = k10 << 1 | byte17) {
+                        j9++;
+                        byte17 = jagex.n.bk(b1);
+                    }
+
+                    i7 = ai2[k10 - ai1[j9]];
+                }
+
+            b1.eb = 0;
+            b1.db = 0;
+            b1.pb[0] = 0;
+            for(int l7 = 1; l7 <= 256; l7++)
+                b1.pb[l7] = b1.nb[l7 - 1];
+
+            for(int j8 = 1; j8 <= 256; j8++)
+                b1.pb[j8] += b1.pb[j8 - 1];
+
+            for(int k9 = 0; k9 < j6; k9++) {
+                byte byte15 = (byte)(jagex.b.rb[k9] & 0xff);
+                jagex.b.rb[b1.pb[byte15 & 0xff]] |= k9 << 8;
+                b1.pb[byte15 & 0xff]++;
+            }
+
+            b1.lb = jagex.b.rb[b1.kb] >> 8;
+            b1.ob = 0;
+            b1.lb = jagex.b.rb[b1.lb];
+            b1.mb = (byte)(b1.lb & 0xff);
+            b1.lb >>= 8;
+            b1.ob++;
+            b1.fc = j6;
+            jagex.n.zj(b1);
+            if(b1.ob == b1.fc + 1 && b1.eb == 0)
+                flag19 = true;
+            else
+                flag19 = false;
+        }
+    }
+
+    private static byte wj(jagex.b b1) {
+        return (byte)jagex.n.ck(8, b1);
+    }
+
+    private static byte bk(jagex.b b1) {
+        return (byte)jagex.n.ck(1, b1);
+    }
+
+    private static int ck(int i, jagex.b b1) {
+        int j;
+        do {
+            if(b1.hb >= i) {
+                int k = b1.gb >> b1.hb - i & (1 << i) - 1;
+                b1.hb -= i;
+                j = k;
+                break;
+            }
+            b1.gb = b1.gb << 8 | b1.t[b1.u] & 0xff;
+            b1.hb += 8;
+            b1.u++;
+            b1.v--;
+            b1.w++;
+            if(b1.w == 0)
+                b1.x++;
+        } while(true);
+        return j;
+    }
+
+    private static int ek(int i, int ai[]) {
+        int j = 0;
+        int k = 256;
+        do {
+            int l = j + k >> 1;
+            if(i >= ai[l])
+                j = l;
+            else
+                k = l;
+        } while(k - j != 1);
+        return j;
+    }
+
+    private static void ak(jagex.b b1) {
+        b1.sb = 0;
+        for(int i = 0; i < 256; i++)
+            if(b1.tb[i]) {
+                b1.vb[b1.sb] = (byte)i;
+                b1.sb++;
+            }
+
+    }
+
+    private static void dk(int ai[], int ai1[], int ai2[], byte abyte0[], int i, int j, int k) {
+        int l = 0;
+        for(int i1 = i; i1 <= j; i1++) {
+            for(int j1 = 0; j1 < k; j1++)
+                if(abyte0[j1] == i1) {
+                    ai2[l] = j1;
+                    l++;
+                }
+
+        }
+
+        for(int k1 = 0; k1 < 23; k1++)
+            ai1[k1] = 0;
+
+        for(int l1 = 0; l1 < k; l1++)
+            ai1[abyte0[l1] + 1]++;
+
+        for(int i2 = 1; i2 < 23; i2++)
+            ai1[i2] += ai1[i2 - 1];
+
+        for(int j2 = 0; j2 < 23; j2++)
+            ai[j2] = 0;
+
+        int k2 = 0;
+        for(int l2 = i; l2 <= j; l2++) {
+            k2 += ai1[l2 + 1] - ai1[l2];
+            ai[l2] = k2 - 1;
+            k2 <<= 1;
+        }
+
+        for(int i3 = i + 1; i3 <= j; i3++)
+            ai1[i3] = (ai[i3 - 1] + 1 << 1) - ai1[i3];
+
+    }
+
+    public n() {
+    }
+
+    static final int ms = 1;
+    static final int ns = 2;
+    static final int os = 10;
+    static final int ps = 14;
+    static final int qs = 0;
+    static final int rs = 4;
+    static final int ss = 4096;
+    static final int ts = 16;
+    static final int us = 258;
+    static final int vs = 23;
+    static final int ws = 0;
+    static final int xs = 1;
+    static final int ys = 6;
+    static final int zs = 50;
+    static final int at = 4;
+    static final int bt = 18002;
+}

@@ -1,0 +1,295 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/18/2004 10:42:32 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: fullnames nonlb 
+// Source File Name:   f.java
+
+package jagex;
+
+import java.io.IOException;
+import java.math.BigInteger;
+
+// Referenced classes of package jagex:
+//            o
+
+public class f {
+
+    public void sb() {
+    }
+
+    public int ac() throws java.io.IOException {
+        return 0;
+    }
+
+    public int cb() throws java.io.IOException {
+        return 0;
+    }
+
+    public void kb(int i, int j, byte abyte0[]) throws java.io.IOException {
+    }
+
+    public void eb(byte abyte0[], int i, int j) throws java.io.IOException {
+    }
+
+    public int zb(byte abyte0[], int i, int j) throws java.io.IOException {
+        return 0;
+    }
+
+    public int jb() throws java.io.IOException {
+        return ac();
+    }
+
+    public int ib() throws java.io.IOException {
+        int i = jb();
+        int j = jb();
+        return i * 256 + j;
+    }
+
+    public int gb() throws java.io.IOException {
+        int i = ib();
+        int j = ib();
+        return i * 0x10000 + j;
+    }
+
+    public void fb(int i, byte abyte0[]) throws java.io.IOException {
+        kb(i, 0, abyte0);
+    }
+
+    public int pb(byte abyte0[]) {
+        try {
+            ne++;
+            if(oe > 0 && ne > oe) {
+                wd = true;
+                xd = "time-out";
+                oe += oe;
+                return 0;
+            }
+            if(me == 0 && cb() >= 2) {
+                me = ac();
+                if(me >= 160)
+                    me = (me - 160) * 256 + ac();
+            }
+            if(me > 0 && cb() >= me) {
+                if(me >= 160) {
+                    fb(me, abyte0);
+                } else {
+                    abyte0[me - 1] = (byte)ac();
+                    if(me > 1)
+                        fb(me - 1, abyte0);
+                }
+                int i = me;
+                me = 0;
+                ne = 0;
+                return i;
+            }
+        }
+        catch(java.io.IOException ioexception) {
+            wd = true;
+            xd = ioexception.getMessage();
+        }
+        return 0;
+    }
+
+    public void xb(int i) {
+        se[qe++] = (byte)i;
+    }
+
+    public void wb(int i) {
+        se[qe++] = (byte)(i >> 8);
+        se[qe++] = (byte)i;
+    }
+
+    public void nb(int i, int j) {
+        se[pe + j] = (byte)(i >> 8);
+        se[pe + j + 1] = (byte)i;
+    }
+
+    public void vb(int i) {
+        se[qe++] = (byte)(i >> 24);
+        se[qe++] = (byte)(i >> 16);
+        se[qe++] = (byte)(i >> 8);
+        se[qe++] = (byte)i;
+    }
+
+    public void hb(long l) {
+        vb((int)(l >> 32));
+        vb((int)(l & -1L));
+    }
+
+    public void tb(java.lang.String s) {
+        s.getBytes(0, s.length(), se, qe);
+        qe += s.length();
+    }
+
+    public void yb(byte abyte0[], int i, int j) {
+        for(int k = 0; k < j; k++)
+            se[qe++] = abyte0[i + k];
+
+    }
+
+    public void ub(long l, int i, java.math.BigInteger biginteger, java.math.BigInteger biginteger1) {
+        byte abyte0[] = new byte[15];
+        abyte0[0] = (byte)(int)(1.0D + java.lang.Math.random() * 127D);
+        abyte0[1] = (byte)(int)(java.lang.Math.random() * 256D);
+        abyte0[2] = (byte)(int)(java.lang.Math.random() * 256D);
+        jagex.o.ao(abyte0, 3, i);
+        jagex.o.ln(abyte0, 7, l);
+        java.math.BigInteger biginteger2 = new BigInteger(1, abyte0);
+        java.math.BigInteger biginteger3 = biginteger2.modPow(biginteger, biginteger1);
+        byte abyte1[] = biginteger3.toByteArray();
+        se[qe++] = (byte)abyte1.length;
+        for(int j = 0; j < abyte1.length; j++)
+            se[qe++] = abyte1[j];
+
+    }
+
+    public void qb(java.lang.String s, int i, java.math.BigInteger biginteger, java.math.BigInteger biginteger1) {
+        byte abyte0[] = s.getBytes();
+        int j = abyte0.length;
+        byte abyte1[] = new byte[15];
+        for(int k = 0; k < j; k += 7) {
+            abyte1[0] = (byte)(int)(1.0D + java.lang.Math.random() * 127D);
+            abyte1[1] = (byte)(int)(java.lang.Math.random() * 256D);
+            abyte1[2] = (byte)(int)(java.lang.Math.random() * 256D);
+            abyte1[3] = (byte)(int)(java.lang.Math.random() * 256D);
+            jagex.o.ao(abyte1, 4, i);
+            for(int l = 0; l < 7; l++)
+                if(k + l < j)
+                    abyte1[8 + l] = abyte0[k + l];
+                else
+                    abyte1[8 + l] = 32;
+
+            java.math.BigInteger biginteger2 = new BigInteger(1, abyte1);
+            java.math.BigInteger biginteger3 = biginteger2.modPow(biginteger, biginteger1);
+            byte abyte2[] = biginteger3.toByteArray();
+            se[qe++] = (byte)abyte2.length;
+            for(int i1 = 0; i1 < abyte2.length; i1++)
+                se[qe++] = abyte2[i1];
+
+        }
+
+    }
+
+    public void db(int i) {
+        if(pe > (vd * 4) / 5)
+            try {
+                lb(0);
+            }
+            catch(java.io.IOException ioexception) {
+                wd = true;
+                xd = ioexception.getMessage();
+            }
+        if(se == null)
+            se = new byte[vd];
+        se[pe + 2] = (byte)i;
+        se[pe + 3] = 0;
+        qe = pe + 3;
+        re = 8;
+    }
+
+    public void rb() {
+        if(re != 8)
+            qe++;
+        int i = qe - pe - 2;
+        if(i >= 160) {
+            se[pe] = (byte)(160 + i / 256);
+            se[pe + 1] = (byte)(i & 0xff);
+        } else {
+            se[pe] = (byte)i;
+            qe--;
+            se[pe + 1] = se[qe];
+        }
+        if(vd <= 10000) {
+            int j = se[pe + 2] & 0xff;
+            td[j]++;
+            ud[j] += qe - pe;
+        }
+        pe = qe;
+    }
+
+    public void mb() throws java.io.IOException {
+        rb();
+        lb(0);
+    }
+
+    public void lb(int i) throws java.io.IOException {
+        if(wd) {
+            pe = 0;
+            qe = 3;
+            wd = false;
+            throw new IOException(xd);
+        }
+        yd++;
+        if(yd < i)
+            return;
+        if(pe > 0) {
+            yd = 0;
+            eb(se, 0, pe);
+        }
+        pe = 0;
+        qe = 3;
+    }
+
+    public boolean ob() {
+        return pe > 0;
+    }
+
+    public f() {
+        vd = 5000;
+        wd = false;
+        xd = "";
+        qe = 3;
+        re = 8;
+    }
+
+    public static int td[] = new int[256];
+    public static int ud[] = new int[256];
+    protected int vd;
+    protected boolean wd;
+    protected java.lang.String xd;
+    protected int yd;
+    final int zd = 61;
+    final int ae = 59;
+    final int be = 42;
+    final int ce = 43;
+    final int de = 44;
+    final int ee = 45;
+    final int fe = 46;
+    final int ge = 47;
+    final int he = 92;
+    final int ie = 32;
+    final int je = 124;
+    final int ke = 34;
+    static char le[];
+    protected int me;
+    public int ne;
+    public int oe;
+    private int pe;
+    private int qe;
+    private int re;
+    private byte se[];
+    private static int te[] = {
+        0, 1, 3, 7, 15, 31, 63, 127, 255, 511, 
+        1023, 2047, 4095, 8191, 16383, 32767, 65535, 0x1ffff, 0x3ffff, 0x7ffff, 
+        0xfffff, 0x1fffff, 0x3fffff, 0x7fffff, 0xffffff, 0x1ffffff, 0x3ffffff, 0x7ffffff, 0xfffffff, 0x1fffffff, 
+        0x3fffffff, 0x7fffffff, -1
+    };
+
+    static  {
+        le = new char[256];
+        for(int i = 0; i < 256; i++)
+            le[i] = (char)i;
+
+        le[61] = '=';
+        le[59] = ';';
+        le[42] = '*';
+        le[43] = '+';
+        le[44] = ',';
+        le[45] = '-';
+        le[46] = '.';
+        le[47] = '/';
+        le[92] = '\\';
+        le[124] = '|';
+        le[33] = '!';
+        le[34] = '"';
+    }
+}

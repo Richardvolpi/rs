@@ -1,0 +1,163 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/18/2004 10:43:07 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) nonlb 
+// Source File Name:   a.java
+
+package jagex.client;
+
+import jagex.f;
+import java.applet.Applet;
+import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
+
+public class a extends f
+    implements Runnable {
+
+    public a(String s, Applet applet, int j) throws IOException {
+        d = false;
+        i = true;
+        if(applet != null)
+            c = new Socket(InetAddress.getByName(s), j);
+        else
+            c = new Socket(InetAddress.getByName(s), j);
+        c.setSoTimeout(30000);
+        c.setTcpNoDelay(true);
+        a = c.getInputStream();
+        b = c.getOutputStream();
+    }
+
+    public void sb() {
+        super.sb();
+        d = true;
+        try {
+            if(a != null)
+                a.close();
+            if(b != null)
+                b.close();
+            if(c != null)
+                c.close();
+        }
+        catch(IOException ioexception) {
+            System.out.println("Error closing stream");
+        }
+        if(h != null) {
+            i = true;
+            synchronized(this) {
+                notify();
+            }
+            h = null;
+        }
+        e = null;
+    }
+
+    public int ac() throws IOException {
+        if(d)
+            return 0;
+        else
+            return a.read();
+    }
+
+    public int cb() throws IOException {
+        if(d)
+            return 0;
+        else
+            return a.available();
+    }
+
+    public void kb(int j, int k, byte abyte0[]) throws IOException {
+        if(d)
+            return;
+        int l = 0;
+        boolean flag = false;
+        int i1;
+        for(; l < j; l += i1)
+            if((i1 = a.read(abyte0, l + k, j - l)) <= 0)
+                throw new IOException("EOF");
+
+    }
+
+    public void eb(byte abyte0[], int j, int k) throws IOException {
+        if(d)
+            return;
+        if(e == null)
+            e = new byte[5000];
+        synchronized(this) {
+            for(int l = 0; l < k; l++) {
+                e[g] = abyte0[l + j];
+                g = (g + 1) % 5000;
+                if(g == (f + 4900) % 5000)
+                    throw new IOException("buffer overflow");
+            }
+
+            if(h == null) {
+                i = false;
+                h = new Thread(this);
+                h.setDaemon(true);
+                h.setPriority(4);
+                h.start();
+            }
+            notify();
+        }
+    }
+
+    public void run() {
+_L3:
+label0:
+        {
+            synchronized(this) {
+                if(g == f)
+                    try {
+                        wait();
+                    }
+                    catch(InterruptedException interruptedexception) { }
+                if(h != null && !i)
+                    break label0;
+            }
+            return;
+        }
+        int j;
+        int k;
+        k = f;
+        if(g >= f)
+            j = g - f;
+        else
+            j = 5000 - f;
+        a1;
+        JVM INSTR monitorexit ;
+          goto _L1
+        exception;
+        throw exception;
+_L1:
+        if(j > 0) {
+            try {
+                b.write(e, k, j);
+            }
+            catch(IOException ioexception) {
+                super.wd = true;
+                super.xd = "Twriter:" + ioexception;
+            }
+            f = (f + j) % 5000;
+            try {
+                if(g == f)
+                    b.flush();
+            }
+            catch(IOException ioexception1) {
+                super.wd = true;
+                super.xd = "Twriter:" + ioexception1;
+            }
+        }
+        if(h != null && !i) goto _L3; else goto _L2
+_L2:
+    }
+
+    private InputStream a;
+    private OutputStream b;
+    private Socket c;
+    private boolean d;
+    private byte e[];
+    private int f;
+    private int g;
+    private Thread h;
+    private boolean i;
+}

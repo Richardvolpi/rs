@@ -1,0 +1,1812 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/19/2004 06:23:00 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   p.java
+
+import jagex.client.*;
+import jagex.o;
+import java.io.IOException;
+
+public class p
+{
+
+    public p(j j1, i k)
+    {
+        xhb = false;
+        yhb = true;
+        bib = 750;
+        eib = new int[256];
+        nib = new byte[4][2304];
+        oib = new byte[4][2304];
+        pib = new byte[4][2304];
+        qib = new byte[4][2304];
+        rib = new byte[4][2304];
+        sib = new byte[4][2304];
+        tib = new byte[4][2304];
+        uib = new int[4][2304];
+        vib = 96;
+        wib = 96;
+        xib = new int[vib * wib * 2];
+        yib = new int[vib * wib * 2];
+        zib = new int[vib][wib];
+        ajb = new int[vib][wib];
+        bjb = new int[vib][wib];
+        cjb = false;
+        djb = new h[64];
+        ejb = new h[4][64];
+        fjb = new h[4][64];
+        aib = j1;
+        zhb = k;
+        for(int l = 0; l < 64; l++)
+            eib[l] = j.fi(255 - l * 4, 255 - (int)((double)l * 1.75D), 255 - l * 4);
+
+        for(int i1 = 0; i1 < 64; i1++)
+            eib[i1 + 64] = j.fi(i1 * 3, 144, 0);
+
+        for(int k1 = 0; k1 < 64; k1++)
+            eib[k1 + 128] = j.fi(192 - (int)((double)k1 * 1.5D), 144 - (int)((double)k1 * 1.5D), 0);
+
+        for(int l1 = 0; l1 < 64; l1++)
+            eib[l1 + 192] = j.fi(96 - (int)((double)l1 * 1.5D), 48 + (int)((double)l1 * 1.5D), 0);
+
+    }
+
+    public int ho(int k, int l, int i1, int j1, int k1, int l1, int ai[], 
+            int ai1[], boolean flag)
+    {
+        for(int i2 = 0; i2 < vib; i2++)
+        {
+            for(int j2 = 0; j2 < wib; j2++)
+                zib[i2][j2] = 0;
+
+        }
+
+        int k2 = 0;
+        int l2 = 0;
+        int i3 = k;
+        int j3 = l;
+        zib[k][l] = 99;
+        ai[k2] = k;
+        ai1[k2++] = l;
+        int k3 = ai.length;
+        boolean flag1 = false;
+        while(l2 != k2) 
+        {
+            i3 = ai[l2];
+            j3 = ai1[l2];
+            l2 = (l2 + 1) % k3;
+            if(i3 >= i1 && i3 <= k1 && j3 >= j1 && j3 <= l1)
+            {
+                flag1 = true;
+                break;
+            }
+            if(flag)
+            {
+                if(i3 > 0 && i3 - 1 >= i1 && i3 - 1 <= k1 && j3 >= j1 && j3 <= l1 && (ajb[i3 - 1][j3] & 8) == 0)
+                {
+                    flag1 = true;
+                    break;
+                }
+                if(i3 < vib - 1 && i3 + 1 >= i1 && i3 + 1 <= k1 && j3 >= j1 && j3 <= l1 && (ajb[i3 + 1][j3] & 2) == 0)
+                {
+                    flag1 = true;
+                    break;
+                }
+                if(j3 > 0 && i3 >= i1 && i3 <= k1 && j3 - 1 >= j1 && j3 - 1 <= l1 && (ajb[i3][j3 - 1] & 4) == 0)
+                {
+                    flag1 = true;
+                    break;
+                }
+                if(j3 < wib - 1 && i3 >= i1 && i3 <= k1 && j3 + 1 >= j1 && j3 + 1 <= l1 && (ajb[i3][j3 + 1] & 1) == 0)
+                {
+                    flag1 = true;
+                    break;
+                }
+            }
+            if(i3 > 0 && zib[i3 - 1][j3] == 0 && (ajb[i3 - 1][j3] & 0x78) == 0)
+            {
+                ai[k2] = i3 - 1;
+                ai1[k2] = j3;
+                k2 = (k2 + 1) % k3;
+                zib[i3 - 1][j3] = 2;
+            }
+            if(i3 < vib - 1 && zib[i3 + 1][j3] == 0 && (ajb[i3 + 1][j3] & 0x72) == 0)
+            {
+                ai[k2] = i3 + 1;
+                ai1[k2] = j3;
+                k2 = (k2 + 1) % k3;
+                zib[i3 + 1][j3] = 8;
+            }
+            if(j3 > 0 && zib[i3][j3 - 1] == 0 && (ajb[i3][j3 - 1] & 0x74) == 0)
+            {
+                ai[k2] = i3;
+                ai1[k2] = j3 - 1;
+                k2 = (k2 + 1) % k3;
+                zib[i3][j3 - 1] = 1;
+            }
+            if(j3 < wib - 1 && zib[i3][j3 + 1] == 0 && (ajb[i3][j3 + 1] & 0x71) == 0)
+            {
+                ai[k2] = i3;
+                ai1[k2] = j3 + 1;
+                k2 = (k2 + 1) % k3;
+                zib[i3][j3 + 1] = 4;
+            }
+            if(i3 > 0 && j3 > 0 && (ajb[i3][j3 - 1] & 0x74) == 0 && (ajb[i3 - 1][j3] & 0x78) == 0 && (ajb[i3 - 1][j3 - 1] & 0x7c) == 0 && zib[i3 - 1][j3 - 1] == 0)
+            {
+                ai[k2] = i3 - 1;
+                ai1[k2] = j3 - 1;
+                k2 = (k2 + 1) % k3;
+                zib[i3 - 1][j3 - 1] = 3;
+            }
+            if(i3 < vib - 1 && j3 > 0 && (ajb[i3][j3 - 1] & 0x74) == 0 && (ajb[i3 + 1][j3] & 0x72) == 0 && (ajb[i3 + 1][j3 - 1] & 0x76) == 0 && zib[i3 + 1][j3 - 1] == 0)
+            {
+                ai[k2] = i3 + 1;
+                ai1[k2] = j3 - 1;
+                k2 = (k2 + 1) % k3;
+                zib[i3 + 1][j3 - 1] = 9;
+            }
+            if(i3 > 0 && j3 < wib - 1 && (ajb[i3][j3 + 1] & 0x71) == 0 && (ajb[i3 - 1][j3] & 0x78) == 0 && (ajb[i3 - 1][j3 + 1] & 0x79) == 0 && zib[i3 - 1][j3 + 1] == 0)
+            {
+                ai[k2] = i3 - 1;
+                ai1[k2] = j3 + 1;
+                k2 = (k2 + 1) % k3;
+                zib[i3 - 1][j3 + 1] = 6;
+            }
+            if(i3 < vib - 1 && j3 < wib - 1 && (ajb[i3][j3 + 1] & 0x71) == 0 && (ajb[i3 + 1][j3] & 0x72) == 0 && (ajb[i3 + 1][j3 + 1] & 0x73) == 0 && zib[i3 + 1][j3 + 1] == 0)
+            {
+                ai[k2] = i3 + 1;
+                ai1[k2] = j3 + 1;
+                k2 = (k2 + 1) % k3;
+                zib[i3 + 1][j3 + 1] = 12;
+            }
+        }
+        if(!flag1)
+            return -1;
+        l2 = 0;
+        ai[l2] = i3;
+        ai1[l2++] = j3;
+        int l3;
+        for(int i4 = l3 = zib[i3][j3]; i3 != k || j3 != l; i4 = zib[i3][j3])
+        {
+            if(i4 != l3)
+            {
+                l3 = i4;
+                ai[l2] = i3;
+                ai1[l2++] = j3;
+            }
+            if((i4 & 2) != 0)
+                i3++;
+            else
+            if((i4 & 8) != 0)
+                i3--;
+            if((i4 & 1) != 0)
+                j3++;
+            else
+            if((i4 & 4) != 0)
+                j3--;
+        }
+
+        return l2;
+    }
+
+    public void gp(int k, int l, int i1)
+    {
+        ajb[k][l] |= i1;
+    }
+
+    public void zo(int k, int l, int i1)
+    {
+        ajb[k][l] &= 65535 - i1;
+    }
+
+    public void hp(int k, int l, int i1, int j1)
+    {
+        if(k < 0 || l < 0 || k >= vib - 1 || l >= wib - 1)
+            return;
+        if(q.qlb[j1] == 1)
+        {
+            if(i1 == 0)
+            {
+                ajb[k][l] |= 1;
+                if(l > 0)
+                    gp(k, l - 1, 4);
+            } else
+            if(i1 == 1)
+            {
+                ajb[k][l] |= 2;
+                if(k > 0)
+                    gp(k - 1, l, 8);
+            } else
+            if(i1 == 2)
+                ajb[k][l] |= 0x10;
+            else
+            if(i1 == 3)
+                ajb[k][l] |= 0x20;
+            no(k, l, 1, 1);
+        }
+    }
+
+    public void fo(int k, int l, int i1, int j1)
+    {
+        if(k < 0 || l < 0 || k >= vib - 1 || l >= wib - 1)
+            return;
+        if(q.qlb[j1] == 1)
+        {
+            if(i1 == 0)
+            {
+                ajb[k][l] &= 0xfffe;
+                if(l > 0)
+                    zo(k, l - 1, 4);
+            } else
+            if(i1 == 1)
+            {
+                ajb[k][l] &= 0xfffd;
+                if(k > 0)
+                    zo(k - 1, l, 8);
+            } else
+            if(i1 == 2)
+                ajb[k][l] &= 0xffef;
+            else
+            if(i1 == 3)
+                ajb[k][l] &= 0xffdf;
+            no(k, l, 1, 1);
+        }
+    }
+
+    public void vo(int k, int l, int i1)
+    {
+        if(k < 0 || l < 0 || k >= vib - 1 || l >= wib - 1)
+            return;
+        if(q.glb[i1] == 1 || q.glb[i1] == 2)
+        {
+            int j1 = io(k, l);
+            int k1;
+            int l1;
+            if(j1 == 0 || j1 == 4)
+            {
+                k1 = q.elb[i1];
+                l1 = q.flb[i1];
+            } else
+            {
+                l1 = q.elb[i1];
+                k1 = q.flb[i1];
+            }
+            for(int i2 = k; i2 < k + k1; i2++)
+            {
+                for(int j2 = l; j2 < l + l1; j2++)
+                    if(q.glb[i1] == 1)
+                        ajb[i2][j2] |= 0x40;
+                    else
+                    if(j1 == 0)
+                    {
+                        ajb[i2][j2] |= 2;
+                        if(i2 > 0)
+                            gp(i2 - 1, j2, 8);
+                    } else
+                    if(j1 == 2)
+                    {
+                        ajb[i2][j2] |= 4;
+                        if(j2 < wib - 1)
+                            gp(i2, j2 + 1, 1);
+                    } else
+                    if(j1 == 4)
+                    {
+                        ajb[i2][j2] |= 8;
+                        if(i2 < vib - 1)
+                            gp(i2 + 1, j2, 2);
+                    } else
+                    if(j1 == 6)
+                    {
+                        ajb[i2][j2] |= 1;
+                        if(j2 > 0)
+                            gp(i2, j2 - 1, 4);
+                    }
+
+            }
+
+            no(k, l, k1, l1);
+        }
+    }
+
+    public void fp(int k, int l, int i1)
+    {
+        if(k < 0 || l < 0 || k >= vib - 1 || l >= wib - 1)
+            return;
+        if(q.glb[i1] == 1 || q.glb[i1] == 2)
+        {
+            int j1 = io(k, l);
+            int k1;
+            int l1;
+            if(j1 == 0 || j1 == 4)
+            {
+                k1 = q.elb[i1];
+                l1 = q.flb[i1];
+            } else
+            {
+                l1 = q.elb[i1];
+                k1 = q.flb[i1];
+            }
+            for(int i2 = k; i2 < k + k1; i2++)
+            {
+                for(int j2 = l; j2 < l + l1; j2++)
+                    if(q.glb[i1] == 1)
+                        ajb[i2][j2] &= 0xffbf;
+                    else
+                    if(j1 == 0)
+                    {
+                        ajb[i2][j2] &= 0xfffd;
+                        if(i2 > 0)
+                            zo(i2 - 1, j2, 8);
+                    } else
+                    if(j1 == 2)
+                    {
+                        ajb[i2][j2] &= 0xfffb;
+                        if(j2 < wib - 1)
+                            zo(i2, j2 + 1, 1);
+                    } else
+                    if(j1 == 4)
+                    {
+                        ajb[i2][j2] &= 0xfff7;
+                        if(i2 < vib - 1)
+                            zo(i2 + 1, j2, 2);
+                    } else
+                    if(j1 == 6)
+                    {
+                        ajb[i2][j2] &= 0xfffe;
+                        if(j2 > 0)
+                            zo(i2, j2 - 1, 4);
+                    }
+
+            }
+
+            no(k, l, k1, l1);
+        }
+    }
+
+    public void no(int k, int l, int i1, int j1)
+    {
+        if(k < 1 || l < 1 || k + i1 >= vib || l + j1 >= wib)
+            return;
+        for(int k1 = k; k1 <= k + i1; k1++)
+        {
+            for(int l1 = l; l1 <= l + j1; l1++)
+                if((lp(k1, l1) & 0x63) != 0 || (lp(k1 - 1, l1) & 0x59) != 0 || (lp(k1, l1 - 1) & 0x56) != 0 || (lp(k1 - 1, l1 - 1) & 0x6c) != 0)
+                    to(k1, l1, 35);
+                else
+                    to(k1, l1, 0);
+
+        }
+
+    }
+
+    public void to(int k, int l, int i1)
+    {
+        int j1 = k / 12;
+        int k1 = l / 12;
+        int l1 = (k - 1) / 12;
+        int i2 = (l - 1) / 12;
+        ip(j1, k1, k, l, i1);
+        if(j1 != l1)
+            ip(l1, k1, k, l, i1);
+        if(k1 != i2)
+            ip(j1, i2, k, l, i1);
+        if(j1 != l1 && k1 != i2)
+            ip(l1, i2, k, l, i1);
+    }
+
+    public void ip(int k, int l, int i1, int j1, int k1)
+    {
+        h h1 = djb[k + l * 8];
+        for(int l1 = 0; l1 < h1.og; l1++)
+            if(h1.ji[l1] == i1 * 128 && h1.li[l1] == j1 * 128)
+            {
+                h1.xd(l1, k1);
+                return;
+            }
+
+    }
+
+    public int lp(int k, int l)
+    {
+        if(k < 0 || l < 0 || k >= vib || l >= wib)
+            return 0;
+        else
+            return ajb[k][l];
+    }
+
+    public int oo(int k, int l)
+    {
+        int i1 = k >> 7;
+        int j1 = l >> 7;
+        int k1 = k & 0x7f;
+        int l1 = l & 0x7f;
+        if(i1 < 0 || j1 < 0 || i1 >= vib - 1 || j1 >= wib - 1)
+            return 0;
+        int i2;
+        int j2;
+        int k2;
+        if(k1 <= 128 - l1)
+        {
+            i2 = uo(i1, j1);
+            j2 = uo(i1 + 1, j1) - i2;
+            k2 = uo(i1, j1 + 1) - i2;
+        } else
+        {
+            i2 = uo(i1 + 1, j1 + 1);
+            j2 = uo(i1, j1 + 1) - i2;
+            k2 = uo(i1 + 1, j1) - i2;
+            k1 = 128 - k1;
+            l1 = 128 - l1;
+        }
+        int l2 = i2 + (j2 * k1) / 128 + (k2 * l1) / 128;
+        return l2;
+    }
+
+    public int uo(int k, int l)
+    {
+        if(k < 0 || k >= 96 || l < 0 || l >= 96)
+            return 0;
+        byte byte0 = 0;
+        if(k >= 48 && l < 48)
+        {
+            byte0 = 1;
+            k -= 48;
+        } else
+        if(k < 48 && l >= 48)
+        {
+            byte0 = 2;
+            l -= 48;
+        } else
+        if(k >= 48 && l >= 48)
+        {
+            byte0 = 3;
+            k -= 48;
+            l -= 48;
+        }
+        return (nib[byte0][k * 48 + l] & 0xff) * 3;
+    }
+
+    public int go(int k, int l)
+    {
+        if(k < 0 || k >= 96 || l < 0 || l >= 96)
+            return 0;
+        byte byte0 = 0;
+        if(k >= 48 && l < 48)
+        {
+            byte0 = 1;
+            k -= 48;
+        } else
+        if(k < 48 && l >= 48)
+        {
+            byte0 = 2;
+            l -= 48;
+        } else
+        if(k >= 48 && l >= 48)
+        {
+            byte0 = 3;
+            k -= 48;
+            l -= 48;
+        }
+        return oib[byte0][k * 48 + l] & 0xff;
+    }
+
+    public int wo(int k, int l, int i1)
+    {
+        if(k < 0 || k >= 96 || l < 0 || l >= 96)
+            return 0;
+        byte byte0 = 0;
+        if(k >= 48 && l < 48)
+        {
+            byte0 = 1;
+            k -= 48;
+        } else
+        if(k < 48 && l >= 48)
+        {
+            byte0 = 2;
+            l -= 48;
+        } else
+        if(k >= 48 && l >= 48)
+        {
+            byte0 = 3;
+            k -= 48;
+            l -= 48;
+        }
+        return sib[byte0][k * 48 + l] & 0xff;
+    }
+
+    public void so(int k, int l, int i1)
+    {
+        if(k < 0 || k >= 96 || l < 0 || l >= 96)
+            return;
+        byte byte0 = 0;
+        if(k >= 48 && l < 48)
+        {
+            byte0 = 1;
+            k -= 48;
+        } else
+        if(k < 48 && l >= 48)
+        {
+            byte0 = 2;
+            l -= 48;
+        } else
+        if(k >= 48 && l >= 48)
+        {
+            byte0 = 3;
+            k -= 48;
+            l -= 48;
+        }
+        sib[byte0][k * 48 + l] = (byte)i1;
+    }
+
+    public int cp(int k, int l, int i1)
+    {
+        int j1 = wo(k, l, i1);
+        if(j1 == 0)
+        {
+            return -1;
+        } else
+        {
+            int k1 = q.xlb[j1 - 1];
+            return k1 == 2 ? 1 : 0;
+        }
+    }
+
+    public int mo(int k, int l, int i1, int j1)
+    {
+        int k1 = wo(k, l, i1);
+        if(k1 == 0)
+            return j1;
+        else
+            return q.wlb[k1 - 1];
+    }
+
+    public int lo(int k, int l)
+    {
+        if(k < 0 || k >= 96 || l < 0 || l >= 96)
+            return 0;
+        byte byte0 = 0;
+        if(k >= 48 && l < 48)
+        {
+            byte0 = 1;
+            k -= 48;
+        } else
+        if(k < 48 && l >= 48)
+        {
+            byte0 = 2;
+            l -= 48;
+        } else
+        if(k >= 48 && l >= 48)
+        {
+            byte0 = 3;
+            k -= 48;
+            l -= 48;
+        }
+        return uib[byte0][k * 48 + l];
+    }
+
+    public int bp(int k, int l)
+    {
+        if(k < 0 || k >= 96 || l < 0 || l >= 96)
+            return 0;
+        byte byte0 = 0;
+        if(k >= 48 && l < 48)
+        {
+            byte0 = 1;
+            k -= 48;
+        } else
+        if(k < 48 && l >= 48)
+        {
+            byte0 = 2;
+            l -= 48;
+        } else
+        if(k >= 48 && l >= 48)
+        {
+            byte0 = 3;
+            k -= 48;
+            l -= 48;
+        }
+        return rib[byte0][k * 48 + l];
+    }
+
+    public int io(int k, int l)
+    {
+        if(k < 0 || k >= 96 || l < 0 || l >= 96)
+            return 0;
+        byte byte0 = 0;
+        if(k >= 48 && l < 48)
+        {
+            byte0 = 1;
+            k -= 48;
+        } else
+        if(k < 48 && l >= 48)
+        {
+            byte0 = 2;
+            l -= 48;
+        } else
+        if(k >= 48 && l >= 48)
+        {
+            byte0 = 3;
+            k -= 48;
+            l -= 48;
+        }
+        return tib[byte0][k * 48 + l];
+    }
+
+    public boolean ep(int k, int l)
+    {
+        return bp(k, l) > 0 || bp(k - 1, l) > 0 || bp(k - 1, l - 1) > 0 || bp(k, l - 1) > 0;
+    }
+
+    public boolean dp(int k, int l)
+    {
+        return bp(k, l) > 0 && bp(k - 1, l) > 0 && bp(k - 1, l - 1) > 0 && bp(k, l - 1) > 0;
+    }
+
+    public int po(int k, int l)
+    {
+        if(k < 0 || k >= 96 || l < 0 || l >= 96)
+            return 0;
+        byte byte0 = 0;
+        if(k >= 48 && l < 48)
+        {
+            byte0 = 1;
+            k -= 48;
+        } else
+        if(k < 48 && l >= 48)
+        {
+            byte0 = 2;
+            l -= 48;
+        } else
+        if(k >= 48 && l >= 48)
+        {
+            byte0 = 3;
+            k -= 48;
+            l -= 48;
+        }
+        return qib[byte0][k * 48 + l] & 0xff;
+    }
+
+    public int yo(int k, int l)
+    {
+        if(k < 0 || k >= 96 || l < 0 || l >= 96)
+            return 0;
+        byte byte0 = 0;
+        if(k >= 48 && l < 48)
+        {
+            byte0 = 1;
+            k -= 48;
+        } else
+        if(k < 48 && l >= 48)
+        {
+            byte0 = 2;
+            l -= 48;
+        } else
+        if(k >= 48 && l >= 48)
+        {
+            byte0 = 3;
+            k -= 48;
+            l -= 48;
+        }
+        return pib[byte0][k * 48 + l] & 0xff;
+    }
+
+    public void eo(int k, int l, int i1, int j1)
+    {
+        String s = "m" + i1 + k / 10 + k % 10 + l / 10 + l % 10;
+        int k1;
+        try
+        {
+            if(jib != null)
+            {
+                byte abyte0[] = o.in(s + ".hei", 0, jib);
+                if(abyte0 == null && lib != null)
+                    abyte0 = o.in(s + ".hei", 0, lib);
+                if(abyte0 != null && abyte0.length > 0)
+                {
+                    int l1 = 0;
+                    int l2 = 0;
+                    for(int k3 = 0; k3 < 2304;)
+                    {
+                        int k4 = abyte0[l1++] & 0xff;
+                        if(k4 < 128)
+                        {
+                            nib[j1][k3++] = (byte)k4;
+                            l2 = k4;
+                        }
+                        if(k4 >= 128)
+                        {
+                            for(int i6 = 0; i6 < k4 - 128; i6++)
+                                nib[j1][k3++] = (byte)l2;
+
+                        }
+                    }
+
+                    l2 = 64;
+                    for(int l4 = 0; l4 < 48; l4++)
+                    {
+                        for(int j6 = 0; j6 < 48; j6++)
+                        {
+                            l2 = nib[j1][j6 * 48 + l4] + l2 & 0x7f;
+                            nib[j1][j6 * 48 + l4] = (byte)(l2 * 2);
+                        }
+
+                    }
+
+                    l2 = 0;
+                    for(int k6 = 0; k6 < 2304;)
+                    {
+                        int l7 = abyte0[l1++] & 0xff;
+                        if(l7 < 128)
+                        {
+                            oib[j1][k6++] = (byte)l7;
+                            l2 = l7;
+                        }
+                        if(l7 >= 128)
+                        {
+                            for(int j9 = 0; j9 < l7 - 128; j9++)
+                                oib[j1][k6++] = (byte)l2;
+
+                        }
+                    }
+
+                    l2 = 35;
+                    for(int i8 = 0; i8 < 48; i8++)
+                    {
+                        for(int k9 = 0; k9 < 48; k9++)
+                        {
+                            l2 = oib[j1][k9 * 48 + i8] + l2 & 0x7f;
+                            oib[j1][k9 * 48 + i8] = (byte)(l2 * 2);
+                        }
+
+                    }
+
+                } else
+                {
+                    for(int i2 = 0; i2 < 2304; i2++)
+                    {
+                        nib[j1][i2] = 0;
+                        oib[j1][i2] = 0;
+                    }
+
+                }
+                abyte0 = o.in(s + ".dat", 0, kib);
+                if(abyte0 == null && mib != null)
+                    abyte0 = o.in(s + ".dat", 0, mib);
+                if(abyte0 == null || abyte0.length == 0)
+                    throw new IOException();
+                int j2 = 0;
+                for(int i3 = 0; i3 < 2304;)
+                {
+                    int l3 = abyte0[j2++] & 0xff;
+                    if(l3 < 128)
+                    {
+                        pib[j1][i3++] = (byte)l3;
+                    } else
+                    {
+                        for(int i5 = 0; i5 < l3 - 128; i5++)
+                            pib[j1][i3++] = 0;
+
+                    }
+                }
+
+                for(int i4 = 0; i4 < 2304;)
+                {
+                    int j5 = abyte0[j2++] & 0xff;
+                    if(j5 < 128)
+                    {
+                        qib[j1][i4++] = (byte)j5;
+                    } else
+                    {
+                        for(int l6 = 0; l6 < j5 - 128; l6++)
+                            qib[j1][i4++] = 0;
+
+                    }
+                }
+
+                for(int k5 = 0; k5 < 2304;)
+                {
+                    int i7 = abyte0[j2++] & 0xff;
+                    if(i7 < 128)
+                    {
+                        uib[j1][k5++] = i7;
+                    } else
+                    {
+                        for(int j8 = 0; j8 < i7 - 128; j8++)
+                            uib[j1][k5++] = 0;
+
+                    }
+                }
+
+                for(int j7 = 0; j7 < 2304;)
+                {
+                    int k8 = abyte0[j2++] & 0xff;
+                    if(k8 < 128)
+                        uib[j1][j7++] = k8 + 12000;
+                    else
+                        j7 += k8 - 128;
+                }
+
+                for(int l8 = 0; l8 < 2304;)
+                {
+                    int l9 = abyte0[j2++] & 0xff;
+                    if(l9 < 128)
+                    {
+                        rib[j1][l8++] = (byte)l9;
+                    } else
+                    {
+                        for(int k10 = 0; k10 < l9 - 128; k10++)
+                            rib[j1][l8++] = 0;
+
+                    }
+                }
+
+                int i10 = 0;
+                for(int l10 = 0; l10 < 2304;)
+                {
+                    int j11 = abyte0[j2++] & 0xff;
+                    if(j11 < 128)
+                    {
+                        sib[j1][l10++] = (byte)j11;
+                        i10 = j11;
+                    } else
+                    {
+                        for(int i12 = 0; i12 < j11 - 128; i12++)
+                            sib[j1][l10++] = (byte)i10;
+
+                    }
+                }
+
+                for(int k11 = 0; k11 < 2304;)
+                {
+                    int j12 = abyte0[j2++] & 0xff;
+                    if(j12 < 128)
+                    {
+                        tib[j1][k11++] = (byte)j12;
+                    } else
+                    {
+                        for(int i13 = 0; i13 < j12 - 128; i13++)
+                            tib[j1][k11++] = 0;
+
+                    }
+                }
+
+                abyte0 = o.in(s + ".loc", 0, kib);
+                if(abyte0 != null && abyte0.length > 0)
+                {
+                    int k12 = 0;
+                    for(int j13 = 0; j13 < 2304;)
+                    {
+                        int k13 = abyte0[k12++] & 0xff;
+                        if(k13 < 128)
+                            uib[j1][j13++] = k13 + 48000;
+                        else
+                            j13 += k13 - 128;
+                    }
+
+                    return;
+                }
+            } else
+            {
+                byte abyte1[] = new byte[20736];
+                o.fn("../gamedata/maps/" + s + ".jm", abyte1, 20736);
+                int k2 = 0;
+                int j3 = 0;
+                for(int j4 = 0; j4 < 2304; j4++)
+                {
+                    k2 = k2 + abyte1[j3++] & 0xff;
+                    nib[j1][j4] = (byte)k2;
+                }
+
+                k2 = 0;
+                for(int l5 = 0; l5 < 2304; l5++)
+                {
+                    k2 = k2 + abyte1[j3++] & 0xff;
+                    oib[j1][l5] = (byte)k2;
+                }
+
+                for(int k7 = 0; k7 < 2304; k7++)
+                    pib[j1][k7] = abyte1[j3++];
+
+                for(int i9 = 0; i9 < 2304; i9++)
+                    qib[j1][i9] = abyte1[j3++];
+
+                for(int j10 = 0; j10 < 2304; j10++)
+                {
+                    uib[j1][j10] = (abyte1[j3] & 0xff) * 256 + (abyte1[j3 + 1] & 0xff);
+                    j3 += 2;
+                }
+
+                for(int i11 = 0; i11 < 2304; i11++)
+                    rib[j1][i11] = abyte1[j3++];
+
+                for(int l11 = 0; l11 < 2304; l11++)
+                    sib[j1][l11] = abyte1[j3++];
+
+                for(int l12 = 0; l12 < 2304; l12++)
+                    tib[j1][l12] = abyte1[j3++];
+
+            }
+            return;
+        }
+        catch(IOException ioexception)
+        {
+            k1 = 0;
+        }
+        for(; k1 < 2304; k1++)
+        {
+            nib[j1][k1] = 0;
+            oib[j1][k1] = 0;
+            pib[j1][k1] = 0;
+            qib[j1][k1] = 0;
+            uib[j1][k1] = 0;
+            rib[j1][k1] = 0;
+            sib[j1][k1] = 0;
+            if(i1 == 0)
+                sib[j1][k1] = -6;
+            if(i1 == 3)
+                sib[j1][k1] = 8;
+            tib[j1][k1] = 0;
+        }
+
+    }
+
+    public void kp()
+    {
+        if(yhb)
+            aib.si();
+        for(int k = 0; k < 64; k++)
+        {
+            djb[k] = null;
+            for(int l = 0; l < 4; l++)
+                ejb[l][k] = null;
+
+            for(int i1 = 0; i1 < 4; i1++)
+                fjb[i1][k] = null;
+
+        }
+
+        System.gc();
+    }
+
+    public void xo(int k, int l, int i1)
+    {
+        kp();
+        int j1 = (k + 24) / 48;
+        int k1 = (l + 24) / 48;
+        ko(k, l, i1, true);
+        if(i1 == 0)
+        {
+            ko(k, l, 1, false);
+            ko(k, l, 2, false);
+            eo(j1 - 1, k1 - 1, i1, 0);
+            eo(j1, k1 - 1, i1, 1);
+            eo(j1 - 1, k1, i1, 2);
+            eo(j1, k1, i1, 3);
+            ro();
+        }
+    }
+
+    public void ro()
+    {
+        for(int k = 0; k < 96; k++)
+        {
+            for(int l = 0; l < 96; l++)
+                if(wo(k, l, 0) == 250)
+                    if(k == 47 && wo(k + 1, l, 0) != 250 && wo(k + 1, l, 0) != 2)
+                        so(k, l, 9);
+                    else
+                    if(l == 47 && wo(k, l + 1, 0) != 250 && wo(k, l + 1, 0) != 2)
+                        so(k, l, 9);
+                    else
+                        so(k, l, 2);
+
+        }
+
+    }
+
+    public void jo(int k, int l, int i1, int j1, int k1)
+    {
+        int l1 = k * 3;
+        int i2 = l * 3;
+        int j2 = aib.ti(j1);
+        int k2 = aib.ti(k1);
+        j2 = j2 >> 1 & 0x7f7f7f;
+        k2 = k2 >> 1 & 0x7f7f7f;
+        if(i1 == 0)
+        {
+            zhb.rg(l1, i2, 3, j2);
+            zhb.rg(l1, i2 + 1, 2, j2);
+            zhb.rg(l1, i2 + 2, 1, j2);
+            zhb.rg(l1 + 2, i2 + 1, 1, k2);
+            zhb.rg(l1 + 1, i2 + 2, 2, k2);
+            return;
+        }
+        if(i1 == 1)
+        {
+            zhb.rg(l1, i2, 3, k2);
+            zhb.rg(l1 + 1, i2 + 1, 2, k2);
+            zhb.rg(l1 + 2, i2 + 2, 1, k2);
+            zhb.rg(l1, i2 + 1, 1, j2);
+            zhb.rg(l1, i2 + 2, 2, j2);
+        }
+    }
+
+    public void ko(int k, int l, int i1, boolean flag)
+    {
+        int j1 = (k + 24) / 48;
+        int k1 = (l + 24) / 48;
+        eo(j1 - 1, k1 - 1, i1, 0);
+        eo(j1, k1 - 1, i1, 1);
+        eo(j1 - 1, k1, i1, 2);
+        eo(j1, k1, i1, 3);
+        ro();
+        if(gjb == null)
+            gjb = new h(vib * wib * 2 + 256, vib * wib * 2 + 256, true, true, false, false, true);
+        if(flag)
+        {
+            zhb.lf();
+            for(int l1 = 0; l1 < 96; l1++)
+            {
+                for(int j2 = 0; j2 < 96; j2++)
+                    ajb[l1][j2] = 0;
+
+            }
+
+            h h1 = gjb;
+            h1.xe();
+            for(int l2 = 0; l2 < 96; l2++)
+            {
+                for(int k3 = 0; k3 < 96; k3++)
+                {
+                    int k4 = -uo(l2, k3);
+                    if(wo(l2, k3, i1) > 0 && q.xlb[wo(l2, k3, i1) - 1] == 4)
+                        k4 = 0;
+                    if(wo(l2 - 1, k3, i1) > 0 && q.xlb[wo(l2 - 1, k3, i1) - 1] == 4)
+                        k4 = 0;
+                    if(wo(l2, k3 - 1, i1) > 0 && q.xlb[wo(l2, k3 - 1, i1) - 1] == 4)
+                        k4 = 0;
+                    if(wo(l2 - 1, k3 - 1, i1) > 0 && q.xlb[wo(l2 - 1, k3 - 1, i1) - 1] == 4)
+                        k4 = 0;
+                    int l5 = h1.oe(l2 * 128, k4, k3 * 128);
+                    int k7 = (int)(Math.random() * 10D) - 5;
+                    h1.xd(l5, k7);
+                }
+
+            }
+
+            for(int l3 = 0; l3 < 95; l3++)
+            {
+                for(int l4 = 0; l4 < 95; l4++)
+                {
+                    int i6 = go(l3, l4);
+                    int l7 = eib[i6];
+                    int j10 = l7;
+                    int l12 = l7;
+                    int i15 = 0;
+                    if(i1 == 1 || i1 == 2)
+                    {
+                        l7 = 0xbc614e;
+                        j10 = 0xbc614e;
+                        l12 = 0xbc614e;
+                    }
+                    if(wo(l3, l4, i1) > 0)
+                    {
+                        int i17 = wo(l3, l4, i1);
+                        int j19 = q.xlb[i17 - 1];
+                        int i20 = cp(l3, l4, i1);
+                        l7 = j10 = q.wlb[i17 - 1];
+                        if(j19 == 4)
+                        {
+                            l7 = 1;
+                            j10 = 1;
+                            if(i17 == 12)
+                            {
+                                l7 = 31;
+                                j10 = 31;
+                            }
+                        }
+                        if(j19 == 5)
+                        {
+                            if(lo(l3, l4) > 0 && lo(l3, l4) < 24000)
+                                if(mo(l3 - 1, l4, i1, l12) != 0xbc614e && mo(l3, l4 - 1, i1, l12) != 0xbc614e)
+                                {
+                                    l7 = mo(l3 - 1, l4, i1, l12);
+                                    i15 = 0;
+                                } else
+                                if(mo(l3 + 1, l4, i1, l12) != 0xbc614e && mo(l3, l4 + 1, i1, l12) != 0xbc614e)
+                                {
+                                    j10 = mo(l3 + 1, l4, i1, l12);
+                                    i15 = 0;
+                                } else
+                                if(mo(l3 + 1, l4, i1, l12) != 0xbc614e && mo(l3, l4 - 1, i1, l12) != 0xbc614e)
+                                {
+                                    j10 = mo(l3 + 1, l4, i1, l12);
+                                    i15 = 1;
+                                } else
+                                if(mo(l3 - 1, l4, i1, l12) != 0xbc614e && mo(l3, l4 + 1, i1, l12) != 0xbc614e)
+                                {
+                                    l7 = mo(l3 - 1, l4, i1, l12);
+                                    i15 = 1;
+                                }
+                        } else
+                        if(j19 != 2 || lo(l3, l4) > 0 && lo(l3, l4) < 24000)
+                            if(cp(l3 - 1, l4, i1) != i20 && cp(l3, l4 - 1, i1) != i20)
+                            {
+                                l7 = l12;
+                                i15 = 0;
+                            } else
+                            if(cp(l3 + 1, l4, i1) != i20 && cp(l3, l4 + 1, i1) != i20)
+                            {
+                                j10 = l12;
+                                i15 = 0;
+                            } else
+                            if(cp(l3 + 1, l4, i1) != i20 && cp(l3, l4 - 1, i1) != i20)
+                            {
+                                j10 = l12;
+                                i15 = 1;
+                            } else
+                            if(cp(l3 - 1, l4, i1) != i20 && cp(l3, l4 + 1, i1) != i20)
+                            {
+                                l7 = l12;
+                                i15 = 1;
+                            }
+                        if(q.ylb[i17 - 1] != 0)
+                            ajb[l3][l4] |= 0x40;
+                        if(q.xlb[i17 - 1] == 2)
+                            ajb[l3][l4] |= 0x80;
+                    }
+                    jo(l3, l4, i15, l7, j10);
+                    int j17 = ((uo(l3 + 1, l4 + 1) - uo(l3 + 1, l4)) + uo(l3, l4 + 1)) - uo(l3, l4);
+                    if(l7 != j10 || j17 != 0)
+                    {
+                        int ai[] = new int[3];
+                        int ai7[] = new int[3];
+                        if(i15 == 0)
+                        {
+                            if(l7 != 0xbc614e)
+                            {
+                                ai[0] = l4 + l3 * vib + vib;
+                                ai[1] = l4 + l3 * vib;
+                                ai[2] = l4 + l3 * vib + 1;
+                                int j22 = h1.ne(3, ai, 0xbc614e, l7);
+                                xib[j22] = l3;
+                                yib[j22] = l4;
+                                h1.vh[j22] = 0x30d40 + j22;
+                            }
+                            if(j10 != 0xbc614e)
+                            {
+                                ai7[0] = l4 + l3 * vib + 1;
+                                ai7[1] = l4 + l3 * vib + vib + 1;
+                                ai7[2] = l4 + l3 * vib + vib;
+                                int k22 = h1.ne(3, ai7, 0xbc614e, j10);
+                                xib[k22] = l3;
+                                yib[k22] = l4;
+                                h1.vh[k22] = 0x30d40 + k22;
+                            }
+                        } else
+                        {
+                            if(l7 != 0xbc614e)
+                            {
+                                ai[0] = l4 + l3 * vib + 1;
+                                ai[1] = l4 + l3 * vib + vib + 1;
+                                ai[2] = l4 + l3 * vib;
+                                int l22 = h1.ne(3, ai, 0xbc614e, l7);
+                                xib[l22] = l3;
+                                yib[l22] = l4;
+                                h1.vh[l22] = 0x30d40 + l22;
+                            }
+                            if(j10 != 0xbc614e)
+                            {
+                                ai7[0] = l4 + l3 * vib + vib;
+                                ai7[1] = l4 + l3 * vib;
+                                ai7[2] = l4 + l3 * vib + vib + 1;
+                                int i23 = h1.ne(3, ai7, 0xbc614e, j10);
+                                xib[i23] = l3;
+                                yib[i23] = l4;
+                                h1.vh[i23] = 0x30d40 + i23;
+                            }
+                        }
+                    } else
+                    if(l7 != 0xbc614e)
+                    {
+                        int ai1[] = new int[4];
+                        ai1[0] = l4 + l3 * vib + vib;
+                        ai1[1] = l4 + l3 * vib;
+                        ai1[2] = l4 + l3 * vib + 1;
+                        ai1[3] = l4 + l3 * vib + vib + 1;
+                        int j20 = h1.ne(4, ai1, 0xbc614e, l7);
+                        xib[j20] = l3;
+                        yib[j20] = l4;
+                        h1.vh[j20] = 0x30d40 + j20;
+                    }
+                }
+
+            }
+
+            for(int i5 = 1; i5 < 95; i5++)
+            {
+                for(int j6 = 1; j6 < 95; j6++)
+                    if(wo(i5, j6, i1) > 0 && q.xlb[wo(i5, j6, i1) - 1] == 4)
+                    {
+                        int i8 = q.wlb[wo(i5, j6, i1) - 1];
+                        int k10 = h1.oe(i5 * 128, -uo(i5, j6), j6 * 128);
+                        int i13 = h1.oe((i5 + 1) * 128, -uo(i5 + 1, j6), j6 * 128);
+                        int j15 = h1.oe((i5 + 1) * 128, -uo(i5 + 1, j6 + 1), (j6 + 1) * 128);
+                        int k17 = h1.oe(i5 * 128, -uo(i5, j6 + 1), (j6 + 1) * 128);
+                        int ai2[] = {
+                            k10, i13, j15, k17
+                        };
+                        int k20 = h1.ne(4, ai2, i8, 0xbc614e);
+                        xib[k20] = i5;
+                        yib[k20] = j6;
+                        h1.vh[k20] = 0x30d40 + k20;
+                        jo(i5, j6, 0, i8, i8);
+                    } else
+                    if(wo(i5, j6, i1) == 0 || q.xlb[wo(i5, j6, i1) - 1] != 3)
+                    {
+                        if(wo(i5, j6 + 1, i1) > 0 && q.xlb[wo(i5, j6 + 1, i1) - 1] == 4)
+                        {
+                            int j8 = q.wlb[wo(i5, j6 + 1, i1) - 1];
+                            int l10 = h1.oe(i5 * 128, -uo(i5, j6), j6 * 128);
+                            int j13 = h1.oe((i5 + 1) * 128, -uo(i5 + 1, j6), j6 * 128);
+                            int k15 = h1.oe((i5 + 1) * 128, -uo(i5 + 1, j6 + 1), (j6 + 1) * 128);
+                            int l17 = h1.oe(i5 * 128, -uo(i5, j6 + 1), (j6 + 1) * 128);
+                            int ai3[] = {
+                                l10, j13, k15, l17
+                            };
+                            int l20 = h1.ne(4, ai3, j8, 0xbc614e);
+                            xib[l20] = i5;
+                            yib[l20] = j6;
+                            h1.vh[l20] = 0x30d40 + l20;
+                            jo(i5, j6, 0, j8, j8);
+                        }
+                        if(wo(i5, j6 - 1, i1) > 0 && q.xlb[wo(i5, j6 - 1, i1) - 1] == 4)
+                        {
+                            int k8 = q.wlb[wo(i5, j6 - 1, i1) - 1];
+                            int i11 = h1.oe(i5 * 128, -uo(i5, j6), j6 * 128);
+                            int k13 = h1.oe((i5 + 1) * 128, -uo(i5 + 1, j6), j6 * 128);
+                            int l15 = h1.oe((i5 + 1) * 128, -uo(i5 + 1, j6 + 1), (j6 + 1) * 128);
+                            int i18 = h1.oe(i5 * 128, -uo(i5, j6 + 1), (j6 + 1) * 128);
+                            int ai4[] = {
+                                i11, k13, l15, i18
+                            };
+                            int i21 = h1.ne(4, ai4, k8, 0xbc614e);
+                            xib[i21] = i5;
+                            yib[i21] = j6;
+                            h1.vh[i21] = 0x30d40 + i21;
+                            jo(i5, j6, 0, k8, k8);
+                        }
+                        if(wo(i5 + 1, j6, i1) > 0 && q.xlb[wo(i5 + 1, j6, i1) - 1] == 4)
+                        {
+                            int l8 = q.wlb[wo(i5 + 1, j6, i1) - 1];
+                            int j11 = h1.oe(i5 * 128, -uo(i5, j6), j6 * 128);
+                            int l13 = h1.oe((i5 + 1) * 128, -uo(i5 + 1, j6), j6 * 128);
+                            int i16 = h1.oe((i5 + 1) * 128, -uo(i5 + 1, j6 + 1), (j6 + 1) * 128);
+                            int j18 = h1.oe(i5 * 128, -uo(i5, j6 + 1), (j6 + 1) * 128);
+                            int ai5[] = {
+                                j11, l13, i16, j18
+                            };
+                            int j21 = h1.ne(4, ai5, l8, 0xbc614e);
+                            xib[j21] = i5;
+                            yib[j21] = j6;
+                            h1.vh[j21] = 0x30d40 + j21;
+                            jo(i5, j6, 0, l8, l8);
+                        }
+                        if(wo(i5 - 1, j6, i1) > 0 && q.xlb[wo(i5 - 1, j6, i1) - 1] == 4)
+                        {
+                            int i9 = q.wlb[wo(i5 - 1, j6, i1) - 1];
+                            int k11 = h1.oe(i5 * 128, -uo(i5, j6), j6 * 128);
+                            int i14 = h1.oe((i5 + 1) * 128, -uo(i5 + 1, j6), j6 * 128);
+                            int j16 = h1.oe((i5 + 1) * 128, -uo(i5 + 1, j6 + 1), (j6 + 1) * 128);
+                            int k18 = h1.oe(i5 * 128, -uo(i5, j6 + 1), (j6 + 1) * 128);
+                            int ai6[] = {
+                                k11, i14, j16, k18
+                            };
+                            int k21 = h1.ne(4, ai6, i9, 0xbc614e);
+                            xib[k21] = i5;
+                            yib[k21] = j6;
+                            h1.vh[k21] = 0x30d40 + k21;
+                            jo(i5, j6, 0, i9, i9);
+                        }
+                    }
+
+            }
+
+            h1.se(true, 40, 48, -50, -10, -50);
+            djb = gjb.ud(0, 0, 1536, 1536, 8, 64, 233, false);
+            for(int k6 = 0; k6 < 64; k6++)
+                aib.uh(djb[k6]);
+
+            for(int j9 = 0; j9 < 96; j9++)
+            {
+                for(int l11 = 0; l11 < 96; l11++)
+                    bjb[j9][l11] = uo(j9, l11);
+
+            }
+
+        }
+        gjb.xe();
+        int i2 = 0x606060;
+        for(int k2 = 0; k2 < 95; k2++)
+        {
+            for(int i3 = 0; i3 < 95; i3++)
+            {
+                int i4 = po(k2, i3);
+                if(i4 > 0 && (q.rlb[i4 - 1] == 0 || xhb))
+                {
+                    jp(gjb, i4 - 1, k2, i3, k2 + 1, i3);
+                    if(flag && q.qlb[i4 - 1] != 0)
+                    {
+                        ajb[k2][i3] |= 1;
+                        if(i3 > 0)
+                            gp(k2, i3 - 1, 4);
+                    }
+                    if(flag)
+                        zhb.rg(k2 * 3, i3 * 3, 3, i2);
+                }
+                i4 = yo(k2, i3);
+                if(i4 > 0 && (q.rlb[i4 - 1] == 0 || xhb))
+                {
+                    jp(gjb, i4 - 1, k2, i3, k2, i3 + 1);
+                    if(flag && q.qlb[i4 - 1] != 0)
+                    {
+                        ajb[k2][i3] |= 2;
+                        if(k2 > 0)
+                            gp(k2 - 1, i3, 8);
+                    }
+                    if(flag)
+                        zhb.vg(k2 * 3, i3 * 3, 3, i2);
+                }
+                i4 = lo(k2, i3);
+                if(i4 > 0 && i4 < 12000 && (q.rlb[i4 - 1] == 0 || xhb))
+                {
+                    jp(gjb, i4 - 1, k2, i3, k2 + 1, i3 + 1);
+                    if(flag && q.qlb[i4 - 1] != 0)
+                        ajb[k2][i3] |= 0x20;
+                    if(flag)
+                    {
+                        zhb.lg(k2 * 3, i3 * 3, i2);
+                        zhb.lg(k2 * 3 + 1, i3 * 3 + 1, i2);
+                        zhb.lg(k2 * 3 + 2, i3 * 3 + 2, i2);
+                    }
+                }
+                if(i4 > 12000 && i4 < 24000 && (q.rlb[i4 - 12001] == 0 || xhb))
+                {
+                    jp(gjb, i4 - 12001, k2 + 1, i3, k2, i3 + 1);
+                    if(flag && q.qlb[i4 - 12001] != 0)
+                        ajb[k2][i3] |= 0x10;
+                    if(flag)
+                    {
+                        zhb.lg(k2 * 3 + 2, i3 * 3, i2);
+                        zhb.lg(k2 * 3 + 1, i3 * 3 + 1, i2);
+                        zhb.lg(k2 * 3, i3 * 3 + 2, i2);
+                    }
+                }
+            }
+
+        }
+
+        if(flag)
+            zhb.kf(bib - 1, 0, 0, 285, 285);
+        gjb.se(false, 60, 24, -50, -10, -50);
+        ejb[i1] = gjb.ud(0, 0, 1536, 1536, 8, 64, 338, true);
+        for(int j3 = 0; j3 < 64; j3++)
+            aib.uh(ejb[i1][j3]);
+
+        for(int j4 = 0; j4 < 95; j4++)
+        {
+            for(int j5 = 0; j5 < 95; j5++)
+            {
+                int l6 = po(j4, j5);
+                if(l6 > 0)
+                    ap(l6 - 1, j4, j5, j4 + 1, j5);
+                l6 = yo(j4, j5);
+                if(l6 > 0)
+                    ap(l6 - 1, j4, j5, j4, j5 + 1);
+                l6 = lo(j4, j5);
+                if(l6 > 0 && l6 < 12000)
+                    ap(l6 - 1, j4, j5, j4 + 1, j5 + 1);
+                if(l6 > 12000 && l6 < 24000)
+                    ap(l6 - 12001, j4 + 1, j5, j4, j5 + 1);
+            }
+
+        }
+
+        for(int k5 = 1; k5 < 95; k5++)
+        {
+            for(int i7 = 1; i7 < 95; i7++)
+            {
+                int k9 = bp(k5, i7);
+                if(k9 > 0)
+                {
+                    int i12 = k5;
+                    int j14 = i7;
+                    int k16 = k5 + 1;
+                    int l18 = i7;
+                    int k19 = k5 + 1;
+                    int l21 = i7 + 1;
+                    int j23 = k5;
+                    int l23 = i7 + 1;
+                    int j24 = 0;
+                    int l24 = bjb[i12][j14];
+                    int j25 = bjb[k16][l18];
+                    int l25 = bjb[k19][l21];
+                    int j26 = bjb[j23][l23];
+                    if(l24 > 0x13880)
+                        l24 -= 0x13880;
+                    if(j25 > 0x13880)
+                        j25 -= 0x13880;
+                    if(l25 > 0x13880)
+                        l25 -= 0x13880;
+                    if(j26 > 0x13880)
+                        j26 -= 0x13880;
+                    if(l24 > j24)
+                        j24 = l24;
+                    if(j25 > j24)
+                        j24 = j25;
+                    if(l25 > j24)
+                        j24 = l25;
+                    if(j26 > j24)
+                        j24 = j26;
+                    if(j24 >= 0x13880)
+                        j24 -= 0x13880;
+                    if(l24 < 0x13880)
+                        bjb[i12][j14] = j24;
+                    else
+                        bjb[i12][j14] -= 0x13880;
+                    if(j25 < 0x13880)
+                        bjb[k16][l18] = j24;
+                    else
+                        bjb[k16][l18] -= 0x13880;
+                    if(l25 < 0x13880)
+                        bjb[k19][l21] = j24;
+                    else
+                        bjb[k19][l21] -= 0x13880;
+                    if(j26 < 0x13880)
+                        bjb[j23][l23] = j24;
+                    else
+                        bjb[j23][l23] -= 0x13880;
+                }
+            }
+
+        }
+
+        gjb.xe();
+        for(int j7 = 1; j7 < 95; j7++)
+        {
+            for(int l9 = 1; l9 < 95; l9++)
+            {
+                int j12 = bp(j7, l9);
+                if(j12 > 0)
+                {
+                    int k14 = j7;
+                    int l16 = l9;
+                    int i19 = j7 + 1;
+                    int l19 = l9;
+                    int i22 = j7 + 1;
+                    int k23 = l9 + 1;
+                    int i24 = j7;
+                    int k24 = l9 + 1;
+                    int i25 = j7 * 128;
+                    int k25 = l9 * 128;
+                    int i26 = i25 + 128;
+                    int k26 = k25 + 128;
+                    int l26 = i25;
+                    int i27 = k25;
+                    int j27 = i26;
+                    int k27 = k26;
+                    int l27 = bjb[k14][l16];
+                    int i28 = bjb[i19][l19];
+                    int j28 = bjb[i22][k23];
+                    int k28 = bjb[i24][k24];
+                    int l28 = q.tlb[j12 - 1];
+                    if(dp(k14, l16) && l27 < 0x13880)
+                    {
+                        l27 += l28 + 0x13880;
+                        bjb[k14][l16] = l27;
+                    }
+                    if(dp(i19, l19) && i28 < 0x13880)
+                    {
+                        i28 += l28 + 0x13880;
+                        bjb[i19][l19] = i28;
+                    }
+                    if(dp(i22, k23) && j28 < 0x13880)
+                    {
+                        j28 += l28 + 0x13880;
+                        bjb[i22][k23] = j28;
+                    }
+                    if(dp(i24, k24) && k28 < 0x13880)
+                    {
+                        k28 += l28 + 0x13880;
+                        bjb[i24][k24] = k28;
+                    }
+                    if(l27 >= 0x13880)
+                        l27 -= 0x13880;
+                    if(i28 >= 0x13880)
+                        i28 -= 0x13880;
+                    if(j28 >= 0x13880)
+                        j28 -= 0x13880;
+                    if(k28 >= 0x13880)
+                        k28 -= 0x13880;
+                    byte byte0 = 16;
+                    if(!ep(k14 - 1, l16))
+                        i25 -= byte0;
+                    if(!ep(k14 + 1, l16))
+                        i25 += byte0;
+                    if(!ep(k14, l16 - 1))
+                        k25 -= byte0;
+                    if(!ep(k14, l16 + 1))
+                        k25 += byte0;
+                    if(!ep(i19 - 1, l19))
+                        i26 -= byte0;
+                    if(!ep(i19 + 1, l19))
+                        i26 += byte0;
+                    if(!ep(i19, l19 - 1))
+                        i27 -= byte0;
+                    if(!ep(i19, l19 + 1))
+                        i27 += byte0;
+                    if(!ep(i22 - 1, k23))
+                        j27 -= byte0;
+                    if(!ep(i22 + 1, k23))
+                        j27 += byte0;
+                    if(!ep(i22, k23 - 1))
+                        k26 -= byte0;
+                    if(!ep(i22, k23 + 1))
+                        k26 += byte0;
+                    if(!ep(i24 - 1, k24))
+                        l26 -= byte0;
+                    if(!ep(i24 + 1, k24))
+                        l26 += byte0;
+                    if(!ep(i24, k24 - 1))
+                        k27 -= byte0;
+                    if(!ep(i24, k24 + 1))
+                        k27 += byte0;
+                    j12 = q.ulb[j12 - 1];
+                    l27 = -l27;
+                    i28 = -i28;
+                    j28 = -j28;
+                    k28 = -k28;
+                    if(lo(j7, l9) > 12000 && lo(j7, l9) < 24000 && bp(j7 - 1, l9 - 1) == 0)
+                    {
+                        int ai8[] = new int[3];
+                        ai8[0] = gjb.oe(j27, j28, k26);
+                        ai8[1] = gjb.oe(l26, k28, k27);
+                        ai8[2] = gjb.oe(i26, i28, i27);
+                        gjb.ne(3, ai8, j12, 0xbc614e);
+                    } else
+                    if(lo(j7, l9) > 12000 && lo(j7, l9) < 24000 && bp(j7 + 1, l9 + 1) == 0)
+                    {
+                        int ai9[] = new int[3];
+                        ai9[0] = gjb.oe(i25, l27, k25);
+                        ai9[1] = gjb.oe(i26, i28, i27);
+                        ai9[2] = gjb.oe(l26, k28, k27);
+                        gjb.ne(3, ai9, j12, 0xbc614e);
+                    } else
+                    if(lo(j7, l9) > 0 && lo(j7, l9) < 12000 && bp(j7 + 1, l9 - 1) == 0)
+                    {
+                        int ai10[] = new int[3];
+                        ai10[0] = gjb.oe(l26, k28, k27);
+                        ai10[1] = gjb.oe(i25, l27, k25);
+                        ai10[2] = gjb.oe(j27, j28, k26);
+                        gjb.ne(3, ai10, j12, 0xbc614e);
+                    } else
+                    if(lo(j7, l9) > 0 && lo(j7, l9) < 12000 && bp(j7 - 1, l9 + 1) == 0)
+                    {
+                        int ai11[] = new int[3];
+                        ai11[0] = gjb.oe(i26, i28, i27);
+                        ai11[1] = gjb.oe(j27, j28, k26);
+                        ai11[2] = gjb.oe(i25, l27, k25);
+                        gjb.ne(3, ai11, j12, 0xbc614e);
+                    } else
+                    if(l27 == i28 && j28 == k28)
+                    {
+                        int ai12[] = new int[4];
+                        ai12[0] = gjb.oe(i25, l27, k25);
+                        ai12[1] = gjb.oe(i26, i28, i27);
+                        ai12[2] = gjb.oe(j27, j28, k26);
+                        ai12[3] = gjb.oe(l26, k28, k27);
+                        gjb.ne(4, ai12, j12, 0xbc614e);
+                    } else
+                    if(l27 == k28 && i28 == j28)
+                    {
+                        int ai13[] = new int[4];
+                        ai13[0] = gjb.oe(l26, k28, k27);
+                        ai13[1] = gjb.oe(i25, l27, k25);
+                        ai13[2] = gjb.oe(i26, i28, i27);
+                        ai13[3] = gjb.oe(j27, j28, k26);
+                        gjb.ne(4, ai13, j12, 0xbc614e);
+                    } else
+                    {
+                        boolean flag1 = true;
+                        if(bp(j7 - 1, l9 - 1) > 0)
+                            flag1 = false;
+                        if(bp(j7 + 1, l9 + 1) > 0)
+                            flag1 = false;
+                        if(!flag1)
+                        {
+                            int ai14[] = new int[3];
+                            ai14[0] = gjb.oe(i26, i28, i27);
+                            ai14[1] = gjb.oe(j27, j28, k26);
+                            ai14[2] = gjb.oe(i25, l27, k25);
+                            gjb.ne(3, ai14, j12, 0xbc614e);
+                            int ai16[] = new int[3];
+                            ai16[0] = gjb.oe(l26, k28, k27);
+                            ai16[1] = gjb.oe(i25, l27, k25);
+                            ai16[2] = gjb.oe(j27, j28, k26);
+                            gjb.ne(3, ai16, j12, 0xbc614e);
+                        } else
+                        {
+                            int ai15[] = new int[3];
+                            ai15[0] = gjb.oe(i25, l27, k25);
+                            ai15[1] = gjb.oe(i26, i28, i27);
+                            ai15[2] = gjb.oe(l26, k28, k27);
+                            gjb.ne(3, ai15, j12, 0xbc614e);
+                            int ai17[] = new int[3];
+                            ai17[0] = gjb.oe(j27, j28, k26);
+                            ai17[1] = gjb.oe(l26, k28, k27);
+                            ai17[2] = gjb.oe(i26, i28, i27);
+                            gjb.ne(3, ai17, j12, 0xbc614e);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        gjb.se(true, 50, 50, -50, -10, -50);
+        fjb[i1] = gjb.ud(0, 0, 1536, 1536, 8, 64, 169, true);
+        for(int i10 = 0; i10 < 64; i10++)
+            aib.uh(fjb[i1][i10]);
+
+        for(int k12 = 0; k12 < 96; k12++)
+        {
+            for(int l14 = 0; l14 < 96; l14++)
+                if(bjb[k12][l14] >= 0x13880)
+                    bjb[k12][l14] -= 0x13880;
+
+        }
+
+    }
+
+    public void qo(h ah[])
+    {
+        for(int k = 0; k < vib - 2; k++)
+        {
+            for(int l = 0; l < wib - 2; l++)
+                if(lo(k, l) > 48000 && lo(k, l) < 60000)
+                {
+                    int i1 = lo(k, l) - 48001;
+                    int j1 = io(k, l);
+                    int k1;
+                    int l1;
+                    if(j1 == 0 || j1 == 4)
+                    {
+                        k1 = q.elb[i1];
+                        l1 = q.flb[i1];
+                    } else
+                    {
+                        l1 = q.elb[i1];
+                        k1 = q.flb[i1];
+                    }
+                    vo(k, l, i1);
+                    h h1 = ah[q.dlb[i1]].ue(false, true, false, false);
+                    int i2 = ((k + k + k1) * 128) / 2;
+                    int j2 = ((l + l + l1) * 128) / 2;
+                    h1.zd(i2, -oo(i2, j2), j2);
+                    h1.ke(0, io(k, l) * 32, 0);
+                    aib.uh(h1);
+                    h1.be(48, 48, -50, -10, -50);
+                    if(k1 > 1 || l1 > 1)
+                    {
+                        for(int k2 = k; k2 < k + k1; k2++)
+                        {
+                            for(int l2 = l; l2 < l + l1; l2++)
+                                if((k2 > k || l2 > l) && lo(k2, l2) - 48001 == i1)
+                                {
+                                    int i3 = k2;
+                                    int j3 = l2;
+                                    byte byte0 = 0;
+                                    if(i3 >= 48 && j3 < 48)
+                                    {
+                                        byte0 = 1;
+                                        i3 -= 48;
+                                    } else
+                                    if(i3 < 48 && j3 >= 48)
+                                    {
+                                        byte0 = 2;
+                                        j3 -= 48;
+                                    } else
+                                    if(i3 >= 48 && j3 >= 48)
+                                    {
+                                        byte0 = 3;
+                                        i3 -= 48;
+                                        j3 -= 48;
+                                    }
+                                    uib[byte0][i3 * 48 + j3] = 0;
+                                }
+
+                        }
+
+                    }
+                }
+
+        }
+
+    }
+
+    public void jp(h h1, int k, int l, int i1, int j1, int k1)
+    {
+        to(l, i1, 40);
+        to(j1, k1, 40);
+        int l1 = q.nlb[k];
+        int i2 = q.olb[k];
+        int j2 = q.plb[k];
+        int k2 = l * 128;
+        int l2 = i1 * 128;
+        int i3 = j1 * 128;
+        int j3 = k1 * 128;
+        int k3 = h1.oe(k2, -bjb[l][i1], l2);
+        int l3 = h1.oe(k2, -bjb[l][i1] - l1, l2);
+        int i4 = h1.oe(i3, -bjb[j1][k1] - l1, j3);
+        int j4 = h1.oe(i3, -bjb[j1][k1], j3);
+        int ai[] = {
+            k3, l3, i4, j4
+        };
+        int k4 = h1.ne(4, ai, i2, j2);
+        if(q.rlb[k] == 5)
+        {
+            h1.vh[k4] = 30000 + k;
+            return;
+        } else
+        {
+            h1.vh[k4] = 0;
+            return;
+        }
+    }
+
+    public void ap(int k, int l, int i1, int j1, int k1)
+    {
+        int l1 = q.nlb[k];
+        if(bjb[l][i1] < 0x13880)
+            bjb[l][i1] += 0x13880 + l1;
+        if(bjb[j1][k1] < 0x13880)
+            bjb[j1][k1] += 0x13880 + l1;
+    }
+
+    boolean xhb;
+    boolean yhb;
+    i zhb;
+    j aib;
+    int bib;
+    final int cib = 0xbc614e;
+    final int dib = 128;
+    int eib[];
+    int fib;
+    int gib[];
+    int hib[];
+    int iib[];
+    byte jib[];
+    byte kib[];
+    byte lib[];
+    byte mib[];
+    byte nib[][];
+    byte oib[][];
+    byte pib[][];
+    byte qib[][];
+    byte rib[][];
+    byte sib[][];
+    byte tib[][];
+    int uib[][];
+    int vib;
+    int wib;
+    int xib[];
+    int yib[];
+    int zib[][];
+    int ajb[][];
+    int bjb[][];
+    boolean cjb;
+    h djb[];
+    h ejb[][];
+    h fjb[][];
+    h gjb;
+}

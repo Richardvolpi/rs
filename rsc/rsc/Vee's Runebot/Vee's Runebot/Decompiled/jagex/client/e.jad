@@ -1,0 +1,596 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/18/2004 10:43:07 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) nonlb 
+// Source File Name:   e.java
+
+package jagex.client;
+
+import jagex.o;
+import java.awt.*;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.math.BigInteger;
+import java.security.AccessControlException;
+
+// Referenced classes of package jagex.client:
+//            k, a
+
+public class e extends k {
+
+    public void s(BigInteger biginteger, BigInteger biginteger1) {
+        pd = biginteger;
+        qd = biginteger1;
+    }
+
+    public int b() {
+        try {
+            String s1 = getParameter("ranseed");
+            String s2 = s1.substring(0, 10);
+            int i1 = Integer.parseInt(s2);
+            if(i1 == 0x3ade68b1) {
+                byte abyte0[] = new byte[4];
+                jagex.o.fn("uid.dat", abyte0, 4);
+                i1 = jagex.o.vn(abyte0, 0);
+            }
+            return i1;
+        }
+        catch(Exception exception) {
+            return 0;
+        }
+    }
+
+    public void l(String s1, String s2, boolean flag) {
+        try {
+            ad = s1;
+            s1 = jagex.o.bo(s1, 20);
+            bd = s2;
+            s2 = jagex.o.bo(s2, 20);
+            if(s1.trim().length() == 0) {
+                bb(vc[0], vc[1]);
+                return;
+            }
+            if(flag)
+                d(vc[2], vc[3]);
+            else
+                bb(vc[6], vc[7]);
+            if(sj())
+                cd = new a(yc, this, zc);
+            else
+                cd = new a(yc, null, zc);
+            cd.oe = xc;
+            int i1 = cd.gb();
+            rd = i1;
+            System.out.println("Session id: " + i1);
+            if(flag)
+                cd.db(19);
+            else
+                cd.db(0);
+            wc = 999;
+            cd.wb(wc);
+            cd.hb(jagex.o.pn(s1));
+            cd.qb(s2, i1, pd, qd);
+            cd.vb(b());
+            cd.mb();
+            cd.ac();
+            int j1 = cd.ac();
+            System.out.println("Login response: " + j1);
+            if(j1 == 0) {
+                ed = 0;
+                e();
+                return;
+            }
+            if(j1 == 1) {
+                ed = 0;
+                a();
+                return;
+            }
+            if(flag) {
+                s1 = "";
+                s2 = "";
+                f();
+                return;
+            }
+            if(j1 == 3) {
+                bb(vc[10], vc[11]);
+                return;
+            }
+            if(j1 == 4) {
+                bb(vc[4], vc[5]);
+                return;
+            }
+            if(j1 == 5) {
+                bb(vc[16], vc[17]);
+                return;
+            }
+            if(j1 == 6) {
+                bb(vc[18], vc[19]);
+                return;
+            }
+            if(j1 == 7) {
+                bb(vc[20], vc[21]);
+                return;
+            }
+            if(j1 == 11) {
+                bb(vc[22], vc[23]);
+                return;
+            }
+            if(j1 == 12) {
+                bb(vc[24], vc[25]);
+                return;
+            }
+            if(j1 == 13) {
+                bb(vc[14], vc[15]);
+                return;
+            }
+            if(j1 == 14) {
+                bb(vc[8], vc[9]);
+                sd = 1500;
+                l(ad, bd, flag);
+                return;
+            }
+            if(j1 == 15) {
+                bb(vc[26], vc[27]);
+                return;
+            }
+            if(j1 == 16) {
+                bb(vc[28], vc[29]);
+                return;
+            } else {
+                bb(vc[12], vc[13]);
+                return;
+            }
+        }
+        catch(AccessControlException accesscontrolexception) {
+            bb("RuneBot can not run unless you grant it permission.", "");
+            return;
+        }
+        catch(Exception exception1) {
+            System.out.println(String.valueOf(exception1));
+        }
+        if(ed > 0) {
+            try {
+                Thread.sleep(5000L);
+            }
+            catch(Exception exception) { }
+            ed--;
+            l(ad, bd, flag);
+        }
+        if(flag) {
+            ad = "";
+            bd = "";
+            f();
+        } else {
+            bb(vc[12], vc[13]);
+        }
+    }
+
+    public void ab() {
+        if(cd != null)
+            try {
+                cd.db(1);
+                cd.mb();
+            }
+            catch(IOException ioexception) { }
+        ad = "";
+        bd = "";
+        f();
+    }
+
+    public void p() {
+        System.out.println("Lost connection");
+        ed = 10;
+        l(ad, bd, true);
+    }
+
+    public void d(String s1, String s2) {
+        Graphics g1 = getGraphics();
+        Font font = new Font("Helvetica", 1, 15);
+        int i1 = jj();
+        int j1 = qj();
+        g1.setColor(Color.black);
+        g1.fillRect(i1 / 2 - 140, j1 / 2 - 25, 280, 50);
+        g1.setColor(Color.white);
+        g1.drawRect(i1 / 2 - 140, j1 / 2 - 25, 280, 50);
+        dj(g1, s1, font, i1 / 2, j1 / 2 - 10);
+        dj(g1, s2, font, i1 / 2, j1 / 2 + 10);
+    }
+
+    public void m(String s1, String s2) {
+        if(sd > 0) {
+            bb(vc[6], vc[7]);
+            try {
+                Thread.sleep(2000L);
+            }
+            catch(Exception exception) { }
+            bb(vc[8], vc[9]);
+            return;
+        }
+        try {
+            s1 = jagex.o.bo(s1, 20);
+            s2 = jagex.o.bo(s2, 20);
+            bb(vc[6], vc[7]);
+            if(sj())
+                cd = new a(yc, this, zc);
+            else
+                cd = new a(yc, null, zc);
+            int i1 = cd.gb();
+            rd = i1;
+            System.out.println("Session id: " + i1);
+            int j1 = 0;
+            try {
+                if(sj()) {
+                    String s3 = getParameter("referid");
+                    j1 = Integer.parseInt(s3);
+                }
+            }
+            catch(Exception exception2) { }
+            cd.db(2);
+            cd.wb(wc);
+            cd.hb(jagex.o.pn(s1));
+            cd.wb(j1);
+            cd.qb(s2, i1, pd, qd);
+            cd.vb(b());
+            cd.mb();
+            cd.ac();
+            int k1 = cd.ac();
+            cd.sb();
+            System.out.println("Newplayer response: " + k1);
+            if(k1 == 2) {
+                u();
+                return;
+            }
+            if(k1 == 3) {
+                bb(vc[14], vc[15]);
+                return;
+            }
+            if(k1 == 4) {
+                bb(vc[4], vc[5]);
+                return;
+            }
+            if(k1 == 5) {
+                bb(vc[16], vc[17]);
+                return;
+            }
+            if(k1 == 6) {
+                bb(vc[18], vc[19]);
+                return;
+            }
+            if(k1 == 7) {
+                bb(vc[20], vc[21]);
+                return;
+            }
+            if(k1 == 11) {
+                bb(vc[22], vc[23]);
+                return;
+            }
+            if(k1 == 12) {
+                bb(vc[24], vc[25]);
+                return;
+            }
+            if(k1 == 13) {
+                bb(vc[14], vc[15]);
+                return;
+            }
+            if(k1 == 14) {
+                bb(vc[8], vc[9]);
+                sd = 1500;
+                return;
+            }
+            if(k1 == 15) {
+                bb(vc[26], vc[27]);
+                return;
+            }
+            if(k1 == 16) {
+                bb(vc[28], vc[29]);
+                return;
+            } else {
+                bb(vc[12], vc[13]);
+                return;
+            }
+        }
+        catch(Exception exception1) {
+            System.out.println(String.valueOf(exception1));
+        }
+        bb(vc[12], vc[13]);
+    }
+
+    public void j() {
+        long l1 = System.currentTimeMillis();
+        if(cd.ob())
+            fd = l1;
+        if(l1 - fd > 5000L) {
+            fd = l1;
+            cd.db(5);
+            cd.rb();
+        }
+        try {
+            cd.lb(20);
+        }
+        catch(IOException ioexception) {
+            p();
+            return;
+        }
+        if(!w())
+            return;
+        int i1 = cd.pb(dd);
+        if(i1 > 0)
+            c(dd[0] & 0xff, i1);
+    }
+
+    public void c(int i1, int j1) {
+        if(i1 == 8) {
+            String s1 = new String(dd, 1, j1 - 1);
+            g(s1);
+        }
+        if(i1 == 9)
+            ab();
+        if(i1 == 10) {
+            k();
+            return;
+        }
+        if(i1 == 23) {
+            gd = jagex.o.tn(dd[1]);
+            for(int k1 = 0; k1 < gd; k1++) {
+                hd[k1] = jagex.o.on(dd, 2 + k1 * 9);
+                id[k1] = jagex.o.tn(dd[10 + k1 * 9]);
+            }
+
+            z();
+            return;
+        }
+        if(i1 == 24) {
+            long l1 = jagex.o.on(dd, 1);
+            int j2 = dd[9] & 0xff;
+            for(int k2 = 0; k2 < gd; k2++)
+                if(hd[k2] == l1) {
+                    if(id[k2] == 0 && j2 != 0)
+                        g("@pri@" + jagex.o.un(l1) + " has logged in");
+                    if(id[k2] != 0 && j2 == 0)
+                        g("@pri@" + jagex.o.un(l1) + " has logged out");
+                    id[k2] = j2;
+                    j1 = 0;
+                    z();
+                    return;
+                }
+
+            hd[gd] = l1;
+            id[gd] = j2;
+            gd++;
+            g("@pri@" + jagex.o.un(l1) + " has been added to your friends list");
+            z();
+            return;
+        }
+        if(i1 == 26) {
+            jd = jagex.o.tn(dd[1]);
+            for(int i2 = 0; i2 < jd; i2++)
+                kd[i2] = jagex.o.on(dd, 2 + i2 * 8);
+
+            return;
+        }
+        if(i1 == 27) {
+            ld = dd[1];
+            md = dd[2];
+            nd = dd[3];
+            od = dd[4];
+            return;
+        }
+        if(i1 == 28) {
+            long l2 = jagex.o.on(dd, 1);
+            String s2 = jagex.o.nn(dd, 9, j1 - 9, true);
+            g("@pri@" + jagex.o.un(l2) + ": tells you " + s2);
+            return;
+        } else {
+            n(i1, j1, dd);
+            return;
+        }
+    }
+
+    public void z() {
+        boolean flag = true;
+        while(flag)  {
+            flag = false;
+            for(int i1 = 0; i1 < gd - 1; i1++)
+                if(id[i1] < id[i1 + 1]) {
+                    int j1 = id[i1];
+                    id[i1] = id[i1 + 1];
+                    id[i1 + 1] = j1;
+                    long l1 = hd[i1];
+                    hd[i1] = hd[i1 + 1];
+                    hd[i1 + 1] = l1;
+                    flag = true;
+                }
+
+        }
+    }
+
+    public void x(String s1, String s2) {
+        s1 = jagex.o.bo(s1, 20);
+        s2 = jagex.o.bo(s2, 20);
+        cd.db(25);
+        cd.qb(s1 + s2, rd, pd, qd);
+        cd.rb();
+    }
+
+    public void h(int i1, int j1, int k1, int l1) {
+        cd.db(31);
+        cd.xb(i1);
+        cd.xb(j1);
+        cd.xb(k1);
+        cd.xb(l1);
+        cd.rb();
+    }
+
+    public void y(String s1) {
+        long l1 = jagex.o.pn(s1);
+        cd.db(29);
+        cd.hb(l1);
+        cd.rb();
+        for(int i1 = 0; i1 < jd; i1++)
+            if(kd[i1] == l1)
+                return;
+
+        if(jd >= 50) {
+            return;
+        } else {
+            kd[jd++] = l1;
+            return;
+        }
+    }
+
+    public void o(long l1) {
+        cd.db(30);
+        cd.hb(l1);
+        cd.rb();
+        for(int i1 = 0; i1 < jd; i1++)
+            if(kd[i1] == l1) {
+                jd--;
+                for(int j1 = i1; j1 < jd; j1++)
+                    kd[j1] = kd[j1 + 1];
+
+                return;
+            }
+
+    }
+
+    public void t(String s1) {
+        cd.db(26);
+        cd.hb(jagex.o.pn(s1));
+        cd.rb();
+    }
+
+    public void i(long l1) {
+        cd.db(27);
+        cd.hb(l1);
+        cd.rb();
+        for(int i1 = 0; i1 < gd; i1++) {
+            if(hd[i1] != l1)
+                continue;
+            gd--;
+            for(int j1 = i1; j1 < gd; j1++) {
+                hd[j1] = hd[j1 + 1];
+                id[j1] = id[j1 + 1];
+            }
+
+            break;
+        }
+
+        g("@pri@" + jagex.o.un(l1) + " has been removed from your friends list");
+    }
+
+    public void v(long l1, byte abyte0[], int i1) {
+        cd.db(28);
+        cd.hb(l1);
+        cd.yb(abyte0, 0, i1);
+        cd.rb();
+    }
+
+    public void q(byte abyte0[], int i1) {
+        cd.db(3);
+        cd.yb(abyte0, 0, i1);
+        cd.rb();
+    }
+
+    public void r(String s1) {
+        cd.db(7);
+        cd.tb(s1);
+        cd.rb();
+    }
+
+    public void bb(String s1, String s2) {
+    }
+
+    public void a() {
+    }
+
+    public void e() {
+    }
+
+    public void f() {
+    }
+
+    public void k() {
+    }
+
+    public void u() {
+    }
+
+    public void n(int i1, int j1, byte abyte0[]) {
+    }
+
+    public void g(String s1) {
+    }
+
+    public boolean w() {
+        return true;
+    }
+
+    public e() {
+        yc = "127.0.0.1";
+        zc = 43594;
+        ad = "";
+        bd = "";
+        dd = new byte[5000];
+        hd = new long[100];
+        id = new int[100];
+        kd = new long[50];
+    }
+
+    public static String vc[];
+    public static int wc = 1;
+    public static int xc;
+    public String yc;
+    public int zc;
+    String ad;
+    String bd;
+    public a cd;
+    byte dd[];
+    int ed;
+    long fd;
+    public int gd;
+    public long hd[];
+    public int id[];
+    public int jd;
+    public long kd[];
+    public int ld;
+    public int md;
+    public int nd;
+    public int od;
+    public BigInteger pd;
+    public BigInteger qd;
+    public int rd;
+    public int sd;
+
+    static  {
+        vc = new String[50];
+        vc[0] = "You must enter both a username";
+        vc[1] = "and a password - Please try again";
+        vc[2] = "Connection lost! Please wait...";
+        vc[3] = "Attempting to re-establish";
+        vc[4] = "That username is already in use.";
+        vc[5] = "Wait 60 seconds then retry";
+        vc[6] = "Please wait...";
+        vc[7] = "Connecting to server";
+        vc[8] = "Sorry! The server is currently full.";
+        vc[9] = "Please try again later";
+        vc[10] = "Invalid username or password.";
+        vc[11] = "Try again, or create a new account";
+        vc[12] = "Sorry! Unable to connect to server.";
+        vc[13] = "Check your internet settings";
+        vc[14] = "Username already taken.";
+        vc[15] = "Please choose another username";
+        vc[16] = "The client has been updated.";
+        vc[17] = "Please reload this page";
+        vc[18] = "You may only use 1 character at once.";
+        vc[19] = "Your ip-address is already in use";
+        vc[20] = "Login attempts exceeded!";
+        vc[21] = "Please try again in 5 minutes";
+        vc[22] = "Account has been temporarily disabled";
+        vc[23] = "for cheating or abuse";
+        vc[24] = "Account has been permanently disabled";
+        vc[25] = "for cheating or abuse";
+        vc[26] = "You need a members account";
+        vc[27] = "to login to this server";
+        vc[28] = "Please login to a members server";
+        vc[29] = "to access member-only features";
+    }
+}

@@ -1,0 +1,18 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/18/2004 10:43:09 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) nonlb 
+// Source File Name:   t.java
+
+package jagex.client;
+
+
+public class t {
+
+    public t() {
+    }
+
+    int rnb;
+    int snb;
+    int tnb;
+    int unb;
+}

@@ -1,0 +1,657 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/18/2004 10:42:32 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: fullnames nonlb 
+// Source File Name:   o.java
+
+package jagex;
+
+import java.io.DataInputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
+// Referenced classes of package jagex:
+//            n
+
+public class o {
+
+    public static java.io.InputStream gn(java.lang.String s) throws java.io.IOException {
+        java.lang.Object obj;
+        if(ohb == null) {
+            obj = new FileInputStream(s);
+        } else {
+            java.net.URL url = new URL(ohb, s);
+            obj = url.openStream();
+        }
+        return (java.io.InputStream)obj;
+    }
+
+    public static void fn(java.lang.String s, byte abyte0[], int i) throws java.io.IOException {
+        java.io.InputStream inputstream = jagex.o.gn(s);
+        java.io.DataInputStream datainputstream = new DataInputStream(inputstream);
+        try {
+            datainputstream.readFully(abyte0, 0, i);
+        }
+        catch(java.io.EOFException eofexception) { }
+        datainputstream.close();
+    }
+
+    public static void ao(byte abyte0[], int i, int j) {
+        abyte0[i] = (byte)(j >> 24);
+        abyte0[i + 1] = (byte)(j >> 16);
+        abyte0[i + 2] = (byte)(j >> 8);
+        abyte0[i + 3] = (byte)j;
+    }
+
+    public static void ln(byte abyte0[], int i, long l) {
+        abyte0[i] = (byte)(int)(l >> 56);
+        abyte0[i + 1] = (byte)(int)(l >> 48);
+        abyte0[i + 2] = (byte)(int)(l >> 40);
+        abyte0[i + 3] = (byte)(int)(l >> 32);
+        abyte0[i + 4] = (byte)(int)(l >> 24);
+        abyte0[i + 5] = (byte)(int)(l >> 16);
+        abyte0[i + 6] = (byte)(int)(l >> 8);
+        abyte0[i + 7] = (byte)(int)l;
+    }
+
+    public static int tn(byte byte0) {
+        return byte0 & 0xff;
+    }
+
+    public static int wn(byte abyte0[], int i) {
+        return ((abyte0[i] & 0xff) << 8) + (abyte0[i + 1] & 0xff);
+    }
+
+    public static int vn(byte abyte0[], int i) {
+        return ((abyte0[i] & 0xff) << 24) + ((abyte0[i + 1] & 0xff) << 16) + ((abyte0[i + 2] & 0xff) << 8) + (abyte0[i + 3] & 0xff);
+    }
+
+    public static long on(byte abyte0[], int i) {
+        return (((long)jagex.o.vn(abyte0, i) & 0xffffffffL) << 32) + ((long)jagex.o.vn(abyte0, i + 4) & 0xffffffffL);
+    }
+
+    public static int zn(byte abyte0[], int i) {
+        int j = jagex.o.tn(abyte0[i]) * 256 + jagex.o.tn(abyte0[i + 1]);
+        if(j > 32767)
+            j -= 0x10000;
+        return j;
+    }
+
+    public static int en(byte abyte0[], int i) {
+        if((abyte0[i] & 0xff) < 128)
+            return abyte0[i];
+        else
+            return ((abyte0[i] & 0xff) - 128 << 24) + ((abyte0[i + 1] & 0xff) << 16) + ((abyte0[i + 2] & 0xff) << 8) + (abyte0[i + 3] & 0xff);
+    }
+
+    public static int rn(byte abyte0[], int i, int j) {
+        int k = i >> 3;
+        int l = 8 - (i & 7);
+        int i1 = 0;
+        for(; j > l; l = 8) {
+            i1 += (abyte0[k++] & phb[l]) << j - l;
+            j -= l;
+        }
+
+        if(j == l)
+            i1 += abyte0[k] & phb[l];
+        else
+            i1 += abyte0[k] >> l - j & phb[j];
+        return i1;
+    }
+
+    public static java.lang.String bo(java.lang.String s, int i) {
+        java.lang.String s1 = "";
+        for(int j = 0; j < i; j++)
+            if(j >= s.length()) {
+                s1 = s1 + " ";
+            } else {
+                char c = s.charAt(j);
+                if(c >= 'a' && c <= 'z')
+                    s1 = s1 + c;
+                else
+                if(c >= 'A' && c <= 'Z')
+                    s1 = s1 + c;
+                else
+                if(c >= '0' && c <= '9')
+                    s1 = s1 + c;
+                else
+                    s1 = s1 + '_';
+            }
+
+        return s1;
+    }
+
+    public static java.lang.String yn(int i) {
+        return (i >> 24 & 0xff) + "." + (i >> 16 & 0xff) + "." + (i >> 8 & 0xff) + "." + (i & 0xff);
+    }
+
+    public static long sn(java.lang.String s) {
+        s = s.trim();
+        s = s.toLowerCase();
+        long l = 0L;
+        int i = 0;
+        for(int j = 0; j < s.length(); j++) {
+            char c = s.charAt(j);
+            if(c >= 'a' && c <= 'z' || c >= '0' && c <= '9') {
+                char c1 = c;
+                l = l * 47L * (l - (long)(c1 * 6) - (long)(i * 7));
+                l += (c1 - 32) + i * c1;
+                i++;
+            }
+        }
+
+        return l;
+    }
+
+    public static long pn(java.lang.String s) {
+        java.lang.String s1 = "";
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if(c >= 'a' && c <= 'z')
+                s1 = s1 + c;
+            else
+            if(c >= 'A' && c <= 'Z')
+                s1 = s1 + (char)((c + 97) - 65);
+            else
+            if(c >= '0' && c <= '9')
+                s1 = s1 + c;
+            else
+                s1 = s1 + ' ';
+        }
+
+        s1 = s1.trim();
+        if(s1.length() > 12)
+            s1 = s1.substring(0, 12);
+        long l = 0L;
+        for(int j = 0; j < s1.length(); j++) {
+            char c1 = s1.charAt(j);
+            l *= 37L;
+            if(c1 >= 'a' && c1 <= 'z')
+                l += (1 + c1) - 97;
+            else
+            if(c1 >= '0' && c1 <= '9')
+                l += (27 + c1) - 48;
+        }
+
+        return l;
+    }
+
+    public static java.lang.String un(long l) {
+        if(l < 0L)
+            return "invalid_name";
+        java.lang.String s = "";
+        while(l != 0L)  {
+            int i = (int)(l % 37L);
+            l /= 37L;
+            if(i == 0)
+                s = " " + s;
+            else
+            if(i < 27) {
+                if(l % 37L == 0L)
+                    s = (char)((i + 65) - 1) + s;
+                else
+                    s = (char)((i + 97) - 1) + s;
+            } else {
+                s = (char)((i + 48) - 27) + s;
+            }
+        }
+        return s;
+    }
+
+    public static byte[] mn(java.lang.String s) throws java.io.IOException {
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        byte abyte0[] = null;
+        while(i < 2) 
+            try {
+                if(i == 1)
+                    s = s.toUpperCase();
+                java.io.InputStream inputstream = jagex.o.gn(s);
+                java.io.DataInputStream datainputstream = new DataInputStream(inputstream);
+                byte abyte2[] = new byte[6];
+                datainputstream.readFully(abyte2, 0, 6);
+                j = ((abyte2[0] & 0xff) << 16) + ((abyte2[1] & 0xff) << 8) + (abyte2[2] & 0xff);
+                k = ((abyte2[3] & 0xff) << 16) + ((abyte2[4] & 0xff) << 8) + (abyte2[5] & 0xff);
+                int l = 0;
+                abyte0 = new byte[k];
+                int i1;
+                for(; l < k; l += i1) {
+                    i1 = k - l;
+                    if(i1 > 1000)
+                        i1 = 1000;
+                    datainputstream.readFully(abyte0, l, i1);
+                }
+
+                i = 2;
+                datainputstream.close();
+            }
+            catch(java.io.IOException ioexception) {
+                i++;
+            }
+        if(k != j) {
+            byte abyte1[] = new byte[j];
+            jagex.n.xj(abyte1, j, abyte0, k, 0);
+            return abyte1;
+        } else {
+            return abyte0;
+        }
+    }
+
+    public static int kn(java.lang.String s, byte abyte0[]) {
+        int i = jagex.o.wn(abyte0, 0);
+        int j = 0;
+        s = s.toUpperCase();
+        for(int k = 0; k < s.length(); k++)
+            j = (j * 61 + s.charAt(k)) - 32;
+
+        int l = 2 + i * 10;
+        for(int i1 = 0; i1 < i; i1++) {
+            int j1 = (abyte0[i1 * 10 + 2] & 0xff) * 0x1000000 + (abyte0[i1 * 10 + 3] & 0xff) * 0x10000 + (abyte0[i1 * 10 + 4] & 0xff) * 256 + (abyte0[i1 * 10 + 5] & 0xff);
+            int k1 = (abyte0[i1 * 10 + 9] & 0xff) * 0x10000 + (abyte0[i1 * 10 + 10] & 0xff) * 256 + (abyte0[i1 * 10 + 11] & 0xff);
+            if(j1 == j)
+                return l;
+            l += k1;
+        }
+
+        return 0;
+    }
+
+    public static int _mthdo(java.lang.String s, byte abyte0[]) {
+        int i = jagex.o.wn(abyte0, 0);
+        int j = 0;
+        s = s.toUpperCase();
+        for(int k = 0; k < s.length(); k++)
+            j = (j * 61 + s.charAt(k)) - 32;
+
+        int l = 2 + i * 10;
+        for(int i1 = 0; i1 < i; i1++) {
+            int j1 = (abyte0[i1 * 10 + 2] & 0xff) * 0x1000000 + (abyte0[i1 * 10 + 3] & 0xff) * 0x10000 + (abyte0[i1 * 10 + 4] & 0xff) * 256 + (abyte0[i1 * 10 + 5] & 0xff);
+            int k1 = (abyte0[i1 * 10 + 6] & 0xff) * 0x10000 + (abyte0[i1 * 10 + 7] & 0xff) * 256 + (abyte0[i1 * 10 + 8] & 0xff);
+            int l1 = (abyte0[i1 * 10 + 9] & 0xff) * 0x10000 + (abyte0[i1 * 10 + 10] & 0xff) * 256 + (abyte0[i1 * 10 + 11] & 0xff);
+            if(j1 == j)
+                return k1;
+            l += l1;
+        }
+
+        return 0;
+    }
+
+    public static byte[] in(java.lang.String s, int i, byte abyte0[]) {
+        return jagex.o.co(s, i, abyte0, null);
+    }
+
+    public static byte[] co(java.lang.String s, int i, byte abyte0[], byte abyte1[]) {
+        int j = (abyte0[0] & 0xff) * 256 + (abyte0[1] & 0xff);
+        int k = 0;
+        s = s.toUpperCase();
+        for(int l = 0; l < s.length(); l++)
+            k = (k * 61 + s.charAt(l)) - 32;
+
+        int i1 = 2 + j * 10;
+        for(int j1 = 0; j1 < j; j1++) {
+            int k1 = (abyte0[j1 * 10 + 2] & 0xff) * 0x1000000 + (abyte0[j1 * 10 + 3] & 0xff) * 0x10000 + (abyte0[j1 * 10 + 4] & 0xff) * 256 + (abyte0[j1 * 10 + 5] & 0xff);
+            int l1 = (abyte0[j1 * 10 + 6] & 0xff) * 0x10000 + (abyte0[j1 * 10 + 7] & 0xff) * 256 + (abyte0[j1 * 10 + 8] & 0xff);
+            int i2 = (abyte0[j1 * 10 + 9] & 0xff) * 0x10000 + (abyte0[j1 * 10 + 10] & 0xff) * 256 + (abyte0[j1 * 10 + 11] & 0xff);
+            if(k1 == k) {
+                if(abyte1 == null)
+                    abyte1 = new byte[l1 + i];
+                if(l1 != i2) {
+                    jagex.n.xj(abyte1, l1, abyte0, i2, i1);
+                } else {
+                    for(int j2 = 0; j2 < l1; j2++)
+                        abyte1[j2] = abyte0[i1 + j2];
+
+                }
+                return abyte1;
+            }
+            i1 += i2;
+        }
+
+        return null;
+    }
+
+    public static int jn(java.lang.String s) {
+        int i = 0;
+        try {
+            if(s.length() > 80)
+                s = s.substring(0, 80);
+            s = s.toLowerCase() + " ";
+            if(s.startsWith("@red@")) {
+                uhb[i++] = -1;
+                uhb[i++] = 0;
+                s = s.substring(5);
+            }
+            if(s.startsWith("@gre@")) {
+                uhb[i++] = -1;
+                uhb[i++] = 1;
+                s = s.substring(5);
+            }
+            if(s.startsWith("@blu@")) {
+                uhb[i++] = -1;
+                uhb[i++] = 2;
+                s = s.substring(5);
+            }
+            if(s.startsWith("@cya@")) {
+                uhb[i++] = -1;
+                uhb[i++] = 3;
+                s = s.substring(5);
+            }
+            if(s.startsWith("@ran@")) {
+                uhb[i++] = -1;
+                uhb[i++] = 4;
+                s = s.substring(5);
+            }
+            if(s.startsWith("@whi@")) {
+                uhb[i++] = -1;
+                uhb[i++] = 5;
+                s = s.substring(5);
+            }
+            if(s.startsWith("@bla@")) {
+                uhb[i++] = -1;
+                uhb[i++] = 6;
+                s = s.substring(5);
+            }
+            if(s.startsWith("@ora@")) {
+                uhb[i++] = -1;
+                uhb[i++] = 7;
+                s = s.substring(5);
+            }
+            if(s.startsWith("@yel@")) {
+                uhb[i++] = -1;
+                uhb[i++] = 8;
+                s = s.substring(5);
+            }
+            if(s.startsWith("@mag@")) {
+                uhb[i++] = -1;
+                uhb[i++] = 9;
+                s = s.substring(5);
+            }
+            java.lang.String s1 = "";
+            for(int j = 0; j < s.length(); j++) {
+                char c = s.charAt(j);
+                if(c >= 'a' && c <= 'z' || c >= '0' && c <= '9' || c == '\'') {
+                    s1 = s1 + c;
+                } else {
+                    int k = jagex.o.xn(c);
+                    if(s1.length() > 0) {
+                        for(int l = 0; l < shb; l++) {
+                            if(!s1.equals(thb[l]))
+                                continue;
+                            if(k == 36 && l < 165) {
+                                uhb[i++] = (byte)(l + 90);
+                                k = -1;
+                            } else
+                            if(k == 36) {
+                                uhb[i++] = (byte)(l / 256 + 50);
+                                uhb[i++] = (byte)(l & 0xff);
+                                k = -1;
+                            } else {
+                                uhb[i++] = (byte)(l / 256 + 70);
+                                uhb[i++] = (byte)(l & 0xff);
+                            }
+                            s1 = "";
+                            break;
+                        }
+
+                    }
+                    for(int i1 = 0; i1 < s1.length(); i1++)
+                        uhb[i++] = (byte)jagex.o.xn(s1.charAt(i1));
+
+                    s1 = "";
+                    if(k != -1 && j < s.length() - 1)
+                        uhb[i++] = (byte)k;
+                }
+            }
+
+        }
+        catch(java.lang.Exception exception) { }
+        return i;
+    }
+
+    private static int xn(char c) {
+        if(c >= 'a' && c <= 'z')
+            return c - 97;
+        if(c >= '0' && c <= '9')
+            return (c + 26) - 48;
+        if(c == ' ')
+            return 36;
+        if(c == '!')
+            return 37;
+        if(c == '?')
+            return 38;
+        if(c == '.')
+            return 39;
+        if(c == ',')
+            return 40;
+        if(c == ':')
+            return 41;
+        if(c == ';')
+            return 42;
+        if(c == '(')
+            return 43;
+        if(c == ')')
+            return 44;
+        if(c == '-')
+            return 45;
+        if(c == '&')
+            return 46;
+        if(c == '*')
+            return 47;
+        if(c == '\\')
+            return 48;
+        else
+            return c == '\'' ? 49 : 36;
+    }
+
+    public static java.lang.String nn(byte abyte0[], int i, int j, boolean flag) {
+        try {
+            java.lang.String s = "";
+            java.lang.String s1 = "";
+            for(int k = i; k < i + j; k++) {
+                int l = abyte0[k] & 0xff;
+                if(l < 50)
+                    s = s + whb[l];
+                else
+                if(l < 70) {
+                    k++;
+                    s = s + thb[(l - 50) * 256 + (abyte0[k] & 0xff)] + " ";
+                } else
+                if(l < 90) {
+                    k++;
+                    s = s + thb[(l - 70) * 256 + (abyte0[k] & 0xff)];
+                } else
+                if(l < 255) {
+                    s = s + thb[l - 90] + " ";
+                } else {
+                    k++;
+                    int j1 = abyte0[k] & 0xff;
+                    if(j1 == 0)
+                        s1 = "@red@";
+                    if(j1 == 1)
+                        s1 = "@gre@";
+                    if(j1 == 2)
+                        s1 = "@blu@";
+                    if(j1 == 3)
+                        s1 = "@cya@";
+                    if(j1 == 4)
+                        s1 = "@ran@";
+                    if(j1 == 5)
+                        s1 = "@whi@";
+                    if(j1 == 6)
+                        s1 = "@bla@";
+                    if(j1 == 7)
+                        s1 = "@ora@";
+                    if(j1 == 8)
+                        s1 = "@yel@";
+                    if(j1 == 9)
+                        s1 = "@mag@";
+                }
+            }
+
+            if(flag) {
+                for(int i1 = 0; i1 < 2; i1++) {
+                    java.lang.String s3 = s;
+                    s = jagex.o.hn(s);
+                    if(s.equals(s3))
+                        break;
+                }
+
+            }
+            if(s.length() > 80)
+                s = s.substring(0, 80);
+            s = s.toLowerCase();
+            java.lang.String s2 = s1;
+            boolean flag1 = true;
+            for(int k1 = 0; k1 < s.length(); k1++) {
+                char c = s.charAt(k1);
+                if(c >= 'a' && c <= 'z' && flag1) {
+                    flag1 = false;
+                    c = (char)((c + 65) - 97);
+                }
+                if(c == '.' || c == '!' || c == '?')
+                    flag1 = true;
+                s2 = s2 + c;
+            }
+
+            return s2;
+        }
+        catch(java.lang.Exception exception) {
+            return "eep!";
+        }
+    }
+
+    private static java.lang.String hn(java.lang.String s) {
+        try {
+            int i = s.length();
+            s.toLowerCase().getChars(0, i, vhb, 0);
+            for(int j = 0; j < i; j++) {
+                char c = vhb[j];
+                for(int k = 0; k < qhb; k++) {
+                    java.lang.String s1 = rhb[k];
+                    char c1 = s1.charAt(0);
+                    if(jagex.o.dn(c1, c, 0)) {
+                        int l = 1;
+                        int i1 = s1.length();
+                        char c2 = s1.charAt(1);
+                        int j1 = 0;
+                        if(i1 >= 6)
+                            j1 = 1;
+                        for(int k1 = j + 1; k1 < i; k1++) {
+                            char c3 = vhb[k1];
+                            if(jagex.o.dn(c2, c3, i1)) {
+                                if(++l >= i1) {
+                                    boolean flag = false;
+                                    for(int l1 = j; l1 <= k1; l1++) {
+                                        if(s.charAt(l1) < 'A' || s.charAt(l1) > 'Z')
+                                            continue;
+                                        flag = true;
+                                        break;
+                                    }
+
+                                    if(flag) {
+                                        java.lang.String s2 = "";
+                                        for(int i2 = 0; i2 < s.length(); i2++) {
+                                            char c4 = s.charAt(i2);
+                                            if(i2 >= j && i2 <= k1 && c4 != ' ' && (c4 < 'a' || c4 > 'z'))
+                                                s2 = s2 + "*";
+                                            else
+                                                s2 = s2 + c4;
+                                        }
+
+                                        s = s2;
+                                    }
+                                    break;
+                                }
+                                c1 = c2;
+                                c2 = s1.charAt(l);
+                                continue;
+                            }
+                            if(!jagex.o.qn(c1, c3, i1) && --j1 < 0)
+                                break;
+                        }
+
+                    }
+                }
+
+            }
+
+            return s;
+        }
+        catch(java.lang.Exception exception) {
+            return "wibble!";
+        }
+    }
+
+    private static boolean dn(char c, char c1, int i) {
+        if(c == c1)
+            return true;
+        if(c == 'i' && (c1 == 'y' || c1 == '1' || c1 == '!' || c1 == ':' || c1 == ';'))
+            return true;
+        if(c == 's' && (c1 == '5' || c1 == 'z'))
+            return true;
+        if(c == 'e' && c1 == '3')
+            return true;
+        if(c == 'a' && c1 == '4')
+            return true;
+        if(c == 'o' && (c1 == '0' || c1 == '*'))
+            return true;
+        if(c == 'u' && c1 == 'v')
+            return true;
+        if(c == 'c' && (c1 == '(' || c1 == 'k'))
+            return true;
+        if(c == 'k' && (c1 == '(' || c1 == 'c'))
+            return true;
+        if(c == 'w' && c1 == 'v')
+            return true;
+        else
+            return i >= 4 && c == 'i' && c1 == 'l';
+    }
+
+    private static boolean qn(char c, char c1, int i) {
+        if(c == c1)
+            return true;
+        if(c1 < 'a' || c1 > 'u' && c1 != 'y')
+            return true;
+        if(c == 'i' && c1 == 'y')
+            return true;
+        if(c == 'c' && c1 == 'k')
+            return true;
+        if(c == 'k' && c1 == 'c')
+            return true;
+        else
+            return i >= 5 && (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'y') && (c1 == 'a' || c1 == 'e' || c1 == 'i' || c1 == 'o' || c1 == 'u' || c1 == 'y');
+    }
+
+    public o() {
+    }
+
+    public static java.net.URL ohb = null;
+    private static int phb[] = {
+        0, 1, 3, 7, 15, 31, 63, 127, 255, 511, 
+        1023, 2047, 4095, 8191, 16383, 32767, 65535, 0x1ffff, 0x3ffff, 0x7ffff, 
+        0xfffff, 0x1fffff, 0x3fffff, 0x7fffff, 0xffffff, 0x1ffffff, 0x3ffffff, 0x7ffffff, 0xfffffff, 0x1fffffff, 
+        0x3fffffff, 0x7fffffff, -1
+    };
+    public static int qhb = 1;
+    public static java.lang.String rhb[] = {
+        "bum"
+    };
+    public static int shb = 1;
+    public static java.lang.String thb[] = {
+        "hello"
+    };
+    public static byte uhb[] = new byte[200];
+    static char vhb[] = new char[1000];
+    private static char whb[] = {
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
+        'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
+        'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', 
+        '4', '5', '6', '7', '8', '9', ' ', '!', '?', '.', 
+        ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\''
+    };
+
+}

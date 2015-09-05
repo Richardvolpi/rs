@@ -1,0 +1,640 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/18/2004 10:43:09 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) nonlb 
+// Source File Name:   k.java
+
+package jagex.client;
+
+import jagex.n;
+import jagex.o;
+import java.applet.Applet;
+import java.awt.*;
+import java.awt.image.IndexColorModel;
+import java.awt.image.MemoryImageSource;
+import java.io.*;
+
+// Referenced classes of package jagex.client:
+//            d, i
+
+public class k extends Applet
+    implements Runnable {
+
+    public void cj() {
+    }
+
+    public synchronized void hj() {
+    }
+
+    public void oj() {
+    }
+
+    public synchronized void nj() {
+    }
+
+    public void vj() {
+    }
+
+    public final void aj(int j, int l, String s, boolean flag) {
+        sp = false;
+        System.out.println("Started application");
+        lp = j;
+        mp = l;
+        rp = new d(this, j, l, s, flag, false);
+        xp = 1;
+        np = new Thread(this);
+        np.start();
+        np.setPriority(1);
+    }
+
+    public final boolean sj() {
+        return sp;
+    }
+
+    public final Graphics getGraphics() {
+        if(rp == null)
+            return super.getGraphics();
+        else
+            return rp.getGraphics();
+    }
+
+    public final int jj() {
+        return lp;
+    }
+
+    public final int qj() {
+        return mp;
+    }
+
+    public final Image createImage(int j, int l) {
+        if(rp == null)
+            return super.createImage(j, l);
+        else
+            return rp.createImage(j, l);
+    }
+
+    public Frame mj() {
+        return rp;
+    }
+
+    public final void pj(int j) {
+        op = 1000 / j;
+    }
+
+    public final void rj(int j) {
+        pp = j;
+    }
+
+    public final void tj() {
+        for(int j = 0; j < 10; j++)
+            qp[j] = 0L;
+
+    }
+
+    public void parseCommand(String s) {
+    }
+
+    public boolean isMacroPlaying() {
+        return false;
+    }
+
+    public void execAction(String s) {
+    }
+
+    public synchronized boolean keyDown(Event event, int j) {
+        uj(j);
+        vq = j;
+        wq = j;
+        wp = 0;
+        if(j == 1013)
+            parseCommand("spellType");
+        if(j == 1014)
+            parseCommand("toggleFog");
+        if(j == 1015)
+            parseCommand("toggleBankWalk");
+        if(j == 1019)
+            parseCommand("record bank stop");
+        if(j == 1018)
+            parseCommand("record bank start");
+        if(j == 61)
+            parseCommand("magicUp");
+        if(j == 45)
+            parseCommand("magicDown");
+        if(j == 91)
+            parseCommand("delayDown");
+        if(j == 93)
+            parseCommand("delayUp");
+        if(j >= 48 && j <= 126 || j == 32)
+            text += (char)j;
+        if(j == 8 && text.length() > 0)
+            text = text.substring(0, text.length() - 1);
+        if(j == 13 || j == 10)
+            text = "";
+        if(j == 1009)
+            parseCommand("record start");
+        if(j == 1010)
+            parseCommand("record stop");
+        if(j == 1011)
+            parseCommand("start");
+        if(j == 1012)
+            parseCommand("stop");
+        if(j == 1006)
+            kq = true;
+        if(j == 1007)
+            lq = true;
+        if(j == 1004)
+            mq = true;
+        if(j == 1005)
+            nq = true;
+        if((char)j == ' ')
+            oq = true;
+        if((char)j == 'n' || (char)j == 'm')
+            pq = true;
+        if((char)j == 'N' || (char)j == 'M')
+            pq = true;
+        if((char)j == '{')
+            iq = true;
+        if((char)j == '}')
+            jq = true;
+        if((char)j == '\u03F0')
+            xq = !xq;
+        boolean flag = false;
+        for(int l = 0; l < hq.length(); l++) {
+            if(j != hq.charAt(l))
+                continue;
+            flag = true;
+            break;
+        }
+
+        if(flag && yq.length() < 20)
+            yq += (char)j;
+        if(flag && ar.length() < 80)
+            ar += (char)j;
+        if(j == 8 && yq.length() > 0)
+            yq = yq.substring(0, yq.length() - 1);
+        if(j == 8 && ar.length() > 0)
+            ar = ar.substring(0, ar.length() - 1);
+        if(j == 10 || j == 13) {
+            zq = yq;
+            br = ar;
+        }
+        return true;
+    }
+
+    public void uj(int j) {
+    }
+
+    public synchronized boolean keyUp(Event event, int j) {
+        vq = 0;
+        if(j == 1006)
+            kq = false;
+        if(j == 1007)
+            lq = false;
+        if(j == 1004)
+            mq = false;
+        if(j == 1005)
+            nq = false;
+        if((char)j == ' ')
+            oq = false;
+        if((char)j == 'n' || (char)j == 'm')
+            pq = false;
+        if((char)j == 'N' || (char)j == 'M')
+            pq = false;
+        if((char)j == '{')
+            iq = false;
+        if((char)j == '}')
+            jq = false;
+        return true;
+    }
+
+    public synchronized boolean mouseMove(Event event, int j, int l) {
+        rq = j;
+        sq = l + vp;
+        tq = 0;
+        wp = 0;
+        return true;
+    }
+
+    public synchronized boolean mouseUp(Event event, int j, int l) {
+        rq = j;
+        sq = l + vp;
+        tq = 0;
+        return true;
+    }
+
+    public synchronized boolean mouseDown(Event event, int j, int l) {
+        if(event.controlDown()) {
+            parseCommand("magic");
+            vq = 0;
+            return true;
+        }
+        rq = j;
+        sq = l + vp;
+        if(event.metaDown())
+            tq = 2;
+        else
+            tq = 1;
+        uq = tq;
+        wp = 0;
+        ij(tq, j, l);
+        return true;
+    }
+
+    public void ij(int j, int l, int i1) {
+    }
+
+    public synchronized boolean mouseDrag(Event event, int j, int l) {
+        rq = j;
+        sq = l + vp;
+        if(event.metaDown())
+            tq = 2;
+        else
+            tq = 1;
+        return true;
+    }
+
+    public int vrfy() {
+        return 0;
+    }
+
+    public void rgstr() {
+    }
+
+    public final void init() {
+        if(vrfy() != 0) {
+            rgstr();
+        } else {
+            sp = true;
+            System.out.println("Started applet");
+            lp = size().width;
+            mp = size().height;
+            xp = 1;
+            o.ohb = getCodeBase();
+            np = new Thread(this);
+            np.start();
+        }
+    }
+
+    public final void start() {
+        if(tp >= 0)
+            tp = 0;
+    }
+
+    public final void stop() {
+        if(tp >= 0)
+            tp = 4000 / op;
+    }
+
+    public final void destroy() {
+        tp = -1;
+        try {
+            Thread.sleep(5000L);
+        }
+        catch(Exception exception) { }
+        if(tp == -1) {
+            System.out.println("5 seconds expired, forcing kill");
+            ej();
+            if(np != null) {
+                np.stop();
+                np = null;
+            }
+        }
+    }
+
+    public final void ej() {
+        tp = -2;
+        System.out.println("Closing program");
+        oj();
+        try {
+            Thread.sleep(1000L);
+        }
+        catch(Exception exception) { }
+        if(rp != null)
+            rp.dispose();
+        if(!sp)
+            System.exit(0);
+    }
+
+    public final void run() {
+        if(xp == 1) {
+            xp = 2;
+            gq = getGraphics();
+            gj();
+            lj(0, "Loading...");
+            cj();
+            xp = 0;
+        }
+        int j = 0;
+        int l = 256;
+        int i1 = 1;
+        int j1 = 0;
+        for(int k1 = 0; k1 < 10; k1++)
+            qp[k1] = System.currentTimeMillis();
+
+        long l1 = System.currentTimeMillis();
+        while(tp >= 0)  {
+            if(tp > 0) {
+                tp--;
+                if(tp == 0) {
+                    ej();
+                    np = null;
+                    return;
+                }
+            }
+            int i2 = l;
+            int j2 = i1;
+            l = 300;
+            i1 = 1;
+            long l2 = System.currentTimeMillis();
+            if(qp[j] == 0L) {
+                l = i2;
+                i1 = j2;
+            } else
+            if(l2 > qp[j])
+                l = (int)((long)(2560 * op) / (l2 - qp[j]));
+            if(l < 25)
+                l = 25;
+            if(l > 256) {
+                l = 256;
+                i1 = (int)((long)op - (l2 - qp[j]) / 10L);
+                if(i1 < qq)
+                    i1 = qq;
+            }
+            try {
+                Thread.sleep(i1);
+            }
+            catch(InterruptedException interruptedexception) { }
+            qp[j] = l2;
+            j = (j + 1) % 10;
+            if(i1 > 1) {
+                for(int k2 = 0; k2 < 10; k2++)
+                    if(qp[k2] != 0L)
+                        qp[k2] += i1;
+
+            }
+            int i3 = 0;
+            while(j1 < 256)  {
+                hj();
+                j1 += l;
+                if(++i3 > pp) {
+                    j1 = 0;
+                    up += 6;
+                    if(up > 25) {
+                        up = 0;
+                        xq = true;
+                    }
+                    break;
+                }
+            }
+            up--;
+            j1 &= 0xff;
+            nj();
+        }
+        if(tp == -1)
+            ej();
+        np = null;
+    }
+
+    public final void update(Graphics g) {
+        paint(g);
+    }
+
+    public final void paint(Graphics g) {
+        if(xp == 2 && fq != null) {
+            lj(aq, bq);
+            return;
+        }
+        if(xp == 0)
+            vj();
+    }
+
+    public void gj() {
+        try {
+            byte abyte0[] = o.mn("jagex.jag");
+            byte abyte1[] = o.in("logo.tga", 0, abyte0);
+            fq = fj(abyte1);
+            i.ef(o.in("h11p.jf", 0, abyte0));
+            i.ef(o.in("h12b.jf", 0, abyte0));
+            i.ef(o.in("h12p.jf", 0, abyte0));
+            i.ef(o.in("h13b.jf", 0, abyte0));
+            i.ef(o.in("h14b.jf", 0, abyte0));
+            i.ef(o.in("h16b.jf", 0, abyte0));
+            i.ef(o.in("h20b.jf", 0, abyte0));
+            i.ef(o.in("h24b.jf", 0, abyte0));
+            return;
+        }
+        catch(IOException ioexception) {
+            System.out.println("Error loading jagex.dat");
+        }
+    }
+
+    public void lj(int j, String s) {
+        int l = (lp - 281) / 2;
+        int i1 = (mp - 148) / 2;
+        gq.setColor(Color.black);
+        gq.fillRect(0, 0, lp, mp);
+        if(!zp)
+            gq.drawImage(fq, l, i1, this);
+        l += 2;
+        i1 += 90;
+        aq = j;
+        bq = s;
+        gq.setColor(new Color(132, 132, 132));
+        if(zp)
+            gq.setColor(new Color(220, 0, 0));
+        gq.drawRect(l - 2, i1 - 2, 280, 23);
+        gq.fillRect(l, i1, (277 * j) / 100, 20);
+        gq.setColor(new Color(198, 198, 198));
+        if(zp)
+            gq.setColor(new Color(255, 255, 255));
+        dj(gq, s, cq, l + 138, i1 + 10);
+        if(!zp) {
+            dj(gq, "Created by JAGeX and later modified by Vee - visit www.jagex.com", dq, l + 138, i1 + 30);
+            dj(gq, "\2512001-2002 Andrew Gower and Jagex Ltd", dq, l + 138, i1 + 44);
+        } else {
+            gq.setColor(new Color(132, 132, 152));
+            dj(gq, "\2512001-2002 Andrew Gower and Jagex Ltd", eq, l + 138, mp - 20);
+        }
+        if(yp != null) {
+            gq.setColor(Color.white);
+            dj(gq, yp, dq, l + 138, i1 - 120);
+        }
+    }
+
+    public void kj(int j, String s) {
+        int l = (lp - 281) / 2;
+        int i1 = (mp - 148) / 2;
+        l += 2;
+        i1 += 90;
+        aq = j;
+        bq = s;
+        int j1 = (277 * j) / 100;
+        gq.setColor(new Color(132, 132, 132));
+        if(zp)
+            gq.setColor(new Color(220, 0, 0));
+        gq.fillRect(l, i1, j1, 20);
+        gq.setColor(Color.black);
+        gq.fillRect(l + j1, i1, 277 - j1, 20);
+        gq.setColor(new Color(198, 198, 198));
+        if(zp)
+            gq.setColor(new Color(255, 255, 255));
+        dj(gq, s, cq, l + 138, i1 + 10);
+    }
+
+    public void dj(Graphics g, String s, Font font, int j, int l) {
+        Object obj;
+        if(rp == null)
+            obj = this;
+        else
+            obj = rp;
+        FontMetrics fontmetrics = ((Component)obj).getFontMetrics(font);
+        fontmetrics.stringWidth(s);
+        g.setFont(font);
+        g.drawString(s, j - fontmetrics.stringWidth(s) / 2, l + fontmetrics.getHeight() / 4);
+    }
+
+    public Image fj(byte abyte0[]) {
+        int j = abyte0[13] * 256 + abyte0[12];
+        int l = abyte0[15] * 256 + abyte0[14];
+        byte abyte1[] = new byte[256];
+        byte abyte2[] = new byte[256];
+        byte abyte3[] = new byte[256];
+        for(int i1 = 0; i1 < 256; i1++) {
+            abyte1[i1] = abyte0[20 + i1 * 3];
+            abyte2[i1] = abyte0[19 + i1 * 3];
+            abyte3[i1] = abyte0[18 + i1 * 3];
+        }
+
+        IndexColorModel indexcolormodel = new IndexColorModel(8, 256, abyte1, abyte2, abyte3);
+        byte abyte4[] = new byte[j * l];
+        int j1 = 0;
+        for(int k1 = l - 1; k1 >= 0; k1--) {
+            for(int l1 = 0; l1 < j; l1++)
+                abyte4[j1++] = abyte0[786 + l1 + k1 * j];
+
+        }
+
+        MemoryImageSource memoryimagesource = new MemoryImageSource(j, l, indexcolormodel, abyte4, 0, j);
+        Image image = createImage(memoryimagesource);
+        return image;
+    }
+
+    public byte[] bj(String s, String s1, int j) throws IOException {
+        int l = 0;
+        int i1 = 0;
+        int j1 = 0;
+        byte abyte0[] = null;
+        while(l < 2) 
+            try {
+                kj(j, "Loading " + s1 + " - 0%");
+                if(l == 1)
+                    s = s.toUpperCase();
+                java.io.InputStream inputstream = o.gn(s);
+                DataInputStream datainputstream = new DataInputStream(inputstream);
+                byte abyte2[] = new byte[6];
+                datainputstream.readFully(abyte2, 0, 6);
+                i1 = ((abyte2[0] & 0xff) << 16) + ((abyte2[1] & 0xff) << 8) + (abyte2[2] & 0xff);
+                j1 = ((abyte2[3] & 0xff) << 16) + ((abyte2[4] & 0xff) << 8) + (abyte2[5] & 0xff);
+                kj(j, "Loading " + s1 + " - 5%");
+                int k1 = 0;
+                abyte0 = new byte[j1];
+                while(k1 < j1)  {
+                    int l1 = j1 - k1;
+                    if(l1 > 1000)
+                        l1 = 1000;
+                    datainputstream.readFully(abyte0, k1, l1);
+                    k1 += l1;
+                    kj(j, "Loading " + s1 + " - " + (5 + (k1 * 95) / j1) + "%");
+                }
+                l = 2;
+                datainputstream.close();
+            }
+            catch(IOException ioexception) {
+                l++;
+            }
+        kj(j, "Unpacking " + s1);
+        if(j1 != i1) {
+            byte abyte1[] = new byte[i1];
+            n.xj(abyte1, i1, abyte0, j1, 0);
+            return abyte1;
+        } else {
+            return abyte0;
+        }
+    }
+
+    public k() {
+        text = new String();
+        b1 = false;
+        lp = 512;
+        mp = 384;
+        op = 20;
+        pp = 1000;
+        qp = new long[10];
+        xp = 1;
+        zp = false;
+        bq = "Loading";
+        cq = new Font("TimesRoman", 0, 15);
+        dq = new Font("Helvetica", 1, 13);
+        eq = new Font("Helvetica", 0, 12);
+        iq = false;
+        jq = false;
+        kq = false;
+        lq = false;
+        mq = false;
+        nq = false;
+        oq = false;
+        pq = false;
+        qq = 1;
+        xq = false;
+        yq = "";
+        zq = "";
+        ar = "";
+        br = "";
+    }
+
+    public String text;
+    public boolean b1;
+    private int lp;
+    private int mp;
+    private Thread np;
+    private int op;
+    private int pp;
+    private long qp[];
+    static d rp = null;
+    private boolean sp;
+    private int tp;
+    private int up;
+    public int vp;
+    public int wp;
+    public int xp;
+    public String yp;
+    private boolean zp;
+    private int aq;
+    private String bq;
+    private Font cq;
+    private Font dq;
+    private Font eq;
+    private Image fq;
+    private Graphics gq;
+    private static String hq = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
+    public boolean iq;
+    public boolean jq;
+    public boolean kq;
+    public boolean lq;
+    public boolean mq;
+    public boolean nq;
+    public boolean oq;
+    public boolean pq;
+    public int qq;
+    public int rq;
+    public int sq;
+    public int tq;
+    public int uq;
+    public int vq;
+    public int wq;
+    public boolean xq;
+    public String yq;
+    public String zq;
+    public String ar;
+    public String br;
+
+}

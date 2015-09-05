@@ -1,0 +1,88 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/18/2004 10:43:07 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) nonlb 
+// Source File Name:   d.java
+
+package jagex.client;
+
+import java.awt.*;
+
+// Referenced classes of package jagex.client:
+//            k
+
+public class d extends Frame {
+
+    public d(k k1, int i, int j, String s, boolean flag, boolean flag1) {
+        sc = 28;
+        pc = i;
+        qc = j;
+        tc = k1;
+        if(flag1)
+            sc = 48;
+        else
+            sc = 28;
+        setTitle(s);
+        setResizable(flag);
+        show();
+        toFront();
+        resize(pc, qc);
+        uc = getGraphics();
+    }
+
+    public Graphics getGraphics() {
+        Graphics g = super.getGraphics();
+        if(rc == 0)
+            g.translate(0, 24);
+        else
+            g.translate(-5, 0);
+        return g;
+    }
+
+    public void resize(int i, int j) {
+        super.resize(i, j + sc);
+    }
+
+    public boolean handleEvent(Event event) {
+        if(event.id == 401)
+            tc.keyDown(event, event.key);
+        else
+        if(event.id == 402)
+            tc.keyUp(event, event.key);
+        else
+        if(event.id == 501)
+            tc.mouseDown(event, event.x, event.y - 24);
+        else
+        if(event.id == 506)
+            tc.mouseDrag(event, event.x, event.y - 24);
+        else
+        if(event.id == 502)
+            tc.mouseUp(event, event.x, event.y - 24);
+        else
+        if(event.id == 503)
+            tc.mouseMove(event, event.x, event.y - 24);
+        else
+        if(event.id == 201)
+            tc.destroy();
+        else
+        if(event.id == 1001)
+            tc.action(event, event.target);
+        else
+        if(event.id == 403)
+            tc.keyDown(event, event.key);
+        else
+        if(event.id == 404)
+            tc.keyUp(event, event.key);
+        return true;
+    }
+
+    public final void paint(Graphics g) {
+        tc.paint(g);
+    }
+
+    int pc;
+    int qc;
+    int rc;
+    int sc;
+    k tc;
+    Graphics uc;
+}

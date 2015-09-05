@@ -1,0 +1,36 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/18/2004 10:43:09 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) nonlb 
+// Source File Name:   r.java
+
+package jagex.client;
+
+
+// Referenced classes of package jagex.client:
+//            h
+
+public class r {
+
+    public r() {
+        lnb = false;
+        nnb = -1;
+    }
+
+    protected int xmb;
+    protected int ymb;
+    protected int zmb;
+    protected int anb;
+    protected int bnb;
+    protected int cnb;
+    protected h dnb;
+    protected int enb;
+    protected int fnb;
+    protected int gnb;
+    protected int hnb;
+    protected int inb;
+    protected int jnb;
+    protected int knb;
+    protected boolean lnb;
+    protected int mnb;
+    protected int nnb;
+}
