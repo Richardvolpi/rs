@@ -1,0 +1,21 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 22/12/2005 19:18:23
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   v.java
+
+
+public class v
+{
+
+    public static int a = 201;
+    public static int b = 201;
+    public static int c = 85;
+    public static int d = 63;
+    public static int e = 58;
+    public static int f = 36;
+    public static int g = 17;
+    public static int h = 24;
+    public static int i = 1;
+    public static int j = 2;
+
+}

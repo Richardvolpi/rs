@@ -1,0 +1,282 @@
+// Decompiled by DJ v3.5.5.77 Copyright 2003 Atanas Neshkov  Date: 07/02/2005 19:13:23
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   r.java
+
+import java.io.*;
+import java.net.Socket;
+
+public class r extends q
+    implements Runnable
+{
+
+    public r(Socket socket, d d1)
+        throws IOException
+    {
+        E = false;
+        F = true;
+        H = socket;
+        I = socket.getInputStream();
+        L = socket.getOutputStream();
+        F = false;
+        d1.a(this);
+    }
+
+    public void a()
+    {
+        super.a();
+        E = true;
+        try
+        {
+            if(I != null)
+                I.close();
+            if(L != null)
+                L.close();
+            if(H != null)
+                H.close();
+        }
+        catch(IOException ioexception)
+        {
+            System.out.println(M[2]);
+        }
+        F = true;
+        synchronized(this)
+        {
+            notify();
+        }
+        G = null;
+    }
+
+    public int e()
+        throws IOException
+    {
+        if(E)
+            return 0;
+        else
+            return I.available();
+    }
+
+    public int f()
+        throws IOException
+    {
+        if(E)
+            return 0;
+        else
+            return I.read();
+    }
+
+    public void b(byte abyte0[], int i, int j)
+        throws IOException
+    {
+        int l;
+        l = bb.Q;
+        if(E)
+            return;
+        if(G == null)
+            G = new byte[5000];
+        r r1 = this;
+        JVM INSTR monitorenter ;
+        int k = 0;
+_L6:
+        if(k >= j)
+            break; /* Loop/switch isn't completed */
+        G[K] = abyte0[k + i];
+        K = (K + 1) % 5000;
+        this;
+        if(l != 0) goto _L2; else goto _L1
+_L1:
+        K;
+        (J + 4900) % 5000;
+        JVM INSTR icmpne 109;
+           goto _L3 _L4
+_L3:
+        throw new IOException(M[1]);
+_L4:
+        k++;
+        if(l == 0) goto _L6; else goto _L5
+_L5:
+        notify();
+        r1;
+_L2:
+        JVM INSTR monitorexit ;
+          goto _L7
+        Exception exception;
+        exception;
+        throw exception;
+_L7:
+    }
+
+    public void a(int i, int j, byte abyte0[])
+        throws IOException
+    {
+        if(E)
+            return;
+        int k = 0;
+        boolean flag = false;
+        do
+        {
+            if(k >= i)
+                break;
+            int l;
+            if((l = I.read(abyte0, k + j, i - k)) <= 0)
+                throw new IOException(M[3]);
+            k += l;
+        } while(bb.Q == 0);
+    }
+
+    public void run()
+    {
+        int l;
+        l = bb.Q;
+        int i = bb.y;
+_L3:
+label0:
+        {
+            if(F)
+                break; /* Loop/switch isn't completed */
+            synchronized(this)
+            {
+                if(K == J)
+                    try
+                    {
+                        wait();
+                    }
+                    catch(InterruptedException interruptedexception) { }
+                if(!F)
+                    break label0;
+            }
+            return;
+        }
+        int j;
+        int k;
+label1:
+        {
+            k = J;
+            if(K >= J)
+            {
+                j = K - J;
+                if(l == 0)
+                    break label1;
+            }
+            j = 5000 - J;
+        }
+        r1;
+        JVM INSTR monitorexit ;
+          goto _L1
+        exception;
+        throw exception;
+_L1:
+        if(j <= 0) goto _L3; else goto _L2
+_L2:
+        try
+        {
+            L.write(G, k, j);
+        }
+        catch(IOException ioexception)
+        {
+            super.a = true;
+            super.f = M[0] + ioexception;
+        }
+        J = (J + j) % 5000;
+        if(K != J) goto _L3; else goto _L4
+_L4:
+        L.flush();
+          goto _L3
+        IOException ioexception1;
+        ioexception1;
+        super.a = true;
+        super.f = M[0] + ioexception1;
+        if(l == 0) goto _L3; else goto _L5
+_L5:
+    }
+
+    private boolean E;
+    private boolean F;
+    private byte G[];
+    private Socket H;
+    private InputStream I;
+    private int J;
+    private int K;
+    private OutputStream L;
+    private static String M[];
+
+    static 
+    {
+        String as[];
+        as = new String[4];
+        as[0] = "O\025/\0220~\020g";
+        as[1] = "y\027;\035!iB2\r!i\0041\0243";
+        as[2] = "^\020/\0246;\0011\0247r\f:[7o\0208\032)";
+        as[3] = "^-\033";
+        M = as;
+        break MISSING_BLOCK_LABEL_155;
+        local;
+        toCharArray();
+        JVM INSTR dup ;
+        JVM INSTR arraylength .length;
+        JVM INSTR swap ;
+        int i = 0;
+        JVM INSTR swap ;
+        JVM INSTR dup_x1 ;
+        1;
+        JVM INSTR icmpgt 134;
+           goto _L1 _L2
+_L1:
+        JVM INSTR dup ;
+        i;
+_L4:
+        JVM INSTR dup2 ;
+        JVM INSTR caload ;
+        byte byte0;
+        switch(i % 5)
+        {
+        case 0: // '\0'
+            byte0 = 0x1b;
+            break;
+
+        case 1: // '\001'
+            byte0 = 98;
+            break;
+
+        case 2: // '\002'
+            byte0 = 93;
+            break;
+
+        case 3: // '\003'
+            byte0 = 123;
+            break;
+
+        default:
+            byte0 = 68;
+            break;
+        }
+        byte0;
+        JVM INSTR ixor ;
+        (char);
+        JVM INSTR castore ;
+        i++;
+        JVM INSTR swap ;
+        JVM INSTR dup_x1 ;
+        JVM INSTR ifne 134;
+           goto _L3 _L2
+_L3:
+        JVM INSTR dup2 ;
+        JVM INSTR swap ;
+          goto _L4
+_L2:
+        JVM INSTR swap ;
+        JVM INSTR dup_x1 ;
+        i;
+        JVM INSTR icmpgt 57;
+           goto _L5 _L1
+_L5:
+        JVM INSTR new #160 <Class String>;
+        JVM INSTR dup_x1 ;
+        JVM INSTR swap ;
+        String();
+        intern();
+        JVM INSTR swap ;
+        JVM INSTR pop ;
+        JVM INSTR ret 0;
+    }
+}
