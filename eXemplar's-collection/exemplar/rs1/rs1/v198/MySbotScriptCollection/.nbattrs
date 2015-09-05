@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="AnywhereMiner.java">
+        <attr name="NetBeansAttrArguments" serialvalue="aced0005757200135b4c6a6176612e6c616e672e537472696e673badd256e7e91d7b47020000787000000000"/>
+        <attr name="class_dependency_Script" stringvalue="AnywhereMiner"/>
+        <attr name="class_dependency_java.awt.event.ActionListener" stringvalue="AnywhereMiner"/>
+    </fileobject>
+    <fileobject name="AutoThieve.java">
+        <attr name="class_dependency_Script" stringvalue="AutoThieve"/>
+    </fileobject>
+    <fileobject name="BananaPicker.java">
+        <attr name="class_dependency_Script" stringvalue="BananaPicker"/>
+    </fileobject>
+    <fileobject name="BarbCoal.java">
+        <attr name="class_dependency_Script" stringvalue="BarbCoal"/>
+    </fileobject>
+    <fileobject name="BeerPicker.java">
+        <attr name="class_dependency_Script" stringvalue="BeerPicker"/>
+    </fileobject>
+    <fileobject name="CabbagePicker.java">
+        <attr name="class_dependency_Script" stringvalue="CabbagePicker"/>
+    </fileobject>
+    <fileobject name="Cabbager.java">
+        <attr name="class_dependency_Script" stringvalue="Cabbager"/>
+    </fileobject>
+    <fileobject name="Crafter.java">
+        <attr name="class_dependency_Script" stringvalue="Crafter"/>
+    </fileobject>
+    <fileobject name="DrayNetBank.java">
+        <attr name="class_dependency_Script" stringvalue="DrayNetBank"/>
+    </fileobject>
+    <fileobject name="Flax.java">
+        <attr name="class_dependency_Script" stringvalue="Flax"/>
+    </fileobject>
+    <fileobject name="GuardPocket.java">
+        <attr name="class_dependency_Script" stringvalue="GuardPocket"/>
+    </fileobject>
+    <fileobject name="Guthix.java">
+        <attr name="class_dependency_Script" stringvalue="Guthix"/>
+    </fileobject>
+    <fileobject name="HUD.java">
+        <attr name="class_dependency_Script" stringvalue="HUD"/>
+    </fileobject>
+    <fileobject name="IronBank.java">
+        <attr name="class_dependency_Script" stringvalue="IronBank"/>
+    </fileobject>
+    <fileobject name="ItemHax.java">
+        <attr name="class_dependency_Script" stringvalue="ItemHax"/>
+    </fileobject>
+    <fileobject name="JailGuard.java">
+        <attr name="class_dependency_Script" stringvalue="JailGuard"/>
+    </fileobject>
+    <fileobject name="KaramjaFisher.java">
+        <attr name="class_dependency_Script" stringvalue="KaramjaFisher"/>
+    </fileobject>
+    <fileobject name="MegaScript.java">
+        <attr name="class_dependency_Script" stringvalue="MegaScript"/>
+        <attr name="class_dependency_java.awt.event.ActionListener" stringvalue="MegaScript"/>
+    </fileobject>
+    <fileobject name="Natures.java">
+        <attr name="class_dependency_Script" stringvalue="Natures"/>
+    </fileobject>
+    <fileobject name="RemoteRS.java">
+        <attr name="class_dependency_Script" stringvalue="Crafter"/>
+    </fileobject>
+    <fileobject name="SilkTrader.java">
+        <attr name="class_dependency_Script" stringvalue="SilkTrader"/>
+    </fileobject>
+    <fileobject name="Stats.java">
+        <attr name="class_dependency_Script" stringvalue="Stats"/>
+    </fileobject>
+    <fileobject name="SuperCerter.java">
+        <attr name="class_dependency_Script" stringvalue="SuperCerter"/>
+    </fileobject>
+    <fileobject name="TehCerter.java">
+        <attr name="class_dependency_Script" stringvalue="TehCerter"/>
+        <attr name="class_dependency_java.awt.event.ActionListener" stringvalue="TehCerter"/>
+    </fileobject>
+    <fileobject name="Tutorial.java">
+        <attr name="class_dependency_Script" stringvalue="Tutorial"/>
+    </fileobject>
+    <fileobject name="UberSmelter.java">
+        <attr name="class_dependency_Script" stringvalue="UberSmelter"/>
+    </fileobject>
+    <fileobject name="UltimateCutter.java">
+        <attr name="class_dependency_Script" stringvalue="UltimateCutter"/>
+    </fileobject>
+    <fileobject name="s3x0r.java">
+        <attr name="class_dependency_Script" stringvalue="s3x0r"/>
+    </fileobject>
+    <fileobject name="tehscript.java">
+        <attr name="class_dependency_Script" stringvalue="tehscript"/>
+    </fileobject>
+</attributes>
