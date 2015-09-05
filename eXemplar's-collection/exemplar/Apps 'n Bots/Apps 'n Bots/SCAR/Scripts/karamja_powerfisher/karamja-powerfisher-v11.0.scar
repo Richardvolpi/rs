@@ -1,0 +1,933 @@
+{=========Power-Fisher at kamaraja v12.0 Level 2=========
+
+Level 2:Please do not share this version 2 file...
+
+Its working cause, I tried it, but for a while only
+so if you find any bugs, contact me(my contact details below)
+
+Input your username and password into pess.txt;
+1.Choose low-detail
+2.Pick and enter all the colours.
+3.Fishing equipment must be in 1st inventory slot.
+4.Bring some food(heal at least 12hp/hour)
+So like u wanna use this for 12hours,
+then bring at least 12 tuna, or any food that heals above 12hp.
+
+Version history
+v1.0-level 2 release on socube
+v2.0-Fixed some problems
+v3.0-Fixed more problems.
+v4.0-Took away many map tuneing stuff and changed anti-whirlpool event
+v5.0-No diff but released publicly on rscl as lite version
+v6.0-Made anti-rands much better and changed abit of tolerance.
+Added some thought for cooker, but evaded the idea
+due to lack of paths.
+v7.0 - changed alot of stuff.
+v8.0b - Added support for graphical report.
+v9.0 - Removed PAr 1.0 support and added support for PAr 2.0
+v9.0b - I changed some mouse coords so that you will remain at
+the same spot. So I changed timist to another category
+v9.0c - Fixed many minor bugs.
+v10.0 - Added eating function.
+v11.0 - Fixed more bugs, and added selling to gen store
+function and now script show wat its doing if you
+use graphical report.
+v12.0 - Changed from IsTextAt2 to getcolor.
+
+Future iof this script
+1)A bait remaining counter
+2)An option to sell the fish you caught to gen store.
+
+Level 3 version of this script-
+1)May be adding cooker, will chop trees(using gussy's chopper)
+
+Credits:
+1)pplsuqbawlz for PAr 2.0 and his library and his graphical report.
+2)dsgamer for some procedures, quite abit of advice and alot of
+beta testing.
+3)Odie fer his OSi.
+3)Odie for his boxbreaker.
+4)Phalanx for his progress report.
+
+-=-=-=-=-=-Contact details=-=-=-=-=-=
+A quality script by Benleegt. Please direct all questions to benleegt@yahoo.co.uk
+or rscl or http://socube.here.ws
+=============I love Chong Jasmin========================}
+program kamarajaantirands;
+var tree,flag12,ix,iy,equip,white,yellow12,ax,ay,
+whirlpoolno,runno,fishno,timer,pickno,techno,InvNumber,temp,diff:Integer;
+action,fish:String ;
+
+const
+{Remember to input your username and pass into pess.txt}
+
+{===== Do not bother about this unless you are using
+                     the sell feature ====}
+{All minimap}
+muddyroad = 1140117; //The road running through kamaja.
+potty = 1859758; //Gen store logo
+apron = 5663104; //Brown apron store keeper wears
+
+{===== fishing type =====}
+fishtype=3; //1 is cage, 2 is harpoon, 3 is net
+
+{===== anti random related =====}
+fishlogo = 16343811;//the fish logo.(Minimap)
+red_dot = 241;//The red dot on the minimap when an item is on the ground.(Minimap)
+trees = 3172416;//The colour of the trees(minimap.)
+
+{===== fishing related =====}
+splashcolour1=15648952; //Light blue splash color on GAMESCREEN!
+splashcolour2=15648952; //Light white splash color on GAMESCREEN!
+
+{==== Control Panel =====}
+fishtodrop = 'Raw'; //The caption of the fish u wanna drop, if u want it to drop all fishes, change this to 'Raw'
+graphicreport = 'true'; //True or false, simple, by pplsuqbawlz.
+Drop_or_sell = 'Drop'; //(Sell not working now)Whether to drop or to sell, to sell, change this to 'Sell'
+
+{==== Do not touch ===}
+mama = 1000; //Set time to wait while fishing to change spot. In miliseconds
+
+{.include OSi.txt}
+{.include pess.txt}
+{.include parinclude.txt}
+{.include Boxbreaker.txt}
+{=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-}
+procedure currently;
+begin
+SendInterSCARMessage('currently','Currently: '+Action)
+end;
+
+procedure benleegtmouse(ex,ey : Integer; Truth : String; waitamount:Integer);//By benleegt
+begin
+MoveMouseSmoothEx(ex,ey,1,2,20,17,3)
+getmousepos(ex,ey)
+If ( truth = 'left')then clickmouse(ex,ey,true)
+If ( truth = 'right')then clickmouse(ex,ey,false)
+If ( truth = 'false')then
+wait(waitamount+Random(40))
+end;
+
+procedure Flagwait;
+begin
+  repeat
+   wait(500+random(100));
+  until(not (FindBitmapIn(flag12,x,y,562,9,751,179)));
+   wait(100+random(100));
+end;
+
+Procedure LogOut1(why:string);
+begin
+  Writeln(' ');
+  Writeln(why);
+  Writeln(' ');
+  Wait(100+random(10));
+  Loged:=true;
+  Mouse(635,470,25,20,true);
+  Wait(100+random(10));
+  Mouse(586,370,119,10,true);
+  GetMousePos(x,y);
+  repeat
+  wait(5000);
+  until(false)
+end;
+
+function getequipmentcolour:Integer;//By benleegt
+begin
+Openbag;
+If(fishtype=1) then result:=getcolor(581,233)
+If(fishtype=2) then result:=getcolor(581,232)
+If(fishtype=3) then result:=getcolor(589,228)
+end;
+
+procedure checkequipment;//By benleegt
+begin
+action:= 'Finding lost equipment'
+currently;
+pickno:=pickno+1
+writeln('Emergency, lost equipment')
+if(findcolorspiraltolerance(ix,iy,equip,5,144,360,515,5))then
+begin
+clickmouse(ix+1,iy,true)
+wait(2000)
+end;
+repeat
+temp:=getequipmentcolour;
+If(equip>temp )then diff := equip-temp
+If(equip<temp )then diff := temp-equip
+If(diff=0)then break
+if(findcolor(x,y,red_dot,556,2,727,155))then
+begin
+benleegtmouse(x,y+5,'left',200)
+flagwait
+wait(500)
+if(findcolorspiraltolerance(ix,iy,equip,189,86,360,105,5))then
+begin
+clickmouse(ix+1,iy,true)
+wait(2000)
+temp:=getequipmentcolour;
+If(equip=temp)then break
+end;
+wait(100)
+end;
+wait(100)
+temp:=getequipmentcolour;
+until(equip=temp)
+findcolor(ix,iy,fishlogo,631,2,728,162)
+benleegtmouse(ix,iy,'left',0)
+flagwait;
+end;
+
+{==== Eating/health check procedures ==== }
+
+procedure SetCords;  //From nick's powerfisher
+begin
+Case InvNumber of
+   28: begin ax:=705; ay:=435; end;
+   27: begin ax:=655; ay:=435; end;
+   26: begin ax:=610; ay:=435; end;
+   25: begin ax:=575; ay:=435; end;
+   24: begin ax:=705; ay:=400; end;
+   23: begin ax:=655; ay:=400; end;
+   22: begin ax:=610; ay:=400; end;
+   21: begin ax:=575; ay:=400; end;
+   20: begin ax:=705; ay:=370; end;
+   19: begin ax:=655; ay:=370; end;
+   18: begin ax:=610; ay:=370; end;
+   17: begin ax:=575; ay:=370; end;
+   16: begin ax:=705; ay:=330; end;
+   15: begin ax:=655; ay:=330; end;
+   14: begin ax:=610; ay:=330; end;
+   13: begin ax:=575; ay:=330; end;
+   12: begin ax:=705; ay:=295; end;
+   11: begin ax:=655; ay:=295; end;
+   10: begin ax:=610; ay:=295; end;
+   9:  begin ax:=575; ay:=295; end;
+   8:  begin ax:=705; ay:=260; end;
+   7:  begin ax:=655; ay:=260; end;
+   6:  begin ax:=610; ay:=260; end;
+   5:  begin ax:=575; ay:=260; end;
+   4:  begin ax:=705; ay:=220; end;
+   3:  begin ax:=655; ay:=220; end;
+   2:  begin ax:=624; ay:=227; end;
+   1:  begin ax:=575; ay:=220; end;
+   end;
+end;
+
+procedure use(ix,iy : Integer; check : String);
+begin
+benleegtmouse(ix,iy,'false',100)
+wait(100)
+if(istextat2(9,9,check,150))then
+begin
+clickmouse(ix,iy,true)
+end;
+benleegtmouse(ix+200+Random(20),iy+200+Random(20),'false',0)
+end;
+
+procedure eatfood;
+var hper,invloc :Integer;
+begin
+action:= 'Eating'
+currently
+InvLoc:=0;
+OpenBag;
+repeat
+setcords;
+  MoveMouseSmooth(ax,ay);
+  wait(150+random(30));
+  use(ix,iy,'Ea')
+  Invnumber:=InvLoc+1;
+hper := gethp;
+begin
+If(hper<=50)then
+begin
+end else
+if(hper>=100)then
+begin
+break
+end;
+end;
+invloc:=invloc+1
+If(invLoc>26)then
+begin
+If(hper<=50)then
+begin
+logout1('Outta o food...');
+end;
+end;
+until(InvLoc>=28)
+end;
+
+procedure checkhealth;
+var hper:integer;
+begin
+action:= 'Checking Health Left'
+currently
+hper := gethp;
+If(hper<=80)then
+begin
+eatfood;
+end else
+end;
+
+{==== End of Eating/health check procedures ==== }
+
+procedure runaway; //By benleegt
+begin
+action:= 'Running Away'
+currently
+writeln('OMG, fight encountered')
+setRun(True);
+findcolor(ix,iy,trees,627,130,728,162)
+benleegtmouse(ix,iy,'left',0)
+flagwait;
+setRun(false);
+wait(5000)
+findcolor(ix,iy,fishlogo,631,2,728,162)
+benleegtmouse(ix,iy,'left',0)
+flagwait;
+checkhealth
+end;
+
+procedure antifight;//By benleegt
+begin
+if(findcolor(ix,iy,65280,222,114,304,195)) and (findcolor(ix,iy,255,222,114,304,195))then
+begin
+runno:=runno+1
+If(techno=0) then runaway; techno:=techno+1
+end;
+end;
+
+procedure totalrandcheck;//By benlegt
+begin
+antifight;
+CheckPAR;
+end;
+
+procedure declear;
+begin
+flag12 := BitmapFromString(2, 8,
+       'C656045D3311C656045D3311C656045D3311C656045D3311C65604' +
+       '5D3311C656045D3311C656045D3311C656045D3311');//Bmp by benleegt
+tree := BitmapFromString(1, 5,
+       '6D52176D5217855716855716855716');
+
+end;
+
+procedure checkifnearfish;
+begin
+if (not(findcolor(ix,iy,fishlogo,632,67,667,97)))then
+findcolor(ix,iy,fishlogo,651,8,711,70)
+uberwait(100)
+mouse(ix,iy,2,2,true)
+end;
+
+procedure LoginIfNeeded;//A stupid3ooo procedure based of many others
+var counter:integer;
+begin
+action:= 'Logging In if needed'
+currently
+if(IsTextAt2(293,251,'Username',10))then
+ begin
+  Mouse(460,322,10,2,true);
+  Wait(500+random(500));
+ end;
+if(IsTextAt2(309,241,'Welcome to runenscape',50))then
+ begin
+  Mouse(400,280,125,20,true);
+  Wait(200+random(100));
+  if(IsTextAt2(293,251,'Username',50))then
+  begin
+   status('Logging in');
+   Mouse(400,256,20,5,true);
+   Wait(50+random(25));
+   sendkeyssilentsmooth(username,50);
+   Wait(50+random(25));
+   Mouse(400,270,20,5,true);
+   Wait(50+random(25));
+   sendkeyssilentsmooth(password,50);
+   Wait(400+random(100));
+   Mouse(300,322,20,5,true);
+   repeat
+    counter:=counter+1
+    wait(100);
+   until(FindColorSpiral(x,y,8421504,0,0,515,338))or(counter=60)
+   if(FindColorSpiral(x,y,8421504,400,0,515,338))then
+   begin
+    wait(100+random(100));
+    Mouse(x,y,2,1,true);
+    wait(100+random(100));
+    sendarrowsilentwait(0,900+random(200))
+    wait(200+random(100))
+    end;
+    begin
+    repeat
+    checkifnearfish
+    uberwait(1500)
+    until(findcolor(ix,iy,fishlogo,632,67,667,97))
+   end;
+  end;
+ end;
+end;
+
+procedure setuptypes;//By dsgamer
+begin
+if(fishtype=1)then
+     begin
+fish:= 'Ca';
+          white := BitmapFromString(32, 6,
+       'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000FFFFFFFFFFFF000000000000000000000000000000000000' +
+       '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000000000' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000000000FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000000000000000000000' +
+       '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF' +
+       '000000000000000000');//bmp by benleegt
+yellow12 := BitmapFromString(20, 7,
+       'FFFF00FFFF00FFFF005D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFF00000000FFFF00FFFF005D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54470000000000005D5447000000000000' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54470000005D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D5447000000' +
+       '5D54475D54475D54475D54475D54475D5447FFFF00FFFF00FFFF00' +
+       'FFFF005D54475D54475D54475D5447FFFF00FFFF00FFFF00FFFF00' +
+       '5D54470000005D54475D54475D54475D54475D5447FFFF00FFFF00' +
+       '000000000000FFFF00FFFF005D54475D5447FFFF00FFFF00000000' +
+       '000000FFFF00FFFF000000005D54475D54475D54475D54475D5447' +
+       '5D5447FFFF00FFFF00FFFF00FFFF00FFFF000000005D5447FFFF00' +
+       'FFFF000000005D5447FFFF00FFFF00');//bmp by dsgamer
+     end;
+if(fishtype=2)then
+     begin
+fish:= 'Ca';
+white := BitmapFromString(51, 3,
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000000000FFFFFF' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '');//bmp by benleegt
+yellow12 := BitmapFromString(20, 7,
+       'FFFF00FFFF005D54475D5447FFFF00FFFF005D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFF00FFFF000000005D5447FFFF00FFFF00000000' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D5447FFFF00FFFF000000005D5447FFFF00' +
+       'FFFF000000005D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF000000005D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D5447FFFF00' +
+       'FFFF00FFFF00FFFF00FFFF00FFFF000000005D54475D5447FFFF00' +
+       'FFFF00FFFF00FFFF005D54475D54475D5447FFFF00FFFF00FFFF00' +
+       'FFFF00FFFF00FFFF00000000000000FFFF00FFFF000000005D5447' +
+       'FFFF00FFFF00000000000000FFFF00FFFF005D54475D5447FFFF00' +
+       'FFFF00FFFF00000000FFFF00FFFF000000005D5447FFFF00FFFF00' +
+       '0000005D54475D5447FFFF00FFFF00FFFF00FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF00000000000000');//bmp by dsgamer
+     end;
+If(fishtype=3)then
+begin
+fish:= 'Ne';
+white := BitmapFromString(20, 7,
+       'FFFFFFFFFFFF5D54475D54475D5447FFFFFFFFFFFF5D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFFFFFFFFFFFFFFFF5D54475D5447FFFFFFFFFFFF' +
+       '0000005D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D5447FFFFFFFFFFFF5D5447FFFFFFFFFFFFFFFFFFFFFFFF5D5447' +
+       'FFFFFFFFFFFF0000005D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D5447FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF000000FFFFFFFFFFFF0000005D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D5447FFFFFFFFFFFF000000FFFFFF' +
+       'FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF0000005D54475D5447' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF5D54475D54475D5447FFFFFFFFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFF000000000000FFFFFFFFFFFF5D54475D5447' +
+       'FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF0000005D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+       '0000005D5447FFFFFFFFFFFF000000');//bmp by dsgamer
+yellow12 := BitmapFromString(20, 7,
+       'FFFF00FFFF005D54475D54475D5447FFFF00FFFF005D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFF00FFFF00FFFF005D54475D5447FFFF00FFFF00' +
+       '0000005D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D5447FFFF00FFFF005D5447FFFF00FFFF00FFFF00FFFF005D5447' +
+       'FFFF00FFFF000000005D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D5447FFFF00FFFF00000000FFFF00FFFF00FFFF00' +
+       'FFFF00000000FFFF00FFFF000000005D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D5447FFFF00FFFF00000000FFFF00' +
+       'FFFF00000000FFFF00FFFF00FFFF00FFFF000000005D54475D5447' +
+       'FFFF00FFFF00FFFF00FFFF005D54475D54475D5447FFFF00FFFF00' +
+       'FFFF00FFFF00FFFF00000000FFFF00FFFF00FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF00000000000000FFFF00FFFF005D54475D5447' +
+       'FFFF00FFFF00000000FFFF00FFFF00000000FFFF00FFFF00FFFF00' +
+       'FFFF000000005D5447FFFF00FFFF000000005D5447FFFF00FFFF00' +
+       '0000005D5447FFFF00FFFF00000000');//bmp by dsgamer
+end;
+if(fishtype=4)then
+       begin
+fish:= 'Ne';
+white := BitmapFromString(20, 7,
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFFFFFFFFFF000000000000FFFFFFFFFFFF5D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFF0000005D5447FFFFFF' +
+       'FFFFFF0000005D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D5447FFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFF0000005D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D5447FFFFFFFFFFFF5D54475D5447FFFFFF' +
+       'FFFFFFFFFFFFFFFFFFFFFFFF0000000000005D54475D5447FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF5D54475D54475D54475D5447000000000000' +
+       '5D5447FFFFFFFFFFFF000000000000FFFFFFFFFFFF5D54475D5447' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF5D54475D5447FFFFFF' +
+       'FFFFFF5D54475D5447FFFFFFFFFFFF0000005D5447FFFFFFFFFFFF' +
+       '0000005D54475D5447FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '5D5447FFFFFFFFFFFF0000005D5447');
+yellow12 := BitmapFromString(20, 7,
+       'FFFF00FFFF00FFFF00FFFF00FFFF005D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D5447FFFF00FFFF00000000000000FFFF00FFFF005D5447' +
+       '5D54475D54475D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D5447FFFF00FFFF000000005D5447FFFF00' +
+       'FFFF000000005D54475D54475D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D54475D54475D5447FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF000000005D54475D54475D54475D54475D5447' +
+       '5D54475D54475D54475D5447FFFF00FFFF005D54475D5447FFFF00' +
+       'FFFF00FFFF00FFFF00FFFF000000000000005D54475D5447FFFF00' +
+       'FFFF00FFFF00FFFF005D54475D54475D54475D5447000000000000' +
+       '5D5447FFFF00FFFF00000000000000FFFF00FFFF005D54475D5447' +
+       'FFFF00FFFF00000000000000FFFF00FFFF005D54475D5447FFFF00' +
+       'FFFF005D54475D5447FFFF00FFFF000000005D5447FFFF00FFFF00' +
+       '0000005D54475D5447FFFF00FFFF00FFFF00FFFF00FFFF00000000' +
+       '5D5447FFFF00FFFF000000005D5447');
+       end;
+end;
+
+procedure antiwhirlpool(b1,b2,b3,b4:Integer);//Use in fishing procedure--By benleegt
+begin
+action:= 'Finding Whirlpools'
+currently
+If(findcolorspiraltolerance(ix,iy,13288386,b1,b2,b3,b4,3) and findcolorspiraltolerance(ix,iy,13158085,b1,b2,b3,b4,3))then
+begin
+action:= 'Whirlpool found! Waiting'
+currently
+writeln('Whirlpool spotted.')
+findcolor(x,y,fishlogo,597,36,695,125)
+benleegtmouse(x+2,y,'left',2000)
+wait(10000)
+whirlpoolno:=whirlpoolno+1
+end;
+end;
+
+procedure benfish;
+var i,bb,b1,b2,b3,b4,beri,beri2:Integer;
+splashcolored : ARRAY [1..2] of integer;
+begin
+bb:=0
+b1:=259
+b2:=168
+totalrandcheck;
+i:=0
+splashcolored[1]:=splashcolour1
+splashcolored[2]:=splashcolour2
+repeat
+action:= 'Finding Fishing Spot'
+currently
+loginifneeded
+antifight;
+totalrandcheck;
+action:= 'Finding Fishing Spot'
+currently
+FindBox;
+b3:=b1+10
+b4:=b2+10
+If(b3>513)then b1:=100
+If(b4>336)then b2:=38
+If(findcolorspiraltolerance(x,y,splashcolored[1],b1,b2,b3,b4,35)) or findcolorspiraltolerance(x,y,splashcolored[2],b1,b2,b3,b4,35)then
+begin
+antiwhirlpool(232,115,306,185)
+benleegtmouse(x,y,'false',0)
+wait(700)
+If(IsTextAt2(9,9,fish,100))then
+begin
+clickmouse(x,y,false)
+wait(300)
+{===============White===========}
+if(findbitmapin(white,ix,iy,0,0,515,335))then
+begin
+action:= 'Fishing'
+currently
+clickmouse(ix,iy,true)
+flagwait;
+antifight;
+beri:=1
+repeat
+antifight;
+loginifneeded;
+temp:=getequipmentcolour;
+If(equip>temp )then diff := equip-temp
+If(equip<temp )then diff := temp-equip
+If(diff>0)then
+begin
+checkequipment;
+benfish
+end
+totalrandcheck;
+antifight;
+antiwhirlpool(232,115,306,185)
+wait(100)
+beri:=beri+1
+If(getcolor(247,443)=16711680)then beri:=20000000
+antifight;
+until(beri>mama)
+{==============Yellow now=================}
+end else
+if(findbitmapin(yellow12,ix,iy,0,0,515,335))then
+begin
+action:= 'Fishing'
+currently
+clickmouse(ix,iy,true)
+flagwait;
+beri2:=1
+repeat
+antifight;
+loginifneeded;
+temp:=getequipmentcolour;
+If(equip>temp )then diff := equip-temp
+If(equip<temp )then diff := temp-equip
+If(diff>0)then
+begin
+checkequipment;
+benfish
+end
+totalrandcheck;
+antifight;
+antiwhirlpool(232,115,306,185)
+wait(100)
+beri2:=beri2+1
+If(getcolor(247,443)=16711680)then beri2:=20000000
+antifight;
+until(beri2>mama)
+end;
+end
+wait(20)
+end;
+status('Current mouse coords ' + inttostr(b1)+','+inttostr(b2)+','+inttostr(b3)+','+inttostr(b4))
+b1:=b1+10
+b2:=b2+10
+bb:=bb+1
+If(bb>70)then
+begin
+b1:=100
+b2:=38
+bb:=0
+end;
+wait(30)
+until(getcolor(247,443)=16711680)
+temp:=getequipmentcolour;
+If(equip>temp )then diff := equip-temp
+If(equip<temp )then diff := temp-equip
+If(diff>0)then
+begin
+checkequipment;
+benfish
+end
+end;
+
+
+{===Start Sell feature==}
+
+procedure storetopier;
+begin
+action:= 'Walking back to pier'
+currently
+If(FindColoredAreaTolerance(x,y,muddyroad,693,56,720,90,21,2))then
+begin
+benleegtmouse(x,y,'left',0)
+flagwait;
+findcolor(ix,iy,trees,687,12,722,51)
+benleegtmouse(ix,iy,'left',0)
+wait(6000)
+flagwait
+findcolor(x,y,fishlogo,559,5,731,157)
+benleegtmouse(x,y,'left',0)
+flagwait;
+end else
+If(not(FindColoredAreaTolerance(x,y,muddyroad,693,56,720,90,21,2)))then
+begin
+logout1('Error wth map')
+wait(100)
+loginifneeded;
+end
+end;
+
+procedure seller;
+var trade,berilee2:Integer;
+begin
+berilee2:=0
+action:= 'Finding Storekeeper.'
+currently
+trade := LoadBitmap('trade.bmp');
+repeat
+FindColoredAreaTolerance(ix,iy,apron,0,0,390,335,4,3)
+benleegtmouse(ix,iy,'false',200)
+If(istextat2(9,9,'Talk',75))then break;
+until(false)
+benleegtmouse(ix,iy,'right',0)
+wait(200)
+FindBitmapMaskTolerance(trade,x,y,0,0,513,337,20,20)
+benleegtmouse(x,y,'left',0)
+repeat
+wait(100)
+berilee2:=berilee2+1
+until(getcolor(216,41)=2070783)
+action:= 'Trading'
+currently
+wait(1000)
+storetopier;
+end;
+
+procedure piertostore;
+begin
+action:= 'Walking to store.'
+currently
+findcolor(ix,iy,trees,627,130,728,162)
+benleegtmouse(ix,iy,'left',0)
+flagwait;
+benleegtmouse(ix,iy,'left',0)
+flagwait;
+findcolor(ix,iy,potty,594,69,682,150)
+benleegtmouse(ix,iy,'left',0)
+flagwait;
+seller;
+end;
+{===end Sell Feature===}
+Procedure AutoDrop4(item,item2,item3,item4 :string);
+var drop,DropYe,Row,Col,Ix,Iy,InvLoc,Dropx,dropy:integer;
+begin
+drop := BitmapFromString(28, 2,
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF');
+dropYe := BitmapFromString(28, 2,
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00FFFF00FFFF00000000000000000000FFFF00FFFF00FFFF00' +
+       'FFFF00000000000000000000000000FFFF00FFFF00FFFF00FFFF00' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00FFFF00000000000000000000FFFF00FFFF00000000' +
+       '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+       'FFFF00FFFF00');
+InvLoc:=1; Col:=1; Row:=1;
+repeat
+  Ix:=(Col-1)*42+574;
+  Iy:=(Row-1)*36+218;
+  MoveMouseSmooth(Ix+random(17),Iy+random(17));
+  wait(150+random(30));
+  If(IsTextAt2(9,9,item,100))then
+  begin
+   GetMousePos(x,y);
+   ClickMouse(x,y,false);
+   wait(100+random(25));
+   if(FindBitmapIn(Drop,dropx,dropy,555,210,730,460))or(FindBitmapIn(DropYe,dropx,dropy,555,210,730,460))then
+    begin
+     Mouse(dropx+10,dropy,20,4,true);
+     wait(100+random(50));
+    end;
+  end;
+  If(IsTextAt2(9,9,item2,100))then
+  begin
+   GetMousePos(x,y);
+   ClickMouse(x,y,false);
+   wait(100+random(25));
+   if(FindBitmapIn(Drop,dropx,dropy,555,210,730,460))or(FindBitmapIn(DropYe,dropx,dropy,555,210,730,460))then
+    begin
+     Mouse(dropx+10,dropy,20,4,true);
+     wait(100+random(50));
+    end;
+  end;
+  If(IsTextAt2(9,9,item3,100))then
+  begin
+   GetMousePos(x,y);
+   ClickMouse(x,y,false);
+   wait(100+random(25));
+   if(FindBitmapIn(Drop,dropx,dropy,555,210,730,460))or(FindBitmapIn(DropYe,dropx,dropy,555,210,730,460))then
+    begin
+     Mouse(dropx+10,dropy,20,4,true);
+     wait(100+random(50));
+    end;
+  end;
+  If(IsTextAt2(9,9,item4,100))then
+  begin
+   GetMousePos(x,y);
+   ClickMouse(x,y,false);
+   wait(100+random(25));
+   if(FindBitmapIn(Drop,dropx,dropy,555,210,730,460))or(FindBitmapIn(DropYe,dropx,dropy,555,210,730,460))then
+    begin
+     Mouse(dropx+10,dropy,20,4,true);
+     wait(100+random(50));
+    end;
+  end;
+  InvLoc:=InvLoc+1;
+  Row:=Row+1;
+  if(Row>7)then
+  begin
+   Col:=Col+1;
+   Row:=1;
+  end;
+until(InvLoc>28)
+end;
+
+procedure findnumber(item :string);
+var Row,Col,Ix,Iy,InvLoc:integer;
+begin
+InvLoc:=1; Col:=1; Row:=1;
+repeat
+  Ix:=(Col-1)*42+574;
+  Iy:=(Row-1)*36+218;
+  MoveMouseSmooth(Ix+random(17),Iy+random(17));
+  wait(150+random(30));
+  If(IsTextAt2(9,9,'Use '+item,100))then
+  begin
+   fishno:=fishno+1
+  end;
+  InvLoc:=InvLoc+1;
+  Row:=Row+1;
+  if(Row>7)then
+  begin
+   Col:=Col+1;
+   Row:=1;
+  end;
+until(InvLoc>28)
+end;
+
+procedure dropfish;//by dsgamer
+begin
+findnumber('Raw');
+temp:=getequipmentcolour;
+If(equip>temp )then diff := equip-temp
+If(equip<temp )then diff := temp-equip
+If(diff>0)then
+begin
+checkequipment;
+benfish
+end
+ writeln('Inventory full, Drop time!/You gained a level!!Whee...')
+ benleegtmouse(247,443,'left',200)
+ openbag;
+ If(Drop_or_sell='Drop')then
+ begin
+ action:= 'Dropping stuff'
+ currently
+ AutoDrop4('Use Burnt','Use '+fishtodrop,'Eat k','Drink')
+ end else
+ If(Drop_or_sell='Sell')then
+ begin
+ piertostore;
+ end;
+end;
+ 
+Procedure PrintProgressReport; //modified from Phalanx's script
+var
+  RHours,Minutes,Seconds,RMinutes,RSeconds,ST:LongInt;
+  Time:String;
+begin
+if(graphicreport='false')then
+begin
+  Seconds:=(GetSystemTime-ST) div 1000;
+  Minutes:=Seconds div 60;
+  RHours:=Minutes div 60;
+  Time:=inttostr(Seconds)+' Seconds';
+  if Minutes<>0 then
+  begin
+   RSeconds:=Seconds Mod (Minutes*60);
+   Time:=inttostr(Minutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+  end;
+  if RHours<>0 then
+  begin
+   RMinutes:=Minutes Mod (RHours*60);
+   RSeconds:=Seconds Mod (Minutes*60);
+   Time:=inttostr(RHours)+':'+inttostr(RMinutes)+':'+inttostr(RSeconds);
+  end;
+  begin
+  writeln(' ');
+  writeln('<=================Progress Report================>');
+  writeln('Worked for '+Time);
+  writeln('Caught about ' + inttostr(fishno)+ ' fishes.')
+  writeln('Ran from ' + inttostr(whirlpoolno) + ' whirlpool(s)')
+  writeln('Ran from ' + inttostr(runno) + ' fight(s)')
+  writeln('Picked up equipment ' + inttostr(pickno) + ' time(s)')
+  writeln('<================================================>');
+  end;
+end else
+if(graphicreport='true')then
+begin
+SendInterSCARMessage('fish','Caught about '+inttostr(fishno)+' fishes.')
+SendInterSCARMessage('whirlpool','Ran from '+inttostr(whirlpoolno)+' whirlpools.')
+SendInterSCARMessage('picked','Picked equipment '+inttostr(pickno)+' times.')
+SendInterSCARMessage('npcs','Ran from '+inttostr(runno)+ ' npcs')
+SendInterSCARMessage('time','Script ran for '+Time)
+end;
+end;
+
+begin
+setupOSi;
+action:= 'Setting up script'
+currently
+PrintProgressReport
+techno:=0
+timer:=0
+SetMouseMode(false)
+whirlpoolno:=0
+runno:=0
+fishno:=0
+pickno:=0
+writeln('A Great script by Benleegt')
+loginifneeded;
+setuptypes
+If(findcolor(ix,iy,potty,594,69,682,150))then seller;
+equip := getequipmentcolour;
+repeat
+timer:=timer+1
+loginifneeded
+benfish;
+dropfish;
+PrintProgressReport;
+wait(100)
+until(false)
+end.

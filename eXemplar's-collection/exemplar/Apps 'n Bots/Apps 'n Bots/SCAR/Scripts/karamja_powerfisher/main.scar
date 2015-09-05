@@ -1,0 +1,207 @@
+program GraphicalRunner;
+const
+  progname='Kamraja Powerfisher';
+  progmaker='benleegt';
+  progversion='11.0';
+  progwidth=300;
+  progheight=162;
+  progsymbol='D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8000001' +
+       '000001000001000001000001000001D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8000001' +
+       '000001000001000001000001000001000001463C2F463C2F463C2F' +
+       '463C2F000001000001D4D0C8000001000001000001000001000001' +
+       '000001D4D0C8D4D0C8000001000001000001463C2F463C2F000001' +
+       '463C2F463C2F463C2F463C2F000001000001463C2F463C2F463C2F' +
+       '000001555B5A555B5A555B5A555B5A555B5A000001000001D4D0C8' +
+       'D4D0C8000001000001000001463C2F463C2F463C2F000001000001' +
+       '000001000001000001000001000001463C2F463C2F000001000001' +
+       '000001000001555B5A555B5A000001D4D0C8D4D0C8D4D0C8D4D0C8' +
+       '000001000001000001000001000001D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8000001000001000001000001D4D0C8D4D0C8000001000001' +
+       '555B5A000001D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8000001555B5A555B5A000001D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8000001000001000001D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8000001000001000001000001000001000001000001' +
+       '000001D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8000001000001000001' +
+       '000001000001D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8000001757B7C757B7C757B7C757B7C000001000001000001' +
+       '000001000001000001000001757B7C757B7C757B7C757B7C000001' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8000001' +
+       '000001757B7C757B7C757B7C757B7C757B7C000001757B7C757B7C' +
+       '757B7C757B7C757B7C757B7C757B7C000001D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8000001000001757B7C757B7C757B7C555B5A' +
+       '555B5A555B5A000001757B7C757B7C757B7C757B7C000001000001' +
+       '757B7C555B5A000001D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8000001000001555B5A555B5A555B5A000001757B7C' +
+       '757B7C555B5A757B7C757B7C000001555B5A555B5A555B5A000001' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8000001000001000001' +
+       '555B5A555B5A000001000001555B5A757B7C757B7C555B5A555B5A' +
+       '757B7C555B5A555B5A555B5A000001000001D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8000001000001000001555B5A' +
+       '555B5A757B7C757B7C555B5A555B5A555B5A555B5A555B5A555B5A' +
+       '757B7C000001D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8000001555B5A555B5A555B5A757B7C757B7C555B5A' +
+       '555B5A555B5A555B5A555B5A757B7C000001000001D4D0C8D4D0C8' +
+       '000001000001000001000001000001000001D4D0C8000001000001' +
+       '555B5A757B7C757B7C757B7C555B5A555B5A555B5A555B5A000001' +
+       '000001000001000001D4D0C8D4D0C8D4D0C8000001757B7C757B7C' +
+       '757B7C757B7C000001000001000001757B7C757B7C757B7C555B5A' +
+       '555B5A555B5A555B5A555B5A000001555B5A757B7C000001D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8000001555B5A555B5A555B5A757B7C757B7C' +
+       '757B7C757B7C757B7C757B7C555B5A000001000001000001000001' +
+       '000001000001555B5A000001000001D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8000001555B5A757B7C757B7C757B7C757B7C757B7C555B5A' +
+       '555B5A000001000001D4D0C8D4D0C8D4D0C8000001555B5A757B7C' +
+       '000001D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8000001' +
+       '000001000001555B5A757B7C555B5A000001000001000001D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8000001757B7C000001000001D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8000001555B5A' +
+       '555B5A555B5A000001D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8' +
+       '000001000001000001D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8000001000001555B5A757B7C000001' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8000001000001000001D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8D4D0C8' +
+       'D4D0C8D4D0C8D4D0C8';
+
+var
+  Form1, Self: TForm;
+  Timer1: TTimer;
+  Application: TApplication;
+  TempBMP, ProgBitmap, ProgA: Integer;
+  ProgBitmapCanvas: TCanvas;
+  ScreenWidth,ScreenHeight: Integer;
+  FormDrawStart: Boolean;
+  Line1,Line2,Line3,Line4,Line5,Line6,Line7: String;
+
+
+procedure loadbmps;
+begin
+  progbitmap := BitmapFromString(24, 23,progsymbol);
+  ProgBitmapCanvas:=GetBitmapCanvas(progbitmap);
+end;
+
+procedure FormDrawTemplate;
+var
+  Canvas: TCanvas;
+begin
+  ProgA:=ProgA+1;
+  Canvas:= GetBitmapCanvas(tempbmp);
+  Canvas.Brush.Style:= bsSolid;
+  Canvas.Pen.Color:= 13160660;
+  Canvas.Brush.Color:= 13160660;
+  Canvas.Rectangle(0, 0, form1.width, form1.height);
+  Canvas.Pen.Color:= clgray;
+  Canvas.Rectangle(5, 5, form1.width-12, 34);
+  Canvas.Pen.Color:= clwhite
+  Canvas.Rectangle(6, 6, form1.width-13, 33);
+  Canvas.Pen.Color:= clgray;
+  Canvas.Rectangle(5, 38, form1.width-12, form1.height-30);
+  Canvas.Pen.Color:= clwhite
+  Canvas.Rectangle(6, 39, form1.width-13, form1.height-31);
+  Canvas.Brush.Style:= bsClear;
+  Canvas.Font.Size:= 10;
+  Canvas.Font.Name:= 'Verdana Bold';
+  Canvas.Font.Color:= clblack;
+  Canvas.TextOut(38, 6, progname);
+  Canvas.Font.Color:= clyellow;
+  Canvas.TextOut(37, 5, progname);
+  Canvas.Font.Size:= 8;
+  Canvas.Font.Color:= clblack;
+  Canvas.TextOut(38, 19, 'by: ' + progmaker);
+  Canvas.Font.Color:= clyellow;
+  Canvas.TextOut(37, 18, 'by: ' + progmaker);
+  Canvas.Font.Size:= 12;
+  Canvas.Font.Color:= clblack;
+  Canvas.TextOut(form1.width-64, 15, 'v' + progversion);
+  Canvas.Font.Color:= clyellow;
+  Canvas.TextOut(form1.width-65, 14, 'v' + progversion);
+  CopyCanvas(ProgBitmapCanvas,Canvas, 0, 0, 24, 23, 8, 8, 32, 31);
+  CopyCanvas(Canvas,form1.canvas,0,0,form1.width,form1.height,0,0,form1.width,form1.height);
+end;
+
+Procedure MakeReport;
+var  Canvas: TCanvas;
+begin
+     FormDrawTemplate;
+     Canvas:= Form1.Canvas;
+     Canvas.Brush.Style:= bsClear;
+     Canvas.Font.Size:= 8;
+     Canvas.Font.Name:= 'Verdana';
+     Canvas.Font.Color:= clblack;
+     Canvas.TextOut(8, 40, line1);
+     Canvas.TextOut(8, 52, line2);
+     Canvas.TextOut(8, 64, line3);
+     Canvas.TextOut(8, 76, line4);
+     Canvas.TextOut(8, 88, line5);
+     Canvas.TextOut(8, 100, line6);
+     Canvas.TextOut(8, 112, line7);
+end;
+
+Procedure Timer1Activate(Sender: TObject);
+begin
+Line1:=ReadInterScarMessage('time');
+Line2:=ReadInterScarMessage('levels');
+Line3:=ReadInterScarMessage('whirlpool');
+Line4:=ReadInterScarMessage('picked');
+Line5:=ReadInterScarMessage('npcs');
+Line6:=ReadInterScarMessage('fish');
+Line7:=ReadInterScarMessage('currently');
+MakeReport;
+end;
+
+
+procedure ClearScreen;
+begin
+   if(ProgA<1)then
+   begin
+        screenwidth:= ((form1.left+(form1.width/2))*2);
+        screenheight:= ((form1.top+(form1.height/2))*2);
+   end;
+     form1.left:= screenwidth-form1.width;
+     form1.top:= screenheight-form1.height-28;
+     FormDrawTemplate;
+end;
+
+
+procedure FormMouseDown(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
+begin
+     ClearScreen;
+end;
+
+procedure FormCreate(Sender: TObject);
+begin
+     ClearScreen;
+end;
+
+begin
+    ProgA:= 0;
+    loadbmps;
+    FormDrawStart:= True;
+    Application:= GetApplication;
+    Form1:= TForm.Create(Application);
+    Form1.Width:= progwidth;
+    Form1.Height:= progheight;
+    Form1.Position:= poScreenCenter;
+    Form1.BorderStyle:= bsDialog;
+    Form1.Caption:= progname + ' v' + progversion;
+    Form1.OnPaint:= @FormCreate;
+    Form1.OnMouseDown:= @FormMouseDown;
+    Timer1:= TTimer.Create(Form1);
+    Timer1.OnTimer:= @Timer1Activate;
+    Timer1.Enabled:=True;
+    TempBMP:= BitmapFromString(Form1.Width, Form1.Height, '');
+    Self:= GetSelf;
+    Self.WindowState:= wsMinimized;
+    Self.Hide;
+    Application.Title:=progname + ' v' + progversion;
+    Form1.ShowModal;
+    Self.Show;
+    Self.WindowState:= wsMaximized;
+    Application.Title:='SCAR CDE 1';
+    Form1.Free;
+end.
