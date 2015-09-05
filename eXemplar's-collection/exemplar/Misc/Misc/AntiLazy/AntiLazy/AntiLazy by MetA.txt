@@ -1,0 +1,52 @@
+Program AntiLazy;
+var
+ 
+ x,y,a,b,Count,AdjustMS,AdjustS: Integer;
+
+Procedure WaitTillNotMoving;
+
+//Spiffy work here
+begin
+ AdjustMS:=5000; // In the thousands
+ AdjustS:=5;     // Same, cept take off zero's
+
+begin
+ Count:=1;
+ repeat
+  GetMousePos(x,y);
+  Wait(AdjustMS);
+  GetMousePos(a,b);
+  Writeln(IntToStr(x)+','+IntToStr(y));
+  Writeln(IntToStr(a)+','+IntToStr(b));
+ Until(x=a) and (y=b);
+end;
+end;
+
+Procedure StartMoving;
+
+begin
+ Count:=AdjustS;
+  repeat
+  Count:=Count+1;
+  Wait(1000);
+  GetMousePos(x,y);
+  Writeln(IntToStr(Count));
+
+    If (Count=59) then
+    repeat
+    Wait(500);
+    GetMousePos(x,y);
+    PlaySound('redalert.wav');
+    Until(Not (x=a) and Not (y=b));
+
+  Until(Count=60) or not (x=a) and not (y=b);
+  Writeln('HOLY SHIT YOU MOVED!');
+end;
+
+
+Begin
+ repeat
+  WaitTillNotMoving;
+  StartMoving;
+ Until(False);
+end.
