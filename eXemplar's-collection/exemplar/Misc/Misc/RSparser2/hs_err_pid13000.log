@@ -1,0 +1,113 @@
+
+Unexpected Signal : EXCEPTION_ACCESS_VIOLATION (0xc0000005) occurred at PC=0x807119A
+Function=[Unknown.]
+Library=C:\Program Files\Java\j2re1.4.2_04\bin\client\jvm.dll
+
+NOTE: We are unable to locate the function name symbol for the error
+      just occurred. Please refer to release documentation for possible
+      reason and solutions.
+
+
+Current Java thread:
+	at java.lang.ClassLoader.findBootstrapClass(Native Method)
+	at java.lang.ClassLoader.findBootstrapClass0(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	- locked <0x10025268> (a sun.misc.Launcher$ExtClassLoader)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	- locked <0x10028ed8> (a sun.misc.Launcher$AppClassLoader)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	- locked <0x10028ed8> (a sun.misc.Launcher$AppClassLoader)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClassInternal(Unknown Source)
+	- locked <0x10028ed8> (a sun.misc.Launcher$AppClassLoader)
+	at java.lang.ClassLoader.defineClass0(Native Method)
+	at java.lang.ClassLoader.defineClass(Unknown Source)
+	at java.security.SecureClassLoader.defineClass(Unknown Source)
+	at java.net.URLClassLoader.defineClass(Unknown Source)
+	at java.net.URLClassLoader.access$100(Unknown Source)
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	- locked <0x10028ed8> (a sun.misc.Launcher$AppClassLoader)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	- locked <0x10028ed8> (a sun.misc.Launcher$AppClassLoader)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClassInternal(Unknown Source)
+	- locked <0x10028ed8> (a sun.misc.Launcher$AppClassLoader)
+	at java.lang.ClassLoader.defineClass0(Native Method)
+	at java.lang.ClassLoader.defineClass(Unknown Source)
+	at java.security.SecureClassLoader.defineClass(Unknown Source)
+	at java.net.URLClassLoader.defineClass(Unknown Source)
+	at java.net.URLClassLoader.access$100(Unknown Source)
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	- locked <0x10028ed8> (a sun.misc.Launcher$AppClassLoader)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	- locked <0x10028ed8> (a sun.misc.Launcher$AppClassLoader)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClassInternal(Unknown Source)
+	- locked <0x10028ed8> (a sun.misc.Launcher$AppClassLoader)
+	at java.lang.ClassLoader.defineClass0(Native Method)
+	at java.lang.ClassLoader.defineClass(Unknown Source)
+	at java.security.SecureClassLoader.defineClass(Unknown Source)
+	at java.net.URLClassLoader.defineClass(Unknown Source)
+	at java.net.URLClassLoader.access$100(Unknown Source)
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	- locked <0x10028ed8> (a sun.misc.Launcher$AppClassLoader)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	- locked <0x10028ed8> (a sun.misc.Launcher$AppClassLoader)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClassInternal(Unknown Source)
+	- locked <0x10028ed8> (a sun.misc.Launcher$AppClassLoader)
+
+Dynamic libraries:
+0x00400000 - 0x00406000 	C:\WINDOWS\system32\java.exe
+0x7C900000 - 0x7C9B0000 	C:\WINDOWS\system32\ntdll.dll
+0x7C800000 - 0x7C8F4000 	C:\WINDOWS\system32\kernel32.dll
+0x77DD0000 - 0x77E6B000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x77E70000 - 0x77F01000 	C:\WINDOWS\system32\RPCRT4.dll
+0x77C10000 - 0x77C68000 	C:\WINDOWS\system32\MSVCRT.dll
+0x5A800000 - 0x5A817000 	C:\Blumsoft\InternetProtector\IPHookTerminateAPIs.dll
+0x77D40000 - 0x77DD0000 	C:\WINDOWS\system32\user32.dll
+0x77F10000 - 0x77F56000 	C:\WINDOWS\system32\GDI32.dll
+0x77120000 - 0x771AC000 	C:\WINDOWS\system32\oleaut32.dll
+0x774E0000 - 0x7761C000 	C:\WINDOWS\system32\ole32.dll
+0x57800000 - 0x57884000 	C:\Program Files\Program Protector\HookProcessCreation.dll
+0x5D090000 - 0x5D127000 	C:\WINDOWS\system32\comctl32.dll
+0x77C00000 - 0x77C08000 	C:\WINDOWS\system32\version.dll
+0x00AA0000 - 0x00ABA000 	C:\Program Files\Program Protector\HookTerminateAPIs.dll
+0x08000000 - 0x08138000 	C:\Program Files\Java\j2re1.4.2_04\bin\client\jvm.dll
+0x76B40000 - 0x76B6D000 	C:\WINDOWS\system32\WINMM.dll
+0x10000000 - 0x10007000 	C:\Program Files\Java\j2re1.4.2_04\bin\hpi.dll
+0x002F0000 - 0x002FE000 	C:\Program Files\Java\j2re1.4.2_04\bin\verify.dll
+0x00C40000 - 0x00C59000 	C:\Program Files\Java\j2re1.4.2_04\bin\java.dll
+0x00A60000 - 0x00A6D000 	C:\Program Files\Java\j2re1.4.2_04\bin\zip.dll
+0x76BF0000 - 0x76BFB000 	C:\WINDOWS\system32\PSAPI.DLL
+
+Heap at VM Abort:
+Heap
+ def new generation   total 576K, used 160K [0x10010000, 0x100b0000, 0x104f0000)
+  eden space 512K,  31% used [0x10010000, 0x10038318, 0x10090000)
+  from space 64K,   0% used [0x10090000, 0x10090000, 0x100a0000)
+  to   space 64K,   0% used [0x100a0000, 0x100a0000, 0x100b0000)
+ tenured generation   total 1408K, used 0K [0x104f0000, 0x10650000, 0x14010000)
+   the space 1408K,   0% used [0x104f0000, 0x104f0000, 0x104f0200, 0x10650000)
+ compacting perm gen  total 4096K, used 972K [0x14010000, 0x14410000, 0x18010000)
+   the space 4096K,  23% used [0x14010000, 0x14103350, 0x14103400, 0x14410000)
+
+Local Time = Wed Feb 23 18:58:43 2005
+Elapsed Time = 93
+#
+# HotSpot Virtual Machine Error : EXCEPTION_ACCESS_VIOLATION
+# Error ID : 4F530E43505002EF
+# Please report this error at
+# http://java.sun.com/cgi-bin/bugreport.cgi
+#
+# Java VM: Java HotSpot(TM) Client VM (1.4.2_04-b05 mixed mode)
+#

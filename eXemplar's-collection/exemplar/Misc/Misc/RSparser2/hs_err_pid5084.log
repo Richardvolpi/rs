@@ -1,0 +1,92 @@
+#
+# An unexpected error has been detected by HotSpot Virtual Machine:
+#
+#  Internal Error (434F4445224C4F420E4350500135), pid=5084, tid=344
+#
+# Java VM: Java HotSpot(TM) Client VM (1.5.0_01-b08 mixed mode)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000368f8):  JavaThread  [_thread_in_vm, id=344]
+
+Stack: [0x00040000,0x00080000),  sp=0x0007f9f0,  free space=254k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x111f80]
+V  [jvm.dll+0x60ecc]
+V  [jvm.dll+0x4e6f8]
+V  [jvm.dll+0x4e620]
+V  [jvm.dll+0x379fd]
+V  [jvm.dll+0x37a89]
+V  [jvm.dll+0x8bed4]
+C  [java.exe+0x211b]
+C  [java.exe+0x11b6]
+C  [java.exe+0x64cd]
+C  [kernel32.dll+0x16d4f]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+VM state:not at safepoint (not fully initilizated)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00035520/0x00000770] CodeCache_lock - owner thread: 0x000368f8
+
+Heap
+ def new generation   total 576K, used 0K [0x22e60000, 0x22f00000, 0x23340000)
+  eden space 512K,   0% used [0x22e60000, 0x22e60000, 0x22ee0000)
+  from space 64K,   0% used [0x22ee0000, 0x22ee0000, 0x22ef0000)
+  to   space 64K,   0% used [0x22ef0000, 0x22ef0000, 0x22f00000)
+ tenured generation   total 1408K, used 0K [0x23340000, 0x234a0000, 0x26e60000)
+   the space 1408K,   0% used [0x23340000, 0x23340000, 0x23340200, 0x234a0000)
+ compacting perm gen  total 8192K, used 388K [0x26e60000, 0x27660000, 0x2ae60000)
+   the space 8192K,   4% used [0x26e60000, 0x26ec1300, 0x26ec1400, 0x27660000)
+No shared spaces configured.
+
+Dynamic libraries:
+0x00400000 - 0x0040c000 	C:\WINDOWS\system32\java.exe
+0x7c900000 - 0x7c9b0000 	C:\WINDOWS\system32\ntdll.dll
+0x7c800000 - 0x7c8f4000 	C:\WINDOWS\system32\kernel32.dll
+0x77dd0000 - 0x77e6b000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x77e70000 - 0x77f01000 	C:\WINDOWS\system32\RPCRT4.dll
+0x77c10000 - 0x77c68000 	C:\WINDOWS\system32\MSVCRT.dll
+0x57800000 - 0x57884000 	C:\Program Files\Program Protector\HookProcessCreation.dll
+0x5d090000 - 0x5d127000 	C:\WINDOWS\system32\comctl32.dll
+0x77f10000 - 0x77f56000 	C:\WINDOWS\system32\GDI32.dll
+0x77d40000 - 0x77dd0000 	C:\WINDOWS\system32\USER32.dll
+0x774e0000 - 0x7761d000 	C:\WINDOWS\system32\ole32.dll
+0x77120000 - 0x771ac000 	C:\WINDOWS\system32\oleaut32.dll
+0x77c00000 - 0x77c08000 	C:\WINDOWS\system32\version.dll
+0x5a800000 - 0x5a81a000 	C:\Program Files\Program Protector\HookTerminateAPIs.dll
+0x6d640000 - 0x6d7c5000 	C:\Program Files\Java\jre1.5.0_01\bin\client\jvm.dll
+0x76b40000 - 0x76b6d000 	C:\WINDOWS\system32\WINMM.dll
+0x6d280000 - 0x6d288000 	C:\Program Files\Java\jre1.5.0_01\bin\hpi.dll
+0x76bf0000 - 0x76bfb000 	C:\WINDOWS\system32\PSAPI.DLL
+0x6d610000 - 0x6d61c000 	C:\Program Files\Java\jre1.5.0_01\bin\verify.dll
+0x6d300000 - 0x6d31d000 	C:\Program Files\Java\jre1.5.0_01\bin\java.dll
+0x6d630000 - 0x6d63f000 	C:\Program Files\Java\jre1.5.0_01\bin\zip.dll
+
+VM Arguments:
+java_command: at.dms.ksm.Main -d C:\Aivars\rs\rs2-1.mar\ C:\Aivars\rs\rs2-1.mar\Class35.j
+
+Environment Variables:
+CLASSPATH=C:\j2sdk;C:\j2sdk\lib;C:\j2sdk\lib\tools.jar;C:\j2sdk\jre\lib;c:\j2sdk\jre\lib\rt.jar;C:\Aivars\rs\bsf-2.3.0\lib\bsf.jar;.
+PATH=C:\sml\bin;C:\Program Files\Borland\Delphi7\Bin;C:\Program Files\Borland\Delphi7\Projects\Bpl\;C:\PROGRA~1\Borland\Delphi5\Projects\Bpl;C:\PROGRA~1\Borland\vbroker\jre\Bin;C:\PROGRA~1\Borland\vbroker\Bin;C:\PROGRA~1\Borland\Delphi5\Bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Executive Software\Diskeeper\;C:\Program Files\RemObjects Software\Pascal Script for Delphi\Dcu\D7;C:\WINDOWS;C:\WINDOWS\System32;C:\Program Files\Microsoft Visual Studio\Common\Tools\WinNT;C:\Program Files\Microsoft Visual Studio\Common\MSDev98\Bin;C:\Program Files\Microsoft Visual Studio\Common\Tools;C:\Program Files\Microsoft Visual Studio\VC98\bin;C:\j2sdk\bin;C:\j2sdk\jre\bin;
+USERNAME=Aivars
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 15 Model 2 Stepping 9, GenuineIntel
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows XP Build 2600 Service Pack 2
+
+CPU:total 2 family 15, cmov, cx8, fxsr, mmx, sse, sse2, ht
+
+Memory: 4k page, physical 523756k(45632k free), swap 1209284k(10836k free)
+
+vm_info: Java HotSpot(TM) Client VM (1.5.0_01-b08) for windows-x86, built on Dec  6 2004 19:51:00 by "java_re" with MS VC++ 6.0
+
