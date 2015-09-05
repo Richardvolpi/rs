@@ -1,0 +1,1243 @@
+// Don't try to compile this as it'll require my selfmade java preprocessor (syntax similar to C/C++ ones)
+// This should contain all necessary info for all your scripting needs ;P along with the tiny bit of info in readme.txt
+// Last update March-15-2004 -evo-
+
+#include "userpref.jhh"
+
+#define CLASSPREFIX		B0t.			// all fields/methods used in definitions.jhh will be prefixed with this
+#ifdef AR_IX_PUBLIC
+#include "definitionsAR.jhh"
+#else
+#include "definitions.jhh"
+#endif
+
+import jagex.client.printer;
+
+public abstract class Script
+{
+#ifdef BOT
+	public myBot B0t;
+#else
+	public bot B0t;		// need to access all the required data (npcs, objects, etc...) there
+#endif
+
+    public Script() { B0t = null; }
+
+	// returns a list of commands that apply to this bot
+    public abstract String[] getCommands();
+
+    public void init() { }		// executed upon loading of this class - can do some initialization maybe
+
+
+	// executed prior to running this script to intialize some data that script uses
+	// also needed to parse the command for eventual parameters
+    public abstract boolean start(String command, String parameters[]);
+
+	// executed when this script is about to be halted - run won't be executed after this anymore
+    public void stop() { }
+
+	// do the actual script processing here
+	// return time to wait (in ms) before next ivokation of run()
+	public abstract long run(long ticks);
+
+	public void ServerMessage(String message) { }		// called for each message being sent from server
+
+	// called while in combat, return -1 to halt script (on error for example) or a value > 0 to specify the
+	// time to wait before next invokation in ms. A return value of 0 denotes that runCombat did nothing.
+	// Also note that, if runCombat returns a value != 0, the autoRetreat meachanism will be overidden.
+	// This is to prevent mutual perturbation.
+	public long runCombat(long ticks) { return 0; }
+
+	// list of methods we can use in our scripts
+	public void print(String text)
+	{
+		B0t.myPrinter.log(text);
+	}
+	public void println(String text)
+	{
+		B0t.myPrinter.logln(text);
+	}
+	public void printMessage(String text)		// output something to ingame message window
+	{
+#ifdef BOT
+		B0t.myPrinter.logln("MessageWnd: " + text);
+#else
+		B0t.gk(text, 7);
+#endif
+	}
+
+	// verbal interaction with other players (or Mods:P)
+	// gets called for each chat message, playerId denoting the player who said this
+	public void PlayerChat(int playerId, String chatText, boolean playerReferred) { }
+	public void AutoChat(String text) { B0t.myChatMessage = text; }		// writes "text" to chat
+	// gets called for each private chat message
+	public void PrivateChat(String playerName, String chatText) { }
+	// sends a private message to a guy called "playerName". Note: player MUST be in friendslist, so add him before
+	public void PrivateMessage(String playerName, String chatText) { B0t.SendPrivateMessage(playerName, chatText); }
+	// adds a player to your friends list
+	public void AddPlayerToList(String playerName) { B0t.AddPlayerToFriendsList(playerName); }
+	// returns true, if a player appears online in friends list
+	public boolean isPlayerOnline(String playerName) { return B0t.isPlayerOnline(playerName); }
+
+	// forced logOut, turn off autorelogin aswell
+	public void ForcedLogout() { B0t.logOutRequest = true; B0t.clientAutoLogin = false; }
+
+
+	// returns any random value between base and base+range
+	public int random(int base, int range) {
+		return base + (java.lang.Math.abs(B0t.rnd.nextInt()) % (range+1));
+	}
+	// returns true in one of "number" cases
+	public boolean oneIn(int number) { 
+		if(number == 0) return false;
+		return (B0t.rnd.nextInt() % number) == 0;
+	}
+
+	// Note: Those are supported only in special client!!
+	public void EnableSuspension() { B0t.suspendingDisabled = false; }
+	public void DisableSuspension() { B0t.suspendingDisabled = true; }	// script may not autostop in critical situations
+	public boolean SuspensionRequested() { return B0t.requestScriptSuspension; }	// top layer script wants me to stop this script!
+	public void ForcedScriptSuspension() { B0t.SuspendScript(); }
+	public void CheckExitRequest() {
+		if(B0t.ExitRequest >= B0t.ExitReqLimit) ForcedScriptSuspension();
+		if(B0t.ExitRequest > 0) B0t.ExitRequest--;
+	}
+
+
+	// enables or disables autoretreat, a neat feature when thieving or we don't want our lvl 3s die from highwayman
+	public void EnableAutoRetreat() { B0t.players[B0t.curPlayer].AutoRetreat = true; }
+	public void DisableAutoRetreat() { B0t.players[B0t.curPlayer].AutoRetreat = false; }
+
+	public class TileCoord {
+		public int x, y;
+		public TileCoord(int x, int y) { this.x = x; this.y = y; }
+		public boolean equals(TileCoord rVal) { return rVal.x == x && rVal.y == y; }
+		public boolean equals(int x, int y) { return this.x == x && this.y == y; }
+		public int distanceFrom(TileCoord from)	{	// returns distance between the two points in r^2
+			int deltaX = from.x-x, deltaY = from.y-y;
+			return deltaX*deltaX + deltaY*deltaY;
+		}
+		public boolean inArea(int x1, int y1, int x2, int y2) {	// returns true, if coordinates lie within that area
+			return x >= x1 && y >= y1 && x <= x2 && y <= y2;
+		}
+	};
+
+	// some miscellaneous methods
+	// returns xp in a certain skill as a multipe of 4
+	public int getSkillXP(int skill) { return SKILL_XP[skill]; }
+	// the current level of a skill (i.e. current hp/pray level, or temporary stats after drinking potions)
+	public int getSkillLevelCurrent(int skill) { return LEVEL_CURRENT[skill]; }
+	public int getSkillLevelReal(int skill) { return LEVEL_REAL[skill]; }		// the real level of a skill
+	// skill is assigned as follows, beginning with skill=0 for Attack
+	// "Attack", "Defense", "Strength", "Hits", "Ranged", "Prayer", "Magic", "Cooking", "Woodcut", "Fletching", 
+    // "Fishing", "Firemaking", "Crafting", "Smithing", "Mining", "Herblaw", "Agility", "Thieving"
+
+
+	// turn on/off prayer - returns true, if prayer state was toggled, false otherwise
+	// Note: no range checks are done here, so make sure prayerIndex is correct
+	public boolean prayerOn(int prayerIndex) { return B0t.PrayerOn(prayerIndex); }
+	public boolean prayerOff(int prayerIndex) { return B0t.PrayerOff(prayerIndex); }
+	public boolean isPrayerOn(int prayerIndex) { return PRAYERFLAGS[prayerIndex]; }
+
+	// returns the current combat setting (0=controlled, 1=strength, 2=attack, 3=defence)
+	public int combatStyle() { return COMBATSTYLE; }
+	// returns the combat style we want to use (being set by ##con, ##str, ##att, ##def)
+	public int requestedCombatStyle() { return B0t.players[B0t.curPlayer].combatStyle; }
+
+
+// This class lets you easily manage complex areas which can be any any area surrounded by a polygon.
+// Of course the lines that build up these polygons may not intersect eachother and only 8 directions
+// of lines are allowed: 4 straight and the 4 diagonal
+public class Section {
+	public int pointArrayX[];
+	public int pointArrayY[];
+	public int numPoints;
+	private int left, top, right, bottom;		// coordinates of the bitMap
+	private byte bitMap[][];
+	private int xSize, ySize;			// not valid until bitMap has been allocated by CreateMap()
+
+	public void AllocatePoints(int numberOfPoints) {
+		pointArrayX = new int[numberOfPoints];
+		pointArrayY = new int[numberOfPoints];
+		numPoints = numberOfPoints;
+	}
+	// check if the data points are correct (only horizontal, vertical or diagonal lines!)
+	public boolean ValidatePoints();
+
+	// created a bitMap for faster collision detection (return true on success)
+	public boolean CreateMap();
+
+	// checks, if a point lies inside that section
+	public boolean Contains(int x, int y);
+
+};
+/****************************** End of Section class definition *****************************************/
+
+
+	// for 5min warning...
+	// if bonez true, drop bones at that spot and pick them up to walk back again (for crowded spots!)
+	// if bonez is false, just walk to a random reachable spot and script has to walk back manual (for mining, fishing, etc)
+	// returns 0, if nothing has been done and then normal script can execute
+	// if actions to place, this method needs the amount of ms to wait
+	public int CheckMoveRequest(boolean bonez) { return B0t.CheckMoveRequest(bonez); }
+
+	// checks if player within a certain area
+	public boolean inArea(int x1, int y1, int x2, int y2)
+	{
+		return B0t.curPosX >= x1 && B0t.curPosY >= y1 && B0t.curPosX <= x2 && B0t.curPosY <= y2;
+	}
+	public int distanceFrom(int x, int y)	// returns distance from current player position to (x,y) in r^2
+	{
+		int deltaX = playerX()-x, deltaY = playerY()-y;
+		return deltaX*deltaX + deltaY*deltaY;
+	}
+	// calculate closest distance r^2 to that area (for single tile set x1=x2, y1=y2)
+	public int distanceFrom(int x1, int y1, int x2, int y2)
+	{
+		if(x1 > x2) { int temp = x1; x1 = x2; x2 = temp; }		// swap x1 and x2
+		if(y1 > y2) { int temp = y1; y1 = y2; y2 = temp; }		// swap y1 and y2
+
+		int deltaX = 0, deltaY = 0;
+		if(playerX() < x1) deltaX = x1-playerX();
+		else if(playerX() > x2) deltaX = playerX()-x2;
+		if(playerY() < y1) deltaY = y1-playerY();
+		else if(playerY() > y2) deltaY = playerY()-y2;
+		return deltaX*deltaX + deltaY*deltaY;
+	}
+
+	// wasFighting tells if the player was in a fight recently. This Flag has to be reset by use
+	// of the resetWasFighting() method, otherwise it would return always true
+	// I'm not really proud about this solution, but i was forced to do it this way as
+	// runCombat() will NOT be called immediately after entering combat and thus, would be less accurate.
+	public boolean wasFighting() { return B0t.wereFighting; }
+	public void resetWasFighting() { B0t.wereFighting = false; }
+
+	public int playerX() { return B0t.curPosX; }		// returns the current position of the player
+	public int playerY() { return B0t.curPosY; }
+	public boolean isWalking()		// player is currently walking?
+	{
+		return ISWALKING;
+	}
+	// returns false, if this tile is not reachable, i.e. its water or behind a closed door or an object is on that tile
+	public boolean tileReachable(int x, int y);
+
+	// returns false, if this area is not reachable, i.e. its water or behind a closed door or an object is on that tile
+	public boolean areaReachable(int x1, int y1, int x2, int y2);
+
+	// returns number of tiles to traverse from start to end point, or -1 if the two points cannot be reached
+	// from each other
+	public int pathLength(int startx, int starty, int endx, int endy);
+
+	public boolean walkTo(int x, int y)			// walk to absolute (x, y) coordinates, return false on error
+	{
+		int distX = playerX()-x, distY = playerY()-y;
+		if(distX*distX + distY*distY >= 17*17) {
+			//println("WalkTo(): Warning: waypoint (" + x + ", " + y + ") too far away! player at (" + playerX() + ", " + playerY() + ")");
+			return false;
+		}
+		println("walkTo(" + x + ", " + y + ");");
+		WALKCOMMAND(x, y);
+		return true;
+	}
+
+	// walks to a random tile within this area - also checks if this tile is reachable
+	public boolean walkToArea(int x1, int y1, int x2, int y2);
+	public boolean walkTo(int x, int y, int range)		// walks near a certain spot
+	{
+		return walkToArea(x-range, y-range, x+range, y+range);
+	}
+
+	// walks to a random tile within this area - also checks if this tile is reachable
+	// Extended: the destination tile must lie within "maxTileDist" to "center tile"
+	public boolean walkToAreaEx(int x1, int y1, int x2, int y2, int centerX, int centerY, int maxTileDist);
+
+	// extended version of walkTo
+	public boolean walkToEx(int x, int y, int range)		// walks near a certain spot
+	{
+		return walkToAreaEx(x-range, y-range, x+range, y+range, x, y, range+range/2);
+	}
+
+	// same as walkToArea, but the wayPoint has to lie within mySection
+	public boolean walkToArea(int x1, int y1, int x2, int y2, Section mySection);
+
+	// walks near a certain spot, staying inside mySection
+	public boolean walkTo(int x, int y, int range, Section mySection)
+	{
+		return walkToArea(x-range, y-range, x+range, y+range, mySection);
+	}
+
+	// tries to walk the NEAREST way to a certain area
+	// returns: -1 false if area is unreachable; 0 if we're in that area or
+	// a value > 0 if we did send a command to walk into that area
+	public int findWayTo(int x1, int y1, int x2, int y2);
+
+	public void runWalkingScript(int wayPointsX[], int wayPointsY[])
+	{
+		if(wayPointsX == null || wayPointsY == null || wayPointsX.length != wayPointsY.length) {
+			println("runWalkingScript(): Error: array sizes of wayPointsX and wayPointsY must match!");
+			return;
+		}
+		B0t.StartWalkingScript(wayPointsX, wayPointsY);		// just redirect this
+	}
+	public void runWalkingScriptBack(int wayPointsX[], int wayPointsY[])
+	{
+		// just reverse the order in wayPointsX/Y and let runWalkingScript do the job
+		if(wayPointsX == null || wayPointsY == null || wayPointsX.length != wayPointsY.length) {
+			println("runWalkingScriptBack(): Error: array sizes of wayPointsX and wayPointsY must match!");
+			return;
+		}
+		int arraySize = wayPointsX.length;
+		int newWayPointX[] = new int[arraySize], newWayPointY[] = new int[arraySize];
+		for(int i = 0; i < arraySize; i++) {
+			newWayPointX[i] = wayPointsX[arraySize-1-i];
+			newWayPointY[i] = wayPointsY[arraySize-1-i];
+		}
+		runWalkingScript(newWayPointX, newWayPointY);
+	}
+
+	// some usefull method for opening doors
+	// returns 0, if the door at the position (x,y) is open
+	// returns a value > 0, if some command was send, like walking to that door or opening it
+	// returns -1, if door not reachable
+	public int checkDoorOpen(int x, int y);
+
+
+	// checks the surroundings for closed doors that might trap us
+	// returns 0, if no closed door was found
+	// returns a value > 0, if some command was send, like walking to that door or opening it
+	public int tryToFree();
+
+
+	// fatigue related
+	public boolean isTooTired() { return B0t.tooTired; }
+	public int fatigueLevel() { return FATIGUE; }	// returns fatigue level from 0..100
+	// automatic sleeping on fatiguelevels >= threshold. Needs sleeping bag in inventory
+	public void disableCustomSleeping(int threshold) {
+		B0t.players[B0t.curPlayer].customSleeping = false;
+		B0t.players[B0t.curPlayer].fatigueThreshold = threshold;
+	}
+	public void enableCustomSleeping() {
+		B0t.players[B0t.curPlayer].customSleeping = true;
+	}
+
+
+	/******************************* Dialog related methods ******************************/
+	public boolean isDialogShown() { return DIALOGSHOWN; }		// returns true, if dialog is currently shown
+
+	// returns number of items shown in dialog (should be in the range 1-5)
+	public int numDialogItems() { return NUMDIALOGITEMS; }
+
+	// returns the text of a certain dialog item (1st item is labeled as index 0)
+	public String getDialogText(int index);
+
+	public void hideDialog() { DIALOGSHOWN = false; }	// used to hide the dialog - can be used instead of clicking on a item
+
+	// clicks the dialog item at index, return false, if failed
+	public boolean chooseDialogItem(int index):
+
+	// clicks the dialog item that has a certain text
+	// returns true if the item was clicked, false if no such dialog item was found
+	public boolean chooseDialogItem(String text);
+
+	public void displayDialogItems()			// DEBUG: output the dialog items
+	{
+		if(!isDialogShown()) return;
+		for(int i = 0; i < numDialogItems(); i++) println("[" + i + "]: " + DIALOGITEMS[i]);
+	}
+
+
+	/******************************** Bank account manager *******************************/
+	// bankRun(): analogeous to the run() method only its called while in bank
+	// return time to wait (in ms) before next ivokation of run()
+
+	// this is the standard implementation of bankRun: deposit all types of items as specified in bankTypes
+	// should be good enough for any cases that just require deposition of items (ores, fish, etc...)
+
+	private int bankTypes[] = null;	// a list with all types of items we want to bank - use method setBankTypes to initialize this
+	private int lastDeposit = -1;
+	private java.util.HashSet bankItems = new java.util.HashSet();	// keep track of all the items we're about to bank - just to display some stats
+	public int bankRun();
+
+	// set the itemTypes of items we want to deposit into out bank account. Applies ONLY to the standard
+	// implementation of bankRun(). This one is obsolete if you define your own banking routines, i.e. 
+	// override bankRun().
+	public void setBankTypes(int types[]) {
+		bankTypes = types;
+		lastDeposit = -1;
+		bankItems.clear();		// reset
+	}
+
+	public boolean inBank() { return BANKACCOUNTOPEN; }		// currently in bank account?
+	// talks to a random near banker and open the bank account
+	// make sure, that we're near enough to some bankers and that the way is not blocked by doors
+	public void openBankAccount();
+		DisableSuspension();		// don't try to log out during banking...
+		B0t.bankingScriptRunning = true;
+		// initialize some variables
+		selectedBanker = -1;
+		reactionTime = false;
+	}
+	public void closeBankAccount();		// closes the bank account
+
+	// returns the number of items in bank + inventory - only deposit things that are in these arrays!
+	public int totalBankItems() { return NUMBANKITEMS; }
+
+	// returns the itemType of a certain bank slot (inc. inventory)
+	public int bankItemType(int bankIdx);
+
+	// returns the amount of items in a certain bank slot (inc. inventory)
+	// use bankItemType to get the respective itemType of this slot
+	public int bankItemAmount(int bankIdx);
+
+	// tries to find a certain item of itemType in bank (use this function to check if we can deposit a certain item)
+	// returns -1 if no item of that type was found
+	public int findBankItem(int itemType);
+
+	// sends ONE correct deposit command
+	// return -1 on error, 0 if nothing was deposit, or a number > 0 denotes how many items of that type were deposit
+	public int depositItem(int itemType);
+
+	// withdraw items of type itemType, return false on error
+	private boolean withdrawItem(int itemType, int amount);
+
+	// sends ONE correct withdrawal command
+	// return -1 on error, 0 if nothing was withdrawn, or a number > 0 denotes how many items of that type were withdrawn
+	public int withdrawItem(int itemType);
+
+
+	/************************** inventory related methods ********************************/
+	public int numInvItems() { return INV_SIZE; }		// number of items currently in inventory
+
+	// returns the number of a certain item currently in inventory - applies to stackable and non-stackable objects
+	public int numInvItem(int itemType) { return ITEMS_IN_INV(itemType); }
+
+	// returns the itemType at a certain slot (0..29), or -1 if slot is unused or invalid
+	public int itemAtSlot(int slot);
+
+	public int getInvSlot(int itemType);	// search the inventory for a certain item beginning at slot 0
+
+	public int getInvSlotBW(int itemType);	// search the inventory for a certain item beginning at last slot
+
+	// returns the name of an item
+	public String getItemName(int itemType);
+
+	// returns the description of an item
+	public String getItemDesc(int itemType);
+
+	// returns custom command for that item (like eat food or bury bones)
+	public String getItemCommand(int itemType);
+
+	public boolean itemBeingWorn(int slot);	// returns true, if item is currently being worn
+
+	// some commands...
+	public void dropItem(int slot);
+
+	public void itemCommand(int slot);		// uses custom command for this item in inventory
+
+	// use *slot* with *withSlot*
+	public void useItemWithItem(int slot, int withSlot);	// slot: inventory slot (0-29)
+
+	public void castOnItem(int spellIndex, int slot);
+
+	public void removeItem(int slot);		// "removes" any worn item
+
+	public void wearItem(int slot);		// wears an item
+
+	/****************************** ground items related methods  **************************/
+	public int numGroundItems() { return NUM_ITEMS; }		// number of items lying around in the near surroundings
+	// returns the itemType of a certain ground item in the array, returns -1 on error
+	public int getGroundItemType(int itemIndex) {
+		if(itemIndex < 0 || itemIndex >= NUM_ITEMS) {
+			println("getGroundItemType(): value of itemIndex out of range: " + itemIndex);
+			return -1;
+		}
+		else return ITEM_INDEX[itemIndex];		// ITEM_INDEX is the array with the item types!
+	}
+	// returns the coordinates of a certain item lying on the ground
+	public TileCoord getGroundItemPos(int itemIndex) {
+		if(itemIndex < 0 || itemIndex >= NUM_ITEMS) {
+			println("getGroundItemPos(): value of itemIndex out of range: " + itemIndex);
+			return null;
+		}
+		else return new TileCoord(ITEM_X[itemIndex]+REGIONX, ITEM_Y[itemIndex]+REGIONY);
+	}
+	public void useItemWithGroundItem(int slot, int itemIndex)	// slot: inventory slot (0-29)
+	{
+		if(itemIndex < 0 || itemIndex >= NUM_ITEMS) {
+			println("useItemWithGroundItem(): Warning: value of itemIndex out of range: " + itemIndex);
+		}
+		else if(slot < 0 || slot >= INV_SIZE) {
+			println("useItemWithGroundItem(): Warning: inventory slot invalid: " + slot);
+		}
+		else USEWITHGR_ITEM(slot, itemIndex);
+	}
+	public void castOnGroundItem(int spellIndex, int itemIndex)
+	{
+		if(itemIndex < 0 || itemIndex >= NUM_ITEMS) {
+			println("castOnGroundItem(): Warning: value of itemIndex out of range: " + itemIndex);
+		}
+		else if(spellIndex < 0 || spellIndex >= NUMBER_SPELLS) {
+			println("castOnGroundItem(): Warning: spellIndex invalid: " + spellIndex);
+		}
+		else if(!canCastSpell(spellIndex)) {
+		}
+		else if(SPELLTYPE[spellIndex] != 3) {
+			println("castOnGroundItem(): Warning: Spell " + getSpellName(spellIndex) + "(" + spellIndex + ") not castable on items lying on the ground");
+		}
+		else CASTON_GR_ITEM(spellIndex, itemIndex);
+	}
+	public void takeGroundItem(int itemIndex)		// pickup item from the ground
+	{
+		if(itemIndex < 0 || itemIndex >= NUM_ITEMS) {
+			println("castOnGroundItem(): Warning: value of itemIndex out of range: " + itemIndex);
+		}
+		else B0t.TakeItem(itemIndex);
+	}
+
+
+	/********************* objects related methods (rocks, furnaces, trees, ...) *****************/
+
+	public int numObjects() { return OBJLISTSIZE; }		// number of objects in current area
+	// returns the objectIndex of the object at position x, y or -1 if none is there
+	public int getObjectAt(int x, int y)
+	{
+		int xPos = x - REGIONX, yPos = y - REGIONY;		// relative coordinates
+		for(int i = 0; i < OBJLISTSIZE; i++) {			// go through all objects
+			if(OBJPOSX[i] == xPos && OBJPOSY[i] == yPos)
+				return i;	// found it
+		}
+		return -1;		// not found
+	}
+	// returns the objectType of a certain object at position x, y or -1 if none is there
+	public int getObjectType(int x, int y)
+	{
+		int index = getObjectAt(x, y);
+		if(index == -1) return -1;
+		else return OBJINDEX[index];			// OBJINDEX is the array with the object types!
+	}
+	// returns the objectType of a certain object in the objects array
+	public int getObjectType(int objectIndex) {
+		if(objectIndex < 0 || objectIndex >= OBJLISTSIZE) {
+			println("getObjectType(): value of objectIndex out of range: " + objectIndex);
+			return -1;
+		}
+		else return OBJINDEX[objectIndex];		// OBJINDEX is the array with the object types!
+	}
+	// returns the coordinates of a certain object in the objects array
+	public TileCoord getObjectPos(int objectIndex) {
+		if(objectIndex < 0 || objectIndex >= OBJLISTSIZE) {
+			println("getObjectPos(): value of objectIndex out of range: " + objectIndex);
+			return null;
+		}
+		else return new TileCoord(OBJPOSX[objectIndex]+REGIONX, OBJPOSY[objectIndex]+REGIONY);
+	}
+	// returns the name of an object
+	public String getObjectName(int objectType) { return OBJNAME[objectType]; }
+	// returns the description of an object
+	public String getObjectDesc(int objectType) { return OBJDESC[objectType]; }
+	// returns command 1 for that object
+	public String getObjectCommand1(int objectType) {
+		String cmd = OBJCMDNAME1[objectType];
+		if(cmd == null || cmd.equals("WalkTo")) return "";		// no command for that object
+		else return cmd;
+	}
+	// returns command 2 for that object
+	public String getObjectCommand2(int objectType) {
+		String cmd = OBJCMDNAME2[objectType];
+		if(cmd == null || cmd.equals("Examine")) return "";		// no command for that object
+		else return cmd;
+	}
+
+	// commands related to objects
+	public void objectCommand1(int objectIndex)		// uses command 1 for this object
+	{
+		if(objectIndex < 0 || objectIndex >= OBJLISTSIZE) {
+			println("objectCommand1(): Warning: value of objectIndex out of range: " + objectIndex);
+		}
+		else if(getObjectCommand1(getObjectType(objectIndex)).equals("")) {
+			println("objectCommand1(): Warning: no custom command 1 for object " + getObjectType(objectIndex));
+		}
+		else OBJCOMMAND1(objectIndex);
+	}
+	public void objectCommand2(int objectIndex)		// uses command 2 for this object
+	{
+		if(objectIndex < 0 || objectIndex >= OBJLISTSIZE) {
+			println("objectCommand2(): Warning: value of objectIndex out of range: " + objectIndex);
+		}
+		else if(getObjectCommand2(getObjectType(objectIndex)).equals("")) {
+			println("objectCommand2(): Warning: no custom command 2 for object " + getObjectType(objectIndex));
+		}
+		else OBJCOMMAND2(objectIndex);
+	}
+	public void useItemWithObject(int slot, int objectIndex)	// slot: inventory slot (0-29)
+	{
+		if(objectIndex < 0 || objectIndex >= OBJLISTSIZE) {
+			println("useItemWithObject(): Warning: value of objectIndex out of range: " + objectIndex);
+		}
+		else if(slot < 0 || slot >= INV_SIZE) {
+			println("useItemWithObject(): Warning: inventory slot invalid: " + slot);
+		}
+		else USEWITHOBJ(slot, objectIndex);
+	}
+	public void castOnObject(int spellIndex, int objectIndex)
+	{
+		if(objectIndex < 0 || objectIndex >= OBJLISTSIZE) {
+			println("castOnObject(): Warning: value of objectIndex out of range: " + objectIndex);
+		}
+		else if(spellIndex < 0 || spellIndex >= NUMBER_SPELLS) {
+			println("castOnObject(): Warning: spellIndex invalid: " + spellIndex);
+		}
+		else if(!canCastSpell(spellIndex)) {
+		}
+		else if(SPELLTYPE[spellIndex] != 5) {
+			println("castOnObject(): Warning: Spell " + getSpellName(spellIndex) + "(" + spellIndex + ") not castable on objects");
+		}
+		else CASTON_OBJ(spellIndex, objectIndex);
+	}
+	// performs command1 for object at position x,y. This command name must match commandName
+	public boolean objectCommand1At(int x, int y, String commandName)
+	{
+		int index = getObjectAt(x, y);
+		if(index == -1) return false;	// nothing found there
+
+		if(!getObjectCommand1(getObjectType(index)).equalsIgnoreCase(commandName))
+			return false;
+
+		objectCommand1(index);
+		return true;	// success
+	}
+	// performs command2 for object at position x,y. This command name must match commandName
+	public boolean objectCommand2At(int x, int y, String commandName)
+	{
+		int index = getObjectAt(x, y);
+		if(index == -1) return false;	// nothing found there
+
+		if(!getObjectCommand2(getObjectType(index)).equalsIgnoreCase(commandName))
+			return false;
+
+		objectCommand2(index);
+		return true;	// success
+	}
+
+
+	/************* wallObjects related methods (door(frames), fences, ...) *****************/
+
+	public int numWallObjects() { return WALLOBJLISTSIZE; }		// number of wallObjects in current area
+	// returns the index of the wallObject at position x, y or -1 if none is there
+	public int getWallObjectAt(int x, int y)
+	{
+		int xPos = x - REGIONX, yPos = y - REGIONY;		// relative coordinates
+		for(int i = 0; i < WALLOBJLISTSIZE; i++) {			// go through all wall objects
+			if(WALLOBJX[i] == xPos && WALLOBJY[i] == yPos)
+				return i;	// found it
+		}
+		return -1;		// not found
+	}
+	// returns the objectType of a certain wallObject at position x, y or -1 if none is there
+	public int getWallObjectType(int x, int y)
+	{
+		int index = getWallObjectAt(x, y);
+		if(index == -1) return -1;
+		else return WALLOBJINDEX[index];			// WALLOBJINDEX is the array with the wall object types!
+	}
+	// returns the objectType of a certain wall object in the objects array
+	public int getWallObjectType(int objectIndex) {
+		if(objectIndex < 0 || objectIndex >= WALLOBJLISTSIZE) {
+			println("getWallObjectType(): value of objectIndex out of range: " + objectIndex);
+			return -1;
+		}
+		else return WALLOBJINDEX[objectIndex];		// WALLOBJINDEX is the array with the wall object typess!
+	}
+	// returns the coordinates of a certain wall object in the objects array
+	public TileCoord getWallObjectPos(int objectIndex) {
+		if(objectIndex < 0 || objectIndex >= WALLOBJLISTSIZE) {
+			println("getWallObjectPos(): value of objectIndex out of range: " + objectIndex);
+			return null;
+		}
+		else return new TileCoord(WALLOBJX[objectIndex]+REGIONX, WALLOBJY[objectIndex]+REGIONY);
+	}
+	// returns the name of an wall object
+	public String getWallObjectName(int objectType) { return WALLOBJNAME[objectType]; }
+	// returns the description of an wall object
+	public String getWallObjectDesc(int objectType) { return WALLOBJDESC[objectType]; }
+	// returns command 1 for that wallobject
+	public String getWallObjectCommand1(int objectType) {
+		String cmd = WALLOBJCMD1[objectType];
+		if(cmd == null || cmd.equals("WalkTo")) return "";		// no command for that wallobject
+		else return cmd;
+	}
+	// returns command 2 for that wallobject
+	public String getWallObjectCommand2(int objectType) {
+		String cmd = WALLOBJCMD2[objectType];
+		if(cmd == null || cmd.equals("Examine")) return "";		// no command for that wallobject
+		else return cmd;
+	}
+
+	// commands related to wallObjects
+	public void wallObjectCommand1(int objectIndex)		// uses command 1 for this wallobject
+	{
+		if(objectIndex < 0 || objectIndex >= WALLOBJLISTSIZE) {
+			println("wallObjectCommand1(): Warning: value of objectIndex out of range: " + objectIndex);
+		}
+		else if(getWallObjectCommand1(getWallObjectType(objectIndex)).equals("")) {
+			println("wallObjectCommand1(): Warning: no custom command 1 for wall object " + getWallObjectType(objectIndex));
+		}
+		else WALLOBJCOMMAND1(objectIndex);
+	}
+	public void wallObjectCommand2(int objectIndex)		// uses command 2 for this wallobject
+	{
+		if(objectIndex < 0 || objectIndex >= WALLOBJLISTSIZE) {
+			println("wallObjectCommand2(): Warning: value of objectIndex out of range: " + objectIndex);
+		}
+		else if(getWallObjectCommand2(getWallObjectType(objectIndex)).equals("")) {
+			println("wallObjectCommand2(): Warning: no custom command 2 for wall object " + getWallObjectType(objectIndex));
+		}
+		else WALLOBJCOMMAND2(objectIndex);
+	}
+	public void useItemWithWallObject(int slot, int objectIndex)	// slot: inventory slot (0-29)
+	{
+		if(objectIndex < 0 || objectIndex >= WALLOBJLISTSIZE) {
+			println("useItemWithWallObject(): Warning: value of objectIndex out of range: " + objectIndex);
+		}
+		else if(slot < 0 || slot >= INV_SIZE) {
+			println("useItemWithWallObject(): Warning: inventory slot invalid: " + slot);
+		}
+		else USEWITH_WALLOBJ(slot, objectIndex);
+	}
+	public void castOnWallObject(int spellIndex, int objectIndex)
+	{
+		if(objectIndex < 0 || objectIndex >= WALLOBJLISTSIZE) {
+			println("castOnWallObject(): Warning: value of objectIndex out of range: " + objectIndex);
+		}
+		else if(spellIndex < 0 || spellIndex >= NUMBER_SPELLS) {
+			println("castOnWallObject(): Warning: spellIndex invalid: " + spellIndex);
+		}
+		else if(!canCastSpell(spellIndex)) {
+		}
+		else if(SPELLTYPE[spellIndex] != 4) {
+			println("castOnWallObject(): Warning: Spell " + getSpellName(spellIndex) + "(" + spellIndex + ") not castable on wallobjects");
+		}
+		else CASTON_WALLOBJ(spellIndex, objectIndex);
+	}
+
+
+
+	/*************************** NPC related methods *********************************/
+	public int numNpcs() { return NPCLISTSIZE; }		// number of NPCs in current area
+	// returns the NPC Id of a certain NPC in the NPC array (the id identifies a certain "implementation" of a NPCtype)
+	public int getNpcId(int npcIndex) {
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("getNpcId(): value of npcIndex out of range: " + npcIndex);
+			return -1;
+		}
+		else return NPCLIST[npcIndex].MONSTER_ID;
+	}
+	// returns the NPCType of a certain NPC in the NPC array
+	public int getNpcType(int npcIndex) {
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("getNpcType(): value of npcIndex out of range: " + npcIndex);
+			return -1;
+		}
+		else return NPCLIST[npcIndex].MONSTERTBLINDEX;
+	}
+	// returns the npcIndex for the Npc with Id npcId, or -1 if there is none
+	public int searchNpcById(int npcId)
+	{
+		for(int i = 0; i < numNpcs(); i++) {
+			if(NPCLIST[i].MONSTER_ID == npcId) return i;
+		}
+		return -1;		// not found
+	}
+	// returns the coordinates of a certain NPC in the NPC array
+	public TileCoord getNpcPos(int npcIndex) {
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("getNpcPos(): value of npcIndex out of range: " + npcIndex);
+			return null;
+		}
+		else return new TileCoord((NPCLIST[npcIndex].CURPOSITIONX-64)/TILESIZE + REGIONX, (NPCLIST[npcIndex].CURPOSITIONY-64)/TILESIZE + REGIONY);
+	}
+	// returns true, if this npc is currently walking
+	public boolean isNpcWalking(int npcIndex) {
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("isNpcWalking(): value of npcIndex out of range: " + npcIndex);
+			return false;
+		}
+		else return (NPCLIST[npcIndex].WAYPOINT_READ != (NPCLIST[npcIndex].WAYPOINT_WRITE+1) % 10);
+	}
+	public boolean isNpcInCombat(int npcIndex) {
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("isNpcInCombat(): value of npcIndex out of range: " + npcIndex);
+			return false;
+		}
+		else return NPC_ISINCOMBAT(npcIndex);
+	}
+	public boolean isNpcAttackable(int npcIndex) {
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("isNpcAttackable(): Warning: value of npcIndex out of range: " + npcIndex);
+			return false;
+		}
+		else if(NPC_ATTACKABLE[getNpcType(npcIndex)] <= 0) {	// NPC not attackable
+			return false;
+		}
+		else return true;		// it's attackable
+	}
+	// returns the name of an NPC
+	public String getNpcName(int npcType) { return NPCNAMES[npcType]; }
+	// returns the description of an NPC
+	public String getNpcDesc(int npcType) { return NPCDESC[npcType]; }
+	// returns the combat level of an NPC
+	public int getNpcCombatLevel(int npcType) { 
+		return (NPC_ATTACK[npcType] + NPC_DEFENCE[npcType] + NPC_STRENGTH[npcType] + NPC_HITPOINTS[npcType]) / 4;
+	}
+	public int npcCurrentHealth(int npcIndex) {
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("npcCurrentHealth(): value of npcIndex out of range: " + npcIndex);
+			return -1;
+		}
+		else return NPCLIST[npcIndex].HEALTH_CURRENT;
+	}
+	public int npcTotalHealth(int npcIndex) {
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("npcTotalHealth(): value of npcIndex out of range: " + npcIndex);
+			return -1;
+		}
+		else return NPCLIST[npcIndex].HEALTH_TOTAL;
+	}
+	// returns what the NPC is currently saying
+	public String npcSaying(int npcIndex) {
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("npcSaying(): value of npcIndex out of range: " + npcIndex);
+			return "";
+		}
+		else if(NPCLIST[npcIndex].SAIDCOUNTER > 0) 		// npc is currently saying something
+			return NPCLIST[npcIndex].LASTSAID;
+		else return "";
+	}
+	// returns what the NPC last said
+	public String npcLastSaid(int npcIndex) {
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("npcLastSaid(): value of npcIndex out of range: " + npcIndex);
+			return "";
+		}
+		else if(NPCLIST[npcIndex].LASTSAID != null) return NPCLIST[npcIndex].LASTSAID;
+		else return "";
+	}
+	// returns custom command for that NPC (thieving, e.g.), returns "" if theres no custom command
+	public String getNpcCommand(int npcType) {
+		String cmd = NPC_CMDNAME[npcType];
+		if(cmd == null || cmd.equals("")) return "";		// no custom command for that NPC
+		else return cmd;
+	}
+	public boolean isNpcBusy() { return B0t.npcBusy; }		// returns true, if this npc is currently busy
+	public void resetNpcBusy() { B0t.npcBusy = false; }
+
+	// commands related to NPCs
+	public void npcCommand(int npcIndex)		// uses custom command for this Npc
+	{
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("npcCommand(): Warning: value of npcIndex out of range: " + npcIndex);
+		}
+		else if(getNpcCommand(getNpcType(npcIndex)).equals("")) {
+			println("npcCommand(): Warning: no custom command for npc " + getNpcType(npcIndex));
+		}
+		else {
+			B0t.npcBusy = false;
+			B0t.npcName = getNpcName(getNpcType(npcIndex));
+			NPC_COMMAND(npcIndex);
+		}
+	}
+	public void talkToNpc(int npcIndex)		// sends talk-to command for Npc
+	{
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("talkToNpc(): Warning: value of npcIndex out of range: " + npcIndex);
+		}
+		else {
+			B0t.npcBusy = false;
+			B0t.npcName = getNpcName(getNpcType(npcIndex));
+			NPC_TALKTO(npcIndex);
+		}
+	}
+	public void attackNpc(int npcIndex)		// sends attack command for Npc
+	{
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("attackNpc(): Warning: value of npcIndex out of range: " + npcIndex);
+		}
+		else if(NPC_ATTACKABLE[getNpcType(npcIndex)] <= 0) {	// NPC not attackable
+			println("attackNpc(): Warning: Npc not attackable: " + npcIndex);
+		}
+		else {
+			B0t.npcBusy = false;
+			B0t.npcName = getNpcName(getNpcType(npcIndex));
+			ATTACKNPC(npcIndex);
+		}
+	}
+	public void useItemWithNpc(int slot, int npcIndex)	// slot: inventory slot (0-29)
+	{
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("useItemWithNpc(): Warning: value of npcIndex out of range: " + npcIndex);
+		}
+		else if(slot < 0 || slot >= INV_SIZE) {
+			println("useItemWithNpc(): Warning: inventory slot invalid: " + slot);
+		}
+		else {
+			B0t.npcBusy = false;
+			B0t.npcName = getNpcName(getNpcType(npcIndex));
+			USEWITH_NPC(slot, npcIndex);
+		}
+	}
+	public void castOnNpc(int spellIndex, int npcIndex)
+	{
+		if(npcIndex < 0 || npcIndex >= NPCLISTSIZE) {
+			println("castOnNpc(): Warning: value of npcIndex out of range: " + npcIndex);
+		}
+		else if(spellIndex < 0 || spellIndex >= NUMBER_SPELLS) {
+			println("castOnNpc(): Warning: spellIndex invalid: " + spellIndex);
+		}
+		else if(!canCastSpell(spellIndex)) {
+		}
+		else if(SPELLTYPE[spellIndex] != 2) {
+			println("castOnNpc(): Warning: Spell " + getSpellName(spellIndex) + "(" + spellIndex + ") not castable on Npcs");
+		}
+		else {
+			B0t.npcBusy = false;
+			B0t.npcName = getNpcName(getNpcType(npcIndex));
+			CASTSPELL_NPC(spellIndex, npcIndex);
+		}
+	}
+
+
+
+	/*************************** Player related methods *********************************/
+	// returns the index of ThisPlayer (the one we are controling)
+	public int getThisPlayer() {
+		if(PLAYERLIST[0] != THISPLAYER) {
+			println("getThisPlayer(): somethings wrong here - unexpected index of thisPlayer");
+			return -1;
+		}
+		return 0;		// should be always 0
+	}
+	public int numPlayers() { return PLAYERLISTSIZE; }		// number of players in current area
+	// returns the player Id of a certain player
+	public int getPlayerId(int playerIndex) {
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("getPlayerId(): value of playerIndex out of range: " + playerIndex);
+			return -1;
+		}
+		else return PLAYERLIST[playerIndex].MONSTER_ID;
+	}
+	// returns the playerIndex for the player with Id playerId, or -1 if there is none
+	public int searchPlayerById(int playerId)
+	{
+		for(int i = 0; i < numPlayers(); i++) {
+			if(PLAYERLIST[i].MONSTER_ID == playerId) return i;
+		}
+		return -1;		// not found
+	}
+	// returns the coordinates of a certain player in the player array
+	public TileCoord getPlayerPos(int playerIndex) {
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("getPlayerPos(): value of playerIndex out of range: " + playerIndex);
+			return null;
+		}
+		else return new TileCoord((PLAYERLIST[playerIndex].CURPOSITIONX-64)/TILESIZE + REGIONX, (PLAYERLIST[playerIndex].CURPOSITIONY-64)/TILESIZE + REGIONY);
+	}
+	// returns true, if this player is currently walking
+	public boolean isPlayerWalking(int playerIndex) {
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("isPlayerWalking(): value of playerIndex out of range: " + playerIndex);
+			return false;
+		}
+		else return (PLAYERLIST[playerIndex].WAYPOINT_READ != (PLAYERLIST[playerIndex].WAYPOINT_WRITE+1) % 10);
+	}
+	public boolean isPlayerInCombat(int playerIndex) {
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("isPlayerInCombat(): value of playerIndex out of range: " + playerIndex);
+			return false;
+		}
+		else return PLAYER_ININCOMBAT(playerIndex);
+	}
+	public int playerCurrentHealth(int playerIndex) {
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("playerCurrentHealth(): value of playerIndex out of range: " + playerIndex);
+			return -1;
+		}
+		else return PLAYERLIST[playerIndex].HEALTH_CURRENT;
+	}
+	public int playerTotalHealth(int playerIndex) {
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("playerTotalHealth(): value of playerIndex out of range: " + playerIndex);
+			return -1;
+		}
+		else return PLAYERLIST[playerIndex].HEALTH_TOTAL;
+	}
+	// returns the name of an player
+	public String getPlayerName(int playerIndex) {
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("getPlayerName(): value of playerIndex out of range: " + playerIndex);
+			return null;
+		}
+		else return PLAYERLIST[playerIndex].PLAYERNAME;
+	}
+	// returns the combat level of an player
+	public int getPlayerCombatLevel(int playerIndex) { 
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("getPlayerCombatLevel(): value of playerIndex out of range: " + playerIndex);
+			return -1;
+		}
+		else return PLAYERLIST[playerIndex].COMBATLEVEL;
+	}
+	// returns what the player is currently saying
+	public String playerSaying(int playerIndex) {
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("playerSaying(): value of playerIndex out of range: " + playerIndex);
+			return "";
+		}
+		else if(PLAYERLIST[playerIndex].SAIDCOUNTER > 0) 		// player is currently saying something
+			return PLAYERLIST[playerIndex].LASTSAID;
+		else return "";
+	}
+	// returns what the player last said
+	public String playerLastSaid(int playerIndex) {
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("playerLastSaid(): value of playerIndex out of range: " + playerIndex);
+			return "";
+		}
+		else if(PLAYERLIST[playerIndex].LASTSAID != null) return PLAYERLIST[playerIndex].LASTSAID;
+		else return "";
+	}
+
+	// commands related to interacting with other players
+	// Note: attackPlayer does not check whether both players are in wildy, so make sure you want to check
+	// this before calling this method if you want to be on the safe side
+	public void attackPlayer(int playerIndex)		// sends attack command for player
+	{
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("attackPlayer(): Warning: value of playerIndex out of range: " + playerIndex);
+		}
+		else if(getPlayerPos(playerIndex).y+B0t.yu > 2203) {	// player in wildy
+			println("attackPlayer(): Warning: Player not not in wilderness: " + playerIndex);
+		}
+		else if(playerY()+B0t.yu > 2203) {	// thisPlayer in wildy
+			println("attackPlayer(): Warning: ThisPlayer not not in wilderness");
+		}
+		else ATTACKPLAYER(playerIndex);
+	}
+	public void useItemWithPlayer(int slot, int playerIndex)	// slot: inventory slot (0-29)
+	{
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("useItemWithPlayer(): Warning: value of playerIndex out of range: " + playerIndex);
+		}
+		else if(slot < 0 || slot >= INV_SIZE) {
+			println("useItemWithPlayer(): Warning: inventory slot invalid: " + slot);
+		}
+		else USEWITH_PLAYER(slot, playerIndex);
+	}
+	public void castOnPlayer(int spellIndex, int playerIndex)
+	{
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("castOnPlayer(): Warning: value of playerIndex out of range: " + playerIndex);
+		}
+		else if(spellIndex < 0 || spellIndex >= NUMBER_SPELLS) {
+			println("castOnPlayer(): Warning: spellIndex invalid: " + spellIndex);
+		}
+		else if(!canCastSpell(spellIndex)) {
+		}
+		else if(SPELLTYPE[spellIndex] != 1 && SPELLTYPE[spellIndex] != 2) {
+			println("castOnPlayer(): Warning: Spell " + getSpellName(spellIndex) + "(" + spellIndex + ") not castable on other players");
+		}
+		else CASTSPELL_PLAYER(spellIndex, playerIndex);
+	}
+	public void tradeWithPlayer(int playerIndex)
+	{
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("tradeWithPlayer(): Warning: value of playerIndex out of range: " + playerIndex);
+		}
+		else TRADEWITH_PLAYER(playerIndex);
+	}
+	public void duelWithPlayer(int playerIndex)
+	{
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("duelWithPlayer(): Warning: value of playerIndex out of range: " + playerIndex);
+		}
+		else if(!B0t.bt || !B0t.isMember) {
+			println("duelWithPlayer(): Warning: member command (duel) not allowed here");
+		}
+		else DUELWITH_PLAYER(playerIndex);
+	}
+
+
+
+	/***************************** Magic related routines ***************************/
+	public int numSpells() { return NUMBER_SPELLS; }		// total number of available spells
+	// returns the name of a spell
+	public String getSpellName(int spellIndex) { return SPELL_NAME[spellIndex]; }
+	// returns the description of a spell
+	public String getSpellDesc(int spellIndex) { return SPELL_DESCRIPTION[spellIndex]; }
+	// checks, if we have enough runes, and the required level to cast the spell
+	public boolean canCastSpell(int spellIndex)
+	{
+		if(spellIndex < 0 || spellIndex >= NUMBER_SPELLS) {
+			println("canCastSpell(): spellIndex out of range: " + spellIndex);
+			return false;
+		}
+		else if(SPELL_LEVEL_REQ[spellIndex] > MAGICLEVEL) {
+			println("canCastSpell(): Magic ability is not high enough for spell " + getSpellName(spellIndex) + "(" + spellIndex + ")");
+			return false;
+		}
+		else {
+			for(int i = 0; i < NUM_RUNES_REQUIRED[spellIndex]; i++) {
+				if(!HAS_REQUIRED_RUNES(REQ_RUNE_ID[spellIndex][i], REQ_RUNE_NUM[spellIndex][i])) {
+					println("canCastSpell(): Not the required reagents needed for spell " + getSpellName(spellIndex) + "(" + spellIndex + ")");
+					return false;
+				}
+			}
+			return true;		// its ok to cast it
+		}
+	}
+	// cast a spell on ground at tile (x, y)
+	// Note: we're not checking here if x,y are valid, so you've got to do it yourself
+	public void castOnGround(int spellIndex, int x, int y)
+	{
+		if(spellIndex < 0 || spellIndex >= NUMBER_SPELLS) {
+			println("castOnGround(): Warning: spellIndex invalid: " + spellIndex);
+		}
+		else if(!canCastSpell(spellIndex)) {
+		}
+		else if(SPELLTYPE[spellIndex] != 6) {
+			println("castOnGround(): Warning: Spell " + getSpellName(spellIndex) + "(" + spellIndex + ") not castable on ground");
+		}
+		else CASTSPELL_GROUND(spellIndex, x, y);
+	}
+	public void castOnSelf(int spellIndex)
+	{
+		if(spellIndex < 0 || spellIndex >= NUMBER_SPELLS) {
+			println("castOnSelf(): Warning: spellIndex invalid: " + spellIndex);
+		}
+		else if(!canCastSpell(spellIndex)) {
+		}
+		else if(SPELLTYPE[spellIndex] > 1) {
+			println("castOnSelf(): Warning: Spell " + getSpellName(spellIndex) + "(" + spellIndex + ") not castable on self");
+		}
+		else CASTSPELL_SELF(spellIndex);
+	}
+
+
+
+
+
+
+
+
+
+
+	// Warning: ONLY for internal use! These MUST NOT be accessed in your scripts as it can screw up ixBot!
+	// Also these may change anytime in future releases or even get abandoned
+//#ifndef RELEAZE
+	public boolean inPKMode() { return B0t.PKmode == 1; }
+	public void enablePKMode() { B0t.PKmode = 1; }
+	public void disablePKMode() { B0t.PKmode = 0; }
+	public boolean inCatchMode() { return B0t.catchMode; }
+	public void enableCatchMode() { B0t.catchMode = true; }
+	public void disableCatchMode() { B0t.catchMode = false; }
+	public boolean usePrayersPK() { return B0t.usePrayersPK; }
+
+	// Note: selectedPlayer may change between calls of run() even though the player didn't log out
+	// This may happen sometimes when player attacks an npc(player too?) which causes player to be removed and readded to list
+	public int getSelectedPlayer() { return B0t.selectedPlayer; }
+	public void resetSelectedPlayer() {
+		B0t.selectedPlayer = -10;
+		B0t.selectedPlayerName = -10;
+	}
+
+	public boolean eatRequest() { return B0t.eatReq > 0; }
+	public void resetEatRequest() { B0t.eatReq = 0; }
+	public void decrementEatRequest() { B0t.eatReq--; if(B0t.eatReq < 0) B0t.eatReq = 0; }
+
+	// returns playerID of player we're currently fighting with - or we used to fight with
+	public int getFightingPlayer() { return B0t.fightingPlayer; }
+
+	public int getFollowTimeWait() { return B0t.followTimeWait; }
+	public int getdebugEatTime() { return B0t.debugEatTime; }
+	public int getdebugWalkTime() { return B0t.debugWalkTime; }
+
+	// returns the value of healthbar counter
+	public int getPlayerHealthBarCounter(int playerIndex) { 
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("getPlayerHealthBarCounter(): value of playerIndex out of range: " + playerIndex);
+			return -1;
+		}
+		else return PLAYERLIST[playerIndex].HEALTHBAR_COUNTER;
+	}
+	// returns true, if player is attackable
+	public boolean isPlayerAttackable(int playerIndex) { 
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("getPlayerHealthBarCounter(): value of playerIndex out of range: " + playerIndex);
+			return false;
+		}
+		else return B0t.IsPlayerAttackable(PLAYERLIST[playerIndex]);
+	}
+	// returns the coordinates the player is about to move to:P
+	public TileCoord getPlayerDestPos(int playerIndex) {
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("getPlayerDestPos(): value of playerIndex out of range: " + playerIndex);
+			return null;
+		}
+		else if(!isPlayerWalking(playerIndex)) return getPlayerPos(playerIndex);	// return current player pos (he's standing at...)
+		else {
+			int writePtr = PLAYERLIST[playerIndex].WAYPOINT_WRITE;	// last valid entry
+			return new TileCoord((PLAYERLIST[playerIndex].WAYPOINT_X[writePtr]-64)/TILESIZE+REGIONX, (PLAYERLIST[playerIndex].WAYPOINT_Y[writePtr]-64)/TILESIZE+REGIONY);
+		}
+	}
+
+
+	// returns true, if player denoted by playerIndex is in friends list
+	public boolean inFriendsList(int playerIndex) {
+		long playaName = PLAYERLIST[playerIndex].NAME64ENC;
+		for(int i = 0; i < B0t.fd; i++) {
+			if(playaName == B0t.gd[i]) return true;
+		}
+		return false;
+	}
+
+	// WARNING!!!!!!!!!!!!!! Test functions only!!!
+	public boolean walkToMOD(int x, int y)			// walk to absolute (x, y) coordinates, return false on error
+	{
+		int distX = playerX()-x, distY = playerY()-y;
+		if(distX*distX + distY*distY >= 17*17) {
+			//println("WalkTo(): Warning: waypoint (" + x + ", " + y + ") too far away! player at (" + playerX() + ", " + playerY() + ")");
+			return false;
+		}
+/*		if(!DESTINATION_REACHABLE(x,y)) {
+			println("WalkTo(): Warning: waypoint (" + x + ", " + y + ") too far away! player at (" + playerX() + ", " + playerY() + ")");
+			return false;
+		} */
+		println("walkTo(" + x + ", " + y + ");");
+		B0t.dl(B0t.cw, B0t.dw, x - REGIONX, y - REGIONY, true);
+		return true;
+	}
+
+	public void attackPlayerMOD(int playerIndex)		// WARNING: detectable actions! (im not saying it is, but...)
+	{
+		if(playerIndex < 0 || playerIndex >= PLAYERLISTSIZE) {
+			println("attackPlayer(): Warning: value of playerIndex out of range: " + playerIndex);
+		}
+		else if(getPlayerPos(playerIndex).y+B0t.yu > 2203) {	// player in wildy
+			println("attackPlayer(): Warning: Player not not in wilderness: " + playerIndex);
+		}
+		else if(playerY()+B0t.yu > 2203) {	// thisPlayer in wildy
+			println("attackPlayer(): Warning: ThisPlayer not not in wilderness");
+		}
+		else if(!isPlayerWalking(playerIndex)) attackPlayer(playerIndex);	// fall through to normal version...
+		else {
+			int writePtr = PLAYERLIST[playerIndex].WAYPOINT_WRITE;	// last valid entry
+			CMD_ID = 805;
+			CMD_PARA1 = PLAYERLIST[playerIndex].WAYPOINT_X[writePtr];
+			CMD_PARA2 = PLAYERLIST[playerIndex].WAYPOINT_Y[writePtr];
+			CMD_PARA3 = PLAYERLIST[playerIndex].MONSTER_ID;
+			println("Speed HACK!! - (" + CMD_PARA1 + "," + CMD_PARA2 + ") - (" + PLAYERLIST[playerIndex].CURPOSITIONX + "," + PLAYERLIST[playerIndex].CURPOSITIONY + ")");
+			CLASSPREFIX cm(MY_COMMAND_SLOT);
+		}
+	}
+
+//#endif
+};

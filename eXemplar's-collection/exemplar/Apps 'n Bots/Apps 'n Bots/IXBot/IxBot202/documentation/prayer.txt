@@ -1,0 +1,14 @@
+[0]  name=Thick skin; desc=Increases your defense by 5%; lvlReq=1; Drain=15
+[1]  name=Burst of strength; desc=Increases your strength by 5%; lvlReq=4; Drain=15
+[2]  name=Clarity of thought; desc=Increases your attack by 5%; lvlReq=7; Drain=15
+[3]  name=Rock skin; desc=Increases your defense by 10%; lvlReq=10; Drain=30
+[4]  name=Superhuman strength; desc=Increases your strength by 10%; lvlReq=13; Drain=30
+[5]  name=Improved reflexes; desc=Increases your attack by 10%; lvlReq=16; Drain=30
+[6]  name=Rapid restore; desc=2x restore rate for all stats except hits; lvlReq=19; Drain=5
+[7]  name=Rapid heal; desc=2x restore rate for hitpoints stat; lvlReq=22; Drain=10
+[8]  name=Protect items; desc=Keep 1 extra item if you die; lvlReq=25; Drain=10
+[9]  name=Steel skin; desc=Increases your defense by 15%; lvlReq=28; Drain=60
+[10]  name=Ultimate strength; desc=Increases your strength by 15%; lvlReq=31; Drain=60
+[11]  name=Incredible reflexes; desc=Increases your attack by 15%; lvlReq=34; Drain=60
+[12]  name=Paralyze monster; desc=Stops monsters from fighting back; lvlReq=37; Drain=60
+[13]  name=Protect from missiles; desc=100% protection from ranged attack; lvlReq=40; Drain=60
