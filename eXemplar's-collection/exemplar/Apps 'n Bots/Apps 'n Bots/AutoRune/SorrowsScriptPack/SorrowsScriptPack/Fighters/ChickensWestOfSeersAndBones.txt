@@ -1,0 +1,58 @@
+;Fights the chickens West
+; of Seers
+; Picks up bones and buries
+;
+; By: Sorrow
+
+@Begin:
+FightMode(0)
+
+@Chicken:
+Wait(1,2,3)
+OnItemAppeared(@Item,%ID,%x,%y)
+GoToIfFighting(@Chicken)
+GoToIfLastServerMessageIs(@Sleep,"@gre@You are too tired to gain experience, get some rest!")
+GoToIfNPCNearIn(@AttackChicken,566,486,554,498,3)
+GoTo(@Chicken)
+
+@AttackChicken:
+GoToIfNPCNearIn(@RogerThat,566,486,554,498,3)
+@RogerThat:
+SetVarsNearestNPCIn(%X,%Y,%ID,566,486,554,498,3)
+ActionVarVar(%X,%Y)
+AttackNPCVar(%ID)
+GoTo(@Chicken)
+
+@Item:
+GoToIfVarEqualNum(@TakeBone,%ID,20)
+ERet()
+
+@TakeBone:
+ActionVarVar(%x,%y)
+TakeItemVarVarVar(%x,%y,%ID)
+Wait(50)
+GoToIfBagFull(@Bury)
+ERet()
+
+@Bury:
+Wait(5)
+UseItem(10)
+GoToIfCountInInventoryEqual(@Chicken,0,20)
+GoTo(@Bury)
+
+@Sleep:
+Wait(10)
+SetVarNum(%Seconds,100)
+UseItemByID(1263)
+GoTo(@Rest)
+
+@Rest:
+Wait(5)
+AddVarNum(%Seconds,-1)
+GoToIfVarEqualNum(@Sleep,%Seconds,0)
+GoToIfLastServerMessageIs(@Done,"You wake up - feeling refreshed")
+GoTo(@Rest)
+
+@Done:
+ResetLastServerMessage()
+GoTo(@Chicken)

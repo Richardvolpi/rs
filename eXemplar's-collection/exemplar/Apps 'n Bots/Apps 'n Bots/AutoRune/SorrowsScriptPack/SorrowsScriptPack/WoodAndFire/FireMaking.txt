@@ -1,0 +1,37 @@
+;-------------------------- 
+;Firemaker and woodcut script by: 
+;        Juunaz 
+; 
+;Works everywhere near normal trees. 
+; 
+;You must have these in inventory: 
+;-Sleeping bag 
+;-Axe, if possible use rune axe, it wont fail on low level. 
+;-Tinderbox 
+;-REST inventory must be filled with anything, so it will drop the log, when cutting. 
+; 
+;-Happy leveling /Juunaz 
+;-------------------------- 
+
+@chop: 
+Wait(5) 
+SetVarsNearestObjectXY(%x,%y,100,1) 
+ActionVarVar(%x,%y) 
+AtObjectVar(%x,%y) 
+Wait(40) 
+GoToIfInLastServerMessageIs(@Sleepwait,"You are too tired") 
+GoToIfInLastServerMessageIs(@Fire,"You get some wood") 
+GoTo(@chop) 
+
+
+@Fire: 
+Wait(5) 
+SetFire() 
+Wait(30) 
+GoToIfInLastServerMessageIs(@Fire,"You fail to light") 
+GoTo(@chop) 
+
+@Sleepwait: 
+Wait(30) 
+GoToIfInLastServerMessageIs(@chop,"You wake up") 
+GoTo(@Sleepwait) 

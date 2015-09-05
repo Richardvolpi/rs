@@ -1,0 +1,51 @@
+;====iron======
+;    Smelt
+;World 15
+;Start in S Felly Bank
+;====By=Kamu===
+
+@Bank:
+SetVarNum(%iron,30)
+RepeatNextCommandUntilQuestMenu(50,1)
+TalkToNPC(754,755,752,751,735)
+Answer(0)
+WaitForBankWindow(50)
+DepositEverything()
+
+@WDCop:
+Withdraw(151,1)
+AddVarNum(%iron,-1)
+GoToIfVarEqualNum(@Close,%iron,0)
+Wait(1)
+GoTo(@WDCop)
+
+@Close:
+CloseBank()
+Wait(30)
+
+GoToIfCountInInventoryEqual(@Bank,0,151)
+
+@ToFurnace:
+MoveTo(238,571)
+MoveTo(242,571)
+MoveTo(242,556,1,-1)
+MoveTo(244,555,11,-11)
+MoveTo(258,544)
+
+@Check:
+GoToIfCountInInventoryGreater(@Smelt,0,151)
+GoTo(@ToBank)
+@Smelt:
+SmeltOre(258,545,258,546,151)
+Wait(8)
+GoTo(@Check)
+
+@ToBank:
+MoveTo(258,544)
+MoveTo(254,544,-2,2)
+MoveTo(252,547,-10,10)
+MoveTo(242,572)
+MoveTo(238,572,-1,-1)
+
+; Fin =D
+

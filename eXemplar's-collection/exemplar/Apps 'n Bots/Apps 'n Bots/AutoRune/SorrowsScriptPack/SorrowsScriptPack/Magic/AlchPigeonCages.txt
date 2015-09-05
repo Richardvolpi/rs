@@ -1,0 +1,68 @@
+-------------------------
+- Pigeon High Alcher    -
+-                       -
+- Start on a pigeon     -
+- cage inside Ardougne  -
+-                       -
+- Logs when out of nats -
+-                       -
+- Made By: Sorrow       -
+-------------------------
+
+
+
+
+@Begin:
+FightMode(3)
+SetVarNum(%Attempts,0)
+
+@Collect:
+Action(574,583)
+TakeItem(574,583,799,306)
+GoToIfBagFull(@Mage)
+Wait(30)
+Action(574,585)
+TakeItem(574,585,799,306)
+GoToIfBagFull(@Mage)
+Wait(20)
+Action(574,586)
+TakeItem(574,586,799,306)
+Wait(20)
+GoToIfBagFull(@Mage)
+GoTo(@Collect)
+
+@Mage:
+MagicOnItemByID(799,28)
+Wait(20)
+GoToIfInLastServerMessageIs(@Sleep,"tired")
+GoToIfCountInInventoryEqual(@Log,0,40)
+GoToIfInInventory(@Mage,799)
+GoTo(@Begin)
+
+@Sleep:
+Wait(10)
+SetVarNum(%Seconds,100)
+UseItemByID(1263)
+GoTo(@Rest)
+
+@Rest:
+Wait(5)
+AddVarNum(%Seconds,-1)
+GoToIfVarEqualNum(@Sleep,%Seconds,0)
+GoToIfLastServerMessageIs(@Done,"You wake up - feeling refreshed")
+GoTo(@Rest)
+
+@Done:
+ResetLastServerMessage()
+GoTo(@Begin)
+
+
+@Log:
+Wait(100)
+LogOut()
+Stop()
+
+
+
+
+

@@ -1,0 +1,52 @@
+-------------------------
+- Pigeon Seed Alcher    -
+-                       -
+- Start next to the     -
+- cupboard that contai- -
+- ns the pigeon seed    -
+-                       -
+- Logs when out of nats -
+-                       -
+- Made By: Sorrow       -
+-------------------------
+
+@Begin:
+FightMode(3)
+SetVarNum(%Attempts,0)
+
+@Mage:
+Action(582,586)
+AtObject(581,587)
+MagicOnItemByID(800,28)
+GoToIfInLastServerMessageIs(@Sleep,"tired")
+GoToIfCountInInventoryEqual(@Log,0,40)
+GoToIfInInventory(@Mage,799)
+GoTo(@Begin)
+
+@Sleep:
+Wait(10)
+SetVarNum(%Seconds,100)
+UseItemByID(1263)
+GoTo(@Rest)
+
+@Rest:
+Wait(5)
+AddVarNum(%Seconds,-1)
+GoToIfVarEqualNum(@Sleep,%Seconds,0)
+GoToIfLastServerMessageIs(@Done,"You wake up - feeling refreshed")
+GoTo(@Rest)
+
+@Done:
+ResetLastServerMessage()
+GoTo(@Begin)
+
+
+@Log:
+Wait(100)
+LogOut()
+Stop()
+
+
+
+
+

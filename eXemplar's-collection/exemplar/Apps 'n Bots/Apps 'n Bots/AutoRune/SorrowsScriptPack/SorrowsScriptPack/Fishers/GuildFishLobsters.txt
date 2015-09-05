@@ -1,0 +1,84 @@
+;--------------------
+;Guild fisher
+;Start at the left click
+;lob fishing spot
+;
+;Make sure you have a lot
+;of words, about 300 a day
+;
+;From the SAB script
+;-------------------
+;Some editing by: okeR
+;Door opening, prevention
+;from getting stuck and
+;other such things
+;were added by: Sorrow
+;
+;<3
+;
+;----------------------
+
+
+SetVarNum(%Attempts,0)
+SetVarNum(%Temp,1)
+GoTo(@fish)
+@fish:
+GoToIfCoordsIn(@WalkToFish,605,506,602,501)
+GoToIfBagFull(@cert)
+GoToIfVarAboveNum(@FishCounter,%Attempts,100)
+Action(589,502)
+AtObject(589,501)
+Wait(10)
+AddVar(%Attempts,%Temp)
+GoToIfLastServerMessageIs(@zzz,"@gam@You are too tired to catch this fish")
+GoTo(@fish)
+
+@FishCounter:
+Wait(50)
+SetVarNum(%Attempts,0)
+AtObject(368,687)
+Wait(10)
+GoTo(@fish)
+
+@zzz:
+UseItemByID(1263)
+Wait(300)
+GoTo(@fish)
+
+@cert:
+MoveTo(601,502)
+MoveTo(601,506)
+MoveToNoWait(602,506)
+Wait(20)
+Action(602,506)
+OpenDoor(603,506,3)
+Wait(10)
+MoveTo(604,506)
+
+@talk:
+SetVarsNearestNPC(%x,%y,%id,369)
+RepeatNextCommandUntilQuestMenu(40,1)
+TalkToNPCVar(%id)
+WaitForQuestMenu(50)
+Answer(1)
+WaitForQuestMenu(50)
+Answer(1)
+WaitForQuestMenu(50)
+Answer(4)
+Wait(13)
+
+@WalkToFish:
+MoveToNoWait(603,505)
+Wait(20)
+Action(603,505)
+OpenDoor(603,506,3)
+Wait(30)
+MoveTo(602,506,-1,1)
+GoToIfCoordsIn(@WalkToFish,605,506,602,501)
+MoveTo(601,502)
+GoToIfCoordsIn(@WalkToFish,605,506,602,501)
+MoveTo(595,502)
+GoToIfCoordsIn(@WalkToFish,605,506,602,501)
+
+GoTo(@fish)
+

@@ -1,0 +1,57 @@
+;---------------------------
+;Sorrow's Stout Buyer
+;Start in falador west bank
+;Start nothing
+;Have enough money in bank
+;
+;Made By: Sorrow
+;---------------------------
+
+@Begin:
+MoveTo(334,553)
+
+@Bank:
+SetVarsNearestNPC(%x,%y,%ID,95)
+ActionVarVar(%x,%y)
+RepeatNextCommandUntilQuestMenu(50,2)
+TalkToNPCVar(%ID)
+Wait(40)
+Answer(0)
+WaitForBankWindow(100)
+Wait(20)
+DepositEverything()
+Wait(20)
+Withdraw(10,100)
+Wait(10)
+CloseBank()
+GoTo(@FindBarmaid)
+
+@FindBarmaid:
+MoveTo(334,554)
+MoveTo(328,553)
+MoveTo(326,553)
+MoveTo(326,550,-2,-2)
+MoveTo(324,547)
+MoveTo(321,547,0,-1)
+MoveTo(320,546,-2,2)
+GoTo(@BuyStout)
+
+@BuyStout:
+SetVarsNearestNPC(%x,%y,%ID,142)
+ActionVarVar(%x,%y)
+RepeatNextCommandUntilQuestMenu(50,2)
+TalkToNPCVar(%ID)
+Wait(20)
+Answer(2)
+Wait(50)
+GoToIfBagFull(@FindBank)
+GoTo(@BuyStout)
+
+@FindBank:
+MoveTo(318,548)
+MoveTo(321,545)
+MoveTo(321,547,3,0,3,1,4,2)
+MoveTo(324,550,2,2)
+MoveTo(326,554)
+MoveTo(327,553,5,0)
+GoTo(@Begin)

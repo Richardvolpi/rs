@@ -1,0 +1,36 @@
+------------------------
+- Nature Rune Theiver  -
+-                      -
+- Start behind ardou-  -
+- gne strip bank.      -
+-                      -
+- Made By: Disruptive? -
+- Editing By: Sorrow   -
+------------------------
+
+@Begin:
+
+@Steal:
+Action(582,1526)
+AtObject2(582,1527)
+SetVarFatigue(%fat)
+Wait(5)
+GoToIfInLastServerMessageIs(@Sleep,"tired")
+GoTo(@Steal)
+
+@Sleep:
+Wait(10)
+SetVarNum(%Seconds,100)
+UseItemByID(1263)
+GoTo(@Rest)
+
+@Rest:
+Wait(5)
+AddVarNum(%Seconds,-1)
+GoToIfVarEqualNum(@Sleep,%Seconds,0)
+GoToIfLastServerMessageIs(@Done,"You wake up - feeling refreshed")
+GoTo(@Rest)
+
+@Done:
+ResetLastServerMessage()
+GoTo(@Begin)

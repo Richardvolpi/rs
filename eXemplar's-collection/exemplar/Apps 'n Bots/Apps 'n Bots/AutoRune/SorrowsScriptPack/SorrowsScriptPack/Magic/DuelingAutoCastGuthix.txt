@@ -1,0 +1,14 @@
+@MainLoop:
+FightMode(3)
+SetVarPlayerByName(%ID,"ThePlayerName")
+Wait(3)
+GoToIfFighting(@Mage)
+GoTo(@MainLoop)
+
+@Mage:
+MagicPlayer(%ID,33)
+Wait(21)
+
+GoToIfFighting(@Mage)
+Debug("OWNED MY DICK")
+GoTo(@MainLoop)

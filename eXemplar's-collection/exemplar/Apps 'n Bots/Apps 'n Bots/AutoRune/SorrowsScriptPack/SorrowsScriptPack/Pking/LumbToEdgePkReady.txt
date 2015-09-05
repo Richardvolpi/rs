@@ -1,0 +1,106 @@
+-PB Script 
+- this does more u can make it not get pray0r and r0bes 
+- walks from lumb to Castle 
+- Along the Way it... 
+- * withdraws r2h 
+-  *withdraws 25 lobs and ammy 
+- * goes to monks 
+- *then picks up robes and gets u prayer 
+- *then walks to castle 
+- If your not 31 prayer, u can make it skip Getting robes+ Prayer 
+-MAKE SURE U SET THE VAR AT @Hmm 
+-TO CHECK IF U WANNA GO GET PRAYER + ROBES OR NOT 
+- Charliehorse!@!1 
+- Thx to spookster for letting me use his character 
+- UseitembyID 
+
+@todraynor: 
+MoveTo(121,648,3,-3,5,-3,7,-5) 
+MoveTo(133,638,4,0,5,-1) 
+MoveTo(151,637,7,7) 
+MoveTo(172,644,1,1,4,1) 
+MoveTo(190,645) 
+MoveTo(192,645,1,-1,5,-1,6,-2,12,-2,12,-4,13,-4,14,-5,15,-5,15,-6,16,-7) 
+MoveTo(209,638,3,-3,4,-3,6,-5,10,-5) 
+goto(@bank) 
+
+@bank: 
+MoveTo(219,635,-2,2) 
+wait(10) 
+SetVarsNearestNPC(%x,%y,%id,95) 
+RepeatNextCommandUntilQuestMenu(50) 
+TalkToNPCVar(%id) 
+Answer(0) 
+Wait(60) 
+DepositEverything() 
+wait(10) 
+Withdraw(81,1) 
+Withdraw(316,1) 
+Withdraw(373,25) 
+wait(10) 
+CloseBank() 
+goto(@barb) 
+
+@barb: 
+MoveTo(218,635,2,-2,6,-2,7,-3,8,-3,10,-5,10,-12,11,-13) 
+MoveTo(229,615,11,-11) 
+MoveTo(240,583,1,-1) 
+MoveTo(240,571,3,-3) 
+MoveTo(243,553,-1,-1) 
+MoveTo(242,536,1,-1) 
+MoveTo(243,515) 
+goto(@monk) 
+
+@monk: 
+MoveTo(252,515,1,-1) 
+MoveTo(253,494,6,-6) 
+MoveTo(253,472,2,-2) 
+MoveTo(255,469,-1,-1,-1,-4,-2,-5) 
+goto(@hmm) 
+
+@hmm: 
+-GO TO MONKS 
+-1 MEANS YES 
+-2 MEANS NO 
+-!!!!! CHECK THIS!!!!!!!!!!!!!!!!!!!!!! 
+Setvarnum(%monks,1) 
+- !!!!!!!!!!!!!!LIKE CHECK THIS NIGGA 
+-FFS MAKE SURE THIS IS RIGHT 
+GotoifVarequalNum(@robes,%monks,1) 
+GotoifVarequalNum(@castle,%monks,2) 
+
+@robes: 
+Action(253,464) 
+OpenDoor(253,464,1) 
+MoveTo(252,464,0,2,-1,3) 
+Action(251,467) 
+AtObject(251,468) 
+MoveTo(260,1411) 
+Action(262,1411,1,-1) 
+AtObject(264,1409) 
+TakeItem(265,1402,389,200) 
+TakeItem(265,1402,388,200) 
+UseItembyid(389) 
+UseItembyid(388) 
+MoveTo(263,1402,-3,3,-3,6,-2,7) 
+MoveTo(259,1411,-4,0,-5,1) 
+Action(252,1412) 
+AtObject(251,1412) 
+Action(252,464) 
+OpenDoor(253,464,1) 
+goto(@castle) 
+
+@castle: 
+MoveTo(254,464) 
+MoveTo(254,448,2,-2) 
+MoveTo(256,441,-4,-4) 
+MoveTo(252,430,1,-1,1,-2,2,-3,2,-6,3,-7,3,-8,4,-9) 
+MoveTo(257,421,1,-1,1,-12,0,-13) 
+MoveTo(257,405,-1,-1,-1,-8,0,-9) 
+MoveTo(257,393,-5,-5) 
+MoveTo(252,380,7,-7) 
+MoveTo(259,365,-2,-2) 
+MoveTo(262,363,3,3) 
+MoveTo(265,364,1,-1,4,-1,6,-3) 
+MoveTo(271,353) 
+stoP()

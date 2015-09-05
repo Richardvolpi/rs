@@ -1,0 +1,43 @@
+; Cuts trees at Varrock North
+; and makes arrow shafts
+;  Created by Kaitnieks
+;  Edited by: imk0tter
+
+WatchObjects(1)
+GoToIfInInventory(@ResetBoo,13)
+MessageBox("You need knife to be visible. Drop it and pick up")
+Stop()
+@ResetBoo:
+Debug("Start cutting")
+@WBoo:
+Wait(10)
+@Boo:
+SetVarsNearestObjectXY(%x,%y,200,1)
+;DebugVar(%x,%y)
+FarActionVar(%x,%y)
+AtObjectVar(%x,%y)
+SetVarNum(%i,0)
+ResetLastServerMessage()
+GoToIfLastServerMessageIs(@EndWaitLoop,"@gam@You get some wood")
+GoToIfLastServerMessageIs(@Sleep,"@gam@You are too tired to cut the tree")
+Wait(15)
+GoTo(@EndWaitLoop)
+@EndWaitLoop:
+GoToIfBagFull(@MakeShafts)
+GoTo(@Boo)
+@MakeShafts:
+GoToIfInInventory(@HaveLogs,14)
+GoTo(@Boo)
+@HaveLogs:
+UseItemWithItemByID(13,14)
+WaitForQuestMenu(30)
+Answer(0)
+Wait(8)
+UseItemWithItemByID(381,280)
+Wait(10)
+GoTo(@MakeShafts)
+@Sleep:
+SetVarNum(%nig,100)
+UseItem(0)
+GoTo(@ResetBoo)
+

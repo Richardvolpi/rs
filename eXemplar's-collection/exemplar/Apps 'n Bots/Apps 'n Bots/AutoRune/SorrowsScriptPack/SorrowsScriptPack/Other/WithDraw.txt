@@ -1,0 +1,7 @@
+@1:
+Withdraw(10,40000)
+Sleep(52)
+GoToIfCountInInventoryEqual(@Stop,2800000,10)
+GoTo(@1)
+@Stop:
+Stop()

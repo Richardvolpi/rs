@@ -1,0 +1,45 @@
+-Catherby Fisher V1.3 
+-By Pauwelke 
+-Start in catherby bank 
+-Press F11 till fatigue is 
+-set to 88. 
+@Start: 
+MoveTo(439,497,-24,0,-26,2) 
+GoTo(@Fish) 
+
+@Fish: 
+Action(409,503) 
+AtObject2(409,504) 
+GoToIfBagFull(@Bank) 
+GoToIfInLastServerMessageIs(@zzz,"tired") 
+Wait(7) 
+GoTo(@Fish) 
+
+@Bank: 
+MoveTo(411,502,1,-1,2,-1,4,-3,9,-3,10,-4,27,-4,30,-7) 
+GoTo(@BankFish) 
+
+@BankFish: 
+SetVarsNearestNPC(%x,%y,%id,95) 
+RepeatNextCommandUntilQuestMenu(50) 
+TalkToNPCVar(%id) 
+WaitForQuestMenu(50) 
+Answer(0) 
+ResetQuestMenu() 
+Wait(50) 
+GoTo(@deposit) 
+
+@deposit: 
+Deposit(372,1) 
+Wait(1) 
+GoToIfInInventory(@deposit,372) 
+CloseBank() 
+GoTo(@Start) 
+
+@zzz: 
+UseItem(0) 
+ResetLastServerMessage() 
+@justwait: 
+Wait(10) 
+GoToIfInLastServerMessageIs(@Fish,"You wake up") 
+GoTo(@justwait) 

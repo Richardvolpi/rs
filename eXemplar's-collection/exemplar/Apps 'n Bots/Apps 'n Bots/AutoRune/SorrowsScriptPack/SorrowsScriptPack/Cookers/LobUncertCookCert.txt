@@ -1,0 +1,131 @@
+;---------------------------
+; Raw lob uncerter, cooker,
+; and recerter version 2.1
+;
+; Start Location: Draynor Village
+; certing spot
+;
+; Inventory Setup: 
+; 0: Sleeping Bag
+; 1: Raw certs 
+; 2: Tinderbox
+; 3: axe
+; 4: cooked certs
+; Make sure you have the in that
+; order.
+; ^^That will be fixed later
+;
+; Make sure you have tons of FO
+; About 1 word per 5 certs.
+;
+;---------------------------
+; Created By: Sorrow
+;
+; Hax.
+;
+;---------------------------
+
+
+;---------------------------
+; Setup variables
+;
+SetSkipDestTime(50)
+
+;---------------------------
+; Go to start location and
+; determine what you have
+; in your inventory currently.
+;
+@Start:
+SetVarNum(%Count,5)
+MoveTo(229,627)
+GoToIfCountInInventoryEqual(@Cert,25,373)
+GoToIfCountInInventoryEqual(@FindTree,25,372)
+GoTo(@Uncert)
+
+;---------------------------
+; Cert if you need to cert.
+;
+@Cert:
+SetVarsNearestNPC(%x,%y,%ID,227)
+ActionVarVar(%x,%y)
+RepeatNextCommandUntilQuestMenu(50,2)
+TalkToNPCVar(%ID)
+Wait(30)
+Answer(1)
+Wait(40)
+Answer(0)
+Wait(40)
+Answer(4)
+Wait(40)
+GoToIfCountInInventoryEqual(@Uncert,0,373)
+GoTo(@Cert)
+
+;---------------------------
+; Uncert if you need to uncert.
+;
+@Uncert:
+SetVarsNearestNPC(%x,%y,%ID,227)
+ActionVarVar(%x,%y)
+RepeatNextCommandUntilQuestMenu(50,2)
+TalkToNPCVar(%ID)
+Wait(30)
+Answer(0)
+Wait(40)
+Answer(3)
+Wait(40)
+Answer(4)
+Wait(40)
+GoToIfCountInInventoryEqual(@FindTree,25,372)
+GoTo(@Uncert)
+
+;---------------------------
+; Finds the tree you need to
+; cut down.
+;
+@FindTree:
+MoveTo(225,630)
+MoveTo(228,630)
+MoveTo(228,624)
+
+;---------------------------
+; Sets fire when the fire
+; needs to be set.
+;
+@SetFire:
+ResetLastServerMessage()
+AddVarNum(%Count,-10)
+DebugVar(%Count)
+MoveTo(225,622)
+Action(225,622,0,0)
+AtObject2(224,622)
+Wait(50)
+Action(225,622,0,0)
+PickItemWithItem(225,622,14,2)
+Wait(50)
+GoToIfLastServerMessageIs(@Cook,"You fail to light a fire")
+
+;---------------------------
+; Cooks the lobs and
+; periodically sets a new fire
+;
+@Cook:
+AddVarNum(%Count,1)
+AtObjectWithItem(225,622,5)
+Wait(20)
+GoToIfCountInInventoryEqual(@Start,0,372)
+GoToIfLastServerMessageIs(@Sleep,"@gre@You are too tired to gain experience, get some rest!")
+GoToIfVarAboveNum(@SetFire,%Count,15)
+GoTo(@Cook)
+
+;---------------------------
+; Sleeps
+;
+@Sleep:
+ResetLastServerMessage()
+UseItemByID(1263)
+@Wait:
+Wait(10)
+GoToIfLastServerMessageIs(@Cook,"You wake up - feeling refreshed")
+GoTo(@Wait)
+

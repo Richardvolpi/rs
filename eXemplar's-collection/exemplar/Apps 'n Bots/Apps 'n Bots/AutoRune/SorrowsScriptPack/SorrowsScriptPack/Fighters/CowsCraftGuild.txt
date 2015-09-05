@@ -1,0 +1,87 @@
+-Cows, pwned by y0
+--Just start in the cow field (Crafting Guild)
+-Sorry, doesn't eat :P
+@MainLoop:
+EnableEvents()
+OnServerMessage(@CheckMessage)
+FightMode(1)
+CheckFighters(1)
+ResetLastServerMessage()
+GoToIfCoordsIn(@CheckAttack,343,616,359,601)
+GoTo(@LockedOut)
+
+@Meh:
+CheckFighters(1)
+ResetLastServerMessage()
+GoToIfCoordsIn(@CheckAttack,343,616,359,601)
+GoTo(@LockedOut)
+
+@CheckAttack:
+GoToIfFighting(@WaitToAtk)
+GoToIfLastServerMessageIs(@Meh,"I can't get close enough")
+GoTo(@CheckAttack2)
+
+@CheckAttack2:
+GoToIfNPCNear(@CheckAttack3,6)
+GoTo(@Spawning)
+
+@Spawning:
+Wait(10)
+GoTo(@CheckAttack2)
+
+@CheckAttack3:
+ResetLastServerMessage()
+OnServerMessage(@CheckMessage)
+SetVarMyHP(%HP)
+GoToIfVarAboveNum(@Attack,%HP,6)
+GoToIfVarBelowNum(@WaitToAtk,%HP,5)
+GoTo(@Attack)
+
+@Attack:
+GoToIfFighting(@WeFight)
+ResetLastServerMessage()
+SetVarsNearestNPC(%x,%y,%ID,6)
+GoToIfVarEqualNum(@MainLoop,%ID,-1)
+ActionVarVar(%x,%y)
+AttackNPCVar(%ID)
+Wait(5)
+GoToIfLastServerMessageIs(@Meh,"I can't get close enough")
+GoTo(@Attack)
+
+@WeFight:
+Wait(10)
+GoToIfFighting(@WeFight)
+GoTo(@CheckAttack)
+
+@WaitToAtk:
+Wait(10)
+GoToIfFighting(@WaitToAtk)
+GoTo(@MainLoop)
+
+@LockedOut:
+MoveTo(353,600)
+Wait(30)
+Action(353,600)
+AtObject(352,600)
+Wait(30)
+MoveTo(353,606,2,2)
+Wait(30)
+GoTo(@MainLoop)
+
+@CheckMessage:
+GoToIfLastServerMessageIs(@Meh,"I can't get close enough")
+GoToIfLastServerMessageIs(@MainLoop,"Your opponent is retreating")
+GoToIfLastServerMessageIs(@Sleep,"@gre@You are too tired to gain experience, get some rest!")
+GoTo(@Attack)
+
+@Sleep:
+UseItem(0)
+SetVarNum(%Snooze,1)
+ResetLastServerMessage()
+@JustWait:
+AddVarNum(%Snooze,1)
+Wait(3)
+GoToIfVarAbove(@Sleep,%Snooze,800)
+GoToIfLastServerMessageIs(@MainLoop,"You wake up - feeling refreshed")
+GoTo(@JustWait)
+

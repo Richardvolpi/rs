@@ -1,0 +1,76 @@
+------------------------
+-    Shaft Maker       -
+-                      -
+- Start behind Draynor -
+-       bank.          -
+-                      -
+- Made By: Disruptive  -
+------------------------
+
+
+@Begin:
+FightMode(3)
+
+@Cut:
+Action(207,661)
+AtObject(206,661)
+Wait(50)
+Action(207,660,-1,-1)
+AtObject(206,658)
+Wait(50)
+GoToIfBagFull(@Shave)
+Action(205,659,0,-1,-1,-2)
+AtObject(204,656)
+Wait(50)
+Action(202,657)
+AtObject(201,657)
+Wait(50)
+Action(202,658,-1,1)
+AtObject(201,660)
+Wait(50)
+GoToIfBagFull(@Shave)
+Action(200,659,0,0)
+AtObject(199,659)
+Wait(50)
+Action(200,661,0,0)
+AtObject(200,662)
+Wait(50)
+Action(199,661,-1,1)
+AtObject(198,663)
+Wait(50)
+GoToIfBagFull(@Shave)
+Action(197,662,0,2,1,2)
+AtObject(198,665)
+Wait(50)
+Action(199,664,0,1)
+AtObject(199,666)
+Wait(50)
+Action(200,665,0,2,-1,3)
+AtObject(198,668)
+Wait(50)
+GoToIfBagFull(@Shave)
+Action(199,668)
+AtObject(199,669)
+Wait(50)
+Action(200,668,2,-2)
+AtObject(202,665)
+Wait(50)
+Action(201,666,0,-2)
+AtObject(201,663)
+Wait(50)
+GoToIfBagFull(@Shave)
+Action(202,664,3,-3)
+AtObject(206,661)
+Wait(50)
+GoToIfBagFull(@Shave)
+GoTo(@Cut)
+
+@Shave:
+UseItemWithItem(4,1)
+WaitForQuestMenu(50)
+Answer(0)
+Wait(10)
+GoToIfInInventory(@Shave,14)
+GoTo(@Cut)
+
+

@@ -1,0 +1,30 @@
+--------------------
+- Feather Attacher -
+-                  -
+- Made By: Sorrow  -
+--------------------
+
+
+@Feather:
+UseItemWithItemByID(669,637)
+Wait(13)
+GoToIfInLastServerMessageIs(@Sleep,"tired")
+GoToIfCountInInventoryGreater(@Feather,9,669)
+GoTo(@Feather)
+
+@Sleep:
+Wait(10)
+SetVarNum(%Seconds,100)
+UseItemByID(1263)
+GoTo(@Rest)
+
+@Rest:
+Wait(5)
+AddVarNum(%Seconds,-1)
+GoToIfVarEqualNum(@Sleep,%Seconds,0)
+GoToIfLastServerMessageIs(@Done,"You wake up - feeling refreshed")
+GoTo(@Rest)
+
+@Done:
+ResetLastServerMessage()
+GoTo(@Feather)

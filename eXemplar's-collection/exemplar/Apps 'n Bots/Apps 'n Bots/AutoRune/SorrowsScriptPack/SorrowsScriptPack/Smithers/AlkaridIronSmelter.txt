@@ -1,0 +1,53 @@
+-Pwned by y0
+--Al Kharid iron smelter
+---Start in bank with no ores on you
+--You need one sleeping bag on you ;)
+-Have fun smithing ;D
+@Bank:
+RepeatNextCommandUntilQuestMenu(50,3)
+SetVarsNearestNPC(%x,%y,%id,268)
+ActionVarVar(%x,%y)
+TalkToNPCVar(%id)
+Answer(0)
+WaitForBankWindow(10000)
+GoTo(@DoBank)
+@DoBank:
+DepositEverything()
+Wait(2)
+GoTo(@WithDraw)
+@WithDraw:
+GoToIfBagFull(@DoneBank)
+Withdraw(151,1)
+Wait(3)
+GoTo(@WithDraw)
+@DoneBank:
+CloseBank()
+Wait(10)
+GoTo(@WalkSmith)
+@WalkSmith:
+MoveTo(86,695)
+Wait(15)
+MoveTo(81,679)
+Wait(20)
+GoTo(@SmithCheck)
+@SmithCheck:
+GoToIfInInventory(@Smith,151)
+GoTo(@WalkBack)
+@Smith:
+SetVarFatigue(%f)
+GoToIfVarAboveNum(@Sleep,%f,85)
+Action(85,679)
+AtObjectWithItemByID(85,679,151)
+Wait(10)
+GoTo(@SmithCheck)
+@WalkBack:
+MoveTo(81,679)
+Wait(10)
+MoveTo(81,683,1,1,1,9,5,13)
+GoTo(@Bank)
+@Sleep: 
+ResetLastServerMessage() 
+UseItemByID(1263) 
+Wait(140) 
+GoToIfInLastServerMessageIs(@SmithCheck,"Wake up") 
+GoTo(@Sleep)

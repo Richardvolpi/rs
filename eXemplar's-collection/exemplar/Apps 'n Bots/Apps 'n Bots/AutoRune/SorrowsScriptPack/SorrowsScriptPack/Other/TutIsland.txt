@@ -1,0 +1,759 @@
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=; 
+;-                         -; 
+;=  AssPirate's Tutorial   =; 
+;-       Island Script     -; 
+;=   Version 2.1           =; 
+;-                         -; 
+;=-=-=-=-=-=-=-=-=-=-=-=-=-=; 
+//Start Location: Start by any NPC 
+
+;-- Setting Shit up --- 
+SetRetryDestMode(1) 
+SetRetryDestTime(30) 
+SetCheatDestTime(120) 
+SetCheatDestMode(1) 
+GoTo(@WhereAreWe) 
+
+;== Procedure WhereAreWe 
+;=- Tells us what room we are in, and starts from there 
+@WhereAreWe: 
+Wait(15) 
+GoToIfCoordsIn(@GuideLoop,215,740,221,747) 
+GoToIfCoordsIn(@ControlLoop,222,737,225,743) 
+GoToIfCoordsIn(@CombatLoop,222,728,233,736) 
+GoToIfCoordsIn(@CookLoop,212,725,219,731) 
+GoToIfCoordsIn(@FinanceLoop,206,727,211,734) 
+GoToIfCoordsIn(@FishLoop,195,722,205,733) 
+GoToIfCoordsIn(@MineLoop,194,735,214,743) 
+GoToIfCoordsIn(@BankLoop,196,746,203,754) 
+GoToIfCoordsIn(@QuestLoop,204,746,210,752) 
+GoToIfCoordsIn(@WildLoop,204,754,216,764) 
+GoToIfCoordsIn(@MageLoop,217,757,221,761) 
+GoToIfCoordsIn(@SleepLoop,222,758,225,762) 
+GoToIfCoordsIn(@CommLoop,226,759,232,762) 
+GoToIfCoordsIn(@LeaveLoop,227,748,234,758) 
+Stop() 
+
+@GuideLoop: 
+GoSub(@TalkToGuide) 
+GoSub(@OpenControlDoor) 
+GoTo(@WhereAreWe) 
+
+;== Procedure TalkToGuide 
+;=- Talking to Guide 
+@TalkToGuide: 
+DebugRS("Talking to guide") 
+ResetQuestMenu() 
+SetVarsNearestNPC(%x,%y,%ID,476) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(45,50,47,43) 
+GoToIfQuestMenu(@Guide1) 
+GoTo(@TalkToGuide) 
+@Guide1: 
+Wait(15,10,16) 
+Answer(0) 
+Wait(107,110,105) 
+Ret() 
+
+;== Procedure OpenControlDoor 
+;=- Going to Control Guide 
+DebugRS("Guide completed") 
+@OpenControlDoor: 
+DebugRS("Opening door to control's guide") 
+MoveTo(221,743) 
+Wait(5,7,9,12,10) 
+Action(221,743) 
+OpenDoor(222,743,1) 
+Wait(20,25,22) 
+Ret() 
+
+@ControlLoop: 
+GoSub(@TalkToControl) 
+GoSub(@OpenCombatDoor) 
+GoTo(@WhereAreWe) 
+
+;== Procedure TalkToControl 
+;=- Talking To Control Guide 
+@TalkToControl: 
+DebugRS("Talking to Controls guide") 
+SetVarsNearestNPC(%x,%y,%ID,499) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(395,390,400) 
+MoveTo(224,737) 
+Ret() 
+
+@OpenCombatDoor: 
+DebugRS("Opening Door to combat area") 
+Wait(15,10,12,19) 
+Action(224,737) 
+OpenDoor(224,737,0) 
+Wait(15,20) 
+MoveTo(224,734,2,-2,3,-2) 
+MoveTo(231,732) 
+Debug("Control Guide finished") 
+Ret() 
+
+@CombatLoop: 
+GoSub(@TalkToCombat1) 
+GoSub(@CheckRat) 
+GoSub(@FightRat) 
+GoSub(@TalkToCombat2) 
+GoSub(@OpenCookDoor) 
+GoTo(@WhereAreWe) 
+
+;== Procedure TalkToCombat1 
+;=- Talking to Combat Instructor 
+@TalkToCombat1: 
+DebugRS("Talking to Combat Instructor") 
+SetVarsNearestNPCIn(%x,%y,%ID,228,730,232,736,474) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(35,45,40,50) 
+GoToIfItemGained(@CRet) 
+GoTo(@TalkToCombat1) 
+@CRet: 
+Ret() 
+
+;== Procedure CheckRat 
+;=- Checking if Rat is near, if not wait 
+@CheckRat: 
+DebugRS("Checking if rat is near") 
+GoToIfNPCNear(@CRRet,473) 
+Wait(100) 
+GoTo(@CheckRat) 
+@CRRet: 
+Ret() 
+
+;== Procedure FightRat 
+;=- Fighting Rat now 
+@FightRat: 
+DebugRS("Fighting Rat") 
+ResetLastServerMessage() 
+FightMode(1) 
+SetVarsNearestNPCIn(%x,%y,%ID,228,730,232,736,473) 
+ActionVarVar(%x,%y) 
+AttackNPCVar(%ID) 
+Wait(50,45) 
+GoToIfInLastServerMessageIs(@RRet,"rat killing") 
+GoTo(@FightRat) 
+@RRet: 
+Ret() 
+
+;== Procedure TalkToCombat2 
+;=- Talking to Combat Instructor 
+@TalkToCombat2: 
+DebugRS("Talking to Combat Instructor") 
+SetVarsNearestNPCIn(%x,%y,%ID,228,730,232,736,474) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(116,119,121,125) 
+Ret() 
+
+;== Procedure OpenCookDoor 
+;=- Opening Door To cook 
+@OpenCookDoor: 
+DebugRS("Finished with combat") 
+DebugRS("Walking to cooking area") 
+MoveTo(225,731,-4,-4) 
+MoveTo(220,727) 
+Wait(5,7,9,11) 
+Action(220,727,0,0) 
+OpenDoor(220,727,1) 
+Ret() 
+
+@CookLoop: 
+GoSub(@TalkToCook1) 
+GoSub(@Cook1) 
+GoSub(@TalkToCook2) 
+GoSub(@Cook2) 
+GoSub(@TalkToCook3) 
+GoSub(@TalkToCook4) 
+GoSub(@OpenFinanceDoor) 
+GoTo(@WhereAreWe) 
+
+;== Procedure TalkToCook1 
+;=- Talking to cook.Recieving meat 
+@TalkToCook1: 
+DebugRS("Talking to Cook") 
+GoToIfCountInInventoryEqual(@ermloop,1,132) 
+SetVarsNearestNPC(%x,%y,%ID,478) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(165,160,167) 
+GoToIfInInventory(@CoRet1,503) 
+GoTo(@TalkToCook1) 
+@CoRet1: 
+Ret() 
+
+;== Procedure Cook1 
+;=- Cooking raw meat. This one burns 
+@Cook1: 
+DebugRS("Burning Meat") 
+ResetLastServerMessage() 
+MoveTo(217,730) 
+Action(217,730) 
+AtObjectWithItemByID(216,731,503) 
+GoToIfInLastServerMessageIs(@CRet2,"again") 
+GoToIfInInventory(@CRet2,134) 
+GoTo(@Cook1) 
+@CRet2: 
+Ret() 
+
+;== Procedure TalkToCook2 
+;=- Talking to cook.Recieving.new.meat 
+@TalkToCook2: 
+DebugRS("Talking to Cook again") 
+SetVarsNearestNPC(%x,%y,%ID,478) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(85,79,82) 
+GoToIfInInventory(@CoRet1,503) 
+GoTo(@TalkToCook2) 
+@CoRet3: 
+Ret() 
+
+;== Procedure Cook2 
+;=- Cooking raw meat. 
+@Cook2: 
+DebugRS("Cooking Meat") 
+ResetLastServerMessage() 
+MoveTo(217,730) 
+Action(216,730) 
+AtObjectWithItemByID(216,731,503) 
+Wait(60) 
+GoToIfInLastServerMessageIs(@CRet4,"again") 
+GoTo(@Cook1) 
+@CRet4: 
+Ret() 
+
+;== Procedure TalkToCook3 
+;=- Talking to cook. 
+@TalkToCook3: 
+DebugRS("Talking to Cook again...") 
+SetVarsNearestNPC(%x,%y,%ID,478) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(85,79,82) 
+Ret() 
+
+;== Procedure TalkToCook4 
+;=- Talking to cook. 
+@TalkToCook4: 
+DebugRS("Talking to Cook for last time") 
+SetVarsNearestNPC(%x,%y,%ID,478) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(85,79,82) 
+Ret() 
+
+;== Procedure OpenFinanceDoor 
+;=- Leaving Cooking room 
+@OpenFinanceDoor: 
+DebugRS("Opening door to combat area") 
+MoveTo(213,727,0,1,-1,2) 
+MoveTo(212,729) 
+Action(212,729) 
+OpenDoor(212,729,1) 
+Wait(15) 
+GoToIfCoordsIn(@FRet,211,729,211,729) 
+GoToIfCountInInventoryEqual(@WhereAreWe,1,132) 
+GoTo(@TalkToCook4) 
+@FRet: 
+Ret() 
+
+@ermloop: 
+GoSub(@TalkToCook4) 
+GoSub(@OpenFinanceDoor) 
+GoTo(@WhereAreWe) 
+
+@FinanceLoop: 
+GoSub(@TalkToFinance) 
+GoSub(@OpenFishDoor) 
+GoTo(@WhereAreWe) 
+
+;== Procedure TalkToFinance 
+;=- Talks To Finance Advisor 
+@TalkToFinance: 
+DebugRS("Talking to Financial advisor") 
+SetVarsNearestNPC(%x,%y,%ID,480) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(323) 
+Ret() 
+
+;== Procedure OpenFishDoor 
+;=- Opening Door To Fishing 
+@OpenFishDoor: 
+DebugRS("Opening Door to fishing area") 
+MoveTo(206,730) 
+Wait(15,25) 
+Action(206,730) 
+OpenDoor(206,730,1) 
+Wait(15,20,18,22) 
+Ret() 
+
+@FishLoop: 
+GoSub(@TalkToFish1) 
+GoSub(@Fish) 
+GoSub(@TalkToFish2) 
+GoSub(@OpenMineDoor) 
+GoTo(@WhereAreWe) 
+
+;== Procedure TalkToFish1 
+;=- Talks to fisher. Receives Net 
+@TalkToFish1: 
+DebugRS("Talking to Fisherman") 
+ResetLastItemGained() 
+SetVarsNearestNPC(%x,%y,%ID,479) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(86,77,87) 
+GoToIfInInventory(@FRet,376) 
+GoTo(@TalkToFish1) 
+@FRet: 
+Ret() 
+
+;== Procedure Fish 
+;=- Fishes Until we catch fish 
+@Fish: 
+DebugRS("Fishing") 
+MoveTo(197,726) 
+Action(197,726) 
+AtObject(196,726) 
+Wait(20) 
+GoToIfInLastServerMessageIs(@FRet2,"catch some shrimps") 
+GoToIfInLastServerMessageIs(@FRet2,"enough") 
+GoTo(@Fish) 
+@FRet2: 
+Ret() 
+
+;== Procedure TalkToFish2 
+;=- Talking to fishing instructor 
+@TalkToFish2: 
+DebugRS("Talking to Fisherman again") 
+SetVarsNearestNPC(%x,%y,%ID,479) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(50) 
+Ret() 
+
+;== Procedure OpenMineDoor 
+;=- Opening Door to Mine Area 
+@OpenMineDoor: 
+DebugRS("Going to mining area") 
+MoveTo(201,733) 
+Wait(15,25,20,22) 
+Action(201,733) 
+OpenDoor(201,734,0) 
+Wait(15,17,19) 
+MoveTo(201,738) 
+Ret() 
+
+@MineLoop: 
+GoSub(@TalkToMine1) 
+GoSub(@Prospect) 
+GoSub(@TalkToMine2) 
+GoSub(@Mine) 
+GoSub(@TalkToMine3) 
+GoSub(@OpenBankDoor) 
+GoTo(@WhereAreWe) 
+
+;== Procedure TalkToMine1 
+;=- Talks to miner. 
+@TalkToMine1: 
+DebugRS("Talking to miner") 
+MoveTo(201,739,1,1) 
+SetVarsNearestNPC(%x,%y,%ID,482) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(120) 
+Ret() 
+
+;== Procedure Prospect 
+;=- Prospects rock 
+@Prospect: 
+DebugRS("Prospecting Rock") 
+ResetLastServerMessage() 
+MoveTo(202,739,0,1) 
+Wait(10) 
+Action(202,740) 
+AtObject2(203,740) 
+Wait(130) 
+GoToIfInLastServerMessageIs(@MRet,"increase") 
+GoTo(@Prospect) 
+@MRet: 
+Ret() 
+
+;== Procedure TalkToMine2 
+;=- Talks to miner.Recieves pick 
+@TalkToMine2: 
+DebugRS("Talking to miner") 
+SetVarsNearestNPC(%x,%y,%ID,482) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(100) 
+GoToIfInInventory(@MRet2,156) 
+GoTo(@TalkToMine2) 
+@MRet2: 
+Ret() 
+
+;== Procedure Mine 
+;=- Mines Rock 
+@Mine: 
+DebugRS("Mining") 
+MoveTo(202,740) 
+Action(202,740) 
+AtObject(203,740) 
+Wait(50) 
+GoToIfInLastServerMessageIsNot(@Mine,"obtain") 
+GoTo(@MRet3) 
+@MRet3: 
+Ret() 
+
+;== Procedure TalkToMine3 
+;=- Talks to miner. 
+@TalkToMine3: 
+DebugRS("Talking to miner") 
+SetVarsNearestNPC(%x,%y,%ID,482) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(100) 
+Ret() 
+
+;== Procedure OpenBankDoor 
+;=- Opening Door to bank area 
+@OpenBankDoor: 
+DebugRS("Going to banking area") 
+MoveTo(198,744) 
+Wait(10) 
+Action(198,745) 
+OpenDoor(198,746,0) 
+Wait(15,20,25) 
+Ret() 
+
+@BankLoop: 
+GoSub(@TalkToBank) 
+GoSub(@Bank) 
+GoSub(@OpenQuestDoor) 
+GoTo(@WhereAreWe) 
+
+;== Procedure TalkToBank 
+;=- Talking to banker 
+@TalkToBank: 
+DebugRS("Talking to banker") 
+SetVarsNearestNPC(%x,%y,%ID,485) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(200) 
+Answer(0) 
+WaitForBankWindow(90) 
+GoToIfBankWindow(@BRet) 
+GoTo(@TalkToBank) 
+@BRet: 
+Ret() 
+
+;== Procedure Bank 
+;=- Deposit All 
+@Bank: 
+DebugRS("Banking") 
+Wait(40) 
+Deposit(202,1) 
+Deposit(156,1) 
+Deposit(349,1) 
+Deposit(376,1) 
+Deposit(134,1) 
+Deposit(70,1) 
+Deposit(4,1) 
+Deposit(132,1) 
+Wait(25) 
+Ret() 
+
+;== Procedure OpenQuestDoor 
+;=- Openining door to quest area 
+@OpenQuestDoor: 
+DebugRS("Going to quest area") 
+MoveTo(203,752) 
+Wait(16) 
+Action(203,752) 
+OpenDoor(204,752,1) 
+Wait(15,20,22,18) 
+Ret() 
+
+@QuestLoop: 
+GoSub(@TalkToQuest) 
+GoSub(@OpenWildDoor) 
+GoTo(@WhereAreWe) 
+
+;== Procedure TalkToQuest 
+;=- Talks to quest advisor 
+@TalkToQuest: 
+@Quest: 
+DebugRS("Talking to Quest Advisor") 
+ResetQuestMenu() 
+SetVarsNearestNPC(%x,%y,%ID,489) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+WaitForQuestMenu(200) 
+GoToIfQuestMenu(@Answer) 
+GoTo(@Quest) 
+@Answer: 
+Answer(0) 
+GoTo(@QRet) 
+@QRet: 
+Ret() 
+
+;== Procedure OpenWildDoor 
+;=- Opening Door To WIlderness 
+@OpenWildDoor: 
+DebugRS("Heading to wilderness guide") 
+MoveTo(207,751,2,2) 
+MoveTo(209,753) 
+Action(209,753) 
+OpenDoor(209,754,0) 
+Wait(15) 
+Ret() 
+
+@WildLoop: 
+GoSub(@TalkToWild) 
+GoSub(@OpenMageDoor) 
+GoTo(@WhereAreWe) 
+
+;== Procedure TalkToWild 
+;=- Talking To Wilderness guide 
+@TalkToWild: 
+DebugRS("Talking to Wilderness guide") 
+SetVarsNearestNPC(%x,%y,%ID,493) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+ResetQuestMenu() 
+WaitForQuestMenu(130) 
+GoToIfQuestMenu(@QA) 
+GoTo(@TalkToWild) 
+@QA: 
+Answer(0) 
+WaitForQuestMenu(180) 
+GoToIfQuestMenu(@QA2) 
+GoTo(@TalkToWild) 
+@QA2: 
+Answer(0) 
+Wait(200,215,210,205) 
+Ret() 
+
+;== Procedure OpenMageDoor 
+;=- Opening door to mage area 
+@OpenMageDoor: 
+DebugRS("heading to mage area") 
+MoveTo(216,760) 
+Wait(10) 
+Action(216,760) 
+OpenDoor(217,760,1) 
+Wait(15) 
+Ret() 
+
+@MageLoop: 
+GoSub(@TalkToMage1) 
+GoSub(@TalkToMage2) 
+GoSub(@DropRunes) 
+GoSub(@TalkToMage3) 
+GoSub(@OpenSleepDoor) 
+GoTo(@WhereAreWe) 
+
+;== Procedure TalkToMage1 
+;=- Talking to mage. 
+@TalkToMage1: 
+DebugRS("Talking to mage") 
+SetVarsNearestNPC(%x,%y,%ID,494) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+WaitForQuestMenu(75) 
+GoToIfQuestMenu(@MA) 
+GoToIfInInventory(@MA,33) 
+GoTo(@TalkToMage1) 
+@MA: 
+Answer(1) 
+Wait(150) 
+Ret() 
+
+;== Procedure TalkToMage2 
+;=- Talking to mage. Recieving runes 
+@TalkToMage2: 
+DebugRS("Talking to mage") 
+SetVarsNearestNPC(%x,%y,%ID,494) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(100,109,108,122) 
+GoToIfInInventory(@MRet,33) 
+GoTo(@TalkToMage2) 
+@MRet: 
+Ret() 
+
+;== Procedure DropRunes 
+;=- Dropping the runes we have 
+@DropRunes: 
+DebugRS("Dropping Runes") 
+DropItemByID(32) 
+Wait(9) 
+DropItemByID(33) 
+Wait(9) 
+DropItemByID(34) 
+Wait(9) 
+DropItemByID(35) 
+Wait(9) 
+DropItemByID(36) 
+Wait(25,20) 
+Ret() 
+
+;== Procedure TalkToMage3 
+;=- Talking to mage last time 
+@TalkToMage3: 
+DebugRS("Talking to mage") 
+SetVarsNearestNPC(%x,%y,%ID,494) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(40) 
+Ret() 
+
+;== Procedure OpenSleepDoor 
+;=- Opening Door to Sleep Area 
+@OpenSleepDoor: 
+DebugRS("Heading to sleeping area") 
+MoveTo(219,761) 
+MoveTo(221,761) 
+MoveTo(221,760) 
+Wait(35,45,37,38,42) 
+Action(221,760) 
+OpenDoor(222,760,1) 
+Wait(25) 
+Ret() 
+
+@SleepLoop: 
+GoSub(@TalkToSleep1) 
+GoSub(@Sleep) 
+GoSub(@TalkToSleep2) 
+GoSub(@OpenCommDoor) 
+GoTo(@WhereAreWe) 
+
+;== Procedure TalkToSleep1 
+;=- Talking to fatigue aexpert 
+@TalkToSleep1: 
+DebugRS("Talking to fatigue expert") 
+SetVarsNearestNPC(%x,%y,%ID,262) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(70,80,85,75) 
+Ret() 
+
+;== Procedure Sleep 
+;=- Sleeping at Bed 
+@Sleep: 
+DebugRS("Sleeping") 
+MoveTo(224,761) 
+Action(225,760,-1,1) 
+AtObject(222,761) 
+Wait(100,120,110) 
+GoToIfInLastServerMessageIs(@SRet,"wake up") 
+GoTo(@Sleep) 
+@SRet: 
+Ret() 
+
+;== Procedure TalkToSleep2 
+;=- Talking to fatigue expert, recieve bag 
+@TalkToSleep2: 
+DebugRS("Talking to fatigue expert") 
+SetVarsNearestNPC(%x,%y,%ID,262) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+Wait(140) 
+GoToIfInInventory(@SRet2,1263) 
+GoTo(@Sleep) 
+@SRet2: 
+Ret() 
+
+;== Procedure OpenCommDoor 
+;=- OPening Community door 
+@OpenCommDoor: 
+DebugRS("Heading to community area") 
+MoveTo(225,760) 
+Wait(15) 
+Action(225,760,0,0) 
+OpenDoor(226,760,1) 
+Wait(25) 
+Ret() 
+
+@CommLoop: 
+GoSub(@TalkToComm) 
+GoSub(@OpenLastDoor) 
+GoTo(@WhereAreWe) 
+
+;==Procedure TalkToComm 
+;=- Talking to community 
+@TalkToComm: 
+DebugRS("Talking to community leader") 
+ResetQuestMenu() 
+SetVarsNearestNPC(%x,%y,%ID,496) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+WaitForQuestMenu(100) 
+GoToIfQuestMenu(@CA) 
+GoTo(@TalkToComm) 
+@CA: 
+Wait(25,20) 
+Answer(1) 
+ResetQuestMenu() 
+WaitForQuestMenu(240) 
+GoToIfQuestMenu(@CA2) 
+GoTo(@TalkToComm) 
+@CA2: 
+Wait(30,25) 
+Answer(1) 
+Wait(40) 
+Ret() 
+
+;== Procedure OpenLastDoor 
+;=- Opening Last Door 
+@OpenLastDoor: 
+DebugRS("Opening last door") 
+DebugRS("W0ot almost done") 
+MoveTo(230,759) 
+Wait(10) 
+Action(230,759,0,0) 
+OpenDoor(230,759,0) 
+Wait(10) 
+Ret() 
+
+@LeaveLoop: 
+GoSub(@TalkToLeave) 
+GoSub(@Arrived) 
+
+;== Procedure TalkToLeave 
+;=- Leaving Island 
+@TalkToLeave: 
+DebugRS("Talking to boatman... Leaving island") 
+MoveTo(228,752) 
+ResetQuestMenu() 
+SetVarsNearestNPC(%x,%y,%ID,497) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+WaitForQuestMenu(120) 
+GoToIfQuestMenu(@LA) 
+GoTo(@TalkToLeave) 
+@LA: 
+Wait(25) 
+Answer(0) 
+Wait(50) 
+Ret() 
+
+;== Procedure Arrived 
+;=- We have arrived!!! 
+@Arrived: 
+DebugRS("We are finished") 
+DebugRS("AssPirate pwns u") 
+Wait(90) 
+GoToIfInLastServerMessageIs(@Stop,"Lumbridge") 
+Wait(15) 
+Ret() 
+@Stop: 
+LogOut() 
+Stop() 

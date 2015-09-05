@@ -1,0 +1,111 @@
+;-------------------- 
+;Guild fisher 
+;Start at the left click 
+;lob fishing spot 
+; 
+;Make sure you have a lot 
+;of words, about 300 a day 
+; 
+;From the SAB script 
+;------------------- 
+;Some editing by: okeR 
+;Door opening, prevention 
+;from getting stuck and 
+;other such things 
+;were added by: Sorrow 
+;Cooking Added by Sundude 
+; 
+;<3 
+; 
+;---------------------- 
+
+
+SetVarNum(%Attempts,0) 
+SetVarNum(%Temp,1) 
+GoTo(@fish) 
+@fish: 
+GoToIfCoordsIn(@WalkToFish,605,506,602,501) 
+GoToIfBagFull(@gotorange) 
+GoToIfVarAboveNum(@FishCounter,%Attempts,100) 
+Action(589,502) 
+AtObject(589,501) 
+Wait(10) 
+AddVar(%Attempts,%Temp) 
+GoToIfLastServerMessageIs(@zzz,"@gam@You are too tired to catch this fish") 
+GoTo(@fish) 
+
+@FishCounter: 
+Wait(50) 
+SetVarNum(%Attempts,0) 
+AtObject(368,687) 
+Wait(10) 
+GoTo(@fish) 
+
+@zzz: 
+UseItemByID(1263) 
+Wait(300) 
+GoTo(@fish) 
+
+@gotorange: 
+MoveTo(587,502,0,4,-1,5) 
+MoveTo(587,517,-1,1) 
+Wait(20) 
+Action(586,518) 
+OpenDoor(586,519,0) 
+Wait(10) 
+MoveTo(586,521) 
+GoTo(@Cook) 
+
+@Cook: 
+Action(584,520) 
+AtObjectWithItem(583,520,5) 
+Wait(10) 
+GoToIfInLastServerMessageIs(@zzzz,"tired") 
+GoToIfInInventory(@Cook,372) 
+GoTo(@cert) 
+
+@zzzz: 
+UseItemByID(1263) 
+Wait(300) 
+GoTo(@Cook) 
+
+@cert: 
+MoveTo(586,519) 
+Wait(20) 
+Action(586,519) 
+OpenDoor(586,519,0) 
+Wait(10) 
+MoveTo(586,519,0,-1) 
+MoveTo(602,506) 
+Wait(20) 
+Action(602,506) 
+OpenDoor(603,506,3) 
+Wait(10) 
+MoveTo(604,506) 
+
+@talk: 
+SetVarsNearestNPC(%x,%y,%id,369) 
+RepeatNextCommandUntilQuestMenu(40,1) 
+TalkToNPCVar(%id) 
+WaitForQuestMenu(50) 
+Answer(1) 
+WaitForQuestMenu(50) 
+Answer(0) 
+WaitForQuestMenu(50) 
+Answer(4) 
+Wait(13) 
+
+@WalkToFish: 
+MoveToNoWait(603,505) 
+Wait(20) 
+Action(603,505) 
+OpenDoor(603,506,3) 
+Wait(30) 
+MoveTo(602,506,-1,1) 
+GoToIfCoordsIn(@WalkToFish,605,506,602,501) 
+MoveTo(601,502) 
+GoToIfCoordsIn(@WalkToFish,605,506,602,501) 
+MoveTo(595,502) 
+GoToIfCoordsIn(@WalkToFish,605,506,602,501) 
+
+GoTo(@fish)

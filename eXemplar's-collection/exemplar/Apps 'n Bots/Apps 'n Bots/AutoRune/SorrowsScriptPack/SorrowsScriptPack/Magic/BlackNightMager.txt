@@ -1,0 +1,48 @@
+;Auto-mager for Black Knight in jail 
+;by aight 
+;Edited sin's lesser mager 
+;Added Moveback 
+;--------------------- 
+@MainLoop: 
+FightMode(3) 
+GoToIfCoordsIn(@MoveBack,281,666,282,666) 
+GoToIfCoordsIn(@MoveBack,282,665,282,666) 
+GoToIfCoordsIn(@MoveBack,282,667,285,658) 
+GoToIfCoordsIn(@MoveBack,283,665,283,666) 
+ResetLastServerMessage() 
+
+GoToIfNPCNear(@Mage,189) 
+Wait(50) 
+GoTo(@MainLoop) 
+
+@Mage: 
+FightMode(3) 
+GoToIfCoordsIn(@MoveBack,281,666,282,666) 
+GoToIfCoordsIn(@MoveBack,282,665,282,666) 
+GoToIfCoordsIn(@MoveBack,282,667,285,658) 
+GoToIfCoordsIn(@MoveBack,283,665,283,666) 
+SetVarsNearestNPC(%x,%y,%ID,189) 
+GoToIfVarEqualNum(@MainLoop,%ID,-1) 
+ActionVarVar(%x,%y) 
+MagicNPC(%ID,0) 
+SetVarFatigue(%v) 
+Wait(21) 
+GoToIfVarAboveNum(@Sleep,%v,625) 
+GoToIfNPCNear(@Mage,189) 
+GoTo(@MainLoop) 
+
+@Sleep: 
+UseItem(0) 
+;PlaySound("tada.wav") 
+GoTo(@Wait) 
+
+@Wait: 
+Wait(3) 
+GoToIfLastServerMessageIs(@MainLoop,"You wake up - feeling refreshed") 
+GoTo(@Wait) 
+
+@MoveBack: 
+FightMode(3) 
+MoveTo(281,665) 
+SetCheatDestTime(1) 
+GoTo(@MainLoop)

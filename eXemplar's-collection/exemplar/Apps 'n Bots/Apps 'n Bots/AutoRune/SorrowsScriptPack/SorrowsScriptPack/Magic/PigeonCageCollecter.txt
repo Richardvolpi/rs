@@ -1,0 +1,74 @@
+-------------------------
+- Pigeon Collecter      -
+-                       -
+- Collects and banks    -
+- pigeon cages          -
+-                       -
+- Start on a pigeon     -
+- cage inside Ardougne  -
+- or at strip bank      -
+-                       -
+- Made By: Sorrow       -
+-------------------------
+
+@Begin:
+FightMode(3)
+GoToIfCoordsIn(@Bank,585,576,577,572)
+
+@Collect:
+Action(574,583)
+TakeItem(574,583,799,306)
+GoToIfBagFull(@MoveToBank)
+Wait(30)
+Action(574,585)
+TakeItem(574,585,799,306)
+GoToIfBagFull(@MoveToBank)
+Wait(20)
+Action(574,586)
+TakeItem(574,586,799,306)
+Wait(20)
+GoToIfBagFull(@MoveToBank)
+GoTo(@Collect)
+
+@MoveToBank:
+MoveTo(575,585)
+MoveTo(579,585,1,1,7,1,7,-14,2,-14,2,-12,0,-10)
+GoTo(@Begin)
+
+@Bank:
+SetVarsNearestNPC(%x,%y,%ID,95)
+ActionVarVar(%x,%y)
+RepeatNextCommandUntilQuestMenu(50,2)
+TalkToNPCVar(%ID)
+Wait(40)
+Answer(0)
+WaitForBankWindow(100)
+Wait(20)
+DepositEverything()
+Wait(20)
+CloseBank()
+Wait(20)
+GoToIfInInventory(@Bank,799)
+GoTo(@MoveToPigeons)
+
+@MoveToPigeons:
+MoveTo(582,574,-1,-1,-1,-3,4,-3,4,12,-3,12,-4,11,-5,11,-5,12)
+MoveTo(577,585,-2,0,-2,-1)
+GoTo(@Begin)
+
+@Sleep:
+Wait(10)
+SetVarNum(%Seconds,100)
+UseItemByID(1263)
+GoTo(@Rest)
+
+@Rest:
+Wait(5)
+AddVarNum(%Seconds,-1)
+GoToIfVarEqualNum(@Sleep,%Seconds,0)
+GoToIfLastServerMessageIs(@Done,"You wake up - feeling refreshed")
+GoTo(@Rest)
+
+@Done:
+ResetLastServerMessage()
+GoTo(@Begin)

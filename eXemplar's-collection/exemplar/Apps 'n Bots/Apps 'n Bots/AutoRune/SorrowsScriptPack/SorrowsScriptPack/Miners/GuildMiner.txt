@@ -1,0 +1,403 @@
+;=-=-=-=-=-=-=-=-=-=-=-=-=; 
+;-                       =; 
+;=        Coal           -; 
+;- Falador Guild Miner   =; 
+;=       v1.0            -; 
+;-   Made By: AssPirate  =; 
+;=                       -; 
+;=-=-=-=-=-=-=-=-=-=-=-=-=; 
+//Based off of Kaitniek's Guild Miner 
+//Start Location: In Bank, Mining Guild, Ladder Room 
+//Start Condition: Own a pickaxe and sleeping bag that are invisible 
+
+;-- Setting Up Events 
+@Initialize: 
+Wait(15) 
+GoSub(@CheckItems) 
+EnableEvents() 
+WatchObjects(1) 
+SetRetryDestMode(0) 
+SetRetryDestTime(15) 
+OnRetryDest(@Stuck) 
+OnItemLost(@ItemLost,%ItemID,%ItemPos) 
+OnPrivateMessage(@PM) 
+OnCoordsChanged(@CoordsChanged,%oldX,%oldY) 
+GoTo(@WhereAreWe) 
+
+;-- Where Are We??? 
+; If not at mines, Try to get there 
+@WhereAreWe: 
+DebugRS("@cya@Checking where we are") 
+SetVarNum(%AtStart,0) 
+@StartLoop: 
+GoSub(@GetToStart) 
+GoToIfVarEqualNum(@StartLoop,%AtStart,0) 
+
+;==Procedure GetToStart 
+;-Trying to get to the mines 
+@GetToStart: 
+GoToIfCoordsIn(@StartAtBank,280,564,286,573) 
+GoToIfCoordsIn(@StartAtGuild,272,563,277,567) 
+GoToIfCoordsIn(@StartAtMines,263,3381,277,3400) 
+DebugRS("@ora@Please start in bank, mine, or in guild") 
+Stop() 
+Ret() 
+
+;--Main Loop -- Mining and Banking 
+@MainLoop: 
+@DoMining: 
+GoSub(@SetObjects) 
+GoSub(@MineCoal) 
+GoToIfBagFull(@LeaveGuild) 
+GoTo(@DoMining) 
+@LeaveGuild: 
+GoSub(@DoWalkingToBank) 
+GoSub(@DoWalkingToGuild) 
+GoSub(@GoDownLadder) 
+GoTo(@MainLoop) 
+
+@MineCoal: 
+GoToIfBagFull(@LeaveGuild) 
+GoToIfCoordsIn(@CoordsOkToMine,277,3400,263,3381) 
+GoTo(@GetToStart) 
+@CoordsOkToMine: 
+MineNearestIn(275,3399,265,3387,110) 
+SetVarNum(%mine,24,25,30) 
+ResetLastItemGained() 
+@WaitLoop: 
+Wait(1) 
+AddVarNum(%mine,-3) 
+GoToIfInLastServerMessageIs(@Sleep,"tired") 
+GoToIfVarAboveNum(@WaitLoop,%mine,0) 
+Ret() 
+
+
+;==Procedure StartAtBank 
+;-Trying to get to mine 
+@StartAtBank: 
+GoSub(@DoWalkingToGuild) 
+GoSub(@GoDownLadder) 
+Ret() 
+
+;==Procedure StartAtMine 
+;- Started at mines 
+@StartAtMines: 
+SetVarNum(%AtStart,1) 
+GoTo(@MainLoop) 
+
+;==Procedure StartAtGuild 
+;- Climbing Down Ladder 
+@StartAtGuild: 
+GoSub(@GoDownLadder) 
+Ret() 
+
+;==Procedure GoDownLadder 
+;- Climbing down ladder and 
+;- Going to center of mines 
+;- If climbing fails 3 times 
+;- Something is fucked up 
+@GoDownLadder: 
+DebugRS("@cya@Climbing Down Ladder") 
+Wait(1) 
+OnCoordsChanged(@WaitingClimbingDown,%LastX,%LastY) 
+SetVarNum(%tries,0) 
+@TryClimbDown: 
+AddVarNum(%tries,1) 
+SetVarNum(%wait,8) 
+GoToIfVarAboveNum(@GetToStart,%tries,3) 
+MoveTo(274,565) 
+Action(274,565) 
+AtObject(274,566) 
+@WaitToGoDown: 
+Wait(10) 
+AddVarNum(%wait,-1) 
+GoToIfVarAboveNum(@WaitToGoDown,%wait,0) 
+@CheckIfDown: 
+SetVarMyY(%y) 
+GoToIfVarBelowNum(@TryClimbDown,%y,3000) 
+Wait(10) 
+OnCoordsChanged(@CoordsChanged,%oldX,%oldY) 
+MoveTo(273,3398) 
+Ret() 
+
+;==Procedure WalkingToGuild 
+@DoWalkingToGuild: 
+DebugRS("@cya@Walking To Mining Guild") 
+MoveTo(286,572) 
+MoveTo(287,572) 
+MoveTo(287,564,1,-1) 
+MoveTo(274,562,-1,-1) 
+Ret() 
+
+;==Event Stuck 
+; If someone closed a door, try to get out 
+@Stuck: 
+GoToIfCoordsIn(@StuckInBank,286,571,286,572) 
+GoToIfCoordsIn(@StuckOutBank,287,571,287,572) 
+GoToIfCoordsIn(@StuckOutGuild,274,562,275,563) 
+GoToIfCoordsIn(@StuckInGuild,274,563,275,564) 
+GoToIfCoordsIn(@StuckOnNRocks,267,3395,268,3395) 
+GoToIfCoordsIn(@StuckOnSRocks,265,3393,266,3393) 
+GoToIfCoordsIn(@StuckInMines,263,3381,277,3400) 
+Debug("We are stuck...And its not at a door") 
+ERet() 
+
+;==Procedure StuckInBank 
+;- Someone shut us in bank... 
+;- Trying to get out 
+@StuckInBank: 
+MoveTo(286,571) 
+Action(286,571) 
+AtObject(287,571) 
+Ret() 
+
+;==Procedure StuckOutBank 
+;- Someone shut us out of the bank 
+;- Trying to get in to bank 
+@StuckOutBank: 
+MoveTo(287,571) 
+Action(287,571) 
+AtObject(287,571) 
+Ret() 
+
+;==Procedure StuckOutGuild 
+;- Someone shut us out of ladder room 
+;- Getting in to head down 
+@StuckOutGuild: 
+MoveTo(274,562) 
+Action(274,562) 
+OpenDoor(274,563,0) 
+MoveTo(274,565) 
+Ret() 
+
+;==Procedure StuckInGuild 
+;- Someone shut us in ladder room 
+;- Getting out to head to bank 
+@StuckInGuild: 
+MoveTo(274,563) 
+Action(274,563) 
+OpenDoor(274,563,0) 
+MoveTo(274,560) 
+Ret() 
+
+;==Procedure StuckInMines 
+;- Me must have got stuck on a rock 
+;- heading to middle of mines 
+@StuckInMines: 
+FarMoveTo(268,3393) 
+Ret() 
+
+;==Procedure StuckOnNRocks 
+;- Me must have got stuck on a rock 
+;- Heading To Mith rocks 
+@StuckOnNRocks: 
+MoveTo(266,3395,0,2,1,3) 
+Ret() 
+
+;==Procedure StuckOnSRocks 
+;- Me must have got stuck on a rock 
+;- Heading To Mith rocks 
+@StuckOnSRocks: 
+MoveTo(264,3393,0,2,1,2,2,3,2,5) 
+Ret() 
+
+;==Procedure DoWalkingToBank 
+;- Walking to Bank 
+;- Going Up ladder and walking 
+@DoWalkingToBank: 
+GoSub(@SetObjects) 
+SetVarMyY(%y) 
+SetVarNum(%tries,0) 
+@RetryClimbUp: 
+DebugRS("@cya@Going up ladder") 
+AddVarNum(%tries,1) 
+GoToIfVarAboveNum(@GetToStart,%tries,5) 
+FarMoveTo(274,3397) 
+FarAction(274,3397) 
+FarActionAtObject(274,3398) 
+@WaitForCoordChange: 
+OnCoordsChanged(@WaitingClimbingUp,%LastX,%LastY) 
+SetVarNum(%wait,30) 
+@WaitLoopU: 
+Wait(1) 
+AddVarNum(%wait,-1) 
+GoToIfVarAboveNum(@WaitLoopU,%wait,0) 
+SetVarMyY(%y) 
+GoToIfVarAboveNum(@RetryClimbUp,%y,3000) 
+Wait(30) 
+MoveTo(274,562) 
+MoveTo(286,562,1,1) 
+MoveTo(287,571) 
+MoveTo(283,571) 
+GoSub(@DoBanking) 
+Ret() 
+
+;==BankingLoop 
+@DoBanking: 
+DebugRS("@cya@Checking If we are in Bank") 
+GoSub(@AreWeInBank) 
+@ISeeBanker: 
+GoSub(@FindBanker) 
+Ret() 
+
+;==Procedure AreWeInBank? 
+;- Checking if we are in bank 
+;- Checks if Banker is near 
+@AreWeInBank: 
+@Check1: 
+GoToIfNPCNear(@Check2) 
+@Check2: 
+GoToIfCoordsIn(@Ret,280,564,286,573) 
+GoTo(@GetToStart) 
+@Ret: 
+GoTo(@ISeeBanker) 
+
+;==Procedure FindBanker 
+;- Finding a banker to talk to 
+;- Waiting 6 seconds for response 
+@FindBanker: 
+ResetQuestMenu() 
+SetVarsNearestNPC(%x,%y,%ID,95) 
+ActionVarVar(%x,%y) 
+TalkToNPCVar(%ID) 
+WaitForQuestMenu(60) 
+GoToIfQuestMenu(@TalkBanker) 
+GoTo(@FindBanker) 
+@TalkBanker: 
+Answer(0) 
+WaitForBankWindow(60) 
+DepositEverything() 
+Wait(15,20,25) 
+CloseBank() 
+Wait(15,20,25) 
+Ret() 
+
+;==Procedure SetObjects 
+;- Setting the object in guild 
+;- So we dont get stuck 
+@SetObjects: 
+--Soft Rocks 
+SetObject(275,3396,666) 
+SetObject(275,3395,666) 
+SetObject(273,3396,666) 
+SetObject(273,3394,666) 
+SetObject(272,3394,666) 
+SetObject(272,3397,666) 
+SetObject(271,3397,666) 
+SetObject(269,3390,110,98) 
+SetObject(269,3391,110,98) 
+SetObject(270,3390,666) 
+SetObject(272,3391,666 
+SetObject(272,3392,666) 
+SetObject(268,3396,110,98) 
+SetObject(267,3396,110,98) 
+SetObject(266,3394,110,98) 
+SetObject(265,3394,110,98) 
+SetObject(265,3391,110,98) 
+SetObject(267,3389,110,98) 
+SetObject(266,3387,110,98) 
+SetObject(265,3387,110,98) 
+SetObject(269,3390,110,98) 
+SetObject(269,3391,110,98) 
+SetObject(267,3396,110,98) 
+-- wall bits 
+SetObject(265,3386,1) 
+SetObject(264,3387,1) 
+SetObject(263,3387,1) 
+Ret() 
+
+;==Event OnServerMessage 
+; Tells AR when to sleep and 
+; If we lost our pickaxe 
+@ServerMessage: 
+GoToIfLastServerMessageIs(@Sleep,"@gam@You are too tired to mine this rock") 
+GoToIfLastServerMessageIs(@RunAndHidePick,"@gam@You need a pickaxe to mine the rock") 
+ERet() 
+
+@Sleep: 
+UseItemByID(1263) 
+SetVarNum(%sleep,100) 
+Wait(50) 
+@JustWait: 
+GoToIfInLastServerMessageIs(@DoneSleep,"wake") 
+Wait(1) 
+AddVarNum(%sleep,-1) 
+GoToIfVarAboveNum(@Sleep,%justwait,0) 
+GoTo(@Sleep) 
+
+
+GoTo(@Sleep) 
+@DoneSleep: 
+ERet() 
+
+;==Procedure CheckItems 
+;- Checking that we have an invisible 
+;- Pickaxe and sleeping bag 
+@CheckItems: 
+GoToIfInInventory(@HaveBag,1263) 
+GoToIfInInventory(@HavePick,156,1258,1259,1260,1261,1262) 
+Ret() 
+@HaveBag: 
+MessageBox("Start with an invisible sleeping bag") 
+Stop() 
+@HavePick: 
+MessageBox("We have a pickaxe, make it invisible") 
+Stop() 
+
+;==Event OnCoordsChanged 
+@CoordsChanged: 
+SetVar(%x1,%oldX) 
+SetVar(%y1,%oldY) 
+SetVar(%x2,%oldX) 
+SetVar(%y2,%oldY) 
+AddVarNum(%x1,-40) 
+AddVarNum(%y1,-40) 
+AddVarNum(%x2,40) 
+AddVarNum(%y2,40) 
+GoToIfCoordsInVars(@NoTeleporting,%x1,%y1,%x2,%y2) 
+SetVarMyX(%x) 
+SetVarMyY(%y) 
+DebugVar(%oldX,%oldY,%x,%y) 
+Debug("You were teleported! Better let's log out...") 
+SaveScreenshot() 
+StopAndLogOut() 
+@NoTeleporting: 
+ERet() 
+
+;==Event OnCoordsChanged ClimbingDown 
+@WaitingClimbingDown: 
+SetVarMyY(%y) 
+GoToIfVarAboveNum(@StopWait,%y,3000) 
+ERet() 
+
+;==Event OnCoordsChanged ClimbingUp 
+@WaitingClimbingUp: 
+SetVarMyY(%y) 
+GoToIfVarEqualNum(@StopWait,%y,565) 
+ERet() 
+
+@StopWait: 
+SetVarNum(%wait,0) 
+ERet() 
+
+;==EventOnPrivateMessage 
+; Log out if we have been Pmed 
+@PM: 
+Debug("Someone has PMed us, could be f4gex") 
+Debug("If this keeps happening, delete all friends") 
+GoTo(@RunAndHidePM) 
+ERet() 
+@RunAndHidePM: 
+SaveScreenshot() 
+StopAndLogOut() 
+
+;==Event OnItemLost 
+; Log out if we lost invisible item 
+@ItemLost: 
+GoToIfVarEqualNum(@RunAndHidePick,%ItemID,-2) 
+ERet() 
+@RunAndHidePick: 
+Debug("Ooops we just lost pickaxe! Must be an admin!!!") 
+StopAndLogOut()oords:
+ERet()
+

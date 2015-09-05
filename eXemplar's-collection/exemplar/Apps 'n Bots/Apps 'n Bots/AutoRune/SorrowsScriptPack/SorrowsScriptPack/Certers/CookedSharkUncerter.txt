@@ -1,0 +1,43 @@
+;Disruptive's Cooked Shark Uncerter 
+;Start in Catherby Bank with all your certs on you 
+;It is pretty fast, so have fun. 
+
+
+@Start: 
+MoveTo(440,496,-1,1) 
+MoveTo(436,497) 
+MoveTo(433,497,-3,-3) 
+MoveTo(430,486) 
+MoveTo(426,486,0,-1) 
+MoveTo(428,485) 
+
+@TalkOwen: 
+SetVarsNearestNPC(%x,%y,%id,299) 
+RepeatNextCommandUntilQuestMenu(40,1) 
+TalkToNPCVar(%id) 
+WaitForQuestMenu(50) 
+Answer(0) 
+WaitForQuestMenu(50) 
+Answer(0) 
+WaitForQuestMenu(50) 
+Answer(4) 
+Wait(13) 
+
+@Back: 
+MoveTo(427,485,-1,0) 
+MoveTo(426,486,4,0) 
+MoveTo(430,493,1,1) 
+MoveTo(433,494,3,3,6,3) 
+MoveTo(439,496,1,-1) 
+
+@Bank: 
+SetVarsNearestNPC(%x,%y,%ID,95) 
+ActionVarVar(%x,%y) 
+RepeatNextCommandUntilQuestMenu(50,2) 
+TalkToNPCVar(%ID) 
+Wait(40) 
+Answer(0) 
+WaitForBankWindow(100) 
+Wait(20) 
+Deposit(546,25) 
+GoTo(@Start) 
