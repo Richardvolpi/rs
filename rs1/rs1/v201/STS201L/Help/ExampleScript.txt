@@ -1,0 +1,81 @@
+public class ExampleScript extends Methods
+{
+    public ExampleScript(mudclient mc){super(mc);}
+ 
+    public void MainBody(String Args[])
+    {
+        /*
+         Any Code you wish to run at the start of the script would go in here. For example parsing
+         the paramaters etc.
+         */
+        int NpcID = StrToInt(GetInput("What is the NPC Id you wish to macro on?"));
+        int FightMode = StrToInt(GetInput("Fightmode? Controlled 0, Strength 1, Attack 2, Defence 3."));
+        StartScanForMods();
+        AutoLogin(true);
+        while(Running())
+        {
+            /*
+             This part of the code will be repeated until the script is stopped, this is where
+             the main body of the code would go.
+            */
+            int[] Npc = GetNpcById(NpcID);
+            if(Npc[0] != -1)
+            {
+                AttackNpc(Npc[0]);
+                Wait(Rand(700,900));
+            }
+            else
+                Wait(Rand(10,20));
+            while(GetFatigue() > 95 && Running())
+            {
+                while(!Sleeping() && Running())
+                {
+                    UseItem(GetItemPos(1263));
+                    Wait(Rand(1000,2000));
+                }
+                while(Sleeping() && Running())
+                    Wait(1000);
+            }
+        }
+        End("Script finished");
+    }
+    
+    public void OnChatMessage(String sender, String message)
+    {
+        /*
+         This Method will be called when a Chat Message is detected and the script is running.
+         It can be used for mod detection or interacting with your script from a different character.
+        */
+        if((sender.substring(4).equalsIgnoreCase("mod ") || sender.equalsIgnoreCase("andrew") || sender.equalsIgnoreCase("paul")) && Running())
+        {
+            Display("A mod was detected!");
+            Wait(Rand(2000,5000));
+            Speak("Hey " + sender + " back soon, dinner :P");
+            Wait(Rand(2000,5000));
+            LogOut();
+            Die();
+        }
+    }
+    
+    public void OnPrivateMessage(String sender, String message)
+    {
+        /*
+         This Method will be called when a Private Message is detected and the script is running.
+         It can be used for mod detection or interacting with your script from a different character.
+        */
+        if((sender.substring(4).equalsIgnoreCase("mod ") || sender.equalsIgnoreCase("andrew") || sender.equalsIgnoreCase("paul")) && Running())
+        {
+            Display("A mod was detected!");
+            LogOut();
+            Die();
+        }
+    }
+    
+    public void OnServerMessage(String message)
+    {
+        /*
+         This method will be called when a Server Message is detected and the script is running.
+         It can be used for avoiding the 5 min timeout etc.
+        */
+    }
+}

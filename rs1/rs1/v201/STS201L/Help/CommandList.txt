@@ -1,0 +1,180 @@
+/** Constants **/
+int[] BANKERS - Array containing the IDs of all different types of bankers
+int[] BONES - Array containing the IDs of all different types of bones
+String[] SPELLS - Array containing names of all the different Spells
+/** Methods **/
+boolean SleepIfAt(int Fatigue) - Sleeps using sleeping bag if at given fatigue, returns false if there is an error, otherwise returns true
+void StartScanForMods() - Starts a new thread that scans for any mods anywhere near you, if any are detected the bot closes
+/** Server Functions **/
+boolean ChangeWorld(int i) - Changes to the given world
+int GetWorld() - returns the world your currently on
+boolean MembersWorld() - returns true if your on a members server, false if your not
+boolean LoggedIn() - returns true if your logged in
+void LogOut() - Logs you out if possible (10sec rule still applies)
+void AutoLogin(boolean on) - true to enable, false to disable
+void HopServer(boolean skip) - hops to the next server, true to skip to every 2nd (to keep either on or off members)
+/** Npc Functions **/
+int CountNpcs() - returns the amount of NPCs near you
+int[] GetNpcById(int id) - returns the npc's index, x-coord and y-coord as an array, ignores npc's that are in combat
+int[] GetNpcById(int[] id) - returns the npc's index, x-coord and y-coord as an array, ignores npc's that are in combat
+int[] GetAllNpcById(int id) - returns the npc's index, x-coord and y-coord as an array, including ones in combat
+int[] GetAllNpcById(int[] id) - returns the npc's index, x-coord and y-coord as an array, including ones in combat
+boolean NpcAttackable(int id) - returns true if the npc is attackable
+boolean NpcInCombat(int index) - returns true if the npc is in combat, false if it isnt
+String NpcName(int id) - returns the name of the given npc
+int NpcCombat(int id) - returns the combat level of the given npc
+void AttackNpc(int index) - attacks npc's based on their index
+void TalkToNpc(int index) - talks to npc's based on their index
+void ThieveNpc(int index) - thieves to npc's based on their index
+int NpcId(int index) - returns the id of the given npc
+int NpcX(int index) - returns the x-coord of the given npc
+int NpcY(int index) - returns the y-coord of the given npc
+/** Player Functions **/
+int[] GetPlayerByName(String name) - returns the index, x-coord and y-coord as an array
+int CountPlayers() - returns the amount of players near you
+int PlayerX(int index) - returns the given players x-coord
+int PlayerY(int index) - returns the given players y-coord
+String PlayerName(int index) - returns the given players name
+void TradePlayer(int index) - trade a player based on their index
+boolean InTradeScreen1() - returns true when in the first trade screen
+boolean InTradeScreen2() - returns true when in the second trade screen
+void AcceptTrade1() - accepts the first trade screen
+void AcceptTrade2() - accepts the second trade screen
+void DeclineTrade() - declines the trade
+void OfferItems(int items[], int amount[]) - set which items are in the trade window
+void AddToOffer(int item, int amount) - add items into the trade window
+void AddToFriends(String player) - add the specified player to your friend list
+void SendPM(String to, String message) - send a private message to the given player
+/** Spell Functions **/
+String SpellName(int spell) - returns the name of the given spell
+boolean IsCastableOnNpc(int spell) - returns true if the spell can be cast on an npc
+void CastOnNpc(int spell, int index) - casts the spell on an npc based on their index
+boolean IsCastableOnItem(int spell) - returns true if the spell can be cast on an item
+void CastOnItem(int spell, int pos) - cast the spell on an item based on its position in your inventory
+boolean IsCastableOnGItem(int spell) - returns true if the spell can be cast on an item on the ground
+void CastOnGItem(int spell, int id, int x, int y) - cast the spell on an item on the ground
+boolean IsCastableOnSelf(int spell) - returns true if the spell can be cast on yourself (teleport etc)
+void CastOnSelf(int spell) cast a spell on yourself
+boolean IsCastableOnGround(int spell) - returns true if the spell can be cast on the ground (charge etc)
+void CastOnGround(int spell) - cast the spell on the ground
+boolean HasRunesForSpell(int spell) - returns true if you have all the runes for the given spell, false if you don't
+/** Npc Interaction Functions **/
+boolean QuestMenu() - returns true if the quest menu is visible, false otherwise
+int CountQuestMenu() - returns the amount of options on the quest menu
+String GetQuestOption(int i) - returns the given option
+void Answer(int i) - answers the quest menu with the given option
+boolean IsNpcTalking(int index) - returns true if the given npc is talking currently
+/** Bank & Shop Functions **/
+void Withdraw(int id, int amount) - withdraws the given amount of items from your bank (can only withdraw 1 non-stackable at a time)
+void Deposit(int id, int amount) - deposit the given amount of items into your bank
+boolean ItemInBank(int id) - returns true if the item is in your bank
+int CountInBank(int id) - returns the amount of the given item in your bank
+boolean InBank() - returns true if your bank is open, false is it isn't
+void CloseBank() - closes the bank screen
+boolean InShop() - returns true if the shop screen is open
+void CloseShop() - closes the shop screen
+void BuyShopItem(int id) - buy the given item from the shop
+void SellShopItem(int id) - sell the given item to the shop
+int ShopBuyPrice(int id) - returns the price of the given item in the shop
+int ShopSellPrice(int id) - returns the price the shop will give for the item
+int CountShop(int id) - returns the amount of the given item in the shop
+/** Status Functions **/
+boolean Sleeping() - returns true if you are currently sleeping
+void SetMode(int i) - sets your fightmode
+int GetMode() - returns your current fightmode
+int GetFatigue() - returns your fatigue level
+long GetExp(int i) - returns the amount of exp in the given stat
+String GetLvlName(int i) - returns the name of the given stat
+int GetCurLvl(int i) - returns your current level in the given stat
+int GetMaxLvl(int i) - returns your max level in the given stat
+int GetCombatLvl() - returns your combat level
+int GetX() - returns your x-coord
+int GetY() - returns your y-coord
+boolean InCombat() - returns true if your in combat, false if your not
+int HitsPercent() - returns your current hp as a percentage
+boolean IsPrayerOn(int i) - returns true if the given prayer is switched on
+void PrayerOn(int i) - turn on the given prayer
+void PrayerOff(int i) - turn off the given prayer
+boolean QuestDone(int i) - returns true if the given quest is completed
+void ForceStatMenu(boolean show) - true to force the statmenu to show over all others, false to return to normal
+/** Inventory Functions **/
+int CountInv() - returns the amount of items in your inventory
+int CountInv(int id) - returns the amount of the given item in your inventory
+boolean InInv(int id) - returns true if the given item is in your inventory, false if it isn't
+int GetItemPos(int id) - returns the position of the given item in your inventory
+void UseItem(int pos) - use an item based on its position
+void UseItem2(int pos) - use the second function of an item based on its position
+void UseItemWithItem(int pos1, int pos2) - use the item in the first given position with the item in the second given position
+void DropItem(int pos) - drop the item in the given position
+boolean IsItemWearable(int id) - returns true if the given item is wearable
+boolean WearingItem(int pos) - returns true if your wearing the item in the given position
+void WearItem(int pos) - wears the item in the given position
+void RemoveItem(int pos) - removes the item in the given position
+boolean CanEat(int id) - returns true if the given item can be eaten
+String ItemName(int id) - returns the name of the given item
+boolean ItemStackable(int id) - returns true if the given item is stackable
+/** Movement Functions **/
+void WalkTo(int x,int y) - walk to the given coords
+void WalkToWait(int x,int y) - walk to the given coords and pause the script until you are at them
+void ForceWalkTo(int x,int y) - used to walk to the given coords even if a person is currently standing there
+void ForceWalkToWait(int x, int y) - used to walk to the given coords even if a person is currently standing there
+boolean IsReachable(int x, int y) - returns true if you can reach the current coords
+/** Wall Object Functions **/
+int CountWallObjects() - returns the amount of wall objects near you
+int[] GetWallObjectById(int id) - returns the id, x-coord and y-coord of the nearest given wall object
+int[] GetWallObjectById(int[] id) - returns the id, x-coord and y-coord of the nearest given wall object
+void AtWallObject(int x,int y) - main action on the wall object at the given coords
+void AtWallObject2(int x,int y) - secondary action on the wall object at the given coords
+int GetIdWallObject(int x, int y) - returns the id of the wallobject at the given coords
+/** Item Functions **/
+int CountItems() - returns the amount of items near you
+int[] GetItemById(int id) - returns the id, x-coord and y-coord of the nearest given item
+int[] GetItemById(int[] id) - returns the id, x-coord and y-coord of the nearest given item
+void PickupItem(int x, int y) - picks up the item at the specified coords
+void PickupItem(int x, int y, int id) - picks up an item based on its coords and id
+void PickupItemById(int id) - picks up the closest item of the given id
+void PickupItemById(int[] id) - picks up the closest item of the given ids
+void UseItemOnGItem(int pos, int x, int y, int id) - uses an item in your iventory with an item on the ground
+/** Object Functions **/
+int CountObjects() - returns the amount of objects near you
+int[] GetObjectById(int id) - returns the id, x-coord and y-coord of the nearest given object
+int[] GetObjectById(int[] id) - returns the id, x-coord and y-coord of the nearest given object
+void AtObject(int x,int y) - main action on the object at the given coords
+void AtObject2(int x,int y) - secondary action on the object at the given coords
+void UseOnObject(int pos, int x, int y) - use the item in the given position on the given object
+int GetIdObject(int x, int y) - return the id of the object at the specified coords
+/** Setup Functions **/
+boolean IsSpecial() - returns if the users auth is "special" (eg. vet, mod, admin on reinet)
+boolean IsScanningForMods() - returns true if the mod scanner is currently active
+void StopScanForMods() - stops the mod scanner
+boolean IsPopup() - returns true if a popup is currently showing
+void ClosePopup() - closes any open popups
+void ShowMessage(String message) - shows the given message in a popup
+String GetInput(String message) - prompts the user for input and returns it as a string
+int GetOption(String header, String[] options) - gives the user a list of options and returns the index of the selected one
+String GetAuthName() - returns the users auth name
+String GetRsName() - returns the users username
+int DistanceTo(int x, int y) - returns the distance between you and the given coords
+int DistanceTo(int x1, int y1, int x2, int y2) - returns the distance between the given coords
+void UnlockMode() - return the fightmode to normal
+void LockMode(int i) - lock the fightmode to the given mode
+void Speak(String s) - say the given message
+void ChatFilterOn(boolean on) - toggle the chatfilter on or off
+void End(String s) - stop the script and display the given message
+void End() - stop the script
+void Die() - totally exit the bot
+void Display(String s) - display the given message
+void Display(int i) - display the given message
+void Loading() - returns true if logged out or on a loading screen
+int Rand(int low, int high) - returns a random number between the given boundaries
+boolean Running() - returns true if the script is still running
+void Wait(int ms) - pause the script for the given length of milliseconds
+long GetMillis() - returns the system time
+String Time() - return the current time formatted at HH:mm
+void SaveScreenShot(String s) - saves a screenshot with the specified filename
+String IntToStr(int i) - converts an integer to a string
+String IntToStr(long i) - converts a long to a string
+int StrToInt(String s) - converts a string to an integer
+boolean IsInStr(String string, String findme) - returns true if the given string is in the main string
+boolean InArray(String sarray[], String s) - returns true if the given string is in the array
+boolean InArray(int iarray[], int i) - returns true if the given integer is in the array
