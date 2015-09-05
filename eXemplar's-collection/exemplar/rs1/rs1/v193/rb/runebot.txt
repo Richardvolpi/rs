@@ -1,0 +1,66 @@
+	######################################################
+	# 		   	 RB.FX.185		     #
+	# 		= Support the Community =	     #
+	#		IRC.WIDGE.ORG #RSCHEATNET   	     #
+	#		      Thank-You Evo		     #
+	#		   Released by EvilPat		     #
+	######################################################
+
+The first thing you need to do is run setup.bat which will download the files you need from
+Jagex File Server. (The runescape graphics, maps, sprites, etc)...
+If you do not feel safe running the setup script I will zip all the files you need. See channel for more info.
+
+To startup RuneBot, Run f2p.bat or p2p.bat depending on if you have members or not. If you would rather play
+directly from your browser you will need to disable all security checks in your browser, which is not very
+wise and you still may have problems.
+
+RB features:
+runebot autosleeps once you reach a certain fatigue level. The default is 100% fatigue but you can adjust it
+by pressing F11 to decrease and F12 to increase. You must have a sleeping bag to autosleep. (Obviously)
+
+runebot allows for fast server switching by taking the last character of your username.
+PLEASE DO NOT COME BITCHING SAYING RB IS SAYING INVALID USERNAME/PASSWORD OR YOU WILL BE LAUGHED AT!
+(UserName1 - UserName9 for worlds 1-9 and UserNameA, UserNameB, for 10, 11, etcetcetc.
+	here's a little table with the world mappings
+		f2p worlds:
+		1, 2, 3, 4, 5, 7, 9, 10, 12, 13, 15, 16, 17, 19, 21, 22, 23
+		1, 2, 3, 4, 5, 7, 9,  a,  c,  d,  f,  g,  h,  j,  l,  m,  n
+		members worlds:
+		6, 8, 11, 14, 18, 20, 24
+		6, 8,  b,  e,  i,  k,  o
+
+runebot allows you to zoom in and out by pushing the UP and DOWN arrow keys on your keyboard.
+Do not zoom too far in or out or the client may crash. To get rid of 'Fog of War' press F2.
+
+runebot allows you to disable the chat filter. (It is turned off by default) you can just it by pressing F3.
+Please Note: It only is disabled for you. Other users will still see ****
+
+runebot disables jagex map trap for SCAR by pressing F4.
+Please note we are not sure if this is detected or not and it may get you banned.
+
+runebots main feature is autofighting. to autofight just attack the NPC of your choice and then
+press F10 and it will automatically start fighting. To stop press F10 again.
+
+runebot automatically keeps you on your fighting style when you disconnect or lag.
+Simply choose what style you wish to use when you start fighting.
+
+runebot now features AutoThieving to go with AutoFighting.
+Thieve one and then press F9 to begin autothieving.
+
+runebot has a special PK-Mode. When you enter wilderness your map color codes PCs.
+go try it out for yourself if you don't know what I mean.
+
+runebot has an autocatching function for wilderness. 
+to autocatch a player press F5 to turn on catchMode. Then click "follow" on that player to begin autocatching.
+to adjust timing, press page up, page down, Home, End, ctrl+pageup, ctrl+pagedown.
+play with it to find out which settings work best for you.
+
+if you need more support please visit the IRC chat room.
+
+Have Fun =D
+
+// <3 eP
+// irc.widge.org #rb
+// 03/14/04
+
+NOTE: please also read README.txt if you haven't already
