@@ -1,0 +1,91 @@
+Runescape Server IP's:
+--------------------
+
+Free:
+------
+
+World 1. ul2
+World 29. ul6
+World 32. ul1
+World 3. po3
+World 4. po4
+World 5. po5
+World 30. po7
+World 31. po8
+World 55. ch1
+World 57. ch3
+World 7. above2
+World 8. above3
+World 47. above5
+World 61. se1
+World 62. se2
+World 63. se3
+World 49. ams1
+World 50. ams2
+World 51. ams3
+World 52. ams4
+World 15. uk2
+World 16. uk3
+World 17. tor1
+World 37. tor3
+World 13. nl3
+World 14. nl4
+World 19. cet1
+World 20. cet2
+World 21. cet5
+World 25. cet6
+World 56. cet4
+World 33. at1
+World 34. at2
+World 35. at3
+World 38. planet1
+World 39. planet2
+World 40. planet3
+World 45. planet5
+World 43. sl11
+World 72. sl1
+World 73. sl2
+World 74. sl3
+World 75. sl4
+World 76. sl5
+World 10. jolt7
+World 11. jolt8
+World 67. jolt10
+World 68. jolt11
+World 80. jolt1
+World 81. jolt2
+World 82. jolt3
+
+ Members.
+---------
+World 2. ---
+World 26. ul5
+World 6. po6
+World 42. po2
+World 58. ch4
+World 59. ch5
+World 9. above4
+World 48. above6
+World 64. se4
+World 66. se6
+World 53. ams5
+World 54. ams6
+World 23. uk4
+World 24. uk5
+World 71. uk7
+World 18. tor2
+World 22. nl1
+World 27. nl5
+World 28. nl6
+World 36. at4
+World 44. at6
+World 41. planet4
+World 46. planet6
+World 70. sl10
+World 77. sl6
+World 78. sl7
+World 79. sl8
+World 12. jolt9
+World 69. jolt12
+World 83. jolt4
+World 84. jolt5
