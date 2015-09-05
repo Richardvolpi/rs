@@ -1,0 +1,24 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/19/2004 06:22:50 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   c.java
+
+
+public class c
+{
+
+    public c()
+    {
+    }
+
+    public static int gc = 135;
+    public static int hc = 135;
+    public static int ic = 58;
+    public static int jc = 36;
+    public static int kc = 36;
+    public static int lc = 16;
+    public static int mc = 12;
+    public static int nc = 13;
+    public static int oc = 1;
+
+}

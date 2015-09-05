@@ -1,0 +1,55 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/19/2004 06:22:50 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   l.java
+
+
+public class l
+{
+
+    public l()
+    {
+        or = new int[10];
+        pr = new int[10];
+        qr = new int[12];
+        zr = -1;
+        is = false;
+        js = -1;
+    }
+
+    public long cr;
+    public String dr;
+    public int er;
+    public int fr;
+    public int gr;
+    public int hr;
+    public int ir;
+    public int jr;
+    public int kr;
+    public int lr;
+    public int mr;
+    public int nr;
+    public int or[];
+    public int pr[];
+    public int qr[];
+    public String rr;
+    public int sr;
+    public int tr;
+    public int ur;
+    public int vr;
+    public int wr;
+    public int xr;
+    public int yr;
+    public int zr;
+    public int as;
+    public int bs;
+    public int cs;
+    public int ds;
+    public int es;
+    public int fs;
+    public int gs;
+    public int hs;
+    public boolean is;
+    public int js;
+    public int ks;
+}

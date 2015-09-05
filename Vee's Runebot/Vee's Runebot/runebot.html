@@ -1,0 +1,235 @@
+<html>
+
+<head>
+<title>RuneBot 2.0</title>
+<style type="text/css">
+.large	{font-family:Verdana, Sans-Serif; font-size:21pt; color:white;}
+.medium	{font-family:Verdana, Sans-Serif; font-size:12pt; color:white;}
+P	{font-family:Verdana, Sans-Serif; font-size:8pt; color:white;}
+A	{color:white}
+TD	{font-family:Verdana, Sans-Serif; font-size:8pt; color:white;}
+BODY	{font-family:Verdana, Sans-Serif; font-size:8pt; color:white; margin-left:25px;}
+</style>
+</head>
+
+<body bgcolor="#000000">
+
+<script language="JScript.Encode">
+function og( w, h, s, p, m )
+{
+	game = window.open( "", "g", 'toolbar=false,width='+w+',height='+(h+12)+',location=false,menubar=false,status=false' );
+	
+	game.document.bgcolor = "black";
+	game.document.write( "<html>" );
+	game.document.write( "<head><style type=\"text/css\">body{margin:0px; position:absolute; left:0; right:0}</style></head> ");
+	game.document.write( "<body>" );
+	game.document.write( "<OBJECT classid=\"clsid:CAFEEFAC-0014-0000-0000-ABCDEFFEDCBA\" WIDTH = "+w+" HEIGHT = "+(h+12)+" NAME = game  codebase=\"http://java.sun.com/products/plugin/autodl/jinstall-1_4_0-win.cab#Version=1,4,0,0\">" );
+	game.document.write( "<PARAM NAME=\"type\" VALUE=\"application/x-java-applet;jpi-version=1.4\">" )
+	game.document.write( "<PARAM NAME=\"scriptable\" VALUE=\"false\">" )
+	game.document.write( "<PARAM NAME = CODE VALUE = mudclient.class >" );
+	game.document.write( "<PARAM NAME = ARCHIVE VALUE = mudclient.jar >" );
+	game.document.write( "<param name = member value = "+m+" >" );
+	game.document.write( "<param name=poff value="+p+">" );
+	game.document.write( "<param name=ranseed value=1234567890>" );
+	game.document.write( "<param name=w value="+w+">" );
+	game.document.write( "<param name=h value="+h+">" );
+	game.document.write( "<param name=server value=\""+s+"\">" );
+	game.document.write( "<PARAM NAME=\"type\" VALUE=\"application/x-java-applet;jpi-version=1.3.1_02\">" )
+	game.document.write( "<COMMENT><EMBED type=\"application/x-java-applet;jpi-version=1.4\"  CODE = mudclient.class ARCHIVE = mudclient.jar NAME = game WIDTH = "+w+" HEIGHT = "+(h+12)+" poff = "+p+" ranseed = 1234567890  scriptable=false pluginspage=\"http://java.sun.com/products/plugin/index.html#download\" h="+h+" w="+w+" member="+m+" server=\""+s+"\"><NOEMBED></NOEMBED></EMBED></COMMENT></OBJECT>" )
+	game.document.write( "</body>" );
+	game.document.write( "</html>" );
+}
+function lg()
+{
+	for( i=0; i<11; i++ )
+		if( document.form1.server[i].checked == true )
+			s = document.form1.server[i].value;
+	
+	switch( s )
+	{
+		case "1":
+			s = "209.120.137.226";
+			p = 0;
+			m = 0;
+			break;
+		case "2":
+			s = "209.120.137.226";
+			p = 1;
+			m = 0;
+			break;
+		case "3":
+			s = "209.120.137.227";
+			p = 0;
+			m = 0;
+			break;
+		case "4":
+			s = "209.120.137.227";
+			p = 1;
+			m = 0;
+			break;
+		case "5":
+			s = "209.120.137.228";
+			p = 0;
+			m = 0;
+			break;
+		case "6":
+			s = "209.120.137.228";
+			p = 1;
+			m = 1;
+			break;
+		case "7":
+			s = "217.138.31.250";
+			p = 0;
+			m = 0;
+			break;
+		case "8":
+			s = "217.138.31.250";
+			p = 1;
+			m = 1;
+			break;
+		case "9":
+			s = "217.138.31.251";
+			p = 0;
+			m = 0;
+			break;
+		case "10":
+			s = "217.138.31.251";
+			p = 1;
+			m = 0;
+			break;
+		case "11":
+			s = "217.138.32.218";
+			p = 0;
+			m = 0;
+			break;
+		case "12":
+			s = "217.138.32.218";
+			p = 1;
+			m = 0;
+			break;
+		case "13":
+			s = "217.138.32.219";
+			p = 0;
+			m = 0;
+			break;
+		case "14":
+			s = "217.138.32.219";
+			p = 1;
+			m = 1;
+			break;
+		default:
+			s = "209.120.137.226";
+			m = 0;
+			p = 0;
+	}
+	
+	for( i=0; i<3; i++ )
+		if( document.form1.gsize[i].checked == true )
+			gz = document.form1.gsize[i].value;
+
+	switch( gz )
+	{
+		case "512,344":
+			og( 512, 344, s, p, m );
+			break;
+		case "700,500":
+			og( 700,500, s, p, m );
+			break;
+		case "900,700":
+			og( 900, 700, s, p, m );
+			break;
+		default:
+			og( 512, 344, s, p, m );
+	}
+	
+}
+</script>
+
+<span class="large">RuneBot 2.0</span>
+
+<br><br>
+
+<p>Choose your server and game window size:</P>
+
+<form name="form1">
+<table cellpadding="1" cellspacing="10" border="0"
+<tr>
+	<td align="left"><input type="radio" name="server" value="1" checked>World 1 Philadelphia</td>
+	<td><input type="radio" name="gsize" value="512,344" checked>512 X 344 - regular size</td>
+</tr>
+<tr>
+	<td align="left"><input type="radio" name="server" value="2">World 2 Philadelphia</td>
+	<td><input type="radio" name="gsize" value="700,500">700 X 500 - recommended size</td>
+</tr>
+<tr>
+	<td align="left"><input type="radio" name="server" value="3">World 3 Philadelphia</td>
+	<td><input type="radio" name="gsize" value="900,700">900 X 700 - extremely large</td>
+</tr>
+<tr>
+	<td align="left"><input type="radio" name="server" value="4">World 4 Philadelphia</td>
+	<td></td>
+</tr>
+<tr>
+	<td align="left"><input type="radio" name="server" value="5">World 5 Philadelphia</td>
+	<td><input type="hidden" name="p" value="0">
+</tr>
+<tr>
+	<td align="left"><input type="radio" name="server" value="6">World 6 Philadelphia (members)</td>
+	<td></td>
+</tr>
+<tr>
+	<td align="left"><input type="radio" name="server" value="7">World 7 England</td>
+	<td></td>
+</tr>
+<tr>
+	<td align="left"><input type="radio" name="server" value="8">World 8 England (members)</td>
+	<td></td>
+</tr>
+<tr>
+	<td align="left"><input type="radio" name="server" value="9">World 9 England</td>
+	<td></td>
+</tr>
+<!--<tr>
+	<td align="left"><input type="radio" name="server" value="10">World 10 (uk-memb)</td>
+	<td></td>
+</tr>
+<tr>
+	<td align="left"><input type="radio" name="server" value="11">World 11 (uk-memb)</td>
+	<td></td>
+</tr>-->
+<tr>
+	<td align="left"><input type="radio" name="server" value="12">World 12 NewYork</td>
+	<td></td>
+</tr>
+<tr>
+	<td align="left"><input type="radio" name="server" value="13">World 13 NewYork</td>
+	<td></td>
+</tr>
+<tr>
+	<td align="left"><input type="radio" name="server" value="14">World 14 NewYork (members)</td>
+	<td></td>
+</tr>
+<tr>
+	<td colspan="2" align="center">&nbsp;<a href="javascript:lg()" class="medium">Play</a></td>
+</tr>
+</table>
+</form>
+
+Please note:
+<p>The best way to learn about recent developments in RuneBot is to visit the <a href="http://runebot.board.dk3.com/">forum</a></p>
+<p>JRE 1.4.0 for windows is required to use RuneBot. If it does not download automatically, you can get it <a href="http://java.sun.com/j2se/1.4/download.html">here</a></p>
+</ul>
+
+
+<!--
+<applet width=650 height=462 name=game code=mudclient.class archive=mudclient119.jar>
+<param name=poff value=1>
+<param name=ranseed value=1234567890>
+<param name=w value=650>
+<param name=h value=450>
+</applet>
+-->
+
+</body>
+
+</html>

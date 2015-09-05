@@ -1,0 +1,3176 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/18/2004 10:43:09 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) nonlb 
+// Source File Name:   j.java
+
+package jagex.client;
+
+
+// Referenced classes of package jagex.client:
+//            h, r, t, i
+
+public class j {
+
+    public j(i k, int l, int i1, int j1) {
+        cm = 50;
+        dm = new int[cm];
+        em = new int[cm][256];
+        hm = 5;
+        im = 1000;
+        jm = 1000;
+        km = 20;
+        lm = 10;
+        om = false;
+        pm = 1.1000000000000001D;
+        qm = 1;
+        rm = false;
+        vm = 100;
+        wm = new h[vm];
+        xm = new int[vm];
+        ym = 512;
+        zm = 256;
+        an = 192;
+        bn = 256;
+        cn = 256;
+        dn = 8;
+        en = 4;
+        wo = new int[40];
+        xo = new int[40];
+        yo = new int[40];
+        zo = new int[40];
+        ap = new int[40];
+        bp = new int[40];
+        cp = false;
+        ro = k;
+        zm = k.yj / 2;
+        an = k.zj / 2;
+        so = k.ek;
+        ln = 0;
+        mn = l;
+        nn = new h[mn];
+        on = new int[mn];
+        pn = 0;
+        qn = new r[i1];
+        for(int k1 = 0; k1 < i1; k1++)
+            qn[k1] = new r();
+
+        sn = 0;
+        ao = new h(j1 * 2, j1);
+        tn = new int[j1];
+        xn = new int[j1];
+        yn = new int[j1];
+        un = new int[j1];
+        vn = new int[j1];
+        wn = new int[j1];
+        zn = new int[j1];
+        if(po == null)
+            po = new byte[17691];
+        fn = 0;
+        gn = 0;
+        hn = 0;
+        in = 0;
+        jn = 0;
+        kn = 0;
+        for(int l1 = 0; l1 < 256; l1++) {
+            nm[l1] = (int)(Math.sin((double)l1 * 0.02454369D) * 32768D);
+            nm[l1 + 256] = (int)(Math.cos((double)l1 * 0.02454369D) * 32768D);
+        }
+
+        for(int i2 = 0; i2 < 1024; i2++) {
+            mm[i2] = (int)(Math.sin((double)i2 * 0.00613592315D) * 32768D);
+            mm[i2 + 1024] = (int)(Math.cos((double)i2 * 0.00613592315D) * 32768D);
+        }
+
+    }
+
+    public void uh(h h1) {
+        if(ln < mn) {
+            on[ln] = 0;
+            nn[ln++] = h1;
+        }
+    }
+
+    public void zh(h h1) {
+        for(int k = 0; k < ln; k++)
+            if(nn[k] == h1) {
+                ln--;
+                for(int l = k; l < ln; l++) {
+                    nn[l] = nn[l + 1];
+                    on[l] = on[l + 1];
+                }
+
+            }
+
+    }
+
+    public void si() {
+        bi();
+        for(int k = 0; k < ln; k++)
+            nn[k] = null;
+
+        ln = 0;
+    }
+
+    public void bi() {
+        sn = 0;
+        ao.xe();
+    }
+
+    public void ki(int k) {
+        sn -= k;
+        ao.le(k, k * 2);
+        if(sn < 0)
+            sn = 0;
+    }
+
+    public int lh(int k, int l, int i1, int j1, int k1, int l1, int i2) {
+        tn[sn] = k;
+        un[sn] = l;
+        vn[sn] = i1;
+        wn[sn] = j1;
+        xn[sn] = k1;
+        yn[sn] = l1;
+        zn[sn] = 0;
+        int j2 = ao.de(l, i1, j1);
+        int k2 = ao.de(l, i1 - l1, j1);
+        int ai1[] = {
+            j2, k2
+        };
+        ao.ne(2, ai1, 0, 0);
+        ao.vh[sn] = i2;
+        ao.wh[sn++] = 0;
+        return sn - 1;
+    }
+
+    public void mh(int k) {
+        ao.wh[k] = 1;
+    }
+
+    public void ni(int k, int l) {
+        zn[k] = l;
+    }
+
+    public void wh(int k, int l) {
+        sm = k - bn;
+        tm = l;
+        um = 0;
+        rm = true;
+    }
+
+    public int ri() {
+        return um;
+    }
+
+    public int[] mi() {
+        return xm;
+    }
+
+    public h[] oh() {
+        return wm;
+    }
+
+    public void ei(int k, int l, int i1, int j1, int k1, int l1) {
+        zm = i1;
+        an = j1;
+        bn = k;
+        cn = l;
+        ym = k1;
+        dn = l1;
+        to = new t[j1 + l];
+        for(int i2 = 0; i2 < j1 + l; i2++)
+            to[i2] = new t();
+
+    }
+
+    private void qh(r ar[], int k, int l) {
+        if(k < l) {
+            int i1 = k - 1;
+            int j1 = l + 1;
+            int k1 = (k + l) / 2;
+            r r1 = ar[k1];
+            ar[k1] = ar[k];
+            ar[k] = r1;
+            int l1 = r1.fnb;
+            while(i1 < j1)  {
+                do
+                    j1--;
+                while(ar[j1].fnb < l1);
+                do
+                    i1++;
+                while(ar[i1].fnb > l1);
+                if(i1 < j1) {
+                    r r2 = ar[i1];
+                    ar[i1] = ar[j1];
+                    ar[j1] = r2;
+                }
+            }
+            qh(ar, k, j1);
+            qh(ar, j1 + 1, l);
+        }
+    }
+
+    public void hh(int k, r ar[], int l) {
+        for(int i1 = 0; i1 <= l; i1++) {
+            ar[i1].lnb = false;
+            ar[i1].mnb = i1;
+            ar[i1].nnb = -1;
+        }
+
+        int j1 = 0;
+        do {
+            while(ar[j1].lnb) 
+                j1++;
+            if(j1 == l)
+                return;
+            r r1 = ar[j1];
+            r1.lnb = true;
+            int k1 = j1;
+            int l1 = j1 + k;
+            if(l1 >= l)
+                l1 = l - 1;
+            for(int i2 = l1; i2 >= k1 + 1; i2--) {
+                r r2 = ar[i2];
+                if(r1.xmb < r2.zmb && r2.xmb < r1.zmb && r1.ymb < r2.anb && r2.ymb < r1.anb && r1.mnb != r2.nnb && !ih(r1, r2) && gh(r2, r1)) {
+                    vi(ar, k1, i2);
+                    if(ar[i2] != r2)
+                        i2++;
+                    k1 = jp;
+                    r2.nnb = r1.mnb;
+                }
+            }
+
+        } while(true);
+    }
+
+    public boolean vi(r ar[], int k, int l) {
+        do {
+            r r1 = ar[k];
+            for(int i1 = k + 1; i1 <= l; i1++) {
+                r r2 = ar[i1];
+                if(!ih(r2, r1))
+                    break;
+                ar[k] = r2;
+                ar[i1] = r1;
+                k = i1;
+                if(k == l) {
+                    jp = k;
+                    kp = k - 1;
+                    return true;
+                }
+            }
+
+            r r3 = ar[l];
+            for(int j1 = l - 1; j1 >= k; j1--) {
+                r r4 = ar[j1];
+                if(!ih(r3, r4))
+                    break;
+                ar[l] = r4;
+                ar[j1] = r3;
+                l = j1;
+                if(k == l) {
+                    jp = l + 1;
+                    kp = l;
+                    return true;
+                }
+            }
+
+            if(k + 1 >= l) {
+                jp = k;
+                kp = l;
+                return false;
+            }
+            if(!vi(ar, k + 1, l)) {
+                jp = k;
+                return false;
+            }
+            l = kp;
+        } while(true);
+    }
+
+    public void qi(int k, int l, int i1) {
+        int j1 = -in + 1024 & 0x3ff;
+        int k1 = -jn + 1024 & 0x3ff;
+        int l1 = -kn + 1024 & 0x3ff;
+        if(l1 != 0) {
+            int i2 = mm[l1];
+            int l2 = mm[l1 + 1024];
+            int k3 = l * i2 + k * l2 >> 15;
+            l = l * l2 - k * i2 >> 15;
+            k = k3;
+        }
+        if(j1 != 0) {
+            int j2 = mm[j1];
+            int i3 = mm[j1 + 1024];
+            int l3 = l * i3 - i1 * j2 >> 15;
+            i1 = l * j2 + i1 * i3 >> 15;
+            l = l3;
+        }
+        if(k1 != 0) {
+            int k2 = mm[k1];
+            int j3 = mm[k1 + 1024];
+            int i4 = i1 * k2 + k * j3 >> 15;
+            i1 = i1 * j3 - k * k2 >> 15;
+            k = i4;
+        }
+        if(k < dp)
+            dp = k;
+        if(k > ep)
+            ep = k;
+        if(l < fp)
+            fp = l;
+        if(l > gp)
+            gp = l;
+        if(i1 < hp)
+            hp = i1;
+        if(i1 > ip)
+            ip = i1;
+    }
+
+    public void wi() {
+        cp = ro.wk;
+        int k = zm * im >> dn;
+        int l = an * im >> dn;
+        dp = 0;
+        ep = 0;
+        fp = 0;
+        gp = 0;
+        hp = 0;
+        ip = 0;
+        qi(-k, -l, im);
+        qi(-k, l, im);
+        qi(k, -l, im);
+        qi(k, l, im);
+        qi(-zm, -an, 0);
+        qi(-zm, an, 0);
+        qi(zm, -an, 0);
+        qi(zm, an, 0);
+        dp += fn;
+        ep += fn;
+        fp += gn;
+        gp += gn;
+        hp += hn;
+        ip += hn;
+        nn[ln] = ao;
+        ao.jh = 2;
+        for(int i1 = 0; i1 < ln; i1++)
+            nn[i1].he(fn, gn, hn, in, jn, kn, dn, hm);
+
+        nn[ln].he(fn, gn, hn, in, jn, kn, dn, hm);
+        pn = 0;
+        for(int j1 = 0; j1 < ln; j1++) {
+            h h1 = nn[j1];
+            if(h1.kh) {
+                for(int k1 = 0; k1 < h1.wg; k1++) {
+                    int j2 = h1.xg[k1];
+                    int ai2[] = h1.yg[k1];
+                    boolean flag = false;
+                    for(int j3 = 0; j3 < j2; j3++) {
+                        int i4 = h1.rg[ai2[j3]];
+                        if(i4 <= hm || i4 >= im)
+                            continue;
+                        flag = true;
+                        break;
+                    }
+
+                    if(flag) {
+                        int j4 = 0;
+                        for(int j5 = 0; j5 < j2; j5++) {
+                            int j6 = h1.sg[ai2[j5]];
+                            if(j6 > -zm)
+                                j4 |= 1;
+                            if(j6 < zm)
+                                j4 |= 2;
+                            if(j4 == 3)
+                                break;
+                        }
+
+                        if(j4 == 3) {
+                            int k6 = 0;
+                            for(int j7 = 0; j7 < j2; j7++) {
+                                int i8 = h1.tg[ai2[j7]];
+                                if(i8 > -an)
+                                    k6 |= 1;
+                                if(i8 < an)
+                                    k6 |= 2;
+                                if(k6 == 3)
+                                    break;
+                            }
+
+                            if(k6 == 3) {
+                                r r3 = qn[pn];
+                                r3.dnb = h1;
+                                r3.enb = k1;
+                                xi(pn);
+                                int i9;
+                                if(r3.jnb < 0)
+                                    i9 = h1.zg[k1];
+                                else
+                                    i9 = h1.ah[k1];
+                                if(i9 != 0xbc614e) {
+                                    int l9 = 0;
+                                    for(int l10 = 0; l10 < j2; l10++)
+                                        l9 += h1.rg[ai2[l10]];
+
+                                    int l11;
+                                    r3.fnb = l11 = l9 / j2 + h1.ih;
+                                    r3.knb = i9;
+                                    pn++;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        h h2 = ao;
+        if(h2.kh) {
+            for(int l1 = 0; l1 < h2.wg; l1++) {
+                int ai1[] = h2.yg[l1];
+                int k2 = ai1[0];
+                int l2 = h2.sg[k2];
+                int k3 = h2.tg[k2];
+                int k4 = h2.rg[k2];
+                if(k4 > hm && k4 < jm) {
+                    int k5 = (xn[l1] << dn) / k4;
+                    int l6 = (yn[l1] << dn) / k4;
+                    if(l2 - k5 / 2 <= zm && l2 + k5 / 2 >= -zm && k3 - l6 <= an && k3 >= -an) {
+                        r r2 = qn[pn];
+                        r2.dnb = h2;
+                        r2.enb = l1;
+                        zi(pn);
+                        r2.fnb = (k4 + h2.rg[ai1[1]]) / 2;
+                        pn++;
+                    }
+                }
+            }
+
+        }
+        if(pn == 0)
+            return;
+        gm = pn;
+        qh(qn, 0, pn - 1);
+        hh(100, qn, pn);
+        for(int i2 = 0; i2 < pn; i2++) {
+            r r1 = qn[i2];
+            h h3 = r1.dnb;
+            int i3 = r1.enb;
+            if(h3 == ao) {
+                int ai3[] = h3.yg[i3];
+                int l4 = ai3[0];
+                int l5 = h3.sg[l4];
+                int i7 = h3.tg[l4];
+                int k7 = h3.rg[l4];
+                int j8 = (xn[i3] << dn) / k7;
+                int j9 = (yn[i3] << dn) / k7;
+                int i10 = i7 - h3.tg[ai3[1]];
+                int i11 = ((h3.sg[ai3[1]] - l5) * i10) / j9;
+                i11 = h3.sg[ai3[1]] - l5;
+                int i12 = l5 - j8 / 2;
+                int l12 = (cn + i7) - j9;
+                ro.dg(i12 + bn, l12, j8, j9, tn[i3], i11, (256 << dn) / k7);
+                if(rm && um < vm) {
+                    i12 += (zn[i3] << dn) / k7;
+                    if(tm >= l12 && tm <= l12 + j9 && sm >= i12 && sm <= i12 + j8 && !h3.ai && h3.wh[i3] == 0) {
+                        wm[um] = h3;
+                        xm[um] = i3;
+                        um++;
+                    }
+                }
+            } else {
+                int l3 = 0;
+                int i5 = 0;
+                int i6 = h3.xg[i3];
+                int ai4[] = h3.yg[i3];
+                if(h3.dh[i3] != 0xbc614e)
+                    if(r1.jnb < 0)
+                        i5 = h3.tj - h3.dh[i3];
+                    else
+                        i5 = h3.tj + h3.dh[i3];
+                for(int l7 = 0; l7 < i6; l7++) {
+                    int k8 = ai4[l7];
+                    zo[l7] = h3.pg[k8];
+                    ap[l7] = h3.qg[k8];
+                    bp[l7] = h3.rg[k8];
+                    if(h3.dh[i3] == 0xbc614e)
+                        if(r1.jnb < 0)
+                            i5 = (h3.tj - h3.ug[k8]) + h3.vg[k8];
+                        else
+                            i5 = h3.tj + h3.ug[k8] + h3.vg[k8];
+                    if(h3.rg[k8] >= hm) {
+                        wo[l3] = h3.sg[k8];
+                        xo[l3] = h3.tg[k8];
+                        yo[l3] = i5;
+                        if(h3.rg[k8] > lm)
+                            yo[l3] += (h3.rg[k8] - lm) / km;
+                        l3++;
+                    } else {
+                        int k9;
+                        if(l7 == 0)
+                            k9 = ai4[i6 - 1];
+                        else
+                            k9 = ai4[l7 - 1];
+                        if(h3.rg[k9] >= hm) {
+                            int j10 = h3.rg[k8] - h3.rg[k9];
+                            int j11 = h3.pg[k8] - ((h3.pg[k8] - h3.pg[k9]) * (h3.rg[k8] - hm)) / j10;
+                            int j12 = h3.qg[k8] - ((h3.qg[k8] - h3.qg[k9]) * (h3.rg[k8] - hm)) / j10;
+                            wo[l3] = (j11 << dn) / hm;
+                            xo[l3] = (j12 << dn) / hm;
+                            yo[l3] = i5;
+                            l3++;
+                        }
+                        if(l7 == i6 - 1)
+                            k9 = ai4[0];
+                        else
+                            k9 = ai4[l7 + 1];
+                        if(h3.rg[k9] >= hm) {
+                            int k10 = h3.rg[k8] - h3.rg[k9];
+                            int k11 = h3.pg[k8] - ((h3.pg[k8] - h3.pg[k9]) * (h3.rg[k8] - hm)) / k10;
+                            int k12 = h3.qg[k8] - ((h3.qg[k8] - h3.qg[k9]) * (h3.rg[k8] - hm)) / k10;
+                            wo[l3] = (k11 << dn) / hm;
+                            xo[l3] = (k12 << dn) / hm;
+                            yo[l3] = i5;
+                            l3++;
+                        }
+                    }
+                }
+
+                for(int l8 = 0; l8 < i6; l8++) {
+                    if(yo[l8] < 0)
+                        yo[l8] = 0;
+                    else
+                    if(yo[l8] > 255)
+                        yo[l8] = 255;
+                    if(r1.knb >= 0)
+                        if(io[r1.knb] == 1)
+                            yo[l8] <<= 9;
+                        else
+                            yo[l8] <<= 6;
+                }
+
+                fh(0, 0, 0, 0, l3, wo, xo, yo, h3, i3);
+                if(vo > uo)
+                    ph(0, 0, i6, zo, ap, bp, r1.knb, h3);
+            }
+        }
+
+        rm = false;
+    }
+
+    private void fh(int k, int l, int i1, int j1, int k1, int ai1[], int ai2[], 
+            int ai3[], h h1, int l1) {
+        if(k1 == 3) {
+            int i2 = ai2[0] + cn;
+            int i3 = ai2[1] + cn;
+            int l3 = ai2[2] + cn;
+            int k4 = ai1[0];
+            int l5 = ai1[1];
+            int i7 = ai1[2];
+            int j8 = ai3[0];
+            int l9 = ai3[1];
+            int l10 = ai3[2];
+            int l11 = (cn + an) - 1;
+            int l12 = 0;
+            int l13 = 0;
+            int j14 = 0;
+            int l14 = 0;
+            int j15 = 0xbc614e;
+            int l15 = 0xff439eb2;
+            if(l3 != i2) {
+                l13 = (i7 - k4 << 8) / (l3 - i2);
+                l14 = (l10 - j8 << 8) / (l3 - i2);
+                if(i2 < l3) {
+                    l12 = k4 << 8;
+                    j14 = j8 << 8;
+                    j15 = i2;
+                    l15 = l3;
+                } else {
+                    l12 = i7 << 8;
+                    j14 = l10 << 8;
+                    j15 = l3;
+                    l15 = i2;
+                }
+                if(j15 < 0) {
+                    l12 -= l13 * j15;
+                    j14 -= l14 * j15;
+                    j15 = 0;
+                }
+                if(l15 > l11)
+                    l15 = l11;
+            }
+            int j16 = 0;
+            int l16 = 0;
+            int j17 = 0;
+            int l17 = 0;
+            int j18 = 0xbc614e;
+            int l18 = 0xff439eb2;
+            if(i3 != i2) {
+                l16 = (l5 - k4 << 8) / (i3 - i2);
+                l17 = (l9 - j8 << 8) / (i3 - i2);
+                if(i2 < i3) {
+                    j16 = k4 << 8;
+                    j17 = j8 << 8;
+                    j18 = i2;
+                    l18 = i3;
+                } else {
+                    j16 = l5 << 8;
+                    j17 = l9 << 8;
+                    j18 = i3;
+                    l18 = i2;
+                }
+                if(j18 < 0) {
+                    j16 -= l16 * j18;
+                    j17 -= l17 * j18;
+                    j18 = 0;
+                }
+                if(l18 > l11)
+                    l18 = l11;
+            }
+            int j19 = 0;
+            int l19 = 0;
+            int j20 = 0;
+            int l20 = 0;
+            int j21 = 0xbc614e;
+            int l21 = 0xff439eb2;
+            if(l3 != i3) {
+                l19 = (i7 - l5 << 8) / (l3 - i3);
+                l20 = (l10 - l9 << 8) / (l3 - i3);
+                if(i3 < l3) {
+                    j19 = l5 << 8;
+                    j20 = l9 << 8;
+                    j21 = i3;
+                    l21 = l3;
+                } else {
+                    j19 = i7 << 8;
+                    j20 = l10 << 8;
+                    j21 = l3;
+                    l21 = i3;
+                }
+                if(j21 < 0) {
+                    j19 -= l19 * j21;
+                    j20 -= l20 * j21;
+                    j21 = 0;
+                }
+                if(l21 > l11)
+                    l21 = l11;
+            }
+            uo = j15;
+            if(j18 < uo)
+                uo = j18;
+            if(j21 < uo)
+                uo = j21;
+            vo = l15;
+            if(l18 > vo)
+                vo = l18;
+            if(l21 > vo)
+                vo = l21;
+            int j22 = 0;
+            for(i1 = uo; i1 < vo; i1++) {
+                if(i1 >= j15 && i1 < l15) {
+                    k = l = l12;
+                    j1 = j22 = j14;
+                    l12 += l13;
+                    j14 += l14;
+                } else {
+                    k = 0xa0000;
+                    l = 0xfff60000;
+                }
+                if(i1 >= j18 && i1 < l18) {
+                    if(j16 < k) {
+                        k = j16;
+                        j1 = j17;
+                    }
+                    if(j16 > l) {
+                        l = j16;
+                        j22 = j17;
+                    }
+                    j16 += l16;
+                    j17 += l17;
+                }
+                if(i1 >= j21 && i1 < l21) {
+                    if(j19 < k) {
+                        k = j19;
+                        j1 = j20;
+                    }
+                    if(j19 > l) {
+                        l = j19;
+                        j22 = j20;
+                    }
+                    j19 += l19;
+                    j20 += l20;
+                }
+                t t7 = to[i1];
+                t7.rnb = k;
+                t7.snb = l;
+                t7.tnb = j1;
+                t7.unb = j22;
+            }
+
+            if(uo < cn - an)
+                uo = cn - an;
+        } else
+        if(k1 == 4) {
+            int j2 = ai2[0] + cn;
+            int j3 = ai2[1] + cn;
+            int i4 = ai2[2] + cn;
+            int l4 = ai2[3] + cn;
+            int i6 = ai1[0];
+            int j7 = ai1[1];
+            int k8 = ai1[2];
+            int i10 = ai1[3];
+            int i11 = ai3[0];
+            int i12 = ai3[1];
+            int i13 = ai3[2];
+            int i14 = ai3[3];
+            int k14 = (cn + an) - 1;
+            int i15 = 0;
+            int k15 = 0;
+            int i16 = 0;
+            int k16 = 0;
+            int i17 = 0xbc614e;
+            int k17 = 0xff439eb2;
+            if(l4 != j2) {
+                k15 = (i10 - i6 << 8) / (l4 - j2);
+                k16 = (i14 - i11 << 8) / (l4 - j2);
+                if(j2 < l4) {
+                    i15 = i6 << 8;
+                    i16 = i11 << 8;
+                    i17 = j2;
+                    k17 = l4;
+                } else {
+                    i15 = i10 << 8;
+                    i16 = i14 << 8;
+                    i17 = l4;
+                    k17 = j2;
+                }
+                if(i17 < 0) {
+                    i15 -= k15 * i17;
+                    i16 -= k16 * i17;
+                    i17 = 0;
+                }
+                if(k17 > k14)
+                    k17 = k14;
+            }
+            int i18 = 0;
+            int k18 = 0;
+            int i19 = 0;
+            int k19 = 0;
+            int i20 = 0xbc614e;
+            int k20 = 0xff439eb2;
+            if(j3 != j2) {
+                k18 = (j7 - i6 << 8) / (j3 - j2);
+                k19 = (i12 - i11 << 8) / (j3 - j2);
+                if(j2 < j3) {
+                    i18 = i6 << 8;
+                    i19 = i11 << 8;
+                    i20 = j2;
+                    k20 = j3;
+                } else {
+                    i18 = j7 << 8;
+                    i19 = i12 << 8;
+                    i20 = j3;
+                    k20 = j2;
+                }
+                if(i20 < 0) {
+                    i18 -= k18 * i20;
+                    i19 -= k19 * i20;
+                    i20 = 0;
+                }
+                if(k20 > k14)
+                    k20 = k14;
+            }
+            int i21 = 0;
+            int k21 = 0;
+            int i22 = 0;
+            int k22 = 0;
+            int l22 = 0xbc614e;
+            int i23 = 0xff439eb2;
+            if(i4 != j3) {
+                k21 = (k8 - j7 << 8) / (i4 - j3);
+                k22 = (i13 - i12 << 8) / (i4 - j3);
+                if(j3 < i4) {
+                    i21 = j7 << 8;
+                    i22 = i12 << 8;
+                    l22 = j3;
+                    i23 = i4;
+                } else {
+                    i21 = k8 << 8;
+                    i22 = i13 << 8;
+                    l22 = i4;
+                    i23 = j3;
+                }
+                if(l22 < 0) {
+                    i21 -= k21 * l22;
+                    i22 -= k22 * l22;
+                    l22 = 0;
+                }
+                if(i23 > k14)
+                    i23 = k14;
+            }
+            int j23 = 0;
+            int k23 = 0;
+            int l23 = 0;
+            int i24 = 0;
+            int j24 = 0xbc614e;
+            int k24 = 0xff439eb2;
+            if(l4 != i4) {
+                k23 = (i10 - k8 << 8) / (l4 - i4);
+                i24 = (i14 - i13 << 8) / (l4 - i4);
+                if(i4 < l4) {
+                    j23 = k8 << 8;
+                    l23 = i13 << 8;
+                    j24 = i4;
+                    k24 = l4;
+                } else {
+                    j23 = i10 << 8;
+                    l23 = i14 << 8;
+                    j24 = l4;
+                    k24 = i4;
+                }
+                if(j24 < 0) {
+                    j23 -= k23 * j24;
+                    l23 -= i24 * j24;
+                    j24 = 0;
+                }
+                if(k24 > k14)
+                    k24 = k14;
+            }
+            uo = i17;
+            if(i20 < uo)
+                uo = i20;
+            if(l22 < uo)
+                uo = l22;
+            if(j24 < uo)
+                uo = j24;
+            vo = k17;
+            if(k20 > vo)
+                vo = k20;
+            if(i23 > vo)
+                vo = i23;
+            if(k24 > vo)
+                vo = k24;
+            int l24 = 0;
+            for(i1 = uo; i1 < vo; i1++) {
+                if(i1 >= i17 && i1 < k17) {
+                    k = l = i15;
+                    j1 = l24 = i16;
+                    i15 += k15;
+                    i16 += k16;
+                } else {
+                    k = 0xa0000;
+                    l = 0xfff60000;
+                }
+                if(i1 >= i20 && i1 < k20) {
+                    if(i18 < k) {
+                        k = i18;
+                        j1 = i19;
+                    }
+                    if(i18 > l) {
+                        l = i18;
+                        l24 = i19;
+                    }
+                    i18 += k18;
+                    i19 += k19;
+                }
+                if(i1 >= l22 && i1 < i23) {
+                    if(i21 < k) {
+                        k = i21;
+                        j1 = i22;
+                    }
+                    if(i21 > l) {
+                        l = i21;
+                        l24 = i22;
+                    }
+                    i21 += k21;
+                    i22 += k22;
+                }
+                if(i1 >= j24 && i1 < k24) {
+                    if(j23 < k) {
+                        k = j23;
+                        j1 = l23;
+                    }
+                    if(j23 > l) {
+                        l = j23;
+                        l24 = l23;
+                    }
+                    j23 += k23;
+                    l23 += i24;
+                }
+                t t8 = to[i1];
+                t8.rnb = k;
+                t8.snb = l;
+                t8.tnb = j1;
+                t8.unb = l24;
+            }
+
+            if(uo < cn - an)
+                uo = cn - an;
+        } else {
+            vo = uo = ai2[0] += cn;
+            for(i1 = 1; i1 < k1; i1++) {
+                int k2;
+                if((k2 = ai2[i1] += cn) < uo)
+                    uo = k2;
+                else
+                if(k2 > vo)
+                    vo = k2;
+            }
+
+            if(uo < cn - an)
+                uo = cn - an;
+            if(vo >= cn + an)
+                vo = (cn + an) - 1;
+            if(uo >= vo)
+                return;
+            for(i1 = uo; i1 < vo; i1++) {
+                t t1 = to[i1];
+                t1.rnb = 0xa0000;
+                t1.snb = 0xfff60000;
+            }
+
+            int l2 = k1 - 1;
+            int k3 = ai2[0];
+            int j4 = ai2[l2];
+            if(k3 < j4) {
+                int i5 = ai1[0] << 8;
+                int j6 = (ai1[l2] - ai1[0] << 8) / (j4 - k3);
+                int k7 = ai3[0] << 8;
+                int l8 = (ai3[l2] - ai3[0] << 8) / (j4 - k3);
+                if(k3 < 0) {
+                    i5 -= j6 * k3;
+                    k7 -= l8 * k3;
+                    k3 = 0;
+                }
+                if(j4 > vo)
+                    j4 = vo;
+                for(i1 = k3; i1 <= j4; i1++) {
+                    t t3 = to[i1];
+                    t3.rnb = t3.snb = i5;
+                    t3.tnb = t3.unb = k7;
+                    i5 += j6;
+                    k7 += l8;
+                }
+
+            } else
+            if(k3 > j4) {
+                int j5 = ai1[l2] << 8;
+                int k6 = (ai1[0] - ai1[l2] << 8) / (k3 - j4);
+                int l7 = ai3[l2] << 8;
+                int i9 = (ai3[0] - ai3[l2] << 8) / (k3 - j4);
+                if(j4 < 0) {
+                    j5 -= k6 * j4;
+                    l7 -= i9 * j4;
+                    j4 = 0;
+                }
+                if(k3 > vo)
+                    k3 = vo;
+                for(i1 = j4; i1 <= k3; i1++) {
+                    t t4 = to[i1];
+                    t4.rnb = t4.snb = j5;
+                    t4.tnb = t4.unb = l7;
+                    j5 += k6;
+                    l7 += i9;
+                }
+
+            }
+            for(i1 = 0; i1 < l2; i1++) {
+                int k5 = i1 + 1;
+                int l6 = ai2[i1];
+                int i8 = ai2[k5];
+                if(l6 < i8) {
+                    int j9 = ai1[i1] << 8;
+                    int j10 = (ai1[k5] - ai1[i1] << 8) / (i8 - l6);
+                    int j11 = ai3[i1] << 8;
+                    int j12 = (ai3[k5] - ai3[i1] << 8) / (i8 - l6);
+                    if(l6 < 0) {
+                        j9 -= j10 * l6;
+                        j11 -= j12 * l6;
+                        l6 = 0;
+                    }
+                    if(i8 > vo)
+                        i8 = vo;
+                    for(int j13 = l6; j13 <= i8; j13++) {
+                        t t5 = to[j13];
+                        if(j9 < t5.rnb) {
+                            t5.rnb = j9;
+                            t5.tnb = j11;
+                        }
+                        if(j9 > t5.snb) {
+                            t5.snb = j9;
+                            t5.unb = j11;
+                        }
+                        j9 += j10;
+                        j11 += j12;
+                    }
+
+                } else
+                if(l6 > i8) {
+                    int k9 = ai1[k5] << 8;
+                    int k10 = (ai1[i1] - ai1[k5] << 8) / (l6 - i8);
+                    int k11 = ai3[k5] << 8;
+                    int k12 = (ai3[i1] - ai3[k5] << 8) / (l6 - i8);
+                    if(i8 < 0) {
+                        k9 -= k10 * i8;
+                        k11 -= k12 * i8;
+                        i8 = 0;
+                    }
+                    if(l6 > vo)
+                        l6 = vo;
+                    for(int k13 = i8; k13 <= l6; k13++) {
+                        t t6 = to[k13];
+                        if(k9 < t6.rnb) {
+                            t6.rnb = k9;
+                            t6.tnb = k11;
+                        }
+                        if(k9 > t6.snb) {
+                            t6.snb = k9;
+                            t6.unb = k11;
+                        }
+                        k9 += k10;
+                        k11 += k12;
+                    }
+
+                }
+            }
+
+            if(uo < cn - an)
+                uo = cn - an;
+        }
+        if(rm && um < vm && tm >= uo && tm < vo) {
+            t t2 = to[tm];
+            if(sm >= t2.rnb >> 8 && sm <= t2.snb >> 8 && t2.rnb <= t2.snb && !h1.ai && h1.wh[l1] == 0) {
+                wm[um] = h1;
+                xm[um] = l1;
+                um++;
+            }
+        }
+    }
+
+    private void ph(int k, int l, int i1, int ai1[], int ai2[], int ai3[], int j1, 
+            h h1) {
+        if(j1 >= 0) {
+            if(j1 >= fo)
+                j1 = 0;
+            li(j1);
+            int k1 = ai1[0];
+            int i2 = ai2[0];
+            int l2 = ai3[0];
+            int k3 = k1 - ai1[1];
+            int i4 = i2 - ai2[1];
+            int k4 = l2 - ai3[1];
+            i1--;
+            int l5 = ai1[i1] - k1;
+            int i7 = ai2[i1] - i2;
+            int j8 = ai3[i1] - l2;
+            if(io[j1] == 1) {
+                int k9 = l5 * i2 - i7 * k1 << 12;
+                int i11 = i7 * l2 - j8 * i2 << (5 - dn) + 7 + 4;
+                int k11 = j8 * k1 - l5 * l2 << (5 - dn) + 7;
+                int i12 = k3 * i2 - i4 * k1 << 12;
+                int k12 = i4 * l2 - k4 * i2 << (5 - dn) + 7 + 4;
+                int i13 = k4 * k1 - k3 * l2 << (5 - dn) + 7;
+                int k13 = i4 * l5 - k3 * i7 << 5;
+                int i14 = k4 * i7 - i4 * j8 << (5 - dn) + 4;
+                int k14 = k3 * j8 - k4 * l5 >> dn - 5;
+                int i15 = i11 >> 4;
+                int k15 = k12 >> 4;
+                int i16 = i14 >> 4;
+                int k16 = uo - cn;
+                int i17 = ym;
+                int k17 = bn + uo * i17;
+                byte byte1 = 1;
+                k9 += k11 * k16;
+                i12 += i13 * k16;
+                k13 += k14 * k16;
+                if(cp) {
+                    if((uo & 1) == 1) {
+                        uo++;
+                        k9 += k11;
+                        i12 += i13;
+                        k13 += k14;
+                        k17 += i17;
+                    }
+                    k11 <<= 1;
+                    i13 <<= 1;
+                    k14 <<= 1;
+                    i17 <<= 1;
+                    byte1 = 2;
+                }
+                if(h1.sh) {
+                    for(k = uo; k < vo; k += byte1) {
+                        t t4 = to[k];
+                        l = t4.rnb >> 8;
+                        int i18 = t4.snb >> 8;
+                        int k19 = i18 - l;
+                        if(k19 <= 0) {
+                            k9 += k11;
+                            i12 += i13;
+                            k13 += k14;
+                            k17 += i17;
+                        } else {
+                            int i21 = t4.tnb;
+                            int k22 = (t4.unb - i21) / k19;
+                            if(l < -zm) {
+                                i21 += (-zm - l) * k22;
+                                l = -zm;
+                                k19 = i18 - l;
+                            }
+                            if(i18 > zm) {
+                                int i24 = zm;
+                                k19 = i24 - l;
+                            }
+                            oi(so, ko[j1], 0, 0, k9 + i15 * l, i12 + k15 * l, k13 + i16 * l, i11, k12, i14, k19, k17 + l, i21, k22 << 2);
+                            k9 += k11;
+                            i12 += i13;
+                            k13 += k14;
+                            k17 += i17;
+                        }
+                    }
+
+                    return;
+                }
+                if(!lo[j1]) {
+                    for(k = uo; k < vo; k += byte1) {
+                        t t5 = to[k];
+                        l = t5.rnb >> 8;
+                        int j18 = t5.snb >> 8;
+                        int l19 = j18 - l;
+                        if(l19 <= 0) {
+                            k9 += k11;
+                            i12 += i13;
+                            k13 += k14;
+                            k17 += i17;
+                        } else {
+                            int j21 = t5.tnb;
+                            int l22 = (t5.unb - j21) / l19;
+                            if(l < -zm) {
+                                j21 += (-zm - l) * l22;
+                                l = -zm;
+                                l19 = j18 - l;
+                            }
+                            if(j18 > zm) {
+                                int j24 = zm;
+                                l19 = j24 - l;
+                            }
+                            th(so, ko[j1], 0, 0, k9 + i15 * l, i12 + k15 * l, k13 + i16 * l, i11, k12, i14, l19, k17 + l, j21, l22 << 2);
+                            k9 += k11;
+                            i12 += i13;
+                            k13 += k14;
+                            k17 += i17;
+                        }
+                    }
+
+                    return;
+                }
+                for(k = uo; k < vo; k += byte1) {
+                    t t6 = to[k];
+                    l = t6.rnb >> 8;
+                    int k18 = t6.snb >> 8;
+                    int i20 = k18 - l;
+                    if(i20 <= 0) {
+                        k9 += k11;
+                        i12 += i13;
+                        k13 += k14;
+                        k17 += i17;
+                    } else {
+                        int k21 = t6.tnb;
+                        int i23 = (t6.unb - k21) / i20;
+                        if(l < -zm) {
+                            k21 += (-zm - l) * i23;
+                            l = -zm;
+                            i20 = k18 - l;
+                        }
+                        if(k18 > zm) {
+                            int k24 = zm;
+                            i20 = k24 - l;
+                        }
+                        ii(so, 0, 0, 0, ko[j1], k9 + i15 * l, i12 + k15 * l, k13 + i16 * l, i11, k12, i14, i20, k17 + l, k21, i23);
+                        k9 += k11;
+                        i12 += i13;
+                        k13 += k14;
+                        k17 += i17;
+                    }
+                }
+
+                return;
+            }
+            int l9 = l5 * i2 - i7 * k1 << 11;
+            int j11 = i7 * l2 - j8 * i2 << (5 - dn) + 6 + 4;
+            int l11 = j8 * k1 - l5 * l2 << (5 - dn) + 6;
+            int j12 = k3 * i2 - i4 * k1 << 11;
+            int l12 = i4 * l2 - k4 * i2 << (5 - dn) + 6 + 4;
+            int j13 = k4 * k1 - k3 * l2 << (5 - dn) + 6;
+            int l13 = i4 * l5 - k3 * i7 << 5;
+            int j14 = k4 * i7 - i4 * j8 << (5 - dn) + 4;
+            int l14 = k3 * j8 - k4 * l5 >> dn - 5;
+            int j15 = j11 >> 4;
+            int l15 = l12 >> 4;
+            int j16 = j14 >> 4;
+            int l16 = uo - cn;
+            int j17 = ym;
+            int l17 = bn + uo * j17;
+            byte byte2 = 1;
+            l9 += l11 * l16;
+            j12 += j13 * l16;
+            l13 += l14 * l16;
+            if(cp) {
+                if((uo & 1) == 1) {
+                    uo++;
+                    l9 += l11;
+                    j12 += j13;
+                    l13 += l14;
+                    l17 += j17;
+                }
+                l11 <<= 1;
+                j13 <<= 1;
+                l14 <<= 1;
+                j17 <<= 1;
+                byte2 = 2;
+            }
+            if(h1.sh) {
+                for(k = uo; k < vo; k += byte2) {
+                    t t7 = to[k];
+                    l = t7.rnb >> 8;
+                    int l18 = t7.snb >> 8;
+                    int j20 = l18 - l;
+                    if(j20 <= 0) {
+                        l9 += l11;
+                        j12 += j13;
+                        l13 += l14;
+                        l17 += j17;
+                    } else {
+                        int l21 = t7.tnb;
+                        int j23 = (t7.unb - l21) / j20;
+                        if(l < -zm) {
+                            l21 += (-zm - l) * j23;
+                            l = -zm;
+                            j20 = l18 - l;
+                        }
+                        if(l18 > zm) {
+                            int l24 = zm;
+                            j20 = l24 - l;
+                        }
+                        xh(so, ko[j1], 0, 0, l9 + j15 * l, j12 + l15 * l, l13 + j16 * l, j11, l12, j14, j20, l17 + l, l21, j23);
+                        l9 += l11;
+                        j12 += j13;
+                        l13 += l14;
+                        l17 += j17;
+                    }
+                }
+
+                return;
+            }
+            if(!lo[j1]) {
+                for(k = uo; k < vo; k += byte2) {
+                    t t8 = to[k];
+                    l = t8.rnb >> 8;
+                    int i19 = t8.snb >> 8;
+                    int k20 = i19 - l;
+                    if(k20 <= 0) {
+                        l9 += l11;
+                        j12 += j13;
+                        l13 += l14;
+                        l17 += j17;
+                    } else {
+                        int i22 = t8.tnb;
+                        int k23 = (t8.unb - i22) / k20;
+                        if(l < -zm) {
+                            i22 += (-zm - l) * k23;
+                            l = -zm;
+                            k20 = i19 - l;
+                        }
+                        if(i19 > zm) {
+                            int i25 = zm;
+                            k20 = i25 - l;
+                        }
+                        pi(so, ko[j1], 0, 0, l9 + j15 * l, j12 + l15 * l, l13 + j16 * l, j11, l12, j14, k20, l17 + l, i22, k23);
+                        l9 += l11;
+                        j12 += j13;
+                        l13 += l14;
+                        l17 += j17;
+                    }
+                }
+
+                return;
+            }
+            for(k = uo; k < vo; k += byte2) {
+                t t9 = to[k];
+                l = t9.rnb >> 8;
+                int j19 = t9.snb >> 8;
+                int l20 = j19 - l;
+                if(l20 <= 0) {
+                    l9 += l11;
+                    j12 += j13;
+                    l13 += l14;
+                    l17 += j17;
+                } else {
+                    int j22 = t9.tnb;
+                    int l23 = (t9.unb - j22) / l20;
+                    if(l < -zm) {
+                        j22 += (-zm - l) * l23;
+                        l = -zm;
+                        l20 = j19 - l;
+                    }
+                    if(j19 > zm) {
+                        int j25 = zm;
+                        l20 = j25 - l;
+                    }
+                    sh(so, 0, 0, 0, ko[j1], l9 + j15 * l, j12 + l15 * l, l13 + j16 * l, j11, l12, j14, l20, l17 + l, j22, l23);
+                    l9 += l11;
+                    j12 += j13;
+                    l13 += l14;
+                    l17 += j17;
+                }
+            }
+
+            return;
+        }
+        for(int l1 = 0; l1 < cm; l1++) {
+            if(dm[l1] == j1) {
+                fm = em[l1];
+                break;
+            }
+            if(l1 == cm - 1) {
+                int j2 = (int)(Math.random() * (double)cm);
+                dm[j2] = j1;
+                j1 = -1 - j1;
+                int i3 = (j1 >> 10 & 0x1f) * 8;
+                int l3 = (j1 >> 5 & 0x1f) * 8;
+                int j4 = (j1 & 0x1f) * 8;
+                for(int l4 = 0; l4 < 256; l4++) {
+                    int i6 = l4 * l4;
+                    int j7 = (i3 * i6) / 0x10000;
+                    int k8 = (l3 * i6) / 0x10000;
+                    int i10 = (j4 * i6) / 0x10000;
+                    em[j2][255 - l4] = (j7 << 16) + (k8 << 8) + i10;
+                }
+
+                fm = em[j2];
+            }
+        }
+
+        int k2 = ym;
+        int j3 = bn + uo * k2;
+        byte byte0 = 1;
+        if(cp) {
+            if((uo & 1) == 1) {
+                uo++;
+                j3 += k2;
+            }
+            k2 <<= 1;
+            byte0 = 2;
+        }
+        if(h1.th) {
+            for(k = uo; k < vo; k += byte0) {
+                t t1 = to[k];
+                l = t1.rnb >> 8;
+                int i5 = t1.snb >> 8;
+                int j6 = i5 - l;
+                if(j6 <= 0) {
+                    j3 += k2;
+                } else {
+                    int k7 = t1.tnb;
+                    int l8 = (t1.unb - k7) / j6;
+                    if(l < -zm) {
+                        k7 += (-zm - l) * l8;
+                        l = -zm;
+                        j6 = i5 - l;
+                    }
+                    if(i5 > zm) {
+                        int j10 = zm;
+                        j6 = j10 - l;
+                    }
+                    hi(so, -j6, j3 + l, 0, fm, k7, l8);
+                    j3 += k2;
+                }
+            }
+
+            return;
+        }
+        if(om) {
+            for(k = uo; k < vo; k += byte0) {
+                t t2 = to[k];
+                l = t2.rnb >> 8;
+                int j5 = t2.snb >> 8;
+                int k6 = j5 - l;
+                if(k6 <= 0) {
+                    j3 += k2;
+                } else {
+                    int l7 = t2.tnb;
+                    int i9 = (t2.unb - l7) / k6;
+                    if(l < -zm) {
+                        l7 += (-zm - l) * i9;
+                        l = -zm;
+                        k6 = j5 - l;
+                    }
+                    if(j5 > zm) {
+                        int k10 = zm;
+                        k6 = k10 - l;
+                    }
+                    jh(so, -k6, j3 + l, 0, fm, l7, i9);
+                    j3 += k2;
+                }
+            }
+
+            return;
+        }
+        for(k = uo; k < vo; k += byte0) {
+            t t3 = to[k];
+            l = t3.rnb >> 8;
+            int k5 = t3.snb >> 8;
+            int l6 = k5 - l;
+            if(l6 <= 0) {
+                j3 += k2;
+            } else {
+                int i8 = t3.tnb;
+                int j9 = (t3.unb - i8) / l6;
+                if(l < -zm) {
+                    i8 += (-zm - l) * j9;
+                    l = -zm;
+                    l6 = k5 - l;
+                }
+                if(k5 > zm) {
+                    int l10 = zm;
+                    l6 = l10 - l;
+                }
+                yh(so, -l6, j3 + l, 0, fm, i8, j9);
+                j3 += k2;
+            }
+        }
+
+    }
+
+    private static void th(int ai1[], int ai2[], int k, int l, int i1, int j1, int k1, int l1, 
+            int i2, int j2, int k2, int l2, int i3, int j3) {
+        if(k2 <= 0)
+            return;
+        int k3 = 0;
+        int l3 = 0;
+        int i4 = 0;
+        if(k1 != 0) {
+            k = i1 / k1 << 7;
+            l = j1 / k1 << 7;
+        }
+        if(k < 0)
+            k = 0;
+        else
+        if(k > 16256)
+            k = 16256;
+        i1 += l1;
+        j1 += i2;
+        k1 += j2;
+        if(k1 != 0) {
+            k3 = i1 / k1 << 7;
+            l3 = j1 / k1 << 7;
+        }
+        if(k3 < 0)
+            k3 = 0;
+        else
+        if(k3 > 16256)
+            k3 = 16256;
+        int j4 = k3 - k >> 4;
+        int k4 = l3 - l >> 4;
+        for(int l4 = k2 >> 4; l4 > 0; l4--) {
+            k += i3 & 0x600000;
+            i4 = i3 >> 23;
+            i3 += j3;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            k = (k & 0x3fff) + (i3 & 0x600000);
+            i4 = i3 >> 23;
+            i3 += j3;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            k = (k & 0x3fff) + (i3 & 0x600000);
+            i4 = i3 >> 23;
+            i3 += j3;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            k = (k & 0x3fff) + (i3 & 0x600000);
+            i4 = i3 >> 23;
+            i3 += j3;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k = k3;
+            l = l3;
+            i1 += l1;
+            j1 += i2;
+            k1 += j2;
+            if(k1 != 0) {
+                k3 = i1 / k1 << 7;
+                l3 = j1 / k1 << 7;
+            }
+            if(k3 < 0)
+                k3 = 0;
+            else
+            if(k3 > 16256)
+                k3 = 16256;
+            j4 = k3 - k >> 4;
+            k4 = l3 - l >> 4;
+        }
+
+        for(int i5 = 0; i5 < (k2 & 0xf); i5++) {
+            if((i5 & 3) == 0) {
+                k = (k & 0x3fff) + (i3 & 0x600000);
+                i4 = i3 >> 23;
+                i3 += j3;
+            }
+            ai1[l2++] = ai2[(l & 0x3f80) + (k >> 7)] >>> i4;
+            k += j4;
+            l += k4;
+        }
+
+    }
+
+    private static void oi(int ai1[], int ai2[], int k, int l, int i1, int j1, int k1, int l1, 
+            int i2, int j2, int k2, int l2, int i3, int j3) {
+        if(k2 <= 0)
+            return;
+        int k3 = 0;
+        int l3 = 0;
+        int i4 = 0;
+        if(k1 != 0) {
+            k = i1 / k1 << 7;
+            l = j1 / k1 << 7;
+        }
+        if(k < 0)
+            k = 0;
+        else
+        if(k > 16256)
+            k = 16256;
+        i1 += l1;
+        j1 += i2;
+        k1 += j2;
+        if(k1 != 0) {
+            k3 = i1 / k1 << 7;
+            l3 = j1 / k1 << 7;
+        }
+        if(k3 < 0)
+            k3 = 0;
+        else
+        if(k3 > 16256)
+            k3 = 16256;
+        int j4 = k3 - k >> 4;
+        int k4 = l3 - l >> 4;
+        for(int l4 = k2 >> 4; l4 > 0; l4--) {
+            k += i3 & 0x600000;
+            i4 = i3 >> 23;
+            i3 += j3;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            k = (k & 0x3fff) + (i3 & 0x600000);
+            i4 = i3 >> 23;
+            i3 += j3;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            k = (k & 0x3fff) + (i3 & 0x600000);
+            i4 = i3 >> 23;
+            i3 += j3;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            k = (k & 0x3fff) + (i3 & 0x600000);
+            i4 = i3 >> 23;
+            i3 += j3;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k = k3;
+            l = l3;
+            i1 += l1;
+            j1 += i2;
+            k1 += j2;
+            if(k1 != 0) {
+                k3 = i1 / k1 << 7;
+                l3 = j1 / k1 << 7;
+            }
+            if(k3 < 0)
+                k3 = 0;
+            else
+            if(k3 > 16256)
+                k3 = 16256;
+            j4 = k3 - k >> 4;
+            k4 = l3 - l >> 4;
+        }
+
+        for(int i5 = 0; i5 < (k2 & 0xf); i5++) {
+            if((i5 & 3) == 0) {
+                k = (k & 0x3fff) + (i3 & 0x600000);
+                i4 = i3 >> 23;
+                i3 += j3;
+            }
+            ai1[l2++] = (ai2[(l & 0x3f80) + (k >> 7)] >>> i4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            k += j4;
+            l += k4;
+        }
+
+    }
+
+    private static void ii(int ai1[], int k, int l, int i1, int ai2[], int j1, int k1, int l1, 
+            int i2, int j2, int k2, int l2, int i3, int j3, int k3) {
+        if(l2 <= 0)
+            return;
+        int l3 = 0;
+        int i4 = 0;
+        k3 <<= 2;
+        if(l1 != 0) {
+            l3 = j1 / l1 << 7;
+            i4 = k1 / l1 << 7;
+        }
+        if(l3 < 0)
+            l3 = 0;
+        else
+        if(l3 > 16256)
+            l3 = 16256;
+        for(int j4 = l2; j4 > 0; j4 -= 16) {
+            j1 += i2;
+            k1 += j2;
+            l1 += k2;
+            l = l3;
+            i1 = i4;
+            if(l1 != 0) {
+                l3 = j1 / l1 << 7;
+                i4 = k1 / l1 << 7;
+            }
+            if(l3 < 0)
+                l3 = 0;
+            else
+            if(l3 > 16256)
+                l3 = 16256;
+            int k4 = l3 - l >> 4;
+            int l4 = i4 - i1 >> 4;
+            int i5 = j3 >> 23;
+            l += j3 & 0x600000;
+            j3 += k3;
+            if(j4 < 16) {
+                for(int j5 = 0; j5 < j4; j5++) {
+                    if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                        ai1[i3] = k;
+                    i3++;
+                    l += k4;
+                    i1 += l4;
+                    if((j5 & 3) == 3) {
+                        l = (l & 0x3fff) + (j3 & 0x600000);
+                        i5 = j3 >> 23;
+                        j3 += k3;
+                    }
+                }
+
+            } else {
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                l = (l & 0x3fff) + (j3 & 0x600000);
+                i5 = j3 >> 23;
+                j3 += k3;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                l = (l & 0x3fff) + (j3 & 0x600000);
+                i5 = j3 >> 23;
+                j3 += k3;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                l = (l & 0x3fff) + (j3 & 0x600000);
+                i5 = j3 >> 23;
+                j3 += k3;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0x3f80) + (l >> 7)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+            }
+        }
+
+    }
+
+    private static void pi(int ai1[], int ai2[], int k, int l, int i1, int j1, int k1, int l1, 
+            int i2, int j2, int k2, int l2, int i3, int j3) {
+        if(k2 <= 0)
+            return;
+        int k3 = 0;
+        int l3 = 0;
+        j3 <<= 2;
+        if(k1 != 0) {
+            k3 = i1 / k1 << 6;
+            l3 = j1 / k1 << 6;
+        }
+        if(k3 < 0)
+            k3 = 0;
+        else
+        if(k3 > 4032)
+            k3 = 4032;
+        for(int i4 = k2; i4 > 0; i4 -= 16) {
+            i1 += l1;
+            j1 += i2;
+            k1 += j2;
+            k = k3;
+            l = l3;
+            if(k1 != 0) {
+                k3 = i1 / k1 << 6;
+                l3 = j1 / k1 << 6;
+            }
+            if(k3 < 0)
+                k3 = 0;
+            else
+            if(k3 > 4032)
+                k3 = 4032;
+            int j4 = k3 - k >> 4;
+            int k4 = l3 - l >> 4;
+            int l4 = i3 >> 20;
+            k += i3 & 0xc0000;
+            i3 += j3;
+            if(i4 < 16) {
+                for(int i5 = 0; i5 < i4; i5++) {
+                    ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                    k += j4;
+                    l += k4;
+                    if((i5 & 3) == 3) {
+                        k = (k & 0xfff) + (i3 & 0xc0000);
+                        l4 = i3 >> 20;
+                        i3 += j3;
+                    }
+                }
+
+            } else {
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                k = (k & 0xfff) + (i3 & 0xc0000);
+                l4 = i3 >> 20;
+                i3 += j3;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                k = (k & 0xfff) + (i3 & 0xc0000);
+                l4 = i3 >> 20;
+                i3 += j3;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                k = (k & 0xfff) + (i3 & 0xc0000);
+                l4 = i3 >> 20;
+                i3 += j3;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+                k += j4;
+                l += k4;
+                ai1[l2++] = ai2[(l & 0xfc0) + (k >> 6)] >>> l4;
+            }
+        }
+
+    }
+
+    private static void xh(int ai1[], int ai2[], int k, int l, int i1, int j1, int k1, int l1, 
+            int i2, int j2, int k2, int l2, int i3, int j3) {
+        if(k2 <= 0)
+            return;
+        int k3 = 0;
+        int l3 = 0;
+        j3 <<= 2;
+        if(k1 != 0) {
+            k3 = i1 / k1 << 6;
+            l3 = j1 / k1 << 6;
+        }
+        if(k3 < 0)
+            k3 = 0;
+        else
+        if(k3 > 4032)
+            k3 = 4032;
+        for(int i4 = k2; i4 > 0; i4 -= 16) {
+            i1 += l1;
+            j1 += i2;
+            k1 += j2;
+            k = k3;
+            l = l3;
+            if(k1 != 0) {
+                k3 = i1 / k1 << 6;
+                l3 = j1 / k1 << 6;
+            }
+            if(k3 < 0)
+                k3 = 0;
+            else
+            if(k3 > 4032)
+                k3 = 4032;
+            int j4 = k3 - k >> 4;
+            int k4 = l3 - l >> 4;
+            int l4 = i3 >> 20;
+            k += i3 & 0xc0000;
+            i3 += j3;
+            if(i4 < 16) {
+                for(int i5 = 0; i5 < i4; i5++) {
+                    ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                    k += j4;
+                    l += k4;
+                    if((i5 & 3) == 3) {
+                        k = (k & 0xfff) + (i3 & 0xc0000);
+                        l4 = i3 >> 20;
+                        i3 += j3;
+                    }
+                }
+
+            } else {
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                k = (k & 0xfff) + (i3 & 0xc0000);
+                l4 = i3 >> 20;
+                i3 += j3;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                k = (k & 0xfff) + (i3 & 0xc0000);
+                l4 = i3 >> 20;
+                i3 += j3;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                k = (k & 0xfff) + (i3 & 0xc0000);
+                l4 = i3 >> 20;
+                i3 += j3;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+                k += j4;
+                l += k4;
+                ai1[l2++] = (ai2[(l & 0xfc0) + (k >> 6)] >>> l4) + (ai1[l2] >> 1 & 0x7f7f7f);
+            }
+        }
+
+    }
+
+    private static void sh(int ai1[], int k, int l, int i1, int ai2[], int j1, int k1, int l1, 
+            int i2, int j2, int k2, int l2, int i3, int j3, int k3) {
+        if(l2 <= 0)
+            return;
+        int l3 = 0;
+        int i4 = 0;
+        k3 <<= 2;
+        if(l1 != 0) {
+            l3 = j1 / l1 << 6;
+            i4 = k1 / l1 << 6;
+        }
+        if(l3 < 0)
+            l3 = 0;
+        else
+        if(l3 > 4032)
+            l3 = 4032;
+        for(int j4 = l2; j4 > 0; j4 -= 16) {
+            j1 += i2;
+            k1 += j2;
+            l1 += k2;
+            l = l3;
+            i1 = i4;
+            if(l1 != 0) {
+                l3 = j1 / l1 << 6;
+                i4 = k1 / l1 << 6;
+            }
+            if(l3 < 0)
+                l3 = 0;
+            else
+            if(l3 > 4032)
+                l3 = 4032;
+            int k4 = l3 - l >> 4;
+            int l4 = i4 - i1 >> 4;
+            int i5 = j3 >> 20;
+            l += j3 & 0xc0000;
+            j3 += k3;
+            if(j4 < 16) {
+                for(int j5 = 0; j5 < j4; j5++) {
+                    if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                        ai1[i3] = k;
+                    i3++;
+                    l += k4;
+                    i1 += l4;
+                    if((j5 & 3) == 3) {
+                        l = (l & 0xfff) + (j3 & 0xc0000);
+                        i5 = j3 >> 20;
+                        j3 += k3;
+                    }
+                }
+
+            } else {
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                l = (l & 0xfff) + (j3 & 0xc0000);
+                i5 = j3 >> 20;
+                j3 += k3;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                l = (l & 0xfff) + (j3 & 0xc0000);
+                i5 = j3 >> 20;
+                j3 += k3;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                l = (l & 0xfff) + (j3 & 0xc0000);
+                i5 = j3 >> 20;
+                j3 += k3;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+                l += k4;
+                i1 += l4;
+                if((k = ai2[(i1 & 0xfc0) + (l >> 6)] >>> i5) != 0)
+                    ai1[i3] = k;
+                i3++;
+            }
+        }
+
+    }
+
+    private static void jh(int ai1[], int k, int l, int i1, int ai2[], int j1, int k1) {
+        if(k >= 0)
+            return;
+        k1 <<= 1;
+        i1 = ai2[j1 >> 8 & 0xff];
+        j1 += k1;
+        int l1 = k / 8;
+        for(int i2 = l1; i2 < 0; i2++) {
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            i1 = ai2[j1 >> 8 & 0xff];
+            j1 += k1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            i1 = ai2[j1 >> 8 & 0xff];
+            j1 += k1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            i1 = ai2[j1 >> 8 & 0xff];
+            j1 += k1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            i1 = ai2[j1 >> 8 & 0xff];
+            j1 += k1;
+        }
+
+        l1 = -(k % 8);
+        for(int j2 = 0; j2 < l1; j2++) {
+            ai1[l++] = i1;
+            if((j2 & 1) == 1) {
+                i1 = ai2[j1 >> 8 & 0xff];
+                j1 += k1;
+            }
+        }
+
+    }
+
+    private static void hi(int ai1[], int k, int l, int i1, int ai2[], int j1, int k1) {
+        if(k >= 0)
+            return;
+        k1 <<= 2;
+        i1 = ai2[j1 >> 8 & 0xff];
+        j1 += k1;
+        int l1 = k / 16;
+        for(int i2 = l1; i2 < 0; i2++) {
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            i1 = ai2[j1 >> 8 & 0xff];
+            j1 += k1;
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            i1 = ai2[j1 >> 8 & 0xff];
+            j1 += k1;
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            i1 = ai2[j1 >> 8 & 0xff];
+            j1 += k1;
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            i1 = ai2[j1 >> 8 & 0xff];
+            j1 += k1;
+        }
+
+        l1 = -(k % 16);
+        for(int j2 = 0; j2 < l1; j2++) {
+            ai1[l++] = i1 + (ai1[l] >> 1 & 0x7f7f7f);
+            if((j2 & 3) == 3) {
+                i1 = ai2[j1 >> 8 & 0xff];
+                j1 += k1;
+                j1 += k1;
+            }
+        }
+
+    }
+
+    private static void yh(int ai1[], int k, int l, int i1, int ai2[], int j1, int k1) {
+        if(k >= 0)
+            return;
+        k1 <<= 2;
+        i1 = ai2[j1 >> 8 & 0xff];
+        j1 += k1;
+        int l1 = k / 16;
+        for(int i2 = l1; i2 < 0; i2++) {
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            i1 = ai2[j1 >> 8 & 0xff];
+            j1 += k1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            i1 = ai2[j1 >> 8 & 0xff];
+            j1 += k1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            i1 = ai2[j1 >> 8 & 0xff];
+            j1 += k1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            ai1[l++] = i1;
+            i1 = ai2[j1 >> 8 & 0xff];
+            j1 += k1;
+        }
+
+        l1 = -(k % 16);
+        for(int j2 = 0; j2 < l1; j2++) {
+            ai1[l++] = i1;
+            if((j2 & 3) == 3) {
+                i1 = ai2[j1 >> 8 & 0xff];
+                j1 += k1;
+            }
+        }
+
+    }
+
+    public void ai(int k, int l, int i1, int j1, int k1, int l1, int i2) {
+        j1 &= 0x3ff;
+        k1 &= 0x3ff;
+        l1 &= 0x3ff;
+        in = 1024 - j1 & 0x3ff;
+        jn = 1024 - k1 & 0x3ff;
+        kn = 1024 - l1 & 0x3ff;
+        int j2 = 0;
+        int k2 = 0;
+        int l2 = i2;
+        if(j1 != 0) {
+            int i3 = mm[j1];
+            int l3 = mm[j1 + 1024];
+            int k4 = k2 * l3 - l2 * i3 >> 15;
+            l2 = k2 * i3 + l2 * l3 >> 15;
+            k2 = k4;
+        }
+        if(k1 != 0) {
+            int j3 = mm[k1];
+            int i4 = mm[k1 + 1024];
+            int l4 = l2 * j3 + j2 * i4 >> 15;
+            l2 = l2 * i4 - j2 * j3 >> 15;
+            j2 = l4;
+        }
+        if(l1 != 0) {
+            int k3 = mm[l1];
+            int j4 = mm[l1 + 1024];
+            int i5 = k2 * k3 + j2 * j4 >> 15;
+            k2 = k2 * j4 - j2 * k3 >> 15;
+            j2 = i5;
+        }
+        fn = k - j2;
+        gn = l - k2;
+        hn = i1 - l2;
+    }
+
+    private void xi(int k) {
+        r r1 = qn[k];
+        h h1 = r1.dnb;
+        int l = r1.enb;
+        int ai1[] = h1.yg[l];
+        int i1 = h1.xg[l];
+        int j1 = h1.ch[l];
+        int k1 = h1.pg[ai1[0]];
+        int l1 = h1.qg[ai1[0]];
+        int i2 = h1.rg[ai1[0]];
+        int j2 = h1.pg[ai1[1]] - k1;
+        int k2 = h1.qg[ai1[1]] - l1;
+        int l2 = h1.rg[ai1[1]] - i2;
+        int i3 = h1.pg[ai1[2]] - k1;
+        int j3 = h1.qg[ai1[2]] - l1;
+        int k3 = h1.rg[ai1[2]] - i2;
+        int l3 = k2 * k3 - j3 * l2;
+        int i4 = l2 * i3 - k3 * j2;
+        int j4 = j2 * j3 - i3 * k2;
+        if(j1 == -1) {
+            j1 = 0;
+            for(; l3 > 25000 || i4 > 25000 || j4 > 25000 || l3 < -25000 || i4 < -25000 || j4 < -25000; j4 >>= 1) {
+                j1++;
+                l3 >>= 1;
+                i4 >>= 1;
+            }
+
+            h1.ch[l] = j1;
+            h1.bh[l] = (int)((double)en * Math.sqrt(l3 * l3 + i4 * i4 + j4 * j4));
+        } else {
+            l3 >>= j1;
+            i4 >>= j1;
+            j4 >>= j1;
+        }
+        r1.jnb = k1 * l3 + l1 * i4 + i2 * j4;
+        r1.gnb = l3;
+        r1.hnb = i4;
+        r1.inb = j4;
+        int k4 = h1.rg[ai1[0]];
+        int l4 = k4;
+        int i5 = h1.sg[ai1[0]];
+        int j5 = i5;
+        int k5 = h1.tg[ai1[0]];
+        int l5 = k5;
+        for(int i6 = 1; i6 < i1; i6++) {
+            int j6 = h1.rg[ai1[i6]];
+            if(j6 > l4)
+                l4 = j6;
+            else
+            if(j6 < k4)
+                k4 = j6;
+            j6 = h1.sg[ai1[i6]];
+            if(j6 > j5)
+                j5 = j6;
+            else
+            if(j6 < i5)
+                i5 = j6;
+            j6 = h1.tg[ai1[i6]];
+            if(j6 > l5)
+                l5 = j6;
+            else
+            if(j6 < k5)
+                k5 = j6;
+        }
+
+        r1.bnb = k4;
+        r1.cnb = l4;
+        r1.xmb = i5;
+        r1.zmb = j5;
+        r1.ymb = k5;
+        r1.anb = l5;
+    }
+
+    private void zi(int k) {
+        r r1 = qn[k];
+        h h1 = r1.dnb;
+        int l = r1.enb;
+        int ai1[] = h1.yg[l];
+        int i1 = 0;
+        int j1 = 0;
+        int k1 = 1;
+        int l1 = h1.pg[ai1[0]];
+        int i2 = h1.qg[ai1[0]];
+        int j2 = h1.rg[ai1[0]];
+        h1.bh[l] = 1;
+        h1.ch[l] = 0;
+        r1.jnb = l1 * i1 + i2 * j1 + j2 * k1;
+        r1.gnb = i1;
+        r1.hnb = j1;
+        r1.inb = k1;
+        int k2 = h1.rg[ai1[0]];
+        int l2 = k2;
+        int i3 = h1.sg[ai1[0]];
+        int j3 = i3;
+        if(h1.sg[ai1[1]] < i3)
+            i3 = h1.sg[ai1[1]];
+        else
+            j3 = h1.sg[ai1[1]];
+        int k3 = h1.tg[ai1[1]];
+        int l3 = h1.tg[ai1[0]];
+        int i4 = h1.rg[ai1[1]];
+        if(i4 > l2)
+            l2 = i4;
+        else
+        if(i4 < k2)
+            k2 = i4;
+        i4 = h1.sg[ai1[1]];
+        if(i4 > j3)
+            j3 = i4;
+        else
+        if(i4 < i3)
+            i3 = i4;
+        i4 = h1.tg[ai1[1]];
+        if(i4 > l3)
+            l3 = i4;
+        else
+        if(i4 < k3)
+            k3 = i4;
+        r1.bnb = k2;
+        r1.cnb = l2;
+        r1.xmb = i3 - 20;
+        r1.zmb = j3 + 20;
+        r1.ymb = k3;
+        r1.anb = l3;
+    }
+
+    private boolean ih(r r1, r r2) {
+        if(r1.xmb >= r2.zmb)
+            return true;
+        if(r2.xmb >= r1.zmb)
+            return true;
+        if(r1.ymb >= r2.anb)
+            return true;
+        if(r2.ymb >= r1.anb)
+            return true;
+        if(r1.bnb >= r2.cnb)
+            return true;
+        if(r2.bnb > r1.cnb)
+            return false;
+        h h1 = r1.dnb;
+        h h2 = r2.dnb;
+        int k = r1.enb;
+        int l = r2.enb;
+        int ai1[] = h1.yg[k];
+        int ai2[] = h2.yg[l];
+        int i1 = h1.xg[k];
+        int j1 = h2.xg[l];
+        int k1 = h2.pg[ai2[0]];
+        int l1 = h2.qg[ai2[0]];
+        int i2 = h2.rg[ai2[0]];
+        int j2 = r2.gnb;
+        int k2 = r2.hnb;
+        int l2 = r2.inb;
+        int i3 = h2.bh[l];
+        int j3 = r2.jnb;
+        boolean flag = false;
+        for(int k3 = 0; k3 < i1; k3++) {
+            int l3 = ai1[k3];
+            int j4 = (k1 - h1.pg[l3]) * j2 + (l1 - h1.qg[l3]) * k2 + (i2 - h1.rg[l3]) * l2;
+            if((j4 >= -i3 || j3 >= 0) && (j4 <= i3 || j3 <= 0))
+                continue;
+            flag = true;
+            break;
+        }
+
+        if(!flag)
+            return true;
+        k1 = h1.pg[ai1[0]];
+        l1 = h1.qg[ai1[0]];
+        i2 = h1.rg[ai1[0]];
+        j2 = r1.gnb;
+        k2 = r1.hnb;
+        l2 = r1.inb;
+        i3 = h1.bh[k];
+        j3 = r1.jnb;
+        flag = false;
+        for(int i4 = 0; i4 < j1; i4++) {
+            int k4 = ai2[i4];
+            int l4 = (k1 - h2.pg[k4]) * j2 + (l1 - h2.qg[k4]) * k2 + (i2 - h2.rg[k4]) * l2;
+            if((l4 >= -i3 || j3 <= 0) && (l4 <= i3 || j3 >= 0))
+                continue;
+            flag = true;
+            break;
+        }
+
+        if(!flag)
+            return true;
+        int ai3[];
+        int ai4[];
+        if(i1 == 2) {
+            ai3 = new int[4];
+            ai4 = new int[4];
+            int i5 = ai1[0];
+            int k5 = ai1[1];
+            ai3[0] = h1.sg[i5] - 20;
+            ai3[1] = h1.sg[k5] - 20;
+            ai3[2] = h1.sg[k5] + 20;
+            ai3[3] = h1.sg[i5] + 20;
+            ai4[0] = ai4[3] = h1.tg[i5];
+            ai4[1] = ai4[2] = h1.tg[k5];
+        } else {
+            ai3 = new int[i1];
+            ai4 = new int[i1];
+            for(int j5 = 0; j5 < i1; j5++) {
+                int l5 = ai1[j5];
+                ai3[j5] = h1.sg[l5];
+                ai4[j5] = h1.tg[l5];
+            }
+
+        }
+        int ai5[];
+        int ai6[];
+        if(j1 == 2) {
+            ai5 = new int[4];
+            ai6 = new int[4];
+            int i6 = ai2[0];
+            int k6 = ai2[1];
+            ai5[0] = h2.sg[i6] - 20;
+            ai5[1] = h2.sg[k6] - 20;
+            ai5[2] = h2.sg[k6] + 20;
+            ai5[3] = h2.sg[i6] + 20;
+            ai6[0] = ai6[3] = h2.tg[i6];
+            ai6[1] = ai6[2] = h2.tg[k6];
+        } else {
+            ai5 = new int[j1];
+            ai6 = new int[j1];
+            for(int j6 = 0; j6 < j1; j6++) {
+                int l6 = ai2[j6];
+                ai5[j6] = h2.sg[l6];
+                ai6[j6] = h2.tg[l6];
+            }
+
+        }
+        return !kh(ai3, ai4, ai5, ai6);
+    }
+
+    private boolean gh(r r1, r r2) {
+        h h1 = r1.dnb;
+        h h2 = r2.dnb;
+        int k = r1.enb;
+        int l = r2.enb;
+        int ai1[] = h1.yg[k];
+        int ai2[] = h2.yg[l];
+        int i1 = h1.xg[k];
+        int j1 = h2.xg[l];
+        int k1 = h2.pg[ai2[0]];
+        int l1 = h2.qg[ai2[0]];
+        int i2 = h2.rg[ai2[0]];
+        int j2 = r2.gnb;
+        int k2 = r2.hnb;
+        int l2 = r2.inb;
+        int i3 = h2.bh[l];
+        int j3 = r2.jnb;
+        boolean flag = false;
+        for(int k3 = 0; k3 < i1; k3++) {
+            int l3 = ai1[k3];
+            int j4 = (k1 - h1.pg[l3]) * j2 + (l1 - h1.qg[l3]) * k2 + (i2 - h1.rg[l3]) * l2;
+            if((j4 >= -i3 || j3 >= 0) && (j4 <= i3 || j3 <= 0))
+                continue;
+            flag = true;
+            break;
+        }
+
+        if(!flag)
+            return true;
+        k1 = h1.pg[ai1[0]];
+        l1 = h1.qg[ai1[0]];
+        i2 = h1.rg[ai1[0]];
+        j2 = r1.gnb;
+        k2 = r1.hnb;
+        l2 = r1.inb;
+        i3 = h1.bh[k];
+        j3 = r1.jnb;
+        flag = false;
+        for(int i4 = 0; i4 < j1; i4++) {
+            int k4 = ai2[i4];
+            int l4 = (k1 - h2.pg[k4]) * j2 + (l1 - h2.qg[k4]) * k2 + (i2 - h2.rg[k4]) * l2;
+            if((l4 >= -i3 || j3 <= 0) && (l4 <= i3 || j3 >= 0))
+                continue;
+            flag = true;
+            break;
+        }
+
+        return !flag;
+    }
+
+    public void ui(int k, int l, int i1) {
+        fo = k;
+        go = new byte[k][];
+        ho = new int[k][];
+        io = new int[k];
+        jo = new long[k];
+        lo = new boolean[k];
+        ko = new int[k][];
+        mo = 0L;
+        no = new int[l][];
+        oo = new int[i1][];
+    }
+
+    public void vh(int k, byte abyte0[], int ai1[], int l) {
+        go[k] = abyte0;
+        ho[k] = ai1;
+        io[k] = l;
+        jo[k] = 0L;
+        lo[k] = false;
+        ko[k] = null;
+        li(k);
+    }
+
+    public void li(int k) {
+        if(k < 0)
+            return;
+        jo[k] = mo++;
+        if(ko[k] != null)
+            return;
+        if(io[k] == 0) {
+            for(int l = 0; l < no.length; l++)
+                if(no[l] == null) {
+                    no[l] = new int[16384];
+                    ko[k] = no[l];
+                    ji(k);
+                    return;
+                }
+
+            long l1 = 0x40000000L;
+            int j1 = 0;
+            for(int i2 = 0; i2 < fo; i2++)
+                if(i2 != k && io[i2] == 0 && ko[i2] != null && jo[i2] < l1) {
+                    l1 = jo[i2];
+                    j1 = i2;
+                }
+
+            ko[k] = ko[j1];
+            ko[j1] = null;
+            ji(k);
+            return;
+        }
+        for(int i1 = 0; i1 < oo.length; i1++)
+            if(oo[i1] == null) {
+                oo[i1] = new int[0x10000];
+                ko[k] = oo[i1];
+                ji(k);
+                return;
+            }
+
+        long l2 = 0x40000000L;
+        int k1 = 0;
+        for(int j2 = 0; j2 < fo; j2++)
+            if(j2 != k && io[j2] == 1 && ko[j2] != null && jo[j2] < l2) {
+                l2 = jo[j2];
+                k1 = j2;
+            }
+
+        ko[k] = ko[k1];
+        ko[k1] = null;
+        ji(k);
+    }
+
+    private void ji(int k) {
+        char c;
+        if(io[k] == 0)
+            c = '@';
+        else
+            c = '\200';
+        int ai1[] = ko[k];
+        int l = 0;
+        for(int i1 = 0; i1 < c; i1++) {
+            for(int j1 = 0; j1 < c; j1++) {
+                int l1 = ho[k][go[k][j1 + i1 * c] & 0xff];
+                l1 &= 0xf8f8ff;
+                if(l1 == 0)
+                    l1 = 1;
+                else
+                if(l1 == 0xf800ff) {
+                    l1 = 0;
+                    lo[k] = true;
+                }
+                ai1[l++] = l1;
+            }
+
+        }
+
+        for(int k1 = 0; k1 < l; k1++) {
+            int i2 = ai1[k1];
+            ai1[l + k1] = i2 - (i2 >>> 3) & 0xf8f8ff;
+            ai1[l * 2 + k1] = i2 - (i2 >>> 2) & 0xf8f8ff;
+            ai1[l * 3 + k1] = i2 - (i2 >>> 2) - (i2 >>> 3) & 0xf8f8ff;
+        }
+
+    }
+
+    public void gi(int k) {
+        if(ko[k] == null)
+            return;
+        int ai1[] = ko[k];
+        for(int l = 0; l < 64; l++) {
+            int i1 = l + 4032;
+            int j1 = ai1[i1];
+            for(int l1 = 0; l1 < 63; l1++) {
+                ai1[i1] = ai1[i1 - 64];
+                i1 -= 64;
+            }
+
+            ko[k][i1] = j1;
+        }
+
+        char c = '\u1000';
+        for(int k1 = 0; k1 < c; k1++) {
+            int i2 = ai1[k1];
+            ai1[c + k1] = i2 - (i2 >>> 3) & 0xf8f8ff;
+            ai1[c * 2 + k1] = i2 - (i2 >>> 2) & 0xf8f8ff;
+            ai1[c * 3 + k1] = i2 - (i2 >>> 2) - (i2 >>> 3) & 0xf8f8ff;
+        }
+
+    }
+
+    public int ti(int k) {
+        if(k == 0xbc614e)
+            return 0;
+        li(k);
+        if(k >= 0)
+            return ko[k][0];
+        if(k < 0) {
+            k = -(k + 1);
+            int l = k >> 10 & 0x1f;
+            int i1 = k >> 5 & 0x1f;
+            int j1 = k & 0x1f;
+            return (l << 19) + (i1 << 11) + (j1 << 3);
+        } else {
+            return 0;
+        }
+    }
+
+    public void di(int k, int l, int i1) {
+        if(k == 0 && l == 0 && i1 == 0)
+            k = 32;
+        for(int j1 = 0; j1 < ln; j1++)
+            nn[j1].ye(k, l, i1);
+
+    }
+
+    public void yi(int k, int l, int i1, int j1, int k1) {
+        if(i1 == 0 && j1 == 0 && k1 == 0)
+            i1 = 32;
+        for(int l1 = 0; l1 < ln; l1++)
+            nn[l1].be(k, l, i1, j1, k1);
+
+    }
+
+    public static int fi(int k, int l, int i1) {
+        return -1 - (k / 8) * 1024 - (l / 8) * 32 - i1 / 8;
+    }
+
+    public int nh(int k, int l, int i1, int j1, int k1) {
+        if(j1 == l)
+            return k;
+        else
+            return k + ((i1 - k) * (k1 - l)) / (j1 - l);
+    }
+
+    public boolean ci(int k, int l, int i1, int j1, boolean flag) {
+        if(flag && k <= i1 || k < i1) {
+            if(k > j1)
+                return true;
+            if(l > i1)
+                return true;
+            if(l > j1)
+                return true;
+            else
+                return !flag;
+        }
+        if(k < j1)
+            return true;
+        if(l < i1)
+            return true;
+        if(l < j1)
+            return true;
+        else
+            return flag;
+    }
+
+    public boolean rh(int k, int l, int i1, boolean flag) {
+        if(flag && k <= i1 || k < i1)
+            if(l > i1)
+                return true;
+            else
+                return !flag;
+        if(l < i1)
+            return true;
+        else
+            return flag;
+    }
+
+    public boolean kh(int ai1[], int ai2[], int ai3[], int ai4[]) {
+        int k = ai1.length;
+        int l = ai3.length;
+        byte byte0 = 0;
+        int i1;
+        int j1 = i1 = ai2[0];
+        int k1 = 0;
+        int l1;
+        int i2 = l1 = ai4[0];
+        int j2 = 0;
+        for(int k2 = 1; k2 < k; k2++)
+            if(ai2[k2] < i1) {
+                i1 = ai2[k2];
+                k1 = k2;
+            } else
+            if(ai2[k2] > j1)
+                j1 = ai2[k2];
+
+        for(int l2 = 1; l2 < l; l2++)
+            if(ai4[l2] < l1) {
+                l1 = ai4[l2];
+                j2 = l2;
+            } else
+            if(ai4[l2] > i2)
+                i2 = ai4[l2];
+
+        if(l1 >= j1)
+            return false;
+        if(i1 >= i2)
+            return false;
+        int i3;
+        int j3;
+        boolean flag;
+        if(ai2[k1] < ai4[j2]) {
+            for(i3 = k1; ai2[i3] < ai4[j2]; i3 = (i3 + 1) % k);
+            for(; ai2[k1] < ai4[j2]; k1 = ((k1 - 1) + k) % k);
+            int k3 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai4[j2]);
+            int k8 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai4[j2]);
+            int k13 = ai3[j2];
+            flag = (k3 < k13) | (k8 < k13);
+            if(rh(k3, k8, k13, flag))
+                return true;
+            j3 = (j2 + 1) % l;
+            j2 = ((j2 - 1) + l) % l;
+            if(k1 == i3)
+                byte0 = 1;
+        } else {
+            for(j3 = j2; ai4[j3] < ai2[k1]; j3 = (j3 + 1) % l);
+            for(; ai4[j2] < ai2[k1]; j2 = ((j2 - 1) + l) % l);
+            int l3 = ai1[k1];
+            int l8 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai2[k1]);
+            int l13 = nh(ai3[((j3 - 1) + l) % l], ai4[((j3 - 1) + l) % l], ai3[j3], ai4[j3], ai2[k1]);
+            flag = (l3 < l8) | (l3 < l13);
+            if(rh(l8, l13, l3, !flag))
+                return true;
+            i3 = (k1 + 1) % k;
+            k1 = ((k1 - 1) + k) % k;
+            if(j2 == j3)
+                byte0 = 2;
+        }
+        while(byte0 == 0) 
+            if(ai2[k1] < ai2[i3]) {
+                if(ai2[k1] < ai4[j2]) {
+                    if(ai2[k1] < ai4[j3]) {
+                        int i4 = ai1[k1];
+                        int i9 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai2[k1]);
+                        int i14 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai2[k1]);
+                        int k18 = nh(ai3[((j3 - 1) + l) % l], ai4[((j3 - 1) + l) % l], ai3[j3], ai4[j3], ai2[k1]);
+                        if(ci(i4, i9, i14, k18, flag))
+                            return true;
+                        k1 = ((k1 - 1) + k) % k;
+                        if(k1 == i3)
+                            byte0 = 1;
+                    } else {
+                        int j4 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai4[j3]);
+                        int j9 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai4[j3]);
+                        int j14 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai4[j3]);
+                        int l18 = ai3[j3];
+                        if(ci(j4, j9, j14, l18, flag))
+                            return true;
+                        j3 = (j3 + 1) % l;
+                        if(j2 == j3)
+                            byte0 = 2;
+                    }
+                } else
+                if(ai4[j2] < ai4[j3]) {
+                    int k4 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai4[j2]);
+                    int k9 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai4[j2]);
+                    int k14 = ai3[j2];
+                    int i19 = nh(ai3[((j3 - 1) + l) % l], ai4[((j3 - 1) + l) % l], ai3[j3], ai4[j3], ai4[j2]);
+                    if(ci(k4, k9, k14, i19, flag))
+                        return true;
+                    j2 = ((j2 - 1) + l) % l;
+                    if(j2 == j3)
+                        byte0 = 2;
+                } else {
+                    int l4 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai4[j3]);
+                    int l9 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai4[j3]);
+                    int l14 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai4[j3]);
+                    int j19 = ai3[j3];
+                    if(ci(l4, l9, l14, j19, flag))
+                        return true;
+                    j3 = (j3 + 1) % l;
+                    if(j2 == j3)
+                        byte0 = 2;
+                }
+            } else
+            if(ai2[i3] < ai4[j2]) {
+                if(ai2[i3] < ai4[j3]) {
+                    int i5 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai2[i3]);
+                    int i10 = ai1[i3];
+                    int i15 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai2[i3]);
+                    int k19 = nh(ai3[((j3 - 1) + l) % l], ai4[((j3 - 1) + l) % l], ai3[j3], ai4[j3], ai2[i3]);
+                    if(ci(i5, i10, i15, k19, flag))
+                        return true;
+                    i3 = (i3 + 1) % k;
+                    if(k1 == i3)
+                        byte0 = 1;
+                } else {
+                    int j5 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai4[j3]);
+                    int j10 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai4[j3]);
+                    int j15 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai4[j3]);
+                    int l19 = ai3[j3];
+                    if(ci(j5, j10, j15, l19, flag))
+                        return true;
+                    j3 = (j3 + 1) % l;
+                    if(j2 == j3)
+                        byte0 = 2;
+                }
+            } else
+            if(ai4[j2] < ai4[j3]) {
+                int k5 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai4[j2]);
+                int k10 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai4[j2]);
+                int k15 = ai3[j2];
+                int i20 = nh(ai3[((j3 - 1) + l) % l], ai4[((j3 - 1) + l) % l], ai3[j3], ai4[j3], ai4[j2]);
+                if(ci(k5, k10, k15, i20, flag))
+                    return true;
+                j2 = ((j2 - 1) + l) % l;
+                if(j2 == j3)
+                    byte0 = 2;
+            } else {
+                int l5 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai4[j3]);
+                int l10 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai4[j3]);
+                int l15 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai4[j3]);
+                int j20 = ai3[j3];
+                if(ci(l5, l10, l15, j20, flag))
+                    return true;
+                j3 = (j3 + 1) % l;
+                if(j2 == j3)
+                    byte0 = 2;
+            }
+        while(byte0 == 1) 
+            if(ai2[k1] < ai4[j2]) {
+                if(ai2[k1] < ai4[j3]) {
+                    int i6 = ai1[k1];
+                    int i11 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai2[k1]);
+                    int i16 = nh(ai3[((j3 - 1) + l) % l], ai4[((j3 - 1) + l) % l], ai3[j3], ai4[j3], ai2[k1]);
+                    return rh(i11, i16, i6, !flag);
+                }
+                int j6 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai4[j3]);
+                int j11 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai4[j3]);
+                int j16 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai4[j3]);
+                int k20 = ai3[j3];
+                if(ci(j6, j11, j16, k20, flag))
+                    return true;
+                j3 = (j3 + 1) % l;
+                if(j2 == j3)
+                    byte0 = 0;
+            } else
+            if(ai4[j2] < ai4[j3]) {
+                int k6 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai4[j2]);
+                int k11 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai4[j2]);
+                int k16 = ai3[j2];
+                int l20 = nh(ai3[((j3 - 1) + l) % l], ai4[((j3 - 1) + l) % l], ai3[j3], ai4[j3], ai4[j2]);
+                if(ci(k6, k11, k16, l20, flag))
+                    return true;
+                j2 = ((j2 - 1) + l) % l;
+                if(j2 == j3)
+                    byte0 = 0;
+            } else {
+                int l6 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai4[j3]);
+                int l11 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai4[j3]);
+                int l16 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai4[j3]);
+                int i21 = ai3[j3];
+                if(ci(l6, l11, l16, i21, flag))
+                    return true;
+                j3 = (j3 + 1) % l;
+                if(j2 == j3)
+                    byte0 = 0;
+            }
+        while(byte0 == 2) 
+            if(ai4[j2] < ai2[k1]) {
+                if(ai4[j2] < ai2[i3]) {
+                    int i7 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai4[j2]);
+                    int i12 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai4[j2]);
+                    int i17 = ai3[j2];
+                    return rh(i7, i12, i17, flag);
+                }
+                int j7 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai2[i3]);
+                int j12 = ai1[i3];
+                int j17 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai2[i3]);
+                int j21 = nh(ai3[((j3 - 1) + l) % l], ai4[((j3 - 1) + l) % l], ai3[j3], ai4[j3], ai2[i3]);
+                if(ci(j7, j12, j17, j21, flag))
+                    return true;
+                i3 = (i3 + 1) % k;
+                if(k1 == i3)
+                    byte0 = 0;
+            } else
+            if(ai2[k1] < ai2[i3]) {
+                int k7 = ai1[k1];
+                int k12 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai2[k1]);
+                int k17 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai2[k1]);
+                int k21 = nh(ai3[((j3 - 1) + l) % l], ai4[((j3 - 1) + l) % l], ai3[j3], ai4[j3], ai2[k1]);
+                if(ci(k7, k12, k17, k21, flag))
+                    return true;
+                k1 = ((k1 - 1) + k) % k;
+                if(k1 == i3)
+                    byte0 = 0;
+            } else {
+                int l7 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai2[i3]);
+                int l12 = ai1[i3];
+                int l17 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai2[i3]);
+                int l21 = nh(ai3[((j3 - 1) + l) % l], ai4[((j3 - 1) + l) % l], ai3[j3], ai4[j3], ai2[i3]);
+                if(ci(l7, l12, l17, l21, flag))
+                    return true;
+                i3 = (i3 + 1) % k;
+                if(k1 == i3)
+                    byte0 = 0;
+            }
+        if(ai2[k1] < ai4[j2]) {
+            int i8 = ai1[k1];
+            int i13 = nh(ai3[(j2 + 1) % l], ai4[(j2 + 1) % l], ai3[j2], ai4[j2], ai2[k1]);
+            int i18 = nh(ai3[((j3 - 1) + l) % l], ai4[((j3 - 1) + l) % l], ai3[j3], ai4[j3], ai2[k1]);
+            return rh(i13, i18, i8, !flag);
+        } else {
+            int j8 = nh(ai1[(k1 + 1) % k], ai2[(k1 + 1) % k], ai1[k1], ai2[k1], ai4[j2]);
+            int j13 = nh(ai1[((i3 - 1) + k) % k], ai2[((i3 - 1) + k) % k], ai1[i3], ai2[i3], ai4[j2]);
+            int j18 = ai3[j2];
+            return rh(j8, j13, j18, flag);
+        }
+    }
+
+    public static final int bm = 0;
+    int cm;
+    int dm[];
+    int em[][];
+    int fm[];
+    public int gm;
+    public int hm;
+    public int im;
+    public int jm;
+    public int km;
+    public int lm;
+    public static int mm[] = new int[2048];
+    private static int nm[] = new int[512];
+    public boolean om;
+    public double pm;
+    public int qm;
+    private boolean rm;
+    private int sm;
+    private int tm;
+    private int um;
+    private int vm;
+    private h wm[];
+    private int xm[];
+    private int ym;
+    private int zm;
+    private int an;
+    private int bn;
+    private int cn;
+    private int dn;
+    private int en;
+    private int fn;
+    private int gn;
+    private int hn;
+    private int in;
+    private int jn;
+    private int kn;
+    public int ln;
+    public int mn;
+    public h nn[];
+    private int on[];
+    private int pn;
+    private r qn[];
+    private int rn;
+    private int sn;
+    private int tn[];
+    private int un[];
+    private int vn[];
+    private int wn[];
+    private int xn[];
+    private int yn[];
+    private int zn[];
+    public h ao;
+    private static final int bo = 16;
+    private static final int co = 4;
+    private static final int _flddo = 5;
+    private static final int eo = 0xbc614e;
+    int fo;
+    byte go[][];
+    int ho[][];
+    int io[];
+    long jo[];
+    int ko[][];
+    boolean lo[];
+    private static long mo;
+    int no[][];
+    int oo[][];
+    private static byte po[];
+    private static int qo[] = new int[256];
+    i ro;
+    public int so[];
+    t to[];
+    int uo;
+    int vo;
+    int wo[];
+    int xo[];
+    int yo[];
+    int zo[];
+    int ap[];
+    int bp[];
+    boolean cp;
+    static int dp;
+    static int ep;
+    static int fp;
+    static int gp;
+    static int hp;
+    static int ip;
+    int jp;
+    int kp;
+
+}

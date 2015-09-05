@@ -1,0 +1,49 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/19/2004 06:22:50 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   m.java
+
+import jagex.client.i;
+import java.awt.Component;
+
+public class m extends i
+{
+
+    public m(int j, int k, int l, Component component)
+    {
+        super(j, k, l, component);
+        boolean flag = false;
+        if(flag)
+            new i(j, k, l, component);
+    }
+
+    public void dg(int j, int k, int l, int i1, int j1, int k1, int l1)
+    {
+        if(j1 >= 50000)
+        {
+            ls.yl(j, k, l, i1, j1 - 50000, k1, l1);
+            return;
+        }
+        if(j1 >= 40000)
+        {
+            ls.vm(j, k, l, i1, j1 - 40000, k1, l1);
+            return;
+        }
+        if(j1 >= 20000)
+        {
+            ls.an(j, k, l, i1, j1 - 20000, k1, l1);
+            return;
+        }
+        if(j1 >= 5000)
+        {
+            ls.ml(j, k, l, i1, j1 - 5000, k1, l1);
+            return;
+        } else
+        {
+            super.nf(j, k, l, i1, j1);
+            return;
+        }
+    }
+
+    public mudclient ls;
+}
