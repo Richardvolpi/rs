@@ -1,0 +1,96 @@
+$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$$%$%$%$%$%$%$%$%$%$%$
+$%$%$%$%$%$%$%$%$%$Canibalistic - Canibal$%$%$%$%$%$%$%$%$%$$%$%$%$%
+$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$$%$%$%$%$%$%$%$%$%$%$
+
+This at the moment is a very simple bot, features are:
+
+$%$%$ - Fight Menu On and off
+$%$%$ - Force Logout
+$%$%$ - AutoLog in
+$%$%$ - Easy changable fight mode
+$%$%$ - Lefties on or off
+$%$%$ - Fast world switch
+$%$%$ - Settable food id
+$%$%$ - Zoom in and out
+$%$%$ - Prayer Hotkeys
+$%$%$ - Player Hp overhead
+$%$%$ - Fog of war switched on and off
+$%$%$ - Added a on menu prayer hotkey set
+$%$%$ - Added a DeathList, everytime you get a kill, the name of the person and date will be saved in the text file.
+$%$%$ - Added a screeny taker
+$%$%$ - PkMap, also can disable and enable to see attackable players only (e.g No items or npcs)
+$%$%$ - Fast talking :D
+$%$%$ - AutoFighter
+$%$%$ - Right Click to add friend
+$%$%$ - Right Click to set npc to macro on
+$%$%$ - WalkBack and Anti Wander to fighter
+
+
+Made this bot authed, because we as a community are trying to cut down on rs cheating otherwise rsc will die.
+To auth yourself, do the same as ST, type your Forum user and pass in the Settings.ini
+
+
+
+HotKeys:
+
+$%$%$ - Page Up - Say the last thing you said (Warning dont hold the button, it will spam lol)
+$%$%$ - F2 - Fight menu box, off and on
+$%$%$ - F3 - Force log out
+$%$%$ - F4 - AutoLog in, off and on
+$%$%$ - F5 - Change fight mode
+$%$%$ - F6 - AutoFighter On and off
+$%$%$ - F7 - Show Notes on and off
+$%$%$ - F8 - Fog of War on and off
+$%$%$ - F10 - Takes a screeny
+$%$%$ - F11 - Disable or enable players only on pkmap (Example shown above)
+$%$%$ - F12 - Enable or Disable graphics
+$%$%$ - End - Hotkey for prayer (Can be set on menu)
+$%$%$ - Page Down - Hotkey for prayer (Can be set on menu)
+$%$%$ - Delete - For hotkey food (to set the default food: /food(foodid) )
+$%$%$ - Down and up - For zoom in and out
+$%$%$ - /hop(world) - To switch worlds
+$%$%$ - /time(time) - Set the macro time for fighter
+$%$%$ - /lowhp(eatathp) - Set the hp you you want to auto eat at (default it 10)
+$%$%$ - /sleep(fatigue) - Set the level to sleep at Default is set to 95
+$%$%$ - Page Up - Say the last thing you said (abit liek mirc) dont spam :)
+$%$%$ - /npc - set npc id
+$%$%$ - /time - Macro time
+$%$%$ - /sleep - Sleep at fatigue
+$%$%$ - /walk - anti wander radious
+
+
+I hope you enjoy all the suggestions that I will take and maybe
+in a few days this bot will rock :D
+
+Add the datafile into the Canibalistic Folder
+
+$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$$%$%$%$%$%$%$%$%$%$%$
+$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$$%$%$%$%$%$%$%$%$%$%$
+$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$$%$%$%$%$%$%$%$%$%$%$
+
+$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$$%$%$%$%$%$%$%$%$%$%$
+$%$%$%$%$%$%$%$%$%$%$%$%$%$UPDATES$%$%$%$$%$%$%$%$%$%$%$%$%$%$%$%$%$
+$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$$%$%$%$%$%$%$%$%$%$%$
+
+$%$%$ 23/11/04 $%$%$ Version 0.6 : Chat Filter removed. Lefties option on the menu, where the logout is. Welcome Box removed. Prayer Hot keys added for protect item and ulimate strength.
+Herb IDing added, you dont have to id herbs and you can see their names on right click.
+
+$%$%$ 24/11/04 $%$%$ Version 0.7 : Added Player Hp over head and option on menu for it.
+
+$%$%$ 24/11/04 $%$%$ Version 0.8 : Added a autofighter with walkback. Added a walkback option on the menu.
+
+$%$%$ 28/11/04 $%$%$ Version 0.9 : Added auto eating to fighter and fow on and off.
+
+$%$%$ 30/11/04 $%$%$ Version 1.0 : Fixed worlds added and added a cool loading image.
+
+$%$%$ 05/12/04 $%$%$ Version 1.1 : Fixed antidef xp, has settable prayer keys on menu and on right click prayer to set to default attack. Also now there is no need for a Data folder, it automatically downloads it from the site, unless you have it on your computer.
+
+$%$%$ 12/12/04 $%$%$ Version 1.2 : Added a DeathList, adds all the people you have killed to a text file. Added a screeny taker on a hotkey.
+
+$%$%$ 13/12/04 $%$%$ Version 1.3 : Added a pk map with disable and enable to see only players not npcs and items.
+
+$%$%$ 14/12/04 $%$%$ Version 1.4 : Fixed for mudclient 201 (Thanks a lot to Reines for his master skills), added auth, only aut0ter are aloud to use.
+
+$%$%$ 14/12/04 $%$%$ Version 1.5 : Fixed some stuff, added a hotkey to say the last thing you said :P, good for markets, but dont spam
+
+$%$%$ 27/12/04 $%$%$ Version 1.6 : Fixed some more stuff, added fighter and some other features.
