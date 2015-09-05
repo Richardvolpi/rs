@@ -1,0 +1,1 @@
+C:\J2SDK1~1.2_0\BIN\javac.exe  AppletViewer.java
