@@ -1,0 +1,372 @@
+(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Str'))or
+ (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Fishin'))or
+ (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Theiven'))o// AutoChat script! Answers to the most common words! (90 words!)
+//ReLogon in under 30 secs!
+//
+// Needs a fast computer to work!
+//
+//  Edited by x32825(added more, will add more later)
+//  Edited by i h8 hippies(added more, and took out auto login)
+program YonisAutoChatPublic;
+var
+iyps, yonis2, x, y: Integer;
+begin
+while (True) do
+begin
+//Autochat
+//Autochat
+//autochat
+//
+// If your copying this into another script, remember to paste this:    iyps, yonis2, x, y: Integer;
+//
+// Under that part where it says:
+//
+// program <program name>;
+// var
+//
+
+
+ begin
+   iyps:= y;
+   yonis2:= x;
+   x:= 7;
+   y:= 304;
+
+
+
+//levels
+if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Minin'))or
+ r
+ (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Def'))or
+ (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Cookin'))or
+ (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Rng'))or
+ (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Range'))or
+ (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Pray'))or
+ (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Thieven'))then
+     begin
+     wait(1500);
+    SendKeysSilent('99999999 million and a half ')
+    SendKeysSilent(Chr(13));
+    Wait(2000)
+    SendKeysSilent('im better than zezima')
+    SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+ //10
+   begin
+     if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Automine'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Autofish'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Autofight'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Autopick'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Auto mine'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Botter'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Autoer'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Sbot'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Are you autoing'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Scar'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Ruinbot'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Auto'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'RR'))then
+     begin
+    wait(1000);
+    SendKeysSilent('lol, no i dont..');
+    SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+
+
+//6
+//argh, stupid autoer! stop taking my xp
+        begin
+     if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Leave plz'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Leave'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Move'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Duel'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Switch!'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Go away'))then
+     begin
+     wait(1000);
+    SendKeysSilent('why dont you just switch worlds');
+    SendKeysSilent(Chr(13));
+    Wait(6000)
+    SendKeysSilent('i dont see you switching..., and dont think i am');
+    SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+
+
+//4
+   begin
+      if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Ass'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'F u'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Fawk '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Fuck'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Fhk'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Fhk'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Gay'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Your qay '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Your gueer '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Ass'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Fag'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Mutha fhker '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Bastard'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Muther fhker '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Mother fhker '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'****** '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Stupid'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Idiot'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'****'))then
+     begin
+     wait(2000);
+    SendKeysSilent('lol, insulting me wont make your noobness go away')
+    SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+
+
+//6
+  if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Can i have some items plz'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'St00f'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Stuff'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Plz give me some items'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Items plz'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Can i plz have some items'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Stoff plz'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Stuff plz'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Free stuff plz'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Free items'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Give me items'))then
+     begin
+     wait(1000);
+    SendKeysSilent('lol u poor beggin mofo')
+    Wait(1000)
+    SendKeysSilent(Chr(13)); SendKeysSilent('go mine or fish')
+    SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+
+
+
+//6
+   begin
+      if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Trade'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Come'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Follow'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Give me'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Fight me'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Duel me'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Deathmatch me'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Dm me'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Give me'))then
+     begin
+     wait(1000);
+    SendKeysSilent('no, im busy catching all the pokemon');
+    SendKeysSilent(Chr(13));
+    Wait(2000)
+    SendKeysSilent('i almost have 129');
+    SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+
+//<3 me plz
+    begin
+      if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'I love i h8 hippies'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'I luv i h8 hippies'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'I h8 hippies is cool'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'I wub i h8 hippies'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'I h8 hippies is 1337'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'I h8 hippies is teh 1337 one'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'I h8 hippies is my master'))then
+     begin
+     wait(1000);
+    SendKeysSilent('omg i luv i h8 hippies too');
+    SendKeysSilent(Chr(13));
+    Wait(1000)
+    SendKeysSilent('doncha agree that hippies suq ass');
+    SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+
+//4
+   begin
+      if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Where do u live'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Where do you live'))then
+     begin
+     wait(2000);
+    SendKeysSilent('a yeller sumbarine');
+          SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+
+
+//6
+         begin
+      if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'How old are you'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'How old are u'))or
+          (IsTextInArea(7,304,7+400,304,iyps,yonis2,'How old r you'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'How old r u'))then
+     begin
+     wait(1000);
+    SendKeysSilent('3 but my mummy says i have the intelligence of a 9 year old');
+          SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+//8
+      begin
+      if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Ban'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Andrew'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Gower'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Report'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Paul'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Mod'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'fagex'))then
+     begin
+     wait(1000);
+    SendKeysSilent('so...im failing to see your point');
+          SendKeysSilent(Chr(13));
+          Wait(2000)
+          SendKeysSilent('keep talking though, im listening');
+          SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+
+
+
+//14
+     begin
+      if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Moi'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Ho'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Bonjour'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Hej'))or
+       (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Yoou'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Hi'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Hi2u'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'H3y '))or
+       (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Hell0 '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Sup '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Hello '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Ello '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Olla '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Ey'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Watsup '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Howdy '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Yello '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Hey'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Watsup'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Greetings'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Howdy '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Wazzup '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Wassup '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Wassabi '))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'How you doin'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Heres johnny'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Wasssup'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'U there'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Ok'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'What'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Wzup'))then
+     begin
+     wait(965);
+    SendKeysSilent('stop talkin im training');
+    SendKeysSilent(Chr(13));
+
+    Wait(500);
+    end;
+
+
+
+// 8
+    begin
+      if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Do you know'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Do u know'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Did u know'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Did u kno'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Did you kno'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'did you know'))then
+     begin
+     wait(2000);
+    SendKeysSilent('thats nice...');
+    SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+
+
+//6
+      if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Your autoing'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'I reported'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'auto'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Quit autoing'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'I reported u'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Im going to report'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Autoing suqs'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Your autoing'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Dam autoer'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Damn autoer'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Fhking autoer'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Fucking autoer'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Get a life'))then
+     begin
+     wait(2000);
+    SendKeysSilent('I dont auto')
+    SendKeysSilent(Chr(13));
+    Wait(2000);
+    SendKeysSilent('I have a t1 connection')
+    SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+
+
+//6
+    begin
+      if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Add me'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'I added'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'F list'))or
+      (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Friend list'))or
+    (IsTextInArea(7,304,7+400,304,iyps,yonis2,'Friends list'))then
+     begin
+     wait(2000);
+    SendKeysSilent('my list is full and i dont want to delete anyone');
+    SendKeysSilent(Chr(13));
+    Wait(4000);
+    end;
+    //6
+//noob insults
+    if(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Noob'))or
+(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Froob'))or
+(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Choob'))or
+(IsTextInArea(7,304,7+400,304,iyps,yonis2,'N00b'))or
+(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Fr00b'))or
+(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Ch00b'))or
+(IsTextInArea(7,304,7+400,304,iyps,yonis2,'No0b'))or
+(IsTextInArea(7,304,7+400,304,iyps,yonis2,'N0ob'))or
+(IsTextInArea(7,304,7+400,304,iyps,yonis2,'Ch0ob'))or
+(IsTextInArea(7,304,7+400,304,iyps,yonis2,'nub'))then
+begin
+wait(2000);
+SendKeysSilent('no, ur da ubernoob')
+SendKeysSilent(Chr(13));
+Wait(3654)
+SendKeysSilent('watch ur mouth')
+SendKeysSilent(Chr(13));
+Wait(4000);
+end;
+  //Autochat
+  //Autochat
+  //Autochat
+end;
+end;
+end;
+end;
+end;
+end;
+end;
+end;
+end;
+end;
+end;
+end;
+end;
+end.
+end;
+end;
+end.

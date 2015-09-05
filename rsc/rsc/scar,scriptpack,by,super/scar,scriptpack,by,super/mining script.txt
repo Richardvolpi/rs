@@ -1,0 +1,719 @@
+{
+v7 -* Made by Phalanx *-
+A working mining script
+Start at between fally bank bank to fally south mine.
+You better have a pickaxe and a sleeping bag in your inventory.;)
+Works for both P2P and F2P                                til;
+Just set the required settings and you are good to go. :)
+
+Notice: * Rotate the map MENUALLY to head almost perfect north.
+        * Compitable with scar 112.
+}
+program FallyIronMining;
+{.include PhalanxInclude.txt}
+Const
+ ClickMapDel = 5;
+Type
+TMainFrom=TForm;
+var
+ AtBank, AlmostBank, ExternalWay, l2, MidWay, l3, l4, AtMine: Integer;
+ MinePath, BankPath, DestX, DestY: Integer;
+ mic,bkc:integer;
+ SIC,IC,ST,RockColor:LongInt;
+ SC,Start:boolean;
+ RockDesc:string;
+
+ CheckBox_Clean,  CheckBox_UseFakeTalk : TCheckBox;
+ Edt_UserName,  Edt_PassWord,  Edt_BTPR,  Edt_SWDelay,  Edt_KS,  Edt_FakeTalkChanse, Edt_MLVLINC : TEdit;
+ ComboBox_SMode, ComboBox_RockType : TComboBox;
+
+ MMode, UseClean, RockType, AutoFakeTalk, FakeTalkChance, MiningLvlINC, BTPR:integer;
+ 
+Procedure OKClick(sender: TObject);
+var
+BoolStr:string;
+begin
+ SaveSetting('Phalanx_Mining', 'UserName', Edt_UserName.text);
+ SaveSetting('Phalanx_Mining', 'PassWord', Edt_PassWord.text);
+ SaveSetting('Phalanx_Mining', 'MMode', IntToStr(ComboBox_SMode.ItemIndex));
+ if CheckBox_Clean.Checked then BoolStr:='1' else BoolStr:='0';
+ SaveSetting('Phalanx_Mining', 'Clean', BoolStr);
+ SaveSetting('Phalanx_Mining', 'BTPR', Edt_BTPR.Text);
+ SaveSetting('Phalanx_Mining', 'SWDelay', Edt_SWDelay.Text);
+ SaveSetting('Phalanx_Mining', 'KS', Edt_KS.Text);
+ SaveSetting('Phalanx_Mining', 'RockType', IntToStr(ComboBox_RockType.ItemIndex));
+ SaveSetting('Phalanx_Mining', 'FakeTalkChanse', Edt_FakeTalkChanse.Text);
+ SaveSetting('Phalanx_Mining', 'MiningLvlINC', Edt_MLVLINC.Text);
+ if CheckBox_UseFakeTalk.Checked then BoolStr:='1' else BoolStr:='0';
+ SaveSetting('Phalanx_Mining', 'UseFakeTalk', BoolStr);
+ 
+ //Var values are set here:
+ InitInclude(LoadSetting('Phalanx_Mining', 'UserName'),LoadSetting('Phalanx_Mining', 'PassWord'),StrToInt(LoadSetting('Phalanx_Mining', 'SWDelay')),ClickMapDel,98,StrToInt(LoadSetting('Phalanx_Mining', 'KS')));
+ MMode:=StrToInt(LoadSetting('Phalanx_Mining', 'MMode'))+1;
+ if LoadSetting('Phalanx_Mining', 'Clean')='1' then UseClean:=1 else UseClean:=0;
+ BTPR:=StrToInt(LoadSetting('Phalanx_Mining', 'BTPR'));
+ RockType:= StrToInt(LoadSetting('Phalanx_Mining', 'RockType'))+1;
+ FakeTalkChance:= StrToInt(LoadSetting('Phalanx_Mining', 'FakeTalkChanse'));
+ MiningLvlINC:=StrToInt(LoadSetting('Phalanx_Mining', 'MiningLvlINC'));
+ if LoadSetting('Phalanx_Mining', 'FakeTalkChanse')='1' then AutoFakeTalk:=1 else AutoFakeTalk:=0;
+ Start:=True;
+end;
+Procedure CancelClick(sender: TObject);
+begin
+Start:=False;
+end;
+Procedure CallMainForm;
+var
+ MainFrom : TMainFrom;
+ Lbl_UserName, Lbl_PassWord, Lbl_SMode,  Lbl_BTPR,  Lbl_SWDelay, Lbl_KS,  Topic_UserSettings, Topic_MiningSettings, Topic_MiscSettings,   Lbl_RockType, Lbl_FakeTalkChanse, Lbl_MLVLINC, Topic_Talking : TLabel;
+ Bevel1, Bevel2,  Bevel5, Bevel4 : TBevel;
+ Btn_Cancel, Btn_OK : TButton;
+begin
+ MainFrom := TMainFrom.Create(nil);
+ MainFrom.Left := 140;
+ MainFrom.Top := 99;
+ MainFrom.Width := 542;
+ MainFrom.Height := 290;
+ MainFrom.HorzScrollBar.Visible := False;
+ MainFrom.VertScrollBar.Visible := False;
+ MainFrom.Caption := 'South Fally Mining Script - By Phalanx';
+ MainFrom.Color := clBtnFace;
+ MainFrom.Font.Color := clWindowText;
+ MainFrom.Font.Height := -11;
+ MainFrom.Font.Name := 'MS Sans Serif';
+ MainFrom.Font.Style := [];
+ MainFrom.PixelsPerInch := 96;
+ Lbl_UserName := TLabel.Create(MainFrom);
+ Lbl_UserName.Parent := MainFrom;
+ Lbl_UserName.Left := 8;
+ Lbl_UserName.Top := 32;
+ Lbl_UserName.Width := 68;
+ Lbl_UserName.Height := 19;
+ Lbl_UserName.Caption := 'User name:';
+ Lbl_UserName.Font.Color := clWindowText;
+ Lbl_UserName.Font.Height := -16;
+ Lbl_UserName.Font.Name := 'Times New Roman';
+ Lbl_UserName.Font.Style := [];
+ Lbl_UserName.ParentFont := False;
+ Lbl_PassWord := TLabel.Create(MainFrom);
+ Lbl_PassWord.Parent := MainFrom;
+ Lbl_PassWord.Left := 8;
+ Lbl_PassWord.Top := 64;
+ Lbl_PassWord.Width := 63;
+ Lbl_PassWord.Height := 19;
+ Lbl_PassWord.Caption := 'Password:';
+ Lbl_PassWord.Font.Color := clWindowText;
+ Lbl_PassWord.Font.Height := -16;
+ Lbl_PassWord.Font.Name := 'Times New Roman';
+ Lbl_PassWord.Font.Style := [];
+ Lbl_PassWord.ParentFont := False;
+ Lbl_SMode := TLabel.Create(MainFrom);
+ Lbl_SMode.Parent := MainFrom;
+ Lbl_SMode.Left := 8;
+ Lbl_SMode.Top := 128;
+ Lbl_SMode.Width := 82;
+ Lbl_SMode.Height := 19;
+ Lbl_SMode.Caption := 'Mining mode:';
+ Lbl_SMode.Font.Color := clWindowText;
+ Lbl_SMode.Font.Height := -16;
+ Lbl_SMode.Font.Name := 'Times New Roman';
+ Lbl_SMode.Font.Style := [];
+ Lbl_SMode.ParentFont := False;
+ Lbl_BTPR := TLabel.Create(MainFrom);
+ Lbl_BTPR.Parent := MainFrom;
+ Lbl_BTPR.Left := 296;
+ Lbl_BTPR.Top := 160;
+ Lbl_BTPR.Width := 183;
+ Lbl_BTPR.Height := 19;
+ Lbl_BTPR.Caption := 'Bankings until progress report:';
+ Lbl_BTPR.Font.Color := clWindowText;
+ Lbl_BTPR.Font.Height := -16;
+ Lbl_BTPR.Font.Name := 'Times New Roman';
+ Lbl_BTPR.Font.Style := [];
+ Lbl_BTPR.ParentFont := False;
+ Lbl_SWDelay := TLabel.Create(MainFrom);
+ Lbl_SWDelay.Parent := MainFrom;
+ Lbl_SWDelay.Left := 296;
+ Lbl_SWDelay.Top := 192;
+ Lbl_SWDelay.Width := 196;
+ Lbl_SWDelay.Height := 19;
+ Lbl_SWDelay.Caption := 'Sleep walking delay (in minutes):';
+ Lbl_SWDelay.Font.Color := clWindowText;
+ Lbl_SWDelay.Font.Height := -16;
+ Lbl_SWDelay.Font.Name := 'Times New Roman';
+ Lbl_SWDelay.Font.Style := [];
+ Lbl_SWDelay.ParentFont := False;
+ Lbl_KS := TLabel.Create(MainFrom);
+ Lbl_KS.Parent := MainFrom;
+ Lbl_KS.Left := 296;
+ Lbl_KS.Top := 224;
+ Lbl_KS.Width := 69;
+ Lbl_KS.Height := 19;
+ Lbl_KS.Caption := 'Kill Switch:';
+ Lbl_KS.Font.Color := clWindowText;
+ Lbl_KS.Font.Height := -16;
+ Lbl_KS.Font.Name := 'Times New Roman';
+ Lbl_KS.Font.Style := [];
+ Lbl_KS.ParentFont := False;
+ Topic_UserSettings := TLabel.Create(MainFrom);
+ Topic_UserSettings.Parent := MainFrom;
+ Topic_UserSettings.Left := 8;
+ Topic_UserSettings.Top := 8;
+ Topic_UserSettings.Width := 103;
+ Topic_UserSettings.Height := 21;
+ Topic_UserSettings.Caption := 'User Settings:';
+ Topic_UserSettings.Font.Color := clWindowText;
+ Topic_UserSettings.Font.Height := -19;
+ Topic_UserSettings.Font.Name := 'Times New Roman';
+ Topic_UserSettings.Font.Style := [];
+ Topic_UserSettings.ParentFont := False;
+ Topic_MiningSettings := TLabel.Create(MainFrom);
+ Topic_MiningSettings.Parent := MainFrom;
+ Topic_MiningSettings.Left := 8;
+ Topic_MiningSettings.Top := 104;
+ Topic_MiningSettings.Width := 119;
+ Topic_MiningSettings.Height := 21;
+ Topic_MiningSettings.Caption := 'Mining Settings:';
+ Topic_MiningSettings.Font.Color := clWindowText;
+ Topic_MiningSettings.Font.Height := -19;
+ Topic_MiningSettings.Font.Name := 'Times New Roman';
+ Topic_MiningSettings.Font.Style := [];
+ Topic_MiningSettings.ParentFont := False;
+ Topic_MiscSettings := TLabel.Create(MainFrom);
+ Topic_MiscSettings.Parent := MainFrom;
+ Topic_MiscSettings.Left := 296;
+ Topic_MiscSettings.Top := 136;
+ Topic_MiscSettings.Width := 105;
+ Topic_MiscSettings.Height := 21;
+ Topic_MiscSettings.Caption := 'Misc Settings:';
+ Topic_MiscSettings.Font.Color := clWindowText;
+ Topic_MiscSettings.Font.Height := -19;
+ Topic_MiscSettings.Font.Name := 'Times New Roman';
+ Topic_MiscSettings.Font.Style := [];
+ Topic_MiscSettings.ParentFont := False;
+ Bevel1 := TBevel.Create(MainFrom);
+ Bevel1.Parent := MainFrom;
+ Bevel1.Left := 0;
+ Bevel1.Top := 96;
+ Bevel1.Width := 289;
+ Bevel1.Height := 2;
+ Bevel2 := TBevel.Create(MainFrom);
+ Bevel2.Parent := MainFrom;
+ Bevel2.Left := 0;
+ Bevel2.Top := 216;
+ Bevel2.Width := 289;
+ Bevel2.Height := 2;
+ Lbl_RockType := TLabel.Create(MainFrom);
+ Lbl_RockType.Parent := MainFrom;
+ Lbl_RockType.Left := 8;
+ Lbl_RockType.Top := 184;
+ Lbl_RockType.Width := 84;
+ Lbl_RockType.Height := 19;
+ Lbl_RockType.Caption := 'Rock to mine:';
+ Lbl_RockType.Font.Color := clWindowText;
+ Lbl_RockType.Font.Height := -16;
+ Lbl_RockType.Font.Name := 'Times New Roman';
+ Lbl_RockType.Font.Style := [];
+ Lbl_RockType.ParentFont := False;
+ Lbl_FakeTalkChanse := TLabel.Create(MainFrom);
+ Lbl_FakeTalkChanse.Parent := MainFrom;
+ Lbl_FakeTalkChanse.Left := 296;
+ Lbl_FakeTalkChanse.Top := 64;
+ Lbl_FakeTalkChanse.Width := 166;
+ Lbl_FakeTalkChanse.Height := 19;
+ Lbl_FakeTalkChanse.Caption := 'Fake talking chanse of 1 to:';
+ Lbl_FakeTalkChanse.Font.Color := clWindowText;
+ Lbl_FakeTalkChanse.Font.Height := -16;
+ Lbl_FakeTalkChanse.Font.Name := 'Times New Roman';
+ Lbl_FakeTalkChanse.Font.Style := [];
+ Lbl_FakeTalkChanse.ParentFont := False;
+ Lbl_MLVLINC := TLabel.Create(MainFrom);
+ Lbl_MLVLINC.Parent := MainFrom;
+ Lbl_MLVLINC.Left := 296;
+ Lbl_MLVLINC.Top := 96;
+ Lbl_MLVLINC.Width := 170;
+ Lbl_MLVLINC.Height := 19;
+ Lbl_MLVLINC.Caption := 'Mining level inc\decreament:';
+ Lbl_MLVLINC.Font.Color := clWindowText;
+ Lbl_MLVLINC.Font.Height := -16;
+ Lbl_MLVLINC.Font.Name := 'Times New Roman';
+ Lbl_MLVLINC.Font.Style := [];
+ Lbl_MLVLINC.ParentFont := False;
+ Topic_Talking := TLabel.Create(MainFrom);
+ Topic_Talking.Parent := MainFrom;
+ Topic_Talking.Left := 296;
+ Topic_Talking.Top := 8;
+ Topic_Talking.Width := 123;
+ Topic_Talking.Height := 21;
+ Topic_Talking.Caption := 'Talking Settings:';
+ Topic_Talking.Font.Color := clWindowText;
+ Topic_Talking.Font.Height := -19;
+ Topic_Talking.Font.Name := 'Times New Roman';
+ Topic_Talking.Font.Style := [];
+ Topic_Talking.ParentFont := False;
+ Bevel5 := TBevel.Create(MainFrom);
+ Bevel5.Parent := MainFrom;
+ Bevel5.Left := 288;
+ Bevel5.Top := 128;
+ Bevel5.Width := 249;
+ Bevel5.Height := 2;
+ Bevel4 := TBevel.Create(MainFrom);
+ Bevel4.Parent := MainFrom;
+ Bevel4.Left := 288;
+ Bevel4.Top := 0;
+ Bevel4.Width := 2;
+ Bevel4.Height := 257;
+ CheckBox_Clean := TCheckBox.Create(MainFrom);
+ CheckBox_Clean.Parent := MainFrom;
+ CheckBox_Clean.Left := 8;
+ CheckBox_Clean.Top := 160;
+ CheckBox_Clean.Width := 273;
+ CheckBox_Clean.Height := 17;
+ CheckBox_Clean.Caption := 'Clean inventory when power mining?';
+ CheckBox_Clean.Font.Color := clWindowText;
+ CheckBox_Clean.Font.Height := -16;
+ CheckBox_Clean.Font.Name := 'Times New Roman';
+ CheckBox_Clean.Font.Style := [];
+ CheckBox_Clean.ParentFont := False;
+ CheckBox_Clean.TabOrder := 3;
+ Edt_UserName := TEdit.Create(MainFrom);
+ Edt_UserName.Parent := MainFrom;
+ Edt_UserName.Left := 80;
+ Edt_UserName.Top := 32;
+ Edt_UserName.Width := 201;
+ Edt_UserName.Height := 27;
+ Edt_UserName.Font.Color := clWindowText;
+ Edt_UserName.Font.Height := -16;
+ Edt_UserName.Font.Name := 'Times New Roman';
+ Edt_UserName.Font.Style := [];
+ Edt_UserName.MaxLength := 12;
+ Edt_UserName.ParentFont := False;
+ Edt_UserName.TabOrder := 0;
+ Edt_PassWord := TEdit.Create(MainFrom);
+ Edt_PassWord.Parent := MainFrom;
+ Edt_PassWord.Left := 80;
+ Edt_PassWord.Top := 64;
+ Edt_PassWord.Width := 201;
+ Edt_PassWord.Height := 27;
+ Edt_PassWord.Font.Color := clWindowText;
+ Edt_PassWord.Font.Height := -16;
+ Edt_PassWord.Font.Name := 'Times New Roman';
+ Edt_PassWord.Font.Style := [];
+ Edt_PassWord.ParentFont := False;
+ Edt_PassWord.PasswordChar := '*';
+ Edt_PassWord.TabOrder := 1;
+ Edt_BTPR := TEdit.Create(MainFrom);
+ Edt_BTPR.Parent := MainFrom;
+ Edt_BTPR.Left := 496;
+ Edt_BTPR.Top := 160;
+ Edt_BTPR.Width := 33;
+ Edt_BTPR.Height := 27;
+ Edt_BTPR.Font.Color := clWindowText;
+ Edt_BTPR.Font.Height := -16;
+ Edt_BTPR.Font.Name := 'Times New Roman';
+ Edt_BTPR.Font.Style := [];
+ Edt_BTPR.MaxLength := 2;
+ Edt_BTPR.ParentFont := False;
+ Edt_BTPR.TabOrder := 4;
+ Edt_SWDelay := TEdit.Create(MainFrom);
+ Edt_SWDelay.Parent := MainFrom;
+ Edt_SWDelay.Left := 496;
+ Edt_SWDelay.Top := 192;
+ Edt_SWDelay.Width := 33;
+ Edt_SWDelay.Height := 27;
+ Edt_SWDelay.Font.Color := clWindowText;
+ Edt_SWDelay.Font.Height := -16;
+ Edt_SWDelay.Font.Name := 'Times New Roman';
+ Edt_SWDelay.Font.Style := [];
+ Edt_SWDelay.MaxLength := 2;
+ Edt_SWDelay.ParentFont := False;
+ Edt_SWDelay.TabOrder := 5;
+ Edt_KS := TEdit.Create(MainFrom);
+ Edt_KS.Parent := MainFrom;
+ Edt_KS.Left := 496;
+ Edt_KS.Top := 224;
+ Edt_KS.Width := 33;
+ Edt_KS.Height := 27;
+ Edt_KS.Font.Color := clWindowText;
+ Edt_KS.Font.Height := -16;
+ Edt_KS.Font.Name := 'Times New Roman';
+ Edt_KS.Font.Style := [];
+ Edt_KS.MaxLength := 2;
+ Edt_KS.ParentFont := False;
+ Edt_KS.TabOrder := 6;
+ ComboBox_SMode := TComboBox.Create(MainFrom);
+ ComboBox_SMode.Parent := MainFrom;
+ ComboBox_SMode.Left := 104;
+ ComboBox_SMode.Top := 128;
+ ComboBox_SMode.Width := 177;
+ ComboBox_SMode.Height := 27;
+ ComboBox_SMode.Font.Color := clWindowText;
+ ComboBox_SMode.Font.Height := -16;
+ ComboBox_SMode.Font.Name := 'Times New Roman';
+ ComboBox_SMode.Font.Style := [];
+ ComboBox_SMode.ItemHeight := 19;
+ ComboBox_SMode.ParentFont := False;
+ ComboBox_SMode.TabOrder := 2;
+ ComboBox_SMode.Text := 'Choose the mode here...';
+ ComboBox_SMode.Items.Add('1 - Mine + Bank.');
+ ComboBox_SMode.Items.Add('2 - "Power Mine".');
+ Btn_Cancel := TButton.Create(MainFrom);
+ Btn_Cancel.Parent := MainFrom;
+ Btn_Cancel.Left := 8;
+ Btn_Cancel.Top := 224;
+ Btn_Cancel.Width := 129;
+ Btn_Cancel.Height := 25;
+ Btn_Cancel.Caption := 'Cancel';
+ Btn_Cancel.Font.Color := clWindowText;
+ Btn_Cancel.Font.Height := -16;
+ Btn_Cancel.Font.Name := 'Times New Roman';
+ Btn_Cancel.Font.Style := [];
+ Btn_Cancel.ParentFont := False;
+ Btn_Cancel.TabOrder := 8;
+ Btn_OK := TButton.Create(MainFrom);
+ Btn_OK.Parent := MainFrom;
+ Btn_OK.Left := 144;
+ Btn_OK.Top := 224;
+ Btn_OK.Width := 137;
+ Btn_OK.Height := 25;
+ Btn_OK.Caption := 'OK';
+ Btn_OK.Default := True;
+ Btn_OK.Font.Color := clWindowText;
+ Btn_OK.Font.Height := -16;
+ Btn_OK.Font.Name := 'Times New Roman';
+ Btn_OK.Font.Style := [];
+ Btn_OK.ParentFont := False;
+ Btn_OK.TabOrder := 7;
+ ComboBox_RockType := TComboBox.Create(MainFrom);
+ ComboBox_RockType.Parent := MainFrom;
+ ComboBox_RockType.Left := 104;
+ ComboBox_RockType.Top := 184;
+ ComboBox_RockType.Width := 177;
+ ComboBox_RockType.Height := 27;
+ ComboBox_RockType.Font.Color := clWindowText;
+ ComboBox_RockType.Font.Height := -16;
+ ComboBox_RockType.Font.Name := 'Times New Roman';
+ ComboBox_RockType.Font.Style := [];
+ ComboBox_RockType.ItemHeight := 19;
+ ComboBox_RockType.ParentFont := False;
+ ComboBox_RockType.TabOrder := 9;
+ ComboBox_RockType.Text := 'Choose the rock here...';
+ ComboBox_RockType.Items.Add('1 - Iron Ore.');
+ ComboBox_RockType.Items.Add('2 - Copper Ore.');
+ ComboBox_RockType.Items.Add('3 - Tin Ore.');
+ ComboBox_RockType.Items.Add('4 - Clay.');
+ ComboBox_RockType.Items.Add('5 - Gold.');
+ Edt_FakeTalkChanse := TEdit.Create(MainFrom);
+ Edt_FakeTalkChanse.Parent := MainFrom;
+ Edt_FakeTalkChanse.Left := 496;
+ Edt_FakeTalkChanse.Top := 64;
+ Edt_FakeTalkChanse.Width := 33;
+ Edt_FakeTalkChanse.Height := 27;
+ Edt_FakeTalkChanse.Font.Color := clWindowText;
+ Edt_FakeTalkChanse.Font.Height := -16;
+ Edt_FakeTalkChanse.Font.Name := 'Times New Roman';
+ Edt_FakeTalkChanse.Font.Style := [];
+ Edt_FakeTalkChanse.MaxLength := 3;
+ Edt_FakeTalkChanse.ParentFont := False;
+ Edt_FakeTalkChanse.TabOrder := 10;
+ Edt_MLVLINC := TEdit.Create(MainFrom);
+ Edt_MLVLINC.Parent := MainFrom;
+ Edt_MLVLINC.Left := 496;
+ Edt_MLVLINC.Top := 96;
+ Edt_MLVLINC.Width := 33;
+ Edt_MLVLINC.Height := 27;
+ Edt_MLVLINC.Font.Color := clWindowText;
+ Edt_MLVLINC.Font.Height := -16;
+ Edt_MLVLINC.Font.Name := 'Times New Roman';
+ Edt_MLVLINC.Font.Style := [];
+ Edt_MLVLINC.MaxLength := 2;
+ Edt_MLVLINC.ParentFont := False;
+ Edt_MLVLINC.TabOrder := 11;
+ CheckBox_UseFakeTalk := TCheckBox.Create(MainFrom);
+ CheckBox_UseFakeTalk.Parent := MainFrom;
+ CheckBox_UseFakeTalk.Left := 296;
+ CheckBox_UseFakeTalk.Top := 32;
+ CheckBox_UseFakeTalk.Width := 233;
+ CheckBox_UseFakeTalk.Height := 25;
+ CheckBox_UseFakeTalk.Caption := 'Use fake talking?';
+ CheckBox_UseFakeTalk.Font.Color := clWindowText;
+ CheckBox_UseFakeTalk.Font.Height := -16;
+ CheckBox_UseFakeTalk.Font.Name := 'Times New Roman';
+ CheckBox_UseFakeTalk.Font.Style := [];
+ CheckBox_UseFakeTalk.ParentFont := False;
+ CheckBox_UseFakeTalk.TabOrder := 12;
+ 
+ Edt_UserName.text:=LoadSetting('Phalanx_Mining', 'UserName');
+ Edt_PassWord.text:=LoadSetting('Phalanx_Mining', 'PassWord');
+ ComboBox_SMode.ItemIndex:=StrToInt(LoadSetting('Phalanx_Mining', 'MMode'));
+ CheckBox_Clean.Checked:=LoadSetting('Phalanx_Mining', 'Clean')='1';
+ Edt_BTPR.Text:=LoadSetting('Phalanx_Mining', 'BTPR');
+ Edt_SWDelay.Text:=LoadSetting('Phalanx_Mining', 'SWDelay');
+ Edt_KS.Text:=LoadSetting('Phalanx_Mining', 'KS');
+ ComboBox_RockType.ItemIndex:=StrToInt(LoadSetting('Phalanx_Mining', 'RockType'));
+ Edt_FakeTalkChanse.Text:=LoadSetting('Phalanx_Mining', 'FakeTalkChanse');
+ Edt_MLVLINC.Text:=LoadSetting('Phalanx_Mining', 'MiningLvlINC');
+ CheckBox_UseFakeTalk.Checked:=LoadSetting('Phalanx_Mining', 'UseFakeTalk')='1';
+ 
+ Btn_OK.OnClick := @OKClick;
+ Btn_OK.ModalResult:= mrOk;
+
+ Btn_Cancel.OnClick := @CancelClick;
+ Btn_Cancel.ModalResult:= mrOk;
+
+ MainFrom.ShowModal;
+ MainFrom.Free;
+end;
+procedure DoBanking;
+var
+x,y:integer;
+begin
+TalkTo(65536,6,2,'Banker: Talk',6,0,'l d like to access my bank account please',1,379,1,'Close window',BankPath);
+EmptyBank('Sleeping Bag, Pickaxe,');
+if GetItem(RockDesc,x,y,60,30,450,235) then GetItemQuanity(x,y,IC);
+if (SC) then
+Begin
+ SIC:=IC;
+ SC:=False;
+end;
+Wait(100);
+//Close bank window
+Repeat
+ ClickMouse(400,6,True);
+ Wait(1000);
+Until (IsTextAt(379,1,'Close window')=False);
+bkc:=bkc+1;
+end;
+//Fakes text - chooses random number and tells the message the number directs to.
+Procedure FakeTalk;
+var
+ml:string;
+rsay,rnum:integer;
+begin
+rsay:=random(FakeTalkChance);
+if (rsay=0) then
+begin
+ wait(1000+random(3000));
+ rnum:=random(6)+1;
+ case rnum of
+  1:SendKeysSilent(':o'+chr(10));
+  2:SendKeysSilent(':x'+chr(10));
+  3:begin
+     movemouse(425,15);
+     wait(100);
+     ml:=inttostr(strtoint(copy(GetTextAt(446,125),1,2))+Mininglvlinc);
+     if random(2)=1 then
+     begin
+      SendKeysSilent('Mining lvls'+chr(10));
+      Wait(4000+random(30));
+      SendKeysSilent('my lvl is '+ml+chr(10));
+     end;
+    end;
+  4:SendKeysSilent('ohh'+chr(10));
+  5:SendKeysSilent('uhh'+chr(10));
+  6:SendKeysSilent('grr'+chr(10));
+ end;
+end;
+end;
+Procedure PrintProgressReport;
+var
+RHours,Minutes,Seconds,RMinutes,RSeconds:LongInt;
+Time:String;
+begin
+Seconds:=(GetSystemTime-ST) div 1000;
+Minutes:=Seconds div 60;
+RHours:=Minutes div 60;
+Time:=inttostr(Seconds)+' Seconds';
+if Minutes<>0 then
+begin
+ RSeconds:=Seconds Mod (Minutes*60);
+ Time:=inttostr(Minutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+end;
+if RHours<>0 then
+begin
+ RMinutes:=Minutes Mod (RHours*60);
+ RSeconds:=Seconds Mod (Minutes*60);
+ Time:=inttostr(RHours)+' Hours, '+inttostr(RMinutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+end;
+if (MMode=1) then
+begin
+ writeln('Progress Report:');
+ writeln('Worked for '+Time);
+ writeln('Mined and Banked ('+inttostr(bkc)+' time[s]) '+inttostr(IC-SIC)+' '+RockDesc+'[s]');
+ writeln('Slept '+inttostr(slp)+' time[s] | Logged in '+inttostr(lic)+' time[s].');
+end else
+begin
+ writeln('Progress Report:');
+ writeln('Mined for '+Time);
+ writeln('Slept '+inttostr(slp)+' time[s].');
+end;
+end;
+//Cleans your inventory from any ores, leaves uncuts only.
+procedure CleanInv;
+var
+x,y:integer;
+Begin
+While FindItem(x,y,RockDesc) do
+begin
+ ClickMouse(x,y,False);
+ Wait(100);
+ ClickMouse(x,y+30,True);
+ Wait(1000);
+end;
+end;
+//Mining rock by the supplied settings.
+procedure DoMining;
+var
+x,y,count:integer;
+invf:boolean;
+begin
+count:=0;
+invf:=False;
+repeat
+ x:= 250 + Random(20);
+ y:= 130 + Random(20);
+ x:= x + Random(30)-15;
+ y:= y + Random(30)-15;
+ if(FindColorSpiral(x,y,RockColor,x-150,y-150,x+150,y+150))then
+ begin
+  x:=x+random(6)-3;
+  y:=y+random(6)-3;
+  MoveMouse(x,y);
+  Wait(100);
+  if(IsTextAt(6,2,'Rock: Mine'))then
+  begin
+   ClickMouse(x, y, True);
+   Wait(2700 + Random(300));
+   if SleepNeeded then Count:=0;
+   if (UseClean=1) or (MMode=1) then InvF:=InvFull;
+   if (MMode<>1) and (invf) then CleanInv;
+   count:=count+3;
+  end;
+ end else
+ begin
+  MoveMouse(x+random(3),y+random(3));
+  Wait(1000);
+  count:=count+1;
+ end;
+ if count >= 240 then
+ begin
+  MoveAside;
+  GoByPath(MinePath);
+ end;
+ if (MMode<>1)and(GetSystemTime-ST=BTPR*1000)then
+ begin
+  FakeTalk;
+  PrintProgressReport;
+ end;
+until ((InvF)and(MMode=1));
+mic:=mic+1;
+CloseMenu;
+end;
+begin
+mic:=0; bkc:=0;
+SC:=True;
+ST:=GetSystemTime;
+Start:=False;
+CallMainForm;
+AtBank:= CreateLandmark(22, 14, '04000801000104000C0100010400F2030001040015030001040015');
+AlmostBank:= CreateLandmark(16, 11, & #39;04000E00000101000104000E00000204004303000104000C03000104000603000104000C030001040002030001040021
+010001040003210001040002');
+ExternalWay:= CreateLandmark(13, 9, '04000101000104000801000104003C01000104000601000104000B010001040013010001040006');
+l2:= CreateLandmark(29, 15, & #39;04001901000104000301000104003301000104005A01000104002001000104002101000104000D010001040006010001
+04005801000104001A01000104000401000104002C010001040002010001040005');
+MidWay:= CreateLandmark(21, 8, & #39;04000301000104000D000001010001000001040012000003040040010001040025010001040002010001040006010001
+04000E');
+l3:= CreateLandmark(13, 10, & #39;04000501000104001F01000104000E010001040004010001040006010001040033010001040002010001040004010001
+040005');
+l4:= CreateLandmark(13, 7, & #39;01000104000101000104001501000104000801000104000701000104000F010001040008010001040015010001040002
+');
+AtMine:= CreateLandmark(16, 11, & #39;04000B01000204000501000104000601000204002501000104000E010001040003010001040019010001040005010001
+04002601000104000B010001040009');
+BankPath:= CreatePath;
+AddLandmarkToPath(BankPath, AtBank, 12, 3);
+AddLandmarkToPath(BankPath, AlmostBank, 18, -2);
+AddLandmarkToPath(BankPath, l2, 15, -14);
+AddLandmarkToPath(BankPath, Externalway, 26,-7);
+AddLandmarkToPath(BankPath, MidWay, 10, -15);
+AddLandmarkToPath(BankPath, l3, 15, -10);
+AddLandmarkToPath(BankPath, l4, 15, -10);
+AddLandmarkToPath(BankPath, AtMine, 16, -25);
+{Default\Iron:} RockColor:=526864; DestX:=3; DestY:=6; RockDesc:='iron ore';
+Case (RockType) of
+//Rock type: 1 for iron, 2 for copper, 3 for tin, 4 for clay, 5 for gold.
+ 1:begin
+    RockColor:=526864;
+    DestX:=3;
+    DestY:=6;
+    RockDesc:='iron ore';
+   end;
+ 2:begin
+    RockColor:=2070;
+    DestX:=11;
+    DestY:=1;
+    RockDesc:='copper ore';
+   end;
+ 3:begin
+    RockColor:=1709844;
+    DestX:=13;
+    DestY:=5;
+    RockDesc:='tin ore';
+   end;
+ 4:begin
+    RockColor:=5152;
+    DestX:=15;
+    DestY:=3;
+    RockDesc:='clay';
+   end;
+ 5:begin
+    RockColor:=10812;
+    DestX:=6;
+    DestY:=9;
+    RockDesc:='gold nugget';
+   end;
+end;
+MinePath:= CreatePath;
+AddLandmarkToPath(MinePath, AtMine, DestX, DestY);
+AddLandmarkToPath(MinePath, l4, -4, 30);
+AddLandmarkToPath(MinePath, l3, 1, 25);
+AddLandmarkToPath(MinePath, MidWay, 8, 8);
+AddLandmarkToPath(MinePath, l2, 15, 18);
+AddLandmarkToPath(MinePath, AtBank, 4, 23);
+if Start then
+begin
+  LogInIfNeeded;
+  if (MMode=1) then
+  begin
+   Status('Checking if inventory is full');
+   if InvFull then
+   begin
+    Status('Inventory is full - Going to bank.');
+    GoByPath(BankPath);
+    Status('Banking...');
+    DoBanking;
+   end;
+   Status('');
+  end;
+  //Main loop
+  if (MMode=1) then
+  repeat
+   Status('Going to mines');
+   GoByPath(MinePath);
+   FakeTalk;
+   Status('Mining...');
+   DoMining;
+   Status('Going to bank');
+   GoByPath(BankPath);
+   Status('Banking');
+   DoBanking;
+   if (BKC mod BTPR = 0) then PrintProgressReport;
+  until False
+  else
+  begin
+   Status('Going to mines');
+   GoByPath(MinePath);
+   Status('Mining...');
+   DoMining;
+  end;
+end;
+end.

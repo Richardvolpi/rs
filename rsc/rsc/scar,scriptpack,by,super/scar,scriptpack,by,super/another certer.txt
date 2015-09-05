@@ -1,0 +1,208 @@
+{
+ v2 -* Made by Phalanx*-
+ Instructions:
+  - for certing, you must start with 25 of the wanted certing item.
+  - for uncerting, you must have the wanted item certs and 25 empty places or else the wanted item will get dropped on the ground.
+
+ Notice: * Rotate the map MENUALLY to head almost perfect north.
+         * Compitable with scar 112.
+}
+
+program GeneralCerting;
+{.include PhalanxInclude.txt}
+const
+ // Set your settings here
+ // User related settings:
+ UserName = '' ; // User Name here.
+ PassWord = '' ; // Password here.
+
+ //Certing Settings:
+ CertWhat = 5  ; // READ BELOW
+ { Fish (1-4): 1 for Cooked Lobsters, 2 for Raw Lobsters, 3 for Cooked Swordies, 4 for Raw Swordies
+   Ores (5-9): 5 for Iron Ores, 6 for Silver, 7 for Coal, 8 for Gold Nuggets, 9 for Mith ores,
+   Bars (10-14): 10 for Iron Bars, 11 for Silver bars, 12 for Steel Bars, 13 for Gold Bars, 14 for Mith Bars. }
+ Cert     = 0  ; // 1 for certing, any other number for uncerting.
+
+ //Other Settings (you can leave them as default)
+ BTPR        = 1   ; // Banking till progress report.
+ SleepWDelay = 15  ; // Minutes to wait for an FO.
+ MinDelay    = 40  ; // Starting delay for map fix.
+ MaxDelay    = 100 ; // Ending delay for map fix.
+ ClickMapDel = 3   ; // Click map delay in seconds for GoByPath procedure.
+ KillSwitch  = 5   ;
+
+var
+ LandMark,MarketPath,Bankpath:integer;
+ ItemOption:integer;
+ ItemName:String;
+
+procedure DoCerting;
+var
+ Option,i:integer;
+ FishText,CertingText:String;
+begin
+ i:=0;
+ if Cert=1 then
+ begin
+  Option:=2;
+  FishText:='Lobster';
+  CertingText:='five';
+ end else
+ begin
+  Option:=1;
+  FishText:='Swordfish';
+  CertingText:='One';
+ end;
+ if (CertWhat>=1) and (CertWhat<=4) then
+ begin
+  TalkTo(8158332,6,2,'Niles',6,12,'I have some fish to trade in',Option,6,0,FishText,MarketPath);
+  Wait(1000);
+  ClickOption(ItemOption);
+  Wait(1000);
+  ClickOption(5);
+  if GetChatMsg='You don' then LogOut;
+ end;
+ if (CertWhat>=5) and (CertWhat<=9) then
+ begin
+  TalkTo(7274496,6,2,'Giles',6,12,'I have some ore to trade in',Option,6,0,'iron',MarketPath);
+  Wait(1000);
+  ClickOption(ItemOption);
+  Wait(1000);
+  ClickOption(5);
+  if GetChatMsg='You don' then LogOut;
+ end;
+ if(CertWhat>=10) and (CertWhat<=14)then
+ begin
+  TalkTo(5143171,6,2,'Miles',6,12,'I have some bars to trade in',Option,6,0,'iron bar',MarketPath);
+  Wait(1000);
+  ClickOption(ItemOption);
+  Wait(1000);
+  ClickOption(5);
+  if GetChatMsg='You don' then LogOut;
+ end;
+end;
+procedure DoBanking;
+var
+ x,y:integer;
+begin
+ TalkTo(65536,6,2,'Banker: Talk',6,0,'l d like to access my bank account please',1,379,1,'Close window',BankPath);
+ if GetItem(ItemName,x,y,60,30,450,235) then
+ begin
+  ClickMouse(x,y,true);
+  Wait(1000);
+  if Cert=1 then
+  while(IsTextAt(274,239,'One'))and(GetChatMsg<>'You don t have room to hold that object!')do
+  begin
+   ClickMouse(284,246,True);
+   Wait(300);
+  end else
+  begin
+   while(IsTextAt(334,264,'25'))do
+   begin
+    ClickMouse(335,270,True);
+    Wait(300);
+   end;
+   while(IsTextAt(304,264,'Five'))do
+   begin
+    ClickMouse(305,270,True);
+    Wait(300);
+   end;
+   while(IsTextAt(274,264,'One'))do
+   begin
+    ClickMouse(275,270,True);
+    Wait(300);
+   end;
+  end;
+ end else
+ begin
+  Writeln('No more ores found - Logging out');
+  LogOut;
+ end;
+ //Close bank window
+ Repeat
+  ClickMouse(400,6,True);
+  Wait(1000);
+ Until (IsTextAt(379,1,'Close window')=False);
+end;
+
+begin
+ InitInclude(UserName,PassWord,SleepWDelay,ClickMapDel,99,KillSwitch);
+ Case CertWhat of
+  1:begin
+     ItemName:='Cooked Lob';
+     if Cert=1 then ItemOption:=1
+     else ItemOption:=3;
+    end;
+  2:begin
+     ItemName:='Raw Lob';
+     if Cert=1 then ItemOption:=2
+     else ItemOption:=4;
+    end;
+  3:begin
+     ItemName:='Cooked Swordie';
+     if Cert=1 then ItemOption:=3
+     else ItemOption:=1;
+    end;
+  4:begin
+     ItemName:='Raw Swordie';
+     if Cert=1 then ItemOption:=4
+     else ItemOption:=2;
+    end;
+  5:begin
+     ItemName:='Iron Ore';
+     ItemOption:=1;
+    end;
+  6:begin
+     ItemName:='Silver';
+     ItemOption:=5;
+    end;
+  7:begin
+     ItemName:='Coal';
+     ItemOption:=2;
+    end;
+  8:begin
+     ItemName:='Gold Nugget';
+     ItemOption:=4;
+    end;
+  9:begin
+     ItemName:='Mith Ore';
+     ItemOption:=3;
+    end;
+  10:begin
+      ItemName:='Iron Bar';
+      ItemOption:=1;
+     end;
+  11:begin
+      ItemName:='Silver Bar';
+      ItemOption:=5;
+     end;
+  12:begin
+      ItemName:='Steel Bar';
+      ItemOption:=2;
+     end;
+  13:begin
+      ItemName:='Gold Bar';
+      ItemOption:=4;
+     end;
+  14:begin
+      ItemName:='Mith Bar';
+      ItemOption:=3;
+     end;
+ end;
+ LandMark:= CreateLandmark(7, 7, '04000603000204001103000104000E010001040003010001040004');
+ MarketPath:= CreatePath;
+ AddLandmarkToPath(MarketPath, LandMark, 0, -1);
+ BankPath:= CreatePath;
+ AddLandmarkToPath(BankPath, LandMark, 10, 8);
+ LogInIfNeeded;
+ repeat
+  Status('Going to market...');
+  GoByPath(MarketPath);
+  Status('Certing...');
+  DoCerting;
+  Status('Going to bank...');
+  GoByPath(BankPath);
+  Status('Banking...');
+  DoBanking;
+ until(false);
+end.

@@ -1,0 +1,501 @@
+{==Gnome Stronghold Bowstring banker v1.01==}
+
+    {**Picks flax, makes strings and banks them**}
+// -               By OhDearUrDead                 - \\
+// - Modded parts from IMPerfection's flax crafter - \\
+//===================================================\\
+// - Sleeping Bag in first spot, all others empty  - \\
+// -      Southernmost spinning wheel platform     - \\
+// -       Start at left of bottom of ladder       - \\
+// -          Align map perfectly north            - \\
+
+program BowStringies;
+const
+  sdelay = 40;
+  MyWait = 50;
+  username = '';
+  password = '';
+var
+a, b, x, y, pick, picks, loops, logins, Delay, strings, atwheel, tobank, intree: integer;
+InitX, InitY, MapCheck: Integer;
+f: Extended;
+picking, crafting: Boolean;
+
+procedure LogInIfNeeded; export;
+begin
+if(logins < 3)then
+begin
+  //if logged out press Cancel
+  if(LoginScreen)then
+  begin
+    Writeln('Clearing username, password fields');
+    ClickMouse(400,280,True);
+    Wait(2000);
+  end;
+  //If logged out select Existing User
+  if(StartScreen)then
+  begin
+    Writeln('Choosing existing user');
+    ClickMouse(340,280,True);
+    Wait(4000);
+  end;
+  //If logged out, log in
+  if(LoginScreen)then
+  begin
+    Writeln('Trying to log in');
+    ClickMouse(100,260,True);
+    Wait(500);
+    SendKeysSilent(username);
+    Wait(500);
+    ClickMouse(120,310,True);
+    Wait(500);
+    SendKeysSilent(password);
+    Wait(500);
+    ClickMouse(380,250,True);
+    logins:= logins +1;
+    Wait(6000);
+  end;
+  //If we have Welcome to epacsenur open, close it
+  if(GetColor(56,117)=16777215)and
+    (GetColor(57,118)=0)and
+    (GetColor(455,216)=16777215)and
+    (GetColor(454,215)=0)
+  then
+  begin
+    Writeln('Closing Welcome box');
+    ClickMouse(250,230,True);
+    Wait(2000);
+  end;
+  SetTimeOut(10,'LOGINIFNEEDED');
+end;
+end;
+
+//Fixes your map to the right angle after its perfectly aligned to North.
+Procedure FixMap(Path:Integer);
+var
+ bool:extended;
+ x,y:integer;
+Begin
+ bool:=0;
+ repeat
+  MoveMouse(1+random(3),1+random(3));
+  Wait(10);
+  MoveMouse(465+random(3),20+random(3));
+  Wait(Delay);
+  if ProcessMap=False then Delay:=Delay+5
+  else ProcessPath(Path, x, y, bool, 0.1);
+  if (Delay>80) then
+  begin
+   Repeat
+    Wait(1000);
+   Until (LogInScreen) or (StartScreen) or ((GetColor(289,290)<>0)and(GetColor(93,399)<>9203557)); {members start screen}
+   Delay:=SDelay;
+   LogInIfNeeded;
+  end;
+ until bool=1;
+end;
+//Going by the landmarks included in the path to get to a destination - originally made by kait, modified by me.
+procedure GoByPath(path: Integer);
+var
+ HowFar: Integer;
+ x, y: Integer;
+ r: Extended;
+ Dest: Boolean;
+ NR:integer;
+begin
+ NR:=0;
+ fixmap(Path);
+ repeat
+  ClickMouse(460+random(3),15+random(3),True);
+  Wait(300);
+  ProcessMap;
+  HowFar:= ProcessPath(Path, x, y, r, 0.05);
+  if(r > 0.8)then
+  begin
+   NR:=0;
+   if(HowFar = 0) then ClickMap(x, y, True)
+   else ClickMap(x + Random(3)-1, y + Random(3) - 1, True);
+  end else NR:=NR+1;
+  if NR>2 then
+  begin
+   FixMap(Path);
+   NR:=0;
+  end else
+  begin
+   Dest:= (HowFar=0)and(x<=20)and(x>=16)and(y<=22)and(y>=15);
+   if(not Dest)then Wait(5000);
+  end;
+ until(Dest);
+ wait(200);
+ movemouse(10,10);
+ wait(100);
+end;
+
+procedure CheckMap;
+var tx,ty: Integer;
+begin
+  Writeln('Checking map');
+  tx:= 430;
+  ty:= 110;
+  MapCheck:= 2;
+  Wait(100);
+  MoveMouse(460,16);
+  Wait(200);
+  if(FindColorSpiral(x,y,18456,tx-50,ty-50,tx+50,ty+50))then
+   MapCheck:= 1;
+end;
+
+procedure DoSleeping;
+   begin
+     Status('Sleeping');
+     Wait(200);
+     loops:=0;
+     Wait(200)
+     ClickMouse (498, 16, True);
+     Wait(200);
+     Movemouse (296, 47);
+     Wait(100);
+     ClickMouse(296, 46, True);
+     loops:=0;
+    repeat
+      wait(200);
+      loops:=loops+1;
+    until(IsTextAt(168, 293, 'click here')) or (loops>=25);
+  loops:=0;
+    repeat
+      loops:=loops+1;
+      Wait(200);
+        if(GetColor(209,252)=255)then
+          begin
+            //Writeln('Resetting wait...');
+            loops:=0;
+            Wait(2000);
+          end;
+         //get new sw word if no word comes in 30 seconds
+        if(loops=160)then
+          begin
+            loops:=0;
+            ClickMouse (200, 300, True);
+            Writeln('Trying again for sw word');
+          end;
+    until(not IsTextAt(168, 293, 'click here'));
+  MoveMouse(10,10);
+  Wait(100);
+end;
+
+procedure DoPicking;
+var t: Integer;
+xx, yy: Integer;
+begin
+  Picking:=False;
+  t:= GetSystemTime;
+  x:= 265;
+  y:= 190;
+  repeat
+    while(not IsTextAt(6,2,'flax: Walk'))do
+    begin
+        SpiralFindObj(x,y, -1, x-100, y-100, x+100, y+100, 10, 'flax: Walk', MyWait, 10000);
+        Wait(20)
+     end;
+      MoveMouse(x, y);
+      Wait(20);
+      if(IsTextAt(6,2,'flax: Walk'))then
+      begin
+        ClickMouse(x, y, False);
+        Wait(100 + random(5));
+        if(FindBitmap(pick, xx, yy))then
+        begin
+          xx:= xx+5;
+          ClickMouse(xx + random(20), yy, False);
+          Wait(200 + Random(20));
+          picks:= picks+1;
+        end;
+      end;
+      begin
+      if (picks > 28) then
+      begin
+        MoveMouse(490, 15);
+        Wait(200);
+        MoveMouse(485, 225);
+        Wait(250);
+        if(IsTextAt(6,2,'flax'))then
+        begin
+          picking:= true
+          picks:=0;
+        end;
+      end;
+      MoveMouse(2,2);
+      Wait(70 + random(20));
+      MoveMouse(a,b);
+      Wait(70 + random(20));
+    end;
+  until(picking);
+end;
+
+procedure UpLadder;
+begin
+repeat
+ repeat
+  x:= 338;
+  y:= 126;
+  Movemouse(10,10);
+    SpiralFindObj(x,y, -1, x-150, y-150, x+150, y+150, 15, 'Ladder:', 50, 15000);
+    MoveMouse(x, y);
+    Wait(50);
+      until(IsTextAt(6,2,'Ladder:'));
+      wait(100);
+      ClickMouse(x,y,true);
+      wait(3000);
+      CheckMap;
+      if(mapcheck = 2)then
+      break;
+ Until(false);
+end;
+
+procedure DoCraft;
+begin
+crafting:=false;
+movemouse(494,16);
+wait(100);
+movemouse(337,53);
+wait(100);
+if(IsTextAt(6,2,'flax'))then
+begin
+  repeat
+  movemouse(494,16);
+  wait(100);
+  clickmouse(337,53,true);
+  wait(200)
+  repeat
+    Movemouse(10,10);
+    Wait(50);
+    MoveMouse(x,y);
+    wait(50);
+    While(not istextat(6,2,'Use flax with Spinning wheel / 1 more option'))and(not IsTextAt(6,2,'Use bow string with'))do
+    begin
+      if(IsTextAt(6,2,'Use bow string with'))then
+       begin
+        wait(50);
+        clickmouse(2,2,true);
+        wait(50);
+        crafting:=true;
+        Break;
+       end;
+      x:= 190;
+      y:= 130;
+      Movemouse(10,10);
+      Wait(100)
+      SpiralFindObj(x,y, -1, x-100, y-100, x+100, y+100, 10, 'Use flax with Spinning wheel / 1 more option', 50, 10000);
+      Wait(100)
+      MoveMouse(x, y);
+    end;
+    Wait(50);
+    if(IsTextAt(6,2,'Use bow string with'))then
+    begin
+      wait(50);
+      clickmouse(2,2,true);
+      wait(50);
+      crafting:=true;
+      Break;
+    end;
+  until((IsTextAt(6,2,'Use flax with Spinning wheel / 1 more option')) or (IsTextAt(6,2,'Spinning wheel')));
+  wait(50 + random (10));
+  ClickMouse(x,y,true);
+  wait(50 + random (10))
+  if(Getcolor(15,312)=65280) then
+  begin
+    DoSleeping;
+  end;
+until(crafting);
+end;
+end;
+
+procedure DownLadder;
+begin
+repeat
+ repeat
+ InitX:= 335;
+  InitY:= 140;
+  x:= InitX;
+  y:= InitY;
+  Movemouse(10,10);
+    f:= 3;
+    FindColorSpiral(x,y,11869,x-50,y-50,x+50,y+50);
+    MoveMouse(x, y);
+    Wait(50);
+      until(IsTextAt(6,2,'Ladder:'));
+      wait(100);
+      ClickMouse(x,y,true);
+      wait(2000)
+      CheckMap;
+      if(mapcheck = 1)then
+      break;
+ Until(false);
+end;
+
+procedure UpBankLadder;
+begin
+repeat
+ repeat
+  x:= 236;
+  y:= 152;
+  Movemouse(10,10);
+    SpiralFindObj(x,y, -1, x-100, y-100, x+100, y+100, 10, 'Ladder:', 50, 10000);
+    MoveMouse(x, y);
+    Wait(50);
+      until(IsTextAt(6,2,'Ladder:'));
+      wait(100);
+      ClickMouse(x,y,true);
+      wait(3000);
+      CheckMap;
+      if(mapcheck = 2)then
+      break;
+ Until(false);
+end;
+
+procedure DoBanking;
+begin
+  Wait(200);
+    repeat
+      repeat
+      repeat
+        x:= Random(500);
+        y:= Random(340);
+        FindColorSpiral(x,y,10661355,x-50,y-50,x+50,y+50);
+        MoveMouse(x, y);
+        Wait(200);
+      until(IsTextAt(6,2,'Gnome banker: Talk'))or(IsTextAt(6,0,'l d like to access my bank account please'));
+      ClickMouse(x, y, True);
+      Wait(7000);
+    until(IsTextAt(6,0,'l d like to access my bank account please'));
+    ClickMouse(17,8,True);
+    Wait(6000);
+  until(FindBitmap(strings,x,y));
+  ClickMouse(x,y,True);
+  Wait(1000);
+  while(IsTextAt(334,264,'25'))do
+  begin
+    ClickMouse(335,270,True);
+    Wait(300);
+  end;
+  while(IsTextAt(304,264,'Five'))do
+  begin
+    ClickMouse(305,270,True);
+    Wait(300);
+  end;
+   while(IsTextAt(274,264,'One'))do
+  begin
+    ClickMouse(275,270,True);
+    Wait(300);
+  end;
+  //Close bank window
+  wait(400);
+  ClickMouse(410,5,True);
+  Wait(800);
+end;
+
+procedure DownBankLadder;
+var InitX, InitY, f: Integer;
+begin
+repeat
+ repeat
+ InitX:= 250;
+  InitY:= 210;
+  x:= InitX;
+  y:= InitY;
+  Movemouse(10,10);
+    f:= 3;
+    FindColorSpiral(x,y,11869,x-100,y-100,x+100,y+100);
+    MoveMouse(x, y);
+    Wait(50);
+      until(IsTextAt(6,2,'Ladder:'));
+      wait(100);
+      ClickMouse(x,y,true);
+      wait(2000);
+      CheckMap;
+      if(mapcheck = 1)then
+      break;
+ Until(false);
+end;
+
+var
+  BankFromFlax, FlaxFromBank, LToBanker, BToLadder: Integer;
+
+begin
+  strings := BitmapFromString(18, 15,
+       '0000000000000000000000000000000000000000000000007B7B7B' +
+       'BABABAE1E1E1E1E1E1000000000000000000000000000000000000' +
+       '0000000000000000000000000000000000000000000000007B7B7B' +
+       'BABABAE1E1E1000000000000000000000000000000000000000000' +
+       '0000000000000000000000000000000000007B7B7B7B7B7BBABABA' +
+       'E1E1E1E1E1E1000000000000000000000000000000000000000000' +
+       '0000000000007B7B7B7B7B7B7B7B7B7B7B7BBABABABABABAE1E1E1' +
+       'E1E1E1000000000000000000000000000000000000000000000000' +
+       '7B7B7B7B7B7BBABABABABABABABABABABABAE1E1E1E1E1E1E1E1E1' +
+       '000000000000000000000000000000000000000000000000000000' +
+       'BABABABABABAE1E1E1E1E1E1E1E1E1E1E1E1E1E1E1000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       'E1E1E1E1E1E1E1E1E1000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '0000000000000000000000000000000000000000007B7B7B7B7B7B' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '0000000000000000000000007B7B7B7B7B7B7B7B7BBABABABABABA' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '0000000000007B7B7B7B7B7BBABABABABABABABABAE1E1E1E1E1E1' +
+       '7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B7B' +
+       '7B7B7B7B7B7BBABABABABABAE1E1E1E1E1E1E1E1E1E1E1E1000000' +
+       'BABABABABABABABABABABABABABABABABABABABABABABABABABABA' +
+       'BABABABABABAE1E1E1E1E1E1E1E1E1000000000000000000000000' +
+       'E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1E1' +
+       'E1E1E1E1E1E1E1E1E1000000000000000000000000000000000000' +
+       '');
+  pick:= BitmapFromString(23, 1,'FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF' + '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000FFFFFF' + 'FFFFFF000000FFFFFFFFFFFF000000');
+  Delay:=SDelay;
+  atwheel:= CreateLandmark(8, 6, '010001040002010001040003010001040002010001040001010001040003010001040006010001040002010001040008010001040009010001040002');
+  tobank:= CreateLandmark(9, 6, '04000101000104000201000104000301000104000901000104000A01000104000301000104000A010001040003010001040005');
+  intree:= CreateLandmark(1, 16, '010001040003010001040003010001040003010001040002010001');
+  SetTimeOut(20,'LOGINIFNEEDED');
+  BankFromFlax:= CreatePath;
+  AddLandmarkToPath(BankFromFlax, tobank, 6, 2);
+  AddLandmarkToPath(BankFromFlax, atwheel, -10, -2);
+  FlaxFromBank:= CreatePath;
+  AddLandmarkToPath(FlaxFromBank, atwheel, 2, 9);
+  AddLandmarkToPath(FlaxFromBank, tobank, 18, 2);
+  LToBanker:= CreatePath;
+  AddLandmarkToPath(LToBanker, intree, 1, 5);
+  BToLadder:= CreatePath;
+  AddLandmarkToPath(BToLadder, intree, 0, 11);
+repeat
+WriteLn('Picking Flax');
+DoPicking;
+WriteLn('Going up ladder');
+UpLadder;
+WriteLn('Spinning flax');
+DoCraft;
+WriteLn('Going down ladder');
+DownLadder;
+WriteLn('Going to bank');
+GoByPath(BankFromFlax);
+Wait(2000);
+WriteLn('Going up ladder');
+UpBankLadder;
+GoByPath(LToBanker)
+Wait(700);
+WriteLn('Banking');
+DoBanking;
+Wait(700);
+GoByPath(BToLadder);
+Wait(1000);
+WriteLn('Going down ladder');
+DownBankLadder;
+Wait(700);
+WriteLn('Going to flax');
+GoByPath(FlaxFromBank);
+Wait(2000);
+until(false);
+end.

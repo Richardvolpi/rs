@@ -1,0 +1,212 @@
+{>-------------Aut0Fisher------------<}
+{>         Written by Reines         <}
+{>-------Features/Instructions-------<}
+{> - Relogin                         <}
+{> - Sleeping                        <}
+{> - Moves to avoid 5mins timeout    <}
+{> - Logs if you run out of feathers <}
+{> - Start facing fishing spot       <}
+{>-----------------------------------<}
+
+var
+ username,password,nMin,nHour:string;
+ x,y,wt,wt2,tme,trybag,a,b,bag,starttime:integer;
+ foundbag,foundfish,killswitch:Boolean;
+ Hour,Min,Sec,MSec:Word;
+
+Procedure gettime;
+Begin
+ Status('Checking Time');
+ DecodeTime(Now,Hour,Min,Sec,MSec);
+ nMin:=inttostr(Min);
+ nHour:=inttostr(Hour);
+ If(Min<10)Then nMin:='0'+inttostr(Min);
+ If(Hour<10)Then nHour:='0'+inttostr(Hour);
+End;
+
+Procedure logout;
+Begin
+ killswitch:=(false);
+ Status('Logging out');
+ Repeat
+ MoveMouse(325+Random(5),20+Random(5));
+ Wait(100);
+ ClickMouse(350,280,True);
+ Wait(1000);
+ Until(GetColor(338,125)=5524540);
+End;
+
+Procedure findbag;
+Begin
+ MoveMouse(492,14);
+ Wait(200);
+ trybag:=0;
+ Repeat
+ IF(FindBitmap(bag,a,B))Then foundbag:=(true);
+ trybag:=trybag+1;
+ Wait(100);
+ Until(foundbag)or(trybag>20);
+ If(foundbag)Then Writeln('Sleeping Bag Found');
+ If(trybag>=20)Then Writeln('No Sleeping Bag Found, Go get one fuckwit!');
+ MoveMouse(25,25);
+End;
+
+Procedure move;
+Begin
+ Status('Moving');
+ Wait(2000);
+ MoveMouse(459,17);
+ Wait(500);
+ ClickMouse(432,108,True);
+ Wait(1000);
+ MoveMouse(25,25);
+ Wait(1000);
+ StartTime:=GetSystemTime;
+End;
+
+Procedure findfish;
+Begin
+ FindColorSpiral(x,y,16578808,200,160,340,330);
+ FindColorSpiral(x,y,16025680,200,160,340,330);
+ FindColorSpiral(x,y,10393752,200,160,340,330);
+ FindColorSpiral(x,y,13410440,200,160,340,330);
+ FindColorSpiral(x,y,5976092,200,160,340,330);
+ FindColorSpiral(x,y,12017720,200,160,340,330);
+End;
+
+procedure fish;
+Begin
+ Status('Fishing...');
+ FixMouse(x,y,0);
+ Wait(200);
+ MoveMouse(x,y);
+ Wait(100);
+ If(IsTextAt(6,2,'fish: Lure'))then foundfish:=(true);
+ If(foundfish)Then
+ begin
+   ClickMouse(x,y,True);
+   Wait(2500+Random(500));
+ end;
+ If(not foundfish)Then findfish;
+ If((GetSystemTime-StartTime)>140000)then move;
+End;
+
+Procedure login;
+Begin
+ ClickMouse(357+random(5),281+random(5),True);
+ Wait(200+random(50));
+ ClickMouse(255+random(5),287+random(5),True);
+ Wait(200+random(50));
+ Status('Attempting login');
+ DecodeTime(Now,Hour,Min,Sec,MSec);
+ nMin:=inttostr(Min);
+ nHour:=inttostr(Hour);
+ If(Min<10)Then nMin:='0'+inttostr(Min);
+ If(Hour<10)Then nHour:='0'+inttostr(Hour);
+ Writeln('Attempting login at '+nHour+':'+nMin);
+ ClickMouse(166+random(5),263+random(5),True);
+ Wait(500+random(50));
+ SendKeysSilent(username);
+ Wait(500+random(50));
+ ClickMouse(260+random(5),303+random(5),True);
+ Wait(500+random(50));
+ SendKeysSilent(password);
+ Wait(500+random(50));
+ ClickMouse(392+random(5),248+random(5),True);
+ tme:=0;
+ Repeat
+   Wait(1000);
+   tme:=tme+1000;
+ Until(tme>30000)Or(GetColor(56,117)=16777215);
+ Status('Closing Welcome Box');
+ ClickMouse(220+random(5),230+random(5),True);
+ Wait(2000+random(250));
+End;
+
+Procedure sleep;
+Begin
+ wt:=0;
+ Wait(200);
+ Movemouse(498,16);
+ Wait(1000);
+ Movemouse(a+2,b+2);
+ Wait(1000);
+ If(IsTextAt(6,2,'Sleeping Bag: sleep'))Then
+ Begin
+   Status('Sleeping');
+   ClickMouse(a,b,True);
+   Repeat
+   Wait(1000);
+   wt:=wt+1000;
+   Until(wt>=60000)Or(Getcolor(166,44)<>65535)Or(Getcolor(266,133)<>16777215);
+   If(wt>=60000)And(Getcolor(166,44)=65535)Then
+   Begin
+     Repeat
+     ClickMouse(198,302,True);
+     wt2:=0;
+     Repeat
+     Wait(1000);
+     wt2:=wt2+1000;
+     Wait(1000);
+     Until(wt2>=40000)Or(Getcolor(166,44)<>65535);
+     Until(Getcolor(166,44)<>65535);
+   End;
+   Wait(1000);
+ End;
+ MoveMouse(25,25);
+End;
+
+Begin
+ username:=Readln('Enter your Username:');
+ password:=Readln('Enter your Password:');
+ Writeln('<-------------------------->');
+ Writeln('Aut0Fisher Written by Reines');
+ Writeln('<-------------------------->');
+ bag:=BitmapFromString(18,7,
+      '9D6E3D9D6E3D9D6E3D7B542E7B542E7B542E7B542E7B542E7B542E' +
+      '7B542E52452E52452E52452E52452E52452E52452E52452E360E06' +
+      '9D6E3D7B542E9D6E3D7B542E7B542E7B542E7B542E7B542E7B542E' +
+      '7B542E7B542E52452E52452E52452E52452E52452E52452E52452E' +
+      '9D6E3D9D6E3D9D6E3D9D6E3DC344227B542E7B542E7B542E7B542E' +
+      '7B542E7B542E7B542E52452E7B542E52452E52452E52452E615D61' +
+      '9D6E3D9D6E3D9D6E3D7B542E9D6E3D7B542E7B542E7B542E7B542E' +
+      '7B542E7B542E7B542E52452E7B542E52452E52452E8D8D8D868457' +
+      '7B542E9D6E3D9D6E3D9D6E3D7B542E9D6E3D7B542E7B542E7B542E' +
+      '7B542E7B542E7B542E7B542E7B542E7B542E52452E988CB1988CB1' +
+      '7B542E7B542E9D6E3D9D6E3D9D6E3D9D6E3D9D6E3DC344227B542E' +
+      '7B542E7B542E7B542E7B542E7B542E7B542E988CB1988CB1988CB1' +
+      '7B542E7B542E7B542E9D6E3D9D6E3D9D6E3D9D6E3D9D6E3D7B542E' +
+      '7B542E7B542E7B542E7B542E7B542E7B542E988CB1CFAB7BCFAB7B' +
+      '');
+ Status('A');Wait(100);
+ Status('Au');Wait(100);
+ Status('Aut');Wait(100);
+ Status('Aut0');Wait(100);
+ Status('Aut0F');Wait(100);
+ Status('Aut0Fi');Wait(100);
+ Status('Aut0Fis');Wait(100);
+ Status('Aut0Fish');Wait(100);
+ Status('Aut0Fishe');Wait(100);
+ Status('Aut0Fisher');Wait(100);
+ Status('Aut0Fisher ');Wait(100);
+ Status('Aut0Fisher B');Wait(100);
+ Status('Aut0Fisher By');Wait(100);
+ Status('Aut0Fisher By ');Wait(100);
+ Status('Aut0Fisher By R');Wait(100);
+ Status('Aut0Fisher By Re');Wait(100);
+ Status('Aut0Fisher By Rei');Wait(100);
+ Status('Aut0Fisher By Rein');Wait(100);
+ Status('Aut0Fisher By Reine');Wait(100);
+ Status('Aut0Fisher By Reines');Wait(500);
+ findbag;
+ killswitch:=(true);
+ findfish;
+ StartTime:=GetSystemTime;
+ Repeat
+ foundfish:=(false);
+ fish;
+ If(GetColor(338,125)=5524540)then login;
+ If(IsTextAt(7,304,'You are too tired'))then sleep;
+ If(copy(gettextat(7,304),1,7)='You don')Then logout;
+ Until(not killswitch)
+End.

@@ -1,0 +1,745 @@
+{----------------------------------------}
+{     Super Certer / Uncerter By Kaos    }
+{----------------------------------------}
+{       Make sure your map is north      }
+{  Start the script inside Draynor bank  }
+{    If certing start with 25 ores. If   }
+{ uncerting start with certs in inventory}
+{  You bank page needs to be on the page }
+{       the items are stored on.         }
+{    Log decides whether to use either   }
+{  write to debug box or use status box  }
+{----------------------------------------}
+{     Thanks to Dilbert for some code    }
+{   and gothking as learned forms from   }
+{            your guildminer             }
+{----------------------------------------}
+{       Now works for SCAR 112           }
+{----------------------------------------}
+
+Program Super_Certer_By_KAOS;
+
+var
+  form, self: TForm;
+  Application: TApplication;
+  CertLabel, OreLabel, ItemLabel, LogLabel: TLabel;
+  ButtonStart, ButtonCancel: TButton;
+  Item2, Cert, Item, Log: TComboBox;
+  RLob, CLob, RSword, CSword, Iron, Coal, Mith, Gold, Silver, IronBar, SteelBar: Integer;
+  MithBar, SilverBar, GoldBar,x, y, loopi,loops, CertPath, Bankpath, l1, rndx, rndy, Itemcerting: Integer;
+  Material,NMaterial, NMaterial2, Brother, NBrother, NBrother2: String;
+  Certing, Start, keeplog : Boolean;
+
+//Fixes the map to be able to perfectly read the path landmarks.
+Procedure FixMap(Path:Integer);
+var
+ bool:extended;
+ x,y:integer;
+Begin
+ repeat
+  movemouse(1+random(3),1+random(3));
+  wait(10);
+  movemouse(465+random(3),20+random(3));
+  wait(30);
+  ProcessMap;
+  ProcessPath(Path, x, y, bool, 0.05);
+ until bool=1;
+
+end;
+
+//Going by the landmarks included in the path to get to a destination
+procedure GoByPath(path: Integer);
+var
+  HowFar: Integer;
+  x, y: Integer;
+  r: Extended;
+  Dest: Boolean;
+  NR:integer;
+begin
+  NR:=0;
+  fixmap(Path);
+  repeat
+    ClickMouse(460,15,True);
+    Wait(300);
+    ProcessMap;
+    HowFar:= ProcessPath(Path, x, y, r, 0.05);
+
+  if(r > 0.8)then
+    begin
+      NR:=0;
+      if(HowFar = 0)then
+        ClickMap(x, y, True)
+      else
+        ClickMap(x + Random(3)-1, y + Random(3) - 1, True);
+    end else NR:=NR+1;
+    if NR>3 then
+    begin
+     FixMap(Path);
+     NR:=0;
+    end else
+    begin
+     Dest:= (HowFar=0)and(x<=20)and(x>=16)and(y<=22)and(y>=15);
+     if(not Dest)then
+      Wait(500);
+    end;
+  until(Dest);
+  wait(200);
+  movemouse(10,10);
+end;
+
+procedure Bank;
+begin
+loops:=0;
+if keeplog = true then Writeln('Banking');
+if keeplog = false then status('Banking');
+  Wait(150 + Random(100));
+  repeat
+    repeat
+        x:= Random(500);
+        y:= Random(340);
+        FindColorSpiral(x,y,10661355,x-50,y-50,x+50,y+50);
+        MoveMouse(x, y);
+        Wait(150 + Random(100));
+        loops:=loops+1;
+        if(loops>=100)then
+          begin
+           GoByPath(BankPath);
+            loops:=0;
+          end;
+
+ if(IsTextAt(6,2,'Banker: Talk')) and
+      (IsTextAt(7,304,'Banker: Good day')=False)then
+      begin
+      loops:=0;
+
+          ClickMouse(x, y, True);
+             Wait(3300);
+      end;
+    until(IsTextAt(6,0,'l d like to access my bank account please'));
+ClickMouse(17,8,True);
+loops:=0;
+repeat
+wait(500);
+loops:=loops+1;
+until(GetColor(264, 8)=12582912) or (loops>=20);
+until(FindBitmap(ItemCerting,x,y));
+ClickMouse(x,y,True);
+Wait(1000);
+
+If certing = true then
+while(IsTextAt(274,239,'One'))and
+     (GetChatMsg<>'You don t have room to hold that object!')do
+begin
+ClickMouse(284,246,True);
+Wait(100);
+end;
+if certing = false then
+while(IsTextAt(334,264,'25'))do
+  begin
+    ClickMouse(335,270,True);
+    Wait(300);
+  end;
+
+ClickMouse(410,5,True);
+Wait(400);
+
+end;
+
+procedure DoCerting;
+begin
+     if keeplog = true then Writeln('Certing');
+     if keeplog = false then status('Certing');
+     loops:=0;
+        repeat
+          x:= Random(500);
+          y:= Random(340);
+          FindColorSpiral2(x,y,10661355,x-120,y-120,x+120,y+120);
+          MoveMouse(x, y);
+          wait(100);
+          if(IsTextAt(6,2,Brother + ': Talk'))then
+          begin
+             loops:=0;
+
+ ClickMouse(x, y, True);
+             Wait(4000);
+          end;
+          if(IsTextAt(6,2,NBrother + ': Talk'))or
+          (IsTextAt(6,2,NBrother2 + ': Talk'))then
+          loops:=0;
+          if(IsTextAt(6,12,'l have some ' + NMaterial + 'to trade in')) or
+            (IsTextAt(6,12,'l have some ' + NMaterial2 + ' to trade in'))then
+            ClickMouse(255,165,True);
+          loops:=loops+1;
+          if(loops=100)then
+          begin
+            GoByPath(CertPath);
+            loops:=0;
+          end;
+        until(IsTextAt(6,12,'l have some ' + Material + ' to trade in'));
+        loops:=0;
+        repeat
+        loops:=loops+1;
+        while(IsTextAt(6,12,'l have some ' + Material + ' to trade in'))do
+
+ begin
+        If certing = true then ClickMouse(13,19,True);
+        if certing = false then ClickMouse(16,2,True);
+        Wait(200);
+        end;
+
+        If material = 'ore' then
+        while(IsTextAt(6,12,'Coal'))do
+        begin
+         If Itemcerting = iron then ClickMouse(15,6,true);
+         If Itemcerting = coal then ClickMouse(15,20,true);
+         If Itemcerting = mith then ClickMouse(15,30,true);
+         If Itemcerting = Silver then ClickMouse(15,55,true);
+         If Itemcerting = Gold then ClickMouse(15,45,true);
+         Wait(200);
+        end;
+
+        if certing = false then
+        If material = 'fish' then //if certing Raw Lobster
+        while(IsTextAt(6,12,'Raw swordfish'))do
+        begin
+         If Itemcerting = CSword then ClickMouse(15,6,true);
+         If Itemcerting = RSword then ClickMouse(15,20,true);
+         If Itemcerting = CLob then ClickMouse(15,30,true);
+         If Itemcerting = RLob then ClickMouse(15,45,true);
+         Wait(200);
+        end;
+
+        if certing = true then
+        If material = 'fish' then
+        while(IsTextAt(6,12,'Raw Lobster'))do
+        begin
+         If Itemcerting = CLob then ClickMouse(15,6,true);
+         If Itemcerting = RLob then ClickMouse(15,20,true);
+         If Itemcerting = CSword then ClickMouse(15,30,true);
+         If Itemcerting = RSword then ClickMouse(15,45,true);
+         Wait(200);
+        end;
+
+        If material = 'bars' then
+        while(IsTextAt(6,0,'iron'))do
+        begin
+         If Itemcerting = ironbar then ClickMouse(15,6,true);
+         If Itemcerting = steelbar then ClickMouse(15,20,true);
+         If Itemcerting = mithbar then ClickMouse(15,30,true);
+         If Itemcerting = Silverbar then ClickMouse(15,55,true);
+         If Itemcerting = Goldbar then ClickMouse(13,45,true);
+         Wait(200);
+        end;
+
+        if certing = true then
+        while(IsTextAt(6,48,'Twentyfive'))do
+        begin
+         ClickMouse(10,55,True);
+         Wait(200);
+        end;
+        If certing = false then
+        while(IsTextAt(6,48,'five'))do
+        begin
+         ClickMouse(10,55,True);
+         Wait(200);
+        end;
+        wait(100);
+        until(IsTextAt(7,304,'You exchange your')) or (IsTextAt(7,304,'You don t have'))
+        or (loops>=100);
+end;
+
+procedure ItemChange(sender: TObject);
+begin
+  Case item.text of
+    'Fish' : Begin
+                    Item2.Items.Clear;
+                    Item2.Items.Add('Raw Lobster');
+                    Item2.Items.Add('Cooked Lobster');
+                    Item2.Items.Add('Raw Swordfish');
+                    Item2.Items.Add('Cook Swordfish');
+                    Item2.Sorted:=False;
+                    Item2.ItemIndex:=0;
+                    Item2.DropDownCount:=4;
+                    end;
+     'Ore' : Begin
+                    Item2.Items.Clear;
+                    Item2.Items.Add('Iron');
+                    Item2.Items.Add('Coal');
+                    Item2.Items.Add('Mithril');
+                    item2.items.add ('Silver');
+                    Item2.Items.Add('Gold');
+                    Item2.Sorted:=False;
+                    Item2.ItemIndex:=0;
+                    Item2.DropDownCount:=6;
+                    end;
+     'Bars' : Begin
+                    Item2.Items.Clear;
+                    Item2.Items.Add('Iron Bars');
+                    Item2.Items.Add('Steel Bars');
+                    Item2.Items.Add('Mithril Bars');
+                    item2.items.add ('Silver Bars');
+                    Item2.Items.Add('Gold Bars');
+                    Item2.Sorted:=False;
+                    Item2.ItemIndex:=0;
+                    Item2.DropDownCount:=5;
+                    end;
+     end;
+end;
+
+procedure CancelScript (sender: TObject);
+begin
+ Start:= False;
+end;
+
+procedure StartButtonClick(sender: TObject);
+begin
+start:= True;
+RLob:= BitmapFromString(29, 7,
+       '000000180C0712000070000045372C860000A30000B80000B80000' +
+       'FC0000FC0000CE0000E60000E60000CE0000E60000E60000E60000' +
+       'E60000CE0000E60000CE0000A30000FC0000B80000A30000120000' +
+       '180C07000000000000000000180C07120000120000860000860000' +
+       '860000FC0000B80000CE0000E60000E60000E60000A30000CE0000' +
+       'E60000E60000B8000045372CB80000A30000CE0000E60000FC0000' +
+       'B80000860000120000180C07000000000000000000000000120000' +
+       '70000086000045372CA30000B80000CE0000CE0000CE0000E60000' +
+       'CE0000A30000CE0000CE000045372C180C07120000CE0000E60000' +
+       'E60000CE0000CE0000B80000860000120000000000000000000000' +
+       '000000180C0712000070000045372CA30000B80000CE0000CE0000' +
+       'A30000CE0000E60000CE0000A30000CE0000B80000120000120000' +
+       'B80000E60000E60000E60000CE0000B80000860000120000000000' +
+       '000000000000000000000000180C07120000860000B80000B80000' +
+       'CE0000CE0000CE0000A30000CE0000E60000CE000045372CB80000' +
+       'B80000120000120000B80000E60000E60000CE0000CE0000B80000' +
+       '860000000000000000000000000000000000000000180C07120000' +
+       'A30000B80000860000CE0000E60000CE0000A30000CE0000B80000' +
+       '120000120000B80000120000180C07120000CE0000CE0000CE0000' +
+       'B80000B80000860000000000000000000000000000000000000000' +
+       '000000120000A30000CE0000CE0000A30000CE0000CE0000A30000' +
+       'B8000045372CA30000120000A30000120000000000120000B80000' +
+       'A3000086000045372CA30000A30000');
+
+Clob:= BitmapFromString(8, 5,
+       '9E56009E56009E56009E56009E56009E5600AD5E005C32009E5600' +
+       '9E56009E56008E4D009E56008E4D00703D00AD5E009E56009E5600' +
+       '7F450045372C7F4500703D008E4D009E56008E4D008E4D0045372C' +
+       '180C070D07008E4D009E56009E5600703D008E4D007F45000D0700' +
+       '0D07007F45009E56009E5600');
+
+RSword:= BitmapFromString(19, 7,
+       'A366A3A366A3A366A3A366A3A366A3A366A3A366A3A366A3A366A3' +
+       'B873B8B873B8B873B8B873B8B873B8B873B8B873B8B873B8B873B8' +
+       'B873B8A366A3A366A3A366A3A366A3A366A3A366A3A366A3A366A3' +
+       'A366A3A366A3A366A3A366A3A366A3A366A3A366A3A366A3A366A3' +
+       'A366A3A366A3A366A3A366A3A366A3A366A3A366A3A366A3A366A3' +
+       'A366A3A366A3A366A3A366A3A366A3A366A3A366A3A366A3A366A3' +
+       'A366A3A366A3A366A3865486865486865486865486865486865486' +
+       '865486865486865486865486865486865486865486865486865486' +
+       '865486865486865486865486865486865486865486865486865486' +
+       '865486865486865486865486865486865486865486865486865486' +
+       '865486865486865486865486865486865486865486865486865486' +
+       '865486865486865486865486865486865486865486865486865486' +
+       '865486865486704670865486704670704670704670704670704670' +
+       '704670704670704670704670704670704670704670704670704670' +
+       '704670704670704670704670704670704670704670');
+
+CSword:= BitmapFromString(15, 5,
+       '7B477B7B477B7B477B7B477B7B477B7B477B7B477B7B477B7B477B' +
+       '7B477B7B477B7B477B8A508A8A508A8A508A7B477B5431547B477B' +
+       '7B477B7B477B7B477B7B477B7B477B7B477B7B477B7B477B7B477B' +
+       '7B477B7B477B7B477B7B477B7B477B7B477B7B477B7B477B7B477B' +
+       '7B477B7B477B7B477B7B477B7B477B7B477B7B477B7B477B7B477B' +
+       '653B65653B65653B65653B65653B65653B65653B65653B65653B65' +
+       '653B65653B65653B65653B65653B65653B65653B65653B65653B65' +
+       '653B65653B65653B65653B65653B65653B65653B65653B65653B65' +
+       '653B65653B65653B65');
+
+Iron:= BitmapFromString(16, 6,
+       '968181968181975B08968181716161716161716161724B0B968181' +
+       '716161716161716161716161716161553402724B0B716161975B08' +
+       '724B0B7161617161617161614C4141724B0B716161716161716161' +
+       '7161617161614C4141975B08553402716161724B0B724B0B4C4141' +
+       '7161617161614C41414F2100975B08716161716161716161716161' +
+       '4C4141724B0B975B08615353724B0B724B0B724B0B4C41414C4141' +
+       '4F2100724B0B724B0B975B08716161615353362E2E724B0B975B08' +
+       '724B0B826F6F4F2100553402692D04692D044F2100692D04692D04' +
+       '692D04692D04724B0B362E2E724B0B4F2100692D04692D04615353' +
+       '6153534F21004F21004F21004F21005534025534025534024F2100' +
+       '553402553402553402724B0B553402553402');
+
+Coal:= BitmapFromString(16, 13,
+       '0000000000000000004D4D4D4D4D4D4D4D4D2727272727274D4D4D' +
+       '4D4D4D272727272727272727272727272727272727000000000000' +
+       '4D4D4D2727272727272727272727272727272727276D6D6D272727' +
+       '272727272727272727272727272727000000000000272727272727' +
+       '2727272727272727272727274D4D4D4D4D4D4D4D4D272727272727' +
+       '272727272727272727000000000000272727272727272727272727' +
+       '4D4D4D2727274D4D4D4D4D4D4D4D4D4D4D4D272727272727272727' +
+       '2727270000004D4D4D6D6D6D6D6D6D6D6D6D2727274D4D4D4D4D4D' +
+       '4D4D4D4D4D4D2727272727274D4D4D4D4D4D4D4D4D2727274D4D4D' +
+       '6D6D6D4D4D4D4D4D4D4D4D4D4D4D4D272727272727272727272727' +
+       '2727274D4D4D2727272727272727272727272727274D4D4D4D4D4D' +
+       '4D4D4D4D4D4D272727272727272727272727272727272727272727' +
+       '2727272727272727272727272727272727274D4D4D4D4D4D272727' +
+       '272727272727272727272727272727272727272727272727272727' +
+       '2727272727274D4D4D272727272727272727272727272727272727' +
+       '272727272727272727272727272727272727272727272727272727' +
+       '272727272727272727272727272727272727272727272727272727' +
+       '272727272727272727272727272727272727272727272727272727' +
+       '272727272727272727272727272727000000272727272727000000' +
+       '272727272727272727272727272727272727272727272727272727' +
+       '272727272727000000000000000000000000000000000000000000' +
+       '000000000000000000000000272727272727272727000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000');
+
+Mith:= BitmapFromString(11, 5,
+       '724B0B724B0B553402975B088196AC8196AC8196AC553402553402' +
+       '8196AC8196AC8196AC8196AC975B088196AC617181617181617181' +
+       '724B0B8196AC617181617181617181975B08724B0B617181617181' +
+       '617181414C57724B0B617181617181617181617181724B0B724B0B' +
+       '414C57617181617181414C574F2100975B0861718161718153616F' +
+       '724B0B724B0B724B0B414C57414C574F2100724B0B724B0B975B08' +
+       '617181');
+
+Silver:= BitmapFromString(15, 7,
+       'E7E7E7E7E7E7E7E7E7CCCCCCCCCCCCCCCCCCA8A8A8A8A8A8A8A8A8' +
+       'A8A8A8A8A8A8A8A8A8A8A8A88F8F8F8F8F8FE7E7E7CCCCCCCCCCCC' +
+       'CCCCCCCCCCCCCCCCCCA8A8A8A8A8A8A8A8A8A8A8A8A8A8A8A8A8A8' +
+       '8F8F8F8F8F8F666666E7E7E7CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC' +
+       'A8A8A8A8A8A8A8A8A8A8A8A88F8F8F8F8F8F8F8F8F8F8F8F666666' +
+       'CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCA8A8A8A8A8A8A8A8A8' +
+       '8F8F8F8F8F8F8F8F8F666666666666666666CCCCCCCCCCCCCCCCCC' +
+       'CCCCCCCCCCCCCCCCCCA8A8A8A8A8A88F8F8F8F8F8F8F8F8F8F8F8F' +
+       '666666666666666666CCCCCCCCCCCCCCCCCCCCCCCCA8A8A88F8F8F' +
+       '8F8F8F8F8F8F8F8F8F666666666666666666666666666666666666' +
+       'CCCCCCCCCCCCCCCCCCA8A8A88F8F8F8F8F8F8F8F8F8F8F8F666666' +
+       '666666666666666666666666666666666666');
+
+Gold:= BitmapFromString(8, 12,
+       'F8C649F8C649D8AC40BA9537A28130A28130A28130A28130D8AC40' +
+       'D8AC40BA9537A28130A28130A28130A28130A28130BA9537BA9537' +
+       'A28130A28130A28130A28130A281308B6F29BA9537A28130A28130' +
+       'A28130A28130A28130A281308B6F29BA9537A28130A28130A28130' +
+       'A28130A281308B6F298B6F29BA9537A28130A28130A28130A28130' +
+       'A281308B6F296D5720BA9537A28130A28130A28130A281308B6F29' +
+       '6D57206D5720BA9537A28130A28130A281308B6F298B6F296D5720' +
+       '6D5720BA9537A28130A281308B6F298B6F296D57206D57204D3E17' +
+       'BA9537A281308B6F298B6F296D57206D57204D3E174D3E17A28130' +
+       'A281308B6F296D57206D57206D57204D3E174D3E17A281308B6F29' +
+       '6D57206D57206D57206D57206D57206D5720');
+
+IronBar:= BitmapFromString(25, 9,
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8CADA1A1978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8CADA1A1ADA1A1978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8CC9BBBB' +
+       'ADA1A1ADA1A1978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C978C8C' +
+       '978C8C978C8C978C8C978C8C978C8C978C8CC9BBBBC9BBBBADA1A1' +
+       'ADA1A1827878827878827878827878827878827878827878827878' +
+       '827878827878827878827878827878827878827878827878827878' +
+       '827878827878827878827878C9BBBBC9BBBBC9BBBBADA1A1827878' +
+       '827878827878827878827878827878827878827878827878827878' +
+       '827878827878827878827878827878827878827878827878827878' +
+       '827878827878C9BBBBC9BBBBC9BBBBC9BBBB827878665E5E665E5E' +
+       '665E5E665E5E665E5E665E5E665E5E665E5E665E5E665E5E665E5E' +
+       '665E5E665E5E665E5E665E5E665E5E665E5E665E5E665E5E665E5E' +
+       '');
+
+SteelBar:= BitmapFromString(30, 6,
+       'ADADAD979797979797979797979797979797979797979797979797' +
+       '979797979797979797979797979797979797979797979797979797' +
+       '979797979797979797979797979797979797979797979797979797' +
+       '979797979797979797ADADADADADAD979797979797979797979797' +
+       '979797979797979797979797979797979797979797979797979797' +
+       '979797979797979797979797979797979797979797979797979797' +
+       '979797979797979797979797979797979797C9C9C9ADADADADADAD' +
+       '979797979797979797979797979797979797979797979797979797' +
+       '979797979797979797979797979797979797979797979797979797' +
+       '979797979797979797979797979797979797979797979797979797' +
+       'C9C9C9C9C9C9ADADADADADAD979797979797979797979797979797' +
+       '979797979797979797979797979797979797979797979797979797' +
+       '979797979797979797979797979797979797979797979797979797' +
+       '979797979797979797C9C9C9C9C9C9C9C9C9ADADADADADAD979797' +
+       '979797979797979797979797979797979797979797979797979797' +
+       '979797979797979797979797979797979797979797979797979797' +
+       '979797979797979797979797979797979797C9C9C9C9C9C9C9C9C9' +
+       'C9C9C9ADADADADADAD979797979797979797979797979797979797' +
+       '979797979797979797979797979797979797979797979797979797' +
+       '979797979797979797979797979797979797979797979797979797' +
+       '');
+
+MithBar:= BitmapFromString(11, 7,
+       '617181617181617181617181617181617181617181617181617181' +
+       '617181617181617181617181617181617181617181617181617181' +
+       '617181617181617181617181617181617181617181617181617181' +
+       '6171816171816171816171816171816171816F829553616F53616F' +
+       '53616F53616F53616F53616F53616F53616F53616F53616F6F8295' +
+       '53616F53616F53616F53616F53616F53616F53616F53616F53616F' +
+       '53616F8196AC53616F414C57414C57414C57414C57414C57414C57' +
+       '414C57414C57414C578196AC617181414C57414C57414C57414C57' +
+       '414C57414C57414C57414C57414C57');
+
+SilverBar:= BitmapFromString(17, 7,
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2BABABA' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2BABABABABABA' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2D8D8D8BABABABABABA' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2D8D8D8D8D8D8BABABABABABA' +
+       '8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B' +
+       '8B8B8B8B8B8B8B8B8B8B8B8BD8D8D8D8D8D8D8D8D8BABABA8B8B8B' +
+       '8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B' +
+       '8B8B8B8B8B8B8B8B8BD8D8D8D8D8D8D8D8D8D8D8D88B8B8B6D6D6D' +
+       '6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D6D' +
+       '6D6D6D6D6D6D');
+
+Goldbar:= BitmapFromString(11, 10,
+       'A28130A28130A28130A28130A28130A28130A28130A28130A28130' +
+       'A28130A28130A28130A28130A28130A28130A28130A28130A28130' +
+       'A28130A28130A28130A28130A28130A28130A28130A28130A28130' +
+       'A28130A28130A28130A28130A28130A28130A28130A28130A28130' +
+       'A28130A28130A28130A28130A28130A28130A28130A28130A28130' +
+       'A28130A28130A28130A28130A28130A28130A28130A28130A28130' +
+       'A28130BA95378B6F298B6F298B6F298B6F298B6F298B6F298B6F29' +
+       '8B6F298B6F298B6F29BA95378B6F298B6F298B6F298B6F298B6F29' +
+       '8B6F298B6F298B6F298B6F298B6F29D8AC408B6F296D57206D5720' +
+       '6D57206D57206D57206D57206D57206D57206D5720D8AC40A28130' +
+       '6D57206D57206D57206D57206D57206D57206D57206D57206D5720' +
+       'D8AC40A281306D57206D57206D57206D57206D57206D57206D5720' +
+       '6D57206D5720');
+
+
+  Case Item.Text of
+    'Fish':  begin
+                  Material:= 'fish'
+                  NMaterial:= 'ore'
+                  NMaterial2:= 'bars'
+                  Brother:= 'Niles';
+                  NBrother:= 'Giles';
+                  Nbrother2:= 'Miles';
+                  end;
+    'Ore':   Begin
+                  Material:= 'ore'
+                  NMaterial:= 'fish'
+                  NMaterial2:= 'bars'
+                  Brother:= 'Giles';
+                  NBrother:= 'Niles';
+                  Nbrother2:= 'Miles';
+                  end;
+    'Bars':   Begin
+                  Material:= 'bars'
+                  NMaterial:= 'fish'
+                  NMaterial2:= 'ore'
+                  Brother:= 'Miles';
+                  NBrother:= 'Niles';
+                  Nbrother2:= 'Giles';
+                  end;
+    End;
+    case Item2.text of
+      'Raw Lobster': begin
+                     itemCerting:= RLob;
+                     end;
+      'Cooked Lobster': Begin
+                        itemCerting:= Clob;
+                        End;
+      'Raw Swordfish': Begin
+                       itemCerting:= RSword;
+                       end;
+      'Cooked Swordfish': Begin
+                          itemCerting:= CSword;
+                          end;
+      'Iron': Begin
+              ItemCerting:= Iron;
+              End;
+      'Coal': Begin
+              ItemCerting:= Coal;
+              End;
+      'Mithril': Begin
+                 ItemCerting:= Mith;
+                 End;
+      'Silver': Begin
+                ItemCerting:= Silver;
+                End;
+      'Gold': Begin
+              ItemCerting:= Gold;
+              End;
+      'Iron Bars': Begin
+                  ItemCerting:= IronBar;
+                  End;
+      'Steel Bars': Begin
+                   ItemCerting:= SteelBar;
+                   End;
+      'Mithril Bars': Begin
+                     ItemCerting:= MithBar;
+                     End;
+      'Silver Bars': Begin
+                    ItemCerting:= SilverBar;
+                    End;
+      'Gold Bars': Begin
+                  ItemCerting:= GoldBar;
+                  End;
+    End;
+
+    Case Cert.text of
+           'Cert': Begin
+                   Certing:=True
+                   End;
+           'Un Certing': Begin
+                         Certing:= False
+                         end;
+      end;
+
+      case log.text of
+           'Yes': begin
+                  keeplog:=True
+                  end;
+           'No': begin
+                     keeplog:=False
+                     end;
+      end;
+end;
+
+begin
+  Application:= GetApplication;
+  Self:= GetSelf;
+
+  Form:= TForm.Create(nil);
+  Form.Width := 200;
+  Form.Height := 185;
+  Form.Position := poScreenCenter;
+  Form.BorderStyle := bsDialog;
+  Form.Caption := 'Certer/Uncerter by Kaos';
+
+  ItemLabel := Tlabel.create(form);
+  ItemLabel.top :=12;
+  ItemLabel.left := 10;
+  ItemLabel.caption := 'Item to cert';
+  ItemLabel.parent := form;
+
+  OreLabel := TLabel.Create(Form);
+  OreLabel.Top := 40;
+  OreLabel.Left := 10;
+  orelabel.width := 120
+  OreLabel.Caption := 'Item:';
+  OreLabel.Parent := Form;
+
+  CertLabel := TLabel.Create(Form);
+  CertLabel.Top := 68;
+  CertLabel.Left := 10;
+  CertLabel.Caption := 'Cert / Uncert:';
+  CertLabel.Parent := Form;
+
+  Item:= tcombobox.create(form);
+  item.top := 10;
+  item.left := 90;
+  item.height := 24;
+  item.width := 100;
+  item.parent := Form;
+  item.dropdowncount:= 3;
+  item.items.add ('Fish');
+  item.items.add ('Ore');
+  item.items.add ('Bars');
+  item.onchange := @ItemChange;
+
+  Item2:= TcomboBox.create(form);
+  Item2.Top := 40;
+  Item2.Left := 90;
+  Item2.Width := 100;
+  Item2.Height := 24;
+  Item2.parent := Form;
+  Item2.DropDownCount:= 1;
+  Item2.Sorted:=False;
+  Item2.itemindex:= 0;
+  Item2.Parent := form;
+
+  Cert:= TcomboBox.create(form);
+  Cert.Top := 68;
+  Cert.Left := 110;
+  Cert.Width := 80;
+  Cert.Height := 24;
+  Cert.parent := Form;
+  Cert.DropDownCount:= 2;
+  Cert.Items.Add('Cert');
+  Cert.Items.Add('Un Cert');
+  Cert.itemindex:= 0;
+
+  loglabel:= tlabel.create(form);
+  loglabel.top := 96;
+  logLabel.left := 10;
+  loglabel.width := 80;
+  loglabel.height := 24;
+  loglabel.parent := form;
+  loglabel.caption := 'Debug Log';
+
+  Log:= TcomboBox.create(form);
+  Log.Top := 96;
+  Log.Left := 110;
+  Log.Width := 80;
+  Log.Height := 24;
+  Log.parent := Form;
+  Log.DropDownCount:= 2;
+  Log.Items.Add('Yes');
+  Log.Items.Add('No');
+  Log.itemindex:= 0;
+
+  ButtonStart:= TButton.Create(Form);
+  ButtonStart.Left := 10;
+  ButtonStart.Top := 124;
+  ButtonStart.Width := 80;
+  ButtonStart.Height := 24;
+  ButtonStart.Caption := 'Start';
+  buttonstart.parent:= form;
+  ButtonStart.OnClick := @Startbuttonclick;
+  ButtonStart.Default := True;
+  ButtonStart.ModalResult := mrOk;
+
+  ButtonCancel:=tbutton.create(form);
+  ButtonCancel.Left := 110;
+  ButtonCancel.Top := 124;
+  ButtonCancel.Width := 80;
+  ButtonCancel.Height := 24;
+  ButtonCancel.Caption := 'Cancel';
+  buttoncancel.parent := Form;
+  buttonCancel.onclick := @CancelScript
+  ButtonCancel.Default := false;
+  buttoncancel.Modalresult := mrok;
+
+  Form.ShowModal;
+  Form.Free;
+begin
+if Start = true then
+Begin
+  loopi:= 0;
+  l1:= CreateLandmark(11, 14, '040003A3000104001703000104001E03000104000643000104000F01000104000701000104001A730001040025');
+
+repeat
+rndx:= random(2)
+rndy:= random(2)
+certPath:= CreatePath;
+AddLandmarkToPath(certpath, l1, rndx, rndy);
+GoByPath(CertPath);
+DoCerting;
+rndx:= random(3)
+rndy:= random(3)
+BankPath:= CreatePath;
+AddLandmarkToPath(Bankpath, l1, rndx + 7, rndy + 7);
+GoByPath(BankPath);
+bank;
+until(false);
+end;
+end;
+end.

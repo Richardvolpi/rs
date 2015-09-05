@@ -1,0 +1,265 @@
+{< >< >< > Steel Plate HighAclher< >< >< >}
+{< >< >< >< >< > By:CamHart< >< >< >< >< >}
+{< >< Be In A Bank With Human Bankers >< >}
+{< > Have a Sleeping Bag in First Slot < >}
+{< > Have Fire Staff/Runes in 2nd Slot>< >}
+{< >< >< >Have 1 Coin in 3rd Slot< >< >< >}
+{< If You Want Have Sap Ammy In 4th Slot >}
+{< >< >< ><Have Plates In Bank< >< >< >< >}
+{< >< >< ><With Nats on Same Page< >< >< >}
+{< >Have HighLvlAlch First Spell In Book >}
+{< >< ><Works Best With All Blocks on >< >}
+{< >< >< >< >< > RIP Reines< >< >< >< >< >}
+
+program SteelPlateAlching;
+const
+SDelay=30;
+var
+ x,d,withdraw25x,withdrawx,withdrawy,naturerune,findnatstries,naturerunex,natureruney,withdraw25y, steelplate, steelplatex, platetries, steelplatey, y, c, a,wt,fat,bag,bagx,bagy,wt2,trybag: Integer;
+
+Procedure Pictures;
+begin
+status('Pictures')
+ steelplate := BitmapFromString(8, 7,
+      '4C4C4C4C4C4C2D2D2D2D2D2D2D2D2D3F3F3F3F3F3F5D5D5D4C4C4C' +
+      '4C4C4C4C4C4C2D2D2D2D2D2D2D2D2D3F3F3F4C4C4C4C4C4C5D5D5D' +
+      '5D5D5D2D2D2D2D2D2D2D2D2D3F3F3F4C4C4C5D5D5D5D5D5D5D5D5D' +
+      '3F3F3F2D2D2D3F3F3F4C4C4C4C4C4C5D5D5D5D5D5D5D5D5D4C4C4C' +
+      '4C4C4C5D5D5D5D5D5D5D5D5D5D5D5D5D5D5D5D5D5D5D5D5D727272' +
+      '7272725D5D5D5D5D5D5D5D5D727272727272727272727272727272' +
+      '5D5D5D5D5D5D');
+
+ naturerune := BitmapFromString(8, 9,
+      '6F78836F78836F78836F78836F78836F78836F78836F788309AB09' +
+      '6F78836F78836F78836F78836F78836F78832020206F78836F7883' +
+      '6F78836F78836F78836F78836F78836F78836F788320202009AB09' +
+      '6F78836F788320202009AB096F788309AB0909AB0920202009AB09' +
+      '20202009AB0920202009AB096F78836F788320202009AB09202020' +
+      '09AB096F78836F78836F788320202009AB096F78836F7883202020' +
+      '09AB096F78836F788320202009AB096F78836F788320202009AB09' +
+      '6F788320202009AB096F78836F78836F78836F788320202009AB09' +
+      '');
+
+ bag:=BitmapFromString(18,7,
+    '9D6E3D9D6E3D9D6E3D7B542E7B542E7B542E7B542E7B542E7B542E' +
+    '7B542E52452E52452E52452E52452E52452E52452E52452E360E06' +
+    '9D6E3D7B542E9D6E3D7B542E7B542E7B542E7B542E7B542E7B542E' +
+    '7B542E7B542E52452E52452E52452E52452E52452E52452E52452E' +
+    '9D6E3D9D6E3D9D6E3D9D6E3DC344227B542E7B542E7B542E7B542E' +
+    '7B542E7B542E7B542E52452E7B542E52452E52452E52452E615D61' +
+    '9D6E3D9D6E3D9D6E3D7B542E9D6E3D7B542E7B542E7B542E7B542E' +
+    '7B542E7B542E7B542E52452E7B542E52452E52452E8D8D8D868457' +
+    '7B542E9D6E3D9D6E3D9D6E3D7B542E9D6E3D7B542E7B542E7B542E' +
+    '7B542E7B542E7B542E7B542E7B542E7B542E52452E988CB1988CB1' +
+    '7B542E7B542E9D6E3D9D6E3D9D6E3D9D6E3D9D6E3DC344227B542E' +
+    '7B542E7B542E7B542E7B542E7B542E7B542E988CB1988CB1988CB1' +
+    '7B542E7B542E7B542E9D6E3D9D6E3D9D6E3D9D6E3D9D6E3D7B542E' +
+    '7B542E7B542E7B542E7B542E7B542E7B542E988CB1CFAB7BCFAB7B' +
+    '');
+ end;
+
+
+
+Procedure findbag;
+Begin
+status('Finding Sleeping Bag')
+movemouse(495,15)
+ trybag:=0;
+ Repeat
+ trybag:=trybag+1;
+ Until(FindBitmap(bag,bagx,bagy))or(trybag>20);
+ If(trybag>=20)Then Writeln('Pecker get a bloody sleeping bag');
+ Writeln('<This is useing Reines Sleeper, Credit Him>');
+ MoveMouse(25,25);
+End;
+
+Procedure sleep;
+Begin
+ wt:=0;
+ fat:=0;
+ Wait(1000);
+ Movemouse(498,16);
+ Wait(1000);
+ Movemouse(bagx+2,bagy+2);
+ Wait(1000);
+ If(IsTextAt(6,2,'Sleeping Bag: sleep'))Then
+ Begin
+   Status('Sleeping');
+   ClickMouse(bagx,bagy,True);
+   Repeat
+   Wait(1000);
+   wt:=wt+1000;
+   Until(wt>=60000)Or(Getcolor(166,44)<>65535)Or(Getcolor(266,133)<>16777215);
+   If(wt>=60000)And(Getcolor(166,44)=65535)Then
+   Begin
+     Repeat
+     ClickMouse(198,302,True);
+     wt2:=0;
+     Repeat
+     Wait(1000);
+     wt2:=wt2+1000;
+     Wait(1000);
+     Until(wt2>=40000)Or(Getcolor(166,44)<>65535);
+     Until(Getcolor(166,44)<>65535);
+   End;
+   Wait(1000);
+ End;
+ MoveMouse(25,25);
+End;
+
+Procedure findnats;
+begin
+withdraw25x:=338
+withdraw25y:=247
+status('Finding Nats')
+findnatstries:=0
+naturerunex:=255
+natureruney:=133
+repeat
+findnatstries:=findnatstries+1
+wait(200)
+Until(FindBitmap(naturerune,naturerunex,natureruney))
+naturerunex:=naturerunex
+natureruney:=natureruney
+wait(200)
+clickmouse(naturerunex,natureruney,true)
+wait(200)
+wait(100)
+clickmouse(withdraw25x,withdraw25y,true)
+end;
+
+Procedure Getplates;
+begin
+withdrawx:=280;
+withdrawy:=245;
+Status('Getting Plates')
+platetries:=0
+x:=255
+y:=133
+repeat
+wait(100)
+platetries:=platetries+1;
+Until(FindBitMap(steelplate,steelplatex,steelplatey))or(platetries>25)
+steelplatex:=steelplatex
+steelplatey:=steelplatey
+wait(200)
+clickmouse(steelplatex,steelplatey,true)
+wait(200)
+d:=0
+repeat
+clickmouse(withdrawx,withdrawy,true)
+wait(250+random(25))
+d:=d+1;
+until (IsTextAt(7,304,'You don t have room to hold that object'))or(d>28)
+end;
+
+//Finds a banker and takes out plates
+Procedure Banking;
+begin
+c:=0;
+status('Banking')
+ Wait(200);
+   repeat
+     repeat
+       x:= Random(500);
+       y:= Random(340);
+       FindColorSpiral(x,y,10661355,x-50,y-50,x+50,y+50);
+       MoveMouse(x, y);
+       Wait(200);
+     until(IsTextAt(6,2,'Banker: Talk'))or(IsTextAt(6,0,'l d like to access my bank account please'));
+     ClickMouse(x, y, True);
+     Wait(4000);
+   until(IsTextAt(6,0,'l d like to access my bank account please'));
+   ClickMouse(17,8,True);
+   Wait(6000);
+   findnats;
+   wait(200)
+   Getplates;
+   wait(1000)
+   clickmouse(418,10,true)
+   wait(2000)
+   end;
+
+procedure HighAlching;
+
+begin
+status('High Level Alching')
+a:=0;
+repeat
+clickmouse(393+random(5),18+random(5),true)
+wait(200+random(10))
+Clickmouse(368+random(5),68+random(5),true)
+wait(200+random(10))
+movemouse(500,15)
+wait(200+random(5))
+clickmouse(290,88,true)
+wait(2000)
+a:=a+1;
+until(IsTextAt(7,304,'You don t have all the reagents'))
+end;
+
+Begin
+ Status('H');Wait(100);
+ Status('');Wait(100);
+ Status('Hi');Wait(100);
+ Status('');Wait(100);
+ Status('Hig');Wait(100);
+ Status('');Wait(100);
+ Status('High');Wait(100);
+ Status('');Wait(100);
+ Status('HighL');Wait(100);
+ Status('');Wait(100);
+ Status('HighLv');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvl');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlA');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAl');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlc');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlch');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlche');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchem');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy ');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy B');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy By');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy By:');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy By:C');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy By:Ca');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy By:Cam');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy By:CamH');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy By:CamHa');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy By:CamHar');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy By:CamHart');Wait(100);
+ Status('');Wait(100);
+ Status('HighLvlAlchemy By:CamHart');Wait(1000);
+ Pictures;
+ wait(100)
+ findbag;
+repeat
+wait(1000)
+Banking;
+wait(5000)
+HighAlching;
+wait(1000)
+sleep;
+wait(2000)
+until(false)
+end.

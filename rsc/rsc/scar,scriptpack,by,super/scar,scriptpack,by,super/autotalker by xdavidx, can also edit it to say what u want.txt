@@ -1,0 +1,63 @@
+//***************************************
+//            AUTO talker
+//=======================================
+//-Scriped and written by xdavidx
+//-for private use only
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Features:
+//  - Only works for free game in rs
+//  - Auto talks
+//  - Works with all version of SCAR
+//  - Auto relogin
+//  - Good for advertising
+//  - DO NOT use with edited rsc screens
+//  - DO NOT EDIT THIS SCRIPT AT ALL!
+//***************************************
+program Autotyper;
+const MyWait = 200;
+var
+  username, password: string;
+  //auto relogin
+begin
+username:= readln('place your username in here:'); // do not edit.
+password:= readln('type in your password here:'); // ^^^
+  while (True) do
+  begin
+if(GetColor(88,145)=3472636)and
+(GetColor(304,270)=8611678)and
+(GetColor(260,242)=16777215)then
+begin
+ClickMouse(340,280,True);
+Wait(200);
+ClickMouse(230,240,True);
+Wait(50);
+SendKeysSilent(username);
+Wait(200);
+ClickMouse(230,300,True);
+Wait(75);
+ClickMouse(230,300,True);
+Wait(10);
+SendKeysSilent(password);
+Wait(10);
+ClickMouse(380,250,True);
+Wait(3000);
+end;
+if(GetColor(56,117)=16777215)and
+(GetColor(57,118)=0)and
+(GetColor(455,216)=16777215)and
+(GetColor(454,215)=0)
+    then
+    begin
+      ClickMouse(258,231,True);
+      Wait(1200);
+    end;
+//Autotalker
+begin
+repeat
+SendKeysSilent('hey you, yes you, c4n i f8kc you in t3h bum plz')//
+SendKeysSilent(Chr(13));
+Wait(955 + random(1755)); // <--- change the random and wait to best suits your speed
+until (false);
+end;
+  end;
+  end.

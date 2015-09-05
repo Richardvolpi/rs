@@ -1,0 +1,616 @@
+{**Ir0nWh0re**}
+      {*****By Wushi*****}
+    {South Fally Iron Miner}
+  {--------Version 1.0--------}
+{===========Features=================}
+{+ Powermine or Mines and Banks Iron }
+{+ Auto Response when someone says
+{your name! (Currently messed up)    }
+{+ Takes pic when lvl raised         }
+{+ Status Report                     }
+{+ Banks gems                        }
+{+ Reloggon                          }
+{+ Works for free and member versions}
+{+ Clicks on Sleeping Bag            }
+{+ Always clicks rock
+      (not another brown object)    }
+{+ Dodges the HighwayMan             }
+{====================================}
+{
+
+NOTE: Right now the Auto-Response thing really slows down the game.
+You probably shouldn't use it unless it works for you (sometimes it does
+for me, other times doesn't)
+
+ -----> Instructions: <------
+*Must have Sleeping bag in 1st slot
+*Start in the South Falador mine between the 2 iron rocks
+*West must be pointing up, compass should look like this:
+
+               W
+            S  +  N
+               E
+*I made this script using SilentMouse on, it will probably work with it off though
+
+*Script will probably work faster with Auto-Response OFF
+
+Auto Response Instructions:
+*In the "What people call you" box, type in what people would call you.
+For example, if my name was ScytheThrower, then people would probably call me
+Scythe. Just in case you could type in 'cythe' because the 'S' could be
+capital or lowercase.
+If my name was Mr. Autoer11, then people would call me Autoer so you should
+probably put in 'utoer'.
+
+*In the Responses boxes, type in what you want to auto-respond.
+
+For example, ?,what,huh, and ... are good answers.
+
+*If its still not working, that maybe the colors on your computer are different
+or something. SCAR noobs remember to drag the crosshair over the client
+to specify it
+
+Thanks to the other scriptmakers, for helping me understand more commands
+and ect. And of course, thanks to the maker of SCAR
+}
+
+//My name is Wushi on RSC if you need help or something...
+
+
+program Ir0nWh0re;
+   var
+x,y,Ir0n0re,x1,y1,a,b,times,p1,p2,n,sapphire,emerald,ruby,diamond,tt,nn:integer;
+user,pass,i,m,nick,r1,r2,r3:string;
+FullInv,FakeTalk:boolean;
+ form, self: TForm;
+ Application: TApplication;
+ UserLabel, PassLabel, IronOres,txtresp,space,txtname: TLabel;
+ txtUser, txtPass, txtOres,resp1,resp2,resp3,Nickname: TEdit;
+ ButtonOK,ButtonHelp: TButton;
+ Mode:TComboBox;
+ TCheck:TCheckBox;
+
+
+procedure buttonclick(sender: TObject);
+begin
+ r1:=resp1.text;
+ r2:=resp2.text;
+ r3:=resp3.text;
+ m:=Mode.text;
+ nick:=NickName.text;
+ user:=txtUser.text;
+ pass:=txtPass.text;
+ i:=txtOres.text;
+ times:=StrToInt(i);
+ SaveSetting('Ir0nWh0re', 'UserName', txtUser.text);
+ SaveSetting('Ir0nWh0re', 'PassWord', txtPass.text);
+ SaveSetting('Ir0nWh0re', 'NickName', NickName.text);
+ SaveSetting('Ir0nWh0re', 'Resp1', resp1.text);
+ SaveSetting('Ir0nWh0re', 'Resp2', resp2.text);
+ SaveSetting('Ir0nWh0re', 'Resp3', resp3.text);
+ if TCheck.Checked then FakeTalk:=true else FakeTalk:=false;
+end;
+
+procedure buttonhelper(sender: TObject);
+begin
+ Application.MessageBox('Thanks for using Ir0nWh0re!                                                                                                                   *Start by putting the angle so that West is facing upwards. Use manual (not auto).                                *You should be in the South Fally mines where the 2 iron rocks are                                                      *Put sleeping bag in 2nd slot                                                                                                                  *For more info view the comments at the very beginning of this script, good luck!', 'Ir0nWh0re Help for the No0bish - Created by Wushi', 0);
+end;
+
+procedure Reloggon;
+begin
+   if (GetColor(57,48)=7629924) and (GetColor(226,132)=5524540) then
+     begin
+       ClickMouse(242+random(5),287+random(5),true);
+       wait(200);
+       ClickMouse(307+random(90),270+random(10),true);
+       wait(400);
+       SendKeys(user+#13);
+       wait(200);
+       SendKeys(pass+#13);
+         repeat
+           wait(500);
+         until(IsTextAt(180, 225,'Click here to'))
+         wait(400+random(20));
+       ClickMouse(225+random(50),230+random(2),true);
+     end;
+end;
+
+
+procedure Mine;
+ begin
+   if (FindColorSpiral(x,y,1515311,x-200,y-200,x+200,y+200)) then
+    begin
+      MoveMouse(x,y);
+
+    If (IsTextAt(6,2,'Rock')) then
+     begin
+      Writeln('Mining...');
+
+        ClickMouse(x,y,true);
+        wait(3300+random(10));
+
+        MoveMouse(487,15);
+        wait(100);
+ if(FindBitmapIn(Ir0n0re,x1,y1,461,206,505,236)) then
+  begin
+   FullInv:=true;
+   Writeln('Full Inventory');
+  end;
+        wait(200);
+        MoveMouse(105+random(10),261+random(10));
+
+  if (IsTextAt(7,304,'You manage')) then
+   begin
+       times:=times+1;
+       nn:=nn+1;
+       Writeln('***You have mined ' + IntToStr(times) + ' iron***');
+  if (IsTextAt(7,304,'You just advanced')) then
+   begin
+   MoveMouse(425,15);
+   wait(200);
+      SaveScreenshot(AppPath + 'Mining lvl.bmp');
+      Writeln('   <Mining lvl advanced!>     Congrats');
+   end;
+   end;
+   end;
+   end;
+
+
+     if (IsTextAt(7,304,'You are too')) then
+  begin
+  Writeln('Sleeping...');
+   MoveMouse(490,20);
+   wait(200);
+   ClickMouse(278+random(10),44+random(10),true);
+    repeat
+    wait(200);
+    until(not IsTextAt(171,273,'If you can t read the word'))
+   end;
+end;
+
+procedure AutoResponse;
+begin
+
+ if (IsTextInArea(16,254,227,322,x1,y1,nick)) and (nn>10) then
+ begin
+ if (tt=0) then
+ begin
+ wait(1000+random(30));
+  SendKeys(r1+#13);
+ end;
+ if (tt=1) then
+ begin
+ wait(1000+random(30));
+  SendKeys(r2+#13);
+ end;
+ if (tt=2) then
+ begin
+ wait(1000+random(30));
+  SendKeys(r3+#13);
+ end;
+ tt:=random(3);
+ nn:=0;
+ Writeln('---------AutoResponse used----------');
+ end;
+end;
+
+
+procedure Bank;
+begin
+          Writeln('Going to bank...');
+          wait(200);
+          MoveMouse(461,16);
+          wait(1000);
+          ClickMouse(505,146,true);
+          wait(10000);
+          ClickMouse(503,144,true);
+          wait(10000);
+          ClickMouse(503,133,true);
+          wait(10000);
+          ClickMouse(501,160,true);
+          wait(10000);
+          ClickMouse(502,137,true);
+          Writeln('Finding Bank in minimap');
+          n:=0;
+     repeat
+       FindColorSpiral(x1,y1,1049708,370,85,502,185)
+       wait(200);
+       n:=n+1;
+       Writeln(IntToStr(n));
+       if (n=5) then
+        begin
+         ClickMouse(463,162,true);
+         Writeln('Clicked');
+         n:=0;
+        end;
+     until(FindColorSpiral(x1,y1,1049708,370,85,504,185))
+     n:=0;
+     ClickMouse(x1,y1,true);
+     wait(10000);
+     n:=0;
+
+            Writeln('Banking...');
+   repeat
+    repeat
+       FindColorSpiral(x1,y1,65536,30,17,463,293)
+       n:=n+1;
+       if (n=10) then
+       begin
+        MoveMouse(459,16);
+        wait(200);
+        repeat
+         wait(200);
+        until(FindColorSpiral(x1,y1,1049708,370,85,504,185))
+        ClickMouse(x1,y1,true);
+       end;
+
+    until(FindColorSpiral(x1,y1,65536,30,17,462,293))
+    MoveMouse(x1,y1);
+     If(IsTextAt(6,2,'Banker')) then
+      begin
+       ClickMouse(x1,y1,true);
+       wait(4000);
+     end;
+   until(IsTextAt(6,0,'I d like to access'))
+       ClickMouse(13+random(50),4+random(3),true);
+       wait(5000);
+       Writeln('Depositing...')
+       repeat
+       FindBitmapIn(Ir0n0re,x1,y1,60,31,451,234)
+       until(FindBitmapIn(Ir0n0re,a,b,60,31,451,234))
+       ClickMouse(a,b,true);
+       wait(500);
+       ClickMouse(339+random(3),270+random(5),true);
+       wait(500);
+       ClickMouse(279+random(5),269+random(5),true);
+       wait(500);
+       ClickMouse(279+random(5),269+random(5),true);
+       wait(600);
+       ClickMouse(279+random(5),269+random(5),true);
+       wait(610);
+
+       if (FindBitmapIn(Sapphire,x1,y1,60,32,451,235)) then
+       begin
+       ClickMouse(x1,y1,true);
+       wait(500);
+       ClickMouse(283,271,true);
+       wait(100+random(100));
+       ClickMouse(282,273,true);
+       end
+
+       if (FindBitmapIn(Emerald,x1,y1,60,32,451,235)) then
+       begin
+       ClickMouse(x1,y1,true);
+       wait(500);
+       ClickMouse(283,271,true);
+       wait(100+random(100));
+       ClickMouse(282,273,true);
+       end
+
+       if (FindBitmapIn(Ruby,x1,y1,60,32,451,235)) then
+       begin
+       ClickMouse(x1,y1,true);
+       wait(500);
+       ClickMouse(283,271,true);
+       wait(100+random(100));
+       ClickMouse(282,273,true);
+       end
+
+       if (FindBitmapIn(Diamond,x1,y1,60,32,451,235)) then
+       begin
+       ClickMouse(x1,y1,true);
+       wait(500);
+       ClickMouse(283,271,true);
+       wait(100+random(100));
+       ClickMouse(282,273,true);
+       end
+
+
+       ClickMouse(387+random(3),7+random(3),true);
+       wait(200);
+Writeln('Back to the mines...');
+repeat
+MoveMouse(422,16);
+wait(100);
+MoveMouse(456,12);
+wait(200);
+until(FindBitmapIn(p1,x1,y1,353,86,402,132))
+ClickMouse(x1,y1-50,true);
+wait(12000);
+ClickMouse(358,42,true);
+wait(10000);
+repeat
+MoveMouse(426,15);
+wait(100);
+MoveMouse(460,14);
+wait(200);
+FindBitmapIn(p2,x1,y1,355,71,399,124);
+n:=n+1;
+if (n=15) then
+begin
+ClickMouse(355,44,true);
+n:=0;
+end;
+until(FindBitmapIn(p2,x1,y1,355,71,399,124))
+n:=0;
+ClickMouse(x1+1,y1,true);
+wait(1000);
+MoveMouse(461,17);
+wait(9000);
+ClickMouse(363,103,true);
+wait(9000);
+repeat
+wait(200);
+until(FindColorSpiral2(x,y,13388,353,35,479,174))
+ClickMouse(x,y,true);
+wait(8000);
+ClickMouse(125,6,true);
+x:=173;
+y:=82;
+wait(3000);
+FullInv:=false;
+
+
+
+
+ end;
+
+
+
+
+
+
+
+
+begin
+
+ //Initialize Application object
+ Application:= GetApplication;
+ Self:= GetSelf;
+
+ Form:= TForm.Create(nil);
+ Form.Width := 400;
+ Form.Height := 200;
+ Form.Position := poScreenCenter;
+ Form.BorderStyle := bsDialog;
+ Form.Color := ClBlue;
+ Form.Caption := 'Ir0nWh0re - Created by Wushi';
+ Self.Caption:= 'Ir0nWh0re - Created by Wushi';
+
+ IronOres  := TLabel.Create(Form);
+ IronOres.Top :=12;
+ IronOres.Left:=210;
+ IronOres.Caption:='Number of current ores:';
+ IronOres.Parent := Form;
+ IronOres.Font.color := ClYellow;
+
+ UserLabel := TLabel.Create(Form);
+ UserLabel.Top := 12;
+ UserLabel.Left := 16;
+ UserLabel.Caption := 'Username:';
+ UserLabel.Parent := Form;
+ UserLabel.Font.color := ClLime;
+ PassLabel := TLabel.Create(Form);
+ PassLabel.Top := 42;
+ PassLabel.Left := 16;
+ PassLabel.Font.color := ClLime;
+ PassLabel.Caption := 'Password:';
+ PassLabel.Parent := Form;
+
+
+ Resp1:=TEdit.Create(Form);
+ Resp1.Top:=105;
+ Resp1.Left:=195;
+ Resp1.Width:=60;
+ Resp1.Parent:=Form;
+
+ Resp2:=TEdit.Create(Form);
+ Resp2.Top:=105;
+ Resp2.Left:=260;
+ Resp2.Width:=60;
+ Resp2.Parent:=Form;
+
+ Resp3:=TEdit.Create(Form);
+ Resp3.Top:=105;
+ Resp3.Left:=325;
+ Resp3.Width:=60;
+ Resp3.Parent:=Form;
+
+
+ NickName:=TEdit.Create(Form);
+ NickName.Top:=100;
+ NickName.Left:=50;
+ NickName.Width:=60;
+ NickName.Parent:=Form;
+
+ TCheck:=TCheckBox.Create(Form);
+ TCheck.Top:=73;
+ TCheck.Left:=160;
+ TCheck.Width:=233;
+ TCheck.Height:=25;
+ TCheck.Font.Color:=ClYellow;
+ TCheck.Font.Height:=16;
+ TCheck.Caption:='Use Auto-Response';
+ TCheck.Parent:=Form;
+
+ space:=TLabel.Create(Form);
+ space.Top:=62;
+ space.Left:=4;
+ space.Caption:='--------------------------------------------------------------------------------------------------------------------------------';
+ space.Font.Color:=ClRed;
+ space.Parent:=Form;
+
+ txtresp:=TLabel.Create(Form);
+ txtresp.Top:=107;
+ txtresp.Left:=135;
+ txtresp.Caption := 'Responses:';
+ txtresp.Font.Color := ClWhite;
+ txtresp.Parent:=Form;
+
+ txtname:=TLabel.Create(Form);
+ txtname.Top:=80;
+ txtname.Left:=10;
+ txtname.Caption:='What people call you by:';
+ txtname.Font.Color := ClWhite;
+ txtname.Parent:=Form;
+
+ txtOres := TEdit.Create(Form);
+ txtOres.Top :=9;
+ txtOres.Left:=330;
+ txtOres.Width:= 40;
+ txtOres.Hint:= 'The total amount of Iron you already have (leave at 0 if you want)';
+ txtOres.ShowHint:=true;
+ txtOres.Font.name:='Courier New';
+ txtOres.text:='0';
+ txtOres.Parent:=Form;
+
+
+ txtUser := TEdit.Create(Form);
+ txtUser.Top := 10;
+ txtUser.Left := 86;
+ txtUser.Width := 100;
+ txtUser.Parent := Form;
+ txtPass := TEdit.Create(Form);
+ txtPass.Top := 40;
+ txtPass.Left := 86;
+ txtPass.Width := 100;
+ txtPass.Font.name:='Wingdings';
+ txtPass.PasswordChar:= ']';
+ txtPass.Parent := Form;
+
+ ButtonHelp := TButton.Create(Form);
+ ButtonHelp.Left :=230;
+ ButtonHelp.Top :=140;
+ ButtonHelp.Width:=80;
+ ButtonHelp.Height:=24;
+ ButtonHelp.Caption:= '&Help'
+ ButtonHelp.OnClick := @buttonhelper;
+ ButtonHelp.Parent := Form;
+ ButtonHelp.Default :=True;
+
+ Mode:= TComboBox.create(Form);
+ Mode.Top:=40;
+ Mode.Left:=230;
+ Mode.Width:=80;
+ Mode.Height:=10;
+ Mode.Parent:=Form;
+ Mode.DropDownCount:=2;
+ Mode.Items.Add('Mine/Bank');
+ Mode.Items.Add('PowerMine');
+ Mode.ItemIndex:=0;
+
+
+ ButtonOK := TButton.Create(Form);
+ ButtonOK.Left := 100;
+ ButtonOK.Top := 140;
+ ButtonOK.Width := 80;
+ ButtonOK.Height := 24;
+ ButtonOK.Caption := '&Start';
+ //Assign event to button that will hide form
+ ButtonOK.OnClick := @buttonclick;
+ ButtonOK.Parent := Form;
+ ButtonOK.Default := True;
+ ButtonOK.ModalResult:= mrOk;
+
+ txtUser.text:=LoadSetting('Ir0nWh0re', 'UserName');
+ txtPass.text:=LoadSetting('Ir0nWh0re', 'PassWord');
+ Nickname.text:=LoadSetting('Ir0nWh0re', 'NickName');
+ resp1.text:=LoadSetting('Ir0nWh0re', 'Resp1');
+ resp2.text:=LoadSetting('Ir0nWh0re', 'Resp2');
+ resp3.text:=LoadSetting('Ir0nWh0re', 'Resp3');
+
+ //Show modal form
+ Form.ShowModal;
+ Form.Free;
+ p1 := BitmapFromString(8, 5,
+      '084800084800606060606060084800084800084800084800084800' +
+      '084800606060606060084800084800084800084800084800084800' +
+      '606060606060084800084800084800084800084800084800084800' +
+      '084800606060084800084800084800084800084800084800084800' +
+      '606060084800084800084800');
+ p2 := BitmapFromString(5, 6,
+      '404040404040404040404040404040084800084800084800084800' +
+      '08480008480008480008480008480008480008480008480000FFFF' +
+      '08480008480008480000FFFF00FFFF00FFFF084800084800084800' +
+      '00FFFF084800084800');
+
+ Ir0n0re := BitmapFromString(3, 3,
+      '7161614C41414F21004C41414F2100724B0B4F2100692D04692D04' +
+      '');
+ sapphire := BitmapFromString(6, 7,
+      '0040D80037BA0037BA0030A20030A20030A20037BA0037BA0037BA' +
+      '0030A20030A20030A20037BA0037BA0037BA0030A20030A20030A2' +
+      '0037BA0037BA0037BA0030A20030A20030A20037BA0037BA0037BA' +
+      '0030A20030A200298B0037BA0037BA0037BA0030A200298B00298B' +
+      '0037BA0030A20030A20030A200298B00206D');
+ emerald := BitmapFromString(7, 6,
+      '259525259525208120208120208120208120208120259525259525' +
+      '208120208120208120208120208120259525259525208120208120' +
+      '208120208120208120259525259525208120208120208120208120' +
+      '1B6F1B2595252595252081202081202081201B6F1B1B6F1B259525' +
+      '2595252081202081201B6F1B1B6F1B155715');
+ ruby := BitmapFromString(7, 6,
+      'D82B00D82B00BA2500BA2500A22000A22000A22000D82B00BA2500' +
+      'BA2500A22000A22000A22000A22000D82B00BA2500BA2500A22000' +
+      'A22000A22000A22000BA2500BA2500BA2500A22000A22000A22000' +
+      'A22000BA2500BA2500BA2500A22000A22000A22000A22000BA2500' +
+      'BA2500BA2500A22000A22000A220008B1B00');
+ diamond := BitmapFromString(7, 7,
+      'D8D8D8D8D8D8BABABABABABAA2A2A2A2A2A2A2A2A2D8D8D8D8D8D8' +
+      'BABABABABABAA2A2A2A2A2A2A2A2A2D8D8D8BABABABABABABABABA' +
+      'A2A2A2A2A2A2A2A2A2D8D8D8BABABABABABABABABAA2A2A2A2A2A2' +
+      'A2A2A2BABABABABABABABABABABABAA2A2A2A2A2A2A2A2A2BABABA' +
+      'BABABABABABABABABAA2A2A2A2A2A28B8B8BBABABABABABABABABA' +
+      'BABABAA2A2A28B8B8B8B8B8B');
+
+Status('You are using Ir0nWh0re, created by Wushi. By using this you agree to the fact that Wushi 0wns j00;-)');
+
+x:=301;
+y:=152;
+a:=2123;
+b:=152;
+nn:=11;
+tt:=random(3);
+
+if (m='Mine/Bank') and (FakeTalk=true) then
+begin
+ repeat
+Reloggon;
+Mine;
+AutoResponse;
+if (FullInv=true) then
+ begin
+  Bank;
+ end;
+ until(false);
+end;
+
+if (m='Mine/Bank') and (FakeTalk=false) then
+begin
+ repeat
+Reloggon;
+Mine;
+if (FullInv=true) then
+ begin
+  Bank;
+ end;
+ until(false);
+end;
+
+if (m='Powermine') and (FakeTalk=true) then
+begin
+ repeat
+Reloggon;
+Mine;
+AutoResponse;
+ until(false)
+end;
+
+if (m='Powermine') and (FakeTalk=false) then
+begin
+ repeat
+Reloggon;
+Mine;
+ until(false)
+end;
+end.

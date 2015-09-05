@@ -1,0 +1,285 @@
+{
+ v5 -* Made by Phalanx *-
+ Start between fally bank to furnace with:
+  - Smode = 1  - at least one iron ore or full inv of iron ores.
+  - Smode <> 1 - 20 and Coals 10 Iron ores.
+ Works for both P2P and F2P
+ Just set the required settings and you are good to go. :)
+
+ Notice: * Rotate the map MENUALLY to head almost perfect north.
+         * Compitable with scar 112.
+}
+program FallySmelting;
+{.include PhalanxInclude.txt}
+const
+ // Set your settings here
+ // User related settings:
+ UserName    = ''  ; // UserName here.
+ PassWord    = ''  ; // PassWord here.
+ 
+ //Smelting Settings:
+ SMode       = 1   ; // Smelting mode - 1 for iron smelting, any other number for steel smelting.
+ 
+ //Other Settings (you can leave them as default)
+ BTPR        = 1   ; // Banking till progress report.
+ SleepWDelay = 15  ; // Minutes to wait for an FO.
+ ClickMapDel = 3   ; // Click map delay in seconds for GoByPath procedure.
+ KillSwitch  = 5   ;
+//Settings end.
+
+var
+ Landmark, SmeltPath, BankPath:integer;
+ BKC:integer;
+ SI,SC,SIB,SSB,CI,CC,CIB,CSB,ST:LongInt;
+ SCH:boolean;
+
+procedure DoBanking(NeedSleep:Boolean);
+var
+ x,y,i:integer;
+begin
+ TalkTo(65536,6,2,'Banker: Talk',6,0,'l d like to access my bank account please',1,379,1,'Close window',BankPath);
+ EmptyBank('');
+ Wait(1000);
+ if SMode=1 then
+ begin
+  if GetItem('iron bar',x,y,60,30,450,235) then GetItemQuanity(X,Y,CIB);
+ end else if GetItem('steel bar',x,y,60,30,450,235) then GetItemQuanity(X,Y,CSB);
+ 
+ if NeedSleep then
+ begin
+  if GetItem('sleeping bag',x,y,60,30,450,235) then
+  begin
+   ClickMouse(x,y,True);
+   Wait(1000);
+   ClickMouse(284,246,True);
+   wait(1000);
+   //Close bank window
+   Repeat
+    ClickMouse(400,6,True);
+    Wait(1000);
+   Until (IsTextAt(379,1,'Close window')=False);
+   SleepNeeded;
+  end
+ end
+ else
+ begin
+  if SMode<>1 then
+  begin
+   if GetItem('coal',x,y,60,30,450,235) then
+   begin
+    ClickMouse(x,y,True);
+    Wait(1000);
+    for i:=1 to 20 do
+    begin
+     ClickMouse(284,246,True);
+     Wait(500);
+    end;
+    GetItemQuanity(X,Y,CC);
+   end;
+   if CC<=1 then
+   begin
+    Writeln('Not enough coal found, logging out...');
+    //Close bank window
+    Repeat
+     ClickMouse(400,6,True);
+     Wait(1000);
+    Until (IsTextAt(379,1,'Close window')=False);
+    logout;
+   end;
+  end;
+  
+  if GetItem('iron ore',x,y,60,30,450,235) then
+  begin
+   ClickMouse(x,y,True);
+   Wait(1000);
+   while(IsTextAt(274,239,'One'))and(GetChatMsg<>'You don t have room to hold that object!')do
+   begin
+    ClickMouse(284,246,True);
+    Wait(300);
+   end;
+   GetItemQuanity(X,Y,CI);
+  end else CI:=0;
+  if CI<=1 then
+  begin
+    Writeln('No iron found, logging out...');
+    //Close bank window
+    Repeat
+     ClickMouse(400,6,True);
+     Wait(1000);
+    Until (IsTextAt(379,1,'Close window')=False);
+    logout;
+  end;
+  if (SCH) then
+  Begin
+   SI:=CI;
+   SC:=CC;
+   SIB:=CIB;
+   SSB:=CSB;
+   SCH:=False;
+  end;
+  Wait(100);
+  //Close bank window
+  Repeat
+   ClickMouse(400,6,True);
+   Wait(1000);
+  Until (IsTextAt(379,1,'Close window')=False)
+  bkc:=bkc+1;
+ end;
+end;
+procedure DoSmelting;
+var
+ x,y,i: Integer;
+ First,ContinueS:boolean;
+ Text,Line:string;
+ ASFOT,BSFOT,Time:longint;
+begin
+ First:=True; ContinueS:=True;
+ X:=270;
+ Y:=170;
+ repeat
+  if SleepNeeded then
+  begin
+   DoBanking(True);
+   ContinueS:=False;
+  end else
+  begin
+   OpenMenu(1);
+   Wait(50);
+   MoveMouse(290,50);
+   Wait(100);
+   Text:=GetTextAt(6,2);
+   ContinueS:=(pos('bar',Text)=0);
+   if (SMode<>1) then
+   begin
+    MoveMouse(330,50);
+    Wait(100);
+    Text:=GetTextAt(6,2);
+    ContinueS:=(pos('coal',Text)<>0);
+    line:='Use coal with furnace';
+   end else line:='Use iron ore with furnace';
+  end;
+  if(ContinueS)then
+  begin
+   ClickMouse(290,50,True);
+   Wait(200);
+   MoveMouse(10,10);
+   Wait(300);
+   
+   i:=0;
+   BSFOT:=GetSystemTime;
+   repeat
+    if SpiralFindObj(x,y,-1,x-50,y-50,x+50,y+50,15,line,30,10000) then
+    begin
+     x:=x+random(3);
+     y:=y+random(3);
+     MoveMouse(x,y);
+    end else y:=y+5;
+    Wait(100);
+    i:=i+1;
+   until (IsTextAt(6,2,Line))or(i>=5);
+   ASFOT:=GetSystemTime;
+   
+   time:=ASFOT-BSFOT;
+   if i >= 5 then
+   begin
+    GoByPath(SmeltPath);
+    First:=True;
+   end else
+   begin
+    if first then first:=false
+    else Wait(round(abs(1800-Time+random(100))));
+    if (IsTextAt(6,2,Line)) then
+    begin
+     ClickMouse(x,y,True);
+     Wait(100);
+    end else First:=True;
+   end;
+  end;
+ Until Not ContinueS;
+end;
+Procedure StartSmelting;
+var
+ check:boolean;
+ Text:string;
+begin
+ Check:=False;
+ OpenMenu(1);
+ MoveMouse(290,50);
+ Wait(100);
+ Text:=GetTextAt(6,2);
+ Check:=(pos('iron ore',Text)<>0);
+ if (SMode<>1) then
+ begin
+  Check:=(pos('coal',Text)<>0);
+  if Check then
+  begin
+   MoveMouse(290,190);
+   Wait(100);
+   Check:=(pos('iron ore',GetTextAt(6,2))<>0);
+  end;
+ end;
+ if Check then
+ begin
+  Status('Going to furnace');
+  GoByPath(SmeltPath);
+  Status('Smelting...');
+  DoSmelting;
+ end else CloseMenu;
+end;
+Procedure PrintProgressReport;
+var
+ RHours,Minutes,Seconds,RMinutes,RSeconds:LongInt;
+ Time,SLine:String;
+begin
+ //Time section - notice the ST(starting time)
+ Seconds:=(GetSystemTime-ST) div 1000;
+ Minutes:=Seconds div 60;
+ RHours:=Minutes div 60;
+ Time:=inttostr(Seconds)+' Seconds';
+ if Minutes<>0 then
+ begin
+  RSeconds:=Seconds Mod (Minutes*60);
+  Time:=inttostr(Minutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+ end;
+ if RHours<>0 then
+ begin
+  RMinutes:=Minutes Mod (RHours*60);
+  RSeconds:=Seconds Mod (Minutes*60);
+  Time:=inttostr(RHours)+' Hours, '+inttostr(RMinutes)+' Minutes and '+inttostr(RSeconds)+' Seconds';
+ end;
+ //Time end.
+ 
+ writeln('Progress Report:');
+ writeln('Worked for '+Time+'.');
+ if (SMode = 1) then SLine:='Smelted ('+inttostr(bkc-1)+' time[s]) '+inttostr(SI-CI)+' iron ore[s], Made '+inttostr(CIB-SIB)+' iron bar[s].'
+ else SLine:='Smelted ('+inttostr(bkc-1)+' time[s]) '+inttostr(SI-CI)+' iron ore[s] and '+inttostr(SC-CC)+' coal ore[s], Made '+inttostr(CSB-SSB)+' steel bar[s].';
+ writeln(SLine);
+ writeln('Slept '+inttostr(slp)+' time[s] | Logged in '+inttostr(lic)+' time[s].' );
+end;
+
+begin
+ InitInclude(UserName,PassWord,SleepWDelay,ClickMapDel,99,KillSwitch);
+ 
+ LandMark:= CreateLandmark(4, 10, '04000801000104000301000104000301000104000701000304000D');
+ BankPath:= CreatePath;
+ AddLandmarkToPath(BankPath, LandMark, -9, 11);
+ SmeltPath:= CreatePath;
+ AddLandmarkToPath(SmeltPath, LandMark, 11, 3);
+ 
+ ST:=GetSystemTime;
+ SCH:=True;
+ LogInIfNeeded;
+ StartSmelting;
+ //Main loop
+ repeat
+  Status('Going to bank...');
+  GoByPath(BankPath);
+  Status('Banking...');
+  DoBanking(False);
+  if (bkc mod BTPR = 0) then PrintProgressReport;
+  Status('Going to furnace.');
+  GoByPath(SmeltPath);
+  Status('Smelting...');
+  DoSmelting;
+ until(False);
+end.

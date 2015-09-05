@@ -1,0 +1,93 @@
+//   Script made by Yonis!!
+//
+// FOR 32 COLORS!!
+//
+// Start in karamja on the air r00n.
+//   www.yonis.tk
+//
+//Picks up air RS, when you log out it does
+//ReLogon in under 10 secs!
+//
+// Change the 'air r00n' part to whatever you
+// want to pick
+//
+//SCRIPT MADE BY YONIS!!
+//
+program AirRunePicker;
+const MyWait = 200; // change to '50' for fast computers
+var
+  x, y, i: Integer;
+  username, password: string;
+  Yonis: Integer;
+  Air: Boolean;
+  IC: Integer;
+begin
+username:= readln('username for ReLogin:');
+ password:= readln('password for Relogin:');
+  while (True) do
+  begin
+if(GetColor(88,145)=3472636)and
+(GetColor(304,270)=8611678)and
+(GetColor(260,242)=16777215)then
+begin
+ClickMouse(340,280,True);
+Wait(200);
+ClickMouse(230,240,True);
+Wait(50);
+SendKeysSilent(username);
+Wait(200);
+ClickMouse(230,300,True);
+Wait(75);
+ClickMouse(230,300,True);
+Wait(10);
+SendKeysSilent(password);
+Wait(10);
+ClickMouse(380,250,True);
+Wait(3000);
+end;
+if(GetColor(56,117)=16777215)and
+(GetColor(57,118)=0)and
+(GetColor(455,216)=16777215)and
+(GetColor(454,215)=0)
+    then
+    begin
+      ClickMouse(258,231,True);
+      Wait(1200);
+    end;
+if(GetColor(87,146)=3472636)and
+(GetColor(143,282)=0)and
+(GetColor(464,244)=8808800)and
+(GetColor(463,287)=10782074)
+    then
+    begin
+    ClickMouse(410,280,True);
+    wait(1000)
+    end;
+    x:= 259 + Random(40);
+    y:= 158 + Random(40);
+    Yonis:= MyWait;
+    begin
+      if(FindColorSpiral2(x,y,7366239,x-70,y-70,x+70,y+70))then
+      begin
+        MoveMouse(x,y);
+        i:= 0;
+        Air:= False;
+        repeat
+          Wait(10);
+          Air:= IsTextAt(6,2,'Air-Run');
+          i:= i + 1;
+        until(i>20)or(Air);
+        if(Air)then
+        begin
+          ClickMouse(x, y, True);
+          Wait(9000)
+        end;
+        IC:= 0;
+      end else
+      begin
+        IC:= IC + 1;
+      end;
+    end;
+    Wait(Yonis);
+end;
+end.

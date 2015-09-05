@@ -1,0 +1,1466 @@
+program BumisFormsFighterCrack;
+{
+  =============================================================================
+   + Cracked out AutoFighter
+     - Version: 5.2
+     - Released: 7/18/2004
+     
+   + Updates
+      Mapwalk: Mapwalk feature add, option of enabling or disabling.
+      Sounds: When enabled, it'll ring when important events occour, like 100% Fatigue.
+      Sounds: Option given to enable or disable them.
+      Bug: When pick pocketing, Rotation didn't work.
+      MapWalk/Rotate: Will only Mapsearch/Rotate if you cannot find a monster.
+      AutoEat: Added a feature to eat lobsters when you're weak.
+   + Warnings:
+      Mapwalk: This will click on yellow dots on the map, when you can't find
+      a monster. Chances are, this will wander off if there are other yellow
+      dots on the map, that you do not want to click on. You should use this
+      in desolate areas, where the only yellow dots, are the monsters you are
+      fighting.
+
+  =============================================================================
+}
+var
+Application: TApplication;
+form, self: TForm;
+PlayLabel,UserLabel,PassLabel,FightLabel,NameLabel,CombLabel: TLabel;
+MNLabel,CL1Label,CL2Label,CL3Label,RotateLabel,NameLabel2,ThiefLabel,RunLabel: TLabel;
+JprotLabel,TOFLabel,SoundLabel,MapLabel,FoodLabel: TLabel;
+txtUser,txtPass,txtcl1,txtcl2,txtcl3: TEdit;
+txttalk1,txttalk2,txttalk3,txteathits: TEdit;
+ButtonStart,Button2: TButton;
+Play,Jprot,FStyle,Rotate,talkop,eatchoice,txtmn,TOF,PickList,RunPick,Sound,Map,Food: TComboBox;
+FoodHP: TComboBox;
+T1,T2,T3,pickname: string;
+username,password,MN,M1,M2,M3,CurrentHits,chat,pickmon1,pickmon2: string;
+Go,loggin,loops,cx,cy,i,a,b,c,d,x,y,FightM,Secs: Integer;
+AutoChat,UseAutoChat,talktime,talktime2: Integer;
+ActualHp,EatHp,Eating,Lobster,decide: Integer;
+Attack,prot,rotatescreen,PickRun,SoundOnOff,MapWalkO,EatFood: Boolean;
+Bevel1,Bevel2,Bevel3,Bevel4: TBevel;
+
+
+
+procedure GK5KLoggin;
+begin
+  case Loggin of
+    1:  begin
+          if(LoginScreen)then
+            begin
+              ClickMouse(400,280,True);
+              Wait(2000);
+            end;
+          if(StartScreen)then
+            begin
+              ClickMouse(340,280,True);
+              loops:=0;
+              repeat
+                Wait(200);
+                loops:=loops+1;
+              until(LoginScreen)or (loops>=30);
+            end;
+          if(GetColor(338,125)=5524540)and (GetColor(87,145)=3472636)then
+            begin
+              ClickMouse(260,290,True);
+              Wait(500);
+              SendKeysSilent(username);
+              Wait(2000);
+              ClickMouse(120,310,True);
+              Wait(500);
+              SendKeysSilent(password);
+              Wait(2000);
+              repeat
+                ClickMouse(380,250,True);
+                Wait(1000);
+              until(not loginscreen);
+              Wait(1000);
+            end;
+        end
+    2:  begin
+          if(LoginScreen)then
+            begin
+              ClickMouse(400,280,True);
+              Wait(2000);
+            end;
+          if(StartScreen)then
+            begin
+              ClickMouse(340,280,True);
+              loops:=0;
+              repeat
+                Wait(200);
+                loops:=loops+1;
+              until(LoginScreen)or (loops>=30);
+            end;
+          if(LoginScreen)then
+            begin
+              ClickMouse(260,290,True);
+              Wait(500);
+              SendKeysSilent(username);
+              Wait(2000);
+              ClickMouse(120,310,True);
+              Wait(500);
+              SendKeysSilent(password);
+              Wait(2000);
+              repeat
+                ClickMouse(380,250,True);
+                Wait(1000);
+              until(not loginscreen);
+              Wait(3000);
+            end;
+        end;
+    end;
+  if(GetColor(56,117)=16777215)and (GetColor(57,118)=0)and (GetColor(455,216)=16777215)and (GetColor(454,215)=0)then
+    begin
+      if(GetColor(455,281)=16777215)and (GetColor(58,281)=16777215)and (GetColor(250,281)=16777215)then
+        Clickmouse(250,260,True)
+      else ClickMouse(250,232,True);
+      Wait(500);
+      if (GetColor(95,132)=65535) and (GetColor(451,213)=0) and (GetColor(301,189)=0) then
+        begin
+          clickmouse(255,202,true);
+          wait(2000);
+        end;
+    end;
+end;
+
+Procedure EatLobster;
+begin
+ Writeln('Eating a Lobster')
+ MoveMouse(499,18)
+ MoveMouse(499,18)
+ Wait(600)
+ if FindColor(x,y,22174,265,29,504,238) then
+  begin
+   movemouse(x,y)
+   wait(100)
+   if IsTextAt(6,2,'Lobster:') then
+    begin
+     clickmouse(x,y,true)
+    end;
+  end;
+end;
+
+
+
+procedure CheckHealth;
+begin
+ MoveMouse (425, 20);
+ wait (300);
+ CurrentHits:= GetTextAt (318, 112);
+ wait (300);
+ MoveMouse (10, 10);
+ wait (300);
+ ActualHp:= StrToInt (copy (CurrentHits, 6, 2));
+  if (ActualHp > EatHp) then
+   begin
+    writeln ('Time to Eat');
+    EatLobster;
+
+   end;
+end;
+
+procedure sleep;
+begin
+ playsound('C:\WINDOWS\Media\ringin.wav');
+ begin
+  Case SoundOnOff of
+  true:
+   begin
+    playsound('C:\WINDOWS\Media\ringin.wav');
+   end;
+  false:
+   begin
+   end;
+end;
+  Wait(200);
+  loops:=0;
+  repeat
+    loops:=loops+1;
+    Wait(200)
+    ClickMouse(498, 16, True);
+    Wait(200);
+    repeat
+      findcolorspiral2(cx,cy,4026013,290,55,490,225);
+      i:=i+1;
+      movemouse(cx, cy);
+      wait(50);
+    until (IsTextAt(6,2,'Sleeping Bag: sleep')) or (i=45);
+  until(IsTextAt(6,2,'Sleeping Bag: sleep')) or (loops>=5);
+  ClickMouse(cx, cy, True);
+  loops:=0;
+  repeat
+    wait(400);
+    loops:=loops+1;
+  until(IsTextAt(168, 293, 'click here')) or (loops>=25);
+  loops:=0;
+  repeat
+    loops:=loops+1;
+    Wait(20);
+    if(GetColor(209,252)=255)then
+      begin
+        loops:=0;
+        Wait(2000);
+      end;
+    if(loops=1700)then
+      begin
+        loops:=0;
+        ClickMouse (200, 300, True);
+      end;
+  until(not IsTextAt(168, 293, 'click here'));
+  MoveMouse(10,10);
+  Wait(100);
+end;
+end;
+procedure Startbuttonclick(sender: TObject);
+begin
+  username:= TxtUser.Text;
+  password:= TxtPass.Text;
+  MN:=txtmn.text;
+  m1:=txtcl1.text;
+  m2:=txtcl2.text;
+  m3:=txtcl3.text;
+  t1:=txttalk1.text;
+  t2:=txttalk2.text;
+  t3:=txttalk3.text;
+  pickname:=picklist.text;
+  eathp:=strtoint(FoodHP.text);
+
+  Lobster := BitmapFromString(34, 28,
+    '0000000000000000000000000000000000009E5600000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000009E56009E56009E5600000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000000000000000000000000000008E4D008E4D00' +
+    '8E4D009E56008E4D00000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000000000007F45007F45007F45008E4D007F4500' +
+    '5C32007F4500000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000000000000000000000000000007F45008E4D00' +
+    '8E4D00000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000703D007F4500AD5E007F4500' +
+    '5C3200000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000000000000000005C32004D2A007F45008E4D00' +
+    '8E4D00000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000703D007F45008E4D007F4500' +
+    '4D2A00000000000000000000000000000000000000000000000000' +
+    '0000000000000000000000008E4D00000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000703D00703D005C32007F45008E4D00' +
+    '9E5600000000000000000000000000000000000000000000000000' +
+    '9E56009E56009E56009E5600000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000004D2A00703D008E4D008E4D008E4D00703D00' +
+    '703D000000000000000000000000000000009E56009E56009E5600' +
+    '9E56009E5600AD5E00000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000005C3200703D007F45007F4500AD5E00AD5E008E4D009E5600' +
+    '9E56008E4D009E56009E56009E56009E56008E4D009E56008E4D00' +
+    '703D00AD5E00000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '5C32005C3200AD5E007F45008E4D009E56009E56009E5600703D00' +
+    '8E4D009E56009E5600000000000000000000703D008E4D009E5600' +
+    'AD5E00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000045372C' +
+    '703D007F45008E4D008E4D008E4D009E56008E4D00703D008E4D00' +
+    '8E4D000000000000000000000000000000009E56008E4D008E4D00' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000703D007F4500' +
+    '8E4D008E4D00703D008E4D009E56008E4D00703D008E4D00000000' +
+    '0000000000000000000000009E56009E56008E4D007F4500000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000000000000000000000007F45008E4D008E4D00' +
+    '8E4D00703D008E4D009E56008E4D00000000000000000000000000' +
+    '0000000000000000009E56008E4D008E4D00000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000000000000000005C32008E4D009E56008E4D00' +
+    '703D00000000000000000000000000000000000000000000000000' +
+    '0000008E4D008E4D007F4500000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000008E4D00703D008E4D008E4D00000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000009E56008E4D00703D00000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000000000000000000000000000000000009E5600' +
+    '9E5600000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000000000000000000000009E56009E5600000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000703D00703D00000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000008E4D008E4D00000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '9E56009E5600000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000000000000000000000000000009E56009E5600' +
+    '9E5600000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000000000000000009E56009E56009E56009E5600' +
+    '8E4D00703D00000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000000000008E4D008E4D008E4D008E4D007F4500' +
+    '45372C000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '0000000000000000008E4D008E4D008E4D008E4D007F4500000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000000000000000000000000000000000000000' +
+    '000000000000000000AD5E00AD5E00AD5E00000000000000000000' +
+    '000000000000000000000000000000000000000000');
+  Case rotate.Text of
+    'Enabled': rotatescreen:=true;
+    'Disabled' : rotatescreen:=false;
+    end;
+  Case Jprot.Text of
+    'Disabled' : prot:=false;
+    'Enabled': prot:=true;
+    end;
+  Case Play.Text of
+    'Members': loggin:=1;
+    'Free'   : Loggin:=2;
+    end;
+  Case FStyle.text of
+    'Controlled': FightM:=1;
+    'Aggressive'  : FightM:=2;
+    'Accurate'  : FightM:=3;
+    'Defensive' : FightM:=4;
+    end;
+  Case Sound.text of
+    'Enabled': SoundOnOff:=True
+    'Disabled': SoundOnOff:=False
+    end;
+  Case Map.text of
+    'Enabled': MapWalkO:=True
+    'Disabled': MapWalkO:=False
+    end;
+  Case Food.text of
+    'Enabled': EatFood:=True
+    'Disabled': EatFood:=False
+    end;
+
+  GO:=1;
+end;
+
+
+Procedure Loggout;
+var
+  done: boolean;
+begin
+  go:=0;
+  sendkeyssilent('i g2g'+chr(10));
+  wait(500);
+  sendkeyssilent('later'+chr(10));
+  wait(250);
+  repeat
+    clickmouse(330,30,true);
+    wait(50);
+    clickmouse(340,280,true);
+    wait(500);
+    if (getcolor(500,350)=4775) then
+      done:=false
+    else done:=true;
+  until (done=true);
+end;
+
+Procedure SafeMOD;
+begin
+  If(copy(getchatmsg,1,4)='Mod ')or
+    (copy(getchatmsg,1,4)='Paul ')or
+    (copy(getchatmsg,1,4)='Andrew ')Then
+    begin
+      chat:=getchatmsg;
+      Writeln('Mod Detected, here is the chat...')
+      Writeln('++++++++++++++++++++++++++++++')
+      writeln(chat);
+      Writeln('++++++++++++++++++++++++++++++')
+      go:=0;
+    end;
+
+end;
+
+
+
+Procedure Talk;
+begin
+  AutoChat:=Random(3);
+  Case AutoChat of
+    0:SendKeysSilent((T1)+chr(10));
+    1:SendKeysSilent((T2)+chr(10));
+    2:SendKeysSilent((T3)+chr(10));
+    end;
+end;
+
+procedure rotation;
+var
+  i,q,z,m: integer;
+begin
+  i:=0
+  z:=random(29);
+  Q:=z+1;
+  case (q) of
+    1 : m:=1;
+    2 : m:=1;
+    3 : m:=1;
+    4 : m:=1;
+    5 : m:=1;
+    6 : m:=3;
+    7 : m:=3;
+    8 : m:=3;
+    9 : m:=3;
+    10: m:=3;
+    11: m:=1;
+    12: m:=3;
+    13: m:=1;
+    14: m:=3;
+    15: m:=1;
+    16: m:=3;
+    17: m:=1;
+    18: m:=3;
+    19: m:=1;
+    20: m:=3;
+    21: m:=1;
+    22: m:=3;
+    23: m:=3;
+    24: m:=3;
+    25: m:=3;
+    26: m:=1;
+    27: m:=1;
+    28: m:=1;
+    29: m:=1;
+    30: m:=1;
+    end;
+  repeat
+    i:=i+1;
+    SendArrowSilent(m);
+    wait(5);
+  until(i=2);
+end;
+
+Procedure MapFind;
+var
+m,w: integer;
+begin
+Wait(100)
+Movemouse(458,17)
+Movemouse(458,17)
+Wait(500)
+ If FindColor(m,w,65535,376,80,475,172) then
+  begin
+   wait(200)
+   Clickmouse(m,w,true)
+   wait(2000)
+  end;
+end;
+
+Procedure ShowForm2(sender: TObject);
+begin
+Writeln('++++++++++++++++++++++++++++++++++++++++++');
+Writeln('+-Script: Cracked AutoFighter            +');
+Writeln('+-Version: 5.2                           +');
+Writeln('+-Author: BumisD2YK4L                    +');
+Writeln('++++++++++++++++++++++++++++++++++++++++++');
+
+
+end;
+
+Procedure PickPocket;
+begin
+ writeln('--PickPocket Mode Enabled--')
+ repeat
+ GK5KLoggin;
+ wait(500)
+ x:= random(510)
+ y:= random(330)
+  if IsTextAt(7,304,'You are too tired to gain experience, get some rest!') then
+  begin
+   sleep;
+  end;
+  rotation;
+  If FindColorSpiral(x,y,strtoint(pickmon1),0,0,510,330) or
+  FindColorSpiral(x,y,strtoint(pickmon2),0,0,510,330) then
+   begin
+    movemouse(x,y)
+    wait(25)
+    if (IsTextAt(6,2,(PickName))) then
+     begin
+      ClickMouse(x,y,false)
+      wait(100)
+      Clickmouse(x,y+53,true)
+      wait(100)
+       if (IsTextAt(7,304,'Oi what do you think you re doing')) or
+       (IsTextAt(7,304,'You can t do that whilst you are fighting'))or
+       (IsTextAt(7,304,'Err what do you think you re doing')) or
+       (IsTextAt(7,304,'You are already busy fighting!')) or
+       (IsTextAt(7,304,'Hey what do you think you re doing')) or
+       (IsTextAt(7,304,'What do you think you re doing')) then
+       Case PickRun of
+  true:  begin
+          writeln('Text found')
+           wait(6000)
+           movemouse(457,18)
+           wait(100)
+           clickmouse(431,112,true)
+            if (IsTextAt(7,304,'l can t get close enough')) then
+             begin
+              PickPocket;
+             end;
+          end;
+  false: begin
+end;     end;
+     end;
+   end;
+   
+   If not FindColorSpiral(x,y,strtoint(pickmon1),0,0,510,330) or
+   not FindColorSpiral(x,y,strtoint(pickmon2),0,0,510,330) then
+   begin
+    wait(500)
+    if (rotatescreen=true) then
+         rotation;
+    If (MapWalkO=true) then
+         mapfind;
+    if (EatFood=true) then
+         CheckHealth;
+   end;
+ until(false)
+end;
+
+
+
+procedure fight;
+begin
+   writeln('--Combat Mode Enabled--')
+  if UseAutoChat=1 then
+    begin
+      talktime:=0;
+      talktime2:=random(100);
+    end;
+  repeat
+    GK5KLoggin;
+    a:= GetFightMode;
+    if UseAutoChat=1 then
+      begin
+        talktime:=talktime+1;
+        if (talktime=talktime2) then
+          begin
+            talk;
+          end;
+        if (talktime=100) then
+          begin
+            talktime:=0;
+            talktime2:=random(100);
+          end;
+      end;
+    Secs:= 40;
+    Wait(0);
+    if(a = 0) then
+      begin
+
+
+        if (FindColorSpiral2(c,d,strtoint(M1),0,0,510,330)) or (FindColorSpiral2(c,d,strtoint(M2),0,0,510,330)) or (FindColorSpiral2(c,d,strtoint(M3),0,0,510,330))then
+          begin
+            MoveMouse(c,d);
+            b:= 0;
+            Attack:=False
+            repeat
+              wait(8);
+              Attack:= IsTextAt(6,2,MN);
+              b:= b + 1;
+            until(b>20)or(Attack);
+            if(Attack)then
+              begin
+                ClickMouse(c, d, True);
+                Secs:= 2000;
+              end;
+          end;
+         if not (FindColorSpiral2(c,d,strtoint(M1),0,0,510,330)) or not (FindColorSpiral2(c,d,strtoint(M2),0,0,510,330)) or not(FindColorSpiral2(c,d,strtoint(M3),0,0,510,330))then
+         begin
+          If (MapWalkO=true) then
+          mapfind;
+          if (rotatescreen=true) then
+          rotation;
+          if (EatFood=true) then
+          CheckHealth;
+         end;
+      end
+    else begin
+           if(a <> FightM)then
+             begin
+               ClickMouse(100, 25 + 20*FightM, True);
+               wait(200)
+               if (IsTextAt(7,304,'You are already busy fighting')) then
+               begin
+                fight;
+               end;
+               if (IsTextAt(7,304,'l can t get close enough')) then
+                begin
+                 fight;
+                end;
+             end;
+         end;
+    if (Eating = 1) then
+      begin
+        writeln ('Checking if we need to eat.');
+        CheckHealth;
+      end;
+    Wait(Secs);
+    if (IsTextAt(7,304,'You are too tired')) then
+     begin
+      sleep;
+     end;
+    if (IsTextAt(7,304,'You are getting shot at ')) then
+     begin
+      writeln('You are getting arched at, panick mode enabled.');
+      playsound('C:\WINDOWS\Media\ringin.wav');
+      wait(600)
+      playsound('C:\WINDOWS\Media\ringin.wav');
+      wait(600)
+      playsound('C:\WINDOWS\Media\ringin.wav');
+      wait(600)
+      playsound('C:\WINDOWS\Media\ringin.wav');
+     end;
+    if prot=true then
+      SafeMOD;
+  until (go=0);
+end;
+
+procedure TalkOpChange (sender: Tobject);
+begin
+  case talkop.text of
+    'Enabled': begin
+             txttalk1.enabled:=true;
+             txttalk2.enabled:=true;
+             txttalk3.enabled:=true;
+             UseAutoChat:=1;
+           end;
+    'Disabled' : begin
+             txttalk1.enabled:=False;
+             txttalk2.enabled:=False;
+             txttalk3.enabled:=False;
+             UseAutoChat:=0;
+           end;
+    end;
+ begin
+ if (EatChoice.Text = 'No') then
+     begin
+          Eating:= 0;
+     end;
+ begin
+      if (EatChoice.Text = 'Enabled') then
+     begin
+          Eating:= 1;
+
+     end;
+ end;
+ end;
+
+end;
+
+
+Procedure CheckLife;
+begin
+movemouse(428,20)
+Wait(300)
+ if (IsTextAt(318,112,'Hits')) then
+
+end;
+
+Procedure choose;
+begin
+ Case decide of
+  1:
+    begin
+     fight;
+    end;
+  2:
+    begin
+     PickPocket;
+    end;
+end;
+end;
+
+Procedure MNStart;
+begin
+  case txtMN.text of
+    'Goblin (level-13)': begin
+                           txtcl1.text:='251224';
+                           txtcl2.text:='2657362';
+                           txtcl3.text:='538987';
+                         end;
+    'Guard': begin
+                           txtcl1.text:='6250335';
+                           txtcl2.text:='733305';
+                           txtcl3.text:='10661355';
+                         end;
+
+
+    'Ghost':     begin
+                           txtcl1.text:='7039752';
+                           txtcl2.text:='5262886';
+                           txtcl3.text:='65428';
+                         end;
+    'Rat (level-8)':     begin
+                           txtcl1.text:='7159865';
+                           txtcl2.text:='3219736';
+                           txtcl3.text:='7225658';
+                         end;
+    'Rat (level-13)':     begin
+                           txtcl1.text:='7159865';
+                           txtcl2.text:='3219736';
+                           txtcl3.text:='7225658';
+                         end;
+    'Rat':     begin
+                           txtcl1.text:='7159865';
+                           txtcl2.text:='3219736';
+                           txtcl3.text:='7225658';
+                         end;
+    'cow':     begin
+                           txtcl1.text:='4079166';
+                           txtcl2.text:='2499366';
+                           txtcl3.text:='14342875';
+                         end;
+    'skeleton (level-21)':     begin
+                           txtcl1.text:='11645358';
+                           txtcl2.text:='3622209';
+                           txtcl3.text:='16447223';
+                         end;
+    'Thug':     begin
+                           txtcl1.text:='65536';
+                           txtcl2.text:='10661355';
+                           txtcl3.text:='15794176';
+                         end;
+    'Chaos-Druid':     begin
+                           txtcl1.text:='2960866';
+                           txtcl2.text:='1973909';
+                           txtcl3.text:='10792425';
+                         end;
+    'Darkwizard':     begin
+                           txtcl1.text:='3881787';
+                           txtcl2.text:='10661355';
+                           txtcl3.text:='3026478';
+                         end;
+    'Deadly Red spider':     begin
+                           txtcl1.text:='2235244';
+                           txtcl2.text:='3813307';
+                           txtcl3.text:='3813307';
+                         end;
+    'skeleton (level-25)':     begin
+                           txtcl1.text:='11645358';
+                           txtcl2.text:='3622209';
+                           txtcl3.text:='16447223';
+                         end;
+    'zombie (level-24)':     begin
+                           txtcl1.text:='16504238';
+                           txtcl2.text:='420703';
+                           txtcl3.text:='8085761';
+                         end;
+    'zombie':     begin
+                           txtcl1.text:='16504238';
+                           txtcl2.text:='420703';
+                           txtcl3.text:='8085761';
+                         end;
+    'skeleton (level-31)':     begin
+                           txtcl1.text:='4477264';
+                           txtcl2.text:='10642';
+                           txtcl3.text:='11514034';
+                         end;
+    'skeleton':     begin
+                           txtcl1.text:='4477264';
+                           txtcl2.text:='10642';
+                           txtcl3.text:='11514034';
+                         end;
+    'zombie (level-32)':     begin
+                           txtcl1.text:='16504238';
+                           txtcl2.text:='420703';
+                           txtcl3.text:='8085761';
+                         end;
+    'zombie':     begin
+                           txtcl1.text:='16504238';
+                           txtcl2.text:='420703';
+                           txtcl3.text:='8085761';
+                             end;
+    'Hobgoblin':     begin
+                           txtcl1.text:='250968';
+                           txtcl2.text:='5326379';
+                           txtcl3.text:='538987';
+                         end;
+    'Goblin':     begin
+                           txtcl1.text:='250968';
+                           txtcl2.text:='5326379';
+                           txtcl3.text:='538987';
+                         end;
+    'Giant':     begin
+                           txtcl1.text:='10661355';
+                           txtcl2.text:='1720680';
+                           txtcl3.text:='65536';
+                         end;
+    'Pirate (level-27)':     begin
+                           txtcl1.text:='208';
+                           txtcl2.text:='3434600';
+                           txtcl3.text:='6274750';
+                         end;
+    'Pirate':     begin
+                           txtcl1.text:='208';
+                           txtcl2.text:='3434600';
+                           txtcl3.text:='6274750';
+                         end;
+    end;
+  case tof.text of
+    'Combat': decide:=1;
+    'PickPocket': decide:=2;
+    end;
+  case picklist.text of
+   'Man': begin
+           pickmon1:='65536'
+           pickmon2:='131072'
+          end;
+   'Warrior':
+          begin
+           pickmon1:='13158655'
+           pickmon2:='3947580'
+          end;
+   'Guard':
+          begin
+           pickmon1:='4605510'
+           pickmon2:='8752875'
+          end;
+   'Hero':
+          begin
+           pickmon1:='6250240'
+           pickmon2:='7105536'
+          end;
+   'Knight':
+          begin
+           pickmon1:='7039851'
+           pickmon2:='5987163'
+          end;
+   'Knight':
+          begin
+           pickmon1:='6250335'
+           pickmon2:='3524551'
+          end;
+   'Farmer':
+          begin
+           pickmon1:='10661355'
+           pickmon2:='1455961'
+          end;
+  end;
+  case RunPick.text of
+   'Enabled':
+            begin
+             Pickrun:= True
+            end;
+   'Disabled':
+            begin
+             Pickrun:= False
+            end;
+end;
+end;
+Procedure MNChange (sender: TObject);
+begin
+  mnstart;
+end;
+
+begin
+  Application:= GetApplication;
+  Self:= GetSelf;
+  Form:= TForm.Create(nil);
+  Form.Font.Color :=cllime
+  Form.Font.Name:='MS Sans Serif';
+  Form.Width := 500;
+  Form.Height := 365;
+  Form.Position := poScreenCenter;
+  Form.BorderStyle := bsDialog;
+  Form.Color:=ClBlack;
+  Form.Caption := 'Cracked AutoFighter 5.2 by Bumis (Sexy mofo)';
+  Bevel1 := TBevel.Create(Form);
+  Bevel1.Parent := Form;
+  Bevel1.Left := 260;
+  Bevel1.Top := 5;
+  Bevel1.Width := 1;
+  Bevel1.Height := 560;
+  
+  Bevel2 := TBevel.Create(Form);
+  Bevel2.Parent := Form;
+  Bevel2.Left := 260;
+  Bevel2.Top := 230
+  Bevel2.Width := 250;
+  Bevel2.Height := 1;
+  
+
+
+  Bevel3 := TBevel.Create(Form);
+  Bevel3.Parent := Form;
+  Bevel3.Left := 260;
+  Bevel3.Top := 40
+  Bevel3.Width := 250;
+  Bevel3.Height := 1;
+  
+  
+  Bevel4 := TBevel.Create(Form);
+  Bevel4.Parent := Form;
+  Bevel4.Left := 1;
+  Bevel4.Top := 280
+  Bevel4.Width := 260;
+  Bevel4.Height := 1;
+  
+
+
+  
+  ThiefLabel := TLabel.Create(Form);
+  ThiefLabel.Top := 240;
+  ThiefLabel.Left := 330;
+  ThiefLabel.Font.Name := 'MS Sans Serif';
+  ThiefLabel.Font.Color := cllime;
+  ThiefLabel.Font.Size := 8;
+  ThiefLabel.Caption := 'Pick Pocket Settings:';
+  ThiefLabel.Parent := Form;
+  
+  PickList:= TcomboBox.create(form);
+  PickList.Top := 265;
+  PickList.Left := 340;
+  PickList.Width := 140;
+  PickList.Height := 24;
+  PickList.parent := Form;
+  PickList.DropDownCount:= 4;
+  PickList.Items.Add('Man');
+  PickList.Items.Add('Farmer');
+  PickList.Items.Add('Warrior');
+  PickList.Items.Add('Guard');
+  PickList.Items.Add('Knight');
+  PickList.Items.Add('Paladin');
+  PickList.Items.Add('Hero');
+  PickList.Hint:='Fighting Mode?';
+  PickList.ShowHint:=true;
+  PickList.itemindex:= 0;
+  
+  RunPick:= TcomboBox.create(form);
+  RunPick.Top := 295;
+  RunPick.Left := 340;
+  RunPick.Width := 140;
+  RunPick.Height := 24;
+  RunPick.parent := Form;
+  RunPick.DropDownCount:= 4;
+  RunPick.Items.Add('Enabled');
+  RunPick.Items.Add('Disabled');
+  RunPick.Hint:='Fighting Mode?';
+  RunPick.ShowHint:=true;
+  RunPick.itemindex:= 0;
+  
+  RunLabel := TLabel.Create(Form);
+  RunLabel.Top := 298;
+  RunLabel.Left := 270;
+  RunLabel.Font.Name := 'MS Sans Serif';
+  RunLabel.Font.Color := cllime;
+  RunLabel.Font.Size := 8;
+  RunLabel.Caption := 'Running:';
+  RunLabel.Parent := Form;
+
+  FightLabel := TLabel.Create(Form);
+  FightLabel.Top := 268;
+  FightLabel.Left := 270;
+  FightLabel.Font.Name := 'MS Sans Serif';
+  FightLabel.Font.Color := cllime;
+  FightLabel.Font.Size := 8;
+  FightLabel.Caption := 'Pick:';
+  FightLabel.Parent := Form;
+  
+  NameLabel := TLabel.Create(Form);
+  NameLabel.Top := 10;
+  NameLabel.Left := 85;
+  NameLabel.Font.Name := 'MS Sans Serif';
+  NameLabel.Font.Color := cllime;
+  NameLabel.Font.Size := 8;
+  NameLabel.Caption := 'Universal Settings:';
+  NameLabel.Parent := Form;
+  
+  CombLabel := TLabel.Create(Form);
+  CombLabel.Top := 10;
+  CombLabel.Left := 85;
+  CombLabel.Font.Name := 'MS Sans Serif';
+  CombLabel.Font.Color := cllime;
+  CombLabel.Font.Size := 8;
+  CombLabel.Caption := 'Universal Settings:';
+  CombLabel.Parent := Form;
+  
+
+
+  
+  NameLabel2 := TLabel.Create(Form);
+  NameLabel2.Top := 50;
+  NameLabel2.Left := 330;
+  NameLabel2.Font.Name := 'MS Sans Serif';
+  NameLabel2.Font.Color := cllime;
+  NameLabel2.Font.Size := 8;
+  NameLabel2.Caption := 'Combat Settings:';
+  NameLabel2.Parent := Form;
+  
+  UserLabel := TLabel.Create(Form);
+  UserLabel.Top := 43;
+  UserLabel.Left := 16;
+  UserLabel.Font.Color:= cllime;
+  UserLabel.Font.Name:= 'MS Sans Serif';
+  UserLabel.Caption := 'Username:';
+  UserLabel.Parent := Form;
+  
+  txtUser := TEdit.Create(Form);
+  txtUser.Top := 40;
+  txtUser.Left := 86;
+  txtUser.Width := 140;
+  txtUser.Hint:='Username Goes Here!';
+  txtuser.ShowHint:=true;
+  txtUser.Parent := Form;
+  
+  PassLabel := TLabel.Create(Form);
+  PassLabel.Top := 73;
+  PassLabel.Left := 16;
+  PassLabel.Font.Color:= cllime;
+  PassLabel.Font.Name:= 'MS Sans Serif';
+  PassLabel.Caption := 'Password:';
+  PassLabel.Parent := Form;
+  
+  txtPass := TEdit.Create(Form);
+  txtPass.Top := 70;
+  txtPass.Left := 86;
+  txtPass.Width := 140;
+  txtpass.font.size:= 10;
+  txtPass.font.name:='Wingdings';
+  txtPass.PasswordChar:= 'M';
+  txtPass.Hint:='Password Goes Here!';
+  txtPass.ShowHint:=true;
+  txtPass.Parent := Form;
+  
+  txtMN := TComboBox.Create(Form);
+  txtMN.Top := 70;
+  txtMN.Left := 340;
+  txtMN.Width := 140;
+  txtMN.Hint:='Monster name Goes Here!';
+  txtMN.ShowHint:=true;
+  txtMN.Parent := Form;
+  
+  txtMN.Items.Add('cow');
+  txtMN.Items.Add('Darkwizard');
+  txtMN.Items.Add('Deadly Red spider');
+  txtMN.Items.Add('Ghost');
+  txtMN.Items.Add('Giant');
+  txtMN.Items.Add('Goblin');
+  txtMN.Items.Add('Guard');
+  txtMN.Items.Add('Hobgoblin');
+  txtMN.Items.Add('Pirate');
+  txtMN.Items.Add('Rat');
+  txtMN.Items.Add('skeleton');
+  txtMN.Items.Add('Thug');
+  txtMN.Items.Add('zombie');
+
+
+  txtMN.Items.Add('Rat (level-8)');
+  txtMN.Items.Add('Goblin (level-13)');
+  txtMN.Items.Add('Rat (level-13)');
+  txtMN.Items.Add('Chaos-Druid');
+  txtMN.Items.Add('skeleton (level-21)');
+  txtMN.Items.Add('zombie (level-24)');
+  txtMN.Items.Add('skeleton (level-25)');
+  txtMN.Items.Add('Pirate (level-27)');
+  txtMN.Items.Add('skeleton (level-31)');
+  txtMN.Items.Add('zombie (level-32)');
+
+  txtMN.Hint:='Use Preset Monster?';
+  txtMN.itemindex:= 4;
+  txtMN.OnChange:= @MNChange;
+  
+  MNLabel := TLabel.Create(Form);
+  MNLabel.Top := 73;
+  MNLabel.Left := 270;
+  MNLabel.Font.Color:= cllime;
+  MNLabel.Caption := 'Attack:';
+  MNLabel.Font.Name:= 'MS Sans Serif';
+  MNLabel.Parent := Form;
+  
+  TOFLabel := TLabel.Create(Form);
+  TOFLabel.Top := 13;
+  TOFLabel.Left := 270;
+  TOFLabel.Font.Color:= cllime;
+  TOFLabel.Caption := 'Script Mode:';
+  TOFLabel.Font.Name:= 'MS Sans Serif';
+  TOFLabel.Parent := Form;
+  
+  TOF := TComboBox.Create(Form);
+  TOF.Top := 10;
+  TOF.Left := 340;
+  TOF.Width := 140;
+  TOF.Hint:='Monster name Goes Here!';
+  TOF.ShowHint:=true;
+  TOF.Parent := Form;
+  TOF.Items.Add('Combat');
+  TOF.Items.Add('PickPocket');
+  TOF.Hint:='Use Preset Monster?';
+  TOF.itemindex:= 4;
+  TOF.OnChange:= @MNChange;
+  
+  CL1Label := TLabel.Create(Form);
+  CL1Label.Top := 104;
+  CL1Label.Left := 270;
+  CL1Label.Font.Color:= cllime;
+  CL1Label.Font.Name:= 'MS Sans Serif';
+  CL1Label.Caption := 'Color 1:';
+  CL1Label.Parent := Form;
+  
+  txtcl1 := TEdit.Create(Form);
+  txtcl1.Top := 100;
+  txtcl1.Left := 340;
+  txtcl1.Width := 140;
+  txtcl1.Hint:='Color 1 Goes Here!';
+  txtcl1.ShowHint:=true
+  txtcl1.Parent := Form;
+  
+  CL2Label := TLabel.Create(Form);
+  CL2Label.Top := 134;
+  CL2Label.Left := 270;
+  CL2Label.Font.Name:= 'MS Sans Serif';
+  CL2Label.Font.Color:= cllime;
+  CL2Label.Caption := 'Color 2:';
+  CL2Label.Parent := Form;
+  
+  txtcl2 := TEdit.Create(Form);
+  txtcl2.Top := 130;
+  txtcl2.Left := 340;
+  txtcl2.Width := 140;
+  txtcl2.Hint:='Color 2 Goes Here!';
+  txtcl2.ShowHint:=true
+  txtcl2.Parent := Form;
+  
+  CL3Label := TLabel.Create(Form);
+  CL3Label.Font.Name:= 'MS Sans Serif';
+  CL3Label.Top := 164;
+  CL3Label.Left := 270;
+  CL3Label.Font.Color:= cllime;
+  CL3Label.Caption := 'Color 3:';
+  CL3Label.Parent := Form;
+  
+  txtcl3 := TEdit.Create(Form);
+  txtcl3.Top := 160;
+  txtcl3.Left := 340;
+  txtcl3.Width := 140;
+  txtcl3.Hint:='Color 3 Goes Here!';
+  txtcl3.ShowHint:=true
+  txtcl3.Parent := Form;
+  
+  Talkop:= TcomboBox.create(form);
+  Talkop.Top := 10000;
+  Talkop.Left := 20000;
+  Talkop.Width := 20000;
+  Talkop.Height := 20000;
+  Talkop.parent := Form;
+  Talkop.DropDownCount:= 2;
+  Talkop.Items.Add('Disabled');
+  Talkop.Items.Add('Enabled');
+  Talkop.Hint:='AutoTalk?';
+  Talkop.ShowHint:=true;
+  Talkop.itemindex:= 0;
+  Talkop.OnChange:= @Talkopchange;
+  
+  txttalk1 := TEdit.Create(Form);
+  txttalk1.Top := 250;
+  txttalk1.Left := 20000;
+  txttalk1.Width := 100;
+  txttalk1.Hint:='Talk Message 1 Goes Here!';
+  txttalk1.ShowHint:=true
+  txttalk1.Parent := Form;
+  txttalk1 := TEdit.Create(Form);
+  txttalk1.Top := 310;
+  txttalk1.Left := 20000;
+  txttalk1.Width := 140;
+  txttalk1.Hint:='Talk Message 2 Goes Here!';
+  txttalk1.ShowHint:=true
+  txttalk1.Parent := Form;
+  txttalk1.enabled := false;
+  
+  txttalk2 := TEdit.Create(Form);
+  txttalk2.Top := 340;
+  txttalk2.Left := 20000;
+  txttalk2.Width := 140;
+  txttalk2.Hint:='Talk Message 3 Goes Here!';
+  txttalk2.ShowHint:=true
+  txttalk2.Parent := Form;
+  txttalk2.enabled := false;
+  txttalk3 := TEdit.Create(Form);
+  txttalk3.Top := 370;
+  txttalk3.Left := 20000;
+  txttalk3.Width := 140;
+  txttalk3.Hint:='Talk Message 4 Goes Here!';
+  txttalk3.ShowHint:=true
+  txttalk3.Parent := Form;
+  txttalk3.enabled := false;
+  
+  PlayLabel := TLabel.Create(Form);
+  PlayLabel.Top := 103;
+  PlayLabel.Left := 16;
+  PlayLabel.Font.Color:= cllime;
+  PlayLabel.Font.Name:= 'MS Sans Serif';
+  PlayLabel.Caption := 'Login?';
+  PlayLabel.Parent := Form;
+  Play:= TcomboBox.create(form);
+  
+  Play.Top := 100;
+  Play.Left := 86;
+  Play.Width := 140;
+  Play.Height := 24;
+  Play.parent := Form;
+  Play.DropDownCount:= 2;
+  Play.Items.Add('Free');
+  Play.Items.Add('Members');
+  Play.Hint:='Members/Free Login?';
+  Play.ShowHint:=true;
+  Play.itemindex:= 0;
+  
+  JprotLabel := TLabel.Create(Form);
+  JprotLabel.Top := 163;
+  JprotLabel.Left := 16;
+  JprotLabel.Font.Color:= cllime;
+  JprotLabel.Font.Name:= 'MS Sans Serif';
+  JprotLabel.Caption := 'Mod Protect:';
+  JprotLabel.Parent := Form;
+  
+  Jprot:= TcomboBox.create(form);
+  Jprot.Top := 160;
+  Jprot.Left := 86;
+  Jprot.Width := 140;
+  Jprot.Height := 24;
+  Jprot.parent := Form;
+  Jprot.DropDownCount:= 2;
+  Jprot.Items.Add('Disabled');
+  Jprot.Items.Add('Enabled');
+  Jprot.Hint:='Mod Protection on?';
+  Jprot.ShowHint:=true;
+  Jprot.itemindex:= 0;
+  
+  SoundLabel := TLabel.Create(Form);
+  SoundLabel.Top := 193;
+  SoundLabel.Left := 16;
+  SoundLabel.Font.Color:= cllime;
+  SoundLabel.Font.Name:= 'MS Sans Serif';
+  SoundLabel.Caption := 'Sounds:';
+  SoundLabel.Parent := Form;
+  
+  Sound:= TcomboBox.create(form);
+  Sound.Top := 190;
+  Sound.Left := 86;
+  Sound.Width := 140;
+  Sound.Height := 24;
+  Sound.parent := Form;
+  Sound.DropDownCount:= 2;
+  Sound.Items.Add('Disabled');
+  Sound.Items.Add('Enabled');
+  Sound.Hint:='Sounds?';
+  Sound.ShowHint:=true;
+  Sound.itemindex:= 0;
+
+  Map:= TcomboBox.create(form);
+  Map.Top := 220;
+  Map.Left := 86;
+  Map.Width := 140;
+  Map.Height := 24;
+  Map.parent := Form;
+  Map.DropDownCount:= 2;
+  Map.Items.Add('Disabled');
+  Map.Items.Add('Enabled');
+  Map.Hint:='Mapwalk?';
+  Map.ShowHint:=true;
+  Map.itemindex:= 0;
+  
+  MapLabel := TLabel.Create(Form);
+  MapLabel.Top := 223;
+  MapLabel.Left := 16;
+  MapLabel.Font.Color:= cllime;
+  MapLabel.Font.Name:= 'MS Sans Serif';
+  MapLabel.Caption := 'MapWalk:';
+  MapLabel.Parent := Form;
+  
+  FoodLabel := TLabel.Create(Form);
+  FoodLabel.Top := 253;
+  FoodLabel.Left := 16;
+  FoodLabel.Font.Color:= cllime;
+  FoodLabel.Font.Name:= 'MS Sans Serif';
+  FoodLabel.Caption := 'Lobster Eat:';
+  FoodLabel.Parent := Form;
+  
+  Food:= TcomboBox.create(form);
+  Food.Top := 250;
+  Food.Left := 86;
+  Food.Width := 80;
+  Food.Height := 24;
+  Food.parent := Form;
+  Food.DropDownCount:= 2;
+  Food.Items.Add('Disabled');
+  Food.Items.Add('Enabled');
+  Food.Hint:='Eat?';
+  Food.ShowHint:=true;
+  Food.itemindex:= 0;
+  
+  FoodHP:= TcomboBox.create(form);
+  FoodHP.Top := 250;
+  FoodHP.Left := 176;
+  FoodHP.Width := 50;
+  FoodHP.Height := 24;
+  FoodHP.parent := Form;
+  FoodHP.DropDownCount:= 9;
+  FoodHP.Items.Add('87');
+  FoodHP.Items.Add('80');
+  FoodHP.Items.Add('70');
+  FoodHP.Items.Add('60');
+  FoodHP.Items.Add('50');
+  FoodHP.Items.Add('40');
+  FoodHP.Items.Add('30');
+  FoodHP.Items.Add('20');
+  FoodHP.Items.Add('10');
+  FoodHP.Hint:='Mapwalk?';
+  FoodHP.ShowHint:=true;
+  FoodHP.itemindex:= 0;
+  
+  
+  RotateLabel := TLabel.Create(Form);
+  RotateLabel.Top := 133;
+  RotateLabel.Left := 16;
+  RotateLabel.Font.Color:= cllime;
+  RotateLabel.Font.Name:= 'MS Sans Serif';
+  RotateLabel.Caption := 'Rotate:';
+  RotateLabel.Parent := Form;
+  
+  Rotate:= TcomboBox.create(form);
+  Rotate.Top := 130;
+  Rotate.Left := 86;
+  Rotate.Width := 140;
+  Rotate.Height := 24;
+  Rotate.parent := Form;
+  Rotate.DropDownCount:= 2;
+  Rotate.Items.Add('Disabled');
+  Rotate.Items.Add('Enabled');
+  Rotate.Hint:='Rotate on?';
+  Rotate.ShowHint:=true;
+  Rotate.itemindex:= 0;
+  
+  FightLabel := TLabel.Create(Form);
+  FightLabel.Top := 193;
+  FightLabel.Left := 270;
+  FightLabel.Font.Name := 'MS Sans Serif';
+  FightLabel.Font.Color := cllime;
+  FightLabel.Font.Size := 8;
+  FightLabel.Caption := 'Style:';
+  FightLabel.Parent := Form;
+  
+  FStyle:= TcomboBox.create(form);
+  FStyle.Top := 190;
+  FStyle.Left := 340;
+  FStyle.Width := 140;
+  FStyle.Height := 24;
+  FStyle.parent := Form;
+  FStyle.DropDownCount:= 4;
+  FStyle.Items.Add('Controlled');
+  FStyle.Items.Add('Aggressive');
+  FStyle.Items.Add('Accurate');
+  FStyle.Items.Add('Defensive');
+  FStyle.Hint:='Fighting Mode?';
+  FStyle.ShowHint:=true;
+  FStyle.itemindex:= 0;
+  
+  ButtonStart:= TButton.Create(Form);
+  ButtonStart.Left := 30;
+  ButtonStart.Top := 290;
+  ButtonStart.Width := 80;
+  ButtonStart.Height := 24;
+  ButtonStart.Caption := '&Begin';
+  ButtonStart.OnClick := @Startbuttonclick;
+  ButtonStart.Parent := Form;
+  ButtonStart.Default := True;
+  ButtonStart.ModalResult := mrOk;
+  
+  Button2:= TButton.Create(Form);
+  Button2.Left := 140;
+  Button2.Top := 290;
+  Button2.Width := 80;
+  Button2.Height := 24;
+  Button2.Caption := '&About';
+  Button2.OnClick := @ShowForm2;
+  Button2.Parent := Form;
+  Button2.Default := True;
+  Button2.ModalResult := mrOk;
+  
+  EatChoice:= TComboBox.Create(form);
+  EatChoice.Top:= 460;
+  EatChoice.Left:= 20006;
+  EatChoice.Width:= 140;
+  EatChoice.Parent:=Form;
+  EatChoice.DropDownCount:= 2;
+  EatChoice.Items.Add ('Enabled');
+  EatChoice.Items.Add ('Disabled');
+  EatChoice.ItemIndex:= 0;
+
+  
+  TxtEatHits := TEdit.Create(Form);
+  TxtEatHits.Top := 490;
+  TxtEatHits.Left := 20000;
+  TxtEatHits.Width := 140;
+  TxtEatHits.Parent := Form;
+  mnstart;
+  
+
+
+
+
+
+  //Set your defaults here.
+  FStyle.Text:=    'Aggressive';
+  Txtmn.Text:=     'Darkwizard';
+  Play.Text:=      'Members';
+  Sound.text:=     'Enabled';
+  TOF.Text:=       '';
+  FoodHP.text:=    '60';//Default HP Heal
+  Txtuser.text:=   ''; //Username
+  Txtpass.text:=   ''; //Password
+  Form.ShowModal;
+  Form.Free;
+  AutoChat:=Random(7);
+  AutoChat:=Random(7);
+  Case AutoChat of
+    0:Status('Random Hint: This script is great for using transparency, sounds alert you when you are tired, and when you level up.')
+    1:Status('Random Hint: You can set script defaults on line 1437')
+    2:Status('Random Hint: Mediator is actually gay... I slept with him!')
+    3:Status('Random Hint: When mod protection is enabled, it will save whatever a mod says to you in debug log, tell him you hafta go, and log out.')
+    4:Status('Random Hint: Rotate Map feature is much more effective when the in-game map is set to Automatic.')
+    5:Status('Random Hint: Autoheal finally works!!!');
+    6:Status('Random Hint: The monster text box is now a combo box, with a list of preseted color monsters.');
+  end;
+
+  if go=1 then
+  begin
+
+  repeat
+      choose;
+   until(false)
+end;
+end.

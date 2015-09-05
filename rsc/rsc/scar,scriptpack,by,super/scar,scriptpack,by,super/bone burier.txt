@@ -1,0 +1,539 @@
+{***************************************}
+{           GK5K_BONE_BURRIER           }
+{=======================================}
+{Written By: GK5K/GothKing5000          }
+{Contact at: Gothking5000@Hotmail.com   }
+{+++++++++++++++++++++++++++++++++++++++}
+{ Version: 1.0                          }
+{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+{ Features:                             }
+{  - AutoLoggin                         }
+{  - AutoSleep                          }
+{  - Picks up and Burries Bones         }
+{---------------------------------------}
+{ Instructions:                         }
+{  - Have Sleeping Bag in inventory     }
+{  - Find a Bone Respawn                }
+{_______________________________________}
+
+program GK5K_BONER_BURRIED;
+var
+  form, self: TForm;
+  Application: TApplication;
+  PlayLabel, VersionLabel, Bonelabel, SoundLabel, UserLabel, PassLabel: TLabel;
+  txtUser, txtPass: TEdit;
+  ButtonStart: TButton;
+  Play, Sound_Play, bone_kind: TComboBox;
+  username, password, ItemPickup, ItemName, itemname2: string;
+  Sound, isitem, found, item: Boolean;
+  Go, loggin, loops, x, y, i, e, done, time: Integer;
+
+procedure GK5KLoggin;
+begin
+  case Loggin of
+    1:  begin
+          if(LoginScreen)then
+            begin
+              Writeln('Clearing username, password fields...');
+              ClickMouse(400,280,True);
+              Wait(2000);
+            end;
+          if(StartScreen)then
+            begin
+              Writeln('Choosing Member Login...');
+              ClickMouse(340,280,True);
+              loops:=0;
+              repeat
+                Wait(200);
+                loops:=loops+1;
+              until(LoginScreen)or (loops>=30);
+            end;
+          if(GetColor(338,125)=5524540)and (GetColor(87,145)=3472636)then
+            begin
+              Writeln('Trying to log in...');
+              ClickMouse(260,290,True);
+              Wait(500);
+              SendKeysSilent(username);
+              Wait(2000);
+              ClickMouse(120,310,True);
+              Wait(500);
+              SendKeysSilent(password);
+              Wait(2000);
+              repeat
+                ClickMouse(380,250,True);
+                Wait(1000);
+              until(not loginscreen);
+              Wait(3000);
+            end;
+        end;
+    2:  begin
+          if(LoginScreen)then
+            begin
+              Writeln('Clearing username, password fields...');
+              ClickMouse(400,280,True);
+              Wait(2000);
+            end;
+          if(StartScreen)then
+            begin
+              Writeln('Choosing existing user...');
+              ClickMouse(340,280,True);
+              loops:=0;
+              repeat
+                Wait(200);
+                loops:=loops+1;
+              until(LoginScreen)or (loops>=30);
+            end;
+          if(LoginScreen)then
+            begin
+              Writeln('Trying to log in...');
+              ClickMouse(260,290,True);
+              Wait(500);
+              SendKeysSilent(username);
+              Wait(2000);
+              ClickMouse(120,310,True);
+              Wait(500);
+              SendKeysSilent(password);
+              Wait(2000);
+              repeat
+                ClickMouse(380,250,True);
+                Wait(1000);
+              until(not loginscreen);
+              Wait(3000);
+            end;
+        end;
+    end;
+  if(GetColor(56,117)=16777215)and (GetColor(57,118)=0)and (GetColor(455,216)=16777215)and (GetColor(454,215)=0)then
+    begin
+      Writeln('Closing Welcome box...');
+      if(GetColor(455,281)=16777215)and (GetColor(58,281)=16777215)and (GetColor(250,281)=16777215)then
+        Clickmouse(250,260,True)
+      else ClickMouse(250,232,True);
+      Wait(500);
+      if (GetColor(95,132)=65535) and (GetColor(451,213)=0) and (GetColor(301,189)=0) then
+        begin
+          Writeln('Closing Non-Member Server Box...');
+          clickmouse(255,202,true);
+          wait(2000);
+        end;
+    end;
+  wait(300);
+end;
+
+procedure Inventory;
+var
+  nx,ny: integer;
+begin
+  i:=0;
+  found:=false;
+  item:=true;
+  repeat
+    MoveMouse(490 + random(15),8 + random(3));
+    wait(10);
+    if (getcolor(265,32)=16711423) or (getcolor(293,31)=16711423) or (getcolor(314,32)=16711423) then
+      begin
+        case i of
+          1:  begin
+                nx:=290;
+                ny:=55;
+              end;
+          2:  begin
+                nx:=340;
+                ny:=55;
+              end;
+          3:  begin
+                nx:=390;
+                ny:=55;
+              end;
+          4:  begin
+                nx:=440;
+                ny:=55;
+              end;
+          5:  begin
+                nx:=490;
+                ny:=55;
+              end;
+          6:  begin
+                nx:=290;
+                ny:=90;
+              end;
+          7:  begin
+                nx:=340;
+                ny:=90;
+              end;
+          8:  begin
+                nx:=390;
+                ny:=90;
+              end;
+          9:  begin
+                nx:=440;
+                ny:=90;
+              end;
+          10: begin
+                nx:=490;
+                ny:=90;
+              end;
+          11: begin
+                nx:=290;
+                ny:=120;
+              end;
+          12: begin
+                nx:=340;
+                ny:=120;
+              end;
+          13: begin
+                nx:=390;
+                ny:=120;
+              end;
+          14: begin
+                nx:=440;
+                ny:=120;
+              end;
+          15: begin
+                nx:=490;
+                ny:=120;
+              end;
+          16: begin
+                nx:=290;
+                ny:=155;
+              end;
+          17: begin
+                nx:=340;
+                ny:=155;
+              end;
+          18: begin
+                nx:=390;
+                ny:=155;
+              end;
+          19: begin
+                nx:=440;
+                ny:=155;
+              end;
+          20: begin
+                nx:=490;
+                ny:=155;
+              end;
+          21: begin
+                nx:=290;
+                ny:=190;
+              end;
+          22: begin
+                nx:=340;
+                ny:=190;
+              end;
+          23: begin
+                nx:=390;
+                ny:=190;
+              end;
+          24: begin
+                nx:=440;
+                ny:=190;
+              end;
+          25: begin
+                nx:=490;
+                ny:=190;
+              end;
+          26: begin
+                nx:=290;
+                ny:=225;
+              end;
+          27: begin
+                nx:=340;
+                ny:=225;
+              end;
+          28: begin
+                nx:=390;
+                ny:=225;
+              end;
+          29: begin
+                nx:=440;
+                ny:=225;
+              end;
+          30: begin
+                nx:=490;
+                ny:=225;
+              end;
+          end;
+        movemouse(nx,ny);
+        wait(50);
+        found:=false;
+        if IsTextAt(6,2,ItemName) then
+          begin
+            clickmouse(nx,ny,true);
+            wait(25);
+            found:=true;
+          end
+        else begin
+               found:=false;
+             end;
+        i:=i+1;
+      end;
+  until (found=true) or (i=30);
+  if (i=30) then
+    item:=false;
+end;
+
+procedure sleep;
+begin
+  Writeln('Sleeping...')
+  Wait(200);
+  loops:=0;
+  itemname:= 'Sleeping Bag: sleep';
+  e:=0;
+  repeat
+    e:=e+1;
+    inventory;
+    wait(time);
+  until (found=true) or (e=10);
+  if (found=true) then
+    begin
+      if Sound = true then
+        playsound('C:\WINDOWS\Media\tada.wav');
+      loops:=0;
+      repeat
+        wait(200);
+        loops:=loops+1;
+        GK5KLoggin;
+      until(IsTextAt(168, 293, 'click here')) or (loops>=25);
+      loops:=0;
+      repeat
+        loops:=loops+1;
+        Wait(20);
+        if(GetColor(209,252)=255)then
+          begin
+            loops:=0;
+            Wait(2000);
+          end;
+        if(loops=1700)then
+          begin
+            loops:=0;
+            ClickMouse (200, 300, True);
+            Writeln('Trying again for sw word...');
+          end;
+        GK5KLoggin;
+      until(not IsTextAt(168, 293, 'click here'));
+      MoveMouse(10,10);
+      Wait(100);
+      GK5KLoggin;
+    end
+  else begin
+         go:=0;
+         writeln('ERROR: You dont have a Sleeping Bag in your inventory...');
+       end;
+end;
+
+procedure bury;
+begin
+  MoveMouse(490 + random(15),8 + random(3));
+  Wait((time div 4) + random(500));
+  repeat
+    if (IsTextAt(7,304,'You are too tired')) then
+      begin
+        itemname2:=itemname;
+        sleep;
+        itemname:= itemname2;
+        writeln(ItemName);
+      end;
+    Writeln('Burying Bones...');
+    inventory;
+    wait(time+random(500));
+    GK5KLoggin;
+  until (item=false) or (go=0);
+  if go=1 then
+    begin
+      movemouse(20,20);
+      wait(time div 2);
+    end;
+end;
+
+procedure Startbuttonclick(sender: TObject);
+begin
+  username:= TxtUser.Text;
+  password:= TxtPass.Text;
+  Case Play.Text of
+    'Members':  begin
+                  loggin:=1;
+                end;
+    'Free'   :  begin
+                  Loggin:=2;
+                end;
+    end;
+  Case Sound_Play.Text of
+    'Yes' : Sound:=true;
+    'No': Sound:=false;
+    end;
+  Case Bone_Kind.Text of
+    'Normal Bones' : begin
+                       Itempickup:='Bones: Take';
+                       ItemName:='Bones: Bury';
+                     end;
+    'Big Bones'    : begin
+                       Itempickup:='Big Bones: Take';
+                       ItemName:='Big Bones: Bury';
+                     end;
+    end;
+  GO:=1;
+end;
+
+begin
+  Application:= GetApplication;
+  Self:= GetSelf;
+  Form:= TForm.Create(nil);
+  Form.Width := 437;
+  Form.Height := 130;
+  Form.Position := poScreenCenter;
+  Form.BorderStyle := bsDialog;
+  Form.Color:=ClBlack;
+  Form.Caption := 'GK5K Bone Burrier';
+  UserLabel := TLabel.Create(Form);
+  UserLabel.Top := 12;
+  UserLabel.Left := 16;
+  UserLabel.Font.Color:= ClLime;
+  UserLabel.Caption := 'Username:';
+  UserLabel.Parent := Form;
+  PassLabel := TLabel.Create(Form);
+  PassLabel.Top := 42;
+  PassLabel.Left := 16;
+  PassLabel.Font.Color:= ClLime;
+  PassLabel.Caption := 'Password:';
+  PassLabel.Parent := Form;
+  PlayLabel := TLabel.Create(Form);
+  PlayLabel.Top := 12;
+  PlayLabel.Left := 220;
+  PlayLabel.Font.Color:= ClLime;
+  PlayLabel.Caption := 'Members or Free:';
+  PlayLabel.Parent := Form;
+  SoundLabel := TLabel.Create(Form);
+  SoundLabel.Top := 42;
+  SoundLabel.Left := 200;
+  SoundLabel.Font.Color:= ClLime;
+  SoundLabel.Caption := 'Play Sound on Sleep:';
+  SoundLabel.Parent := Form;
+  txtUser := TEdit.Create(Form);
+  txtUser.Top := 10;
+  txtUser.Left := 86;
+  txtUser.Width := 100;
+  txtUser.Hint:='Username Goes Here!';
+  txtuser.ShowHint:=true;
+  txtUser.Parent := Form;
+  txtPass := TEdit.Create(Form);
+  txtPass.Top := 40;
+  txtPass.Left := 86;
+  txtPass.Width := 100;
+  txtPass.font.name:='WingDings';
+  txtPass.PasswordChar:= 'N';
+  txtPass.Hint:='Password Goes Here!';
+  txtPass.ShowHint:=true;
+  txtPass.Parent := Form;
+  BoneLabel := TLabel.Create(Form);
+  BoneLabel.Top := 72;
+  BoneLabel.Left := 250;
+  BoneLabel.Font.Color:= ClLime;
+  BoneLabel.Caption := 'Bone Kind:';
+  BoneLabel.Parent := Form;
+  Sound_Play:= TcomboBox.create(form);
+  Sound_Play.Top := 40;
+  Sound_Play.Left := 315;
+  Sound_Play.Width := 100;
+  Sound_Play.Height := 24;
+  Sound_Play.parent := Form;
+  Sound_Play.DropDownCount:= 2;
+  Sound_Play.Items.Add('No');
+  Sound_Play.Items.Add('Yes');
+  Sound_Play.Hint:='Play Sound On Sleep?';
+  Sound_Play.ShowHint:=true;
+  Sound_Play.itemindex:= 0;
+  Bone_Kind:= TcomboBox.create(form);
+  Bone_Kind.Top := 70;
+  Bone_Kind.Left := 315;
+  Bone_Kind.Width := 100;
+  Bone_Kind.Height := 24;
+  Bone_Kind.parent := Form;
+  Bone_Kind.DropDownCount:= 2;
+  Bone_Kind.Items.Add('Normal Bones');
+  Bone_Kind.Items.Add('Big Bones');
+  Bone_Kind.Hint:='Normal Bones or Big Bones?';
+  Bone_Kind.ShowHint:=true;
+  Bone_Kind.itemindex:= 0;
+  Play:= TcomboBox.create(form);
+  Play.Top := 10;
+  Play.Left := 315;
+  Play.Width := 100;
+  Play.Height := 24;
+  Play.parent := Form;
+  Play.DropDownCount:= 2;
+  Play.Items.Add('Free');
+  Play.Items.Add('Members');
+  Play.Hint:='Members or Free Version?';
+  Play.ShowHint:=true;
+  Play.itemindex:= 0;
+  ButtonStart:= TButton.Create(Form);
+  ButtonStart.Left := 30;
+  ButtonStart.Top := 70;
+  ButtonStart.Width := 80;
+  ButtonStart.Height := 24;
+  ButtonStart.Caption := '&Start';
+  ButtonStart.OnClick := @Startbuttonclick;
+  ButtonStart.Parent := Form;
+  ButtonStart.Default := True;
+  ButtonStart.ModalResult := mrOk;
+  VersionLabel := TLabel.Create(Form);
+  VersionLabel.Top := 72;
+  VersionLabel.Left := 140;
+  VersionLabel.Font.Color := ClLime;
+  VersionLabel.Font.Size := 12;
+  VersionLabel.Caption := 'Version: 1.0';
+  VersionLabel.Parent := Form;
+  Form.ShowModal;
+  Form.Free;
+  if go=1 then
+    begin
+      time:=800;
+      repeat
+        begin
+          GK5KLoggin;
+          x:=255;
+          y:=165;
+          done:=0;
+          repeat
+            begin
+              done:=done+1;
+              if (getcolor(265,32)=16711423) or (getcolor(293,31)=16711423) or (getcolor(314,32)=16711423) then
+                begin
+                  movemouse(20,20);
+                  wait(time div 4);
+                end;
+              if(FindColorSpiral2(x,y,14603982,0,0,510,330)) then
+                begin
+                  MoveMouse(x,y);
+                  i:= 0;
+                  IsItem:= False;
+                  repeat
+                    Wait(10);
+                    if IsTextAt(6,2,ItemPickup) then
+                      IsItem:=true
+                    else IsItem:=false;
+                    i:= i + 1;
+                  until(i>20) or (IsItem=true);
+                  if (IsTextAt(6,2,ItemPickup))then
+                    begin
+                      ClickMouse(x, y, True);
+                      writeln('Picking up Bones...');
+                      Wait(time + random(3000));
+                    end
+                  else begin
+                         x:=random(510);
+                         y:=random(330);
+                         movemouse(x,y);
+                       end;
+                end;
+              if done>=50 then
+                begin
+                  done:=0;
+                  bury;
+                end;
+            end;
+          until (go=0);
+        end;
+      until (go=0);
+    end;
+end.

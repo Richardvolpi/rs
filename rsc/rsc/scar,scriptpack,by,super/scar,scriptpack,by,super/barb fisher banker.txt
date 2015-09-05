@@ -1,0 +1,336 @@
+{=-=-=-=- A kick-ass script by benleegt -=-=-=-==-=
+
++_+_+_+_+_+_Barb village fisher and banker v3.5_+_+_+_+_+_+
+
+Needed scripts
+1. OSi.txt - http://scripts.oglabs.cjb.net/OSi.txt
+2. PAr - http://nick77634.com/oglabs/forums/viewtopic.php?t=177&start=0&postdays=0&postorder=asc&highlight=
+3. Odie's boxbreaker, I will change it to use my destrucobox once destructobox comes out
+
+--------------------------------------------------------------
+
+1.Start at barb village, fishing spot
+with fly fishing rod in 1st invent slot
+and feathers in 2nd.
+2. This script does not provide anti-fishing rod pickup.And so, please do not run this
+script overnight as of yet, all you have to do is sit and relax while
+the comp does the work for you. This script does have though, anti randoms
+provided by PAr and a fight runner by me(not very stable yet.)
+3.Get the colours and start fishing.
+
+--------------------------------------------------------------
+
+Version history
+v 1.0 - First public release
+v 1.2-2.5 - Error fixing
+v3 - Added anti map tilt
+v3.5-Added anti river trolls, also added find equip
+
+--------------------------------------------------------------
+
+Futures list
+1.Full anti-randoms(my verson of anti-whirlpool and fish-rod finder)
+2.Stable fight runner.
+3.Faster and more stable fisher
+4.Input less colors(once i finally know how to use OSi's FindObjColorTol)
+5.Baiting
+6.Option to cook fishes after catching them
+
+--------------------------------------------------------------
+
+Supplement list
+1. A fish cooker at varrock west
+2. A tree chopper and lighter with anti-randoms and not get
+lost in a rotated map.
+
+--------------------------------------------------------------
+
+Credits:
+A big thank you to PPLSUQBAWLZ for helping me in areas I dont know
+Thnx to nick77634 for his procedures.
+Thnx to oddie for teaching me that scripts should be free.
+Thnx to gussy and wallbot who inspired to start scar scripting
+Thnx to katnieks for continuing scar.
+Thnx to the rs cheating community for their scripts.
+Thnx to dsgamer for testing the script for me
+
+--------------------------------------------------------------
+
+P.S:Please do not edit or mod my script, post bugs on http://socube.here.ws
+or email me at benleegt@yahoo.co.uk or benlee91@mission-quest.biz
+
+                   Happy fishing :)
+                                     ,Benjamin Lee
+
+
+                   =-==-I love Cheh Hui Shan-==-=}
+
+program New;
+var ix,iy,ex,ey,equipment,mflagm,eex,eey,eix,eiy :Integer;
+{======Temporary======}
+Whirlpool : Integer;
+
+{.include OSi.txt}
+{.include BoxBreaker.txt}
+{.include PAr.txt}
+
+const
+{=======Minimap======}
+fishlogo = 16742941;//The colour of the fish logo.
+bridge = 2112092;//The bridge connecting varrock to barb village .
+road = 6711150;//The colour of the road.
+bank = 6152699;//Colour of bank logo .
+mudaroundbank = 5072243;//Colour of the mud surrounding the bank.
+anvil = 5132114;//Colour of the anvil logo
+{=======In-game=======}
+sparklingwater = 15249544;//The colour of the sparkling water(Light blue)
+sparklingwater2 = 16183544;//The colour of the sparkling water(White)
+{=======Questions=====}
+username = 'god'; //Your poonscape username
+password = 'amen'; //Your poonscape password
+use_PAr = 'true'; //Tune this if you wish/do not wish to use PAr(Choices : true or false)
+
+{=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-}
+
+procedure benleegtmouse(ex,ey : Integer; Truth : String; waitamount:Integer);
+begin
+wait(waitamount+Random(40))
+MoveMouseSmoothEx(ex,ey,1,3,45,20,10)
+getmousepos(ex,ey)
+If ( truth = 'left')then clickmouse(ex,ey,true)
+If ( truth = 'right')then clickmouse(ex,ey,false)
+If ( truth = 'false')then
+end;
+
+procedure login;
+begin
+wait(2000)
+benleegtmouse(426,291,'left',200)
+wait(2000)
+sendkeyssilentsmooth(username,20)
+wait(1000)
+sendkeys(chr(13))
+wait(1000)
+sendkeyssilentsmooth(password,20)
+benleegtmouse(303,320,'left',200)
+wait(8000)
+benleegtmouse(450,96,'left',200)
+end;
+
+procedure logout1;
+begin
+wait(100)
+benleegtmouse(649,483,'left',200)
+wait(2000)
+benleegtmouse(654,378,'left',200)
+end;
+
+procedure Flagwait;
+begin
+mflagm := BitmapFromString(8, 15,
+      '000000000000000000000000000000000000FF00005D3311000000' +
+      '000000000000000000000000FF0000FF00005D3311000000000000' +
+      '000000000000FF0000FF0000FF00005D3311000000000000000000' +
+      'FF0000FF0000FF0000FF00005D3311000000000000FF0000FF0000' +
+      'FF0000FF0000FF00005D3311000000FF0000FF0000FF0000FF0000' +
+      'FF0000FF00005D3311FF0000FF0000FF0000FF0000FF0000FF0000' +
+      'FF00005D3311000000000000000000000000000000000000C65604' +
+      '5D3311000000000000000000000000000000000000C656045D3311' +
+      '000000000000000000000000000000000000C656045D3311000000' +
+      '000000000000000000000000000000C656045D3311000000000000' +
+      '000000000000000000000000C656045D3311000000000000000000' +
+      '000000000000000000C656045D3311000000000000000000000000' +
+      '000000000000C656045D3311000000000000000000000000000000' +
+      '000000C656045D3311');
+  repeat
+   wait(500+random(100));
+  until(not (FindBitmapIn(flag,x,y,562,9,751,179)));
+   wait(100+random(100));
+ end;
+
+procedure gobridge;
+begin
+findcolor(x,y,bridge,558,4,725,155)
+benleegtmouse(x,y,'left',200);
+MapFlagWalk
+end;
+
+procedure changefishing_spots;
+begin
+face('N')
+if(findcolor(x,y,sparklingwater,604,6,708,48) or findcolor(x,y,sparklingwater2,604,6,708,48))then
+begin
+end else
+If(not findcolor(x,y,sparklingwater,604,6,708,48) and not findcolor(x,y,sparklingwater2,604,6,708,48)) then
+begin
+If(findcolor(x,y,fishlogo,562,8,719,80))then
+begin
+benleegtmouse(x,y,'left',200)
+mapflagwalk;
+end else
+If(not findcolor(x,y,fishlogo,562,8,719,80))then
+begin
+findcolor(x,y,fishlogo,575,88,722,155)
+benleegtmouse(x,y,'left',200)
+mapflagwalk;
+end else
+If(not findcolor(x,y,fishlogo,575,88,722,155))then
+begin
+logout1
+face('N')
+wait(4000)
+login
+end;
+end;
+end;
+
+procedure fishtobank;
+begin
+face('N')
+for x:=662 to 711 do
+begin
+findcolor(x,y,road,x,y,713,100)
+x := x+20
+benleegtmouse(x,y,'left',200)
+mapflagwalk
+If(findcolor(ix,iy,bank,560,6,731,155))then
+begin
+benleegtmouse(ix,iy,'left',200)
+mapflagwalk;
+break;
+end;
+end;
+OpenBank;
+wait(1000)
+Deposit(3,1,26)
+wait(1000)
+Deposit(4,1,26)
+wait(1000)
+Deposit(1,2,26)
+wait(1000)
+closebank
+ChatFixer;
+face('N')
+end;
+
+procedure banktofish;
+begin
+findcolor(x,y,mudaroundbank,623,100,707,132)
+benleegtmouse(x-5,y,'left',200)
+repeat
+findcolor(x,y,anvil,555,9,715,150)
+wait(100)
+until(findcolor(x,y,anvil,555,9,715,150))
+benleegtmouse(x+5+Random(2),y,'left',200)
+flagwait;
+findcolor(x,y,road,522,103,555,127)
+benleegtmouse(x,y,'left',200)
+flagwait
+for x:= 609 to 1000 do
+begin
+findcolor(eex,eey,road,631,75,658,91)
+benleegtmouse(eex,eey,'left',200)
+flagwait;
+If(findcolor(eix,eiy,fishlogo,560,6,641,99))then
+begin
+writeln('Fishing Now')
+benleegtmouse(eix,eiy,'left',200)
+face('N')
+break
+end;
+end;
+end;
+
+procedure anitwhirlpool; // By nick77634
+begin
+if findcolorspiraltolerance(x,y,13288386,195,130,300,200,3)then
+begin
+Whirlpool:=Whirlpool+1;
+changefishing_spots
+mapflagwalk
+wait(5000+random(500))
+end;
+end;
+
+procedure fish(colour,colour2 : Integer);
+begin
+repeat
+face('N')
+anitwhirlpool
+If(findcolor(x,y,16711680,186,433,343,451))then
+begin
+break;
+writeln('Inventory full')
+end;
+If(findcolorspiraltolerance(x,y,colour,18,10,505,330,12))then
+begin
+benleegtmouse(x,y,'left',20)
+wait(5000)
+end else
+If(findcolorspiraltolerance(ex,ey,colour2,18,10,505,330,12)) then
+begin
+benleegtmouse(ix,iy,'left',20)
+wait(5000)
+end else
+If(not findcolorspiraltolerance(x,y,colour,18,10,505,330,12) and not findcolorspiraltolerance(ex,ey,colour2,18,10,505,330,12)) then
+begin
+changefishing_spots
+wait(100)
+repeat
+wait(1000+Random(100))
+until(findcolorspiraltolerance(x,y,colour,18,10,505,330,12) or findcolorspiraltolerance(ex,ey,colour2,18,10,505,330,12))
+fish(sparklingwater,sparklingwater2);
+end;
+wait(2000)
+until(findcolor(x,y,16711680,186,433,343,451))
+writeln('Inventory full, going to bank')
+gobridge;
+fishtobank;
+end;
+
+procedure dostuff;
+begin
+findbox;
+If(use_PAr = 'true')then
+begin
+Check4Randoms;
+end;
+If(getcolor(477,292) = 16777215)then
+begin
+login
+writeln('Logging in')
+end else
+If(getcolor(477,292) = not 16777215) then
+begin
+writeln('Lost fishing equipment,this version does not support finding fishing equipment')
+end else
+If(findcolor(x,y,255,247,138,282,147))then
+begin
+setrun(true)
+gobridge;
+wait(3000+Random(300))
+end;
+end;
+
+begin
+If(getcolor(477,292) = 16777215)then
+begin
+login
+writeln('Logging in')
+end
+i := 0
+writeln('A quality script by Benjamin Lee')
+setuposi;
+equipment := getcolor(581,229)
+repeat
+fish(sparklingwater,sparklingwater2);
+banktofish;
+i := i+1
+wait(1000)
+if(i >6) then
+begin
+i := 0
+dostuff;
+end;
+until(false)
+end.

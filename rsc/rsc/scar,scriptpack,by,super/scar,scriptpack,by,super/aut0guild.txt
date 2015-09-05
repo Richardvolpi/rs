@@ -1,0 +1,412 @@
+{>-------------Aut0Guild-------------<}
+{>  Written by Reines added features <} 
+{>             By Playboy            <} 
+{>-------Features/Instructions-------<} 
+{> - Relogin                         <} 
+{> - Sleeping                        <} 
+{> - Fishes and certs raw lobsters   <} 
+{> - opens door when trapped         <} 
+{> - Have space for 25 fish and      <} 
+{>   your certs                      <} 
+{> - Start at the west lobster spot  <} 
+{> - Align compass perfect south     <} 
+{> - Map walking based on Phalanx's  <} 
+{>   map fix and landmarks from      <} 
+{>   GuildFish22                     <} 
+{>-----------------------------------<} 
+
+Var 
+ToFish,ToCert,x,y,l1,l2,l3,ReWalk,l55,HowFar,NR,count,wait1,a,b,trybag,tme,bag,wt,wt2,cwt1
+,cwt2,cwt3,lenc,certs,d:Integer; 
+bool,r:extended; 
+Dest,GoodMap,foundbag,full,orven,killswitch, DoorFound:Boolean; 
+username,password,chat,nMin,nHour,certs1:string; 
+Hour,Min,Sec,MSec:Word; 
+
+
+function OpenDoor:boolean; 
+var 
+dx,dy:integer; 
+bool:boolean; 
+begin 
+bool:=False; 
+dx:=315; 
+dy:=149; 
+if SpiralFindObj(dx,dy,1659040,92,5,300,88,1,'Door',1,10000) then 
+begin 
+MoveMouse(dx,dy); 
+Wait(100); 
+if Pos('Open',GetTextAt(6,2))<>0 then 
+begin 
+ ClickMouse(dx,dy,True); 
+ Wait(5000); 
+ bool:=true; 
+end else bool:=false; 
+end; 
+Result:=bool; 
+end; 
+
+Procedure gettime; 
+Begin 
+Status('Checking Time'); 
+DecodeTime(Now,Hour,Min,Sec,MSec); 
+nMin:=inttostr(Min); 
+nHour:=inttostr(Hour); 
+If(Min<10)Then nMin:='0'+inttostr(Min); 
+If(Hour<10)Then nHour:='0'+inttostr(Hour); 
+End; 
+
+Procedure login; 
+Begin 
+If(GetColor(338,125)=5524540)Then 
+Begin 
+  ClickMouse(357+random(5),281+random(5),True); 
+  Wait(200+random(50)); 
+  ClickMouse(255+random(5),287+random(5),True); 
+  Wait(200+random(50)); 
+  Status('Attempting login'); 
+  ClickMouse(166+random(5),263+random(5),True); 
+  Wait(500+random(50)); 
+  SendKeysSilent(username); 
+  Wait(500+random(50)); 
+  ClickMouse(260+random(5),303+random(5),True); 
+  Wait(500+random(50)); 
+  SendKeysSilent(password); 
+  Wait(500+random(50)); 
+  ClickMouse(392+random(5),248+random(5),True); 
+  tme:=0; 
+  Repeat 
+  Wait(1000); 
+  tme:=tme+1000; 
+  Until(tme>10000)Or(GetColor(56,117)=16777215); 
+End; 
+If(GetColor(56,117)=16777215)And(GetColor(455,216)=16777215)Then 
+Begin 
+  Status('Closing Welcome Box'); 
+  ClickMouse(220+random(5),230+random(5),True); 
+  Wait(1000+random(250)); 
+End; 
+If(GetColor(95,133)=65535)And(GetColor(325,159)=16777215)Then 
+Begin 
+  Status('Closing Non-Member Server Box'); 
+  ClickMouse(262+random(5),202+random(2),True) 
+  Wait(1000+random(250)); 
+End; 
+End; 
+
+Procedure modcheck; 
+Begin 
+chat:=getchatmsg; 
+d:=pos(':',chat); 
+If(copy(chat,1,4)='Mod ')Or(copy(chat,1,d-1)='Paul')Or(copy(chat,1,d-1)='Andrew')Then 
+Begin 
+  Wait(1000+Random(3000)); 
+  Writeln('Fuck a mod! Logging out.'); 
+  killswitch:=(false); 
+  Status('Logging out'); 
+  Wait(1000+Random(3000)); 
+  Repeat 
+  MoveMouse(325+Random(5),20+Random(5)); 
+  Wait(100); 
+  ClickMouse(350,280,True); 
+  Wait(1000); 
+  Until(GetColor(338,125)=5524540); 
+End; 
+End; 
+
+Procedure FixMap(Path:Integer); 
+Begin 
+bool:=0; 
+repeat 
+login; 
+  if OpenDoor then 
+  begin 
+   Status('Door Oppened'); 
+   DoorFound:=True; 
+  end else 
+  begin 
+   DoorFound:=False; 
+   Status('Door not found, Going back to fishing!'); 
+  end 
+MoveMouse(1+random(3),1+random(3)); 
+Wait(10); 
+MoveMouse(465+random(3),20+random(3)); 
+Wait(50); 
+if(ProcessMapNoCompass)then ProcessPath(Path,x,y,bool,0.1); 
+until bool=1; 
+end; 
+
+procedure GoByPath(path: Integer); 
+begin 
+NR:=0; 
+fixmap(Path); 
+if OpenDoor then 
+  begin 
+   Status('Door Oppened'); 
+   DoorFound:=True; 
+  end else 
+  begin 
+   DoorFound:=False; 
+   Status('Door not found, Going back to fishing!'); 
+  end 
+
+repeat 
+login; 
+ClickMouse(460+random(3),15+random(3),True); 
+Wait(300); 
+GoodMap:=ProcessMapNoCompass; 
+if(GoodMap)then 
+begin 
+  HowFar:=ProcessPath(Path,x,y,r,0.03); 
+  if(r>0.8)then 
+  begin 
+    NR:=0; 
+    if(HowFar=0)then ClickMap(x,y,True) 
+    else ClickMap(x+Random(3)-1,y+Random(3)-1,True); 
+  end else 
+end; 
+NR:=NR+1; 
+if(NR>2)then 
+begin 
+  FixMap(Path); 
+  NR:=0; 
+end else 
+begin 
+  Dest:=(HowFar=0)and(x<=20)and(x>=16)and(y<=22)and(y>=15); 
+  if(not Dest)then 
+  Wait(500); 
+end; 
+until(Dest); 
+wait(200); 
+movemouse(10,10); 
+wait(100); 
+end; 
+
+Procedure findbag; 
+Begin 
+bag:=BitmapFromString(18,7, 
+     '9D6E3D9D6E3D9D6E3D7B542E7B542E7B542E7B542E7B542E7B542E' + 
+     '7B542E52452E52452E52452E52452E52452E52452E52452E360E06' + 
+     '9D6E3D7B542E9D6E3D7B542E7B542E7B542E7B542E7B542E7B542E' + 
+     '7B542E7B542E52452E52452E52452E52452E52452E52452E52452E' + 
+     '9D6E3D9D6E3D9D6E3D9D6E3DC344227B542E7B542E7B542E7B542E' + 
+     '7B542E7B542E7B542E52452E7B542E52452E52452E52452E615D61' + 
+     '9D6E3D9D6E3D9D6E3D7B542E9D6E3D7B542E7B542E7B542E7B542E' + 
+     '7B542E7B542E7B542E52452E7B542E52452E52452E8D8D8D868457' + 
+     '7B542E9D6E3D9D6E3D9D6E3D7B542E9D6E3D7B542E7B542E7B542E' + 
+     '7B542E7B542E7B542E7B542E7B542E7B542E52452E988CB1988CB1' + 
+     '7B542E7B542E9D6E3D9D6E3D9D6E3D9D6E3D9D6E3DC344227B542E' + 
+     '7B542E7B542E7B542E7B542E7B542E7B542E988CB1988CB1988CB1' + 
+     '7B542E7B542E7B542E9D6E3D9D6E3D9D6E3D9D6E3D9D6E3D7B542E' + 
+     '7B542E7B542E7B542E7B542E7B542E7B542E988CB1CFAB7BCFAB7B' + 
+     ''); 
+MoveMouse(492,14); 
+Wait(200); 
+trybag:=0; 
+Repeat 
+IF(FindBitmap(bag,a,b))Then foundbag:=(true); 
+trybag:=trybag+1; 
+Wait(100); 
+modcheck; 
+Until(foundbag)or(trybag>20); 
+MoveMouse(25,25); 
+End; 
+
+Procedure sleep; 
+Begin 
+findbag; 
+wt:=0; 
+Wait(200); 
+Movemouse(498,16); 
+Wait(1000); 
+Movemouse(a+2,b+2); 
+Wait(1000); 
+If(IsTextAt(6,2,'Sleeping Bag: sleep'))Then 
+Begin 
+  Status('Sleeping'); 
+  ClickMouse(a+2,b+2,True); 
+  Repeat 
+  Wait(1000); 
+  wt:=wt+1000; 
+  Until(wt>=5000)Or(Getcolor(166,44)<>65535)Or(Getcolor(266,133)<>16777215); 
+  If(wt>=5000)And(Getcolor(166,44)=65535)Then 
+  Begin 
+    Repeat 
+    ClickMouse(198,302,True); 
+    wait(400); 
+    ClickMouse(198,302,True); 
+    wt2:=0; 
+    Repeat 
+    Wait(1000); 
+    wt2:=wt2+1000; 
+    Until(wt2>=40000)Or(Getcolor(166,44)<>65535); 
+    Until(Getcolor(166,44)<>65535); 
+  End; 
+  Wait(1000); 
+End; 
+MoveMouse(25,25); 
+End; 
+
+Procedure findfish; 
+begin 
+repeat 
+login; 
+modcheck; 
+findcolor(x,y,4006420,150,100,350,300); 
+movemouse(x,y); 
+wait(500); 
+count:=count+1; 
+if(count>200)then 
+begin 
+  GoByPath(ToFish); 
+  Wait(1000); 
+  count:=0; 
+end; 
+until(istextat(6,2,'fish: cage'))Or(not killswitch); 
+end; 
+
+procedure fishlobs; 
+begin 
+full:=(false); 
+count:=0; 
+Status('Fishing'); 
+findfish; 
+Repeat 
+login; 
+MoveMouse(495,17); 
+Wait(200); 
+MoveMouse(480,220); 
+Wait(200); 
+if(IsTextAt(6,2,'Raw'))then full:=(true); 
+If(not full)Then 
+Begin 
+  MoveMouse(1,1); 
+  Wait(200); 
+  Status(inttostr(certs)+' Lob certs'); 
+  FixMouse(x,y,0); 
+  ClickMouse(x,y,True); 
+  repeat 
+  modcheck; 
+  wait(100); 
+  wait1:=wait1+100; 
+  until(wait1>=2000); 
+  chat:=GetChatMsg; 
+  MoveMouse(1,1); 
+  Wait(100); 
+  movemouse(x,y); 
+  Wait(500); 
+  if(chat='You are too tired to catch this fish')then sleep; 
+  if(not istextat(6,2,'fish: cage'))Then findfish; 
+End; 
+until(full)Or(not killswitch); 
+end; 
+
+procedure findorven; 
+begin 
+cwt1:=0; 
+cwt2:=0; 
+cwt3:=0; 
+l55:=CreateLandmark(7,7,'01000104001B010001040008010001040003010005040003'); 
+ReWalk:=CreatePath; 
+AddLandmarkToPath(ReWalk,l55,16,6); 
+Wait(150+Random(50)); 
+Status('Certing Fishies :)'); 
+orven:=(false); 
+repeat 
+login; 
+count:=count+1; 
+if(count>50)then 
+begin 
+  GoByPath(ReWalk); 
+  Wait(1000); 
+  count:=0; 
+  Wait(300); 
+end; 
+If(findcolorspiral(x,y,1385600,-1,-1,-1,-1))Then 
+Begin 
+  MoveMouse(x,y); 
+  Wait(500); 
+  If(istextat(6,2,'Orven: Talk'))Then orven:=(true); 
+End; 
+modcheck; 
+Until(orven)Or(not killswitch); 
+ClickMouse(x,y,True); 
+end; 
+
+procedure certlobs; 
+begin 
+findorven; 
+repeat 
+wait(100); 
+cwt1:=cwt1+100; 
+modcheck; 
+if(cwt1>=8000)then findorven; 
+until(istextat(6,12,'l have some fish to trade in'))Or(not killswitch); 
+ClickMouse(30,20,False); 
+repeat 
+wait(100); 
+cwt2:=cwt2+100; 
+modcheck; 
+if(cwt2>=8000)then findorven; 
+until(istextat(6,12,'Raw Lobster'))Or(not killswitch); 
+ClickMouse(17,18,False); 
+repeat 
+wait(100); 
+cwt3:=cwt3+100; 
+modcheck; 
+if(cwt3>=8000)then findorven; 
+until(istextat(6,48,'Twentyfive'))Or(not killswitch); 
+ClickMouse(25,52,False) 
+Wait(1200+Random(300)); 
+certs:=certs+5; 
+Status(inttostr(certs)+' Lob certs'); 
+certs1:=inttostr(certs); 
+lenc:=length(certs1); 
+If(copy(certs1,lenc-1,lenc)='50')Or(copy(certs1,lenc-1,lenc)='00')Then 
+Begin 
+  gettime; 
+  Writeln(nHour+':'+nMin+' - '+inttostr(certs)+' Lob certs'); 
+End; 
+End; 
+
+
+
+Begin 
+l1:=CreateLandmark(7,7,'01000104001B010001040008010001040003010005040003'); 
+l2:=CreateLandmark(4,11,'01000104000D01000104000D010001040001010001040006010001040005010001'); 
+l3:=CreateLandmark(4,10,'04000201000104000301000104000301000104000901000104000201000104000C010001040002010001');ToFish:= CreatePath; 
+AddLandmarkToPath(ToFish,l1,2,7); 
+ToCert:=CreatePath; 
+AddLandmarkToPath(ToCert,l1,16,6); 
+username:=Readln('Username:'); 
+password:=Readln('Password:'); 
+killswitch:=(true); 
+Repeat 
+Status(inttostr(certs)+' Lob certs'); 
+login; 
+modcheck; 
+if(not killswitch)then break; 
+wait(200); 
+fishlobs; 
+if(not killswitch)then break; 
+wait(500); 
+GoByPath(ToCert); 
+if(not killswitch)then break; 
+Wait(500); 
+certlobs; 
+if(not killswitch)then break; 
+repeat 
+if OpenDoor then 
+  begin 
+   Status('Door Oppened'); 
+   DoorFound:=True; 
+  end else 
+  begin 
+   DoorFound:=False; 
+   Status('Door not found, Going back to fishing!'); 
+  end 
+  until Not DoorFound 
+GoByPath(ToFish); 
+Wait(500); 
+Until(not killswitch); 
+End. 

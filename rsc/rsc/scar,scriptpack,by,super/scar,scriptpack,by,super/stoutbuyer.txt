@@ -1,0 +1,935 @@
+// ----------------- Dwarven Stout Buyer ---------------- //
+//                        version 4                       //
+//                                                        //
+//           *Buys Stout and deposit to the bank.         //
+//                *Using PhalanxInclude.txt               //
+//                  *Bring coins with you.                //
+//                                                        //
+// ---------------------  by zzzAlex  ------------------- //
+
+program StoutBuyer;
+{.include PhalanxInclude.txt}
+var
+x,y,Beer,l1,BarPath,BankPath,HowMany,Banked: Integer;
+
+const
+BankTrip = 10; // Stops everything when you've banked for this number.
+
+procedure BuyStout;
+begin
+ repeat
+  repeat
+   Status('You have bought around ' + IntToStr(HowMany) + ' Dwarven Stouts yet.');
+   If(FindColorSpiral(x,y,1806737,5,5,510,325))then
+   MoveMouse(x,y);
+   wait(50);
+   If(not(IsTextAt(6,2,'Barmaid: Talk')))then
+   Wait(100);
+   MoveMouse(10,10);
+  until(IsTextAt(6,2,'Barmaid: Talk'))or (IsTextAt(6,0,'One Asgarnian Ale please'));
+  ClickMouse(x,y,true);
+  Wait(4100);
+ until(IsTextAt(6,0,'One Asgarnian Ale please'));
+ ClickMouse(17,32, false);
+ HowMany:= HowMany + 1;
+ Wait(500);
+ MoveMouse(495,15);
+ wait(500);
+ MoveMouse(485,230);
+ wait(4000);
+end;
+
+
+procedure DoBanking;
+begin
+writeln('Banking')
+ Beer := BitmapFromString(3, 3,
+       'CD8B2B9A5A01CD8B2B9A5A01CD8B2BCD8B2B9A5A01CD8B2BCD8B2B');
+  Wait(200);
+    repeat
+      repeat
+      repeat
+        x:= Random(500);
+        y:= Random(340);
+        FindColorSpiral(x,y,10661355,x-50,y-50,x+50,y+50);
+        MoveMouse(x, y);
+        Wait(200);
+      until(IsTextAt(6,2,'Banker: Talk'))or(IsTextAt(6,0,'l d like to access my bank account please'));
+      ClickMouse(x, y, True);
+      Wait(4000);
+    until(IsTextAt(6,0,'l d like to access my bank account please'));
+    ClickMouse(17,8,True);
+    Wait(6000);
+  until(FindBitmap(Beer,x,y));
+  ClickMouse(x,y,True);
+  Wait(1000);
+  while(IsTextAt(334,264,'25'))do
+  begin
+    ClickMouse(335,270,True);
+    Wait(300);
+  end;
+  while(IsTextAt(304,264,'Five'))do
+  begin
+    ClickMouse(305,270,True);
+    Wait(300);
+  end;
+   while(IsTextAt(274,264,'One'))do
+  begin
+    ClickMouse(275,270,True);
+    Wait(300);
+  end;
+  //Close bank window
+  ClickMouse(410,5,True);
+  Wait(400);
+end;
+
+begin
+l1:= CreateLandmark(2, 3, '040001010005');
+
+BarPath:= CreatePath;
+AddLandmarkToPath(BarPath, l1, 4, 4);
+BankPath:= CreatePath;
+AddLandmarkToPath(BankPath, l1, -7, 9);
+
+
+// Main Loop..
+begin
+ repeat
+  GoByPath(BarPath);
+  Wait(2000)
+  writeln('Buying Dwarven Stouts');
+  repeat
+   BuyStout;
+  until(IsTextAt(6,2,'Dwarven Stout'));
+  GoByPath(BankPath);
+  Wait(2000)
+  DoBanking;
+  Banked:=Banked+1;
+ until(Banked=BankTrip);
+ Writeln('You have bought a total of '+ IntToStr(HowMany) + ' Dwarven Stouts.');
+end;
+end. 
+
+To make it work you will need to get phalanxinclude.txt into the same directory you saved the stout buyer.
+
+Code:
+
+
+// Set to work with 32bit colors
+Const
+ UseSounds = true; // play sound when sleeping? true for yes, false for no.
+ N=100;
+Type
+ IntArr=array[1..N] of LongInt;
+ StrArr=array[1..N] of string;
+var
+ un,pw:string;
+ SWDelay,CMD,MF,KS:integer;
+ SLP,LIC:integer;
+ LoggedOut,LoggedIn:Boolean;
+
+//will close all menus that are open on screen.
+Procedure CloseMenu;
+var
+ i:integer;
+begin
+ repeat
+  MoveMouse(15+Random(10),335+Random(5));
+  Wait(10);
+ until (GetColor(402,35)<>65792) or (i>=100);
+end;
+
+Procedure OpenMenu(MenuID:integer);
+{   Menu ID | Description
+       1    |  Inventory
+       2    |  Map
+       3    |  Stats
+       4    |  Spells book
+       5    |  Friends list
+       6    |  Settings      }
+var
+ i:integer;
+begin
+ repeat
+  if MenuID=1 then
+  begin
+   Wait(1);
+   ClickMouse(500-Random(5),15+Random(5),True)
+   Wait(10);
+  end else
+  begin
+   Wait(1);
+   MoveMouse(500-(MenuID-1)*35-Random(5),15+Random(5));
+   Wait(10);
+  end;
+ until (GetColor(402,35)=65792) or (i>=100);
+ if MenuID=1 then Wait(50) else Wait(15+random(5));
+end;
+
+// converts a string such as 'num1, num2, num3, etc,' to an array of [num1,num2,num3,etc..].
+Procedure StrToIntArr(S:String; var A:IntArr; var ElementsCount:integer);
+var
+ i,FCV:integer;
+ TempStr,FirstCharS:String;
+ FirstChar:char;
+ Bool:boolean;
+begin
+ TempStr:=S;
+ i:=1;
+ if TempStr='' then A[i]:=-1
+ else while (TempStr<>'') and (i<46) do
+ begin
+  if pos(',',TempStr)<>0 then
+  begin
+   A[i]:=StrToInt(copy(TempStr,1,pos(',',TempStr)-1));
+   Delete(TempStr,1,pos(',',TempStr));
+  end else
+  Begin
+   A[i]:=StrToInt(TempStr);;
+   TempStr:='';
+  end;
+  if TempStr<>'' then
+  repeat
+   FirstChar:=StrGet(TempStr,1);
+   FCV:=ORD(FirstChar);
+   FirstCharS:=FirstChar;
+   insert(TempStr,FirstCharS,1);
+   Bool:=((FCV>=ord('a'))and(FCV<=ord('z')))or((FCV>=ord('A'))and(FCV<=ord('Z')))or((FCV>=ord('0'))and(FCV<=ord('9')));
+   if Not Bool then Delete(TempStr,1,1);
+  until (Bool)or(TempStr='');
+  i:=i+1;
+ end;
+ ElementsCount:=i-1;
+end;
+// Same as StrToIntArr just converts to a string array:
+// converts a string such as 'objec1, object2, object3, etc,' to an array of [object1,object2,object3,etc..].
+Procedure StrToStrArr(S:String; var A:StrArr; var ElementsCount:integer);
+var
+ i,FCV:integer;
+ TempStr,FirstCharS:String;
+ FirstChar:char;
+ Bool:boolean;
+begin
+ TempStr:=S;
+ i:=1;
+ while (TempStr<>'') and (i<46) do
+ begin
+  if pos(',',TempStr)<>0 then
+  begin
+   A[i]:=copy(TempStr,1,pos(',',TempStr)-1);
+   Delete(TempStr,1,pos(',',TempStr));
+  end else
+  Begin
+   A[i]:=TempStr;
+   TempStr:='';
+  end
+  if TempStr<>'' then
+  repeat
+   FirstChar:=StrGet(TempStr,1);
+   FCV:=ORD(FirstChar);
+   FirstCharS:=FirstChar;
+   insert(TempStr,FirstCharS,1);
+   Bool:=((FCV>=ord('a'))and(FCV<=ord('z')))or((FCV>=ord('A'))and(FCV<=ord('Z')))or((FCV>=ord('0'))and(FCV<=ord('9')));
+   if Not Bool then Delete(TempStr,1,1);
+  until (Bool)or(TempStr='');
+  i:=i+1;
+ end;
+ ElementsCount:=i-1;
+end;
+// my start screen function (32bits).
+function PStartScreen:boolean;
+var
+ bool:boolean;
+begin
+ if {F2P start screen}
+    ((GetColor(99,266)=8216920)and
+    (GetColor(212,265)=9924705)and
+    (GetColor(299,266)=8216920)and
+    (GetColor(412,266)=8216920))or
+    {P2P start screen}
+    ((GetColor(159,276)=8216920)and
+    (GetColor(351,275)=9924705)and
+    (GetColor(350,303)=11176575)and
+    (GetColor(160,304)=11307905)) then
+    bool:=True else bool:=False;
+ Result:=Bool;
+end;
+// my login screen function (32bits).
+function PLogInScreen:boolean;
+var
+ bool:boolean;
+begin
+ if (GetColor(42,241)=9924705)and
+    (GetColor(284,320)=11242368)and
+    (GetColor(355,242)=8480092)and
+    (GetColor(464,288)=10979196)then
+    Bool:=true else Bool:=False;
+ Result:=Bool;
+end;
+Procedure LogInIfNeeded; export;
+var
+ i: Integer;
+ ContinueG: Boolean;
+begin
+ ContinueG:=False; i:=0; LoggedIn:=False;
+ if (Not LoggedOut) and (LIC<KS) then
+ begin
+  //if logged out press Cancel
+  if(PLoginScreen)then
+  begin
+   Status('Clearing username, password fields');
+   ClickMouse(400,280,True);
+   repeat
+    Wait(100);
+   until (PStartScreen);
+  end;
+  //If logged out select Existing User
+  if(PStartScreen)then
+  begin
+   Status('Choosing existing user');
+   i:=0;
+   ClickMouse(310,295,True);
+   repeat
+    Wait(100);
+    i:=i+1;
+   until (PLogInScreen)or(i>=100);
+  end;
+  //If logged out, log in
+  if(PLoginScreen)then
+  begin
+   Status('Trying to log in');
+   i:=0;
+   ClickMouse(100,260,True);
+   repeat
+    Wait(100);
+    i:=i+1;
+   until (GetColor(142,264)=0) or (i>20);
+   SendKeysSilent(UN);
+   Wait(100);
+   ClickMouse(120,310,True);
+   repeat
+    Wait(100);
+    i:=i+1;
+   until (GetColor(192,311)=0) or (i>20);
+   SendKeysSilent(pw);
+   Wait(100);
+   repeat
+    i:=0;
+    ClickMouse(380,250,True);
+    repeat
+     Wait(500+random(500));
+     i:=i+1;
+    until (i>20)or((Not PStartScreen)and(Not PLogInScreen));
+    ContinueG:=(i<=20);
+   until ContinueG;
+   Wait(2000+Random(1000));
+   OpenMenu(1);
+   Wait(1000);
+   OpenMenu(1);
+   Wait(1000);
+   CloseMenu;
+   Writeln('Login procces done!');
+   LoggedIn:=True;
+   LIC:=LIC+1;
+  end;
+  SetTimeOut(20+random(6),'LOGINIFNEEDED');
+ end;
+end;
+Procedure LogOut;
+var
+ s: String;
+begin
+ LoggedOut:=True;
+ ClearTimeouts;
+ while (Not PStartScreen)and(Not PLogInScreen) do
+ begin
+  OpenMenu(6);
+  ClickMouse(350,280,True);
+  Wait(1000);
+  S:=GetChatMsg;
+  if (pos('can t',s)<>0) or (pos('cant',s)<>0) then Wait(3000);
+ end;
+ Writeln('Logged out!');
+ Wait(60000*SWDelay);
+ LogInIfNeeded;
+end;
+procedure WaitForFO;
+var
+ i: Integer;
+begin
+ Status('Waiting for an fatigue operator! (0/'+inttostr(SWDelay)+' minutes)');
+ i:=0;
+ SetTimeOut(999999,'LOGINIFNEEDED');
+ repeat
+  wait(60000);
+  i:=i+1;
+  Status('Waiting for an fatigue operator! ('+inttostr(i)+'/'+inttostr(SWDelay)+' minutes)');
+ until (i>=swdelay);
+ LogInIfNeeded;
+end;
+
+// straightens the map.
+Procedure FixMap(Path:Integer);
+var
+ x,y:integer;
+ r:extended;
+Begin
+ r:=0;
+ repeat
+  CloseMenu;
+  OpenMenu(2);
+  if ProcessMapNoCompass then ProcessPath(Path, x, y, r, 0.01);
+ until r=1;
+end;
+
+Procedure StraightMap;
+Begin
+ repeat
+  CloseMenu;
+  OpenMenu(2);
+ until ProcessMapNoCompass;
+end;
+
+// Use this to go by any path (using ProcessMapNoCompass).
+procedure GoByPath(path: Integer);
+var
+HowFar : Integer;
+x, y, tx, ty, WaitTime: Integer;
+r: Extended;
+Dest, Att: Boolean;
+NR: Integer;
+begin
+WaitTime:=CMD;
+NR:=0; Att:=False;
+//FixMap(Path);
+StraightMap;
+repeat
+  OpenMenu(2)
+  ProcessMapNoCompass;
+  HowFar:= ProcessPath(Path, x, y, r, 0.05);
+  //Writeln(IntToStr(HowFar)+' '+FloatToStr(r)+' '+IntToStr(X)+' '+IntToStr(Y));
+  if(r > 0.6)then
+  begin
+   NR:=0;
+   if Att then Att:=False;
+   if(HowFar = 0) then
+   begin
+    tx:=x;
+    ty:=y;
+   end else
+   begin
+    tx:=x+Random(2)-1;
+    ty:=y+Random(2)-1;
+   end;
+   while (IsObjOnMap(tx,ty))do
+   begin
+    tx:=tx-1+random(2);
+    ty:=ty-1+random(2);
+   end;
+   ClickMap(tx, ty, True);
+   Wait(100+random(100));
+  end else NR:=NR+1;
+  if NR>3 then
+  begin
+   //FixMap(Path);
+   StraightMap;
+   NR:=0;
+  end else
+  begin
+   Dest:=(HowFar=0)and(x<=23)and(x>=14)and(y<=23)and(y>=14);
+   if (GetFightMode<>0)and(Not Att) then
+   begin
+    WaitTime:=3000;
+    Att:=True;
+   end;
+   if(not Dest)then
+   begin
+    if NR>0 then Wait(1300+random(200))
+    else Wait(WaitTime);
+    Att:=False;
+   end else Wait(2000);
+  end;
+until(Dest);
+Wait(50);
+CloseMenu;
+end;
+
+// will just return the cords of the item name supplied.
+function GetItem(ItemName:string; var dx,dy:integer; xs,ys,xe,ye:integer):boolean;
+Var
+ BitMap,x,y,sxs,sys,sxe,sye:integer;
+ LCItemName:string;
+ Found:boolean;
+begin
+ sxs:=xs; sys:=ys;
+ sxe:=xe; sye:=ye;
+ if (sxs<0) then sxs:=0;
+ if (sys<0) then sys:=0;
+ if (sxe>510) or (sxe<0) then sxe:=510;
+ if (sye>325) or (sxe<0) then sye:=325;
+ Found:=False;
+ LCItemName:=LowerCase(ItemName);
+ BitMap:=9999;
+ Case LCItemName of
+  'clay'            :BitMap:=BitmapFromString(3, 3,'91610F724B0BC2811562410A724B0B91610F62410A4F2100975B08');
+  'tin'             :BitMap:=BitmapFromString(3, 3,'857575724B0BB29C9C5A4F4F724B0B8575755A4F4F4F2100975B08');
+  'copper'          :BitMap:=BitmapFromString(3, 3,'A2400F724B0BD856156D2B0A724B0BA2400F6D2B0A4F2100975B08');
+  'iron ore'        :BitMap:=BitmapFromString(3, 2,'4C41414F2100975B084F2100724B0B724B0B');
+  'iron bar'        :BitMap:=BitmapFromString(3, 4,'978C8C978C8C978C8CADA1A1827878827878ADA1A1827878827878C9BBBB827878665E5E');
+  'silver'          :BitMap:=BitmapFromString(6, 2,'CCCCCCCCCCCCA8A8A8A8A8A88F8F8F8F8F8FA8A8A88F8F8F8F8F8F8F8F8F8F8F8F666666');
+  'silver bar'      :BitMap:=BitmapFromString(3, 4,'A2A2A2A2A2A2A2A2A2BABABA8B8B8B8B8B8BBABABA8B8B8B8B8B8BD8D8D88B8B8B6D6D6D');
+  'coal'            :BitMap:=BitmapFromString(2, 3,'4D4D4D6D6D6D4D4D4D4D4D4D2727274D4D4D');
+  'steel bar'       :BitMap:=BitmapFromString(3, 4,'979797979797979797ADADAD828282828282ADADAD828282828282C9C9C9828282666666');
+  'gold nugget'     :BitMap:=BitmapFromString(4, 2,'D8AC40BA9537BA9537A28130BA9537BA9537BA9537A28130');
+  'gold bar'        :BitMap:=BitmapFromString(3, 4,'A28130A28130A28130BA95378B6F298B6F29BA95378B6F298B6F29D8AC408B6F296D5720');
+  'saphire'         :BitMap:=BitmapFromString(4, 2,'0040D80037BA0037BA0030A20040D80037BA0037BA0030A2');
+  'emerald'         :BitMap:=BitmapFromString(4, 2,'2BAC2B2595252595252081202BAC2B259525259525208120');
+  'ruby'            :BitMap:=BitmapFromString(4, 2,'D82B00BA2500BA2500A22000BA2500BA2500BA2500A22000');
+  'diamond'         :BitMap:=BitmapFromString(5, 2,'D8D8D8D8D8D8BABABABABABAA2A2A2D8D8D8BABABABABABABABABAA2A2A2');
+  'raw shrimp'      :BitMap:=BitmapFromString(1, 5,'E69090CE81813F3EF9A36666A36666');
+  'raw anchovie'    :BitMap:=BitmapFromString(1, 4,'9090E68181CE3F3EF96666A3');
+  'raw sardine'     :BitMap:=BitmapFromString(1, 3,'90E69054865481CE81');
+  'raw herring'     :BitMap:=BitmapFromString(2, 2,'B8B8B8B8B8B8A3A3A3868686');
+  'raw lobster'     :BitMap:=BitmapFromString(3, 2,'860000FC0000B8000045372CA30000B80000');
+  'raw swordfish'   :BitMap:=BitmapFromString(1, 5,'B873B8A366A3704670A366A3865486');
+  'cooked shrimp'   :BitMap:=BitmapFromString(1, 5,'E66565CE5A5A3F3EF9A34747A34747');
+  'cooked anchovie' :BitMap:=BitmapFromString(1, 5,'6565E65A5ACE3F3EF94747A34747A3');
+  'cooked sardine'  :BitMap:=BitmapFromString(2, 3,'65E66565E6653B863B5ACE5A5ACE5A3B863B');
+  'cooked herring'  :BitMap:=BitmapFromString(1, 4,'AD81819B74749B7474654B4B');
+  'cooked lobster'  :BitMap:=BitmapFromString(3, 2,'5C3200AD5E007F450045372C703D007F4500');
+  'cooked swordfish':BitMap:=BitmapFromString(1, 5,'8A508A7B477B5431547B477B653B65');
+  'coins'           :BitMap:=BitmapFromString(3, 3,'FCC000C7A00B6B2C09C7A00B6B2C09FCC0004B280B6B2C09FEF660');
+  'sleeping bag'    :BitMap:=BitmapFromString(5, 2,'7B542E7B542E988CB1CFAB7BCFAB7B9D6E3DF8EAA5F8EAA5F8EAA57B542E');
+ end;
+ if BitMap<>9999 then
+ begin
+  if FindBitmap(BitMap,x,y) then
+  begin
+   dx:=x;
+   dy:=y;
+  end;
+  Wait(100);
+  Found:=True;
+ end else Writeln('Bit map - '+ItemName+' - not defiened.');
+ Result:=Found;
+end;
+
+//Sleeping procedure.
+function SleepNeeded:boolean;
+var
+ Fatigue,x,y,Count,Tries,RNum:integer;
+ Text:string;
+ Slept:boolean;
+begin
+ Count:=0; Tries:=0; Slept:=False;
+ OpenMenu(3);
+ ClickMouse(350,50,True);
+ Wait(100);
+ Text:=GetTextAt(365,189);
+ Fatigue:=StrToInt(copy(Text,1,Length(Text)));
+ Rnum:=Random(9)+1;
+ if Fatigue>=MF then
+ begin
+  Slept:=True;
+  Wait(5000);
+  OpenMenu(1);
+  Status('Going to Sleep');
+  if UseSounds then PlaySound('C:\WINDOWS\HELP\Tours\WindowsMediaPlayer\Audio\Wav\wmpaud'+IntToStr(Rnum)+'.wav');
+  if GetItem('Sleeping Bag',x,y,264,36,509,240) then
+  begin
+   ClickMouse(x,y,True);
+   Wait(1000);
+   count:=0;
+   repeat
+    wait(1000);
+    count:=count+1;
+    if (count>=50) then
+    begin
+     ClickMouse(200,300,True);
+     wait(1000);
+     while (GetColor(209,255)=255) do wait(100);
+     Count:=0;
+     if UseSounds then PlaySound('C:\WINDOWS\HELP\Tours\WindowsMediaPlayer\Audio\Wav\wmpaud'+IntToStr(Rnum)+'.wav');
+     Tries:=Tries+1;
+    end;
+    if Tries>3 then
+    begin
+     WaitForFO;
+     Wait(1000);
+     Status('Going to sleep!');
+     if Not IsTextAt(168,293,'click here') then
+     begin
+      OpenMenu(1);
+      GetItem('Sleeping Bag',x,y,264,36,509,240);
+      ClickMouse(x,y,True);
+      Wait(1000);
+      count:=0;
+      tries:=0;
+     end;
+    end;
+   until (IsTextAt(168,293,'click here')=False)and(Not PLogInScreen)and(Not PStartScreen);
+   SLP:=SLP+1;
+   Status('You have slept well!');
+  end else
+  begin
+   writeln('There is no sleeping bag in your inventory! (Logging out!)');
+   LogOut;
+  end;
+ end;
+ CloseMenu;
+ Result:=Slept;
+end;
+// returns true if inventory is full.
+function InvFull:Boolean;
+var
+ Bool:boolean;
+begin
+ OpenMenu(1);
+ MoveMouse(485,225);
+ Wait(100);
+ if GetTextAt(6,2)=NIL then bool:=False else bool:=True;
+ CloseMenu;
+ Result:=Bool;
+end;
+// Gets the item quanity of an item in the bank - ix and iy are the cords of where the item was found.
+Procedure GetItemQuanity(IX,IY:integer; var ItemCount:LongInt);
+var
+ TX,TY,TL:integer;
+ Text:String;
+begin
+ ItemCount:=0;
+ if (IX>=59)  and (IX<=107) then TX:=60;
+ if (IX>=108) and (IX<=156) then TX:=109;
+ if (IX>=157) and (IX<=205) then TX:=158;
+ if (IX>=206) and (IX<=254) then TX:=207;
+ if (IX>=255) and (IX<=303) then TX:=256;
+ if (IX>=304) and (IX<=352) then TX:=305;
+ if (IX>=353) and (IX<=401) then TX:=354;
+ if (IX>=402) and (IX<=450) then TX:=403;
+
+ if (IY>=31)  and (IY<=64)  then TY:=29;
+ if (IY>=65)  and (IY<=98)  then TY:=63;
+ if (IY>=99)  and (IY<=132) then TY:=97;
+ if (IY>=133) and (IY<=166) then TY:=131;
+ if (IY>=167) and (IY<=200) then TY:=165;
+ if (IY>=201) and (IY<=235) then TY:=199;
+ Text:=GetTextAt(TX,TY);
+ TL:=Length(Text);
+ if TL>7 then TL:=7;
+ ItemCount:=strtoint(copy(Text,1,TL));
+end;
+// Randomly moves in a radius or 1-2.
+Procedure MoveAside;
+var
+ RC,X,Y:integer;
+begin
+ RC:=Random(8)+1;
+ Case RC of
+  1:begin
+     X:=17;
+     Y:=17;
+    end;
+  2:begin
+     X:=18;
+     Y:=17;
+    end;
+  3:begin
+     X:=19;
+     Y:=17;
+    end;
+  4:begin
+     X:=19;
+     Y:=18;
+    end;
+  5:begin
+     X:=19;
+     Y:=19;
+    end;
+  6:begin
+     X:=18;
+     Y:=19;
+    end;
+  7:begin
+     X:=17;
+     Y:=19;
+    end;
+  8:begin
+     X:=17;
+     Y:=18;
+    end;
+ end;
+ OpenMenu(2);
+ ClickMap(x, y, True);
+ Wait(1000);
+ CloseMenu;
+end;
+//Returns the position of the wanted text(s) in a rightclick menu trough tar(get)x and tar(get)y.
+Function RightClickMenu(var tarx,tary:integer; Text:String):string;
+//Text works as 'Text1, Text2, Text3, etc...,'
+var
+ x,y,dx,dy,tx,ty:integer;
+ FoundText,Clicked:Boolean;
+ OSText,S:string;
+ Texts:StrArr;
+ i,j:integer;
+begin
+ FoundText:=False;  Clicked:=False; S:='';
+ if FindColor(dx,dy,16776960,0,0,510,330) then
+ begin
+  wait(50);
+  if dx<0 then dx:=0;
+  if dx>495 then dx:=495;
+  if IsTextInArea(dx-5,dy-5,dx+5,dy+2,tx,ty,'Choose option') then
+  begin
+   FoundText:=True;
+   x:=tx;
+   y:=ty;
+  end
+ end
+ StrToStrArr(Text,Texts,i);
+ if FoundText then
+ begin
+  repeat
+   y:=y+15;
+   OSText:=GetTextAt(x,y);
+   j:=1;
+   while (j<=i) and (Not Clicked) do
+   begin
+    if (Pos(Texts[j],OSText)<>0) then
+    begin
+     Clicked:=True;
+     S:=Texts[j];
+    end
+    j:=j+1;
+   end;
+  until (Clicked) or (y>=316);
+ end;
+ if Clicked then
+ begin
+  tarx:=x;
+  tary:=y;
+  MoveMouse(x+3,y+3);
+  Wait(10);
+ end;
+ Result:=S;
+end;
+// this will just click on options such as on smithing talking and more.
+Procedure ClickOption(Option:integer);
+var
+ i,x,y:integer;
+begin
+ i:=0;
+ repeat
+  x:=7+Random(3)-1;
+  y:=4+12*(Option-1)+Random(3)-1;
+  i:=i+1;
+  Wait(10);
+ until (GetColor(x,y)=16776960) or (GetColor(x,y)=255) or (i>20);
+ if i<=20 then
+ begin
+  Wait(10);
+  MoveMouse(x,y);
+  Wait(500);
+  ClickMouse(x,y,True);
+  Wait(100);
+ end;
+end;
+{ The way "TalkTo" works is:
+   - TalkTo(T(arget)Color:integer; T(arget)T(ext)X,T(arget)T(ext)Y:integer; T(arget)Text:string; S(econdary)T(ext)X,S(econdary)T(ext)Y:integer; S(econdary)Text:string; Option,F(inal)T(ext)X,F(inal)T(ext)Y:integer; F(inal)Text:string; Path:integer);
+  Example - talking to a banker:
+   - TalkTo(65536,6,2,'Banker: Talk',6,0,'l d like to access my bank account please',1,379,1,'Close window',BankPath);
+}
+Procedure TalkTo(TColor:integer; TTX,TTY:integer; TText:string; STX,STY:integer; SText:string; Option,FTX,FTY:integer; FText:string; Path:integer);
+var
+ x,y,dx,dy:integer;
+ i,j:integer;
+ bool,bool2,FoundTarget:boolean;
+begin
+ i:=0; j:=0;
+ Wait(100);
+ repeat
+  if (j>3)and(path<>-1) then
+  begin
+   GoByPath(Path);
+   j:=0;
+  end;
+  FoundTarget:=False;
+  i:=0;
+  Wait(100);
+  repeat
+   dx:=random(510)+1;
+   dy:=random(325)+1;
+   if FindColorSpiral(x,y,TColor,dx-50,dy-50,dx+50,dy+50) then MoveMouse(x,y);
+   Wait(50);
+   if (IsTextAt(TTX,TTY,TText))or(IsTextAt(STX,STY,SText)) then FoundTarget:=True;
+   i:=i+1;
+  until (FoundTarget)or(i>30);
+  if FoundTarget then
+  begin
+   i:=0; bool:=False; bool2:=false;
+   ClickMouse(x,y,False);
+   Wait(100);
+   if RightClickMenu(x,y,'Talk')='Talk' then
+   begin
+    ClickMouse(x+3,y+3,True);
+    repeat
+     wait(100);
+     i:=i+1;
+     bool:=IsTextAt(STX,STY,SText);
+     bool2:=(Pos('busy',GetChatMsg)<>0)
+    until(bool)or(bool2)or(i>=80);
+   end;
+   if bool2 then Wait(2000);
+   if bool then
+   begin
+    ClickOption(Option);
+    i:=0;
+    Repeat
+     Wait(100);
+     i:=i+1;
+    until(IsTextAt(FTX,FTY,FText))or(i>=100);
+   end;
+  end;
+  if Not FoundTarget then j:=j+1;
+ until(IsTextAt(FTX,FTY,FText));
+end;
+//Empties your inventory from any unuseful stuff or aquired materials.
+Procedure EmptyBank(UsefulStuff:string);
+//UsefulStuff works as 'Object1, Object2, Object3, etc...,'
+var
+ tx,x,y,i,j:integer;
+ StrNum,ItemDescription:string;
+ Num:longint;
+ UsefulCheck:boolean;
+ UsefulItems:StrArr;
+begin
+ StrToStrArr(UsefulStuff,UsefulItems,i);
+ Num:=0;
+ x:=99; y:=48;
+ while x<450 do
+ begin
+  while y<230 do
+  begin
+   tx:=x;
+   repeat
+    StrNum:=GetTextAt(tx,y);
+    Num:=strtoint(StrNum);
+    tx:=tx-7;
+   until (tx<=x-42)or(Num>0)or(StrNum=Nil);
+   if num>0 then
+   begin
+    ClickMouse(x,y,True);
+    Wait(1000);
+    UsefulCheck:=False;
+    ItemDescription:=GetTextAt(100,264);
+    j:=1;
+    While (Not UsefulCheck) and (j<=i) do
+    begin
+     if pos(UsefulItems[j],ItemDescription)<>0 then UsefulCheck:=True;
+     j:=j+1;
+    end;
+    if Not UsefulCheck then
+    begin
+     while(IsTextAt(422,264,'2500'))do
+     begin
+      ClickMouse(423,270,True);
+      Wait(300);
+     end;
+     while(IsTextAt(389,264,'500'))do
+     begin
+      ClickMouse(390,270,True);
+      Wait(300);
+     end;
+     while(IsTextAt(359,264,'100'))do
+     begin
+      ClickMouse(360,270,True);
+      Wait(300);
+     end;
+     while(IsTextAt(334,264,'25'))do
+     begin
+      ClickMouse(335,270,True);
+      Wait(300);
+     end;
+     while(IsTextAt(304,264,'Five'))do
+     begin
+      ClickMouse(305,270,True);
+      Wait(300);
+     end;
+     while(IsTextAt(274,264,'One'))do
+     begin
+      ClickMouse(275,270,True);
+      Wait(300);
+     end;
+    end;
+   end;
+   y:=y+34;
+  end;
+  y:=48;
+  x:=x+49;
+ end;
+end;
+// This function will open the inventor menu and search for the wanted item that contains the suplied text(s)
+function FindItem(var x,y:integer; Text:String):boolean;
+var
+ xp,yp,i,j:integer;
+ ItemFound,Bool:boolean;
+ TextArr:StrArr;
+ UpperMsgText:String;
+Begin
+ StrToStrArr(Text,TextArr,i);
+ ItemFound:=False;
+ OpenMenu(1);
+ yp:=40; xp:=265;
+ repeat
+  repeat
+   MoveMouse(xp,yp);
+   wait(50);
+   UpperMsgText:=GetTextAt(6,2);
+   if UpperMsgText=NIL then x:=471;
+   J:=1;
+   Bool:=True;
+   while (j<=i)and(Bool) do
+   begin
+    if (pos(TextArr[j],UpperMsgText)=0)then Bool:=False;
+    j:=j+1;
+   end;
+   if Bool then
+   begin
+    x:=xp;
+    y:=yp;
+    ItemFound:=True;
+   end;
+   xp:=xp+49;
+  until (xp>470)or(ItemFound);
+  yp:=yp+34;
+  xp:=265;
+ until (yp>215)or(ItemFound);
+ Result:=ItemFound;
+End;
+
+Procedure InitInclude(UserN,PassW:string; SWDel,MDel,MaxF,KillS:integer);
+begin
+ un:=UserN;
+ pw:=PassW;
+ SWDelay:=SWDel;
+ CMD:=MDel*1000;
+ MF:=MaxF;
+ KS:=KillS;
+ LoggedOut:=False;
+ LIC:=0;
+ SLP:=0;
+end;
+
+Function GetDelay(x,y:integer):Longint;
+var
+ Locationx,Locationy:integer;
+ WaitTime:LongInt;
+begin
+ Locationx:=round(abs(x - 250) div 50);
+ Locationy:=round(abs(y - 170) div 40);
+ if Locationx <> 0 then Locationy:=Locationy div LocationX;
+ WaitTime:=Round(Abs(Locationx + Locationy))*1000 + Random(100);
+ if WaitTime<100 then WaitTime:=400+Random(100);
+ //writeln(inttostr(x)+','+inttostr(y)+','+inttostr(WaitTime))
+ Result:=WaitTime;
+end; 

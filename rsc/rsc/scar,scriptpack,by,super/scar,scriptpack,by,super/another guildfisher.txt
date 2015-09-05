@@ -1,0 +1,694 @@
+    {==Guildfisher with certing and cooking. Version 2.31==}
+
+              {**Fishes lobs, swordies and shark**}
+                  {**And certs raw or cooked**}
+// -                      By OhDearUrDead                        - \\
+//===================================================================\\
+// - Sleeping Bag in first spot, first row must be full inc. certs - \\
+// -    Start at the fishing spots (for what ever you're fishing  - \\
+// -              Set options in the constants below              - \\
+// -                Align map with south facing up                - \\
+// -          Drops burnt fish, and certs how many you have        - \\
+
+program Guildfisher;
+const
+SDelay=30; //Starting delay for map fix.. Best not to change this
+username = ''; //Type your username between the 'brandonmack' for relogon
+password = ''; //Type your password between the 'angelx101x' for relogon
+
+FishWhat = 1; {---1 For Lobster fishing and certing---}
+              {---2 For Swordfish fishing and certing, dropping tuna---}
+            {---3 For Shark fishing and certing, Start at bignet spot closest to certs---}
+
+RawOrCooked = 1; {---1 if you wish to cert your fish raw---}
+                {---2 if you wish to cook you fish before certing---}
+
+var
+s, foodname: string;
+  x, y, l1, l2, l3, loops, Delay, rawtuna, poo, burnlob, burnswd, burnshk: Integer;
+
+procedure LogInIfNeeded; export;
+var
+l: integer;
+begin
+  if(LoginScreen)then
+    begin
+      Writeln('Clearing username, password fields');
+      ClickMouse(400,280,True);
+      Wait(2000);
+    end;
+  if(StartScreen)then
+  begin
+    Writeln('Choosing existing user');
+    ClickMouse(340,280,True);
+    l:=0;
+      repeat
+        Wait(200);
+        l:=l+1;
+      until(LoginScreen)or (l>=30);
+  end;
+  if(GetColor(338,125)=5524540)and //p2p login
+    (GetColor(87,145)=3472636)then //p2p login
+// if(LoginScreen)then              //f2p login
+  begin
+    Writeln('Trying to log in');
+//  ClickMouse(100,260,True);      //f2plogin
+    ClickMouse(260,290,True);      //p2plogin
+    Wait(500);
+    SendKeysSilent(username);
+    Wait(2000);
+    ClickMouse(120,310,True);
+    Wait(500);
+    SendKeysSilent(password);
+    Wait(2000);
+      repeat
+        ClickMouse(380,250,True);
+        Wait(1000);
+      until(not loginscreen);
+    Wait(3000);
+  end;
+  if(IsTextAt(129, 165, 'Jage'))then
+    begin
+      ClickMouse(250, 235, True);
+      Wait(2000);
+    end;
+        //not sure what these do, they were in kaitnieks's login procedure
+        if(GetColor(169,134)=65535)and
+          (GetColor(441,130)=0) and
+          (GetColor(91,198)=0)then
+          begin
+            ClickMouse(250,207,True);
+            Wait(2000);
+          end;
+        If(GetColor(139,76)=33023) and
+          (GetColor(385,280)=65535)then
+          begin
+            ClickMouse(250,314,True);
+            Wait(2000);
+          end;
+SetTimeOut(20,'LOGINIFNEEDED');
+end;
+
+//Fixes your map to the right angle after its perfectly aligned to North.
+Procedure FixMap(Path:Integer);
+var
+bool:extended;
+x,y:integer;
+Begin
+bool:=0;
+repeat
+  MoveMouse(1+random(3),1+random(3));
+  Wait(10);
+  MoveMouse(465+random(3),20+random(3));
+  Wait(Delay);
+  if ProcessMapNoCompass=False then Delay:=Delay+1
+  else ProcessPath(Path, x, y, bool, 0.1);
+  if (Delay>80) then
+  begin
+  Repeat
+    Wait(1000);
+  Until (LogInScreen) or (StartScreen) or ((GetColor(289,290)<>0)and(GetColor(93,399)<>9203557)); {members start screen}
+  Delay:=SDelay;
+  LogInIfNeeded;
+  end;
+until bool=1;
+end;
+//Going by the landmarks included in the path to get to a destination - originally made by kait, modified by me.
+procedure GoByPath(path: Integer);
+var
+HowFar: Integer;
+x, y: Integer;
+r: Extended;
+Dest: Boolean;
+NR:integer;
+GoodMap: Boolean;
+begin
+NR:=0;
+fixmap(Path);
+repeat
+  ClickMouse(460+random(3),15+random(3),True);
+  Wait(300);
+  GoodMap:= ProcessMapNoCompass;
+  if(GoodMap)then
+  begin
+    HowFar:= ProcessPath(Path, x, y, r, 0.03);
+    if(r > 0.8)then
+    begin
+    NR:=0;
+    if(HowFar = 0) then ClickMap(x, y, True)
+    else ClickMap(x + Random(3)-1, y + Random(3) - 1, True);
+    end else
+  end;
+  NR:=NR+1;
+  if NR>2 then
+  begin
+  FixMap(Path);
+  NR:=0;
+  end else
+  begin
+  Dest:= (HowFar=0)and(x<=20)and(x>=16)and(y<=22)and(y>=15);
+  if(not Dest)then Wait(4500);
+  end;
+until(Dest);
+wait(200);
+movemouse(10,10);
+wait(100);
+end;
+
+procedure sleepy;
+begin
+  Writeln('Sleeping');
+  Wait(200);
+  loops:=0;
+      Wait(200)
+      ClickMouse (498, 16, True);
+      Wait(200);
+      Movemouse (296, 47);
+      Wait(100);
+  ClickMouse(296, 46, True);
+  loops:=0;
+    repeat
+      wait(200);
+      loops:=loops+1;
+    until(IsTextAt(168, 293, 'click here')) or (loops>=25);
+  loops:=0;
+    repeat
+      loops:=loops+1;
+      Wait(200);
+        if(GetColor(209,252)=255)then
+          begin
+            //Writeln('Resetting wait...');
+            loops:=0;
+            Wait(2000);
+          end;
+        //get new sw word if no word comes in 30 seconds
+        if(loops=160)then
+          begin
+            loops:=0;
+            ClickMouse (200, 300, True);
+            Writeln('Trying again for sw word');
+          end;
+    until(not IsTextAt(168, 293, 'click here'));
+  MoveMouse(10,10);
+  Wait(100);
+end;
+
+
+procedure dofishing;
+var
+counting: Integer;
+ToFish: Integer;
+StartTime: Integer;
+begin
+    Writeln('Fishing');
+    StartTime:= GetSystemTime;
+  repeat
+repeat
+counting:= 0;
+  if(GetColor(429,122)=0)then
+    begin
+    wait(100);
+    clickmouse(309,211,True);
+    end
+    else
+        while(not IsTextAt(6,2,'fish: cage'))do
+        begin
+        x:= Random(450);
+        y:= Random(320);
+        wait(50);
+        FindColorSpiral(x,y,4006420,88,51,492,321);
+        MoveMouse(x,y);
+        counting:= counting + 1;
+        Wait(30);
+        if(counting > 200)then
+        begin
+          writeln('Cant find fish ... Attempting to do mapwalk');
+          GoByPath(ToFish);
+          Wait(1000);
+          counting:= 0;
+          Wait(300);
+        end;
+        end;
+        if(GetSystemTime - StartTime > 240000)then
+        begin
+          writeln('Moving to prevent logouts');
+          GoByPath(ToFish);
+          Wait(2000 + random(50));
+          MoveMouse(10,10);
+          Wait(200);
+          StartTime:= GetSystemTime;
+        end else
+        MoveMouse(x, y);
+        wait(200);
+      until(IsTextAt(6,2,'fish: cage'));
+        wait(50);
+      if(FishWhat = 1)then
+      begin
+        ClickMouse(x, y, True);
+        Wait(1500);
+        MoveMouse(495,17);
+        Wait(200);
+        MoveMouse(480,220);
+        Wait(800);
+      end;
+    if(FishWhat = 2)then
+    begin
+        ClickMouse(x, y, false);
+        wait(100);
+        ClickMouse(x, y+45, false);
+        Wait(1400);
+        MoveMouse(495,17);
+        Wait(200);
+        MoveMouse(480,220);
+        Wait(800);
+      end;
+    if(IsTextAt(6,2,'Raw'))and(FishWhat = 1)then
+    begin
+      Break;
+    end else
+    if(IsTextAt(6,2,'Raw'))and(FishWhat = 2)then
+    begin
+      if(not FindBitmapSpiral(rawtuna,x,y,0,0,520,340))then
+      begin
+        break;
+      end;
+      writeln('Inventory Full... Dropping Tunas');
+      repeat
+        wait(100);
+        FindBitmapSpiral(rawtuna,x,y,0,0,520,340);
+        clickmouse(x,y,false);
+        wait(200);
+        clickmouse(x,y+25,false);
+        Wait(400);
+        MoveMouse(495,17);
+        Wait(1500);
+      until(not FindBitmapSpiral(rawtuna,x,y,0,0,520,340));
+    end;
+      s:= GetChatMsg;
+    movemouse(2,2);
+    wait(300);
+    movemouse(x,y);
+    wait(100);
+    if(s = 'You are too tired to catch this fish')then
+    sleepy;
+    until(false);
+end;
+
+procedure FishShark;
+var
+ReWalk: Integer;
+StartTime: Integer;
+counting: Integer;
+l56: Integer;
+begin
+  l56:= CreateLandmark(7, 7, '01000104001B010001040008010001040003010005040003');
+  ReWalk:= CreatePath;
+  AddLandmarkToPath(ReWalk, l56, 6, 7);
+  Writeln('Fishing Shark');
+  StartTime:= GetSystemTime;
+  repeat
+  repeat
+  counting:= 0;
+  if(GetColor(429,122)=0)then
+    begin
+    wait(100);
+    clickmouse(309,211,True);
+    end
+    else
+        while(not IsTextAt(6,2,'fish: Net'))do
+        begin
+        x:= Random(450);
+        y:= Random(320);
+        FindColorSpiral(x,y,4006420,88,51,492,321);
+        MoveMouse(x,y);
+        counting:= counting + 1;
+        Wait(30);
+        if(counting > 200)then
+        begin
+          writeln('Cant find fish ... Attempting to do mapwalk');
+          GoByPath(ReWalk);
+          Wait(1000);
+          counting:= 0;
+          Wait(300);
+        end;
+        end;
+        if(GetSystemTime - StartTime > 240000)then
+        begin
+          writeln('Moving to prevent logouts');
+          GoByPath(ReWalk);
+          Wait(2000 + random(50));
+          MoveMouse(10,10);
+          Wait(200);
+          StartTime:= GetSystemTime;
+        end else
+        MoveMouse(x, y);
+        wait(200);
+      until(IsTextAt(6,2,'fish: Net'));
+        wait(50);
+      ClickMouse(x, y, False);
+      wait(100);
+      ClickMouse(x, y+45, False);
+      Wait(1400);
+        MoveMouse(495,17);
+        Wait(200);
+              MoveMouse(480,220);
+          Wait(800);
+    IF(IsTextAt(6,2,'Raw'))then
+      Break;
+      s:= GetChatMsg;
+    movemouse(2,2);
+    wait(300);
+    movemouse(x,y);
+    wait(100);
+    if(s = 'You have been standing here for five minutes')then
+    break;
+
+  if(s = 'You are too tired to catch this fish')then
+
+  sleepy;
+    until(false);
+end;
+
+procedure DropBurnt;
+begin
+repeat
+  Wait(50);
+  MoveMouse(490,15);
+  Wait(200);
+  if(not FindBitmap(burnlob,x,y))and(not FindBitmap(burnswd,x,y))and(not FindBitmap(burnshk,x,y))then break;
+  if(FindBitmap(burnlob,x,y))or(FindBitmap(burnswd,x,y))or(FindBitmap(burnshk,x,y))then
+  begin
+    Wait(100);
+    MoveMouse(x,y)
+    Wait(100);
+    if(istextat(6,2,'Burnt'))then
+    Begin
+      ClickMouse(x,y,false);
+      Wait(100);
+      ClickMouse(x,y+25,true);
+      Wait(800);
+    end;
+  end;
+until(false);
+end;
+
+procedure DoCooking;
+var c, xx, yy: Integer;
+sleep: Boolean;
+begin
+  xx:= 1;
+  yy:= 1;
+  if(FishWhat = 1)then
+  foodname:= 'Lobster';
+  if(FishWhat = 2)then
+  foodname:= 'Swordfish';
+  if(FishWhat = 3)then
+  foodname:= 'Shark';
+repeat
+  Wait(100);
+  MoveMouse(500,15);
+  wait(200);
+  x:= 290;
+  y:= 90;
+  MoveMouse(x,y);
+  Wait(100);
+  if(not IsTextAt(6,2,'Raw '+foodname))then
+  begin
+  repeat
+  x:= x + 50;
+  wait(20);
+  MoveMouse(x,y);
+  wait(100);
+  if(x > 500)then break;
+  until(IsTextAt(6,2,'Raw '+foodname));
+  end;
+  if(x > 500)then break;
+Wait(100);
+ClickMouse(x,y,True);
+Wait(100);
+c:= 0;
+begin
+if(x > 500)then break;
+  MoveMouse(xx,yy);
+  Wait(100);
+    if(not IsTextAt(6,2,'Use Raw '+foodname+' with Range'))then
+    begin
+    repeat
+      repeat
+        xx:= Random(500);
+        yy:= Random(340);
+        wait(30);
+        MoveMouse(xx,yy);
+        wait(30);
+      until(IsTextAt(6,2,'Use Raw '+foodname+' with Range'));
+      MoveMouse(xx,yy);
+      Wait(100);
+      until(IsTextAt(6,2,'Use Raw '+foodname+' with Range'));
+    end;
+    wait(100);
+    ClickMouse(xx, yy, True);
+    Wait(3000);
+    sleep:= IsTextAt(7, 304, 'You are too tired');
+    if(sleep)then
+    begin;
+      Wait(1000 + random(100));
+      sleepy;
+    end;
+end;
+until(false);
+end;
+
+procedure HowManyCerts;
+begin
+repeat
+  Wait(50);
+  MoveMouse(500,15);
+  Wait(500);
+  MoveMouse(484,225);
+  If(istextat(6,2,foodname))then
+  begin
+    poo:= 54;
+    break;
+  end;
+  wait(500);
+  MoveMouse(484,190);
+  If(istextat(6,2,foodname))then
+  begin
+    poo:= 43;
+    break;
+  end;
+  wait(500);
+  MoveMouse(484,155);
+  If(istextat(6,2,foodname))then
+  begin
+    poo:= 32;
+    break;
+  end;
+  wait(500);
+  MoveMouse(484,122);
+  If(istextat(6,2,foodname))then
+  begin
+    poo:= 21;
+    break;
+  end;
+  wait(500);
+  MoveMouse(484,88);
+  If(istextat(6,2,foodname))then
+  begin
+    poo:= 11;
+    break;
+  end;
+  wait(500);
+until(false);
+end;
+
+procedure certlobswd;
+var counting, ReWalk, l55: Integer;
+begin
+  if(RawOrCooked = 2)then HowManyCerts;
+  l55:= CreateLandmark(7, 7, '01000104001B010001040008010001040003010005040003');
+  ReWalk:= CreatePath;
+  AddLandmarkToPath(ReWalk, l55, 16, 6);
+  Wait(150 + Random(100));
+  Writeln('Certing '+foodname+' ');
+  repeat
+      repeat
+        counting:= 0;
+        while(not IsTextAt(6,2,'Orven: Talk'))do
+        begin
+        x:= Random(450);
+        y:= Random(320);
+        wait(50);
+        FindColorSpiral(x,y,9673963,-1,-1,-1,-1);
+        MoveMouse(x,y);
+        counting:= counting + 1;
+        Wait(30);
+        if(counting > 50)then
+        begin
+          writeln('Cant find certers ... Attempting to do mapwalk');
+          GoByPath(ReWalk);
+          Wait(1000);
+          counting:= 0;
+          Wait(300);
+        end;
+        end;
+        until(IsTextAt(6,2,'Orven: Talk'))or(IsTextAt(6,12,'I have some fish to trade in'));
+        if(IsTextAt(6,2,'Orven: Talk'))then
+        ClickMouse(x, y, True);
+      Wait(4000 + Random(300));
+    until(IsTextAt(6,12,'I have some fish to trade in'));
+      ClickMouse(30,20, False);
+      Wait(3500 + Random(300));
+    if(FishWhat = 1)and(RawOrCooked = 1)then
+    ClickMouse(17,18,False);
+    if(FishWhat = 2)and(RawOrCooked = 1)then
+    ClickMouse(17,45,False);
+    if(FishWhat = 1)and(RawOrCooked = 2)then
+    ClickMouse(17,5,False);
+    if(FishWhat = 2)and(RawOrCooked = 2)then
+    ClickMouse(17,30,False);
+    Wait(2900 + Random(300));
+  if(RawOrCooked = 2)then ClickMouse(5,poo+11,False);
+  if(RawOrCooked = 1)then ClickMouse(10,55,True);
+  Wait(1200 + Random(300));
+end;
+
+procedure certshark;
+var counting, ReWalk, l55: Integer;
+begin
+  if(RawOrCooked = 2)then HowManyCerts;
+  l55:= CreateLandmark(7, 7, '01000104001B010001040008010001040003010005040003');
+  ReWalk:= CreatePath;
+  AddLandmarkToPath(ReWalk, l55, 16, 6);
+  Wait(150 + Random(100));
+  Writeln('Certing Shark ');
+  repeat
+      repeat
+        counting:= 0;
+        while(not IsTextAt(6,2,'Padik: Talk'))do
+        begin
+        x:= Random(450);
+        y:= Random(320);
+        wait(50);
+        FindColorSpiral(x,y,9673963,-1,-1,-1,-1);
+        MoveMouse(x,y);
+        counting:= counting + 1;
+        Wait(30);
+        if(counting > 50)then
+        begin
+          writeln('Cant find certers ... Attempting to do mapwalk');
+          GoByPath(ReWalk);
+          Wait(1000);
+          counting:= 0;
+          Wait(300);
+        end;
+        end;
+        until(IsTextAt(6,2,'Padik: Talk'))or(IsTextAt(6,12,'I have some fish to trade in'));
+        if(IsTextAt(6,2,'Padik: Talk'))then
+        ClickMouse(x, y, True);
+      Wait(4000 + Random(300));
+    until(IsTextAt(6,12,'I have some fish to trade in'));
+      ClickMouse(30,20, False);
+      Wait(3500 + Random(300));
+    if(FishWhat = 3)and(RawOrCooked = 1)then
+    ClickMouse(17,43,False);
+    if(FishWhat = 3)and(RawOrCooked = 2)then
+    ClickMouse(17,30,False);
+    Wait(2900 + Random(300));
+  if(RawOrCooked = 2)then ClickMouse(5,poo+11,False);
+  if(RawOrCooked = 1)then ClickMouse(10,55,True);
+  Wait(1200 + Random(300));
+end;
+
+var
+  ToFish, ToCert, ToShark, CertFromRange, ToRange: Integer;
+
+Begin
+  burnlob := BitmapFromString(8, 5,
+      '3939393939393939393939393939393939393F3F3F212121393939' +
+      '3939393939393333333939393333332929293F3F3F393939393939' +
+      '2E2E2E45372C2E2E2E29292933333339393933333333333345372C' +
+      '180C070404043333333939393939392929293333332E2E2E040404' +
+      '0404042E2E2E393939393939');
+  burnswd := BitmapFromString(7, 4,
+      '292929292929292929292929292929292929292929292929292929' +
+      '1C1C1C292929292929292929292929292929292929292929292929' +
+      '292929292929292929212121212121212121212121212121212121' +
+      '212121');
+  burnshk := BitmapFromString(6, 5,
+      '2929292929292929292929294A4D522929292929294A4D52292929' +
+      '2929294A4D522525252929294A4D522525252525254A4D52252525' +
+      '2525254A4D522525254A4D522525252525254A4D52252525252525' +
+      '1F1F1F1F1F1F1F1F1F');
+  rawtuna := BitmapFromString(12, 8,
+      'CECECEA3A3A3CECECECECECECECECEA3A3A3A3A3A3CECECECECECE' +
+      'CECECECECECECECECECECECEA3A3A3CECECEA3A3A3A3A3A3CECECE' +
+      'B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8A3A3A3' +
+      'B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B8' +
+      'B8B8B8B8B8B8A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3' +
+      'A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3A3545539A3A3A3' +
+      'A3A3A3545539A3A3A3A3A3A3545539868686868686868686868686' +
+      '868686545539868686868686545539868686868686545539868686' +
+      '868686868686868686545539868686868686545539868686868686' +
+      '545539868686707070868686868686868686545539707070707070' +
+      '545539707070707070545539707070707070');
+  l1:= CreateLandmark(7, 7, '01000104001B010001040008010001040003010005040003');
+  l2:= CreateLandmark(4, 11, '01000104000D01000104000D010001040001010001040006010001040005010001');
+  l3:= CreateLandmark(4, 10, '04000201000104000301000104000301000104000901000104000201000104000C010001040002010001');ToFish:= CreatePath;
+  AddLandmarkToPath(ToFish, l1, 2, 7);
+  ToCert:= CreatePath;
+  AddLandmarkToPath(ToCert, l1, 16, 6);
+  ToShark:= CreatePath;
+  AddLandmarkToPath(ToShark, l1, 6, 7);
+  ToRange:= CreatePath;
+  AddLandmarkToPath(ToRange, l2, -6, 3);
+  AddLandmarkToPath(ToRange, l3, 1, -3);
+  CertFromRange:= CreatePath;
+  AddLandmarkToPath(CertFromRange, l1, 16, 6);
+  AddLandmarkToPath(CertFromRange, l2, 21, 15);
+  SetTimeOut(20,'LOGINIFNEEDED');
+repeat
+wait(500);
+if(FishWhat = 1)or(FishWhat = 2)then
+dofishing;
+if(FishWhat = 3)then
+FishShark;
+wait(1000);
+if(RawOrCooked = 1)then
+begin
+  writeln('Going to Certers');
+  GoByPath(ToCert);
+end;
+//If we are cooking, go to the range...
+if(RawOrCooked = 2)then
+begin
+  GoByPath(ToRange);
+  DoCooking;
+  Wait(1000);
+  Writeln('Dropping burnt fish (if any)');
+  DropBurnt;
+end;
+  Wait(1000);
+if(RawOrCooked = 2)then
+begin
+  GoByPath(CertFromRange);
+end;
+if(FishWhat = 1)or(FishWhat = 2)then
+certlobswd;
+if(FishWhat = 3)then
+certshark;
+if(FishWhat = 1)or(FishWhat = 2)then
+begin
+  writeln('Going to Cage/Harpoon Fish');
+  GoByPath(ToFish);
+end;
+if(FishWhat = 3)then
+begin
+  writeln('Going to Big Net/Harpoon Fish');
+  GoByPath(ToShark);
+end;
+wait(2000);
+until(False);
+end.
+
+

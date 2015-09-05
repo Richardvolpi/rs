@@ -1,0 +1,215 @@
+program KillEmChickensAndPickEmFeathers;
+
+{
+ =================================================
+ Chicken Killer & Feather Collect - by Scarmeister
+ =================================================
+}
+
+var
+mode, i, j, x, y, AttackChicken: integer;
+Feather, BagX, BagY, a, b, TakeFeather, f: integer;
+UserName, PassWord: string;
+
+procedure AutoLogin;
+begin
+     begin
+          Writeln('Logging in User '+UserName+'.');
+          ClickMouse(340,280,True);
+          Wait(2500);
+     end;
+if (LoginScreen) then
+   begin
+        ClickMouse(100,260,True);
+        Wait(500);
+        SendKeysSilent(UserName);
+        Wait(2000);
+        ClickMouse(120,310,True);
+        Wait(500);
+        SendKeysSilent(PassWord);
+        Wait(2000);
+        ClickMouse(380,250,True);
+        repeat
+              wait (300);
+        until (IsTextAt (7, 304, 'Welcome to'));
+        wait (2500);
+        Writeln('Closing Welcome box.');
+        ClickMouse (495,15, True);
+        wait (500);
+        MoveMouse (10,10);
+        wait (500);
+   end;
+end;
+
+procedure Sleep;
+begin
+   i:= 0;
+   MoveMouse (490, 15)
+   Wait (300);
+     ClickMouse (BagX, BagY, True);
+     Wait(2000)
+     repeat
+           i:= i + 1;
+           wait (50);
+           if (i > 300) then
+              begin
+                   i:= 0;
+                   ClickMouse (180, 300, True);
+                   wait (300);
+                   Writeln ('Trying again for a new word.');
+              end;
+     until (IsTextAt (7, 304,'You wake up')) or
+           (IsTextAt (7, 304,'You are unexpectedly awoken')) or
+           (IsTextAt (7, 304,'You can t do that whilst')) or
+           (GetColor (167,41) <> 65535);
+  MoveMouse(10,10)
+  wait (5000);
+end;
+
+procedure FindBag;
+begin
+   writeln ('Searching for sleeping bag.');
+     repeat
+     MoveMouse (495, 15);
+     wait (500);
+     if (FindColorSpiral (x, y, 4026013, 265, 25, 505, 240)) then
+        begin
+             MoveMouse (x, y);
+             wait (500);
+             if (IsTextAt (6, 2, 'Sleeping Bag')) then
+             begin
+                  writeln ('Sleeping bag found - Storing coordinates.')
+                  BagX:= x;
+                  BagY:= y;
+                  i:= 1;
+             end;
+        MoveMouse (10, 10);
+        wait (50);
+        end;
+     until (i = 1);
+end;
+
+procedure CheckMessage;
+begin
+     i:= 0; j:= 0; x:= 0; y:= 0;
+     MoveMouse (10, 10);
+     wait (50);
+     if (GetColor (85, 140) = 3472636) and
+        (GetColor (500, 215) = 0) then
+        begin
+             writeln ('Starting login procedure.');
+             AutoLogin;
+        end;
+     if (IsTextAt (7, 280, 'You are too')) or
+        (IsTextAt (7, 292, 'You are too')) or
+        (IsTextAt (7, 304, 'You are too')) then
+     begin
+          writeln ('Going to sleep.');
+          Sleep;
+          wait (50);
+     end;
+end;
+
+procedure BitmapLoad;
+begin
+  AttackChicken := BitmapFromString(24, 7,
+       'FFFF00FFFF00000000FFFF00FFFF00000000000000000000000000' +
+       '00000000000000FF0000000000000000FF0000FF00000000000000' +
+       '00FF0000FF0000FF0000FF00000000000000FFFF00FFFF00FFFF00' +
+       '000000FFFF00FFFF0000000000000000000000000000FF0000FF00' +
+       '00000000000000FF0000FF0000000000FF0000FF00000000000000' +
+       '00FF0000FF00000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '00000000000000000000000000FF0000FF0000000000000000FF00' +
+       '00FF0000000000FF0000FF0000000000000000FF0000FF00000000' +
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+       '00000000FF0000FF0000000000000000FF0000FF0000000000FF00' +
+       '00FF0000FF0000FF0000FF0000FF00000000FFFF00FFFF00000000' +
+       '000000FFFF00FFFF0000000000000000000000000000FF0000FF00' +
+       '00000000000000FF0000FF0000000000FF0000FF00000000000000' +
+       '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+       '00000000000000000000000000FF0000FF0000000000000000FF00' +
+       '00FF0000000000FF0000FF0000000000000000FF0000FF00000000' +
+       'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+       '00000000000000FF0000000000000000FF0000FF00000000000000' +
+       '00FF0000FF0000FF0000FF00000000000000');
+  TakeFeather := BitmapFromString(26, 8,
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+       '000000000000000000000000FF9040FF9040000000000000000000' +
+       '000000000000FF9040FF9040FF9040FF9040000000000000FFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+       '000000000000000000FF9040FF9040000000000000000000000000' +
+       'FF9040FF9040000000000000FF9040FF9040000000000000000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       '000000000000FF9040FF9040FF9040FF9040FF9040000000FF9040' +
+       'FF9040000000000000FF9040FF9040000000FFFFFF000000000000' +
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+       '000000FF9040FF9040000000000000000000000000FF9040FF9040' +
+       'FF9040FF9040FF9040FF9040000000FFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000000000000000000000000000000000000000' +
+       'FF9040FF9040000000000000000000000000FF9040FF9040000000' +
+       '000000000000000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFF000000000000000000000000FF9040' +
+       'FF9040000000000000000000000000FF9040FF9040000000000000' +
+       'FF9040FF9040000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       'FFFFFFFFFFFF000000000000000000000000000000FF9040FF9040' +
+       '000000000000000000000000000000FF9040FF9040FF9040FF9040' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000');
+end;
+
+begin
+BitmapLoad; FindBag; i:= 0;
+
+mode:= StrToInt (readln ('Mode: (1=Ctr,2=Str,3=Att,4=Def)'));
+UserName:= readln ('Enter UserName:');
+PassWord:= readln ('Enter PassWord:');
+Feather:= StrToInt (readln ('Pick up feathers? (0=no, 1=yes)'));
+
+repeat
+CheckMessage;
+if (FindColorSpiral (x, y, 41957, 1, 50, 500, 320)) or
+   (FindColorSpiral (x, y, 234, 1, 50, 500, 320)) or
+   (FindColorSpiral (x, y, 16185078, 1, 50, 500, 320)) then
+   begin
+        ClickMouse (x, y, False);
+        wait (150);
+        repeat
+        if (FindBitmapIn (AttackChicken, a, b, x-100,1,x+100,320)) then
+        begin
+             i:= 0;
+             ClickMouse (a+5, b+5, True);
+             repeat
+                   f:= GetFightMode;
+                   if (f > 0) then
+                      begin
+                           repeat
+                                 ClickMouse(100, 25 + (20 * mode), True);
+                                 wait (100);
+                                 f:= GetFightMode;
+                           until (f = 0);
+                      end;
+                   i:= i + 1;
+             wait (50);
+             until (i = 18);
+             MoveMouse(10,10);
+        end;
+        i:= i + 1;
+        wait (50);
+        until (i = 20);
+   end;
+if (FindColorSpiral (x, y, 5921370, 1, 50, 500, 320)) and (Feather = 1) then
+begin
+     ClickMouse (x, y, False);
+     wait (150);
+     if (FindBitmapIn (TakeFeather, a, b, x-100, 1, x+100, 320)) then
+     begin
+          ClickMouse (a+5, b+5, True);
+          wait (2000);
+     end;
+end;
+wait (200);
+MoveMouse (10, 10);
+until (False);
+end.

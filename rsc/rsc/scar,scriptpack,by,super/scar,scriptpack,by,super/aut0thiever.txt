@@ -1,0 +1,540 @@
+{>------------Aut0Theiver------------<}
+{>         Written by Reines         <}
+{>-------Features/Instructions-------<}
+{> - Mod detection                   <}
+{> - Relogin                         <}
+{> - Sleeping                        <}
+{>-----------------------------------<}
+Var
+ Form,Self:TForm;
+ Application:TApplication;
+ UserLabel,PassLabel,TargLabel,ChecLabel,ModeLabel,HealLabel,MinLabel:TLabel;
+ User,Pass,Heal,Min:TEdit;
+ Targ,Mode,Chec:TComboBox;
+ ButtonOK:TButton;
+ UserName,PassWord,Name,Chat,Msg:String;
+& nbsp;HealHP,MinHP,HP,Rot,Counter,Arrows,Targets,Colour,X,Y,FMode,BagX,BagY,No,Wt,Wt1,Wt2,Nwt,Tme,Try
+Bag,cPos:Integer;
+ Bag,Pick,Salmon,Trout,Lobster,Shark,Cake,Often:integer;
+ Done,Found,Skip,Check:Boolean;
+
+Procedure ButtonClick(sender:TObject);
+Begin
+ UserName:=User.Text;
+ PassWord:=Pass.Text;
+ Name:=Targ.Text;
+ HealHP:=StrToInt(Heal.Text);
+ MinHP:=StrToInt(Min.Text);
+ If(Mode.Text='Controlled')Then FMode:=1 else
+ If(Mode.Text='Aggressive')Then FMode:=2 else
+ If(Mode.Text='Accurate')Then FMode:=3 else
+ If(Mode.Text='Defensive')Then FMode:=4 else Writeln('Error!');
+ If(Chec.Text='True')Then Check:=True else
+ If(Chec.Text='False')Then Check:=False else Writeln('Error!');
+End;
+
+Procedure DoForm;
+Begin
+ Application:=GetApplication;
+ Self:=GetSelf;
+ Form:=TForm.Create(nil);
+ Form.Cursor:=1;
+ Form.Width:=220;
+ Form.Height:=290;
+ Form.Position:=poScreenCenter;
+ Form.BorderStyle:=bsToolWindow;
+ Form.Caption:='Aut0Theiver by Reines';
+ Form.Font.Color:=13609128;
+ Form.Color:=0;
+ UserLabel:=TLabel.Create(Form);
+ UserLabel.Top:=12;
+ UserLabel.Left:=16;
+ UserLabel.Caption:='Username:';
+ UserLabel.Parent:=Form;
+ PassLabel:=TLabel.Create(Form);
+ PassLabel.Top:=42;
+ PassLabel.Left:=16;
+ PassLabel.Caption:='Password:';
+ PassLabel.Parent:=Form;
+ TargLabel:=TLabel.Create(Form);
+ TargLabel.Top:=72;
+ TargLabel.Left:=16;
+ TargLabel.Caption:='Target:';
+ TargLabel.Parent:=Form;
+ ModeLabel:=TLabel.Create(Form);
+ ModeLabel.Top:=102;
+ ModeLabel.Left:=16;
+ ModeLabel.Caption:='Mode:';
+ ModeLabel.Parent:=Form;
+ HealLabel:=TLabel.Create(Form);
+ HealLabel.Top:=132;
+ HealLabel.Left:=16;
+ HealLabel.Caption:='Heal at this HP:';
+ HealLabel.Parent:=Form;
+ MinLabel:=TLabel.Create(Form);
+ MinLabel.Top:=162;
+ MinLabel.Left:=16;
+ MinLabel.Caption:='Logout at this HP:';
+ Minlabel.Parent:=Form;
+ ChecLabel:=TLabel.Create(Form);
+ ChecLabel.Top:=192;
+ ChecLabel.Left:=16;
+ ChecLabel.Caption:='Check Name:';
+ ChecLabel.Parent:=Form;
+ User:=TEdit.Create(Form);
+ User.Color:=13609128;
+ User.Font.Color:=0;
+ User.Cursor:=1;
+ User.Top:=10;
+ User.Left:=86;
+ User.Width:=100;
+ User.Parent:=Form;
+ Pass:=TEdit.Create(Form);
+ Pass.Color:=13609128;
+ Pass.Font.Color:=0;
+ Pass.Cursor:=1;
+ Pass.Top:=40;
+ Pass.Left:=86;
+ Pass.Width:=100;
+ Pass.PasswordChar:='*';
+ Pass.Parent:=Form;
+ Targ:=TComboBox.Create(Form);
+ Targ.Color:=13609128;
+ Targ.Font.Color:=0;
+ Targ.Cursor:=1;
+ Targ.Top:=70;
+ Targ.Left:=86;
+ Targ.Width:=100;
+ Targ.Parent:=Form;
+ Targ.DropDownCount:=4;
+ Targ.Items.Add('Guard');
+ Targ.Items.Add('Warrior');
+ Targ.Items.Add('Yanille Watchman');
+ Targ.Items.Add('Paladin');
+ Targ.itemindex:=1;
+ Mode:=TComboBox.Create(Form);
+ Mode.Color:=13609128;
+ Mode.Font.Color:=0;
+ Mode.Cursor:=1;
+ Mode.Top:=100;
+ Mode.Left:=86;
+ Mode.Width:=100;
+ Mode.Parent:=Form;
+ Mode.DropDownCount:=4;
+ Mode.Items.Add('Controlled');
+ Mode.Items.Add('Aggressive');
+ Mode.Items.Add('Accurate');
+ Mode.Items.Add('Defensive');
+ Mode.itemindex:=1;
+ Heal:=TEdit.Create(Form);
+ Heal.Color:=13609128;
+ Heal.Font.Color:=0;
+ Heal.Cursor:=1;
+ Heal.Top:=130;
+ Heal.Left:=106;
+ Heal.Width:=80;
+ Heal.Text:='60';
+ Heal.Parent:=Form;
+ Min:=TEdit.Create(Form);
+ Min.Color:=13609128;
+ Min.Font.Color:=0;
+ Min.Cursor:=1;
+ Min.Top:=160;
+ Min.Left:=106;
+ Min.Width:=80;
+ Min.Text:='10';
+ Min.Parent:=Form;
+ Chec:=TComboBox.Create(Form);
+ Chec.Color:=13609128;
+ Chec.Font.Color:=0;
+ Chec.Cursor:=1;
+ Chec.Top:=190;
+ Chec.Left:=86;
+ Chec.Width:=100;
+ Chec.Parent:=Form;
+ Chec.DropDownCount:=2;
+ Chec.Items.Add('True');
+ Chec.Items.Add('False');
+ Chec.itemindex:=0;
+ ButtonOK:=TButton.Create(Form);
+ ButtonOK.Cursor:=1;
+ ButtonOK.Top:=230;
+ ButtonOK.Left:=60;
+ ButtonOK.Width:=80;
+ ButtonOK.Height:=24;
+ ButtonOK.Caption:='OK';
+ ButtonOK.Parent:=Form;
+ ButtonOK.Default:=True;
+ ButtonOK.ModalResult:=mrOk;
+ ButtonOK.OnClick:=@ButtonClick;
+ Form.ShowModal;
+ Form.Free;
+End;
+
+Procedure SetStatus;
+Begin
+ Msg:='Aut0Theiver by Reines';
+ For Counter:=0 To Length(Msg) Do
+ Begin
+   Status(Copy(Msg,1,Counter));
+   Wait(100);
+ End;
+End;
+
+Procedure Bitmaps;
+Begin
+ Bag:=BitmapFromString(18,7,
+      '9D6E3D9D6E3D9D6E3D7B542E7B542E7B542E7B542E7B542E7B542E' +
+      '7B542E52452E52452E52452E52452E52452E52452E52452E360E06' +
+      '9D6E3D7B542E9D6E3D7B542E7B542E7B542E7B542E7B542E7B542E' +
+      '7B542E7B542E52452E52452E52452E52452E52452E52452E52452E' +
+      '9D6E3D9D6E3D9D6E3D9D6E3DC344227B542E7B542E7B542E7B542E' +
+      '7B542E7B542E7B542E52452E7B542E52452E52452E52452E615D61' +
+      '9D6E3D9D6E3D9D6E3D7B542E9D6E3D7B542E7B542E7B542E7B542E' +
+      '7B542E7B542E7B542E52452E7B542E52452E52452E8D8D8D868457' +
+      '7B542E9D6E3D9D6E3D9D6E3D7B542E9D6E3D7B542E7B542E7B542E' +
+      '7B542E7B542E7B542E7B542E7B542E7B542E52452E988CB1988CB1' +
+      '7B542E7B542E9D6E3D9D6E3D9D6E3D9D6E3D9D6E3DC344227B542E' +
+      '7B542E7B542E7B542E7B542E7B542E7B542E988CB1988CB1988CB1' +
+      '7B542E7B542E7B542E9D6E3D9D6E3D9D6E3D9D6E3D9D6E3D7B542E' +
+      '7B542E7B542E7B542E7B542E7B542E7B542E988CB1CFAB7BCFAB7B' +
+      '');
+ Pick:=BitmapFromString(62,11,
+      '000000000000000000000000000000000000000000FFFFFFFFFFFF' +
+      '000000000000000000000000000000000000000000000000FFFFFF' +
+      'FFFFFF000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000000000000000' +
+      'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000FFFFFF000000000000' +
+      '000000000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000FFFFFFFFFFFF' +
+      '000000000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000000000FFFFFF' +
+      'FFFFFF000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+      '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+      'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+      '000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+      '000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+      '000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+      '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFF' +
+      'FFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF' +
+      '000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+      '000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFF' +
+      'FFFFFF000000000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF' +
+      '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000FFFFFF' +
+      'FFFFFF000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+      'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+      'FFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000' +
+      'FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+      '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+      '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+      'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+      '000000000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+      '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+      '000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFF' +
+      'FFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000' +
+      '000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+      '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000FFFFFF' +
+      'FFFFFF000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+      '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF' +
+      '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000' +
+      'FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+      '000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000000000' +
+      '000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000' +
+      'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+      '000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000' +
+      '000000000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+      '000000FFFFFFFFFFFF000000000000000000000000000000FFFFFF' +
+      'FFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+      'FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+      '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000FFFFFF' +
+      'FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000' +
+      '000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFF' +
+      'FFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+      'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+      '000000FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFF' +
+      'FFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+      'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF' +
+      '000000FFFFFFFFFFFF000000000000000000FFFFFFFFFFFFFFFFFF' +
+      'FFFFFF000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+      '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+      'FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFFFFFFFF' +
+      'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+      '000000000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000000000FFFFFF' +
+      'FFFFFF000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+      '000000000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000000000000000' +
+      '000000000000000000000000000000000000000000');
+ Salmon:=BitmapFromString(12,4,
+      '9B74749B74749B7474654B4B9B74749B74749B74749B74749B7474' +
+      '9B74749B74749B74748A68688A68688A6868654B4B8A68688A6868' +
+      '8A68688A68688A68688A68688A68688A68688A68688A68688A6868' +
+      '654B4B8A68688A68688A68688A68688A68688A68688A68688A6868' +
+      '7B5C5C7B5C5C654B4B7B5C5C7B5C5C7B5C5C7B5C5C7B5C5C7B5C5C' +
+      '7B5C5C7B5C5C7B5C5C');
+ Trout:=BitmapFromString(12,4,
+      'CE5A5ACE5A5A863B3BCE5A5ACE5A5ACE5A5ACE5A5ACE5A5ACE5A5A' +
+      'CE5A5ACE5A5ACE5A5AB85050B85050863B3BB85050B85050B85050' +
+      'B85050B85050B85050B85050B85050B85050B85050B85050863B3B' +
+      'B85050B85050B85050B85050B85050B85050B85050B85050B85050' +
+      'A34747863B3BA34747A34747A34747A34747A34747A34747A34747' +
+      'A34747A34747A34747');
+ Shark:=BitmapFromString(16,5,
+      '804600804600804600804600804600804600804600804600804600' +
+      '804600804600804600804600804600804600723E00673800804600' +
+      '804600804600804600804600804600804600804600804600804600' +
+      '804600804600804600804600723E00673800804600804600723E00' +
+      '552E00804600804600804600804600804600804600804600804600' +
+      '804600804600723E00804600804600804600552E00552E00804600' +
+      '804600804600804600804600804600804600804600804600804600' +
+      '723E00804600804600804600804600804600804600804600804600' +
+      '804600804600804600804600804600723E00723E00723E00');
+ Lobster:=BitmapFromString(12,4,
+      '7F4500AD5E00AD5E008E4D009E56009E56008E4D009E56009E5600' +
+      '9E56009E56008E4D00AD5E007F45008E4D009E56009E56009E5600' +
+      '703D008E4D009E56009E56007F450045372C703D007F45008E4D00' +
+      '8E4D008E4D009E56008E4D00703D008E4D008E4D0045372C180C07' +
+      '703D007F45008E4D008E4D00703D008E4D009E56008E4D00703D00' +
+      '8E4D007F45000D0700');
+ Cake:=BitmapFromString(11,8,
+      '866950A38062A38062A38062A38062A38062A380628669505A4736' +
+      '5A4736545539866950866950866950A38062A38062A38062A38062' +
+      '7058435A47365A4736A38062866950866950866950866950A38062' +
+      'A38062A38062A38062A38062A38062A38062866950866950866950' +
+      '866950866950866950866950A38062A38062A38062A38062A38062' +
+      '866950866950866950866950866950866950866950866950866950' +
+      '866950A38062A38062A38062866950866950866950866950866950' +
+      '866950866950866950866950A38062A38062A38062866950866950' +
+      '866950866950866950866950866950866950866950866950A38062' +
+      'A38062A38062A38062866950866950866950866950');
+End;
+
+Procedure Settings;
+Begin
+ If(Name='Guard')Then Begin
+ Colour:=10661355;
+ Often:=10;
+ End else If(Name='Yanille Watchman')Then Begin
+ Colour:=10661355;
+ Often:=10;
+ End else If(Name='Warrior')Then Begin
+ Colour:=13158655;
+ Often:=20;
+ End else If(Name='Paladin')Then Begin
+ Colour:=10924523;
+ Often:=2;
+ End else If(Name='Other')Then Begin
+ Name:=Readln('Target Name:');
+ Colour:=StrToInt(Readln('Colour code:'));
+ Often:=5;
+ End else Writeln('Error!');
+End;
+
+Procedure LogInIfNeeded;
+Begin
+ If(GetColor(338,125)=5524540)Then
+ Begin
+   ClickMouse(357+random(5),281+random(5),True);
+   Wait(200+random(50));
+   ClickMouse(255+random(5),287+random(5),True);
+   Wait(200+random(50));
+   ClickMouse(166+random(5),263+random(5),True);
+   Wait(500+random(50));
+   SendKeysSilent(UserName);
+   Wait(500+random(50));
+   ClickMouse(260+random(5),303+random(5),True);
+   Wait(500+random(50));
+   SendKeysSilent(PassWord);
+   Wait(500+random(50));
+   ClickMouse(392+random(5),248+random(5),True);
+   Tme:=0;
+   Repeat
+   Wait(1000);
+   Tme:=Tme+1000;
+   Until(Tme>10000)Or(GetColor(56,117)=16777215);
+ End;
+ If(GetColor(56,117)=16777215)And(GetColor(455,216)=16777215)Then
+ Begin
+   ClickMouse(220+random(5),230+random(5),True);
+   Wait(1000+random(250));
+ End;
+ If(GetColor(95,133)=65535)And(GetColor(325,159)=16777215)Then
+ Begin
+   ClickMouse(262+random(5),202+random(2),True)
+   Wait(1000+random(250));
+ End;
+End;
+
+Procedure ModCheck;
+Begin
+ Chat:=getchatmsg;
+ cPos:=pos(':',Chat);
+ If(Copy(Chat,1,4)='Mod ')Or(Copy(Chat,1,cPos-1)='Paul')Or(Copy(Chat,1,cPos-1)='Andrew')Then
+ Begin
+   Done:=True;
+   Writeln('Fuck, a Mod! Logging out');
+   SaveScreenshot(AppPath+'Mod.bmp');
+ End;
+End;
+
+Procedure SleepIfNeeded;
+Begin
+ If(Copy(GetChatMsg,1,17)='You are too tired')Then
+ Begin
+   MoveMouse(492,14);
+   Wait(200);
+   TryBag:=0;
+   Repeat
+   TryBag:=TryBag+1;
+   Wait(100);
+   ModCheck;
+   Until(FindBitmap(Bag,BagX,BagY))or(TryBag>20)or(Done);
+   Repeat
+   Wait(100);
+   ModCheck;
+   Until(GetFightMode=0);
+   Wt1:=0;
+   Wait(200);
+   Movemouse(498,16);
+   Wait(1000);
+   ClickMouse(BagX,BagY,True);
+   Repeat
+   Wait(1000);
+   Wt1:=Wt1+1000;
+   Until(Wt1>=60000)Or(Getcolor(166,44)<>65535)Or(Getcolor(266,133)<>16777215);
+   If(Wt1>=60000)And(Getcolor(166,44)=65535)Then
+   Begin
+     Repeat
+     ClickMouse(198,302,True);
+     Wt2:=0;
+     Repeat
+     Wait(1000);
+     Wt2:=Wt2+1000;
+     Until(Wt2>=40000)Or(Getcolor(166,44)<>65535);
+     Until(Getcolor(166,44)<>65535);
+   End;
+   Wait(1000);
+   MoveMouse(25,25);
+ End;
+End;
+
+Procedure Rotate;
+Begin
+ No:=0;
+ Rot:=0;
+ Repeat
+ For Arrows:=1 To 10 Do SendArrowSilent(1);
+ Rot:=Rot+1;
+ ModCheck;
+ Until(FindColorSpiral(X,Y,Colour,-1,-1,-1,-1))Or(GetColor(338,125)=5524540)or(Done);
+End;
+
+Procedure Eat;
+Begin
+ MoveMouse(492,14);
+ Wait(200);
+ Repeat
+ Wait(100);
+ ModCheck;
+ Until(GetFightMode=0);
+ If(FindBitmap(Trout,X,Y))or(FindBitmap(Salmon,X,Y))or(FindBitmap(Cake,X,Y))or(FindBitmap(Shark,X,Y))or(FindBitmap(Lobster,X,Y))Then ClickMouse(X,Y,True);
+ Wait(2000);
+ MoveMouse(25,25);
+End;
+
+Procedure Stats;
+Begin
+ Targets:=0;
+ Repeat
+ MoveMouse(427,16);
+ Wait(100);
+ HP:=strtoint(copy(GetTextAt(343,112),1,2));
+ Wait(50);
+ ModCheck;
+ Until(HP<>-1)Or(Done)or(GetColor(338,125)=5524540);
+ If(HP<=HealHP)Then Eat else MoveMouse(25,25);
+ If(HP<=MinHP)Then Done:=True;
+End;
+
+Procedure PickPocket;
+Begin
+ If(GetFightMode<>0)Then
+ Begin
+   Repeat
+   If(GetFightMode<>FMode)And(GetFightMode<>0)Then ClickMouse(100,25+20*FMode,True);
+   ModCheck;
+   Wait(100);
+   Until(GetFightMode=0)or(Done);
+ End;
+ SleepIfNeeded;
+ Found:=False;
+ If(FindColorSpiral(X,Y,Colour,160,140,320,250))and(not done)Then Found:=True else
+ If(FindColorSpiral(X,Y,Colour,80,70,400,330))and(not done)Then Found:=True else
+ If(FindColorSpiral(X,Y,Colour,-1,-1,-1,-1))and(not done)Then Found:=True;
+ If(Found)Then
+ Begin
+   MoveMouse(X,Y);
+   Skip:=False;
+   Nwt:=0;
+   Repeat
+   Wait(50);
+   Nwt:=Nwt+50;
+   Until(IsTextAt(6,2,Name))or(Nwt>=300)or(not Check);
+   If(IsTextAt(6,2,Name))or(not Check)Then
+   Begin
+     ClickMouse(X,Y,False);
+     Wait(200);
+     IF(FindBitmap(Pick,X,Y))Then ClickMouse(X,Y,True) else
+     Begin
+       MoveMouse(25,25);
+       Skip:=True;
+     End;
+     ModCheck;
+     If(not Skip)Then
+     Begin
+       Targets:=Targets+1;
+       No:=0;
+       Wt:=0;
+       Repeat
+       If(GetFightMode<>FMode)And(GetFightMode<>0)Then ClickMouse(100,25+20*FMode,True);
+       ModCheck;
+       Wait(100);
+       Wt:=Wt+100;
+       Until(Wt>=500)or(GetFightMode<>0)or(Done);
+     End;
+   End else No:=No+1;
+ End else No:=No+1;
+End;
+
+Begin
+ Done:=False;
+ DoForm;
+ Settings;
+ Bitmaps;
+ SetStatus;
+ Repeat
+ SleepIfNeeded;
+ If(No>=10)Then Rotate;
+ PickPocket;
+ LogInIfNeeded;
+ If(Targets>=Often)Then Stats;
+ ModCheck;
+ Until(Done);
+ Repeat
+ MoveMouse(325,20);
+ Wait(1000);
+ ClickMouse(350,280,True);
+ Wait(2000);
+ Until(GetColor(338,125)=5524540);
+End.
