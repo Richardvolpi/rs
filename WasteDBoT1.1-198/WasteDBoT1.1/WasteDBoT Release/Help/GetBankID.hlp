@@ -1,0 +1,6 @@
+Usage: GetBankID(Integer ItemID)
+Returns an inventory count of an item
+eg.
+Variable = GetBankID(21)
+or
+If GetBankID(21) = 13 Then...

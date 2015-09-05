@@ -1,0 +1,6 @@
+Usage: GetInventory(Integer ItemID)
+Returns an inventory count of an item
+eg.
+Variable = GetInventory(21)
+or
+If GetInventCount(21) = 13 Then...

@@ -1,0 +1,8 @@
+To use wOCR with wastedbot simply auth yourself in WasteDBoT
+then open wOCR and click authorize, and type your wastedbot authname
+as your auth for wOCR, the ocr should now say On and then you should
+drag the clear box over your bot window and release, now when you 
+sleep the ocr will automatically type the word approximately 95% of 
+the time correctly.
+
+<3 Lormsby

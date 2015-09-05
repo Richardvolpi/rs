@@ -1,0 +1,5 @@
+Usage: GetNPC()
+Returns an NPC that the user selects in game, you are best to add something like this after
+BotChat("Right click an NPC to select it")
+eg.
+Variable = GetNPC()

@@ -1,0 +1,6 @@
+Usage: GetNPCNear(ID)
+Returns 1 if NPC is near, 0 if not
+eg.
+Variable = GetNPCNear
+or
+If GetNPCNear = 1 Then...

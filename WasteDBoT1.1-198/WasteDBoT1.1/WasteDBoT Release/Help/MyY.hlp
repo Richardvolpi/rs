@@ -1,0 +1,6 @@
+Usage: MyY()
+Returns your Y Position
+eg.
+Variable = MyY
+or
+If MyY = 50 Then...

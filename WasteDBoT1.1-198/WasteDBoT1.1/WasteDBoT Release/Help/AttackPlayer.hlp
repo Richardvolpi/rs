@@ -1,0 +1,2 @@
+Usage: AttackPlayer(Integer ID)
+Attacks a Player by the players ID

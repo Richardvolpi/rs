@@ -1,0 +1,2 @@
+Usage: MessageBox(Text Contents)
+Displays a messagebox, good for use of warnings if something has gone wrong.

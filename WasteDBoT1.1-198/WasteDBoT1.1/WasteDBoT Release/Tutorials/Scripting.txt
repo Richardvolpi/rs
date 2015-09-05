@@ -1,0 +1,166 @@
+WW         WW     AAA      SSSSS   TTTTTTTT  EEEEEEEE  DDDDDD
+ WW       WW     AA AA    SS       TTTTTTTT  EE        DD   DD
+  WW     WW     AAAAAAA    SSSSS      TT     EEEEE     DD    DD
+   WW W WW     AA     AA       SS     TT     EE        DD   DD
+    WW WW     AA       AA  SSSSS      TT     EEEEEEEE  DDDDDD
+
+                BBBBBB       OOO     TTTTTTT
+                BB   BBB   OO   OO   TTTTTTT
+                BBBBBB    OO     OO    TT
+                BB    BB   OO   OO     TT
+                BB  BBB     OO OO      TT
+                BBBBB        OOO       TT
+
+Table of Contents
+1. Introduction
+2. Commands Usage
+3. Variables
+4. If Then Else
+5. Left, Right and Mid
+6. A Sum up
+
+1+Introduction
+WasteDBoT Scripting language is very similar to VB itself, it all works like this
+Firstly, it uses subs. When the script is started it will run 'Main',
+So it will search for this
+
+@Sub Main()
+'And run what is inside here
+@End
+
+From Sub Main you must create a simple loop to keep doing it until the script is
+ended, to do that follow this.
+
+@Sub Main()
+Do While ScriptOn()
+Call DoSomeShit
+Loop
+@End
+
+Always use the Do While loop because its the safest and doesnt create stack
+errors and other shit.
+Also it stuffs up and crashes the script sometimes if you create an infinite
+loop accidentally.
+
+There is many commands, and to get a command list it comes with WasteDBoT.
+To see the commands press 'Help' while in the bot.
++1
+
+2+Commands Usage
+Commands are used as follows, Ill demonstrate with a simple command.
+
+BotChat("Warning you are being ranged")
+
+This will display a simple message in your chat logs like this
+
+[WasteDBoT] - Warning you are being ranged
+
+It is simple but it is an easy and good way to ask, tell or explain
+anything while someone is using your script.
+
+Sleep is also a common command, it pauses at intervals in ms(Milliseconds)
+To pause for one second exactly you would use this 
+
+Sleep(1000)
+
+This tells the scripts to stop reading on for one second, you should use
+these a lot in an average script.
+
++2
+
+3+Variables
+Variables work very simply.
+At the top of the page not inside a sub is where you place variables
+that can be used for the entire script.
+
+Variables inside a sub are temporary, and are no longer variables
+after that sub is finished
+
+To Create a variable use as following
+Dim [MySexyVariableName]
+
+For example Dim PhatesMom
+
+Then in any sub I could do...
+
+PhatesMom = "Hot"
+
+That would simply make PhatesMom a 'String' and set its value to "Hot"
+Simple enough eh?.
+
+The way it works is you dont have to determine its type, it will itself
+when it is set.
+So forget Booleans, Integers and Strings. It will all be set when you set
+it.
+
++3
+
+4+If Then Else
+If Then Else are common commands used to compare a string, boolean or an
+integer. Its usage is as Follows for a basic 'If' statement
+
+If YourDad = "Gay" Then 'Note that 'YourDad' is a variable (String)
+'Do Stuff
+End If
+
+For it to run the commands, YourDad would have had to been Dim'd and set
+to "Gay".
+
+Here is a more complicated example of using Else also
+
+If YourDad = "Gay" Then 'Note that 'YourDad' is a variable (String)
+'Hes gay
+Else
+'He is not gay
+End If
+
+And to get further on use of the 'ElseIf' statement becomes handy and saves
+you a lot of typing.
+
+If YourDad = "Gay" Then 'Note that 'YourDad' is a variable (String)
+'Hes gay
+ElseIf YourDad = "Straight" Then
+'He is straight
+ElseIf YourDad = "Unknown" Then
+'He is unknown
+Else
+'?
+End If
+
++4
+
+5+Left, Right and Mid
+Left, Right and Mid are used to take parts of Strings and save you time.
+They are basic and can be used for anything that requires a string.
+
+If you wanted to know when you had talked to a banker you could use this
+
+If Left(LastNPCChat, 4) = "Bank" Then
+'Last thing Said started with "Bank"
+Else
+'Last thing Said did not start with "Bank"
+End If
+
+That should give you the point.
+Right is obviously the same, but takes from opposite end, Now for Mid
+
+Mid is for taking text out of a string anywhere.
+This time it uses two integers, one where to start, one where to stop
+So like this.
+
+Mid("hello", 0, 3)
+
+Would return "Hell" because '0' is the start, and '2' is the third
+letter.
+
++5
+
+6+A Sum up
+I hope this has taught you enough about scripting in WasteDBoT, but
+if it has not, I suggest reffering to a 'VB' Manuall such as
+"VB for Fucking stupid idiots (Like Me)" by Ed de Dumfuk
+
+Nah actually just look for anything on VB or VBScript.
+
+Peace ~ Phate
++6
