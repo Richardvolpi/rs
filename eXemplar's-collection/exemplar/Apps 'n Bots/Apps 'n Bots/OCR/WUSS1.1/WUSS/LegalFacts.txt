@@ -1,0 +1,36 @@
+Yes here comes the part for Jagex and evry one who trys to edit/steal the client or try to use the client in a bad way.
+
+The Part from Jagex:
+
+All RuneScape code and data. including this message, are copyright 2004 Jagex Ltd. Unauthorised reproduction in any form
+is strictly prohibited.  The RuneScape network-pro
+tocol is copyright 2004 Jagex Ltd and is protected by international copyright laws. The RuneScape network-protocol also
+incorporates a copy protection mechanism to prevent
+unauthorised access or use of our servers. Attempting to break, bypass or duplicate this mechanism is an infringement of 
+the Digital Millienium Copyright Act and may lead
+to prosecution. Decompiling, or reverse-engineering the RuneScape code in any way is strictly prohibited. RuneScape and
+Jagex are registered trademarks of Jagex Ltd.
+
+And now the warning and it terms for the users:
+
+Reverse engeneering this software is prohibited and any form of editing to the product is highly forbidden unless permision
+from the offical author has been granted.
+If you are caught in the action of one of the following prohibited things you will be punished on the maxium there is.
+
+The following things are prohibited:
+-Adding a keyloger to the program
+-Adding a trojan to the program
+-Edit the program in any way ( Unless permision has been granted from the owner )
+-Using this program for comercial endings
+-Using the program in bad meaned ways
+-Modifying or copying the model.txt in any other way.
+
+All of the above named facts are based on the internet security laws from the united states of america and the united kingdom.
+
+Keyloging and Trojans: Are a crime on the privacy of a person towards their private items and the owner could undertake
+legal actions towards the keylogin/trojan sending person. How ever rigging the program with a trojan/keylogger is also
+a edit of the program and edits are prohibited and any of these forms can end up in sueing.
+
+Using this program for comercial endings: This means that using the program for third party games (not Runescape) is 
+forbidden cause this software is only made for the game Runescape and for nothing else. If you were intersted in a program like this 
+for anther game contact me and maybe we can work something out.
