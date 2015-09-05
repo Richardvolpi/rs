@@ -1,0 +1,42 @@
+Updates for Aut0-T:
+
+Version H:
+--Added WORKING slword.txt and Hc.bmp support! :D took me a while but I finally figured out
+my errors and learned some Java! :)
+--Added PID instead of Report Abuse button
+--Added Show others PID
+
+Version G:
+
+--Changed the whole bot around ALOT
+--Added AutoEat Food
+--Added Macro Delay
+--Added Set Npc ID
+--Added What Fatigue to Sleep At
+--Added Walkback
+--Added What hp to eat at
+--Added Server Hop
+--Fod of War Toggle
+--Added Lock Fightmode
+--AutoClick, GuildMiner, and Thiever added
+--Map that only shows players
+
+Version F:
+
+--Added Mod Protection =D
+
+Version E:
+
+--Added Mute Player Option
+--Added Show other players HP press F5
+--Made login menu's green
+
+Version D: 
+
+--Added PID where the "Report Abuse" button used to be. 
+--Added Force Logout by pressing F2
+--Added Who you can PK when in the wilderness for example it says 
+Wilderness Level: 2 (64-68) that means you can PK anyone from level 64 to level 68.
+--Added Show Other Players PID.
+--Added new DOS menu colors, the background is black and writing is Red.
+--Maybe some other stuff that I can't think of atm.
