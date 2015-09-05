@@ -1,0 +1,135 @@
+--chickens in west lumby pin
+--by C0R4N
+
+@Beginning:
+OnServerMessage(@ServMes)
+OnChatMessage(@mod)
+OnNPCAppeared(@NewNPC,%ID,%NPCX,%NPCY,%NPCType)
+OnNPCMoved(@MovNPC,%ID,%NPCX,%NPCY,%NPCType)
+SetVarNum(%OkToMove,1)
+OnStatsChanged(@StatsChange,%Stat)
+SetVarNum(%LastMonst,0)
+SetVarNum(%LM,0)
+SetVarNum(%IdleLoops,0)
+
+-
+@LoopStart:
+EnableEvents()
+Wait(70)
+
+SetVarMyX(%x)
+SetVarMyY(%y)
+
+Wait(10)
+
+GoTo(@LoopStart)
+
+
+
+
+@OkToMove:
+
+GoTo(@LoopStart)
+
+
+@MovNPC:
+GoTo(@NewNPC)
+
+
+@NewNPC:
+SetVarNum(%LastMonst,0)
+SetVarMyHP(%HP)
+--- there are 2 kinds of rats
+--DebugVar(%NPCType)
+GoToIfVarEqualNum(@Fight,%NPCType,3)
+ERet()
+@Fight:
+SetVar(%LM,%ID)
+--Debug("My HP is:")
+--DebugVar(%HP)
+GoToIfVarAboveNum(@Fight2,%HP,2)
+GoToIfVarEqualNum(@Fight2,%HP,0)
+SetVar(%LastMonst,%ID)
+Debug("We can't attack atm, let's wait for heal")
+ERet()
+@Fight2:
+GoToIfVarEqualNum(@Fight3,%OkToMove,1)
+--Debug("Can't move atm")
+ERet()
+@Fight3:
+
+SetVarMyX(%MaxX)
+AddVarNum(%MaxX,10)
+SetVarMyX(%MinX)
+AddVarNum(%MinX,-10)
+GoToIfVarBetween(@Fight4,%NPCX,%MinX,%MaxX)
+Debug("X is too far")
+DebugVar(%MinX,%MaxX,%NPCX)
+ERet()
+@Fight4:
+
+SetVarMyY(%MaxY)
+AddVarNum(%MaxY,10)
+SetVarMyY(%MinY)
+AddVarNum(%MinY,-10)
+GoToIfVarBetween(@Fight5,%NPCY,%MinY,%MaxY)
+Debug("Y is too far")
+DebugVar(%MinY,%MaxY,%NPCY)
+ERet()
+@Fight5:
+DebugVar(%NPCX)
+GoToIfVarBetweenNum(@Fight6,%NPCX,108,114)
+Debug("error")
+ERet()
+
+@Fight6:
+GoToIfVarBetweenNum(@Fight7,%NPCY,614,617)
+Debug("error2")
+ERet()
+@Fight7:
+
+SetVarNum(%OkToMove,0)
+Debug("cant move")
+
+DebugVar(%ID,%NPCX,%NPCY,%NPCType)
+MoveTo(0,0)
+ActionVarVar(%NPCX,%NPCY)
+AttackNPCVar(%ID)
+SetVarNum(%IdleLoops,0)
+
+ERet()
+
+
+@StatsChange:
+
+@CanMove:
+GoToIfVarEqualNum(@SetCanMove,%Stat,3)
+GoToIfVarEqualNum(@SetCanMove,%Stat,4)
+ERet()
+@SetCanMove:
+SetVarNum(%OkToMove,1)
+Debug("can move")
+ERet()
+
+
+ERet()
+
+@ServMes:
+DebugLastServerMessage()
+GoToIfLastServerMessageIs(@ResetGo,"I can't get a clear shot from here")
+GoToIfLastServerMessageIs(@ResetGo,"Your opponent is retreating")
+GoToIfLastServerMessageIs(@ResetGo,"I can't get close enough")
+ERet()
+@ResetGo:
+Debug("Forget this monster")
+SetVarNum(%OkToMove,1)
+SetVarNum(%LastMonst,0)
+ERet()
+
+@mod:
+Debug("mod"
+StopAndLogOut()
+
+
+
+

@@ -1,0 +1,18 @@
+--- Bone Collector and digger
+@LookForBones:
+GoToIfInInventory(@DigBones,20)
+Wait(5)
+GoToIfNearItem(@GrabItem,20,5)
+GoTo(@LookForBones)
+@GrabItem:
+SetVarsItemXY(10,11,20,5)
+--MoveToVarVar(10,11)
+ActionVarVar(10,11)
+TakeItemVarVar(10,11,20)
+GoTo(@LookForBones)
+@DigBones:
+UseItemByID(20)
+Wait(30)
+GoToIfInInventory(@DigBones,20)
+GoTo(@LookForBones)
+--- End
