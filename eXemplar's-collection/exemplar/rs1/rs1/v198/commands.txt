@@ -1,0 +1,403 @@
+                                                                                
+                                                                                
+                                                                                
+                                                             . .  ...,,,:,.     
+                                                            tVi====+iititi+;,.  
+                                         .,,,:,             X##RYtttttttttttti, 
+                      .,:;:,,,.. .      iYiiiii;,,,....::=;.R###RIItItItIItIi;  
+                     ;+tttitiiii++==;,  I#BIttttttiiiiiittiiVM##RtIItItItI+,.   
+          .,,,::;,   +tttttttttttitti+: I##XItIItttttttttttttIM#VItItItIt;.     
+    .,;=++iiiitii=   tIttIttItIIttttttt=Y##RtIttItItIIItItItiIW#YtIVVtItt.      
+  ,=+ttttiiititttt:. tBttItIttItIIIItIItX##XtItItItItItIIYYt: ;IiRW##IIIi.      
+  ;ittttttttttttII+  +WIttItIItItttIIIt+I##XItItItIttiVRMWXt:   ;####YtIi.      
+  ;ttItIItItItItItt. =#IIIt+=====IMWYIt;I##XItIt+=;:,.B###Vt,   ;####YIt+       
+  ;ttItt;;=++ttIttt: :#YItt;.    Y#WYtt,I##XIIt+.    ,W###It,   ;####YII+       
+  :tItI+ .  ..:;+it; ,WVItI;     V#WIIt,I##XItI=     ;###WIt.   :####YIt=.      
+  ,tItI+.         .   BXttI=     R#Mtti.I##XtIt;     =###Mtt.   :####YtI:       
+   +Itt=              XRtIt=    ,M#RIt+ t##XttI:     t###RIi    :####YIt:       
+   :IIt=              VBtIt+    :W#RIt; t##XtIt,     Y###Xti.   :####YIt,       
+   .itI=              tMItI+.   =##XtI: t##Xtti.     X###VI+    :####YIi.       
+    ;tti       .,,    +WIIti,:;=tM#VIt, t##XIt+      B###Yt+    ;####Yti        
+    ,iII,  .,:=+ii,   =#ItIttttitYWYtt+.t##XtI;     ,W##WIt=    ;####Yt+        
+     =IYt;=iitttti=   ;#YIttttttitVIItt+i##XIt:     ;###MtI=    ;####It=        
+     ,tIVttititttti.  ,WVIIttttttttttIttI##XtI,     =###BtI;    ;####It;        
+      +tYttittttttI;   MXtItttIIIIIItItti##XIt,     i###RIt;    ;###WIt:        
+      :tItttttItIII=   RRItt+==+ittIItIt=##XIt,     t###VtI:    ;###WIt,        
+      .+tItIIItIItti.  XRtI+.   .,:YVYIt:W#RIt.     I###YIt:    ;###WIi.        
+       :ttiiiiitIIIi.  YBtt+.     ,BWMYt,M#Bti      V###IIt,    :###WI+.        
+        :, ....,RVt,   tMtIi      ;WWBIi.B#Bti.     V##WItt,    ,###WI=         
+               ,MVt,   +WIIi.     iWWRIi X#Mti      V##WtIt.    ,W##WI=         
+               :WYt:   :WIIi      YWWXI+.V#Wti...,,:Y##MIIi.    .W##WI:         
+               ;WYt:   .BYti.    =XWWYt+ I#WIt==+iiiiR#MtIt.    .B##WI:         
+               =WYt=    XVIi..,:=YVMMIt= t##IttiitititRBItt,     +W#Wt,         
+               +MIt=  ,,YXtt;=ittIVXRII; +##YtitiitititYIIt,      ;RWt.         
+               iMII+ .itRBItttttttYYYII: =##YttttttttIIIItt:       ,I+          
+               iMtt+. itVBItitittttIItt, ;##VIItIIIIIiiRIIt:                    
+     :,        tBtIi. =ItRIttttttttItIt,  V#VItIIt+;,. it=,                     
+    ,tt+;,,... tBIIt;,.ttVYtttttIItItIi.  ,BXtt+;,      .                       
+    ,ItIttti++=YRIttt+.;+tIItIttitVItI+    =V;.                                 
+    ,IIItttttttIRIIIti,. iX=,,,,.:XtIt=     :.                                  
+    ,IItItttttttVtIttt;  ,Y:      ;==;,                                         
+    .itIttttttttIItItt=.  ,                                                     
+     :IIIItIttttIItII=.                                                         
+     .itItIItIttItIt;                                                           
+      =IIttIIti=;:,,                                                            
+      :iii+=:,.                                                                 
+       ..                                                                       
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+########################## COMMANDS ###########################
+
+int BankCount(int item)
+
+int StrToInt(String st)
+
+String IntToStr(int num)
+
+int NPCX(int id)
+
+int NPCY(int id)
+
+boolean IsAccepted()
+
+int GetUnbusyBanker()
+
+int GetUnbusyBanker2()
+
+void Quit()
+
+int Distance(int x, int y)
+
+int TradeStatus()
+
+void AcceptTrade()
+
+void AcceptTrade2()
+
+void DeclineTrade()
+
+void TradeArray(int item, int amount)
+
+void TradeArray(int item[], int amount[])
+
+void UpdateTrade()
+
+void ResetTrade()
+
+boolean CanReach(int x, int y)
+
+void Beep()
+
+void Wait(int ticks)
+
+void DisplayMessage(String message, int type)
+
+void SetFightMode(int style)
+
+int GetFightMode()
+
+void Println(String message)
+
+void Print(String message)
+
+void SexyPrint(String message)
+
+void ForceWalk(int x, int y)
+
+void ForceWalkNoWait(int x, int y)
+
+void AtObject(int x, int y)
+
+void AtObject(int coords[])
+
+void AtObject2(int x, int y)
+
+void AtObject2(int coords[])
+
+void Walk(int x, int y)
+
+void Walk(int x, int y, int step)
+
+void WalkNoWait(int x, int y)
+
+long TickCount()
+
+void WalkEmpty(int x1, int y1, int x2, int y2)
+
+void WalkEmptyNoWait(int x1, int y1, int x2, int y2)
+
+int GetX()
+
+int GetY()
+
+int Rand(int lower, int higher)
+
+void Say(String message)
+
+boolean EmptyTile(int x, int y)
+
+void MagicPlayer(int player, int spell)
+
+void UseOnPlayer(int player, int slot)
+
+void AttackPlayer(int player)
+
+void DuelPlayer(int player)
+
+void TradePlayer(int player)
+
+void FollowPlayer(int player)
+
+void MagicItem(int x, int y, int item, int spell)
+
+void UseOnItem(int x, int y, int type, int item)
+
+void TakeItem(int x, int y, int type)
+
+void TakeItem(int coords[], int type)
+
+void MagicNPC(int id, int spell)
+
+void UseOnNPC(int id, int item)
+
+void TalkToNPC(int id)
+
+void AttackNPC(int id)
+
+void ThieveNPC(int id)
+
+void MagicDoor(int x, int y, int dir, int spell)
+
+void UseOnDoor(int x, int y, int dir, int item)
+
+void OpenDoor(int x, int y, int dir)
+
+void CloseDoor(int x, int y, int dir)
+
+void MagicObject(int x, int y, int spell)
+
+void UseOnObject(int x, int y, int item)
+
+void Magic(int spell)
+
+boolean QuestMenu()
+
+void Answer(int answer)
+
+void MagicInventory(int slot, int spell)
+
+void UseWithInventory(int slot1, int slot2)
+
+void Remove(int slot)
+
+void Wield(int slot)
+
+void Use(int slot)
+
+void Drop(int slot)
+
+void Deposit(int type, int amount)
+
+void Withdraw(int type, int amount)
+
+int InvCount(int type)
+
+int InvCount()
+
+void Logout()
+
+int[] GetNearestObject(int type)
+
+int[] GetNearestObject(int type[])
+
+int[] GetNearestObject(int type, int x1, int y1, int x2, int y2)
+
+int[] GetNearestObject(int type[], int x1, int y1, int x2, int y2)
+
+int GetNearestNPC(int type)
+
+int GetNearestNPC(int type[])
+
+int GetNearestNPC(int type, int x1, int y1, int x2, int y2)
+
+int GetNearestNPC(int type[], int x1, int y1, int x2, int y2)
+
+int[] GetNearestItem(int type)
+
+int[] GetNearestItem(int type[])
+
+void CloseShop()
+
+void CloseBank()
+
+void Buy(int item)
+
+void Sell(int item)
+
+boolean Bank()
+
+boolean Shop()
+
+void Sex0rPR4Y()
+
+int DoorAt(int x, int y, int dir)
+
+boolean ItemAt(int x, int y, int type)
+
+int ObjectAt(int x, int y)
+
+int PlayerByName(String name)
+
+int GetExperience(int statno)
+
+int GetCurrentStat(int statno)
+
+int GetStat(int statno)
+
+int PlayerHP(int id)
+
+boolean InCombat()
+
+boolean PlayerInCombat(int id)
+
+int PlayerX(int id)
+
+int PlayerY(int id)
+
+int PlayerDestX(int id)
+
+int PlayerDestY(int id)
+
+String LastChatMessage()
+
+void ResetLastChatMessage()
+
+String LastNPCMessage()
+
+void ResetLastNPCMessage()
+
+String LastServerMessage()
+
+void ResetLastServerMessage()
+
+void WaitForServerMessage(int timeout)
+
+boolean InLastServerMessage(String st)
+
+int FindInv(int type)
+
+boolean Running()
+
+void CheckFighters(boolean check)
+
+void SleepWord()
+
+boolean Sleeping()
+
+int Fatigue()
+
+boolean Loading()
+
+void WaitForLoad()
+
+void PrayerOn(int prayer)
+
+void PrayerOff(int prayer)
+
+boolean Prayer(int prayer)
+
+int ShopCount(int item)
+
+void SetWorld(int world)
+
+int LastPlayerAttacked()
+
+void ResetLastPlayerAttacked()
+
+void Login(String username, String password)
+
+boolean LoggedIn()
+
+void OpenBank()
+
+boolean InStr(String str, String locate)
+
+String GetAnswer(int pos)
+
+int GetDistance(int x1, int y1, int x2, int y2)
+
+int GetHP()
+
+int GetMaxHP()
+
+int GetHPPercent()
+
+int Inv(int slot)
+
+String GetItemCommand(int type)
+
+String GetItemDesc(int type)
+
+String GetItemName(int type)
+
+String Username()
+
+int GetPrayerLevel(int prayer)
+
+int GetPrayerDrain(int prayer)
+
+String GetNPCCommand(int type)
+
+String GetNPCDesc(int type)
+
+int GetNPCLevel(int type)
+
+int GetNPCMaxHP(int type)
+
+String GetNPCName(int type)
+
+int GetAnswerCount()
+
+int GetItemCount()
+
+int GetNPCCount()
+
+int GetPlayerCount()
+
+int GetObjectCount()
+
+String GetObjectCommand1(int type)
+
+String GetObjectCommand2(int type)
+
+String GetObjectDesc(int type)
+
+String GetObjectName(int type)
+
+boolean InArea(int x1, int y1, int x2, int y2)
+
+boolean Wearable(int type)
+
+boolean IsWorn(int slot)
+
+boolean IsNPCAttackable(int type)
+
+########################## TRIGGERS ###########################
+public void ServerMessage(String message)
+
+public void ChatMessage(String message)
+
+public void NPCMessage(String message)
+
+public void TradeRequest(int PlayerID)
+
+public void Accepted()
+
+public void TradeOver()
+
+public void KeyPressed(int id)
+
+public void keyReleased(int id)
