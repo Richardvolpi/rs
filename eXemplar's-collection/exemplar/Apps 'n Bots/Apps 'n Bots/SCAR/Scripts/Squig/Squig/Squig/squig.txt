@@ -1,0 +1,1714 @@
+{==================================================]
+                        Squig
+                         v1.0
+                     by Squigglyo
+[==================================================]
+ Credits:
+ Squigglyo       => For creating this
+ Chriz           => 1 or 2 procedures of the procedures ideas where gotton from his free miner. 
+[==================================================}
+
+{You are not allowed to edit and/or change this in
+ any way. You are not allowed to take any piece(s)
+ from/out of Squig, all parts must be left in and the
+ only way to use it's procedures is to include Squig
+ in your script(s). All procedures and/or functions
+ in Squig were created by Squigglyo. All items in
+ this script are Copyrighted to Squigglyo. This
+ script may not be sold, traded, exchanged,
+ and/or redistributed unless you have been
+ given direct written consent to do so by me and me only.}
+
+{=============================}
+ {Versions]
+  Version 1.0, First Release}
+{=============================}
+  {Version 1.1 Coming Soon.}
+
+var
+  a ,b ,c ,d, Modcrown, Staffcrown, Talk, TalkY : integer;
+  Runescapeflag, BlueStar: integer;
+  TheStatus, user, pass, direction : string;
+  randomtalked, fightfound : boolean;
+
+//<<<<<<<<<<<<<<<<<<<<<====Anti Randoms=================>>>>>>>>>>>>>>>>>>>>>>
+procedure LoadRandomPics;
+begin
+  runescapeflag := BitmapFromString(7, 7,
+       '000000000000000000000000000000000000FF0000000000000000' +
+       '000000000000000000FF0000FF0000000000000000000000000000' +
+       'FF0000FF0000FF0000000000000000000000FF0000FF0000FF0000' +
+       'FF0000000000000000FF0000FF0000FF0000FF0000FF0000000000' +
+       'FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000' +
+       'FF0000FF0000FF0000FF0000');
+
+    ModCrown := BitmapFromString(13, 11,
+       '979797000000000000000000000000000000979797000000000000' +
+       '000000000000000000979797E0E0E0979797000000000000000000' +
+       'E0E0E0A2A2A2979797000000000000000000E0E0E0979797E0E0E0' +
+       '979797000000000000000000E0E0E0A2A2A2979797000000000000' +
+       '000000E0E0E0979797E0E0E0A2A2A2979797000000E0E0E0A2A2A2' +
+       'A2A2A2A2A2A2979797000000E0E0E0A2A2A2979797E0E0E0A2A2A2' +
+       '979797000000E0E0E0A2A2A2A2A2A2A2A2A2979797000000E0E0E0' +
+       'A2A2A2979797000000E0E0E0A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2979797000000000000E0E0E0A2A2A2' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2979797' +
+       '000000000000000000E0E0E0sA2A2A2000000000000A2A2A2000000' +
+       '000000A2A2A2979797000000000000000000000000E0E0E0A2A2A2' +
+       '000000A2A2A2000000A2A2A2000000A2A2A2979797000000000000' +
+       '000000000000E0E0E0A2A2A2000000A2A2A2000000A2A2A2000000' +
+       'A2A2A2979797000000000000000000000000979797979797979797' +
+       '979797979797979797979797979797979797000000000000');
+  staffcrown := BitmapFromString(13, 11,
+       'D69E21000000000000000000000000000000D69E21000000000000' +
+       '000000000000000000D69E21FFFF84D69E21000000000000000000' +
+       'FFFF84F7FF08D69E21000000000000000000FFFF84D69E21FFFF84' +
+       'D69E21000000000000000000FFFF84F7FF08D69E21000000000000' +
+       '000000FFFF84D69E21FFFF84F7FF08D69E21000000FFFF84F7FF08' +
+       'F7FF08F7FF08D69E21000000FFFF84F7FF08D69E21FFFF84F7FF08' +
+       'D69E21000000FFFF84F7FF08F7FF08F7FF08D69E21000000FFFF84' +
+       'F7FF08D69E21000000FFFF84F7FF08F7FF08F7FF08F7FF08F7FF08' +
+       'F7FF08F7FF08F7FF08F7FF08D69E21000000000000FFFF84F7FF08' +
+       'F7FF08F7FF08F7FF08F7FF08F7FF08F7FF08F7FF08F7FF08D69E21' +
+       '000000000000000000FFFF84F7FF08000000000000F7FF08000000' +
+       '000000F7FF08D69E21000000000000000000000000FFFF84F7FF08' +
+       '000000F7FF08000000F7FF08000000F7FF08D69E21000000000000' +
+       '000000000000FFFF84F7FF08000000F7FF08000000F7FF08000000' +
+       'F7FF08D69E21000000000000000000000000D69E21D69E21D69E21' +
+       'D69E21D69E21D69E21D69E21D69E21D69E21000000000000');
+  Talk := BitmapFromString(17, 10,
+        'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+        '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000' +
+        '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+        '000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000000000' +
+        'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000000000FFFFFF' +
+        'FFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+        '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+        'FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF');
+  TalkY := BitmapFromString(17, 10,
+        'FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000000000000000' +
+        '000000000000000000000000000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000000000000000000000000000' +
+        '000000000000000000000000000000FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000000000000000000000000000000000' +
+        '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000000000000000000000000000000000000000' +
+        '000000000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000000000000000FFFF00FFFF00FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000000000FFFF00FFFF00000000000000FFFF00FFFF00000000' +
+        '000000FFFF00FFFF00000000000000FFFF00FFFF00000000000000' +
+        '000000000000FFFF00FFFF00FFFF00FFFF00FFFF00000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000000000' +
+        'FFFF00FFFF00000000000000FFFF00FFFF00000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000000000FFFF00' +
+        'FFFF00000000000000FFFF00FFFF00000000000000FFFF00FFFF00' +
+        '000000000000FFFF00FFFF00000000000000000000000000FFFF00' +
+        'FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00');
+  BlueStar := BitmapFromString(8, 6,
+       '000000000000000000000080000080000000000000000000000000' +
+       '000000000000000080000080000000000000000000000080000080' +
+       '000080000080000080000080000080000080000000000000000000' +
+       '000080000080000000000000000000000000000000000080000080' +
+       '000080000080000000000000000000000080000080000000000000' +
+       '000080000080000000');
+end;
+
+procedure sendkeyshuman(str:string);
+var
+  x1 : integer;
+begin
+  x1:=1
+  repeat
+    wait(random(200)+10);
+    sendkeyssilent(copy(str,x1,1));
+    x1 := x1+1;
+  until x1 > length(str)
+end;
+
+procedure SetChat;
+begin
+  //Setting Public Chat off//
+  if(findcolortolerance(a,b,65535,30,468,101,502,100))=true then
+    begin
+      TheStatus:='Setting Public Chat Off'
+      Status(TheStatus)
+      a:=random(50)+150
+      b:=random(100)+275
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(750)+750)
+      a:=random(70)+19
+      b:=random(15)+475
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(500)+1000)
+      clickmouse(a,b,true)
+      wait(random(500)+250)
+    end;
+
+  if(findcolortolerance(a,b,65280,30,468,101,502,100))=true then
+    begin
+      TheStatus:='Setting Public Chat Off'
+      Status(TheStatus);
+      a:=random(50)+150;
+      b:=random(100)+275;
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(750)+750);
+      a:=random(70)+19;
+      b:=random(15)+475;
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(500)+1000);
+      clickmouse(a,b,true);
+      wait(random(1000)+500);
+      clickmouse(a,b,true);
+      wait(random(500)+250);
+    end;
+
+  if(findcolortolerance(a,b,16776960,30,468,101,502,100))=true then
+    begin
+      TheStatus:='Setting Public Chat Off'
+      Status(TheStatus)
+      a:=random(50)+150
+      b:=random(100)+275
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(750)+750)
+      a:=random(70)+19
+      b:=random(15)+475
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(500)+1000)
+      clickmouse(a,b,true)
+      wait(random(1000)+500)
+      clickmouse(a,b,true)
+      wait(random(1000)+500)
+      clickmouse(a,b,true)
+      wait(random(500)+250)
+    end;
+
+  //Setting Private Chat off//
+  if(findcolortolerance(a,b,65535,145,466,219,492,100))=true then
+    begin
+      TheStatus:='Setting Private Chat off'
+      Status(TheStatus)
+      a:=random(50)+150
+      b:=random(100)+275
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(750)+750)
+      a:=random(70)+150
+      b:=random(15)+475
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(500)+1000)
+      clickmouse(a,b,true)
+      wait(random(500)+250)
+    end;
+
+  if(findcolortolerance(a,b,65280,145,466,219,492,100))=true then
+    begin
+      TheStatus:='Setting Private Chat off'
+      Status(TheStatus)
+      a:=random(50)+150
+      b:=random(100)+275
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(750)+750)
+      a:=random(70)+150
+      b:=random(15)+475
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(500)+1000)
+      clickmouse(a,b,true)
+      wait(random(1000)+500)
+      clickmouse(a,b,true)
+      wait(random(500)+250)
+    end;
+
+  if(findcolortolerance(a,b,16776960,145,466,219,492,100))=true then
+    begin
+      TheStatus:='Setting Private Chat off'
+      Status(TheStatus)
+      a:=random(50)+150
+      b:=random(100)+275
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(750)+750)
+      a:=random(70)+150
+      b:=random(15)+475
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(500)+1000)
+      clickmouse(a,b,true)
+      wait(random(1000)+500)
+      clickmouse(a,b,true)
+      wait(random(1000)+500)
+      clickmouse(a,b,true)
+      wait(random(500)+250)
+    end;
+
+  //Setting Trade off//
+  if(findcolortolerance(a,b,65535,281,466,361,496,100))=true then
+    begin
+      TheStatus:='Setting Trade/Compete off'
+      Status(TheStatus)
+      a:=random(50)+150
+      b:=random(100)+275
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(750)+750)
+      a:=random(70)+285
+      b:=random(15)+475
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(500)+1000)
+      clickmouse(a,b,true)
+      wait(random(500)+250)
+    end;
+
+  if(findcolortolerance(a,b,65280,281,466,361,496,100))=true then
+    begin
+      TheStatus:='Setting Trade/Compete off'
+      Status(TheStatus)
+      a:=random(50)+150
+      b:=random(100)+275
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(750)+750)
+      a:=random(70)+285
+      b:=random(15)+475
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(500)+1000)
+      clickmouse(a,b,true)
+      wait(random(1000)+500)
+      clickmouse(a,b,true)
+      wait(random(750))
+      wait(random(500)+250)
+    end;
+end;
+
+procedure Loggout;
+begin
+  a:=random(10)+635
+  b:=random(10)+475
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+400)
+  clickmouse(a,b,true)
+  wait(random(300)+300)
+  a:=random(30)+600
+  b:=random(5)+370
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(250)+400)
+  clickmouse(a,b,true)
+end;
+
+procedure setrunon;
+begin
+  TheStatus:='Setting Run On'
+  Status(TheStatus)
+  a:=random(10)+705
+  b:=random(10)+490
+  movemousesmooth(a,b)
+  wait(random(100)+250)
+  clickmouse(a,b,true)
+  wait(random(500)+100)
+  a:=random(10)+615
+  b:=random(10)+275
+  movemousesmooth(a,b)
+  wait(random(100)+250)
+  clickmouse(a,b,true)
+  a:=random(10)+640
+  b:=random(10)+195
+  movemousesmooth(a,b)
+  wait(random(100)+250)
+  clickmouse(a,b,true)
+end;
+
+procedure setrunoff;
+begin
+  TheStatus:='Setting Run Off'
+  Status(TheStatus)
+  a:=random(10)+705
+  b:=random(10)+490
+  movemousesmooth(a,b)
+  wait(random(100)+250)
+  clickmouse(a,b,true)
+  wait(random(500)+100)
+  a:=random(10)+565
+  b:=random(10)+275
+  movemousesmooth(a,b)
+  wait(random(100)+250)
+  clickmouse(a,b,true)
+  a:=random(10)+640
+  b:=random(10)+195
+  movemousesmooth(a,b)
+  wait(random(100)+250)
+  clickmouse(a,b,true)
+end;
+
+procedure TalkToRand;
+begin
+  repeat
+  if (FindColorSpiral(a,b,16711680,5,345,510,430))or
+  (FindColorSpiral(a,b,16777215,5,345,510,430))then
+      begin
+        TheStatus:='Talking To Random Event'
+        Status(TheStatus)
+        Clickmouse(a,b,true);
+        wait(2000+random(1000));
+        randomtalked:=true
+      end;
+  until(GetColor(20,434)=0)
+end;
+
+procedure FindFlag;
+var
+  m : integer;
+begin
+  Wait(200);
+  M:=0;
+  if(FindBitmapIn(RunescapeFlag,a,b,570,5,725,162))then
+    begin
+      repeat
+        wait(500);
+        M:=M+1;
+      until(FindBitmapIn(RunescapeFlag,a,b,633,64,665,90))and
+      (not(GetColor(200,148)=16777215))or
+      (not FindBitmapIn(RunescapeFlag,a,b,570,5,725,160))and(M>9);
+       Wait(100);
+    end;
+end;
+
+procedure FindFight;
+var
+  leaveloop, placecheck : integer;
+begin
+  if(Findcolorspiral(a,b,65280,180,90,320,230))then wait(1000);
+  if(FindColorSpiral(a,b,65280,180,90,320,230))then
+    begin
+      SetRunon;
+      wait(random(10)+50)
+      if(Direction='NE')or(direction='')then
+        clickmouse(680,35,true)
+      if(direction='N')then
+        clickmouse(660,20,true)
+      if(direction='NW')then
+        clickmouse(620,25,true)
+      if(direction='W')then
+        clickmouse(600,70,true)
+      if(direction='SW')then
+        clickmouse(620,130,true)
+      if(direction='S')then
+        clickmouse(645,145,true)
+      if(direction='SE')then
+        clickmouse(688,124,true)
+      if(direction='E')then
+        clickmouse(703,93,true)
+      wait(100)
+      findFlag;
+      wait(random(1000)+10000)
+      ClickMouse(615,110,true);
+      Wait(100);
+      findFlag;
+      SetRunOff;
+      a:=random(5)+675
+      b:=random(5)+45
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(500)+500)
+      clickmouse(a,b,true)
+      leaveloop:=0
+      fightfound:=true
+      repeat
+        placecheck:= getcolor(27,36)
+        wait(100)
+        if(getcolor(27,36) = placecheck)then
+          Leaveloop:=1
+      until(Leaveloop=1)
+    end;
+end;
+
+
+procedure FindText;
+var
+  counter : integer;
+begin
+  if(findcolor(a,b,65535,0,0,515,338)) then
+    wait(200)
+  if(findcolor(a,b,65535,0,0,515,338))then
+    begin
+      repeat
+        counter:=counter+2+random(1)
+        movemousesmooth(a+counter,b+15+random(3))
+        wait(5)
+        if(findbitmaptolerancein(Talk,a,b,01,1,500,500,100))or(findbitmaptolerancein(TalkY,a,b,01,1,500,500,100))then
+          begin
+            getmousepos(a,b);
+            clickmouse(a,b,false)
+            findflag;
+            wait(random(100)+200)
+            if(findbitmap(Talk,c,d))or(FindBitmap(TalkY,c,d))then
+              begin
+                clickmouse(c,d,true)
+                TalkToRand;
+              end;
+          end;
+      until(counter>=250);
+    end;
+end;
+
+procedure Loggin;
+begin
+  TheStatus:='Logging In'
+  Status(TheStatus)
+  a:=random(5)+465
+  b:=random(5)+275
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(500)+500)
+  clickmouse(a,b,true)
+  wait(random(500)+1000)
+  a:=random(20)+370
+  b:=random(3)+251
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(100)+100)
+  clickmouse(a,b,true)
+  wait(random(100)+100)
+  sendkeyshuman(User)
+  b:=random(3)+266
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(100)+100)
+  clickmouse(a,b,true)
+  wait(random(100)+100)
+  sendkeyshuman(Pass)
+  a:=random(30)+255
+  b:=random(20)+305
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(200)+100)
+  clickmouse(a,b,true)
+  repeat
+    wait(100)
+  until(getcolor(178,90)=65535)
+  if(getcolor(266,94)=65535)then
+    begin
+      a:=random(10)+430
+      b:=random(3)+90
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(100)+500)
+      clickmouse(a,b,true)
+    end;
+end;
+
+function CheckTheLogin:boolean;
+begin
+  if(getcolor(249,99)=2071708)then
+    result:=true
+  else
+    result:=false
+end;
+
+procedure CheckForMods;
+begin
+  if (findbitmaptolerancein(StaffCrown,a,b,1,345,110,430,50)) or (findbitmaptolerancein(ModCrown,a,b,1,345,110,430,50)) then
+    begin
+      TheStatus:='Oh crap a staff member or mod'
+      Status(TheStatus)
+      Loggout;
+    end;
+end;
+
+procedure MapFlagging;
+var
+  color1, color2, color3, x1 : integer;
+begin
+  x1:=0
+  repeat
+    wait(100)
+    x1:=x1+1
+    if(Findbitmaptolerancein(RuneScapeFlag,c,d,561,15,745,160,100)=false)then
+      wait(2000)
+    if(Findbitmaptolerancein(RuneScapeFlag,c,d,561,15,745,160,100)=false)then
+      begin
+        color1:=getcolor(70,185)
+        color2:=getcolor(436,68)
+        color3:=getcolor(45,52)
+        wait(500)
+        if(getcolor(45,52)=color3)or(getcolor(70,185)=color1)or(getcolor(436,68)=color2)then
+          if(Findbitmaptolerancein(RuneScapeFlag,c,d,615,70,800,230,75)=false)then
+            break;
+      end;
+  until(x1=150)
+end;
+
+procedure CheckIntro;
+begin
+  if(getcolor(264,67)=65535)then
+    begin
+      a:=random(20)+430
+      b:=random(3)+60
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(100)+500)
+      clickmouse(a,b,true)
+    end;
+end;
+
+procedure RealseRandomPics;
+begin
+  Freebitmap(StaffCrown)
+  Freebitmap(ModCrown)
+  Freebitmap(Talk)
+  FreeBitmap(TalkY)
+end;
+
+procedure findrandoms;
+begin
+  LoadRandomPics;
+  CheckTheLogin;
+  CheckIntro;
+  SetChat;
+  Findfight;
+  FindText;
+  CheckForMods;
+  RealseRandomPics;
+end;
+//<<<<<<<<<<<<<=====End of Anti Randoms==================>>>>>>>>>>>>>>>>>>>>>
+
+//<<<<<<<<<<<<=====Other Things===============>>>>>>>>>>>>>>>>>>
+procedure OpenBag;
+begin
+  a:=random(10)+635
+  b:=random(10)+175
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+{<<<<<<<=========Quest Options>>>>>>>>========}
+
+procedure OpenQuests;
+begin
+  a:=random(10)+605
+  b:=random(10)+175
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+{<<<<<<<<========End of Quest Options>>>>>>>=======}
+
+{<<<<<<<<<=======Stat Options>>>>>>>>>==========}
+
+procedure OpenStats;
+begin
+  a:=random(10)+575
+  b:=random(10)+175
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+{<<<<<<<<<==========Stat Options>>>>>>>>>>>=========}
+
+{<<<<<<<<<<<============Combat Options>>>>>>>>>>>>>>>>>>>============}
+procedure OpenCombat;
+begin
+  a:=random(10)+550
+  b:=random(10)+175
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure CombatType(choice : integer);
+begin
+  if(getcolor(563,177)<>2829182)then
+    OpenCombat;
+  if(choice<2)then
+    begin
+      a:=random(30)+570
+      b:=random(5)+280
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=2)then
+    begin
+      a:=random(30)+570
+      b:=random(5)+320
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=3)then
+    begin
+      a:=random(30)+570
+      b:=random(5)+365
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice>3)then
+    begin
+      a:=random(30)+570
+      b:=random(5)+405
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+end;
+{<<<<<<<<<<<<<<===========End of Combat Options>>>>>>>>>>>>>>>>.=============}
+
+{<<<<<<<<<<<<<=========Equiptment Options>>>>>>>>>>>>>>>.===============}
+procedure OpenEquip;
+begin
+  a:=random(10)+675
+  b:=random(10)+175
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure TakeoffHelm;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300)
+  a:=random(10)+640
+  b:=random(10)+215
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure TakeoffCape;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300)
+  a:=random(10)+595
+  b:=random(10)+255
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure TakeoffNecklace;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300)
+  a:=random(10)+640
+  b:=random(10)+255
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure TakeoffArrows;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300)
+  a:=random(10)+680
+  b:=random(10)+255
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure TakeoffSword;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300)
+  a:=random(10)+580
+  b:=random(10)+300
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure TakeoffBody;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300)
+  a:=random(10)+650
+  b:=random(10)+300
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure TakeoffShield;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300)
+  a:=random(10)+695
+  b:=random(10)+300
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure TakeoffLegs;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300)
+  a:=random(10)+635
+  b:=random(10)+335
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure TakeoffGloves;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300)
+  a:=random(10)+580
+  b:=random(10)+375
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure TakeoffBoots;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300)
+  a:=random(10)+640
+  b:=random(10)+375
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure Takeoffring;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300)
+  a:=random(10)+695
+  b:=random(10)+375
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+Function WearingRing:boolean;
+begin
+  if(getcolor(685,173)<>2434414)then
+    OpenEquip;
+  wait(random(300)+300)
+  if(getcolor(705,384)<>2304814)then
+    Result:=true
+  else
+    result:=false
+end;
+
+{<<<<<<<<<<<<<=========End of Equiptment Options>>>>>>>>>>>>>============}
+
+{<<<<<<<<<<<<=========Prayer Options>>>>>>>>>>>>>=============}
+
+procedure OpenPrayer;
+begin
+  a:=random(10)+700
+  b:=random(10)+175
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure Prayer(choice : integer);
+begin
+  if(getcolor(715,177)<>2171233)then
+    OpenPrayer;
+  wait(random(300)+300)
+  if(choice<2)then
+    begin
+      a:=random(10)+580
+      b:=random(10)+215
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=2)then
+    begin
+      a:=random(10)+640
+      b:=random(10)+215
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=3)then
+    begin
+      a:=random(10)+700
+      b:=random(10)+215
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=4)then
+    begin
+      a:=random(10)+580
+      b:=random(10)+250
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=5)then
+    begin
+      a:=random(10)+640
+      b:=random(10)+250
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=6)then
+    begin
+      a:=random(10)+700
+      b:=random(10)+250
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=7)then
+    begin
+      a:=random(10)+580
+      b:=random(10)+290
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=8)then
+    begin
+      a:=random(10)+640
+      b:=random(10)+290
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=9)then
+    begin
+      a:=random(10)+700
+      b:=random(10)+290
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=10)then
+    begin
+      a:=random(10)+580
+      b:=random(10)+325
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=11)then
+    begin
+      a:=random(10)+640
+      b:=random(10)+325
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=12)then
+    begin
+      a:=random(10)+700
+      b:=random(10)+325
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=13)then
+    begin
+      a:=random(10)+580
+      b:=random(10)+360
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=14)then
+    begin
+      a:=random(10)+640
+      b:=random(10)+360
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice>14)then
+    begin
+      a:=random(10)+700
+      b:=random(10)+360
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+end;
+{<<<<<<<<<<<<<<============End of Prayer Options=====>>>>>>>>>>}
+
+{<<<<<<<<<<<<<<<<<=============Magic Option=========>>>>>>>>>>}
+procedure OpenMagic;
+begin
+  a:=random(10)+730
+  b:=random(10)+175
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure CastSpell(choice : integer);
+begin
+  if(getcolor(730,178)<>2829182)then
+    OpenMagic;
+  if(choice<50)and(getcolor(726,232)=1777699)then
+    begin
+      a:=random(5)+725
+      b:=random(5)+220
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      holdmouse(a,b,true)
+      wait(random(300)+750)
+      releasemouse(a,b,true)
+    end;
+  if(choice>49)and(getcolor(725,366)=1777699)then
+    begin
+      a:=random(5)+725
+      b:=random(5)+370
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      holdmouse(a,b,true)
+      wait(random(300)+750)
+      releasemouse(a,b,true)
+    end;
+  if(choice=1)or(choice=8)or(choice=15)or(choice=22)or(choice=29)or(choice=36)or(choice=43)or(choice=50)or(choice>56)then
+    a:=random(5)+555
+  if(choice=2)or(choice=9)or(choice=16)or(choice=23)or(choice=30)or(choice=37)or(choice=44)or(choice=51)then
+    a:=random(5)+580
+  if(choice=3)or(choice=10)or(choice=17)or(choice=24)or(choice=31)or(choice=38)or(choice=45)or(choice=52)then
+    a:=random(5)+605
+  if(choice=4)or(choice=11)or(choice=18)or(choice=25)or(choice=32)or(choice=39)or(choice=46)or(choice=53)then
+    a:=random(5)+630
+  if(choice=5)or(choice=12)or(choice=19)or(choice=26)or(choice=33)or(choice=40)or(choice=47)or(choice=54)then
+    a:=random(5)+650
+  if(choice=6)or(choice=13)or(choice=20)or(choice=27)or(choice=34)or(choice=41)or(choice=48)or(choice=55)then
+    a:=random(5)+675
+  if(choice=7)or(choice=14)or(choice=21)or(choice=28)or(choice=35)or(choice=42)or(choice=49)or(choice=56)then
+    a:=random(5)+700
+  if(choice<8)then
+    b:=random(5)+220
+  if(choice>7)and(choice<15)then
+    b:=random(5)+245
+  if(choice>14)and(choice<22)then
+    b:=random(5)+270
+  if(choice>21)and(choice<29)then
+    b:=random(5)+295
+  if(choice>28)and(choice<36)then
+    b:=random(5)+315
+  if(choice>35)and(choice<43)then
+    b:=random(5)+340
+  if(choice>42)and(choice<50)then
+    b:=random(5)+365
+  if(choice>49)and(choice<57)then
+    b:=random(5)+340
+  if(choice>56)then
+    b:=random(5)+365
+
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+{<<<<<<<<<<============End of Magic Options>>>>>>>>>>===========}
+
+{<<<<<<<<<<==========Friend Options>>>>>>>>>>==============}
+
+procedure OpenFriends;
+begin
+  a:=random(10)+575
+  b:=random(10)+470
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure AddFriend(name : string);
+begin
+  if(getcolor(577,495)<>1579079)then
+    OpenFriends;
+  wait(random(300)+300)
+  a:=random(20)+580
+  b:=random(10)+435
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+  repeat
+    wait(random(500)+100)
+  until(getcolor(254,409)=8388608)
+  wait(random(300)+300)
+  sendkeyshuman(Name)
+  wait(random(300)+300)
+  sendkeys(chr(13))
+end;
+
+procedure DeleteFriend(name : string);
+begin
+  if(getcolor(577,495)<>1579076)then
+    OpenFriends;
+  wait(random(300)+300)
+  a:=random(20)+655
+  b:=random(10)+435
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+  repeat
+    wait(100)
+  until(getcolor(254,409)=8388608)
+  wait(random(300)+300)
+  sendkeyshuman(Name)
+  wait(random(300)+300)
+  sendkeys(chr(13))
+end;
+
+{<<<<<<<<<<<<<<<============End of Friend Options>>>>>>>>>=========}
+
+{<<<<<<<<<<===========Ignore Options>>>>>>>>>===============}
+
+procedure OpenIgnore;
+begin
+  a:=random(10)+605
+  b:=random(10)+470
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure AddIgnore(name : string);
+begin
+  if(getcolor(577,495)<>1579076)then
+    OpenIgnore;
+  wait(random(300)+300)
+  a:=random(20)+580
+  b:=random(10)+435
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+  repeat
+    wait(100)
+  until(getcolor(254,409)=8388608)
+  wait(random(300)+300)
+  sendkeyshuman(Name)
+  wait(random(300)+300)
+  sendkeys(chr(13))
+end;
+
+procedure DeleteIgnore(name : string);
+begin
+  if(getcolor(577,495)<>1579076)then
+    OpenIgnore;
+  wait(random(300)+300)
+  a:=random(20)+655
+  b:=random(10)+435
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+  repeat
+    wait(100)
+  until(getcolor(254,409)=8388608)
+  wait(random(300)+300)
+  sendkeyshuman(Name)
+  wait(random(300)+300)
+  sendkeys(chr(13))
+end;
+{<<<<<<<<<<========End of Ignore Options>>>>>>>>>>========}
+
+{>>>>>>>>======Game Options========<<<<<<<<<<<<<<}
+procedure OpenOptions;
+begin
+  a:=random(10)+675
+  b:=random(10)+470
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure SetQuality(choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+150)
+  if(choice<2)then
+    begin
+      a:=random(10)+561
+      b:=random(10)+250
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end
+  else if(choice=2)then
+    begin
+      a:=random(10)+615
+      b:=random(10)+250
+      moveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end
+  else if(choice=3)then
+    begin
+      a:=random(10)+655
+      b:=random(10)+250
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end
+  else if(choice>3)then
+    begin
+      a:=random(10)+700
+      b:=random(10)+250
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+end;
+
+procedure SetMouseButtons(Choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+150)
+  if(choice<2)then
+    begin
+      a:=random(10)+565
+      b:=random(10)+310
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice>1)then
+    begin
+      a:=random(10)+605
+      b:=random(10)+310
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+end;
+
+procedure SetChatEffects(Choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+150)
+  if(choice<2)then
+    begin
+      a:=random(10)+660
+      b:=random(10)+310
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice>1)then
+    begin
+      a:=random(10)+700
+      b:=random(10)+310
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+end;
+
+procedure SetPrivate(Choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+150)
+  if(choice<2)then
+    begin
+      a:=random(10)+565
+      b:=random(10)+365
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice>1)then
+    begin
+      a:=random(10)+605
+      b:=random(10)+365
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+end;
+
+procedure SetAid(Choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+wait(random(300)+150)
+  if(choice<2)then
+    begin
+      a:=random(10)+660
+      b:=random(10)+365
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice>1)then
+    begin
+      a:=random(10)+700
+      b:=random(10)+365
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+end;
+
+procedure MusicVolume(choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+300)
+  if(choice<2)then
+    begin
+      a:=random(10)+610
+      b:=random(10)+405
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=2)then
+    begin
+      a:=random(10)+635
+      b:=random(10)+405
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=3)then
+    begin
+      a:=random(10)+660
+      b:=random(10)+405
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=4)then
+    begin
+      a:=random(10)+685
+      b:=random(10)+405
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice>4)then
+    begin
+      a:=random(10)+712
+      b:=random(10)+405
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+end;
+
+procedure EffectVolume(choice : integer);
+begin
+  if(getcolor(676,476)<>2171233)then
+    OpenOptions;
+  wait(random(300)+300)
+  if(choice<2)then
+    begin
+      a:=random(10)+610
+      b:=random(10)+435
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=2)then
+    begin
+      a:=random(10)+635
+      b:=random(10)+435
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=3)then
+    begin
+      a:=random(10)+660
+      b:=random(10)+435
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=4)then
+    begin
+      a:=random(10)+685
+      b:=random(10)+435
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice>4)then
+    begin
+      a:=random(10)+712
+      b:=random(10)+435
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+end;
+
+{>>>>>>>>======End of Game Options========<<<<<<<<<<<<<<}
+
+{>>>>>>>>======Game Controls========<<<<<<<<<<<<<<}
+
+procedure OpenControls;
+begin
+  a:=random(10)+700
+  b:=random(10)+470
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure SetMove(Choice : integer);
+begin
+  if(getcolor(703,474)<>2171233)then
+    OpenControls;
+  wait(random(300)+150)
+  if(choice<2)then
+    begin
+      a:=random(10)+565
+      b:=random(10)+250
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice>1)then
+    begin
+      a:=random(10)+610
+      b:=random(10)+255
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+end;
+
+procedure SetAuto(Choice : integer);
+begin
+  if(getcolor(703,474)<>2171233)then
+    OpenControls;
+  wait(random(300)+150)
+  if(choice<2)then
+    begin
+      a:=random(10)+610
+      b:=random(10)+315
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice>1)then
+    begin
+      a:=random(10)+655
+      b:=random(10)+315
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+end;
+
+procedure Emote(Choice : integer);
+begin
+  if(getcolor(703,474)<>2171233)then
+    OpenControls;
+  if(choice<13)and(getcolor(732,389)=1777699)then
+    begin
+      a:=random(5)+727
+      b:=random(5)+376
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      holdmouse(a,b,true)
+      wait(random(200)+500)
+      releasemouse(a,b,true)
+    end;
+  if(choice>12)and(getcolor(730,447)=1777699)then
+    begin
+      a:=random(5)+727
+      b:=random(5)+450
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      holdmouse(a,b,true)
+      wait(random(200)+500)
+      releasemouse(a,b,true)
+    end;
+  wait(random(300)+150)
+//Yes
+  if(choice<2)then
+    begin
+      a:=random(10)+561
+      b:=random(10)+380
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//No
+  if(choice=2)then
+    begin
+      a:=random(10)+605
+      b:=random(10)+380
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Think
+  if(choice=3)then
+    begin
+      a:=random(10)+645
+      b:=random(10)+380
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Bow
+  if(choice=4)then
+    begin
+      a:=random(10)+685
+      b:=random(10)+380
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Angry
+  if(choice=5)then
+    begin
+      a:=random(10)+561
+      b:=random(10)+410
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Cry
+  if(choice=6)then
+    begin
+      a:=random(10)+605
+      b:=random(10)+410
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Laugh
+  if(choice=7)then
+    begin
+      a:=random(10)+645
+      b:=random(10)+410
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Cheer
+  if(choice=8)then
+    begin
+      a:=random(10)+685
+      b:=random(10)+410
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Wave
+  if(choice=9)then
+    begin
+      a:=random(10)+561
+      b:=random(10)+440
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Beckon
+  if(choice=10)then
+    begin
+      a:=random(10)+605
+      b:=random(10)+440
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Clap
+  if(choice=11)then
+    begin
+      a:=random(10)+645
+      b:=random(10)+440
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Dance
+  if(choice=12)then
+    begin
+      a:=random(10)+685
+      b:=random(10)+440
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Glass Wall
+  if(choice=13)then
+    begin
+      a:=random(10)+561
+      b:=random(10)+410
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Glass Box
+  if(choice=14)then
+    begin
+      a:=random(10)+605
+      b:=random(10)+410
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Glass Climb Rope
+  if(choice=15)then
+    begin
+      a:=random(10)+645
+      b:=random(10)+410
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Lean
+  if(choice=16)then
+    begin
+      a:=random(10)+685
+      b:=random(10)+410
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+//Blow Kiss
+  if(choice>=16)then
+    begin
+      a:=random(10)+561
+      b:=random(10)+440
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+      exit;
+    end;
+end;
+
+{>>>>>>>>======End of Game Controls========<<<<<<<<<<<<<<}
+
+
+{>>>>>>>======Music Options==========<<<<<<<<<<<<<}
+
+procedure OpenMusic;
+begin
+  a:=random(10)+730
+  b:=random(10)+470
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+procedure MusicPlayer(choice : integer);
+begin
+  if(getcolor(730,495)<>2829182)then
+    OpenMusic;
+  wait(random(300)+300)
+  if(choice<2)then
+    begin
+      a:=random(10)+625
+      b:=random(10)+215
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice=2)then
+    begin
+      a:=random(10)+660
+      b:=random(10)+215
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+  if(choice>2)then
+    begin
+      a:=random(10)+700
+      b:=random(10)+215
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      clickmouse(a,b,true)
+    end;
+end;
+
+procedure RandomSong;
+var ab : integer;
+begin
+  if(getcolor(730,495)<>2829182)then
+    OpenMusic;
+  wait(random(300)+300)
+  ab:=random(2)
+  if(ab<2)then
+    begin
+      a:=random(5)+725
+      b:=random(5)+265
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      holdmouse(a,b,true)
+      wait(random(400)+200)
+      releasemouse(a,b,true)
+    end;
+  if(ab=2)then
+    begin
+      a:=random(5)+725
+      b:=random(5)+435
+      MoveMouseSmoothEx(a,b,1,6,15,20,20);
+      wait(random(300)+300)
+      holdmouse(a,b,true)
+      wait(random(400)+200)
+      releasemouse(a,b,true)
+    end;
+  ab:=0
+  repeat
+    ab:=ab+1
+    a:=random(40)+570
+    b:=random(5)+325
+    wait(100)
+  until(getcolor(a,b)=65280)or(ab=50)
+  MoveMouseSmoothEx(a,b,1,6,15,20,20);
+  wait(random(300)+300)
+  clickmouse(a,b,true)
+end;
+
+{>>>>>>>>==========End of Music Options<<<<<<<<<<<<<==========}
+
+procedure SetupSquig;
+begin
+  setmousemode(false)
+  direction:=''
+  user:=''
+  pass:=''
+  writeln('')
+  Writeln('Using Squig Version 1.0 - Created by Squigglyo')
+  writeln('')
+end;
+
