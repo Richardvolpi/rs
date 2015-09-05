@@ -1,0 +1,63 @@
+===== Sample AR Engine =====
+
+==== Declarations ====
+String Script[5000];
+int ScriptMax;
+boolean ScriptRun;
+
+private ScriptRun SR;
+
+==== Thread ====
+private class ScriptRun extends Thread {
+    public void run() {
+        while(ScriptRun) {
+            for(int X; X = ScriptMax; X++) {
+                if(Script[X].equalsIgnoreCase(command1)) {
+                    command1();                    
+                } else if(Script[X].equalsIgnoreCase(command2)) {
+                    command2();                    
+                }
+            }
+        }
+    }
+
+    ScriptRun() {
+        start();
+    }
+}
+==== Functions ====
+public void command1() {
+    
+}
+public void command2() {
+    
+}
+public void ShowMessage(String message) {
+    fci(message,3);
+}
+==== KeyEvents ====
+if(i == 1009)
+{
+    if(!ScriptRun) {
+        if(ScriptMax > 0) {
+            ScriptRun = true;  
+            SR = new ScriptRun();
+            Chat("@ORA@SbmRune: @WHI#Running script...");
+        } else {
+            Chat("@ORA@SbmRune: @WHI@Script couldn't be loaded.");
+        }
+    } else {
+        Chat("@ORA@SbmRune: @WHI@Script is already running...");
+    }
+}
+
+if(i == 1010)
+{
+    if(ScriptRun) {
+        ScriptRun = false;  
+        Chat("@ORA@SbmRune: @WHI@Script stopped...");
+    } else {
+        Chat("@ORA@SbmRune: @WHI@There is no script running...");
+    }
+}
+

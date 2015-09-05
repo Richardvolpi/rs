@@ -1,0 +1,4 @@
+@Take:
+TakeItem(334,1509,11)
+Sleep(30000)
+GoTo(@Take)

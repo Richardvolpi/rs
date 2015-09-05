@@ -1,0 +1,4 @@
+@Bury:
+SetVarsNearestItem(%X,%Y,%ID,20)
+TakeItemVarVarVar(%X,%Y,%ID)
+Stop()
