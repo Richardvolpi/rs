@@ -1,0 +1,22 @@
+Menu 1:
+f3: Maphax in
+f4: MapHax Out
+f5: XZooming Up
+f6: Xzooming Out
+f7: Zooming In
+f8: Zoom Out
+f9: XZooming Reset
+f10: Zooming REset
+f11: Maphax Reset
+
+
+Menu 2:
+f3: AutoEater
+f4: Change Food Type
+f5: Fight Menu
+f6: Help Menu
+f7: Prayer Combo On/Off
+f8: Fight Mode Toggle
+f9: StatMenu
+f10: autologin
+f11: Lefties

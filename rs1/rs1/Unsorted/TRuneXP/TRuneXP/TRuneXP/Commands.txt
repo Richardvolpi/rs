@@ -1,0 +1,19 @@
+goto(:Label:)
+attackNPC(id)
+ifincombatgoto(:Label:)
+ifamountovergoto(id, :Label:)
+ifamountundergoto(id, :Label:)
+wait(ms)
+ifnritemsinbaggoto(nr, :Label:)
+ifinvfullgoto(:Label:)
+depositallid(Item Id)
+say(Message)
+print(Message)
+switchworld(world number)
+talktountil(npc id) - Buggy
+printout(Message in Dos Window)
+walkto(x, y)
+pick(id)
+useitem(id)
+
+theres more but i forgot to add them
