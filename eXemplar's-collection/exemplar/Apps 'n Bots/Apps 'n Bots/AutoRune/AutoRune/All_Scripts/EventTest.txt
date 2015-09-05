@@ -1,0 +1,66 @@
+OnItemLost(@ItemLost,%ItemID,%ItemPos)
+OnItemGained(@ItemGained,%ItemID,%ItemPos)
+OnServerMessage(@ServerMessage)
+OnCoordsChanged(@CoordsChanged,%LastX,%LastY)
+OnHPChanged(@HPChanged,%HP)
+OnPrivateMessage(@PrivMes)
+OnChatMessage(@ChatMes)
+OnNPCAppeared(@NewNPC,%ID,%NPCX,%NPCY,%NPCType)
+OnItemAppeared(@NewItem,%ItemID,%ItemX,%ItemY)
+OnNPCMoved(@NPCMov,%ID,%X,%Y,%NPCType)
+OnObject(@Obj,%ObjType,%ObjX,%ObjY)
+
+-
+@LoopStart:
+Wait(100)
+GoTo(@LoopStart)
+-
+@NPCMov:
+Debug("NPC is moving")
+DebugVar(%ID,%X,%Y,%NPCType)
+ERet()
+-
+@ServerMessage:
+DebugLastServerMessage()
+ERet()
+-
+@ItemLost:
+Debug(89,111,117,32,108,111,115,116,32,115,111,109,101,116,104,105,110,103,44,32,97,119,119)
+ERet()
+-
+@ItemGained:
+Debug("Yayay, you just got something!")
+ERet()
+-
+@CoordsChanged:
+Debug("a new location!")
+DebugVar(%LastX,%LastY)
+ERet()
+
+@HPChanged:
+Debug("My health changes!")
+DebugVar(%HP)
+ERet()
+
+@PrivMes:
+Debug("Someone is saying something to me")
+ERet()
+
+@ChatMes:
+Debug("Someone is talking")
+ERet()
+
+@NewNPC:
+Debug("A NPC appears. ID, X, Y, Type.")
+DebugVar(%ID,%NPCX,%NPCY,%NPCType)
+ERet()
+
+@NewItem:
+Debug("Item appears. ID, X, Y.")
+DebugVar(%ItemID,%ItemX,%ItemY)
+ERet()
+
+@Obj:
+Debug("Object appears/changes. Type, X, Y")
+DebugVar(%ObjType,%ObjX,%ObjY)
+ERet()

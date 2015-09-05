@@ -1,0 +1,200 @@
+MessageBox("Usage: U start this script at one of these 4 positions: Falador
+east bank, Rimmington mine, Varrock east bank, Varrock south east mine")
+MessageBox("WARNING!!! Remember that u have to have the Pickaxe in ur
+inventory before running script WARNING!!!")
+OnIdle(@Idle,1000)
+
+-- Determines wether u r in Falador Bank/mining --
+-- spot or in Varrock Bank/mining spot --
+SetVarMyX(%var1)
+Wait(20)
+GoToIfVarAboveNum(@Falador,%var1,165)
+Wait(20)
+GoToIfVarBelowNum(@Varrock,%var1,165)
+Wait(20)
+
+@Falador:
+-- Determines if u are in bank or near mining site --
+SetVarMyY(%var2)
+Wait(20)
+GoToIfVarAboveNum(@Minetest,%var2,580)
+Wait(20)
+GoToIfVarBelowNum(@Banktest,%var2,580)
+Wait(20)
+@Minetest:
+GoToIfVarBelowNum(@Error2,%var2,632)
+Wait(20)
+GoToIfVarAboveNum(@Error2,%var2,650)
+Wait(20)
+GoToIfVarAboveNum(@Error2,%var1,275)
+Wait(20)
+GoToIfVarBelowNum(@Error2,%var1,253)
+Wait(20)
+GoTo(@Rock1)
+@Banktest:
+GoToIfVarBelowNum(@Error2,%var2,563)
+Wait(20)
+GoToIfVarAboveNum(@Error2,%var2,574)
+Wait(20)
+GoToIfVarAboveNum(@Error2,%var1,239)
+Wait(20)
+GoToIfVarBelowNum(@Error2,%var1,231)
+Wait(20)
+GoTo(@Exit)
+-- Exit bank --
+@Exit:
+MoveTo(238,571)
+MoveTo(243,571)
+MoveTo(243,581)
+MoveTo(261,582)
+MoveTo(262,610)
+MoveTo(262,613)
+MoveTo(263,611)
+MoveToRandomly(264,616,262,618)
+MoveTo(262,625,3,3)
+MoveTo(265,641)
+-- rock 1 --
+@Rock1:
+GoToIfBagFull(@Bank)
+Action(270,641)
+AtObject(270,640)
+Wait(30)
+GoToIfLastItem(@Rock2,151)
+GoTo(@Rock1)
+-- rock 2 --
+@Rock2:
+GoToIfBagFull(@Bank)
+Action(270,641)
+AtObject(270,642)
+Wait(30)
+GoToIfLastItem(@Rock1,151)
+GoTo(@Rock2)
+--Bank--
+@Bank:
+MoveTo(276,641)
+MoveTo(276,634)
+MoveTo(265,623)
+MoveTo(261,623)
+MoveTo(256,541,-11,11)
+MoveTo(242,571)
+MoveTo(234,571)
+--Banking--
+@Banking:
+RepeatNextCommandUntilQuestMenu(50,2)
+Action(234,570)
+TalkToNPC(746,747,748,749,750)
+Answer(0)
+WaitForBankWindow(70)
+DepositEverything()
+Wait(10)
+CloseBank()
+Wait(10)
+GoToIfBagFull(@Banking)
+GoTo(@Exit)
+
+@Varrock:
+-- Determines if u are in bank or near mining site --
+SetVarMyY(%var3)
+Wait(20)
+GoToIfVarBelowNum(@banktest,%var3,535)
+Wait(20)
+GoToIfVarAboveNum(@minetest,%var3,535)
+Wait(20)
+@banktest:
+GoToIfVarBelowNum(@error1,%var3,508)
+Wait(20)
+GoToIfVarAboveNum(@error1,%var1,60)
+Wait(20)
+GoToIfVarAboveNum(@error1,%var3,516)
+Wait(20)
+GoToIfVarBelowNum(@error1,%var1,49)
+Wait(20)
+GoTo(@exit)
+@minetest:
+GoToIfVarBelowNum(@error2,%var3,534)
+Wait(20)
+GoToIfVarAboveNum(@error2,%var3,556)
+Wait(20)
+GoToIfVarAboveNum(@error2,%var1,36)
+Wait(20)
+GoToIfVarBelowNum(@error2,%var1,14)
+Wait(20)
+GoTo(@rock1)
+-- Exit bank --
+@exit:
+MoveTo(55,509)
+MoveToRandomly(54,509,55,509)
+MoveTo(37,509)
+MoveTo(37,515)
+MoveTo(36,515,-8,8)
+MoveTo(28,535)
+MoveToRandomly(26,537,26,538)
+MoveTo(26,544)
+-- rock 1 --
+@rock1:
+GoToIfBagFull(@bank)
+ResetLastItemGained()
+Action(27,544)
+AtObject(28,544)
+Wait(30)
+GoToIfLastItem(@rock2,151)
+GoTo(@rock1)
+-- rock 2 --
+@rock2:
+GoToIfBagFull(@bank)
+ResetLastItemGained()
+Action(27,544)
+AtObject(27,543)
+Wait(30)
+GoToIfLastItem(@rock1,151)
+GoTo(@rock2)
+--Going to Varrock bank--
+@bank:
+MoveToRandomly(25,545,25,546)
+MoveTo(25,537,1,-1)
+MoveTo(26,525,6,-6)
+MoveTo(33,520,33,521)
+MoveTo(33,512,4,-4)
+MoveTo(55,509)
+MoveToRandomly(55,510,54,510)
+--Banking--
+@banking:
+RepeatNextCommandUntilQuestMenu(50,2)
+Action(55,511)
+TalkToNPC(531,535,530)
+Answer(0)
+WaitForBankWindow(50)
+DepositEverything()
+Wait(40)
+CloseBank()
+Wait(10)
+GoToIfBagFull(@banking)
+GoTo(@exit)
+--This detects if u have gotten stuck--
+--Gives suggestion on what to do--
+@Idle:
+MessageBox("Due to lag, or that u didn't start in the right positions,
+script has halted!")
+MessageBox("To prevent detection from jagex, you are now going to get logged
+out")
+MessageBox("Next time see to that u follow the instructions carefully")
+StopAndLogOut()
+@error1:
+MessageBox("You are not IN Varrock Bank, move to correct position and start
+over")
+Stop()
+@error2:
+MessageBox("You are not AT Varrock mining spot, move to correct position and
+start over")
+Stop()
+@Error1:
+MessageBox("You are not IN Falador Bank, move to correct position and start
+over")
+Stop()
+@Error2:
+MessageBox("You are not IN Rimmington mining spot, move to correct position
+and start over")
+Stop()
+
+
+
