@@ -1,0 +1,86 @@
+TalkToNpc\\
+AttackNpc\\
+ThieveNpc\\
+MagicNpc(id, num)\\
+Wield(pos)\\
+Unwield(pos)\\
+WieldById(id)\\
+UnwieldById(id)\\
+Deposit(Id, count)\\
+Withdraw(Id, Count)\\
+Answer(choice)//
+UseItem(pos)//
+UseItemById(pos)//
+CloseShop()//
+CloseBank()//
+LogOut()\\
+DropItem(pos)\\
+DropItemById(id)\\
+TakeItem(x,y, id)\\
+PickItemWithItem(x,y,id, pos)\\
+PickItemWithItemId(x,y, id, id2)\\
+SellItem(id)\\
+BuyItem(id)\\
+MagicOnItemByPos(pos, num)\\
+MagicOnItemById(id, num)\\
+UseItemWithItem(pos1, pos2)\\
+UseItemWithItemById(id1, id2)\\
+AtWall1(x, y)\\
+AtWall2(x, y)\\
+WithItemAtWall(x,y, id)\\
+PrayerOn(num)\\
+PrayerOff(num)\\
+WaitForQuestMenu(time)\\
+WaitForBankWindow(time)\\
+WaitForShopWindow(time)\\
+WaitForCoordChange()\\
+RepeatNextCommandUntilQuestMenu(time, count)\\
+FightMode//
+AtObjectWithItem//
+AtObjectWithItemById//
+AtObject//
+AtObject2//
+MoveToNoWait//
+MoveTo//
+Debug//
+
+GoTo(@Label)\\
+GoToIfBagFull(@Label)\\
+GoToIfInInventory(@label, id, id2)\\
+GoToIfCountInInventoryEqual(@label, num, id)\\
+GoToIfCountInInventoryGreater(@label, num id)\\
+GoToIfEqual(@label, num, num)\\
+GoToIfNotEqual(@label, num, num)\\
+GoToIfAbove(@label, num, num)\\
+GoToIfBelow(@label, num, num)\\
+SetVar(var, num)\\
+AddNum(%var, num)\\
+SubVar(%var, num)\\
+SetVarItemCount(%var, id)\\
+SetVarMyX(%var)\\
+SetVarMyY(var)\\
+SetVarFatigue(var)\\
+SetVarMyHp(var)\\
+
+GoToIfBankWindow(@Label)\\
+GoToIfCoordsIn(@label, x1, y1, x2, y2)\\
+SetVarsNearestNpc(%x, %y, %id, NpcId)\\
+GoToIfNpcNear(@label, type)\\
+GoToIfFighting(@label)\\
+SetVarNpcType(%type, index)
+SetVarNpcCoords(%x, %y, index)
+SetVarObject(%type, x, y)
+SetVarsNearestObjectXY(%x, %y, type)\\
+GoToIfObjectNear(@Label, type)\\
+
+Stop()\\
+StopAndLogOut()\\
+Debug("text")\\
+DebugRs(text)\\
+CheckFighters(num) - 1 if so, 0 otherwise\\
+GoToIfInLastServerMessageIs(@label, "text")\\
+ResetLastServerMessage()\\
+GoToIfQuestMenu(@label)\\
+
+
+

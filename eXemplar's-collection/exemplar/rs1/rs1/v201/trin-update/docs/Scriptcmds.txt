@@ -1,0 +1,175 @@
+Script Commands for AuToBot Tri. v4
+
+//General commands that are to do with running the script.
+public String[] getCommands() - returns the commands from a script
+public String[] getComments() - returns comments from a script (each command must have a comment)
+
+public boolean start(String name, String args[]) - the method run when you start a script, name being the command, args being the paramters split by #, return true to start the script, return false not to.
+public long run(long left) - the method run every so milliseconds, telling how many milliseconds left until your wait period is up.
+
+public void enableListener() - tells the bot you wish to have all 'text'/'server'/'chat' messages listened to.
+public void disableListener() - tells the bot to not listen :p
+public boolean messageListener(int type, String msg) - msg is the msg sent, if you return true it tells the bot to make the wait period end, false otherwise.
+
+public void enableBotSleeping() - its defaulted on, and tells the bot sleep for you. (Scripts won't run while asleep).
+public void disableBotSleeping() - if you wish to have scripting manually (example if you wish to use a bed, not a sleeping bag).
+public void setBotSleepLevel(int i) - if botsleeping is on, i is the fatigue level that the bot will sleep at.
+
+public void enableRadius(int x1, int y1, int x2, int y2) - tells the bot to watch out for your coordinates, if it goes out of these coordinates it will set off:
+public void radiusAlarm() - this method is ran when you step out of the perimeter, so you can make it walk back somewhere I guess.
+public void disableRadius() - disables use of radius.
+
+public void enableKeyListener() - tells the bot you wish to have the keys you type monitored
+public void disableKeyListener() - tells the bot not to.
+public boolean keyListener(int i) - i is the key pressed, true if you wish to have the wait period cancelled, false otherwise.
+
+//User Related & Server
+public int getCurrentServer() - returns current server
+public void setWorld(int i) - sets the server next logged into
+public void setUser(String u, String p) - sets the user the auto login will log into.
+public void doLogOut() - 'logs' you out.
+public boolean isLoggable() - tells you if you can log off atm or not.
+
+//Statistics\Stats
+public int getFatigue() - your current fatigue level.
+public int getFightMode() - your current fight mode
+public void setFightMode(int i) - set your fight mode to i
+public boolean isFighting() - tells you if your in combat or not.
+public int[] getCoords() - [0] is your x, [1] is your y.
+public int getMaxLevel(int i) - your max level of a stat
+public int getLevel(int i) - your current level of a stat
+public int getLevelXp(int i) - gets current xp of a level.
+public String getStatName(int i) - returns the stats name
+public int getAmmOfRounds() - returns how many rounds of combat you have been in.
+
+//Walking Stuff
+public void doTrueWalk(int x, int y) - 'Ar' Style scripting.
+public int getMoveTurns(int x, int y) - returns how many turns you will move to get to an x,y - generally anything over 2 will be impossible for truewalk.
+public void doMoveTo(int x, int y) - simple enough.
+public boolean isWalking() - tells you if your walking or not.
+public boolean isAccessible(int x, int y) - tells you if an x,y is walkable or not.
+
+//Prayer and Unrelated Mage
+public void doPrayerOn(int i)
+public void doPrayerOff(int i)
+public void doMageOnSelf(int i) - like teleporting spells.
+public boolean isPrayerOn(int i) - returns if a prayer is on or not.
+
+//Shopping\Banking & Npc Talking.
+public boolean isInShop(int i) - returns if an item is in the shop or not
+public boolean isShopOpen()
+public void doBuyById(int i)
+public void doSellById(int i)
+public void doCloseShop()
+
+public boolean isQuestMenuOpen()
+public void doAnswerQuest(int i)
+public int getAmountOfQuest() - gets the amount of questions there are.
+public String getQuestionAsMsg(int i) - returns the question
+
+public boolean isBankOpen()
+public int getAmmInBank(int i)
+public void doWithdraw(int a, int b) - a is id, amm is ammount.
+public void doDeposit(int a, int b) - same params as above.
+public void doCloseBank()
+
+//Character Creating.
+public void setLooks(int a, int b, int e, int f, int g, int h) - too annoying to say how you do this :P.
+public static boolean doCreateUser(String user, String pass) - yeh.. true if it was created, false otherwise.
+
+//Inventory. - All is by Id, not slot, except obvious.
+public int getInvCountOf(int i) - inventory count of item by id.
+public int getInvCount() - returns your inventory account.
+public void doMageOnItem(int a, int b) - a is spell id, b is item id.
+public int getItemIdBySlot(int a) - gets the item ids at slot.
+public void doItemWithItem(int a, int b) - uses item with item.
+public void doRemoveItem(int a)
+public void doWearItem(int a)
+public void doItemSpecial(int a) - generally its 'UseItem', but not me.
+public void doEatAnyFood() - eats any food in the inventory.
+public boolean isFoodInInv() - tells you if there is food in the inventory or not.
+public void doDropItem(int a)
+
+//Players
+public int lastPlayer-() - Maged, Attacked, Traded or Followed
+public boolean isPlayerWalking(int i) - by index, true if player is walking.
+public int getPlayerById(int i) - gets player index by id.
+public int[] getPlayerInfo(int i) - [0] = server id, [1] = x, [2] = y
+public int[] getPlayerDest(int i) - its annoying.
+public int[] getPlayerAt(int x, int y) - gets all the server ids at an x,y.
+public boolean isPlayerAttackAble(int i) - tells you if it is possible to attack a player or not. (Like by wildy level)
+public int getWildLevel() - gets current wilderness level.
+public boolean isPlayerSkulled(int i)
+public boolean isPlayerFighting(int i)
+public int getPlayerCount()
+public int[] getPlayerHp(int i) - [0] is current hp, [1] is max, not always available.
+public String getPlayerName(int i) - gets a players name by index.
+public int getPlayerCombat(int i) - gets players combat by index.
+public void doMageOnPlayer(int a, int b) - a is spell, b is index.
+public boolean isPlayerHpShowing(int a) - returns if hp bar o player is showing.
+public void doAttackPlayer(int a) - attacks a player by index.
+
+//Items
+public void doMageOnGItem(int i, int id) - i is spell, id is index.
+public void doItemWithGItem(int i, int idx)
+public void doTakeItem(int i)
+public int getItemById(int ids[]) - gets an index of several items.
+public int getItemById(int i) - for only one id.
+public int getItemCount()
+public int getItemByIdWithIn(int ids[], int x1, int y1, int x2, int y2)
+public int getItemByIdWithIn(int i, int x1, int y1, int x2, int y2)
+public int[] getItemInfo(int i) - [0] is id, [1] is x, [2] is y
+public int[] getItemsAt(int x, int y) - gets item ids at an x,y
+public int getItemAtById(int x, int y, int i) - gets index at x,y by id
+
+//Npcs
+public int getNpcById(int ids[], boolean hi) - hi is true if you want it for even if npcs in combat. False otherwise, for many ids.
+public int getNpcById(int i, boolean hi)
+public int getNpcByIdWithIn(int ids[], int x1, int y1, int x2, int y2, boolean hi)
+public int getNpcByIdWithIn(int i, int x1, int y1, int x2, int y2, boolean hi)
+public int[] getNpcInfo(int i) - [0] is their id, [1] is there true id (wont change until they die), combat level, x, y.
+public void doMageOnNpc(int a, int b) - you know the drill.
+public void doAttackNpc(int i)
+public void doAttackNpcAr(int i) - "AR Style" of npc attacking.
+public void doTalkNpc(int i)
+public void doCommandNpc(int i) - for like thieving and stuff, has restrictions, sorry people who which to break more then autoing rules.
+public void doItemOnNpc(int i, int idx)
+
+//Wall Objects\Normal Objects - Inbetween ones to.
+public void doWallAction1(int i)
+public void doWallAction2(int i)
+public int getWallActions(int i) - 1 if the 1st action is there, 2 if the 2nd is there, 3 if both are.
+public void doItemWithWall(int i, int idx) - for keys as an example.
+public int getWallAt(int x, int y) - gets a walls id at x,y
+public int getWallById(int ids[]) - by ids
+public int getWallById(int i)
+public int getWallByIdWithIn(int ids[], int x1, int y1, int x2, int y2)
+public int getWallByIdWithIn(int i, int x1, int y1, int x2, int y2)
+public int[] getWallInfo(int i) - id, x, y.
+
+public int[] getClosestWallObject(int ids1[] , int ids2[]) - iids1 is wall ids. ids2 is object ids. if theres one, [0] is 1 or 2, 1 is wall, 2 is object. [1] is their index.
+
+public int getObjectById(int ids[])
+public int getObjectById(int i)
+public boolean isObjectAccessible(int x, int y) - if you get an x,y of an object tells if its accessible yada.
+public int getObjectByIdWithIn(int ids[], int x1, int y1, int x2, int y2)
+public int getObjectByIdWithIn(int i, int x1, int y1, int x2, int y2)
+public int[] getObjectInfo(int i) - id, x, y.
+public int getObjectAt(int x, int y) - gets an object index at.
+public void doObjectAction1(int i)
+public void doObjectAction2(int i)
+public int getObjectActions(int i) - same as wallactions
+public void doItemWithObject(int i, int x)
+
+//Trading.
+public int getTradeScreen() - 0 if not trading, 1 if its the first one (where u put ur shit), 2 if its confirmation window.
+public void doPutTrade(int[] ids, int[] amms) - arrays only, be careful of what u do, or ull be banned :P
+public void doAcceptTrade(int i) - 1 for first screen, 2 for second.
+public boolean isTradeAccepted() - if your on the first screen, returns if player has accepted trade.
+
+//Convenience\Whatever Commands
+public long getCurrentMillis() - returns the current system milliseconds (convenience).
+public boolean isWithIn(String s, String x) - tells you if 'x' is inside s.
+public boolean isAtCoords(int x, int y) - tells you if your at x and y.
+public void displayRs(String x) - displays thingy in rs.
+public void displayCmd(String x) - displays in the debug/cmd.exe window.

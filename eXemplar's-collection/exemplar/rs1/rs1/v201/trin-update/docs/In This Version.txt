@@ -1,0 +1,35 @@
+Hi,
+
+In this version, I've done too much, and over 2 weeks of me planning an update
+ive added shitloads, and forgot what i've done.
+
+Main things can be though of course:
+AuToBoT.exe ;)
+Fixing of getNpcByIdWithIn 
+New Help/Read Files.
+Made making text scripting slightly more easier, due to the fact if a java error
+EVER occured, (like due to putting a white space somewhere or something), 
+the bot would freeze, and you would have to reload the bot, now it will just
+turn off the script, and tell you what line the error is on.
+
+I hopefully fixed up the error of judgement, by putting some shit somewhere I
+shouldn't off, resulting in gayness :( Sorry folks. This should be fixed now.
+
+Also added isPrayerOn(num)
+Trading Commands :O
+public int getTradeScreen()
+doPutTrade(int[] ids, int[] amms)
+doAcceptTrade(int i)
+isTradeAccepted()
+
+and a character creating commands
+doCreateUser(String user, String pass)
+setLooks(int a, int b, int e, int f, int g, int h)
+
+Oh yeh, also fixed several mix ups with the text scripting,
+often when it says ById, it was doing it my inventory space, and the one without
+ById was doing it by id, people who I told to just put something else in there
+scripts, must now edit them back - thanks.
+
+Also, you no longer need a data folder, as your datas are loaded from your system, rather
+then a seperate folder. ;). 
