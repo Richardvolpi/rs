@@ -1,0 +1,106 @@
+public class ExampleScript extends Methods
+{
+    public ExampleScript(mudclient mc){super(mc);}
+ 
+    public void MainBody(String Args[])
+    {
+        /*
+         Any Code you wish to run at the start of the script would go in here. For example parsing
+         the paramaters etc.
+         */
+        int NpcID = StrToInt(GetInput("What is the NPC Id you wish to macro on?"));
+        int FightMode = StrToInt(GetInput("Fightmode? Controlled 0, Strength 1, Attack 2, Defence 3."));
+        StartScanForMods();
+        AutoLogin(true);
+        while(Running())
+        {
+            /*
+             This part of the code will be repeated until the script is stopped, this is where
+             the main body of the code would go.
+            */
+            int[] Npc = GetNpcById(NpcID);
+            if(Npc[0] != -1)
+            {
+                AttackNpc(Npc[0]);
+                Wait(Rand(700,900));
+            }
+            else
+                Wait(Rand(10,20));
+            SleepIfAt(95); // Sleep if we are at 95 fatigue or higher
+        }
+        End("Script finished");
+    }
+    
+    public void OnChatMessage(String sender, String message)
+    {
+        /*
+         This Method will be called when a Chat Message is detected and the script is running.
+         It can be used for mod detection or interacting with your script from a different character.
+        */
+        sender = sender.toLowerCase();
+        if(sender.startsWith("mod ") || sender.equals("andrew") || sender.equals("paul"))
+        {
+            Display("A mod was detected!");
+            Wait(Rand(2000,5000));
+            Speak("Hey " + sender + " back soon, dinner :P");
+            Wait(Rand(2000,5000));
+            LogOut();
+            Die();
+        }
+    }
+    
+    public void OnPrivateMessage(String sender, String message)
+    {
+        /*
+         This Method will be called when a Private Message is detected and the script is running.
+         It can be used for mod detection or interacting with your script from a different character.
+        */
+        sender = sender.toLowerCase();
+        if(sender.startsWith("mod ") || sender.equals("andrew") || sender.equals("paul"))
+        {
+            Display("A mod was detected!");
+            LogOut();
+            Die();
+        }
+    }
+    
+    public void OnServerMessage(String message)
+    {
+        /*
+         This method will be called when a Server Message is detected and the script is running.
+         It can be used for avoiding the 5 min timeout etc.
+        */
+    }
+
+    public void OnInput(String input)
+    {
+        // This method will be called by any input starting with a /, which isn't a command used in STS (eg /deposit would not show here)
+        // The / is automatically removed
+        if(input.equals("report"))
+            Display("--REPORT--");
+    }
+
+    public void KeyPressed(int key)
+    {
+        // This method is called when a key is pressed and you are logged in. It also ignores hotkeys that STS uses
+        char c = (char)key;
+        if(c == 'q')
+            Die();
+    }
+    
+    public Stats ToShow()
+    {
+        // These arrays can be aslong as you like, but must all be the same length, obviously.
+        String[] Message = {Time()}; // Show the time
+        int[] XCoords = {10};
+        int[] YCoords = {138};
+        // Set the X and Y coords in the above 2 arrays
+        return new Stats(Message, XCoords, YCoords);
+    }
+    
+    public void Debug(String Command)
+    {
+        // If you have debug enabled (F6) and run a script containing this method it will be passed here.
+        Display("Debug: " + Command);
+    }
+}
