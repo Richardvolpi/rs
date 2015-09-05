@@ -1,0 +1,4 @@
+[main]
+display(Test)
+wait(2000)
+goto([main])
