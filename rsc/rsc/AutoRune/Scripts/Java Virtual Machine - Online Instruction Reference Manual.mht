@@ -1,0 +1,598 @@
+From: <Saved by Microsoft Internet Explorer 5>
+Subject: Java Virtual Machine - Online Instruction Reference Manual
+Date: Mon, 22 Sep 2003 23:00:41 +0300
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	boundary="----=_NextPart_000_0000_01C3815D.58CA9940";
+	type="text/html"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2800.1165
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01C3815D.58CA9940
+Content-Type: text/html;
+	charset="windows-1251"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://mrl.nyu.edu/~meyer/jvmref/
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Java Virtual Machine - Online Instruction Reference =
+Manual</TITLE>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dwindows-1251">
+<META content=3D"MSHTML 6.00.2800.1226" name=3DGENERATOR></HEAD>
+<BODY bgColor=3Dwhite><FONT face=3DHelvetica>
+<CENTER>
+<H1>Java Virtual Machine<BR>Online Instruction Reference Manual</H1>Jon =
+Meyer,=20
+Troy Downing,<BR>O'Reilly Associates. </CENTER></FONT>
+<HR>
+<A href=3D"http://www.ora.com/catalog/javavm"><IMG=20
+src=3D"http://mrl.nyu.edu/~meyer/jvmref/img.gif" align=3Dright =
+border=3D0>
+<P></A><B></B>
+<P><B></B>This is an online <STRONG>DRAFT</STRONG> version of the =
+instruction=20
+reference (Chapter 13) printed in <I>Java Virtual Machine</I>, by Jon =
+Meyer and=20
+Troy Downing, published by O'Reilly Associates, ISBN 1-56592-194-1. See =
+<A=20
+href=3D"http://www.ora.com/catalog/javavm">book details </A>for further=20
+information on this book.
+<P>The material presented here probably has some typos and minor errors, =
+but we=20
+felt that it would still be a useful reference source for people looking =
+for=20
+details of the JVM. You can also see <A=20
+href=3D"http://www.cat.nyu.edu/meyer/jasmin">Jasmin Home Page </A>for =
+further=20
+information on Jasmin and the JVM.
+<P><BR clear=3Dleft>This material is provided on an "AS IS" basis =
+without warranty=20
+of any kind, including without limitation the warranties of =
+merchantability,=20
+fitness for a purpose and non-infringement. The entire risk as to the =
+quality=20
+and performance of the Software is borne by you. Should the Software =
+prove=20
+defective, you and not Chris Hector assume the entire cost of any =
+service and=20
+repair. SOME JURISDICTIONS DO NOT ALLOW EXCLUSIONS OF AN IMPLIED =
+WARRANTY, SO=20
+THIS DISCLAIMER MAY NOT APPLY TO YOU AND YOU MAY HAVE OTHER LEGAL RIGHTS =
+
+THATVARY BY JURISDICTION.
+<P>
+<P>
+<P>
+<HR SIZE=3D4>
+
+<UL>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-example.html">example </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-aaload.html">aaload </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-aastore.html">aastore </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-aconst_n.html">aconst_null=20
+  </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-aload.html">aload =
+</A>
+  <LI><A=20
+  =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-aload__l.html">aload_&lt;n&g=
+t; </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-anewarra.html">anewarray=20
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-.html">areturn =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--2.html">arraylength </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_astore.html">astore </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--3.html">astore_&lt;n&gt;=20
+  </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-athrow.html">athrow </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_baload.html">baload </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--4.html">bastore =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_bipush.html">bipush </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--5.html">breakpoint </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-caload.html">caload </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--6.html">castore =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--7.html">checkcast =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_d2f.html">d2f =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_d2i.html">d2i =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_d2l.html">d2l =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_dadd.html">dadd =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_daload.html">daload </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--8.html">dastore =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_dcmpg.html">dcmpg =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_dcmpl.html">dcmpl =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--9.html">dconst_&lt;d&gt;=20
+  </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_ddiv.html">ddiv =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_dload.html">dload =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--10.html">dload_&lt;n&gt;=20
+  </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-dmul.html">dmul =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-dneg.html">dneg =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-drem.html">drem =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-dreturn.html">dreturn </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_dstore.html">dstore </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--11.html">dstore_&lt;n&gt;=20
+  </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_dsub.html">dsub =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_dup.html">dup =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_dup2.html">dup2 =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--12.html">dup2_x1 =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--13.html">dup2_x2 =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_dup_x1.html">dup_x1 </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_dup_x2.html">dup_x2 </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_f2d.html">f2d =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_f2i.html">f2i =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_f2l.html">f2l =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_fadd.html">fadd =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_faload.html">faload </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--14.html">fastore =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_fcmpg.html">fcmpg =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_fcmpl.html">fcmpl =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--15.html">fconst_&lt;f&gt;=20
+  </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_fdiv.html">fdiv =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_fload.html">fload =
+</A>
+  <LI><A=20
+  =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-fload__l.html">fload_&lt;n&g=
+t; </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-fmul.html">fmul =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_fneg.html">fneg =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_frem.html">frem =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--16.html">freturn =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_fstore.html">fstore </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--17.html">fstore_&lt;n&gt;=20
+  </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_fsub.html">fsub =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--18.html">getfield =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--19.html">getstatic </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_goto.html">goto =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_goto_w.html">goto_w </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_i2b.html">i2b =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_i2c.html">i2c =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_i2d.html">i2d =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_i2f.html">i2f =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_i2l.html">i2l =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_i2s.html">i2s =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_iadd.html">iadd =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_iaload.html">iaload </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_iand.html">iand =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--20.html">iastore =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--21.html">iconst_&lt;n&gt;=20
+  </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--22.html">iconst_m1 </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_idiv.html">idiv =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--23.html">if_acmpeq </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--24.html">if_acmpne </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--25.html">if_icmpeq </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--26.html">if_icmpge </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--27.html">if_icmpgt </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--28.html">if_icmple </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--29.html">if_icmplt </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--30.html">if_icmpne </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_ifeq.html">ifeq =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_ifge.html">ifge =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-ifgt.html">ifgt =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-ifle.html">ifle =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-iflt.html">iflt =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-ifne.html">ifne =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-ifnonnul.html">ifnonnull=20
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-ifnull.html">ifnull </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-iinc.html">iinc =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-iload.html">iload =
+</A>
+  <LI><A=20
+  =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-iload__l.html">iload_&lt;n&g=
+t; </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-impdep1.html">impdep1 </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-impdep2.html">impdep2 </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-imul.html">imul =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_ineg.html">ineg =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--31.html">instanceof </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--32.html">invokeinterface=20
+  </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--33.html">invokespecial =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--34.html">invokestatic </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--35.html">invokevirtual =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_ior.html">ior =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_irem.html">irem =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--36.html">ireturn =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_ishl.html">ishl =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_ishr.html">ishr =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_istore.html">istore </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--37.html">istore_&lt;n&gt;=20
+  </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_isub.html">isub =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_iushr.html">iushr =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_ixor.html">ixor =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_jsr.html">jsr =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_jsr_w.html">jsr_w =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_l2d.html">l2d =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_l2f.html">l2f =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_l2i.html">l2i =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_ladd.html">ladd =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_laload.html">laload </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_land.html">land =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--38.html">lastore =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_lcmp.html">lcmp =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--39.html">lconst_&lt;l&gt;=20
+  </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_ldc.html">ldc =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_ldc_w.html">ldc_w =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-ldc2_w.html">ldc2_w </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_ldiv.html">ldiv =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-lload.html">lload =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--40.html">lload_&lt;n&gt;=20
+  </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_lmul.html">lmul =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_lneg.html">lneg =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--41.html">lookupswitch </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_lor.html">lor =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_lrem.html">lrem =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--42.html">lreturn =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_lshl.html">lshl =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_lshr.html">lshr =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_lstore.html">lstore </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--43.html">lstore_&lt;n&gt;=20
+  </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_lsub.html">lsub =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_lushr.html">lushr =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_lxor.html">lxor =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--44.html">monitorenter </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--45.html">monitorexit </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref--46.html">multianewarray=20
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-new.html">new </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-newarray.html">newarray =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-nop.html">nop </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-_pop.html">pop =
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-pop2.html">pop2 =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-putfield.html">putfield =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-putstati.html">putstatic=20
+</A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-ret.html">ret </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-return.html">return </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-saload.html">saload </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-sastore.html">sastore </A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-sipush.html">sipush </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-swap.html">swap =
+</A>
+  <LI><A =
+href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-tableswi.html">tableswitch=20
+  </A>
+  <LI><A href=3D"http://mrl.nyu.edu/~meyer/jvmref/ref-wide.html">wide =
+</A></LI></UL>
+<HR SIZE=3D4>
+
+<H6><A href=3D"http://www.ora.com/catalog/javavm">Java Virtual =
+Machine</A>, by Jon=20
+Meyer and Troy Downing, O'Reilly Associates </H6></BODY></HTML>
+
+------=_NextPart_000_0000_01C3815D.58CA9940
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://mrl.nyu.edu/~meyer/jvmref/img.gif
+
+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
+
+------=_NextPart_000_0000_01C3815D.58CA9940--
