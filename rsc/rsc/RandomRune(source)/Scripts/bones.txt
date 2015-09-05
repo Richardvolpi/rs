@@ -1,0 +1,15 @@
+:collect:
+loginifneeded()
+sleepifover(95)
+pickid(20)
+wait(3000)
+ifamountovergoto(20,20,:bury:)
+goto(:collect:)
+
+:bury:
+loginifneeded()
+sleepifover(95)
+useitem(20)
+wait(2000)
+ifamountundergoto(1,20,:collect:)
+goto(:bury:)
