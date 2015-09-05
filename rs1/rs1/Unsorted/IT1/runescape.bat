@@ -1,0 +1,1 @@
+java -cp mudclient177.jar;.;pircbot.jar -noverify Main /T "RuneScape - by Jagex Limited" /notop
