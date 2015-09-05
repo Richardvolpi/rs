@@ -1,0 +1,13 @@
+**SETTINGS FOR SKULLTORCHA**
+Set these below if you wish, it will automatically load them as defaults when you load the bot if they are set. foodid and foodheals must,
+be set, and also must be the same length. If you add a food, add both details, same with removing. The Screenshot prefix is what it calls
+the screenshots that it saves. Pickup is the ID's for the autopickup, and start mode is the fightmode it will switch to when you login.
+
+rs name=Rich Lil Nigg
+rs pass=ownage
+server=81
+start mode=1
+foodid=(546,373,357,359,367,370,555,132)
+foodheals=(20,12,8,7,10,15,12,3)
+pickup=(638)
+screenshot prefix=Screenz0r
