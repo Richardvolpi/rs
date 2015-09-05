@@ -1,0 +1,89 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 09/08/2004 7:24:11 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Rats.java
+
+
+public class Rats extends Script
+{
+
+    public Rats(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "rats"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        DisplayMessage("@whi@Goblin Village Rat Killer by @cya@Icebird", 3);
+        do
+        {
+            if(!Running())
+                break;
+            if(GetFightMode() != 3)
+                SetFightMode(3);
+            if(Fatigue() >= 99)
+            {
+                for(; !Sleeping() && Running(); Wait(2500))
+                    Use(FindInv(1263));
+
+                for(; Sleeping() && Running(); Wait(100));
+            }
+            if(GetCurrentStat(3) < 3)
+            {
+                if(InvCount(132) == 0)
+                {
+                    DisplayMessage("@red@Out of food, running to bank for more", 3);
+                    Walk(324, 464);
+                    Walk(326, 477);
+                    Walk(324, 496);
+                    Walk(320, 511);
+                    Walk(315, 525);
+                    Walk(325, 542);
+                    Walk(330, 553);
+                    for(; !QuestMenu(); Wait(1000))
+                    {
+                        int i = GetNearestNPC(95);
+                        TalkToNPC(i);
+                    }
+
+                    Answer(0);
+                    for(; !Bank(); Wait(10));
+                    for(; InvCount() < 30; Wait(100))
+                        Withdraw(132, 1);
+
+                    CloseBank();
+                    DisplayMessage("@gre@Food fetched, returning to training spot.", 3);
+                    Walk(325, 542);
+                    Walk(315, 525);
+                    Walk(320, 511);
+                    Walk(324, 477);
+                    Walk(326, 477);
+                    Walk(324, 464);
+                    Walk(323, 448);
+                }
+                int j;
+                for(; GetCurrentStat(3) < GetStat(3); Use(j))
+                    j = FindInv(132);
+
+            }
+            if(!InCombat())
+            {
+                int k = GetNearestNPC(29);
+                AttackNPC(k);
+                Wait(1000);
+            }
+            if(InCombat())
+                Wait(10);
+            if(GetFightMode() != 1)
+                SetFightMode(1);
+        } while(true);
+        DisplayMessage("@whi@Goblin Village Rat Killer by @cya@Icebird @whi@ Stopped", 3);
+    }
+}

@@ -1,0 +1,9 @@
+public void Walkback(int x,int y,int npcid,int radius)
+{
+int sda = GetNearestNPC(npcid);
+while(sda == -1 && !InCombat && Distance(x,y) > radius && Running())
+{
+WalkNoWait(x,y);
+Wait(Rand(1000,1425);
+}
+}

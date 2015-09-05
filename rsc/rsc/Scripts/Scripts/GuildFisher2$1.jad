@@ -1,0 +1,19 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 06/10/2004 7:18:59 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   GuildFisher2.java
+
+
+class GuildFisher2$1
+    implements Runnable
+{
+
+    public void run()
+    {
+        GuildFisher2.access$000(GuildFisher2.this);
+    }
+
+    GuildFisher2$1()
+    {
+    }
+}

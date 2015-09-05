@@ -1,0 +1,1 @@
+/run multi <Fight Mode>@<Attack NPC1>@<Attack NPC2>

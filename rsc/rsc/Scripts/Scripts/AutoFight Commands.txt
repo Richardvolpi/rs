@@ -1,0 +1,804 @@
+/run attack (fighting mode)@(npc id) 
+
+(Fight Modes~
+1 - str
+2-  att
+3 - def
+4 - controlled
+
+(NPC ID, Names and Descriptions~
+
+0 - Unicorn - It's a unicorn
+1 - Bob - An axe seller
+2 - Sheep - A very wooly sheep
+3 - Chicken - Yep definitely a chicken
+4 - Goblin - An ugly green creature
+5 - Hans - A castle servant
+6 - cow - It's a multi purpose cow
+7 - cook - The head cook of Lumbridge castle
+8 - Bear - Eek! A bear!
+9 - Priest - A priest of Saradomin
+10 - Urhney - He looks a little grumpy
+11 - Man - One of runescapes many citizens
+12 - Bartender - I could get a beer off him
+13 - Camel - Oh its a camel
+14 - Gypsy - An old gypsy lady
+15 - Ghost - Ooh spooky
+16 - Sir Prysin - One of the king's knights
+17 - Traiborn the wizard - An old wizard
+18 - Captain Rovin - The head of the palace guard
+19 - Rat - Overgrown vermin
+20 - Reldo - I think he's the librarian
+21 - mugger - He jumps out and attacks people
+22 - Lesser Demon - Lesser but still pretty big
+23 - Giant Spider - I think this spider has been genetically modified
+24 - Man - A shifty looking man
+25 - Jonny the beard - I can see why he's called the beard
+26 - Baraek - A fur trader
+27 - Katrine - She doesn't look to friendly
+28 - Tramp - A scruffy looking chap
+29 - Rat - A small muddy rat
+30 - Romeo - He looks mildly confused
+31 - Juliet - She looks a little stressed
+32 - Father Lawrence - A kindly looking priest
+33 - Apothecary - I wonder if he has any good potions
+34 - spider - Incey wincey
+35 - Delrith - A freshly summoned demon
+36 - Veronica - She doesn't look too happy
+37 - Weaponsmaster - The phoenix gang quartermaster
+38 - Professor Oddenstein - A mad scientist if I ever saw one
+39 - Curator - He looks like he's daydreaming
+40 - skeleton - It rattles as it walks
+41 - zombie - The living dead
+42 - king - King Roald the VIII
+43 - Giant bat - An angry flying rodent
+44 - Bartender - A friendly barman
+45 - skeleton - It rattles as it walks
+46 - skeleton - It rattles as it walks
+47 - Rat - overgrown vermin
+48 - Horvik the Armourer - He looks strong
+49 - Bear - A  bear
+50 - skeleton - It rattles when it walks
+51 - Shopkeeper - Maybe he'd like to buy some of my junk
+52 - zombie - The living dead
+53 - Ghost - Ooh spooky
+54 - Aubury - I think he might be a shop keeper
+55 - Shopkeeper - I wonder what he's got for sale
+56 - shopkeeper - I can buy swords off him
+57 - Darkwizard - He works evil magic
+58 - lowe - The owner of the archery store
+59 - Thessalia - A young shop assistant
+60 - Darkwizard - He works evil magic
+61 - Giant - A very large foe
+62 - Goblin - An ugly green creature
+63 - farmer - He grows the crops in this area
+64 - Thief - He'll take anything that isn't nailed down
+65 - Guard - He tries to keep order around here
+66 - Black Knight - A sinister looking knight
+67 - Hobgoblin - A large ugly green creature
+68 - zombie - The living dead
+69 - Zaff - He trades in staffs
+70 - Scorpion - An extremely vicious scorpion
+71 - silk trader - He sells silk
+72 - Man - One of Runescapes many citizens
+73 - Guide - He gives hints to new adventurers
+74 - Giant Spider - I think this spider has been genetically modified
+75 - Peksa - A helmet salesman
+76 - Barbarian - Not civilised looking
+77 - Fred the farmer - An old farmer
+78 - Gunthor the Brave - The barbarians fearless leader
+79 - Witch - She's got warts
+80 - Ghost - Ooh spooky
+81 - Wizard - An old wizard
+82 - Shop Assistant - Maybe he'd like to buy some of my junk
+83 - Shop Assistant - Maybe he'd like to buy some of my junk
+84 - Zeke - He sells Scimitars
+85 - Louie Legs - He might want to sell something
+86 - Warrior - A member of Al Kharid's military
+87 - Shopkeeper - I wonder what he's got for sale
+88 - Shop Assistant - Maybe she'd like to buy some of my junk
+89 - Highwayman - He holds up passers by
+90 - Kebab Seller - A seller of strange food
+91 - Chicken - Yep definitely a chicken
+92 - Ernest - A former chicken
+93 - Monk - A Peaceful monk
+94 - Dwarf - A short angry guy
+95 - Banker - He can look after my money
+96 - Count Draynor - A vicious vampire
+97 - Morgan - A frigtened villager
+98 - Dr Harlow - His nose is very red
+99 - Deadly Red spider - I think this spider has been genetically modified
+100 - Guard - He's here to guard this fortress
+101 - Cassie - She sells shields
+102 - White Knight - A chivalrous knight
+103 - Ranael - A shopkeeper of some sort
+104 - Moss Giant - his beard seems to have a life of its own
+105 - Shopkeeper - I wonder what he's got for sale
+106 - Shop Assistant - Maybe he'd like to buy some of my junk
+107 - Witch - She's got warts
+108 - Black Knight - A sinister looking knight
+109 - Greldo - A small green warty creature
+110 - Sir Amik Varze - The leader of the white knights
+111 - Guildmaster - He's in charge of this place
+112 - Valaine - She runs the champion's store
+113 - Drogo - He runs a mining store
+114 - Imp - A cheeky little imp
+115 - Flynn - The mace salesman
+116 - Wyson the gardener - An old gardener
+117 - Wizard Mizgog - An old wizard
+118 - Prince Ali - A young prince
+119 - Hassan - the Chancellor to the emir
+120 - Osman - He looks a little shifty
+121 - Joe - Lady Keli's head guard
+122 - Leela - She comes from Al Kharid
+123 - Lady Keli - An Infamous bandit
+124 - Ned - An old sailor
+125 - Aggie - A witch
+126 - Prince Ali - That is an effective disguise
+127 - Jailguard - I wonder what he's guarding
+128 - Redbeard Frank - A pirate
+129 - Wydin - A grocer
+130 - shop assistant - I can buy swords off him
+131 - Brian - An axe seller
+132 - squire - A young squire
+133 - Head chef - He looks after the chef's guild
+134 - Thurgo - A short angry guy
+135 - Ice Giant - He's got icicles in his beard
+136 - King Scorpion - Wow scorpions shouldn't grow that big
+137 - Pirate - A vicious pirate
+138 - Sir Vyvin - One of the white knights of Falador
+139 - Monk of Zamorak - An evil cleric
+140 - Monk of Zamorak - An evil cleric
+141 - Wayne - An armourer
+142 - Barmaid - a pretty barmaid
+143 - Dwarven shopkeeper - I wonder if he wants to buy any of my junk
+144 - Doric - A dwarven smith
+145 - Shopkeeper - I wonder what he's got for sale
+146 - Shop Assistant - Maybe he'd like to buy some of my junk
+147 - Guide - She gives hints to new adventurers
+148 - Hetty - A witch
+149 - Betty - A witch
+150 - Bartender - I could get a beer off him
+151 - General wartface - An ugly green creature
+152 - General Bentnoze - An ugly green creature
+153 - Goblin - An ugly green creature
+154 - Goblin - An ugly green creature
+155 - Herquin - A gem merchant
+156 - Rommik - The owner of the crafting shop
+157 - Grum - Grum the goldsmith
+158 - Ice warrior - A strange inhuman warrior
+159 - Warrior - A skilled fighter
+160 - Thrander - A smith of some sort
+161 - Border Guard - a guard from Al Kharid
+162 - Border Guard - a guard from Al Kharid
+163 - Customs Officer - She is here to stop smugglers
+164 - Luthas - The owner of the banana plantation
+165 - Zambo - He will sell me exotic rum
+166 - Captain Tobias - An old sailor
+167 - Gerrant - I wonder what he's got for sale
+168 - Shopkeeper - I wonder what he's got for sale
+169 - Shop Assistant - Maybe he'd like to buy some of my junk
+170 - Seaman Lorris - A young sailor
+171 - Seaman Thresnor - A young sailor
+172 - Tanner - He makes leather
+173 - Dommik - The owner of the crafting shop
+174 - Abbot Langley - A Peaceful monk
+175 - Thordur - He runs a a tourist attraction
+176 - Brother Jered - human
+177 - Rat - Overgrown vermin
+178 - Ghost - Ooh spooky
+179 - skeleton - it rattles when it walks
+180 - zombie - the living dead
+181 - Lesser Demon - Lesser but still very big
+182 - Melzar the mad - He looks totally insane
+183 - Scavvo - He has lopsided eyes
+184 - Greater Demon - big red and incredibly evil
+185 - Shopkeeper - I wonder what he's got for sale
+186 - Shop Assistant - Maybe he'd like to buy some of my junk
+187 - Oziach - A strange little man
+188 - Bear - Eek! A bear!
+189 - Black Knight - An armoured follower of Zamorak
+190 - chaos Dwarf - a dwarf gone bad
+191 - dwarf - A dwarf who looks after the mining guild
+192 - Wormbrain - Dumb even by goblin standards
+193 - Klarense - A young sailor
+194 - Ned - An old sailor
+195 - skeleton - A Taller than normal skeleton
+196 - Dragon - A powerful and ancient dragon
+197 - Oracle - A mystic of unknown race
+198 - Duke of Lumbridge - Duke Horacio of Lumbridge
+199 - Dark Warrior - A warrior touched by chaos
+200 - Druid - A worshipper of Guthix
+201 - Red Dragon - A big powerful dragon
+202 - Blue Dragon - A mother dragon
+203 - Baby Blue Dragon - Young but still dangerous
+204 - Kaqemeex - A wise druid
+205 - Sanfew - An old druid
+206 - Suit of armour - A dusty old suit of armour
+207 - Adventurer - A cleric
+208 - Adventurer - A wizard
+209 - Adventurer - A Warrior
+210 - Adventurer - An archer
+211 - Leprechaun - A funny little man who lives in a tree
+212 - Monk of entrana - A Peaceful monk
+213 - Monk of entrana - A Peaceful monk
+214 - zombie - The living dead
+215 - Monk of entrana - A Peaceful monk
+216 - tree spirit - Ooh spooky
+217 - cow - It's a dairy cow
+218 - Irksol - Is he invisible or just a set of floating clothes?
+219 - Fairy Lunderwin - A fairy merchant
+220 - Jakut - An unusual looking merchant
+221 - Doorman - He guards the entrance to the faerie market
+222 - Fairy Shopkeeper - I wonder what he's got for sale
+223 - Fairy Shop Assistant - Maybe he'd like to buy some of my junk
+224 - Fairy banker - He can look after my money
+225 - Giles - He runs an ore exchange store
+226 - Miles - He runs a bar exchange store
+227 - Niles - He runs a fish exchange store
+228 - Gaius - he sells very big swords
+229 - Fairy Ladder attendant - A worker in the faerie market
+230 - Jatix - A hard working druid
+231 - Master Crafter - The man in charge of the crafter's guild
+232 - Bandit - He's ready for a fight
+233 - Noterazzo - A bandit shopkeeper
+234 - Bandit - A wilderness outlaw
+235 - Fat Tony - A Gourmet Pizza chef
+236 - Donny the lad - A bandit leader
+237 - Black Heather - A bandit leader
+238 - Speedy Keith - A bandit leader
+239 - White wolf sentry - A vicious mountain wolf
+240 - Boy - He doesn't seem very happy
+241 - Rat - He seems to live here
+242 - Nora T Hag - She's got warts
+243 - Grey wolf - A sinister looking wolf
+244 - shapeshifter - I've not seen anyone like this before
+245 - shapeshifter - I think this spider has been genetically modified
+246 - shapeshifter - Eek! A bear!
+247 - shapeshifter - A sinister looking wolf
+248 - White wolf - A vicious mountain wolf
+249 - Pack leader - A vicious mountain wolf
+250 - Harry - I wonder what he's got for sale
+251 - Thug - He likes hitting things
+252 - Firebird - Probably not a chicken
+253 - Achetties - One of Asgarnia's greatest heros
+254 - Ice queen - The leader of the ice warriors
+255 - Grubor - A rough looking thief
+256 - Trobert - A well dressed thief
+257 - Garv - A diligent guard
+258 - guard - A vicious pirate
+259 - Grip - Scar face petes head guard
+260 - Alfonse the waiter - He should get a clean apron
+261 - Charlie the cook - Head cook of the Shrimp and parrot
+262 - Guard Dog - He doesn't seem pleased to see me
+263 - Ice spider - I think this spider has been genetically modified
+264 - Pirate - A vicious pirate
+265 - Jailer - Guards prisoners for the black knights
+266 - Lord Darquarius - A black knight commander
+267 - Seth - He runs a fish exchange store
+268 - Banker - He can look after my money
+269 - Helemos - A retired hero
+270 - Chaos Druid - A crazy evil druid
+271 - Poison Scorpion - It has a very vicious looking tail
+272 - Velrak the explorer - he looks cold and hungry
+273 - Sir Lancelot - A knight of the round table
+274 - Sir Gawain - A knight of the round table
+275 - King Arthur - A wise old king
+276 - Sir Mordred - An evil knight
+277 - Renegade knight - He isn't very friendly
+278 - Davon - An amulet trader
+279 - Bartender - I could get some grog off him
+280 - Arhein - A merchant
+281 - Morgan le faye - An evil sorceress
+282 - Candlemaker - He makes and sells candles
+283 - lady - She has a hint of magic about her
+284 - lady - She has a hint of magic about her
+285 - lady - She has a hint of magic about her
+286 - Beggar - A scruffy looking chap
+287 - Merlin - An old wizard
+288 - Thrantax - A freshly summoned demon
+289 - Hickton - The owner of the archery store
+290 - Black Demon - A big scary jet black demon
+291 - Black Dragon - A fierce dragon with black scales!
+292 - Poison Spider - I think this spider has been genetically modified
+293 - Monk of Zamorak - An evil cleric
+294 - Hellhound - Hello nice doggy
+295 - Animated axe - a magic axe with a mind of it's own
+296 - Black Unicorn - It's a sort of unicorn
+297 - Frincos - A Peaceful monk
+298 - Otherworldly being - Is he invisible or just a set of floating clothes?
+299 - Owen - He runs a fish exchange store
+300 - Thormac the sorceror - A powerful sorcerrer
+301 - Seer - An old wizard
+302 - Kharid Scorpion - a smaller less dangerous scorpion
+303 - Kharid Scorpion - a smaller less dangerous scorpion
+304 - Kharid Scorpion - a smaller less dangerous scorpion
+305 - Barbarian guard - Not very civilised
+306 - Bartender - I could get a beer off him
+307 - man - A well dressed nobleman
+308 - gem trader - He sells gems
+309 - Dimintheis - A well dressed nobleman
+310 - chef - A busy looking chef
+311 - Hobgoblin - An ugly green creature
+312 - Ogre - A large dim looking humanoid
+313 - Boot the Dwarf - A short angry guy
+314 - Wizard - A young wizard
+315 - Chronozon - Chronozon the blood demon
+316 - Captain Barnaby - An old sailor
+317 - Customs Official - She's here to stop smugglers
+318 - Man - One of Runescape's citizens
+319 - farmer - An humble peasant
+320 - Warrior - A skilled fighter
+321 - Guard - He tries to keep the law and order around here
+322 - Knight - A knight of Ardougne
+323 - Paladin - A paladin of Ardougne
+324 - Hero - A Hero of Ardougne
+325 - Baker - He sells hot baked bread
+326 - silk merchant - He buys silk
+327 - Fur trader - A buyer and seller of animal furs
+328 - silver merchant - He deals in silver
+329 - spice merchant - He sells exotic spices
+330 - gem merchant - He sells gems
+331 - Zenesha - A shopkeeper of some sort
+332 - Kangai Mau - A tribesman
+333 - Wizard Cromperty - An old wizard
+334 - RPDT employee - A delivery man
+335 - Horacio - An old gardener
+336 - Aemad - He helps run the adventurers store
+337 - Kortan - He helps run the adventurers store
+338 - zoo keeper - He looks after Ardougne city zoo
+339 - Make over mage - He can change how I look
+340 - Bartender - I could get a beer off him
+341 - chuck - A wood merchant
+342 - Rogue - He needs a shave
+343 - Shadow spider - Is it a spider or is it a shadow
+344 - Fire Giant - A big guy with red glowing skin
+345 - Grandpa Jack - A wistful old man
+346 - Sinister stranger - not your average fisherman
+347 - Bonzo - Fishing competition organiser
+348 - Forester - He looks after McGrubor's wood
+349 - Morris - Fishing competition organiser
+350 - Brother Omad - A Peaceful monk
+351 - Thief - A dastardly blanket thief
+352 - Head Thief - A dastardly blanket thief
+353 - Big Dave - A well built fisherman
+354 - Joshua - A grumpy fisherman
+355 - Mountain Dwarf - A short angry guy
+356 - Mountain Dwarf - A short angry guy
+357 - Brother Cedric - A Peaceful monk
+358 - Necromancer - A crazy evil necromancer
+359 - zombie - The living dead
+360 - Lucien - He walks with a slight limp
+361 - The Fire warrior of lesarkus - A strange red humanoid
+362 - guardian of Armadyl - A worshipper of Armadyl
+363 - guardian of Armadyl - A worshipper of Armadyl
+364 - Lucien - He walks with a limp
+365 - winelda - A witch
+366 - Brother Kojo - A Peaceful monk
+367 - Dungeon Rat - Overgrown vermin
+368 - Master fisher - The man in charge of the fishing guild
+369 - Orven - He runs a fish exchange store
+370 - Padik - He runs a fish exchange store
+371 - Shopkeeper - He smells of fish
+372 - Lady servil - She look's wealthy
+373 - Guard - It's one of General Khazard's guard's
+374 - Guard - It's one of General Khazard's guard's
+375 - Guard - It's one of General Khazard's guard's
+376 - Guard - It's one of General Khazard's guard's
+377 - Jeremy Servil - A young squire
+378 - Justin Servil - Jeremy servil's father
+379 - fightslave joe - He look's mistreated and weak
+380 - fightslave kelvin - He look's mistreated and weak
+381 - local - A scruffy looking chap
+382 - Khazard Bartender - A tough looking barman
+383 - General Khazard - He look's real nasty
+384 - Khazard Ogre - Khazard's strongest ogre warrior
+385 - Guard - It's one of General Khazard's guard's
+386 - Khazard Scorpion - A large angry scorpion
+387 - hengrad - He look's mistreated and weak
+388 - Bouncer - Hello nice doggy
+389 - Stankers - A cheerful looking fellow
+390 - Docky - An old sailor
+391 - Shopkeeper - Maybe he'd like to buy some of my junk
+392 - Fairy queen - A very little queen
+393 - Merlin - An old wizard
+394 - Crone - A strange old lady
+395 - High priest of entrana - A Peaceful monk
+396 - elkoy - It's a tree gnome
+397 - remsai - It's a tree gnome
+398 - bolkoy - It's a tree gnome
+399 - local gnome - It's a young tree gnome
+400 - bolren - It's a gnome he look's important
+401 - Black Knight titan - He is blocking the way
+402 - kalron - he look's lost
+403 - brother Galahad - A Peaceful monk
+404 - tracker 1 - It's a tree gnome
+405 - tracker 2 - It's a tree gnome
+406 - tracker 3 - It's a tree gnome
+407 - Khazard troop - It's one of General Khazard's warrior's
+408 - commander montai - It's a tree gnome
+409 - gnome troop - It's a tree gnome trooper
+410 - khazard warlord - He look's real nasty
+411 - Sir Percival - He's covered in pieces of straw
+412 - Fisher king - an old king
+413 - maiden - She has a far away look in her eyes
+414 - Fisherman - an old fisherman
+415 - King Percival - The new fisher king
+416 - unhappy peasant - He looks tired and hungry
+417 - happy peasant - He looks well fed and full of energy
+418 - ceril - It's Sir ceril carnillean a local noblemen
+419 - butler - It's the carnillean family butler
+420 - carnillean guard - It's a carnillean family guard
+421 - Tribesman - A primative warrior
+422 - henryeta - It's a wealthy looking woman
+423 - philipe - It's a young well dressed boy
+424 - clivet - A strange looking man in black 
+425 - cult member - An suspicous looking man in black 
+426 - Lord hazeel - He could do with some sun
+427 - alomone - A musculer looking man in black 
+428 - Khazard commander - It's one of General Khazard's commander's
+429 - claus - the carnillean family cook
+430 - 1st plague sheep - The sheep has the plague
+431 - 2nd plague sheep - The sheep has the plague
+432 - 3rd plague sheep - The sheep has the plague
+433 - 4th plague sheep - The sheep has the plague
+434 - Farmer brumty - He looks after livestock in this area
+435 - Doctor orbon - A local doctor
+436 - Councillor Halgrive - A town counceller
+437 - Edmond - A local civilian
+438 - Citizen - He look's tired
+439 - Citizen - He look's frightened
+440 - Citizen - She look's frustrated
+441 - Citizen - He look's angry
+442 - Citizen - He look's disillusioned
+443 - Jethick - A cynical old man
+444 - Mourner - A mourner or plague healer
+445 - Mourner - A mourner or plague healer
+446 - Ted Rehnison - The head of the Rehnison family
+447 - Martha Rehnison - A fairly poor looking woman
+448 - Billy Rehnison - The Rehnisons eldest son
+449 - Milli Rehnison - She doesn't seem very happy
+450 - Alrena - She look's concerned
+451 - Mourner - A mourner or plague healer
+452 - Clerk - A bueracratic administrator
+453 - Carla - She look's upset
+454 - Bravek - The city warder of West Ardougne
+455 - Caroline - A well dressed middle aged lady
+456 - Holgart - An old sailor
+457 - Holgart - An old sailor
+458 - Holgart - An old sailor
+459 - kent - caroline's husband
+460 - bailey - the fishing platform cook
+461 - kennith - A young scared looking boy
+462 - Platform Fisherman - an emotionless fisherman
+463 - Platform Fisherman - an emotionless fisherman
+464 - Platform Fisherman - an emotionless fisherman
+465 - Elena - She doesn't look too happy
+466 - jinno - He doesn't seem to mind his lack of legs
+467 - Watto - He doesn't seem to mind his lack of legs
+468 - Recruiter - A member of the Ardougne royal army
+469 - Head mourner - In charge of people with silly outfits
+470 - Almera - A woman of the wilderness
+471 - hudon - A young boisterous looking lad
+472 - hadley - A happy looking fellow
+473 - Rat - Overgrown vermin
+474 - Combat instructor - He will tell me how to fight
+475 - golrie - It's a tree gnome
+476 - Guide - She gives hints to new adventurers
+477 - King Black Dragon - The biggest meanest dragon around
+478 - cooking instructor - Talk to him to learn about runescape food
+479 - fishing instructor - He smells of fish
+480 - financial advisor - He knows about money
+481 - gerald - An old fisherman
+482 - mining instructor - A short angry guy
+483 - Elena - She looks concerned
+484 - Omart - A nervous looking fellow
+485 - Bank assistant - She can look after my stuff
+486 - Jerico - He looks friendly enough
+487 - Kilron - He looks shifty
+488 - Guidor's wife - She looks rather concerned
+489 - Quest advisor - I wonder what advise he has to impart
+490 - chemist - human
+491 - Mourner - A mourner or plague healer
+492 - Mourner - A mourner or plague healer
+493 - Wilderness guide - He's ready for a fight
+494 - Magic Instructor - An old wizard
+495 - Mourner - A mourner or plague healer
+496 - Community instructor - This is the last advisor - honest
+497 - boatman - An old sailor
+498 - skeleton mage - It rattles as it walks
+499 - controls guide - He's ready for a fight
+500 - nurse sarah - She's quite a looker
+501 - Tailor - He's ready for a party
+502 - Mourner - A mourner or plague healer
+503 - Guard - He tries to keep order around here
+504 - Chemist - He looks clever enough
+505 - Chancy - He's ready for a bet
+506 - Hops - He's drunk
+507 - DeVinci - He has a colourful personality
+508 - Guidor - He's not that ill
+509 - Chancy - He's ready for a bet
+510 - Hops - He's drunk
+511 - DeVinci - He has a colourful personality
+512 - king Lathas - King Lanthas of east ardounge
+513 - Head wizard - He runs the wizards guild
+514 - Magic store owner - An old wizard
+515 - Wizard Frumscone - A confused looking wizard
+516 - target practice zombie - The living dead
+517 - Trufitus - A wise old witch doctor
+518 - Colonel Radick - A soldier of the town of Yanille
+519 - Soldier - A soldier of the town of Yanille
+520 - Bartender - I could get a beer off him
+521 - Jungle Spider - A venomous deadly spider
+522 - Jiminua - She looks very interested in selling some of her wares.
+523 - Jogre - An aggressive humanoid
+524 - Guard - He tries to keep order around here
+525 - Ogre - Useful for ranged training
+526 - Guard - He tries to keep order around here
+527 - Guard - He tries to keep order around here
+528 - shop keeper - he sells weapons
+529 - Bartender - I could get a beer off him
+530 - Frenita - runs a cookery shop
+531 - Ogre chieftan - A slightly bigger uglier ogre
+532 - rometti - It's a well dressed tree gnome
+533 - Rashiliyia - A willowy ethereal being who floats above the ground
+534 - Blurberry - It's a red faced tree gnome
+535 - Heckel funch - It's another jolly tree gnome
+536 - Aluft Gianne - It's a tree gnome chef
+537 - Hudo glenfad - It's another jolly tree gnome
+538 - Irena - human
+539 - Mosol - A jungle warrior
+540 - Gnome banker - It's tree gnome banker
+541 - King Narnode Shareen - It's a gnome he look's important
+542 - UndeadOne - One of Rashaliyas Minions
+543 - Drucas - engraver
+544 - tourist - human
+545 - King Narnode Shareen - It's a gnome he look's important
+546 - Hazelmere - An ancient looking gnome
+547 - Glough - An rough looking gnome
+548 - Shar - Concerned about the economy
+549 - Shantay - human
+550 - charlie - Poor guy?
+551 - Gnome guard - A tree gnome guard
+552 - Gnome pilot - He can fly the glider
+553 - Mehman - local
+554 - Ana - This lady doesn't look as if she belongs here.
+555 - Chaos Druid warrior - A crazy evil druid
+556 - Gnome pilot - He can fly the glider
+557 - Shipyard worker - He look's busy
+558 - Shipyard worker - He look's busy
+559 - Shipyard worker - He look's busy
+560 - Shipyard foreman - He look's busy
+561 - Shipyard foreman - He look's busy
+562 - Gnome guard - A tree gnome guard
+563 - Femi - It's a little tree gnome
+564 - Femi - It's a little tree gnome
+565 - Anita - It's a little tree gnome
+566 - Glough - An rough looking gnome
+567 - Salarin the twisted - A crazy evil druid
+568 - Black Demon - A big scary jet black demon
+569 - Gnome pilot - He can fly the glider
+570 - Gnome pilot - He can fly the glider
+571 - Gnome pilot - He can fly the glider
+572 - Gnome pilot - He can fly the glider
+573 - Sigbert the Adventurer - A Warrior
+574 - Yanille Watchman - He watches out for invading ogres
+575 - Tower guard - He stops people going up the tower
+576 - Gnome Trainer - He can advise on training
+577 - Gnome Trainer - He can advise on training
+578 - Gnome Trainer - He can advise on training
+579 - Gnome Trainer - He can advise on training
+580 - Blurberry barman - He serves cocktails
+581 - Gnome waiter - He can serve you gnome food
+582 - Gnome guard - A tree gnome guard
+583 - Gnome child - that's a little gnome
+584 - Earth warrior - A strange inhuman warrior
+585 - Gnome child - He's a little fellow
+586 - Gnome child - hello little gnome
+587 - Gulluck - He sells weapons
+588 - Gunnjorn - Not civilised looking
+589 - Zadimus - Ghostly Visage of the dead Zadimus
+590 - Brimstail - An ancient looking gnome
+591 - Gnome child - He's a little fellow
+592 - Gnome local - A tree gnome villager
+593 - Gnome local - A tree gnome villager
+594 - Moss Giant - his beard seems to have a life of its own
+595 - Gnome Baller - A tree gnome ball player
+596 - Goalie - A gnome ball goal catcher
+597 - Gnome Baller - A tree gnome ball player
+598 - Gnome Baller - A tree gnome ball player
+599 - Gnome Baller - A tree gnome ball player
+600 - Gnome Baller - A tree gnome ball player
+601 - Referee - He controls the game
+602 - Gnome Baller - A tree gnome ball player
+603 - Gnome Baller - A tree gnome ball player
+604 - Gnome Baller - A tree gnome ball player
+605 - Gnome Baller - A tree gnome ball player
+606 - Gnome Baller - A tree gnome ball player
+607 - Gnome Baller - A tree gnome ball player
+608 - Gnome Baller - A tree gnome ball player
+609 - Gnome Baller - He's on your team
+610 - Gnome Baller - He's on your team
+611 - Cheerleader - It's a little tree gnome
+612 - Cheerleader - It's a little tree gnome
+613 - Nazastarool Zombie - One of Rashaliyas Minions
+614 - Nazastarool Skeleton - One of Rashaliyas Minions
+615 - Nazastarool Ghost - One of Rashaliyas Minions
+616 - Fernahei - An enthusiastic fishing shop owner
+617 - Jungle Banker - He can look after my money
+618 - Cart Driver - He drives the cart
+619 - Cart Driver - He drives the cart
+620 - Obli - An intelligent looking shop owner
+621 - Kaleb - This is Kaleb Paramaya - a warm and friendly inn owner
+622 - Yohnus - This is Yohnus - he runs the local blacksmiths
+623 - Serevel - This is Serevel - he sells tickets for the 'Lady of the Waves'
+624 - Yanni - Yanni Salika - He buys and sells antiques.
+625 - Official - He helps the referee
+626 - Koftik - The kings top tracker
+627 - Koftik - The kings top tracker
+628 - Koftik - The kings top tracker
+629 - Koftik - The kings top tracker
+630 - Blessed Vermen - A undead servent of iban
+631 - Blessed Spider - One of iban's eight legged friends
+632 - Paladin - A paladin of Ardougne
+633 - Paladin - A paladin of Ardougne
+634 - slave - He seems possessed
+635 - slave - He seems possessed
+636 - slave - He seems to have been here a while
+637 - slave - He seems possessed
+638 - slave - He seems to have been here a while
+639 - slave - He seems possessed
+640 - slave - He seems to have been here a while
+641 - Kalrag - I think this is one of Ibans pets
+642 - Niloof - A short angry guy
+643 - Kardia the Witch - She's got warts
+644 - Souless - He seems an empty shell
+645 - Othainian - big red and incredibly evil
+646 - Doomion - A big scary jet black demon
+647 - Holthion - big red and incredibly evil
+648 - Klank - A short angry guy
+649 - Iban - You feel terror just looking at him
+650 - Koftik - The kings top tracker
+651 - Goblin guard - An imposing green creature
+652 - Observatory Professor - He works in the observatory
+653 - Ugthanki - A dangerous type of spitting camel that can temporarily blind an opponent.
+654 - Observatory assistant - The Professor's assistant
+655 - Souless - A servent to zamorak
+656 - Dungeon spider - A nasty poisonous arachnid
+657 - Kamen - A short angry guy
+658 - Iban disciple - An evil follower of Iban
+659 - Koftik - The kings top tracker
+660 - Goblin - These goblins have grown strong
+661 - Chadwell - A sturdy looking gent
+662 - Professor - The owner of the observatory
+663 - San Tojalon - The animated spirit of San Tojalon
+664 - Ghost - A doomed victim of zamorak
+665 - Spirit of Scorpius - The undead spirit of the follower of Zamorak
+666 - Scorpion - There are nasty scorpions around this grave
+667 - Dark Mage - He works in the ways of dark magic
+668 - Mercenary - He seems to be guarding an area
+669 - Mercenary Captain - He's in control of the local guards.
+670 - Mercenary - He seems to be guarding an area
+671 - Mining Slave - A chained slave forced to mine rocks.
+672 - Watchtower wizard - A learned man
+673 - Ogre Shaman - An intelligent form of ogre
+674 - Skavid - Servant race to the ogres
+675 - Ogre guard - These ogres protect the city
+676 - Ogre guard - These ogres protect the city
+677 - Ogre guard - These ogres protect the city
+678 - Skavid - Servant race to the ogres
+679 - Skavid - Servant race to the ogres
+680 - Og - The chieftan of this ogre tribe
+681 - Grew - The chieftan of this ogre tribe
+682 - Toban - The chieftan of this ogre tribe
+683 - Gorad - A high ranking ogre official
+684 - Ogre guard - this creature looks very tough
+685 - Yanille Watchman - A captured guard of Yanille
+686 - Ogre merchant - He sells ogre-inspired items
+687 - Ogre trader - He trades in metals
+688 - Ogre trader - He trades in food
+689 - Ogre trader - He trades in food
+690 - Mercenary - He seems to be guarding an area
+691 - City Guard - high ranking ogre guards
+692 - Mercenary - He seems to be guarding this area
+693 - Lawgof - He guards the mines
+694 - Dwarf - A short angry guy
+695 - lollk - He looks scared
+696 - Skavid - Servant race to the ogres
+697 - Ogre guard - These ogres protect the city
+698 - Nulodion - He's the head of black guard weapon development
+699 - Dwarf - A short angry guy
+700 - Al Shabim - The leader of a nomadic Bedabin desert people - sometimes referred to as the 'Tenti's'
+701 - Bedabin Nomad - A Bedabin nomad - they live in the harshest extremes in the desert
+702 - Captain Siad - He's in control of the whole mining camp.
+703 - Bedabin Nomad Guard - A Bedabin nomad guard - he's protecting something important
+704 - Ogre citizen - A denizen of Gu'Tanoth
+705 - Rock of ages - A huge boulder
+706 - Ogre - A large dim looking humanoid
+707 - Skavid - Servant race to the ogres
+708 - Skavid - Servant race to the ogres
+709 - Skavid - Servant race to the ogres
+710 - Draft Mercenary Guard - He's quickly drafted in to deal with trouble makers
+711 - Mining Cart Driver - He drives the mining cart
+712 - kolodion - He runs the mage arena
+713 - kolodion - He runs the mage arena
+714 - Gertrude - A busy housewife
+715 - Shilop - A young boisterous looking lad
+716 - Rowdy Guard - He looks as if he's spoiling for trouble
+717 - Shantay Pass Guard - He seems to be guarding the Shantay Pass
+718 - Rowdy Slave - A slave who's looking for trouble.
+719 - Shantay Pass Guard - He seems to be guarding the Shantay Pass
+720 - Assistant - He is an assistant to Shantay and helps him to run the pass.
+721 - Desert Wolf - A vicious Desert wolf
+722 - Workman - This person is working on the site
+723 - Examiner - As you examine the examiner you examine that she is indeed an examiner!!
+724 - Student - A student busily digging!
+725 - Student - A student busily digging!
+726 - Guide - This person specialises in panning for gold
+727 - Student - A student busily digging!
+728 - Archaeological expert - An expert on archaeology!
+729 - civillian - He looks aggitated!
+730 - civillian - She looks aggitated!
+731 - civillian - She looks aggitated!
+732 - civillian - He looks aggitated!
+733 - Murphy - The man in charge of the fishing trawler
+734 - Murphy - The man in charge of the fishing trawler
+735 - Sir Radimus Erkle - A huge muscular man in charge of the Legends Guild
+736 - Legends Guild Guard - This guard is protecting the entrance to the Legends Guild.
+737 - Escaping Mining Slave - An emancipated slave with cool Desert Clothes.
+738 - Workman - This person is working in the mine
+739 - Murphy - The man in charge of the fishing trawler
+740 - Echned Zekin - An evil spirit of the underworld.
+741 - Donovan the Handyman - It's the family odd jobs man
+742 - Pierre the Dog Handler - It's the guy who looks after the family guard dog
+743 - Hobbes the Butler - It's the family butler
+744 - Louisa The Cook - It's the family cook
+745 - Mary The Maid - The family maid
+746 - Stanford The Gardener - It's the family Gardener
+747 - Guard - He looks like he's in over his head here
+748 - Guard Dog - He doesn't seem pleased to see me
+749 - Guard - ***EMPTY PLEASE USE OR REPLACE***
+750 - Man - A thirsty looking man
+751 - Anna Sinclair - The first child of the late Lord Sinclair
+752 - Bob Sinclair - The second child of the late Lord Sinclair
+753 - Carol Sinclair - The third child of the late Lord Sinclair
+754 - David Sinclair - The fourth child of the late Lord Sinclair
+755 - Elizabeth Sinclair - The fifth child of the late Lord Sinclair
+756 - Frank Sinclair - The sixth child of the late Lord Sinclair
+757 - kolodion - He's a shape shifter
+758 - kolodion - He's a shape shifter
+759 - kolodion - He's a shape shifter
+760 - kolodion - He's a shape shifter
+761 - Irvig Senay - The animated spirit of Irvig Senay
+762 - Ranalph Devere - The animated spirit of Ranalph Devere
+763 - Poison Salesman - Peter Potter - Poison Purveyor
+764 - Gujuo - A tall charismatic looking jungle native - he approaches with confidence
+765 - Jungle Forester - A woodsman who specialises in large and exotic timber
+766 - Ungadulu - An ancient looking Shaman
+767 - Ungadulu - An ancient looking Shaman - he looks very strange with glowing red eyes...
+768 - Death Wing - A supernatural creature of the underworld
+769 - Nezikchened - An ancient powerful Demon of the Underworld...
+770 - Dwarf Cannon engineer - He's the head of black guard weapon development
+771 - Dwarf commander - He guards the mines
+772 - Viyeldi - The spirit of a dead sorcerer
+773 - Nurmof - He sells pickaxes
+774 - Fatigue expert - He looks wide awake
+775 - Karamja Wolf - A hungry
+776 - Jungle Savage - A savage and fearless Jungle warrior
+777 - Oomlie Bird - A variety of flightless jungle fowl - it has a sharp beak and a bad temper.
+778 - Sidney Smith - Sidney Smith - Certification clerk
+779 - Siegfried Erkle - An eccentric shop keeper - related to the Grand Vizier of the Legends Guild
+780 - Tea seller - He has delicious tea to buy
+781 - Wilough - A young son of gertrudes
+782 - Philop - Gertrudes youngest
+783 - Kanel - Gertrudes youngest's twin brother
+784 - chamber guardian - He hasn't seen much sun latley
+785 - Sir Radimus Erkle - A huge muscular man in charge of the Legends Guild
+786 - Pit Scorpion - Very vicious little scorpions
+787 - Shadow Warrior - A sinsistar shadowy figure
+788 - Fionella - She runs the legend's general store
+789 - Battle mage - He kills in the name of guthix
+790 - Battle mage - He kills in the name of zamarok
+791 - Battle mage - He kills in the name of Saradomin
+792 - Gundai - He must get lonely out here
+793 - Lundail - He sells rune stones

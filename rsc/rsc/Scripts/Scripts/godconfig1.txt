@@ -1,0 +1,42 @@
+//////////////////////////////////////////////////////////////
+//               G O D L Y    F I G H T E R                 //
+//////////////////////////////////////////////////////////////
+// ~ Settings File ONE ~                    //
+//////////////////////////////////////////////////////////////
+// SAVE THIS FILE IN THE MAIN SBOT FOLER, AS godconfig1.ini //
+// ALL CREDITS FOR THE .INI FILE GO TO GHOST_ID! THANKS!!!! //
+//////////////////////////////////////////////////////////////
+
+FightMode=2
+NPCID=592
+NPCID2=585
+NPCID3=0
+NPCID4=0
+WalkBackRadius=40
+FoodID=0
+// Door1 Commands
+Door1Direction=0
+Door1X=649
+Door1Y=632
+// Door2 Commands
+Door2Direction=
+Door2X=
+Door2Y=
+
+//////////////////////////////////////////////////////////////
+// FightMode > 0 for Controlled                             //   
+//           > 1 for Strength                               // 
+//           > 2 for Attack                                 //
+//           > 3 for Defence                                //
+//////////////////////////////////////////////////////////////
+// NPC > Set the ID for the NPC you want to fight        //                              
+//////////////////////////////////////////////////////////////
+// NPC2 > Set the ID for 2nd  NPC you want                //
+//      > to fight. -1 for no npc.                        // 
+////////////////////////////////////////////////////////////// 
+// WalkBack Radius > How far away from your x/y you want to //
+//           > fight NPC's                            //
+//////////////////////////////////////////////////////////////
+// Food ID > The id of the food you want to eat.            //
+//       > Set 0 to not eat.                              //
+//////////////////////////////////////////////////////////////

@@ -1,0 +1,149 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 5/2/05 3:27:51 AM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   CraftingGuild.java
+
+
+public class CraftingGuild extends Script
+{
+
+    public CraftingGuild(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "craftadoll"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        DisplayMessage("@gre@SBoT: @Ran@Crafter's guild - @ran@Made by Sa", 3);
+        for(; Running(); Wait(2000))
+        {
+            for(; Running() && InvCount() < 30; Wait(1000))
+            {
+                if(Fatigue() >= 80 && Running())
+                {
+                    for(; !Sleeping(); Wait(2500))
+                        Use(FindInv(1263));
+
+                    for(; Sleeping(); Wait(100));
+                }
+                AtObject(GetNearestObject(196));
+                Wait(1000);
+                AtObject(GetNearestObject(195));
+            }
+
+            DisplayMessage("@gre@Banking...", 3);
+            Wait(1000);
+            Walk(341, 604);
+            Wait(100);
+            Walk(341, 609);
+            Wait(100);
+            Walk(345, 610);
+            Wait(100);
+            Walk(348, 606);
+            Wait(100);
+            Walk(347, 602);
+            Wait(100);
+            OpenDoor(347, 601, 0);
+            Wait(2000);
+            Walk(344, 597);
+            Wait(100);
+            Walk(338, 595);
+            Wait(100);
+            Walk(332, 595);
+            Wait(100);
+            Walk(325, 595);
+            Wait(100);
+            Walk(318, 595);
+            Wait(100);
+            Walk(311, 594);
+            Wait(100);
+            Walk(305, 591);
+            Wait(100);
+            Walk(299, 588);
+            Wait(100);
+            Walk(292, 588);
+            Wait(100);
+            Walk(289, 587);
+            Wait(100);
+            Walk(287, 575);
+            Wait(100);
+            AtObject(287, 571);
+            Wait(2000);
+            Walk(285, 571);
+            Wait(2000);
+            for(; !QuestMenu() && Running(); Wait(2000))
+            {
+                int i = GetNearestNPC(95);
+                TalkToNPC(i);
+            }
+
+            Answer(0);
+            for(; !Bank() && Running(); Wait(100));
+            for(; Bank() && Running(); CloseBank())
+            {
+                DisplayMessage("@gre@Banking @ran@please @red@wait", 3);
+                Wait(1000);
+                for(; InvCount(383) > 0; Wait(100))
+                    Deposit(383, 1);
+
+                for(; InvCount(157) > 0; Wait(100))
+                    Deposit(157, 1);
+
+                for(; InvCount(158) > 0; Wait(100))
+                    Deposit(158, 1);
+
+                for(; InvCount(159) > 0; Wait(100))
+                    Deposit(159, 1);
+
+                for(; InvCount(160) > 0; Wait(100))
+                    Deposit(160, 1);
+
+            }
+
+            Wait(3000);
+            DisplayMessage("@gre@Walking back!", 3);
+            AtObject(287, 571);
+            Wait(4000);
+            Walk(289, 577);
+            Walk(290, 581);
+            Wait(100);
+            Walk(293, 583);
+            Wait(100);
+            Walk(298, 586);
+            Wait(100);
+            Walk(303, 589);
+            Wait(100);
+            Walk(307, 589);
+            Wait(100);
+            Walk(311, 590);
+            Wait(100);
+            Walk(314, 593);
+            Wait(100);
+            Walk(320, 595);
+            Wait(100);
+            Walk(327, 595);
+            Wait(100);
+            Walk(333, 594);
+            Wait(100);
+            Walk(340, 596);
+            Wait(100);
+            Walk(344, 598);
+            Wait(100);
+            Walk(347, 600);
+            Wait(2000);
+            OpenDoor(347, 601, 0);
+            Wait(1000);
+            Walk(348, 606);
+            Wait(100);
+            Walk(343, 610);
+        }
+
+    }
+}

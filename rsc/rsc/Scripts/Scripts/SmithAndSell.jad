@@ -1,0 +1,184 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 5/4/05 4:54:09 AM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   SmithAndSell.java
+
+
+public class SmithAndSell extends Script
+{
+
+    public SmithAndSell(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "smithsell"
+        });
+    }
+
+    public void SellToNPC(int i, int j, int k, int l, int i1, int j1)
+    {
+        while(!Shop() && Running()) 
+        {
+            for(; !QuestMenu() && Running(); Wait(1000))
+                TalkToNPC(GetNearestNPC(i));
+
+            Answer(k);
+            if(j > 1)
+            {
+                for(; !QuestMenu() && Running(); Wait(250));
+                Answer(l);
+            }
+            if(j > 2)
+            {
+                for(; !QuestMenu() && Running(); Wait(250));
+                Answer(i1);
+            }
+            while(!Shop() && Running()) 
+                Wait(500);
+        }
+        for(; InvCount(j1) > 0 && Running(); Wait(250))
+            Sell(j1);
+
+        CloseShop();
+    }
+
+    public void WalkToEastVarrockBankFromAnvils()
+    {
+        do
+        {
+            if(GetX() == 103 || GetY() == 512 || !Running())
+                break;
+            if(GetY() < 502)
+                Walk(117, 501);
+            if(GetY() <= 505)
+            {
+                Walk(117, 505);
+                if(ObjectAt(117, 506) == 2)
+                    OpenDoor(117, 506, 0);
+                Walk(117, 506);
+            }
+            if(GetY() < 508)
+                Walk(112, 508);
+            if(GetY() < 509)
+                Walk(105, 509);
+            if(GetY() < 512)
+            {
+                Walk(103, 509);
+                if(ObjectAt(102, 509) == 64)
+                    AtObject(102, 509);
+                Walk(103, 512);
+            }
+        } while(true);
+    }
+
+    public void WalkToAnvils()
+    {
+        do
+        {
+            if(GetX() == 117 || GetY() == 501 || !Running())
+                break;
+            if(GetY() > 510)
+            {
+                Walk(102, 510);
+                if(ObjectAt(102, 509) == 64)
+                    AtObject(102, 509);
+                Walk(102, 509);
+            }
+            if(GetY() > 507)
+                Walk(106, 507);
+            if(GetY() > 506)
+                Walk(114, 506);
+            if(GetX() < 117)
+            {
+                Walk(117, 506);
+                if(ObjectAt(117, 506) == 2)
+                    OpenDoor(117, 506, 0);
+                Walk(117, 503);
+            }
+            if(GetY() > 501)
+                Walk(117, 501);
+        } while(true);
+    }
+
+    public void WalkToEastVarrockBank()
+    {
+        do
+        {
+            if(GetX() == 103 || GetY() == 512 || !Running())
+                break;
+            if(GetY() < 508 || GetX() > 112)
+                Walk(112, 508);
+            if(GetY() < 509)
+                Walk(105, 509);
+            if(GetY() < 512)
+            {
+                Walk(103, 509);
+                if(ObjectAt(102, 509) == 64)
+                    AtObject(102, 509);
+                Walk(103, 512);
+            }
+        } while(true);
+    }
+
+    public void start(String s, String as[])
+    {
+        DisplayMessage("@Gre@Iron/Steel Plate Smither with selling", 3);
+        Wait(250);
+        DisplayMessage("@Gre@By Alibvandestraat - thanks to RichyT for the bot!", 3);
+        Wait(250);
+        DisplayMessage("@Gre@/run smithsell (iron)!", 3);
+        Wait(250);
+        for(; Running(); Wait(1000))
+        {
+            if(InvCount(170) < 25)
+            {
+                if(GetX() < 120 && GetX() > 112 && GetY() < 506 && GetY() > 497)
+                    WalkToEastVarrockBankFromAnvils();
+                if(GetX() >= 120 && GetX() <= 112 && GetY() >= 506 && GetY() <= 497)
+                    WalkToEastVarrockBank();
+                while(!Bank() && Running()) 
+                {
+                    for(; !QuestMenu() && Running(); Wait(1000))
+                        TalkToNPC(GetNearestNPC(95));
+
+                    Answer(0);
+                    while(!Bank() && Running()) 
+                        Wait(500);
+                }
+                for(; InvCount(170) < 25 && Running() && Bank(); Wait(250))
+                    Withdraw(170, 1);
+
+                CloseBank();
+            }
+            if(InvCount(170) == 25)
+                WalkToAnvils();
+            for(; InvCount(170) > 0; Wait(2500))
+            {
+                if(Fatigue() >= 95)
+                {
+                    for(; !Sleeping() && Running(); Wait(2500))
+                        Use(FindInv(1263));
+
+                    for(; Sleeping() && Running(); Wait(250));
+                } else
+                {
+                    for(; !QuestMenu() && Running(); Wait(1000))
+                        UseOnObject(118, 501, 5);
+
+                }
+                Answer(1);
+                for(; !QuestMenu() && Running(); Wait(1000));
+                Answer(2);
+                for(; !QuestMenu() && Running(); Wait(1000));
+                Answer(1);
+            }
+
+            SellToNPC(48, 1, 1, 1, 1, 8);
+        }
+
+    }
+}

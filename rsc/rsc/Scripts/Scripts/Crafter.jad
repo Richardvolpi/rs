@@ -1,0 +1,220 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 5/2/05 3:26:15 AM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Crafter.java
+
+
+public class Crafter extends Script
+{
+
+    public Crafter(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "crafter"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        Msg("F2P Cow Tanning@bla@-@RED@By@bla@:@GRE@3nvy");
+        for(; Running(); OpenThing(105, 619, 60))
+        {
+            Msg("Picking up hides");
+            do
+            {
+                if(InvCount() >= 30 || !Running())
+                    break;
+                if(GetNearestItem(147) != null)
+                {
+                    if(GetNearestItem(147)[0] > 0)
+                        TakeItem(GetNearestItem(147), 147);
+                    Wait(500);
+                }
+            } while(true);
+            Msg("Walking to border guard");
+            OpenThing(105, 619, 60);
+            ForceWalk(102, 633);
+            ForceWalk(96, 649);
+            Msg("Talking to border guard");
+            WaitForNPCMessage(161, 25, "You must");
+            WaitForQuestMenu();
+            Answer(2);
+            WaitForServerMessage("The gate");
+            Wait(1000);
+            Msg("Walking to tanner");
+            ForceWalk(90, 659);
+            ForceWalk(85, 667);
+            ForceWalk(81, 673);
+            OpenTheDoor(83, 674);
+            ForceWalk(84, 674);
+            Msg("Talking to tanner");
+            WaitForNPCMessage(172, 25, "Greetings");
+            WaitForQuestMenu();
+            Answer(1);
+            for(; InvCount(147) > 0; Wait(100));
+            Msg("Making armour");
+            for(; InvCount(148) > 0 && Running(); CheckSleep())
+            {
+                UseWithInventory(FindInv(39), FindInv(148));
+                WaitForQuestMenu();
+                Answer(0);
+                WaitForServerMessage("You make");
+                Wait(Rand(200, 500));
+            }
+
+            Msg("Walking to bank");
+            OpenTheDoor(86, 695);
+            ForceWalk(80, 677);
+            ForceWalk(84, 691);
+            OpenThing(86, 695, 64);
+            ForceWalk(88, 695);
+            Msg("Banking armour");
+            BankAll(15, 1);
+            Msg("Walking to border guard");
+            OpenThing(86, 695, 64);
+            ForceWalk(84, 691);
+            ForceWalk(90, 677);
+            ForceWalk(89, 650);
+            Msg("Talking to border guard");
+            WaitForNPCMessage(161, 25, "You must");
+            WaitForQuestMenu();
+            Answer(2);
+            WaitForServerMessage("The gate");
+            Wait(1000);
+            Msg("Walking to cow paddock");
+            ForceWalk(105, 636);
+            ForceWalk(105, 630);
+            ForceWalk(105, 619);
+        }
+
+        Msg("F2P Cow Tanning@bla@-@RED@By@bla@:@GRE@3nvy@whi@ STOPPED!");
+    }
+
+    public void WaitForNPCMessage(int i, String s)
+    {
+        ResetLastNPCMessage();
+        for(; LastNPCMessage().indexOf(s) < 0; Wait(1000))
+        {
+            long l = TickCount();
+            if(LastNPCMessage() == null)
+                continue;
+            for(; LastNPCMessage().indexOf(s) < 0 && TickCount() - l < (long)(i * 1000); Wait(100));
+        }
+
+    }
+
+    public void WaitForNPCMessage(int i, int j, String s)
+    {
+        ResetLastNPCMessage();
+        for(; LastNPCMessage().indexOf(s) < 0; Wait(1000))
+        {
+            ResetLastServerMessage();
+            ResetLastNPCMessage();
+            int k = GetNearestNPC(i);
+            long l = TickCount();
+            TalkToNPC(k);
+            for(; TickCount() - l < 8000L && LastServerMessage().indexOf("busy") < 0 && LastNPCMessage() == ""; Wait(100));
+            if(LastServerMessage().indexOf("busy") >= 0)
+                continue;
+            l = TickCount();
+            if(LastNPCMessage() == null)
+                continue;
+            for(; LastNPCMessage().indexOf(s) < 0 && TickCount() - l < (long)(j * 1000); Wait(100));
+        }
+
+    }
+
+    public void WaitForServerMessage(String s)
+    {
+        ResetLastServerMessage();
+        for(; LastServerMessage().indexOf(s) < 0; Wait(100));
+    }
+
+    public void WaitForQuestMenu()
+    {
+        for(; !QuestMenu() && Running(); Wait(100));
+    }
+
+    private void BankAll(int i, int j)
+    {
+        WaitForNPCMessage(268, 10, "Good day,");
+        WaitForQuestMenu();
+        Answer(0);
+        for(; !Bank() && Running(); Wait(100));
+        for(; Bank() && Running(); CloseBank())
+        {
+            for(; InvCount(i) > 0; Wait(Rand(100, 200)))
+                Deposit(i, j);
+
+            Wait(1000);
+        }
+
+    }
+
+    public void OpenThing(int i, int j, int k)
+    {
+        if(Running())
+        {
+            for(; ObjectAt(i, j) == k && Running(); Msg("Opening thing"))
+            {
+                AtObject(i, j);
+                Wait(500);
+            }
+
+            ForceWalk(i, j);
+        }
+    }
+
+    private void OpenTheDoor(int i, int j)
+    {
+        for(; ObjectAt(i, j) <= 2 && ObjectAt(i, j) >= 1 && Running(); Msg("Opening door"))
+        {
+            OpenDoor(i, j, 1);
+            Wait(500);
+        }
+
+        ForceWalk(i, j);
+    }
+
+    private void CheckSleep()
+    {
+        if(Fatigue() >= 85 && Running())
+        {
+            Msg("Sleeping...");
+            while(!Sleeping() && Running()) 
+            {
+                Use(FindInv(1263));
+                long l = TickCount();
+                while(!Sleeping() && TickCount() - l < 3000L && Running()) 
+                    Wait(1);
+            }
+            Msg("Waiting for sleep word...");
+            do
+            {
+                if(!Sleeping() || !Running())
+                    break;
+                for(long l1 = TickCount(); Sleeping() && Running() && TickCount() - l1 < 30000L; Wait(1000))
+                    Beep();
+
+                if(Sleeping() && Running())
+                    SleepWord();
+            } while(true);
+            Wait(1000);
+            Msg("Finished sleeping");
+        }
+    }
+
+    private void Msg(String s)
+    {
+        if(Running())
+        {
+            DisplayMessage("@gre@SBoT: @whi@" + s, 3);
+            Println("SBoT: " + s.replaceAll("@...@", ""));
+        }
+    }
+}

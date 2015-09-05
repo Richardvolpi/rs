@@ -1,0 +1,82 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 29.12.2004 15:47:21
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   MultiFighter.java
+
+import java.io.PrintStream;
+
+public class MultiFighter extends Script
+{
+
+    public MultiFighter(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "multi"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        if(as.length != 3)
+        {
+            DisplayMessage("@gre@|SBoT|: @ran@I@whi@nvalid @ran@n@whi@umbe@ran@r @whi@of parameters. /@ran@RUN MULTI FIGHTMODE@NPC1@NPC2", 3);
+        } else
+        {
+            System.out.print("|SBoT|: MultiFighter started -punKrockeR");
+            int i = Integer.parseInt(as[0]);
+            int j = Rand(350, 750);
+            int k = Integer.parseInt(as[1]);
+            int l = Integer.parseInt(as[2]);
+            CheckFighters(true);
+            DisplayMessage("@gre@|SBoT|: @ran@M@whi@ulti@ran@F@whi@ighter - pun@ran@K@whi@rocke@ran@R", 3);
+            while(Running() && GetCurrentStat(3) > 5) 
+            {
+                if(GetFightMode() != i)
+                {
+                    SetFightMode(i);
+                    if(GetFightMode() == 0)
+                        DisplayMessage("@gre@|SBoT|: @ran@F@whi@ight@ran@M@whi@ode @ran@S@whi@et @ran@T@whi@o @red@|CAUTION| @yel@CONTROLLED", 3);
+                    if(GetFightMode() == 1)
+                        DisplayMessage("@gre@|SBoT|: @ran@F@whi@ight@ran@M@whi@ode @ran@S@whi@et @ran@T@whi@o @yel@STRENGTH", 3);
+                    if(GetFightMode() == 2)
+                        DisplayMessage("@gre@|SBoT|: @ran@F@whi@ight@ran@M@whi@ode @ran@S@whi@et @ran@T@whi@o @yel@ATTACK", 3);
+                    if(GetFightMode() == 3)
+                        DisplayMessage("@gre@|SBoT|: @ran@F@whi@ight@ran@M@whi@ode @ran@S@whi@et @ran@T@whi@o @red@|CAUTION| @yel@DEFENSE", 3);
+                }
+                if(!InCombat())
+                {
+                    if(Fatigue() > 99 && !Sleeping())
+                    {
+                        DisplayMessage("@gre@|SBoT|: @ran@S@whi@leeping", 3);
+                        Use(FindInv(1263));
+                        Wait(5000);
+                    } else
+                    if(!Sleeping())
+                    {
+                        long l1 = System.currentTimeMillis();
+                        int ai[] = {
+                            k, l
+                        };
+                        int i1 = GetNearestNPC(ai);
+                        AttackNPC(i1);
+                        while(System.currentTimeMillis() - l1 <= (long)j && !InCombat() && Running()) 
+                            Wait(1);
+                    } else
+                    {
+                        Wait(1);
+                    }
+                } else
+                {
+                    while(InCombat() && Running()) 
+                        Wait(1);
+                }
+            }
+        }
+        DisplayMessage("@gre@|SBoT|: @ran@M@whi@ulti@ran@F@whi@ighter - @red@*-* @yel@STOPPED @red@*-*", 3);
+    }
+}

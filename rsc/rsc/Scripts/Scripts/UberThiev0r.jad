@@ -1,0 +1,51 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 08/10/2004 7:43:20 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   UberThiev0r.java
+
+
+public class UberThiev0r extends Script
+{
+
+    public UberThiev0r(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "ub0r"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        DisplayMessage("@red@UberTheiv0r started", 3);
+        do
+        {
+            if(!Running())
+                break;
+            if(Fatigue() >= 95 && Running())
+            {
+                for(; !Sleeping() && Running(); Wait(2500))
+                    Use(FindInv(1263));
+
+                for(; Sleeping() && Running(); Wait(100));
+            }
+            for(; GetCurrentStat(3) < 45; Wait(2500))
+            {
+                int i = FindInv(373);
+                Use(i);
+            }
+
+            if(!InCombat())
+            {
+                int j = GetNearestNPC(100);
+                ThieveNPC(j);
+                Wait(700);
+            }
+        } while(true);
+        DisplayMessage("@red@UberThiev0r STOPPED", 3);
+    }
+}

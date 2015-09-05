@@ -1,0 +1,30 @@
+public class boltpicker extends Script
+{
+   public boltpicker(mudclient rs)
+   {
+       super(rs);
+       
+   }
+   public String[] getCommands()
+   {
+       return new String[]{"bolts"};
+       
+   }
+   public void start(String command, String parameter[])
+   {
+     DisplayMessage("@cya@Uriko tells you: Bolt picker for Port Sarim", 3);
+     while (Running())
+     {
+
+           if (GetNearestItem(190) != null)
+        {
+           int ItemPos[] = GetNearestItem(190);
+
+           TakeItem(ItemPos[0], ItemPos[1],190);
+           Wait(700);
+        }       
+     }
+       
+     DisplayMessage("@gre@Made@whi@By:@red@Uriko.. @red@STOPPED", 3);
+   }
+}

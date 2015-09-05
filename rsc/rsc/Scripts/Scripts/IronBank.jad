@@ -1,0 +1,92 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 9/17/04 9:31:56 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   IronBank.java
+
+
+public class IronBank extends Script
+{
+
+    public IronBank(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "mineiron"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        DisplayMessage("@whi@*ElusioN* @gr2@: @whi@ ..:: East Varrock ::.. @whi@E@gr2@l@or2@u@cya@s@whi@i@gr2@o@or2@N@cya@!", 3);
+        DisplayMessage("@whi@*ElusioN* @gr2@: @whi@ ..:: Iron Miner ::..  @whi@E@gr2@l@or2@u@cya@s@whi@i@gr2@o@or2@N@cya@!", 3);
+        for(; Running(); Wait(200))
+        {
+            for(; Running() && InvCount() < 30; Wait(2000))
+            {
+                if(Fatigue() >= 95 && Running())
+                {
+                    for(; !Sleeping(); Wait(2500))
+                        Use(FindInv(1263));
+
+                    for(; Sleeping(); Wait(100));
+                }
+                int ai[] = GetNearestObject(102);
+                AtObject(ai[0], ai[1]);
+            }
+
+            Walk(73, 543);
+            Wait(200);
+            Walk(73, 537);
+            Wait(200);
+            Walk(75, 529);
+            Wait(200);
+            Walk(79, 519);
+            Wait(200);
+            Walk(85, 509);
+            Wait(200);
+            Walk(95, 509);
+            Wait(200);
+            Walk(102, 512);
+            Wait(200);
+            for(; !QuestMenu(); Wait(1000))
+            {
+                int i = GetNearestNPC(95);
+                TalkToNPC(i);
+            }
+
+            Answer(0);
+            for(; !Bank(); Wait(1));
+            for(; InvCount(151) > 0; Wait(100))
+                Deposit(151, 1);
+
+            for(; InvCount(157) > 0; Wait(100))
+                Deposit(157, 1);
+
+            for(; InvCount(158) > 0; Wait(100))
+                Deposit(158, 1);
+
+            for(; InvCount(159) > 0; Wait(100))
+                Deposit(159, 1);
+
+            for(; InvCount(160) > 0; Wait(100))
+                Deposit(160, 1);
+
+            CloseBank();
+            Walk(94, 509);
+            Wait(200);
+            Walk(84, 511);
+            Wait(200);
+            Walk(79, 518);
+            Wait(200);
+            Walk(75, 527);
+        }
+
+        DisplayMessage("@whi@*ElusioN* @gr2@: @whi@ ..:: East Varrock ::.. @whi@E@gr2@l@or2@u@cya@s@whi@i@gr2@o@or2@N@cya@!", 3);
+        DisplayMessage("@whi@*ElusioN* @gr2@: @whi@ ..:: Iron Miner ::..  @whi@E@gr2@l@or2@u@cya@s@whi@i@gr2@o@or2@N@cya@!", 3);
+        DisplayMessage("@whi@*ElusioN* @gr2@: @whi@ ..:: @red@STOPPED@whi@ ::..  E@gr2@l@or2@u@cya@s@whi@i@gr2@o@or2@N@cya@!", 3);
+    }
+}

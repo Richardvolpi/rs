@@ -1,0 +1,104 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 9/17/04 9:33:30 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   GuildMine.java
+
+
+public class GuildMine extends Script
+{
+
+    public GuildMine(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "guildmine"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        CheckFighters(false);
+        DisplayMessage("@gre@SBoT: @whi@GuildMiner - RichyT", 3);
+        do
+        {
+            if(!Running())
+                break;
+            if(GetY() < 3000)
+            {
+                if(InvCount(155) > 0 || InvCount(157) > 0 || InvCount(158) > 0 || InvCount(159) > 0 || InvCount(160) > 0)
+                {
+                    while(!QuestMenu()) 
+                    {
+                        long l = System.currentTimeMillis();
+                        int i = GetNearestNPC(95);
+                        TalkToNPC(i);
+                        while(System.currentTimeMillis() - l <= 6000L && !QuestMenu()) 
+                            Wait(1);
+                    }
+                    Answer(0);
+                    for(; InvCount(155) > 0; Wait(50))
+                        Deposit(155, 1);
+
+                    for(; InvCount(157) > 0; Wait(50))
+                        Deposit(157, 1);
+
+                    for(; InvCount(158) > 0; Wait(50))
+                        Deposit(158, 1);
+
+                    for(; InvCount(159) > 0; Wait(50))
+                        Deposit(159, 1);
+
+                    for(; InvCount(160) > 0; Wait(50))
+                        Deposit(160, 1);
+
+                }
+                Wait(100);
+                CloseBank();
+                for(; ObjectAt(287, 571) == 64; Wait(5000))
+                    AtObject(287, 571);
+
+                Walk(287, 571);
+                Walk(287, 563);
+                Walk(274, 562);
+                for(; DoorAt(274, 563, 0) == 2; Wait(1000))
+                    OpenDoor(274, 563, 0);
+
+                Walk(274, 563);
+                Walk(274, 565);
+                for(; GetY() < 3000; Wait(1000))
+                    AtObject(274, 566);
+
+                do
+                {
+                    if(InvCount() >= 30 || !Running())
+                        break;
+                    int ai[] = {
+                        111, 110
+                    };
+                    int ai1[] = GetNearestObject(ai);
+                    if(ai1[1] < 3384)
+                        WalkEmpty(268, 3392, 270, 3394);
+                    AtObject(ai1[0], ai1[1]);
+                    Wait(1400);
+                    if(Fatigue() > 90)
+                    {
+                        for(; !Sleeping(); Wait(2500))
+                            Use(FindInv(1263));
+
+                        while(Sleeping() && Running()) 
+                            Wait(100);
+                    }
+                } while(true);
+                Walk(273, 3398);
+                AtObject(274, 3398);
+                Wait(1000);
+                Walk(274, 562);
+            }
+        } while(true);
+        DisplayMessage("@gre@SBoT: @whi@Guild Miner - @red@STOPPED", 3);
+    }
+}

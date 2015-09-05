@@ -1,0 +1,351 @@
+public class TalkBack extends Script 
+{ 
+   public TalkBack(mudclient rs) 
+    { 
+        super(rs); 
+    } 
+
+   public String[] getCommands() 
+    { 
+        return new String[]{ "talkback" }; 
+    } 
+
+   public void ServerMessage(String message) 
+   { 
+
+   } 
+    
+   /****************************************************************************** 
+   Copy and add after  public void ServerMessage(String message){} from here on.. 
+   ******************************************************************************/ 
+   // Holds the message to say 
+    public String SayMsg = ""; 
+    
+   // Says the SayMsg after 3 secks.. then resets it.. 
+   // Purpuse is to bypass the fact, that you cant wait in ChatMessage.. 
+   // Or the whole bot waits with it.. 
+   public void SayAfterTime(30000) 
+   { 
+      new Thread 
+      ( 
+         new Runnable() 
+         { 
+            public void run() 
+            { 
+               while (Running()) 
+               { 
+                  if(SayMsg != "") 
+                  { 
+                     Wait(3000); 
+                     Say(SayMsg); 
+                     SayMsg = ""; 
+                  } 
+
+                  Wait(10); 
+               } 
+            } 
+         } 
+      ).start(); 
+   } 
+    
+    // Checks if one string occures in another 
+   public boolean StrStr(String haystack, String needle) 
+   { 
+      if(haystack.toLowerCase().indexOf(needle.toLowerCase()) != -1) 
+      { 
+         return true; 
+      } 
+
+      return false; 
+   } 
+
+    
+    // Chooses a random answer from an array 
+   public void RandomAnswer(String[] Answers, String ChatMsg) 
+   { 
+      int Possibilities = 0; 
+      double Random = 0; 
+      int Key = 0; 
+
+      Possibilities = Answers.length; 
+      Random = Math.random(); 
+        Key = (int)Math.round(Random*Possibilities); 
+
+      if(Key == Possibilities) 
+      { 
+         Key--; 
+      } 
+       
+      SayMsg = Answers[Key]; 
+
+      Println("Chat message: "+ChatMsg); 
+      Println("Answer: "+Answers[Key]); 
+      Println(""); 
+
+   } 
+    
+   // Answer arrays.. make up more if you like.. 
+   // And then share with other on the forums ;) 
+
+   public String[] GreetingAnswers = 
+   { 
+      "Hi..", 
+      "Sup..", 
+      "Hi.. how are you?", 
+      "Hmm.. hi..", 
+      "It sure is boring here..", 
+      "Bah.. another", 
+      "Hi.. leave now kthx", 
+      ":(", 
+      "Lalalala.. booring", 
+      "Ahh.. I'm going bananas here", 
+      "Dont say, that you are here to train..", 
+      "Arghh.. impossible to train here :S", 
+      "B00ring :P", 
+      "Bah another one..", 
+      "Just dont come to train here :S", 
+      "Hi to you too.." 
+   }; 
+
+    public String[] SellAnswers = 
+   { 
+      "Not interested..", 
+      "Hmm.. nah", 
+      "Some other time..", 
+      "Dont have any money with me..", 
+      "Nah..", 
+      "Pointless thingy..", 
+      "I sure as hell dont want it", 
+      "Why are you selling it?", 
+      "Offer someone else..", 
+      "Its not worth anything..", 
+      "Oh well..", 
+      "I already have plenty..", 
+      "Go away with it..", 
+      "What am I going to do with that?", 
+      "Amm.." 
+   }; 
+
+   public String[] BuyAnswers = 
+   { 
+      "I dont have any..", 
+      "Why should I sell?", 
+      "I need it myself", 
+      "What are you going to do with that?", 
+      "Hmm.. I dont have any with me..", 
+      "Hmm..", 
+      "Not from me..", 
+      "What is that good for?", 
+      "Oh well..", 
+      "Nah.. I need it", 
+      "Not worth selling it", 
+      "Go away..", 
+      "Ask someone else..." 
+   }; 
+
+   public String[] AutoAnswers = 
+   { 
+      "I dont auto :S", 
+      "I never auto..", 
+      "Heh?", 
+      "I dun auto..", 
+      "Me?", 
+      "Wdf?", 
+      "Why should i auto?", 
+      "Ahh.. why does everyone think everyone autos?", 
+      "I have never cheated...", 
+      "I hate cheating..", 
+      "There sure are so many cheaters out there..", 
+      "Everyone else here prolly does..", 
+      "Hmm..", 
+      "Never!", 
+      "What are you talking about?", 
+      "?", 
+      "Aww..?", 
+      "I love you too.. but I dont auto..", 
+      "Just because i train here.. I'm defenately autoing?", 
+      "No I dont..", 
+      "I dont know what you are talking about...", 
+      "You are accuseing me?", 
+      "I sure as hell dont..", 
+      "Sdfu...", 
+      "Nvm that..", 
+      "I'm a honest player..", 
+      "Dont annoy me with this..", 
+      "Bug someone else with this.." 
+   }; 
+
+   public String[] StatAnswers = 
+   { 
+      "None of your business..", 
+      "Why should I tell you?", 
+      "Yours?", 
+      "Not good enough", 
+      "Lousy.. :(", 
+      "Low..", 
+      "Nvm that..", 
+      "Nvm that..", 
+      "Why should you care?", 
+      "Secret!", 
+      "Hmm.. secret..", 
+      "You dont really have to know them..", 
+      "Better then yours", 
+      "Not so good..", 
+      "Aww..", 
+      "Hmm..." 
+   }; 
+
+   public String[] NoobAnswers = 
+   { 
+      "Me?", 
+      "Look at yourself..", 
+      "Heh?", 
+      "Nvm....", 
+      "Are you talking to meh?", 
+      "Whos the..", 
+      "And you are better?", 
+      "I dont think so..", 
+      "?", 
+      "I love you too.. newb", 
+      "Look who's talking...", 
+      "Who gave you the permission to talk?", 
+      "And that makes you?", 
+      "Whatever you say..", 
+      "And you are?", 
+      "Me.... heh" 
+   }; 
+
+   public String[] ReportAnswers = 
+   { 
+      "I dont auto :S", 
+      "I never auto..", 
+      "Heh?", 
+      "Wdf?", 
+      "Why should i auto?", 
+      "Ahh.. why does everyone think everyone autos?", 
+      "I have never cheated...", 
+      "I hate cheating..", 
+      "What are you talking about?", 
+      "?", 
+      "Aww..?", 
+      "I love you too.. but I dont auto..", 
+      "Just because i train here.. I'm defenately autoing?", 
+      "I dont know what you are talking about...", 
+      "You are accuseing me?", 
+      "I'm a honest player..", 
+      "Dont annoy me with this..", 
+      "Go ahead.. I dont auto", 
+      "Me.... heh", 
+      "I dont auto :S", 
+      "I never auto..", 
+      "Me?", 
+      "?", 
+      "Heh?", 
+      "I dun auto..", 
+      "And you are?", 
+      "Me?", 
+      "Wdf?", 
+      "Hmm..." 
+   }; 
+
+   public String[] YouAnswers = 
+   { 
+      "Me?", 
+      "Hmm?", 
+      "Aww...", 
+      "What?", 
+      "What do you mean?", 
+      "?", 
+      "Hmm..." 
+   }; 
+
+   public String[] TeamAnswers = 
+   { 
+      "Nah..", 
+      "Me?", 
+      "Maby..", 
+      "Hmm", 
+      "Dunno", 
+      "Pointless..", 
+      "You are.. too .. nvm", 
+      "I dont know..", 
+      "Sure.. but not in this life..", 
+      "Im training" 
+   }; 
+
+   public String[] TrainingAnswers = 
+   { 
+      "And why not?", 
+      "I like it..", 
+      "Its nice in here.. :)", 
+      "Decent xp :P", 
+      "Dunno..", 
+      "Why should you care?", 
+      "None of your business", 
+      "Just for kicks", 
+      "Hmm" 
+   }; 
+    
+   // Checks the message and if finds a keyword, then answers randomly to it.. 
+   public void ChatMessage(String message) 
+   { 
+    if(StrStr(message, "hi") || StrStr(message, "sup") || StrStr(message, "hello") || StrStr(message, "wassup")) 
+      { 
+         RandomAnswer(GreetingAnswers, message); 
+      } 
+      else if(StrStr(message, "selling") || StrStr(message, "sell") || StrStr(message, "to buy")) 
+      { 
+         RandomAnswer(SellAnswers, message); 
+      } 
+      else if(StrStr(message, "buying") || StrStr(message, "buy")) 
+      { 
+         RandomAnswer(BuyAnswers, message); 
+      } 
+      else if(StrStr(message, "auto") || StrStr(message, "au2") || StrStr(message, "magro") || StrStr(message, "opener") || StrStr(message, "cheat") || StrStr(message, "a2oer") || StrStr(message, "au2er") || StrStr(message, "bot")) 
+      { 
+         RandomAnswer(AutoAnswers, message); 
+      } 
+      else if(StrStr(message, "str") || StrStr(message, "ranged") || StrStr(message, "strenght") || StrStr(message, "att") || StrStr(message, "attack") || StrStr(message, "def") || StrStr(message, "defence") || StrStr(message, "hp") || StrStr(message, "lvl?") || StrStr(message, "level?") || StrStr(message, "stat")) 
+      { 
+         RandomAnswer(StatAnswers, message); 
+      } 
+      else if(StrStr(message, "noob") || StrStr(message, "n00b") || StrStr(message, "newb") || StrStr(message, "nuup") || StrStr(message, "fking")) 
+      { 
+         RandomAnswer(NoobAnswers, message); 
+      } 
+      else if(StrStr(message, "report")) 
+      { 
+         RandomAnswer(ReportAnswers, message); 
+      } 
+      else if(StrStr(message, "you") || StrStr(message, "ass") || StrStr(message, "dm")) 
+      { 
+         RandomAnswer(YouAnswers, message); 
+      } 
+      else if(StrStr(message, "team") || StrStr(message, "m8") || StrStr(message, "mate") || StrStr(message, "pk")) 
+      { 
+         RandomAnswer(TeamAnswers, message); 
+      } 
+      else if(StrStr(message, "here") || StrStr(message, "why") || StrStr(message, "big") || StrStr(message, "too") || StrStr(message, "good")) 
+      { 
+         RandomAnswer(TrainingAnswers, message); 
+      } 
+   } 
+    
+   /****************************************************************************** 
+   Stop copying 
+   ******************************************************************************/ 
+    
+   // You script starts here 
+   public void start(String command, String parameter[]) 
+    { 
+       DisplayMessage("@LRE@*** Talkbacker by I Bot Alot ***",3); 
+       SayAfterTime(); // NB!! Make sure you copy this at the start 
+
+       while(Running()) 
+       { 
+          Wait(100); // Whatever 
+       } 
+        
+       DisplayMessage("@RED@Finished talking back",3); 
+    } 
+} 

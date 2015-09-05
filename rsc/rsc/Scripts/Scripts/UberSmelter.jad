@@ -1,0 +1,597 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 5/4/05 4:02:58 AM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   UberSmelter.java
+
+import java.io.PrintStream;
+
+public class UberSmelter extends Script
+{
+
+    public UberSmelter(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "ubersmelt"
+        });
+    }
+
+    public void SmeltSteel()
+    {
+        for(; InvCount(151) > 0 && InvCount(155) > 0; Wait(2500))
+            UseOnObject(310, 546, FindInv(155));
+
+    }
+
+    public void BankForSteel(int i)
+    {
+        while(!Bank() && Running()) 
+        {
+            while(!QuestMenu() && Running()) 
+            {
+                int j = GetNearestNPC(95);
+                TalkToNPC(j);
+                long l1 = System.currentTimeMillis();
+                while(System.currentTimeMillis() - l1 <= 2000L && !QuestMenu() && Running()) 
+                    Wait(1);
+            }
+            Answer(0);
+            long l = System.currentTimeMillis();
+            while(System.currentTimeMillis() - l <= 5000L && !Bank() && Running()) 
+                Wait(1);
+        }
+        Deposit(i, 1);
+        for(; InvCount(157) > 0; Wait(100))
+            Deposit(157, 1);
+
+        for(; InvCount(158) > 0; Wait(100))
+            Deposit(158, 1);
+
+        for(; InvCount(159) > 0; Wait(100))
+            Deposit(159, 1);
+
+        for(; InvCount(160) > 0; Wait(100))
+            Deposit(160, 1);
+
+        Withdraw(151, 1);
+        Withdraw(151, 1);
+        Withdraw(151, 1);
+        Withdraw(151, 1);
+        Withdraw(151, 1);
+        Withdraw(151, 1);
+        Withdraw(151, 1);
+        Withdraw(151, 1);
+        Withdraw(151, 1);
+        Withdraw(151, 1);
+    }
+
+    public void BankToFurnace()
+    {
+        if(ObjectAt(287, 571) == 64)
+        {
+            AtObject(287, 571);
+            Wait(300);
+        }
+        Walk(286, 571);
+        Walk(287, 572);
+        Walk(290, 561);
+        Walk(293, 553);
+        Walk(299, 547);
+        if(ObjectAt(306, 544) == 2)
+        {
+            OpenDoor(306, 544, 1);
+            Wait(200);
+        }
+        ForceWalkNoWait(307, 545);
+    }
+
+    public void BankWalk()
+    {
+        Walk(274, 3397);
+        AtObject(274, 3398);
+        Walk(274, 563);
+        for(; ObjectAt(274, 563) == 2; Wait(300))
+            OpenDoor(274, 563, 0);
+
+        Walk(274, 562);
+        Walk(287, 571);
+        if(ObjectAt(287, 571) == 64)
+        {
+            AtObject(287, 571);
+            Wait(300);
+        }
+        ForceWalkNoWait(286, 571);
+    }
+
+    public void RimmingtonToBank()
+    {
+        Walk(312, 628, 250);
+        Walk(311, 619, 250);
+        Walk(309, 613, 250);
+        Walk(307, 605, 250);
+        Walk(303, 598, 250);
+        Walk(298, 589, 250);
+        Walk(292, 582, 250);
+        Walk(290, 573, 250);
+        Walk(287, 572, 250);
+        if(ObjectAt(287, 571) == 64)
+        {
+            AtObject(287, 571);
+            Wait(300);
+        }
+        ForceWalkNoWait(284, 569);
+    }
+
+    public void Mine20Coal()
+    {
+        for(; Running() && InvCount(155) < 20; Wait(1000))
+        {
+            int ai[] = GetNearestObject(110);
+            AtObject(ai[0], ai[1]);
+        }
+
+    }
+
+    public void GuildWalk()
+    {
+        Walk(286, 571);
+        if(ObjectAt(287, 571) == 64)
+        {
+            AtObject(287, 571);
+            Wait(300);
+        }
+        Walk(287, 571);
+        Walk(274, 562);
+        for(; ObjectAt(274, 563) == 2; Wait(300))
+            OpenDoor(274, 563, 0);
+
+        Walk(274, 563);
+        AtObject(274, 566);
+    }
+
+    public void SmeltIron()
+    {
+        for(; InvCount(151) > 0; Wait(2500))
+            UseOnObject(310, 546, FindInv(151));
+
+    }
+
+    public void BankSteelBars(int i, int j)
+    {
+        while(!Bank() && Running()) 
+        {
+            while(!QuestMenu() && Running()) 
+            {
+                int k = GetNearestNPC(95);
+                TalkToNPC(k);
+                long l1 = System.currentTimeMillis();
+                while(System.currentTimeMillis() - l1 <= 2000L && !QuestMenu() && Running()) 
+                    Wait(1);
+            }
+            Answer(0);
+            long l = System.currentTimeMillis();
+            while(System.currentTimeMillis() - l <= 5000L && !Bank() && Running()) 
+                Wait(1);
+        }
+        for(; InvCount(171) > 0; Wait(100))
+            Deposit(171, 1);
+
+        Withdraw(j, 1);
+        if(Fatigue() > i)
+        {
+            Withdraw(1263, 1);
+            Wait(100);
+        }
+        CloseBank();
+    }
+
+    public void BankBars(int i, int j)
+    {
+        while(!Bank() && Running()) 
+        {
+            while(!QuestMenu() && Running()) 
+            {
+                int k = GetNearestNPC(95);
+                TalkToNPC(k);
+                long l1 = System.currentTimeMillis();
+                while(System.currentTimeMillis() - l1 <= 2000L && !QuestMenu() && Running()) 
+                    Wait(1);
+            }
+            Answer(0);
+            long l = System.currentTimeMillis();
+            while(System.currentTimeMillis() - l <= 5000L && !Bank() && Running()) 
+                Wait(1);
+        }
+        for(; InvCount(j) > 0; Wait(100))
+            Deposit(j, 1);
+
+        for(; InvCount(157) > 0; Wait(100))
+            Deposit(157, 1);
+
+        for(; InvCount(158) > 0; Wait(100))
+            Deposit(158, 1);
+
+        for(; InvCount(159) > 0; Wait(100))
+            Deposit(159, 1);
+
+        for(; InvCount(160) > 0; Wait(100))
+            Deposit(160, 1);
+
+        if(Fatigue() > i)
+        {
+            Withdraw(1263, 1);
+            Wait(100);
+        }
+        CloseBank();
+    }
+
+    public void BankBag()
+    {
+        if(InvCount(1263) > 0)
+        {
+            while(!Bank() && Running()) 
+            {
+                while(!QuestMenu() && Running()) 
+                {
+                    int i = GetNearestNPC(95);
+                    TalkToNPC(i);
+                    long l1 = System.currentTimeMillis();
+                    while(System.currentTimeMillis() - l1 <= 2000L && !QuestMenu() && Running()) 
+                        Wait(1);
+                }
+                Answer(0);
+                long l = System.currentTimeMillis();
+                while(System.currentTimeMillis() - l <= 5000L && !Bank() && Running()) 
+                    Wait(1);
+            }
+            for(; InvCount(1263) > 0; Wait(100))
+                Deposit(1263, 1);
+
+            CloseBank();
+        }
+    }
+
+    public void SmeltBronze()
+    {
+        for(; InvCount(150) > 0 && InvCount(202) > 0; Wait(2500))
+            UseOnObject(310, 546, FindInv(150));
+
+    }
+
+    public void MineBronze()
+    {
+        for(; InvCount(202) < 14 && Running(); Wait(2500))
+        {
+            int ai[] = GetNearestObject(104);
+            if(ai[0] != -1 && ai[1] != -1)
+                AtObject(ai[0], ai[1]);
+            if(InvCount(157) > 0)
+            {
+                Drop(FindInv(157));
+                Wait(100);
+            }
+            if(InvCount(158) > 0)
+            {
+                Drop(FindInv(158));
+                Wait(100);
+            }
+            if(InvCount(159) > 0)
+            {
+                Drop(FindInv(159));
+                Wait(100);
+            }
+            if(InvCount(160) > 0)
+            {
+                Drop(FindInv(160));
+                Wait(100);
+            }
+        }
+
+        for(; InvCount(150) < 14 && Running(); Wait(2500))
+        {
+            int ai1[] = GetNearestObject(100);
+            if(ai1[0] != -1 && ai1[1] != -1)
+                AtObject(ai1[0], ai1[1]);
+            if(InvCount(157) > 0)
+            {
+                Drop(FindInv(157));
+                Wait(100);
+            }
+            if(InvCount(158) > 0)
+            {
+                Drop(FindInv(158));
+                Wait(100);
+            }
+            if(InvCount(159) > 0)
+            {
+                Drop(FindInv(159));
+                Wait(100);
+            }
+            if(InvCount(160) > 0)
+            {
+                Drop(FindInv(160));
+                Wait(100);
+            }
+        }
+
+    }
+
+    public void RimmingtonToFurnace()
+    {
+        Walk(312, 628, 250);
+        Walk(311, 619, 250);
+        Walk(309, 613, 250);
+        Walk(307, 605, 250);
+        Walk(303, 598, 250);
+        Walk(298, 589, 250);
+        Walk(292, 582, 250);
+        Walk(290, 573, 250);
+        Walk(291, 564, 250);
+        Walk(293, 556, 250);
+        Walk(299, 551, 250);
+        Walk(303, 544, 250);
+        Walk(309, 542, 250);
+        for(; ObjectAt(309, 543) == 2; WalkNoWait(307, 545))
+        {
+            OpenDoor(309, 543, 0);
+            Wait(200);
+        }
+
+        Walk(307, 545, 250);
+    }
+
+    public void FurnaceToBank()
+    {
+        for(; ObjectAt(309, 543) == 2; Wait(200))
+            OpenDoor(309, 543, 0);
+
+        Walk(307, 545, 250);
+        Walk(299, 547, 250);
+        Walk(293, 553, 250);
+        Walk(290, 561, 250);
+        Walk(287, 572, 250);
+        for(; ObjectAt(287, 571) == 64; Wait(300))
+            AtObject(287, 571);
+
+        ForceWalkNoWait(286, 571);
+    }
+
+    public void BankToRimmington()
+    {
+        Walk(286, 571, 250);
+        for(; ObjectAt(287, 571) == 64; Wait(300))
+            AtObject(287, 571);
+
+        Walk(287, 572, 250);
+        Walk(291, 581, 250);
+        Walk(297, 588, 250);
+        Walk(304, 591, 250);
+        Walk(305, 599, 250);
+        Walk(307, 606, 250);
+        Walk(303, 614, 250);
+        Walk(301, 622, 250);
+        Walk(307, 628, 250);
+        Walk(309, 636, 250);
+        Walk(317, 641, 250);
+    }
+
+    public void MineRimmingtonIron()
+    {
+        int ai[] = GetNearestObject(102);
+        if(ai[1] < 643 && ai[1] != -1 && ai[0] != -1)
+        {
+            AtObject(ai[0], ai[1]);
+            Wait(1000);
+        }
+    }
+
+    public void SleepIfOver(int i)
+    {
+        if(Fatigue() > i && Running())
+        {
+            for(; !Sleeping() && Running(); Wait(2000))
+                Use(FindInv(1263));
+
+            for(; Sleeping() && Running(); Wait(700))
+            {
+                System.out.print("\007");
+                System.out.flush();
+            }
+
+        }
+    }
+
+    public void start(String s, String as[])
+    {
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        int l = 0;
+        int i1 = 0;
+        boolean flag = false;
+        int j1 = 0;
+        int k1 = 0;
+        int l1 = 0;
+        int i2 = 0;
+        int j2 = 0;
+        int k2 = 0;
+        int l2 = 0;
+        int i3 = 0;
+        boolean flag1 = false;
+        boolean flag2 = false;
+        int l4 = 0;
+        int i5 = Integer.parseInt(as[0]);
+        boolean flag3 = false;
+        boolean flag4 = false;
+        int l6 = GetExperience(14);
+        int i7 = GetExperience(13);
+        boolean flag5 = false;
+        boolean flag6 = false;
+        boolean flag7 = false;
+        boolean flag8 = false;
+        DisplayMessage("@bla@Super Smelter", 3);
+        DisplayMessage("@gre@By: Davis Zanot", 3);
+        while(Running()) 
+        {
+            for(; GetStat(14) < 15 || GetStat(13) < 15 && Running(); BankToRimmington())
+            {
+                int j3 = Fatigue();
+                MineBronze();
+                l = InvCount(150) + InvCount(202) + l;
+                int j7 = GetExperience(14);
+                int i6 = j7 - l6;
+                if(Running())
+                    RimmingtonToFurnace();
+                if(Running())
+                    SmeltBronze();
+                j1 = InvCount(169) + j1;
+                int i8 = GetStat(13);
+                int j5 = i8 - i7;
+                if(Running())
+                    FurnaceToBank();
+                int i4 = Fatigue() - j3;
+                i3 += i4;
+                k2++;
+                k1 = InvCount(157) + k1;
+                l1 = InvCount(158) + l1;
+                i2 = InvCount(159) + i2;
+                j2 = InvCount(160) + j2;
+                l4 = 93 - i3 / k2;
+                BankBars(l4, 169);
+                SleepIfOver(l4);
+                l2 = InvCount(1263) + l2;
+                BankBag();
+                System.out.println("===========================================================");
+                System.out.println("                    Trip #" + k2);
+                System.out.println("===========================================================");
+                System.out.println("Bronze Ores Mined: " + l);
+                System.out.println("Bronze Bars Smelted: " + j1);
+                System.out.println("Times Slept: " + l2);
+                System.out.println("Mining Experience Gained " + i6);
+                System.out.println("Smithing Experience Gained " + j5);
+                System.out.println("Average Fatigue Per Trip: " + i3 / k2);
+            }
+
+            for(; GetStat(14) >= 15 && GetStat(13) >= 15 && Running() && GetStat(13) < 30; BankToRimmington())
+            {
+                int k3 = Fatigue();
+                for(; InvCount() < 30 && Running(); MineRimmingtonIron());
+                k = InvCount(151) + k;
+                int k7 = GetExperience(14);
+                int j6 = k7 - l6;
+                if(Running())
+                    RimmingtonToFurnace();
+                if(Running())
+                    SmeltIron();
+                i1 = InvCount(170) + i1;
+                int j8 = GetStat(13);
+                int k5 = j8 - i7;
+                if(Running())
+                    FurnaceToBank();
+                int j4 = Fatigue() - k3;
+                i3 += j4;
+                k2++;
+                k1 = InvCount(157) + k1;
+                l1 = InvCount(158) + l1;
+                i2 = InvCount(159) + i2;
+                j2 = InvCount(160) + j2;
+                l4 = 93 - i3 / k2;
+                BankBars(l4, 170);
+                SleepIfOver(l4);
+                l2 = InvCount(1263) + l2;
+                BankBag();
+                System.out.println("===========================================================");
+                System.out.println("                    Trip #" + k2);
+                System.out.println("===========================================================");
+                System.out.println("Ores Mined: " + k);
+                System.out.println("Bars Smelted: " + i1);
+                System.out.println("Diamonds Banked: " + k1);
+                System.out.println("Rubys Banked: " + l1);
+                System.out.println("Emeralds Banked: " + i2);
+                System.out.println("Saphires Banked: " + j2);
+                System.out.println("Times Slept: " + l2);
+                System.out.println("Mining Experience Gained " + j6);
+                System.out.println("Smithing Experience Gained " + k5);
+                System.out.println("Success Rate: " + (100 * i1) / k + "%");
+                System.out.println("Average Fatigue Per Trip: " + i3 / k2);
+            }
+
+            while(GetStat(13) >= 30 && GetStat(14) >= 60 && Running()) 
+            {
+                int l3 = Fatigue();
+                for(; InvCount(151) < 10 && Running(); MineRimmingtonIron());
+                k = InvCount(151) + k;
+                int l7 = GetExperience(13);
+                int k6 = l7 - l6;
+                if(Running())
+                    RimmingtonToBank();
+                if(Running())
+                    k1 = InvCount(157) + k1;
+                l1 = InvCount(158) + l1;
+                i2 = InvCount(159) + i2;
+                j2 = InvCount(160) + j2;
+                BankBars(0, 151);
+                SleepIfOver(l4);
+                l2 = InvCount(1263) + l2;
+                BankBag();
+                GuildWalk();
+                if(Running())
+                    Mine20Coal();
+                j = InvCount(155) + j;
+                if(Running())
+                    BankWalk();
+                k2++;
+                if(Running())
+                {
+                    k1 = InvCount(157) + k1;
+                    l1 = InvCount(158) + l1;
+                    i2 = InvCount(159) + i2;
+                    j2 = InvCount(160) + j2;
+                    BankForSteel(i5);
+                }
+                if(Running())
+                    BankToFurnace();
+                if(Running())
+                    SmeltSteel();
+                if(Running())
+                    FurnaceToBank();
+                l7 = GetExperience(14);
+                k6 = l7 - l6;
+                int k8 = GetStat(13);
+                int l5 = k8 - i7;
+                i = InvCount(171) + i;
+                if(Running())
+                {
+                    int k4 = Fatigue() - l3;
+                    i3 += k4;
+                    l4 = 93 - i3 / k2;
+                    BankSteelBars(l4, i5);
+                }
+                SleepIfOver(l4);
+                l2 = InvCount(1263) + l2;
+                BankBag();
+                System.out.println("===========================================================");
+                System.out.println("                    Trip #" + k2);
+                System.out.println("===========================================================");
+                System.out.println("Iron Ores Mined: " + k);
+                System.out.println("Coal Mined: " + j);
+                System.out.println("Steel Bars Smelted: " + i);
+                System.out.println("Diamonds Banked: " + k1);
+                System.out.println("Rubys Banked: " + l1);
+                System.out.println("Emeralds Banked: " + i2);
+                System.out.println("Saphires Banked: " + j2);
+                System.out.println("Times Slept: " + l2);
+                System.out.println("Mining Experience Gained " + k6);
+                System.out.println("Smithing Experience Gained " + l5);
+                System.out.println("Average Fatigue Per Trip: " + i3 / k2);
+                if(Running())
+                    BankToRimmington();
+            }
+        }
+        DisplayMessage("@red@STOPPED", 3);
+    }
+}

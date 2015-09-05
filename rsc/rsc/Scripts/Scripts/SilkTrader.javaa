@@ -1,0 +1,163 @@
+public class SilkTrader extends Script {
+    
+    private int bought = 0;
+    private int sold = 0;
+    private long starttime;
+    private int startgp = 0;
+    
+    public SilkTrader(mudclient rs) {
+        super(rs);
+    }
+    public String[] getCommands() {
+        return new String[]{"silk"};
+    }
+    public void start(String command, String parameter[]) {
+        starttime = TickCount();
+        if (InvCount(10) > 0 )
+            startgp = InvCount(10);
+        while(Running() == true) {
+            Msg("Talking to Al-Kharid silk trader...");
+            OpenDoorWalk(75, 667, 2, 0);
+            while(InvCount() < 30 & InvCount(10) > 3) {
+                WaitForNPCMessage(71, 5, "Do you want to ");
+                WaitForQuestMenu();
+                Answer(0);
+                WaitForQuestMenu();
+                Answer(1);
+                WaitForServerMessage(5,"You buy some silk ");
+                bought++;
+                gainedgp = gainedgp - 3;
+            }
+            Msg("Walking to Varrock...");
+            WalkRan(71,644);
+            WalkRan(71,624);
+            WalkRan(81,603);
+            WalkRan(80,583);
+            WalkRan(68,570);
+            WalkRan(69,638);
+            WalkRan(70,550);
+            WalkRan(73,533);
+            WalkRan(82,517);
+            WalkRan(134,512);
+            OpenDoorWalk(136, 514, 2, 2);
+            Msg("Talking to Varrock clothes trader...");
+            WaitForNPCMessage(59, 5, "Do you want to ");
+            WaitForQuestMenu();
+            Answer(0);
+            WaitForShop();
+            Msg("Selling silk...");
+            while(InvCount(200) > 0 && Running()) {
+                int pinv = InvCount();
+                while(pinv == InvCount() && Running()) {
+                    Sell(200);
+                    long T = TickCount();
+                    while (pinv == InvCount() && TickCount() - T < (5000) && Running())
+                        Wait(100);
+                }
+                sold++;
+            }
+            CloseShop();
+            Msg("Walking to Al-Kharid...");
+            OpenDoorWalk(136, 514, 2, 2);
+            WalkRan(133,513);
+            WalkRan(131,533);
+            WalkRan(123,552);
+            WalkRan(113,570);
+            Walk(92,571); // cross roads varrock/kharid/lumby
+            WalkRan(81,590);
+            WalkRan(80,611);
+            WalkRan(78,633);
+            WalkRan(74,654);
+            PrintStatus();
+            Wait(1000);
+        }
+    }
+    
+    private void Msg(String str) {
+        if(Running()) {
+            DisplayMessage("@gre@SBoT: @whi@" + str,3);
+            Println("SBoT: " + str);
+        }
+    }
+    private void OpenDoorWalk(int x, int y, int id, int dir) {
+        while(ObjectAt(x,y) == id && Running() == true) {
+            OpenDoor(x,y,dir);
+            Wait(100);
+        }
+        Walk(x,y);
+    }
+    public void WaitForNPCMessage(int type, int time, String message) {
+        ResetLastNPCMessage();
+        while (LastNPCMessage().indexOf(message) < 0  && Running()) {
+            ResetLastServerMessage();
+            ResetLastNPCMessage();
+            int id = GetNearestNPC(type);
+            long T = TickCount();
+            TalkToNPC(id);
+            while (TickCount() - T < 8000 && LastServerMessage().indexOf("busy") < 0 && LastNPCMessage() == ""  && Running())
+                Wait(100);
+            if (LastServerMessage().indexOf("busy") < 0) {
+                T = TickCount();
+                if (LastNPCMessage() != null)
+                    while (LastNPCMessage().indexOf(message) < 0 && TickCount() - T < (time * 1000)  && Running())
+                        Wait(100);
+            }
+            Wait(1000);
+        }
+    }
+    public void WaitForNPCMessage(int time, String message) {
+        ResetLastNPCMessage();
+        while (LastNPCMessage().indexOf(message) < 0  && Running()) {
+            long T = TickCount();
+            if (LastNPCMessage() != null)
+                while (LastNPCMessage().indexOf(message) < 0 && TickCount() - T < (time * 1000) && Running())
+                    Wait(100);
+            Wait(1000);
+        }
+    }
+    public void WaitForQuestMenu() {
+        while (!QuestMenu() && Running())
+            Wait(100);
+    }
+    private void WaitForShop() {
+        while(!Shop() && Running())
+            Wait(100);
+    }
+    public void WaitForServerMessage(int time, String message) {
+        ResetLastServerMessage();
+        while (LastServerMessage().indexOf(message) < 0  && Running()) {
+            long T = TickCount();
+            if (LastServerMessage() != null)
+                while (LastServerMessage().indexOf(message) < 0 && TickCount() - T < (time * 1000) && Running())
+                    Wait(100);
+            Wait(1000);
+        }
+    }
+    public void WalkRan(int x, int y) {
+        while(Loading() && Running())
+            Wait(100);
+        if (Running() == true) {
+            ForceWalk(Rand(x - 2,x + 2),Rand(y - 2,y + 2));
+            Wait(Rand(100,250));
+        }
+        return;
+    }
+    private void PrintStatus() {
+        int minutes = (int)((TickCount() - starttime) / 60000);
+        int avg_bought = (int)((bought / minutes) * 60);
+        int avg_sold = (int)((sold / minutes) * 60);
+        int avg_gp = (int)((gainedgp / minutes) * 60);
+        int gainedgp = InvCount(10) - startgp;
+        
+        Println("**********************************");
+        Println("*** Silk Trader Status:");
+        Println("*** Worked for " + minutes + "minutes");
+        Println("*** Bought " + bought + " silk");
+        Println("*** Sold " + sold + " silk");
+        Println("*** Gained " + gainedgp + "gp");
+        Println("*** Averaging " + avg_bought + " bought/hr");
+        Println("*** Averaging " + avg_sold + " sold/hr");
+        Println("*** Averaging " + avg_gp + " gp/hr");
+        Println("**********************************");
+    }
+}

@@ -1,0 +1,49 @@
+public class ListSpells extends Script
+{
+public example(mudclient rs)
+{
+super(rs);
+}
+public String[] getCommands()
+{
+return new String[]{"command"};
+}
+public void start(String command, String parameter[])
+{
+WalkWait(x,y)
+WalkWait(x,y)
+WalkWait(x,y)
+WalkWait(x,y)
+WalkWait(x,y)
+WalkWait(x,y)
+{
+if(InvCount()>=30)objectCmd1(x,y)
+}
+else
+{
+WalkWait(x,y)
+WalkWait(x,y)
+WalkWait(x,y)
+WalkWait(x,y)
+WalkWait(x,y)
+WalkWait(x,y)
+}
+talkNpc(95)
+{
+Wait(3000)
+}
+answer(0)
+{
+Wait(2000)
+{
+if(InvCount()>2)
+}
+Deposit(151,1)
+wait(20)
+}
+else
+{
+closebank();
+}
+}
+}

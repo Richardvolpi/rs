@@ -1,0 +1,1 @@
+/run fight2items (Fightmode)@(NPCID)@(Item #1 ID)@(Item #2 ID)

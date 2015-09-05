@@ -1,0 +1,76 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 5/2/05 12:41:12 AM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   AutoFight2npc.java
+
+
+public class AutoFight2npc extends Script
+{
+
+    public AutoFight2npc(mudclient mudclient)
+    {
+        super(mudclient);
+    }
+
+    public String[] getCommands()
+    {
+        return (new String[] {
+            "killmonk"
+        });
+    }
+
+    public void start(String s, String as[])
+    {
+        if(as.length != 1)
+        {
+            DisplayMessage("@gre@Bruncle: @whi@Invalid number of parameters. /RUN killmonk [STYLE]", 3);
+        } else
+        {
+            int i = Integer.parseInt(as[0]);
+            int j = 750;
+            int ai[] = {
+                139, 140
+            };
+            CheckFighters(true);
+            DisplayMessage("@gre@Bruncle: @whi@Monk owner by BrUnCLe", 3);
+            do
+            {
+                if(!Running() || GetCurrentStat(3) <= 5)
+                    break;
+                if(GetFightMode() != i)
+                {
+                    SetFightMode(i);
+                    DisplayMessage("@gre@Bruncle: @whi@FightMode Changed To " + GetFightMode(), 3);
+                }
+                if(!InCombat())
+                {
+                    if(Fatigue() > 97 && !Sleeping())
+                    {
+                        DisplayMessage("@gre@Bruncle: @whi@Sleeping", 3);
+                        Use(FindInv(1263));
+                        Wait(5000);
+                    } else
+                    if(!Sleeping())
+                    {
+                        int k = GetNearestNPC(ai);
+                        if(k != -1)
+                        {
+                            long l = System.currentTimeMillis();
+                            TalkToNPC(k);
+                            while(System.currentTimeMillis() - l <= (long)j && !InCombat() && Running()) 
+                                Wait(1);
+                        } else
+                        {
+                            Wait(1);
+                        }
+                    }
+                } else
+                {
+                    while(InCombat() && Running()) 
+                        Wait(1);
+                }
+            } while(true);
+        }
+        DisplayMessage("@gre@SBoT: @whi@Monk chatter - @red@STOPPED", 3);
+    }
+}
