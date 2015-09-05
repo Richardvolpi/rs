@@ -1,0 +1,4 @@
+-- How to make it work, when you first run YaB [ Yet Another Bot ]
+--- Copy your data files from your \AutoRune\ DIR into the Data file into your \YaB\ DIR
+---- if you don't have AutoRune then you can download the needed data files from http://www.autorune.org/data.zip
+----- ~RaW
