@@ -1,0 +1,28 @@
+; Draynor Cooked Lobster Uncert Script By Sbm007
+@Bank:
+MoveTo(221,636)
+SetVarsNearestNPC(%xA,%yA,%idA,95)
+RepeatNextCommandUntilQuestMenu(5)
+; ActionVar(%xA,%yA)
+TalkToNPCVar(%idA)
+Answer(0)
+WaitForBankWindow(50)
+Deposit(373,25)
+Withdraw(533,5)
+Wait(25)
+CloseBank()
+Goto(@UnCert)
+
+@UnCert:
+MoveTo(227,631)
+SetVarsNearestNPC(%xB,%yB,%idB,227)
+RepeatNextCommandUntilQuestMenu(5)
+; ActionVar(%xB,%yB)
+TalkToNPCVar(%idB)
+Answer(0)
+WaitForQuestMenu(35)
+Answer(2)
+WaitForQuestMenu(35)
+Answer(4)
+Wait(25)
+Goto(@Bank)

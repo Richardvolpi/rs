@@ -1,0 +1,26 @@
+; Br0ken's and Sbm's 1337 AutoFighter
+@Main:
+SetVarFatigue(%F)
+GoToIfSleeping(@Main)
+FightMode(1)
+GoToIfPlayerInCombat(@Wait)
+GoTo(@Fight)
+-
+@Fight:
+SetVarsNearestNPC(%X,%Y,%ID,11)
+GoToIfPlayerInCombat(@Wait)
+AttackNPCVar(%ID)
+Sleep(0)
+GoToIfVarAboveNum(@Sleep,%F,95)
+GoTo(@Fight)
+-
+@Wait:
+FightMode(1)
+Sleep(0)
+GoToIfPlayerNotInCombat(@Fight)
+GoTo(@Wait)
+-
+@Sleep:
+UseItemByID(1263)
+Wait(10)
+GoTo(@Main)

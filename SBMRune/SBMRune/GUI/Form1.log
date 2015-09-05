@@ -1,0 +1,73 @@
+Line 28: Class RichTextLib.RichTextBox of control RichTextBox1 was not a loaded control class.
+Line 40: Class MSComDlg.CommonDialog of control CommonDialog1 was not a loaded control class.
+Line 111: Class Project1.cpvButton of control cpvButton1 was not a loaded control class.
+Line 134: Class Project1.cpvButton of control cpvButton4 was not a loaded control class.
+Line 157: Class Project1.cpvButton of control cpvButton5 was not a loaded control class.
+Line 180: Class Project1.cpvButton of control cpvButton6 was not a loaded control class.
+Line 203: Class Project1.cpvButton of control cpvButton7 was not a loaded control class.
+Line 226: Class Project1.cpvButton of control cpvButton8 was not a loaded control class.
+Line 249: Class Project1.cpvButton of control cpvButton9 was not a loaded control class.
+Line 272: Class Project1.cpvButton of control cpvButton10 was not a loaded control class.
+Line 295: Class Project1.cpvButton of control cpvButton2 was not a loaded control class.
+Line 35: The property name _ExtentX in RichTextBox1 is invalid.
+Line 36: The property name _ExtentY in RichTextBox1 is invalid.
+Line 37: The property name _Version in RichTextBox1 is invalid.
+Line 38: The property name TextRTF in RichTextBox1 is invalid.
+Line 43: The property name _ExtentX in CommonDialog1 is invalid.
+Line 44: The property name _ExtentY in CommonDialog1 is invalid.
+Line 45: The property name _Version in CommonDialog1 is invalid.
+Line 46: The property name Filter in CommonDialog1 is invalid.
+Line 117: The property name _ExtentX in cpvButton1 is invalid.
+Line 118: The property name _ExtentY in cpvButton1 is invalid.
+Line 120: The property name ButtonColor in cpvButton1 is invalid.
+Line 121: The property name Caption in cpvButton1 is invalid.
+Line 122: The property name FlatOver in cpvButton1 is invalid.
+Line 132: The property name FontColor in cpvButton1 is invalid.
+Line 140: The property name _ExtentX in cpvButton4 is invalid.
+Line 141: The property name _ExtentY in cpvButton4 is invalid.
+Line 143: The property name ButtonColor in cpvButton4 is invalid.
+Line 144: The property name Caption in cpvButton4 is invalid.
+Line 145: The property name FlatOver in cpvButton4 is invalid.
+Line 155: The property name FontColor in cpvButton4 is invalid.
+Line 163: The property name _ExtentX in cpvButton5 is invalid.
+Line 164: The property name _ExtentY in cpvButton5 is invalid.
+Line 166: The property name ButtonColor in cpvButton5 is invalid.
+Line 167: The property name Caption in cpvButton5 is invalid.
+Line 168: The property name FlatOver in cpvButton5 is invalid.
+Line 178: The property name FontColor in cpvButton5 is invalid.
+Line 186: The property name _ExtentX in cpvButton6 is invalid.
+Line 187: The property name _ExtentY in cpvButton6 is invalid.
+Line 189: The property name ButtonColor in cpvButton6 is invalid.
+Line 190: The property name Caption in cpvButton6 is invalid.
+Line 191: The property name FlatOver in cpvButton6 is invalid.
+Line 201: The property name FontColor in cpvButton6 is invalid.
+Line 209: The property name _ExtentX in cpvButton7 is invalid.
+Line 210: The property name _ExtentY in cpvButton7 is invalid.
+Line 212: The property name ButtonColor in cpvButton7 is invalid.
+Line 213: The property name Caption in cpvButton7 is invalid.
+Line 214: The property name FlatOver in cpvButton7 is invalid.
+Line 224: The property name FontColor in cpvButton7 is invalid.
+Line 232: The property name _ExtentX in cpvButton8 is invalid.
+Line 233: The property name _ExtentY in cpvButton8 is invalid.
+Line 235: The property name ButtonColor in cpvButton8 is invalid.
+Line 236: The property name Caption in cpvButton8 is invalid.
+Line 237: The property name FlatOver in cpvButton8 is invalid.
+Line 247: The property name FontColor in cpvButton8 is invalid.
+Line 255: The property name _ExtentX in cpvButton9 is invalid.
+Line 256: The property name _ExtentY in cpvButton9 is invalid.
+Line 258: The property name ButtonColor in cpvButton9 is invalid.
+Line 259: The property name Caption in cpvButton9 is invalid.
+Line 260: The property name FlatOver in cpvButton9 is invalid.
+Line 270: The property name FontColor in cpvButton9 is invalid.
+Line 278: The property name _ExtentX in cpvButton10 is invalid.
+Line 279: The property name _ExtentY in cpvButton10 is invalid.
+Line 281: The property name ButtonColor in cpvButton10 is invalid.
+Line 282: The property name Caption in cpvButton10 is invalid.
+Line 283: The property name FlatOver in cpvButton10 is invalid.
+Line 293: The property name FontColor in cpvButton10 is invalid.
+Line 301: The property name _ExtentX in cpvButton2 is invalid.
+Line 302: The property name _ExtentY in cpvButton2 is invalid.
+Line 304: The property name ButtonColor in cpvButton2 is invalid.
+Line 305: The property name Caption in cpvButton2 is invalid.
+Line 306: The property name FlatOver in cpvButton2 is invalid.
+Line 316: The property name FontColor in cpvButton2 is invalid.
