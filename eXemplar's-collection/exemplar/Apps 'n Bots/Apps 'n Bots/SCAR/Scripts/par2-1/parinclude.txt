@@ -1,0 +1,184 @@
+var par_rub, par_stat, par_lamp:integer;
+    par_loaded:boolean;
+
+
+Procedure CheckPAR;
+begin
+if(ReadInterSCARMessage('par')='random')then
+begin
+     SendInterSCARMessage('goahead','true');
+     WriteLN('[PAR 2.0] We were signaled for a random, giving go ahead.');
+repeat
+     wait(500);
+until(ReadInterSCARMessage('par')='');
+     WriteLN('[PAR 2.0] Random handled, returning to script.');
+     SendInterSCARMessage('goahead','');
+end;
+end;
+
+
+
+Procedure LoadParBMPs;
+begin
+     WriteLN('[PAR 2.0] Par include loaded.');
+par_rub := BitmapFromString(22, 7,
+       'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000000000' +
+       '000000000000000000000000000000000000000000FFFFFFFFFFFF' +
+       '000000000000000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF000000000000000000000000000000000000000000000000' +
+       '000000000000FFFFFFFFFFFF000000000000000000000000FFFFFF' +
+       'FFFFFF000000000000FFFFFFFFFFFF000000000000000000000000' +
+       '000000000000000000000000000000000000FFFFFFFFFFFF000000' +
+       '000000000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000FFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFF' +
+       '000000FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF' +
+       '000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000' +
+       '000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF' +
+       'FFFFFF000000000000000000000000FFFFFFFFFFFF000000000000' +
+       'FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFF' +
+       'FFFFFF');
+par_stat := BitmapFromString(22, 7,
+       '000000000000000000000000000000000000000000FFFF00000000' +
+       '000000000000000000000000000000000000000000000000000000' +
+       '000000FFFF00000000000000000000FFFF00FFFF00FFFF00000000' +
+       'FFFF00FFFF00FFFF00FFFF00FFFF00000000000000FFFF00FFFF00' +
+       'FFFF00000000000000FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00' +
+       '000000000000FFFF00000000000000FFFF00000000000000000000' +
+       '000000FFFF00000000000000FFFF00000000000000000000FFFF00' +
+       '000000000000000000000000FFFF00000000000000000000000000' +
+       'FFFF00000000000000000000000000000000000000FFFF00FFFF00' +
+       '000000000000000000FFFF00000000000000000000000000000000' +
+       'FFFF00000000000000000000FFFF00000000000000000000000000' +
+       '000000FFFF00000000FFFF00000000000000000000FFFF00000000' +
+       '000000000000FFFF00000000000000FFFF00000000000000FFFF00' +
+       '000000000000000000000000FFFF00000000000000FFFF00FFFF00' +
+       '000000000000FFFF00000000000000000000FFFF00FFFF00FFFF00' +
+       '000000000000000000000000FFFF00FFFF00000000000000FFFF00' +
+       'FFFF00FFFF00000000FFFF00000000000000000000FFFF00FFFF00' +
+       '000000');
+par_lamp := BitmapFromString(23, 7,
+       'C0BF19000001000001000001000001000001BBB916B2B116AFAE16' +
+       'ACAB169D9B129392128D8B1276750E000001000001000001000001' +
+       '000001000000000000000000000000C6C519C6C519D1CF19CCC919' +
+       'C9C719C6C519C6C519C0BF19BBB916B5B416ACAB16A4A2129A9812' +
+       '93921285840E7A790E6B69095D5C09A7A516000001000000000000' +
+       '000000CCC919CCC919CECC19C6C519C3C219C0BF19BEBC19BBB916' +
+       'B8B716B5B416B2B116A9A816A4A2129D9B129695128F8F1282810E' +
+       '9A9812AFAE1689870E000001000000000000000001D4D21CCECC19' +
+       'CCC919C0BF19BEBC19BBB916B5B416B2B116AFAE16A9A816A4A212' +
+       'A09F129A981289870E85840E8D8B129392129D9B12B8B716666509' +
+       '000001000000000000000001000001CCC919CCC919BBB916B8B716' +
+       'B5B416B2B116AFAE16A9A816A4A2129D9B1296951282810E7A790E' +
+       '85840E000001000001000001C3C219A9A816000000000000000000' +
+       '000001CCC919CCC919C0BF19B8B716B2B116AFAE16ACAB16A7A516' +
+       'A09F129A98128D8B127A790E76750E000001000001C3C219B5B416' +
+       'A7A516000001000000000000000000000000000001CECC19CCC919' +
+       'C0BF19B2B116AFAE16ACAB16A7A516A09F128F8F1282810E6F6E0E' +
+       '535309000001000000000001000001000001000000000000');
+par_loaded:=true;
+end;
+
+Procedure UseTheLamp(skill:string);
+begin
+     writeln('[PAR 2.0] Clicking on "' + skill + '" skill.');
+     if(skill='attack')then  mouse(152,144,25,25,true);
+     if(skill='strength')then mouse(184,144,25,25,true);
+     if(skill='ranged')then mouse(216,155,25,25,true);
+     if(skill='magic')then mouse(248,144,25,25,true);
+     if(skill='defence')then mouse(280,144,25,25,true);
+     if(skill='hitpoints')then mouse(312,144,25,25,true);
+     if(skill='prayer')then mouse(344,144,25,25,true);
+     if(skill='agility')then mouse(184,180,25,25,true);
+     if(skill='herblaw')then mouse(216,180,25,25,true);
+     if(skill='theiving')then mouse(248,180,25,25,true);
+     if(skill='crafting')then mouse(280,180,25,25,true);
+     if(skill='runecrafting')then mouse(312,180,25,25,true);
+     if(skill='mining')then mouse(152,216,25,25,true);
+     if(skill='smithing')then mouse(184,216,25,25,true);
+     if(skill='fishing')then mouse(216,216,25,25,true);
+     if(skill='cooking')then mouse(248,216,25,25,true);
+     if(skill='firemaking')then mouse(280,216,25,25,true);
+     if(skill='woodcutting')then mouse(312,216,25,25,true);
+     if(skill='fletching')then mouse(344,216,25,25,true);
+     mouse(237,250,42,10,true);
+end;
+
+procedure Check4Lamp(usage:string);
+begin
+     if(not par_loaded)then LoadParBMPs;
+     if (not FindColor(x,y,2829182,630,170,660,200)) then Mouse(640,180,5,5,true);
+     while(FindBitmapToleranceIn(par_lamp,x,y,560,210,740,465,40))do
+     begin
+          mouse(x+2,y,5,5,false);
+          if(FindBitmapToleranceIn(par_rub,x,y,520,190,760,490,40))then
+          begin
+               mouse(x+2,y,5,2,true);
+               if(FindBitmapToleranceIn(par_stat,x,y,4,4,516,338,40))then
+               begin
+                    writeln('[PAR 2.0] Found a Lamp');
+                    UseTheLamp(usage);
+               end;
+          end;
+     end;
+end;
+
+
+Procedure Check4Plant(scanwidth,scanheight,color,tolerence:integer; name:string);
+var  a,b,c,d,e,f:integer;
+     addx,addy,switch:integer;
+     change,forwardx,forwardy,which:boolean;
+begin
+     change:=false;
+     which:=false
+     forwardx:=true;
+     forwardy:=true;
+     a:=516/scanwidth;
+     b:=338/scanheight;
+     c:=Trunc(a/2);
+     d:=Trunc(b/2);
+     e:=0;
+     f:=0;
+     addx:=1;
+     addy:=1;
+     switch:=1;
+   repeat
+     if(FindColorTolerance(x,y,color,(258+e*scanwidth),(169+f*scanheight),(258+e*scanwidth+scanwidth),(169+f*scanheight+scanheight),tolerence))then
+     begin
+          mmouse(x,y,0,0);
+          if(istextat2(9,9,'Pick',100))then
+          begin
+               writeln('[PAR 2.0] Found a ' + name);
+               Mouse(x,y,0,0,true);
+          end;
+     end;
+     if(change)then
+     begin
+          switch:=switch*-1;
+          addx:=(addx*-1)+switch;
+          addy:=(addy*-1)+switch;
+          change:=false;
+     end;
+     if(forwardx)and(not which)then e:=e+switch;
+     if(forwardy)and(which)then f:=f+switch;
+     if(e=addx)then
+     begin
+          forwardx:=false;
+          which:=true;
+     end;
+     if(f=addy)then
+     begin
+          forwardy:=false;
+          which:=false;
+     end;
+     if(not forwardy)and(not forwardx) then
+     begin
+          forwardy:=true;
+          forwardx:=true;
+          change:=true;
+     end;
+   until(e>c) or (f>d);
+end;
+
