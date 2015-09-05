@@ -1,0 +1,14 @@
+@main:
+gotoiffighting(@pray)
+prayeroff(4)
+wait(100)
+prayeroff(5)
+wait(100)
+goto(@main)
+
+@pray:
+prayeron(4)
+wait(100)
+prayeroff(5)
+wait(100)
+goto(@main)

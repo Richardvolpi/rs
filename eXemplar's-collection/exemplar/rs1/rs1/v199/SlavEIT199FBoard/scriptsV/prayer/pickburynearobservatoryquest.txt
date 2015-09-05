@@ -1,0 +1,43 @@
+This picks up bones in a specific area at khazards
+then buries at full amount
+simple enough huh
+@bones:
+wait(100)
+gotoifbagfull(@bury)
+gotoifitemincoords(@pick,700,689,692,681,20)
+goto(@bones)
+
+@pick:
+setvarsnearestitemincoords(%x,%y,20,700,689,692,681)
+gotoifnum1equalnum2(@openeast,%x,694)
+gotoifnum1equalnum2(@openwest,%x,698)
+gotoifcoordsin(@openwest,700,683,699,687)
+gotoifcoordsin(@openeast,694,682,691,684)
+@pick2:
+takeitembyname(%x,%y,Bones)
+wait(300)
+goto(@bones)
+
+@openeast:
+opendoorifclosed(695,683)
+goto(@pick2)
+
+@openwest:
+opendoorifclosed(698,685)
+goto(@pick2)
+
+@bury:
+setvarfatigue(%f)
+gotoifnum1equalnum2(@sleep,%f,100)
+useitembyid(20)
+wait(500)
+gotoifininventory(@bury,20)
+goto(@bones)
+
+@sleep:
+wait(2000)
+useitembyid(1263)
+wait(2000)
+waitforwakeup(28000)
+gotoifsleeping(@sleep)
+goto(@bones)

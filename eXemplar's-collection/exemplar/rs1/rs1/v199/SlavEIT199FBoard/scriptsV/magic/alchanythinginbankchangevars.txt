@@ -1,0 +1,34 @@
+setvar(%item,372) //item id to alch
+setvar(%banker,95) //95 = regular banker
+ 		     224 = fairy
+		     268 = anotherone
+		     540 = Gnome banker
+		     617 = jungle banker
+@bank:
+repeatnextcommanduntilquestmenu(4000)
+talktonearestnpc(%banker)
+answer(0)
+waitforbank(8000)
+wait(1000)
+@item:
+wait(50)
+withdraw(%item,1)
+gotoifbagfull(@alch)
+closebank()
+goto(@item)
+
+@alch:
+setvarfatigue(%f)
+gotoifnum1abovenum2(@sleep,%f,99)
+mageitembyid(%item,28)
+wait(500)
+gotoifcountininventorygreater(@alch,0,%item)
+goto(@bank)
+
+@sleep:
+wait(2000)
+useitembyid(1263)
+wait(2000)
+waitforwakeup(28000)
+gotoifsleeping(@sleep)
+goto(@alch)

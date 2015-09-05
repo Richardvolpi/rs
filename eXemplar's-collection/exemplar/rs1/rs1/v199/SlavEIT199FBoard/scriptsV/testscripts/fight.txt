@@ -1,0 +1,2 @@
+attacknearestnpc(70)
+wait(1000)

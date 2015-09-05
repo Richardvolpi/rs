@@ -1,0 +1,2 @@
+mageitembyid(373,28)
+wait(2000)

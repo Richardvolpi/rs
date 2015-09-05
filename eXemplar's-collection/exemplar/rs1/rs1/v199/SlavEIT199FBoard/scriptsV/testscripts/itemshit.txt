@@ -1,0 +1,24 @@
+dg[0-39] item count in store
+cg[0-39] item id in store
+f(id) item count in inventory
+//sell
+
+int k3 = Rf + eg[x];
+        if(k3 < 10)
+            k3 = 10;
+        int k4 = (k3 * e.C[l2]) / 100;
+        super.X.a(21);
+        super.X.f(cg[Fc]); //id in 0-39
+        super.X.c(k4); 
+        super.X.c();
+40 sqs in shop?
+
+for(int i = 0; i < 40; i++){
+
+		int j4 = cg[i];
+		int k3 = Rf + eg[i];
+		if(k3 < 10)
+		    k3 = 10;
+		int k4 = 0;
+		if(cg[i]!=-1){
+        	k4 = (k3 * e.C[j4]) / 100;

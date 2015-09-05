@@ -1,0 +1,3 @@
+debugrs(ehhh)
+stop()
+wait(1000)

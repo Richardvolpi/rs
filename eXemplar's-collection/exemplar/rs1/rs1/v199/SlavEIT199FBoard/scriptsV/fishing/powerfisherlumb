@@ -1,0 +1,14 @@
+@main:
+setvarfatigue(%f)
+gotoifnum1abovenum2(@sleep,%f,99)
+objcmd1(125,631)
+wait(300)
+goto(@main)
+
+@sleep:
+wait(2500)
+useitembyid(1263)
+wait(2500)
+waitforwakeup(25000)
+gotoifsleeping(@sleep)
+goto(@main)
