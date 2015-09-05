@@ -1,0 +1,14 @@
+@wall:
+opendoor(497,559,jump)
+wait(100)
+setvarfatigue(%f)
+gotoifnum1abovenum2(@sleep,%f,98)
+goto(@wall)
+
+@sleep:
+wait(2000)
+useitembyid(1263)
+wait(2000)
+waitforwakeup(25000)
+gotoifsleeping(@sleep)
+goto(@wall)

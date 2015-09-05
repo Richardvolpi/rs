@@ -1,0 +1,4 @@
+setvarsnearestitem(%x,%y,14)
+debugrs(%x)
+debugrs(%y)
+wait(5000)

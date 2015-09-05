@@ -1,0 +1,7 @@
+@main:
+wait(10)
+gotoifcountininventoryequal(@yea,22,373)
+debugrs(theres lobs)
+goto(@main)
+@yea:
+debugrs(no lobs)

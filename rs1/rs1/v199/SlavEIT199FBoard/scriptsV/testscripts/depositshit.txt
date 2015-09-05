@@ -1,0 +1,11 @@
+repeatnextcommanduntilquestmenu(2000)
+talktonearestnpc(95)
+answer(0)
+debugrs(before)
+waitforbank(5000)
+debugrs(after)
+@deposit:
+deposit(373,1)
+wait(100)
+gotoifininventory(@deposit,373)
+debugrs(done depositing)

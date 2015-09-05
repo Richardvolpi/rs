@@ -1,0 +1,2 @@
+waitforcoordchange()
+debugrs(changed)

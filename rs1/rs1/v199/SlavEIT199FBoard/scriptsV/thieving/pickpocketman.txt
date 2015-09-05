@@ -1,0 +1,16 @@
+@main:
+gotoiffighting(@run)
+gotoifnpcnearbyname(@pp,man)
+goto(@main)
+
+@run:
+setvarmyx(%x)
+setvarmyy(%y)
+walknowait(%x,%y)
+wait(300)
+goto(@main)
+
+@pp:
+thievenearestnpc(318)
+wait(200)
+goto(@main)

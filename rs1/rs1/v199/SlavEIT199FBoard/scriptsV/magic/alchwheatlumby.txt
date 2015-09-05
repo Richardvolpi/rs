@@ -1,0 +1,25 @@
+alchs wheet in lumby
+@main:
+gotoifbagfull(@alch)
+goto(@pick)
+
+@pick:
+objcmd2(174,597)
+wait(600)
+goto(@main)
+
+@alch:
+setvarfatigue(%f)
+gotoifnum1abovenum2(@sleep,%f,99)
+mageitembyid(29,28)
+wait(500)
+gotoifcountininventorygreater(@alch,0,29)
+goto(@main)
+
+@sleep:
+wait(2000)
+useitembyid(1263)
+wait(2000)
+waitforwakeup(28000)
+gotoifsleeping(@sleep)
+goto(@main)

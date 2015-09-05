@@ -1,0 +1,51 @@
+set the variables below according to the item
+setvar(%id,373)  
+setvar(%npc,227)
+setvar(%a,2) 
+
+item         npc id  answer
+lobster      227 373 2
+raw lobster  227 372 3
+swordies     227 370 0
+raw swordies 227 369 1
+
+iron         225 151 0
+coal         225 155 1
+mith         225 153 2
+gold         225 152 3
+silver       225 383 4
+
+iron bar     226 170 0
+steel bar    226 171 1
+mith bar     226 173 2
+gold bar     226 172 3
+silver bar   226 384 4
+
+@main:
+gotoifcountininventorygreater(@bank,0,%id)
+gotoifcountininventoryequal(@uncert,0,%id)
+
+@uncert:
+repeatnextcommanduntilquestmenu(4000)
+talktonearestnpc(%npc)
+answer(0)
+waitforquestmenu(5000)
+answer(%a)
+waitforquestmenu(5000)
+answer(4)
+wait(1500)
+goto(@main)
+
+@bank:
+repeatnextcommanduntilquestmenu(4000)
+talktonearestnpc(95)
+answer(0)
+waitforbank(8000)
+wait(1000)
+@dep:
+wait(50)
+deposit(%id,25)
+deposit(%id,1)
+gotoifininventory(@dep,%id)
+closebank()
+goto(@main)

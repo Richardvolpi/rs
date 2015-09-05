@@ -1,0 +1,9 @@
+@main:
+gotoiffighting(@wait)
+attacknearestnpc(62)
+sleep(500)
+goto(@main)
+
+@wait:
+sleep(10)
+goto(@main)

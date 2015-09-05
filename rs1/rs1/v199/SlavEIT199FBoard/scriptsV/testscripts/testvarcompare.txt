@@ -1,0 +1,10 @@
+@main:
+setvarfatigue(%fat)
+debugrs(%fat)
+sleep(200)
+;gotoifvarabovenum(@wait,%fat,99)
+goto(@main)
+
+@wait:
+debugrs(inwait)
+goto(@main)
