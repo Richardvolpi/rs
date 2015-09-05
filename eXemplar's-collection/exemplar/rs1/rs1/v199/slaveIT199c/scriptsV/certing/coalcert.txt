@@ -1,0 +1,68 @@
+set the variables below according to the item
+
+
+item         npc id  answer
+lobster      227 373 0
+raw lobster  227 372 1
+swordies     227 370 2
+raw swordies 227 369 3
+
+iron         225 151 0
+coal         225 155 1
+mith         225 153 2
+gold         225 152 3
+silver       225 383 4
+
+iron bar     226 170 0
+steel bar    226 171 1
+mith bar     226 173 2
+gold bar     226 172 3
+silver bar   226 384 4
+
+@main:
+setvar(%id,155)  
+setvar(%npc,225)
+setvar(%a,1) 
+gotoifcountininventorygreater(@cert,20,%id)
+goto(@goin)
+
+@goin:
+objcmd1(219,633)
+wait(500)
+walkwait(219,635)
+wait(500)
+setvarmyy(%y)
+gotoifnum1abovenum2(@bank,%y,633)
+goto(@goin)
+
+@cert:
+repeatnextcommanduntilquestmenu(4000)
+talktonearestnpc(%npc)
+answer(1)
+waitforquestmenu(5000)
+answer(%a)
+waitforquestmenu(5000)
+answer(4)
+wait(1500)
+goto(@main)
+
+@bank:
+repeatnextcommanduntilquestmenu(4000)
+talktonearestnpc(95)
+answer(0)
+waitforbank(8000)
+wait(1000)
+@with:
+wait(50)
+withdraw(%id,1)
+gotoifbagfull(@goout)
+goto(@with)
+
+@goout:
+objcmd1(219,633)
+wait(500)
+walkwait(219,633)
+wait(500)
+setvarmyy(%y)
+gotoifnum1belownum2(@main,%y,634)
+goto(@goout)

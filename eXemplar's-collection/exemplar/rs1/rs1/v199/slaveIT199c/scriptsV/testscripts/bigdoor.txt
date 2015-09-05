@@ -1,0 +1,2 @@
+openbigdoorifclosed(287,572)
+wait(1000)

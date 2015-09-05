@@ -1,0 +1,5 @@
+setvarmyx(%x)
+setvarmyy(%y)
+debugrs(%x)
+debugrs(%y)
+wait(1000)

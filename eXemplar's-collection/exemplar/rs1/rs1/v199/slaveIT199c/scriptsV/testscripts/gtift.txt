@@ -1,0 +1,15 @@
+@main:
+gotoiffighting(@wait)
+setvarfatigue(%fatigue)
+debugrs(%fatigue)
+gotoifvarabovenum(@wait,%fatigue,99)
+fightmode(1)
+attacknearestnpc(62)
+sleep(500)
+goto(@main)
+
+@wait:
+sleep(10)
+
+goto(@main)
+

@@ -1,0 +1,40 @@
+picks the big bone and 2 of the small bone spawns
+at the monk place
+@bones:
+wait(100)
+gotoifbagfull(@bury)
+gotoifitemincoords(@pickbig,698,648,700,647,413)
+gotoifitemincoords(@pick,698,648,700,647,20)
+goto(@bury)
+
+@pickbig:
+setvarsnearestitemincoords(%x,%y,413,698,648,700,647)
+takeitembyname(%x,%y,Big Bones)
+wait(300)
+goto(@bones)
+
+@pick:
+setvarsnearestitemincoords(%x1,%y1,20,698,648,700,647)
+takeitembyname(%x1,%y1,Bones)
+wait(300)
+goto(@bones)
+
+@bury:
+setvarfatigue(%f)
+gotoifnum1equalnum2(@sleep,%f,100)
+useitembyid(20)
+wait(500)
+gotoifininventory(@bury,20)
+@burybig:
+useitembyid(413)
+wait(500)
+gotoifininventory(@burybig,413)
+goto(@bones)
+
+@sleep:
+wait(2000)
+useitembyid(1263)
+wait(2000)
+waitforwakeup(28000)
+gotoifsleeping(@sleep)
+goto(@bones)

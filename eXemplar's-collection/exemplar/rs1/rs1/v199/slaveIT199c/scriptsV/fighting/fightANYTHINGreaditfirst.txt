@@ -1,0 +1,49 @@
+@main:
+setvarcurrentstat(%hp,3) //sets hp var
+gotoifnum1belownum2(@eat,%hp,55) //change 55 to eat at hp
+gotoiffighting(@reattackc) //reattacks npc in fight 
+gotoifnpcnear(@attack,655) //if npc type is near attack change 655 to npcid
+;walknowait(417,3466)
+wait(200)
+goto(@main)
+
+@reattackc:
+setvarmyx(%x)
+setvarmyy(%y)
+walknowait(%x,%y)
+wait(100)
+attacknearestnpc(655) //change to npc id
+gotoiffighting(@reattack)
+goto(@main)
+
+@attack:
+fightmode(3) //fightmode 1 str 2 att 3 def 0 controlled
+attacknearestnpc(655,true) //change 655 to npc id to attack, true to false if you dotn want to escape when trapped
+setvarfatigue(%f)
+gotoifnum1abovenum2(@sleep,%f,99) //sleeps on 100 fatigue
+wait(500)
+goto(@main)
+
+@sleep: //sleeps
+wait(2000)
+useitembyid(1263)
+wait(2000)
+waitforwakeup(28000)
+gotoifsleeping(@sleep)
+goto(@main)
+
+@eat:
+setvarinvcountbyid(%cooked,373) //change to your food id, logs out on no food
+gotoifnum1abovenum2(@eat2,%cooked,0)
+logout()
+stop()
+@eat2:
+setvarmyx(%x)
+setvarmyy(%y)
+walknowait(%x,%y)
+wait(100)
+gotoiffighting(@eat2)
+@eat2:
+eatanything() //eats anything in invo
+wait(2000)
+goto(@main)

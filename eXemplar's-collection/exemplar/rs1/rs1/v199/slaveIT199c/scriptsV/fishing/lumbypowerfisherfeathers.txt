@@ -1,0 +1,16 @@
+simple power flyfisher for lumby
+
+@fish:
+setvarfatigue(%f)
+gotoifnum1abovenum2(@sleep,%f,99)
+objcmd1(125,629)
+wait(600)
+goto(@fish)
+
+@sleep:
+wait(2000)
+useitembyid(1263)
+wait(2000)
+waitforwakeup(28000)
+gotoifsleeping(@sleep)
+goto(@fish)

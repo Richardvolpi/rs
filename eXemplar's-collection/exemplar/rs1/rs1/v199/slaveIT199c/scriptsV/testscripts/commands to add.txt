@@ -1,0 +1,31 @@
+++selectoption(option)
+myX()
+myY()
+gottaadd method - useitembyname()
+useitem(int pos)
+++fightmode(mode)
+make a gotoifinventoryfull invCount() == 30
+attackPlayer(id) - later on
+dropbyname(string)
+gotoiffoodfound whereisfood()
+gotoifbagfound hereisbag()
+takeitembyid TakeItembyId
+++ - attacknearest(type) AttackNearest(type)
+++objcmd1(x,y) objcmd1(x,y)
+++AttackNearest
+TalkNearest
+setvarfatigue(getfatigue())
+setvarmyx(myX())
+setvarmyy(myY())
+gotoiffighting(label) selfIsFighting()
+++MageNearest(type,spell)
+210 use item in invo with ground item fire
+200 use spell on ground item : telegrab
+810 use item on player xmas crackers
+410 use item on object
+e.T[xh[array]] = object names
+Lg
+Sg
+dc
+td
+vg

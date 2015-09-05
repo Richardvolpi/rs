@@ -1,0 +1,161 @@
+InvCount() - count all items 
+InvCount(id) - count of specific item
+isWearable(slot) - 
+isWorn(slot) - 
+InvStackableCount(Id) - count of coins and such e(10);
+UseItem(slot) d
+FindInv(Id) d- ex: UseItem(FindInv(373)); - eats lobsters
+IdHerbs() d
+Drop(slot) d
+UseItemWithInvItem(slot,slot)
+UseItemWithItemById(id1, id2)
+WhereIsFood() - returns slot with food
+EatFood() - eats first food item
+isInInventory(id)
+FindInv(String name)
+
+magic methods:
+canCast(spell)
+MagicItem(slot, spell)
+Teleport(spell)
+MagicNpc(npc index)
+MagicGroundItem(index, spell)
+UseItemwithGroundItem(index, spot)
+
+prayer methods:
+PrayerOn(prayer)
+PrayerOff(prayer)
+isPrayerOn(prayer)
+PrayerCount()
+
+player methods:
+PlayerRemembered() - name of player last "remembered" in menu
+PlayerCount()
+PlayerX(index)
+PlayerY(index)
+PlayerDestX(index)
+PlayerDestY(index)
+PlayerHPbar(index) - is hp bar shown
+PlayerID(index)
+PlayerName(index)
+AttackPlayer(index)
+FollowPlayer(index)
+DuelPlayer(index)
+TradePlayer(index)
+
+npc methods:
+variable: rs.escape - sets whether to escape from doors with some commands
+
+NpcCount()
+NpcName(index)
+NpcType(index)
+isNpcAttackable(index)
+isNpcReachable(index)
+isNpcInCombat(index)
+NpcID(index)
+NpcX(index)
+NpcY(index)
+isNpcNearMagic(int type)
+isNpcNearByName(String type)
+isNpcNearByNameinDist(String type, distance)
+isNpcInAreaNoReach(int type, x1, y1, x2, y2)
+isNpcInAreaByName(String type, x1, y1, x2, y2)
+isNpcInArea(int type, x1, y1, x2, y2)
+
+NpcDistance(index) - distance in sq's away
+NpcPathLength(index)
+isNpcnear(type)
+
+npc action methods:
+AttackNpc(index)
+ThieveNpc(index)
+TalkNpc(index)
+
+object methods:
+ObjCount()
+ObjType(index)
+ObjName(index)
+ObjX(index)
+ObjY(index)
+getObjCmd1(index) - returns text such as "Mine"
+getObjCmd2(index) - returns text such as "net"
+
+object action methods:
+ObjCmd1(x,y) - acts on object at coords
+ObjCmd2(x,y)
+
+walk methods:
+WalkTo(x, y)
+WalkToWait(x, y)
+ForceWalk(x, y)
+WalkToInArea(x1, y1, x2, y2) - must be fixed
+
+quest menu:
+Answer(number)
+isQuestMenu()
+
+bank methods:
+isBank()
+WaitForBank(timeout)
+Deposit(Id, amount)
+Withdraw(Id, amount)
+
+shop methods:
+sellItem(id)
+buyItem(id)
+storeItemPrice(id)
+storeItemCount(id)
+WaitForShop(timeout)
+isShop()
+
+other methods:
+PathLength(x,y) steps to location
+Distance(x,y) distance to location
+random(start, end)
+LogOut();
+loggedin();
+myX();
+myY();
+
+original slave methods:
+AttackNearestInArea(type, x1, y1, x2, y2)
+AttackNearest(int type)
+AttackNearestNoPath(int type)
+AttackNearestByName(String type)
+RangeNearest(int type)
+RangeNearestByName(String type)
+AttackNearestInCombat(int type) - used for running and attacking
+AttackNearestInCombatNoPath(int type)
+
+trade methods:
+TradingWith() returns name
+Accepted1Player() returns if other accepted first screen
+Accepted1Self() returns if you accepted
+Accepted2Self() accepted 2nd window?
+Accept1() accepts first window
+Accept2() accepts second
+isTrading1() are you trading first window
+isTrading2() are you in 2nd trading window
+
+wall object(door) methods: 
+wallObjCount()
+getwallObjCommand1(index)
+getwallObjCommand2(index)
+wallObjX(index)
+wallObjY(index)
+wallObjType(index)
+wallObjID(index)
+wallObjCommand1(index)
+wallObjCommand2(index)
+
+ground item methods:
+groundItemCount()
+groundItemName(index)
+groundItemX(index)
+groundItemY(index)
+groundItemType(index)
+TakeItem(index)
+getNearestItem(int type)
+
+to be added in next:
+PutTrade(Id, amount)
