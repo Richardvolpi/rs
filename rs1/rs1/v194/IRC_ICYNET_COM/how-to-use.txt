@@ -1,0 +1,29 @@
+Hi the readme is a bit outdated as I have done quite a few updates to the bot... So here is the commands.
+
+To load the bot. Run worldchooser.exe. This is a simple VB program by faketrix that creates batch files that will tell the server which server to load. If you don't want to use the vb program, I included RuneScape.bat which will load world 31...
+
+F5 starts and stops the autofighter. Attack an NPC first to set one.
+F7 will turn on debug mode..Kinda pointless its mainly for me to track bugs. It will show all messages even if macro  is running.. Usually it won't show messages when autofighter is running. (lag)
+F8 will adjust your fight mode..I'm going to be changing the way this is done. The default mode is str.
+
+F9 will enable/disable 'LagSafeMode'...This will stop the applet from rendering graphics which will allow it to run much easier, And use less CPU. Use this if you want to run a couple or something. 
+F10 will enable/disable AutoLogin .. In case you are getting logged out sometimes just turn this on and the 
+bot will automatically log you back in.
+
+PAGE DOWN - Decrease fatigue level that bot will sleep at
+PAGE UP - Increase 'Fatigue ThreshHold' (fatigue bot will sleep at)
+F11 - Increase Fight Speed :o
+F12 - Decrease Fight Speed. Don't go too fast...The default level should be fast enough.
+
+Insert Key will zoom out camera.
+Delete Key will zoom camera inwards.
+Don't leave it zoomed out while you macro as it causes the client to lag some.
+
+Make sure you have a sleeping bag in your inventory or the bot may not work correctly.
+
+Other features:
+I modified the minimap to color dots differently. Player dots are based on level. If they are red they are higher level then you. I plan to improve this later maybe.
+
+Have Fun,
+eP (evilpat)
+irc.icynet.com #RSAF
