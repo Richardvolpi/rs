@@ -1,0 +1,23 @@
+WW         WW     AAA      SSSSS   TTTTTTTT  EEEEEEEE  DDDDDD
+ WW       WW     AA AA    SS       TTTTTTTT  EE        DD   DD
+  WW     WW     AAAAAAA    SSSSS      TT     EEEEE     DD    DD
+   WW W WW     AA     AA       SS     TT     EE        DD   DD
+    WW WW     AA       AA  SSSSS      TT     EEEEEEEE  DDDDDD
+
+                BBBBBB       OOO     TTTTTTT
+                BB   BBB   OO   OO   TTTTTTT
+                BBBBBB    OO     OO    TT
+                BB    BB   OO   OO     TT
+                BB  BBB     OO OO      TT
+                BBBBB        OOO       TT
+
+-Version 1.1
+-=Commands
+*AttackPlayer(Name) Now is AttackPlayer(ID)
+*AttackPlayerName(Name) Was added
+*Fixed WalkTo (Minor Bug)
+*Added World Hopping via /XX ingame where xx is the desired game world
+-=Other
+*Applet Window added in the Application
+*Lormsby Fixed the OCR ;)
+*A few unimportant Changes

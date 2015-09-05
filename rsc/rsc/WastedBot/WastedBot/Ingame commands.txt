@@ -1,0 +1,12 @@
+Commands
+
+F10 - Start autofighter (bugged)
+F11 - AutoSleeping Threshhold Down 1.
+F12 - Autosleeping Threshhold Up 1 (101 for disabled autosleeping).
+/XX - World Hop to XX.
+
+Arrow keys without "Caps" enabled - Zooming.
+Arrow keys with "Caps" enabled - Antiyou's Side Zooming ;)
+PGUP/PGDN - Angle Rotation.
+HOME/END - Minimap zooming :D :D :D.
+more coming ;)

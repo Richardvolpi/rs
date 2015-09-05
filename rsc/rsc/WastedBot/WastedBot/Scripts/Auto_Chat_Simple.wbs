@@ -1,0 +1,30 @@
+'[WasteDBoT]
+
+@Sub Main()
+Dim MSG
+BotChat("AutoChatter Starting")
+Sleep(2000)
+Do While ScriptOn()
+Sleep(25)
+MSG = Rand(3)
+If MSG = 1 Then
+Call Msg1
+ElseIf MSG = 2 Then
+Call Msg2
+ElseIf MSG = 3 Then
+Call Msg3
+End If
+Loop
+@End
+
+@Sub Msg1()
+Say "chat @Gre@.WasteD.BoT For Lyfe, j00 noobs suck. Phate and Lormsby 4 evr"
+@End
+
+@Sub Msg2()
+Say "chat @cya@.WasteD.BoT For Lyfe, Phate + Lormsby 4evr."
+@End
+
+@Sub Msg3()
+Say "chat @red@.WasteD.BoT will be back. auto 4 lyfe yall. Andrew you suck"
+@End

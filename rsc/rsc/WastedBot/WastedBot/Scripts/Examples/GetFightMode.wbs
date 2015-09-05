@@ -1,0 +1,9 @@
+'[WasteDBoT]
+Public Sub Main()
+Dim FightMode
+Sleep(2000)
+FightMode = GetFightMode()
+Sleep(2000)
+BotChat("My fightmode = " & FightMode)
+Sleep(2000)
+End Sub
