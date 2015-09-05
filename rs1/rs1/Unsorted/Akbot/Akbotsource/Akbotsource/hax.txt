@@ -1,0 +1,205 @@
+private final void fbk()
+    {
+        boolean flag1 = false;
+        if(elf != 0 && ejn == 0)
+            ejn = 1;
+        if(ejn > 0)
+        {
+            int i = super.flg - 22;
+            int j = super.flh - 36;
+            if(i >= 0 && j >= 0 && i < 468 && j < 262)
+            {
+                if(i > 216 && j > 30 && i < 462 && j < 235)
+                {
+                    int k = (i - 217) / 49 + ((j - 31) / 34) * 5;
+                    if(k >= 0 && k < djn)
+                    {
+                        boolean flag = false;
+                        int l1 = 1;
+                        int k2 = dka[k];
+                        for(int k3 = 1; k3 < djf; k3++)
+                            if(djg[k3] == k2)
+                                if(ahd.ahl[k2] == 1)
+                                {
+                                    for(int i4 = 1; i4 < ejn; i4++)
+                                    {
+                                        if(djh[k3] < dkb[k])
+                                            djh[k3]++;
+                                        flag = true;
+                                    }
+
+                                } else
+                                {
+                                    l1++;
+                                }
+
+                        if(fec(k2) <= l1)
+                            flag = false;
+                        if(ahd.aib[k2] == 0)                       
+ {
+                            flag = false;
+                        }
+                        if(!flag && djf < 12)
+                        {
+                            djg[djf] = k2;
+                            djh[djf] = 1;
+                            djf++;
+                            flag = false;
+                        }
+                        if(flag)
+                        {
+                          super.aah.hfj(1);
+                       
+                            for(int j4 = 0; j4 < djf; j4++)
+                            {
+                                
+                                super.aah.hfb(djh[j4]);
+                            }
+
+                            super.aah.hff();
+                        }
+                    }
+                }
+                             if(i > 8 && j > 30 && i < 205 && j < 133)
+                {
+                    int l = (i - 9) / 49 + ((j - 31) / 34) * 4;
+                    if(l >= 0 && l < djf)
+                    {
+                        int j1 = djg[l];
+                        for(int i2 = 0; i2 < ejn; i2++)
+                        {
+                            if(ahd.ahl[j1] == 0 && djh[l] > 1)
+                            {
+                                djh[l]--;
+                                continue;
+                            }
+                            djf--;
+                            ejm = 0;
+                            for(int l2 = l; l2 < djf; l2++)
+                            {
+                                djg[l2] = djg[l2 + 1];
+                                djh[l2] = djh[l2 + 1];
+                            }
+
+                            break;
+                        }
+
+                        super.aah.hfj(119);
+                        super.aah.hfa(djf);
+                        for(int i3 = 0; i3 < djf; i3++)
+                        {
+                            super.aah.hen(djg[i3]);
+                            super.aah.hfb(djh[i3]);
+                        }
+
+                        super.aah.hff();
+                        eib = false;
+                        eic = false;
+                    }
+                }
+                if(i >= 217 && j >= 238 && i <= 286 && j <= 259)
+                {
+                    eic = true;
+                    super.aah.hfj(224);
+                    super.aah.hff();
+                }
+                if(i >= 394 && j >= 238 && i < 463 && j < 259)
+                {
+                    dfk = false;
+                    super.aah.hfj(40);
+                    super.aah.hff();
+                }
+            } else
+            if(elf != 0)
+            {
+                dfk = false;
+                super.aah.hfj(40);
+                super.aah.hff();
+            }
+            elf = 0;
+            ejn = 0;
+        }
+        if(!dfk)
+            return;
+        byte byte0 = 22;
+        byte byte1 = 36;
+        dki.cbh(22, 36, 468, 12, 192);
+        int i1 = 0x000000;
+        dki.cbf(22, 48, 468, 18, 0x000000, 160);
+        dki.cbf(22, 66, 8, 248, 0x000000, 160);
+        dki.cbf(227, 66, 11, 248, 0x000000, 160);
+        dki.cbf(484, 66, 6, 248, 0x000000, 160);
+        dki.cbf(30, 169, 197, 22, 0x000000, 160);
+        dki.cbf(30, 294, 197, 20, 0x000000, 160);
+        dki.cbf(238, 271, 246, 43, 0x000000, 160);
+        int k1 = 0xd0d0d0;
+        dki.cbf(30, 66, 197, 103, 0xdfaffdf, 160);
+        dki.cbf(30, 191, 197, 103, 0xdfaffdf, 160);
+        dki.cbf(238, 66, 246, 205, 0xdfaffdf, 160);
+        for(int j2 = 0; j2 < 4; j2++)
+            dki.cbj(30, 66 + j2 * 34, 197, 0);
+
+        for(int j3 = 0; j3 < 4; j3++)
+            dki.cbj(30, 191 + j3 * 34, 197, 0);
+
+        for(int l3 = 0; l3 < 7; l3++)
+            dki.cbj(238, 66 + l3 * 34, 246, 0);
+
+        for(int k4 = 0; k4 < 6; k4++)
+        {
+            if(k4 < 5)
+                dki.cbk(30 + k4 * 49, 66, 103, 0);
+            if(k4 < 5)
+                dki.cbk(30 + k4 * 49, 191, 103, 0);
+            dki.cbk(238 + k4 * 49, 66, 205, 0);
+        }
+
+        dki.ceg("Trading with: " + eli, 23, 46, 1, 0xffffff);
+        dki.ceg("Your Offer", 31, 63, 4, 0xffffff);
+        dki.ceg("Opponent's Offer", 31, 188, 4, 0xffffff);
+        dki.ceg("Your Inventory", 238, 63, 4, 0xfffff);
+        if(!eic)
+            dki.cci(239, 274, eie + 25);
+        dki.cci(416, 274, eie + 26);
+        if(eib)
+        {
+            dki.cee("Other player", 363, 282, 1, 0xffffff);
+            dki.cee("has accepted", 363, 292, 1, 0xffffff);
+        }
+        if(eic)
+        {
+            dki.cee("Waiting for", 274, 282, 1, 0xffffff);
+            dki.cee("other player", 274, 292, 1, 0xffffff);
+        }
+        for(int l4 = 0; l4 < djn; l4++)
+        {
+            int i5 = 239 + (l4 % 5) * 49;
+            int k5 = 67 + (l4 / 5) * 34;
+            dki.cdk(i5, k5, 48, 32, eig + ahd.ahj[dka[l4]], ahd.aia[dka[l4]], 0, 0, false);
+            if(ahd.ahl[dka[l4]] == 0)
+                dki.ceg(String.valueOf(dkb[l4]), i5 + 1, k5 + 10, 1, 0xffff00);
+        }
+
+        for(int j5 = 0; j5 < djf; j5++)
+        {
+            int l5 = 31 + (j5 % 4) * 49;
+            int j6 = 67 + (j5 / 4) * 34;
+            dki.cdk(l5, j6, 48, 32, eig + ahd.ahj[djg[j5]], ahd.aia[djg[j5]], 0, 0, false);
+            if(ahd.ahl[djg[j5]] == 0)
+                dki.ceg(String.valueOf(djh[j5]), l5 + 1, j6 + 10, 1, 0xffff00);
+            if(super.flg > l5 && super.flg < l5 + 48 && super.flh > j6 && super.flh < j6 + 32)
+                dki.ceg(ahd.alm[djg[j5]] + ": @whi@" + ahd.aln[djg[j5]], 30, 309, 1, 0xffff00);
+        }
+
+        for(int i6 = 0; i6 < dkn; i6++)
+        {
+            int k6 = 31 + (i6 % 4) * 49;
+            int l6 = 192 + (i6 / 4) * 34;
+            dki.cdk(k6, l6, 48, 32, eig + ahd.ahj[dla[i6]], ahd.aia[dla[i6]], 0, 0, false);
+            if(ahd.ahl[dla[i6]] == 0)
+                dki.ceg(String.valueOf(dlb[i6]), k6 + 1, l6 + 10, 1, 0xffff00);
+            if(super.flg > k6 && super.flg < k6 + 48 && super.flh > l6 && super.flh < l6 + 32)
+                dki.ceg(ahd.alm[dla[i6]] + ": @whi@" + ahd.aln[dla[i6]], 30, 309, 1, 0xffff00);
+        }
+
+    }

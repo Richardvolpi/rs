@@ -1,0 +1,19 @@
+  private final void fmj()
+     {
+         fkj.setColor(Color.black);
+ Toolkit toolkit = Toolkit.getDefaultToolkit();
+             int jj = (fjc - 281) / 2;
+             int kk = (fjd - 148) / 2;
+ fki = toolkit.getImage(System.getProperty("user.dir") + "/data/yourpic.gif");
+           fkj.drawImage(fki, jj, kk, this);
+        {
+            blm.ceb("h11p", 0, this);
+            blm.ceb("h12b", 1, this);
+            blm.ceb("h12p", 2, this);
+            blm.ceb("h13b", 3, this);
+            blm.ceb("h14b", 4, this);
+            blm.ceb("h16b", 5, this);
+            blm.ceb("h20b", 6, this);
+            blm.ceb("h24b", 7, this);
+        }
+    }
