@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/rscd/!svn/ver/3/web/lang/English/mail_templates
+END
+activate_password.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/rscd/!svn/ver/3/web/lang/English/mail_templates/activate_password.tpl
+END
+new_reply.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rscd/!svn/ver/3/web/lang/English/mail_templates/new_reply.tpl
+END
+new_reply_full.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rscd/!svn/ver/3/web/lang/English/mail_templates/new_reply_full.tpl
+END
+activate_email.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rscd/!svn/ver/3/web/lang/English/mail_templates/activate_email.tpl
+END
+form_email.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rscd/!svn/ver/3/web/lang/English/mail_templates/form_email.tpl
+END
+welcome.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/rscd/!svn/ver/3/web/lang/English/mail_templates/welcome.tpl
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rscd/!svn/ver/3/web/lang/English/mail_templates/index.html
+END
+invite.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/rscd/!svn/ver/3/web/lang/English/mail_templates/invite.tpl
+END

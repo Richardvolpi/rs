@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/rscd/!svn/ver/7/web/include/template
+END
+redirect.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/rscd/!svn/ver/3/web/include/template/redirect.tpl
+END
+maintenance.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/rscd/!svn/ver/3/web/include/template/maintenance.tpl
+END
+main.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/rscd/!svn/ver/7/web/include/template/main.tpl
+END
+admin.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/rscd/!svn/ver/7/web/include/template/admin.tpl
+END
+help.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/rscd/!svn/ver/3/web/include/template/help.tpl
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/rscd/!svn/ver/3/web/include/template/index.html
+END

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/rscd/!svn/ver/3/web/include/dblayer
+END
+common_db.php
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/rscd/!svn/ver/3/web/include/dblayer/common_db.php
+END
+mysqli.php
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/rscd/!svn/ver/3/web/include/dblayer/mysqli.php
+END
+sqlite.php
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/rscd/!svn/ver/3/web/include/dblayer/sqlite.php
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/rscd/!svn/ver/3/web/include/dblayer/index.html
+END
+mysql.php
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/rscd/!svn/ver/3/web/include/dblayer/mysql.php
+END
+pgsql.php
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/rscd/!svn/ver/3/web/include/dblayer/pgsql.php
+END

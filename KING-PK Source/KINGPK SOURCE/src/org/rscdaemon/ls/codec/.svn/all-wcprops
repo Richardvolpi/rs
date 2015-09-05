@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/ls/codec
+END
+LSProtocolEncoder.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/ls/codec/LSProtocolEncoder.java
+END
+LSCodecFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/ls/codec/LSCodecFactory.java
+END
+LSProtocolDecoder.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/ls/codec/LSProtocolDecoder.java
+END
+FProtocolEncoder.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/ls/codec/FProtocolEncoder.java
+END
+FCodecFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/ls/codec/FCodecFactory.java
+END
+FProtocolDecoder.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/ls/codec/FProtocolDecoder.java
+END

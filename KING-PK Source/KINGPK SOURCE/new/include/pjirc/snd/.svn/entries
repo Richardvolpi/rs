@@ -1,0 +1,54 @@
+8
+
+dir
+9
+http://home.jamierf.co.uk/svn/rscd/web/include/pjirc/snd
+http://home.jamierf.co.uk/svn/rscd
+
+
+
+2007-12-10T00:14:42.651172Z
+3
+jamie
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9edcc001-6842-4360-afc7-4958aeeaff5d
+
+bell2.au
+file
+
+
+
+
+2007-12-12T23:22:41.031250Z
+f313277b39139fd6bcd9c3f194f6314d
+2007-12-10T00:14:42.651172Z
+3
+jamie
+has-props
+
+ding.au
+file
+
+
+
+
+2007-12-12T23:22:41.046875Z
+c963fb4e032d3ada335902d3cbb0409d
+2007-12-10T00:14:42.651172Z
+3
+jamie
+has-props
+

@@ -1,0 +1,188 @@
+/****************************************************************/
+/* 1. BACKGROUND AND TEXT COLOURS                               */
+/****************************************************************/
+
+/* 1.1 Default background colour and text colour */
+
+html, body {BACKGROUND-COLOR: #000;background-image:url('../../img/skin/bg.jpg');}
+
+.pun {COLOR: #b5b5b5}
+
+.pun th {color:#a3a4a8;}
+
+#brdtitle p {color:#0083c6}
+
+#brdfooter{}
+
+DIV.box,  #adminconsole FIELDSET TH, .rowodd, .roweven {BACKGROUND-COLOR: #000}
+
+#adminconsole TD, #adminconsole TH {BORDER-COLOR: #000}
+
+
+/* 1. 2 Darker background colours */
+
+TD.tc2, TD.tc3, TD.tcmod,  DIV.box {BACKGROUND-COLOR: #000000}
+
+#adminconsole FIELDSET TD, #viewprofile DD, DIV.forminfo, DIV.blockmenu DIV.box, #adstats DD {BACKGROUND-COLOR: #000000}
+
+.pun BLOCKQUOTE, DIV.codebox {BACKGROUND-COLOR: #000000}
+
+/* 1.3 Main headers and navigation bar background and text colour */
+
+.pun H2 {BACKGROUND-COLOR: #a3a4a8; COLOR: #FFFFFF}
+
+#brdmenu {BACKGROUND-COLOR: #fff; COLOR: #FFFFFF;border-top-color:#28292d;border-bottom-color:#28292d;}
+
+/* 1.4 Table header rows */
+
+.pun TH, .bgc4 {BACKGROUND-COLOR: #000}
+
+/* 1.5 Fieldset legend text colour */
+
+.pun LEGEND {COLOR: #FFFFFF}
+
+/* 1.6 Highlighted text for various items */
+
+.pun DIV.blockmenu LI.isactive A, #posterror LI STRONG {COLOR: #FFFFFF}
+
+/* 1.7 Dark background for form elements */
+
+.pun TEXTAREA, .pun INPUT, .pun SELECT {BACKGROUND-COLOR: #000; COLOR: #FFFFFF}
+
+/****************************************************************/
+/* 2. POST BACKGROUNDS AND TEXT                                 */
+/****************************************************************/
+
+/* 2.1 This is the setup for posts. */
+
+DIV.postleft, DIV.postfootleft {border-right-color:#28292d;}
+
+DIV.postright, DIV.postfootright {border-left-color:#28292d;}
+
+DIV.postfootleft, DIV.postfootright {border-top-color:#28292d;}
+
+/* 2.2 Background for post headers and text colour for post numbers in viewtopic */
+
+DIV.blockpost H2 {BACKGROUND-COLOR: #000000}
+
+DIV.blockpost H2 SPAN.conr {COLOR: #A19E96}
+
+/* 2.3 This is the line above the signature in posts. Colour and background should be the same */
+
+.pun HR {BACKGROUND-COLOR: #28292d; COLOR: #28292d}
+
+/****************************************************************/
+/* 3. BORDER COLOURS                                            */
+/****************************************************************/
+
+/* 3.1 All external borders (H1 is the board title) */
+
+h2, DIV.box {BORDER-COLOR: #28292d;}
+
+/* 3.2 Makes the top border of posts match the colour used for post headers */
+
+DIV.blockpost DIV.box {BORDER-COLOR: #28292d}
+
+/* 3.3 Table internal borders. By default TH is same as background so border is invisible */
+
+.pun TD {BORDER-COLOR: #28292d;}
+
+.pun TH {BORDER-COLOR: #28292d;}
+
+/* 3.4 Creates the inset border for quote boxes, code boxes and form info boxes */
+
+.pun BLOCKQUOTE, DIV.codebox, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #28292d}
+
+/* 3.5 Gecko's default fieldset borders are really nasty so this gives them a colour without interferring with IE's rather nice default */
+
+.pun DIV>FIELDSET {BORDER-COLOR: #28292d}
+
+/* 3.6 Adding color to the border of the form inputs */
+
+.pun TEXTAREA, .pun INPUT, .pun SELECT {border-color:#28292d;}
+
+/****************************************************************/
+/* 4. LINK COLOURS                                              */
+/****************************************************************/
+
+/* 4.1 This is the default for all links */
+
+.pun A:link, .pun A:visited {COLOR: #a3a4a8}
+
+.pun A:hover {COLOR: #FFFFFF}
+
+/* 4.2 This is the colour for links in header rows and the navigation bar */
+
+.pun H2 A:link, .pun H2 A:visited {COLOR: #FFFFFF}
+
+.pun H2 A:hover {COLOR: #D4D4D4}
+
+#brdmenu A:link, #brdmenu A:visited  {color:#FFFFFF}
+
+/* 4.3 This is for closed topics and "hot" links */
+
+LI.postreport A:link, LI.postreport A:visited, TR.iclosed TD.tcl A:link, TR.iclosed TD.tcl A:visited {COLOR: #888}
+
+LI.postreport A:hover, TR.iclosed TD.tcl A:hover {COLOR: #AAA}
+
+LI.maintenancelink A:link, LI.maintenancelink A:visited {COLOR: #FF4000}
+
+LI.maintenancelink A:hover {COLOR: #FF5010}
+
+/****************************************************************/
+
+/* 5. POST STATUS INDICATORS */
+
+/****************************************************************/
+
+DIV.icon {background:url(../../img/skin/icon.gif);}
+
+DIV.inew {background:url(../../img/skin/icon_new.gif);}
+
+TR.iclosed DIV.icon {background:url(../../img/skin/icon.gif);}
+
+TR.iredirect DIV.icon {background:url(../../img/skin/icon.gif);}
+
+TR.isticky DIV.icon {background:url(../../img/skin/sticky.gif)}
+
+TR.isticky DIV.inew {background:url(../../img/skin/sticky_new.gif);}
+
+/****************************************************************/
+/* 6. ADDED IN STUFF                                            */
+/****************************************************************/
+
+
+#brdmenu {background-image:url('../../img/skin/tile.gif');}
+
+/*#punwrap{background:url(../../img/runescape/bg_top3.gif) repeat-y}*/
+
+.pun{}
+
+#brdtitle {background-image:url('../../img/banner.gif');}
+
+#brdtitle span {display:none;}
+
+/*#brdmenu li {background:url(../../img/runescape/list.gif)}*/
+
+h2 {background-image:url('../../img/skin/tile.gif');}
+
+/*h2 span {background:url(../../img/runescape/h2_icon.gif)}*/
+
+h2 span .conr {background:none;}
+
+/*div#footextra{color:#555;}*/
+
+div #brdfooter {/*background: url(../../img/runescape/bg_copy.gif no-repeat);*/}
+
+/* the scroll bars*/
+
+html, body{
+	scrollbar-arrow-color:  #60A0DC;
+	scrollbar-face-color: #111111;
+	scrollbar-track-color: #3a3a3a;
+	scrollbar-highlight-color: #222222;
+	scrollbar-shadow-color: #000000;
+	scrollbar-3dlight-color: #333333;
+	scrollbar-darkshadow-color: #000000;
+
+}

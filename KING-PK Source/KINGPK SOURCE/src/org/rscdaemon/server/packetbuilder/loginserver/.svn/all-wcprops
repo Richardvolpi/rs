@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/server/packetbuilder/loginserver
+END
+ReportInfoRequestPacketBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/server/packetbuilder/loginserver/ReportInfoRequestPacketBuilder.java
+END
+PlayerInfoRequestPacketBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/server/packetbuilder/loginserver/PlayerInfoRequestPacketBuilder.java
+END
+PlayerListRequestPacketBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/server/packetbuilder/loginserver/PlayerListRequestPacketBuilder.java
+END
+StatRequestPacketBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/server/packetbuilder/loginserver/StatRequestPacketBuilder.java
+END
+GameSettingUpdatePacketBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/server/packetbuilder/loginserver/GameSettingUpdatePacketBuilder.java
+END
+MiscPacketBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/server/packetbuilder/loginserver/MiscPacketBuilder.java
+END
+PrivacySettingUpdatePacketBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/server/packetbuilder/loginserver/PrivacySettingUpdatePacketBuilder.java
+END
+SavePacketBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/server/packetbuilder/loginserver/SavePacketBuilder.java
+END

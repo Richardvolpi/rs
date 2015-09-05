@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/ls/packetbuilder/loginserver
+END
+PlayerLoginPacketBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/ls/packetbuilder/loginserver/PlayerLoginPacketBuilder.java
+END
+WorldRegisteredPacketBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/ls/packetbuilder/loginserver/WorldRegisteredPacketBuilder.java
+END
+MiscPacketBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/ls/packetbuilder/loginserver/MiscPacketBuilder.java
+END
+ReplyPacketBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/rscd/!svn/ver/1/src/org/rscdaemon/ls/packetbuilder/loginserver/ReplyPacketBuilder.java
+END

@@ -1,0 +1,32 @@
+<AdvertDef-array>
+	<AdvertDef>
+		<message>@whi@Racism and Autoing are bannable offences, so don't even think about it!</message>
+	</AdvertDef>
+	<AdvertDef>
+		<message>@gre@%name@whi@, To toggle the PK Menu On or Off, Press F6. =]</message>
+	</AdvertDef>
+	<AdvertDef>
+		<message>@gre@%name@whi@, Please use the forums daily to see all the new info and updates!</message>
+	</AdvertDef>
+	<AdvertDef>
+		<message>@whi@Need help? Use our IRC-Channel feature @ www.RSCEspada.net!</message>
+	</AdvertDef>
+	<AdvertDef>
+		<message>@whi@Want to donate @gre@%name?@whi@, Then contact @yel@Administrator @whi@, Thank you!</message>
+	</AdvertDef>
+	<AdvertDef>
+		<message>@whi@There are currently @gre@%online @whi@Players Online!</message>
+	</AdvertDef>
+	<AdvertDef>
+		<message>@whi@If you have any questions or you need a help, please conctact to @yel@moderators!</message>
+	</AdvertDef>
+	<AdvertDef>
+		<message>@whi@If you want buy a subscription card(s), please conctact @yel@Administrator(s)!.</message>
+	</AdvertDef>
+	<AdvertDef>
+		<message>@whi@Thanks for playing @yel@RSCEspada, @whi@%name!</message>
+	</AdvertDef>
+	<AdvertDef>
+		<message>@whi@Remember to vote our @yel@RSCEspada@whi@ server as much as you can!</message>
+	</AdvertDef>
+</AdvertDef-array>
