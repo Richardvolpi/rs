@@ -1,0 +1,467 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: ClientCommon - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8F7.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/ClientCommon.pch" /Yu"client_common_pch.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\ClientCommon\client_common_device_globals.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\ClientCommon\client_common_globals.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\ClientCommon\interface.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8F7.tmp" 
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8F8.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/ClientCommon.pch" /Yc"client_common_pch.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\ClientCommon\client_common_pch.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8F8.tmp" 
+Creating command line "link.exe -lib /nologo /out:"..\ClientCommon.lib"  ".\Debug\client_common_device_globals.obj" ".\Debug\client_common_globals.obj" ".\Debug\client_common_pch.obj" ".\Debug\interface.obj" "
+<h3>Output Window</h3>
+Compiling...
+client_common_pch.cpp
+Compiling...
+client_common_device_globals.cpp
+client_common_globals.cpp
+interface.cpp
+Generating Code...
+Creating library...
+<h3>
+--------------------Configuration: common - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8F9.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/common.pch" /Yu"common_pch.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\common\helpers.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\common\rsa_key.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8F9.tmp" 
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8FA.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/common.pch" /Yc"common_pch.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\common\common_pch.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8FA.tmp" 
+Creating command line "link.exe -lib /nologo /out:"..\common.lib"  ".\Debug\common_pch.obj" ".\Debug\helpers.obj" ".\Debug\rsa_key.obj" "
+<h3>Output Window</h3>
+Compiling...
+common_pch.cpp
+Compiling...
+helpers.cpp
+rsa_key.cpp
+Generating Code...
+Creating library...
+<h3>
+--------------------Configuration: KFC_Common - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8FB.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/KFC_Common.pch" /Yu"kfc_common_pch.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\2d_math.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\assignments.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\bmp.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\clipboard.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\cmd_line.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\com.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\common_cfg.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\common_consts.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\common_device_globals.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\common_globals.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\common_initials.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\common_tokens.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\critical_section.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\dll.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\event.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\file.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\file_validation.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\global_mem.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\handle.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\hooks.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\image.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\install.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\interpolator.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\interpolator_message_defs.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\kfc_common_test.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\math_consts.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\matrix.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\memory_stream.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\mesh.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\message.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\message_loop.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\module.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\module_resource.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\msg_box.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\mutex.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\obscure.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\pow2.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\process.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\random_globals.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\registry.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\resource_enumerator.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\resource_updater.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\rgb.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\rpc_message_registerer.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\service.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\shortcut.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\startup_globals.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\structured_info.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\tga.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\time_globals.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\timelimit.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\timer.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\vector.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\version.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\window_timer.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8FB.tmp" 
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8FC.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/KFC_Common.pch" /Yc"kfc_common_pch.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common\kfc_common_pch.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8FC.tmp" 
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8FD.tmp" with contents
+[
+/nologo /out:"..\KFC_Common.lib" 
+".\Debug\2d_math.obj"
+".\Debug\assignments.obj"
+".\Debug\bmp.obj"
+".\Debug\clipboard.obj"
+".\Debug\cmd_line.obj"
+".\Debug\com.obj"
+".\Debug\common_cfg.obj"
+".\Debug\common_consts.obj"
+".\Debug\common_device_globals.obj"
+".\Debug\common_globals.obj"
+".\Debug\common_initials.obj"
+".\Debug\common_tokens.obj"
+".\Debug\critical_section.obj"
+".\Debug\dll.obj"
+".\Debug\event.obj"
+".\Debug\file.obj"
+".\Debug\file_validation.obj"
+".\Debug\global_mem.obj"
+".\Debug\handle.obj"
+".\Debug\hooks.obj"
+".\Debug\image.obj"
+".\Debug\install.obj"
+".\Debug\interpolator.obj"
+".\Debug\interpolator_message_defs.obj"
+".\Debug\kfc_common_pch.obj"
+".\Debug\kfc_common_test.obj"
+".\Debug\math_consts.obj"
+".\Debug\matrix.obj"
+".\Debug\memory_stream.obj"
+".\Debug\mesh.obj"
+".\Debug\message.obj"
+".\Debug\message_loop.obj"
+".\Debug\module.obj"
+".\Debug\module_resource.obj"
+".\Debug\msg_box.obj"
+".\Debug\mutex.obj"
+".\Debug\obscure.obj"
+".\Debug\pow2.obj"
+".\Debug\process.obj"
+".\Debug\random_globals.obj"
+".\Debug\registry.obj"
+".\Debug\resource_enumerator.obj"
+".\Debug\resource_updater.obj"
+".\Debug\rgb.obj"
+".\Debug\rpc_message_registerer.obj"
+".\Debug\service.obj"
+".\Debug\shortcut.obj"
+".\Debug\startup_globals.obj"
+".\Debug\structured_info.obj"
+".\Debug\tga.obj"
+".\Debug\time_globals.obj"
+".\Debug\timelimit.obj"
+".\Debug\timer.obj"
+".\Debug\vector.obj"
+".\Debug\version.obj"
+".\Debug\window_timer.obj"
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8FD.tmp"
+<h3>Output Window</h3>
+Compiling...
+kfc_common_pch.cpp
+Compiling...
+2d_math.cpp
+assignments.cpp
+bmp.cpp
+clipboard.cpp
+cmd_line.cpp
+com.cpp
+common_cfg.cpp
+common_consts.cpp
+common_device_globals.cpp
+common_globals.cpp
+common_initials.cpp
+common_tokens.cpp
+critical_section.cpp
+dll.cpp
+event.cpp
+file.cpp
+file_validation.cpp
+global_mem.cpp
+handle.cpp
+hooks.cpp
+Generating Code...
+Compiling...
+image.cpp
+install.cpp
+interpolator.cpp
+interpolator_message_defs.cpp
+kfc_common_test.cpp
+math_consts.cpp
+matrix.cpp
+memory_stream.cpp
+mesh.cpp
+message.cpp
+message_loop.cpp
+module.cpp
+module_resource.cpp
+msg_box.cpp
+mutex.cpp
+obscure.cpp
+pow2.cpp
+process.cpp
+random_globals.cpp
+registry.cpp
+Generating Code...
+Compiling...
+resource_enumerator.cpp
+resource_updater.cpp
+rgb.cpp
+rpc_message_registerer.cpp
+service.cpp
+shortcut.cpp
+startup_globals.cpp
+structured_info.cpp
+tga.cpp
+time_globals.cpp
+timelimit.cpp
+timer.cpp
+vector.cpp
+version.cpp
+window_timer.cpp
+Generating Code...
+Creating library...
+<h3>
+--------------------Configuration: KFC_KTL - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8FE.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/KFC_KTL.pch" /Yu"kfc_ktl_pch.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\array.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\consts.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\date_time.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\debug.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\debug_file.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\debug_message_box.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\file_names.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\flag_setter.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\globals.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\globals_collector.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\hex.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\kfc_ktl_test.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\kfc_mem.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\kstring.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\kstrings.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\ktl_consts.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\ktl_globals.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\ktl_tokens.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\list.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\module_globals.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\placement_allocation.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\rects.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\string_conv.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\suspendable.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\text_container.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\token.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\tree.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\variable_list.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8FE.tmp" 
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8FF.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/KFC_KTL.pch" /Yc"kfc_ktl_pch.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL\kfc_ktl_pch.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP8FF.tmp" 
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP900.tmp" with contents
+[
+/nologo /out:"..\KFC_KTL.lib" 
+".\Debug\array.obj"
+".\Debug\consts.obj"
+".\Debug\date_time.obj"
+".\Debug\debug.obj"
+".\Debug\debug_file.obj"
+".\Debug\debug_message_box.obj"
+".\Debug\file_names.obj"
+".\Debug\flag_setter.obj"
+".\Debug\globals.obj"
+".\Debug\globals_collector.obj"
+".\Debug\hex.obj"
+".\Debug\kfc_ktl_pch.obj"
+".\Debug\kfc_ktl_test.obj"
+".\Debug\kfc_mem.obj"
+".\Debug\kstring.obj"
+".\Debug\kstrings.obj"
+".\Debug\ktl_consts.obj"
+".\Debug\ktl_globals.obj"
+".\Debug\ktl_tokens.obj"
+".\Debug\list.obj"
+".\Debug\module_globals.obj"
+".\Debug\placement_allocation.obj"
+".\Debug\rects.obj"
+".\Debug\string_conv.obj"
+".\Debug\suspendable.obj"
+".\Debug\text_container.obj"
+".\Debug\token.obj"
+".\Debug\tree.obj"
+".\Debug\variable_list.obj"
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP900.tmp"
+<h3>Output Window</h3>
+Compiling...
+kfc_ktl_pch.cpp
+Compiling...
+array.cpp
+consts.cpp
+date_time.cpp
+debug.cpp
+debug_file.cpp
+debug_message_box.cpp
+file_names.cpp
+flag_setter.cpp
+globals.cpp
+globals_collector.cpp
+hex.cpp
+kfc_ktl_test.cpp
+kfc_mem.cpp
+kstring.cpp
+kstrings.cpp
+ktl_consts.cpp
+ktl_globals.cpp
+ktl_tokens.cpp
+list.cpp
+module_globals.cpp
+Generating Code...
+Compiling...
+placement_allocation.cpp
+rects.cpp
+string_conv.cpp
+suspendable.cpp
+text_container.cpp
+token.cpp
+tree.cpp
+variable_list.cpp
+Generating Code...
+Creating library...
+<h3>
+--------------------Configuration: KFC_Networking - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP901.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/KFC_Networking.pch" /Yu"kfc_networking_pch.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Networking\networking_cfg.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Networking\networking_consts.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Networking\networking_device_globals.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Networking\networking_globals.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Networking\networking_initials.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Networking\networking_tokens.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Networking\socket.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Networking\socket_session.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP901.tmp" 
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP902.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/KFC_Networking.pch" /Yc"kfc_networking_pch.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Networking\kfc_networking_pch.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP902.tmp" 
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP903.tmp" with contents
+[
+/nologo /out:"..\KFC_Networking.lib" 
+".\Debug\kfc_networking_pch.obj"
+".\Debug\networking_cfg.obj"
+".\Debug\networking_consts.obj"
+".\Debug\networking_device_globals.obj"
+".\Debug\networking_globals.obj"
+".\Debug\networking_initials.obj"
+".\Debug\networking_tokens.obj"
+".\Debug\socket.obj"
+".\Debug\socket_session.obj"
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP903.tmp"
+<h3>Output Window</h3>
+Compiling...
+kfc_networking_pch.cpp
+Compiling...
+networking_cfg.cpp
+networking_consts.cpp
+networking_device_globals.cpp
+networking_globals.cpp
+networking_initials.cpp
+networking_tokens.cpp
+socket.cpp
+socket_session.cpp
+Generating Code...
+Creating library...
+<h3>
+--------------------Configuration: ImageTransferClient - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo"Debug/ImageTransferClient.res" /d "_DEBUG" /d "_AFXDLL" "C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\ImageTransferClient\ImageTransferClient.rc"" 
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP904.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/ImageTransferClient.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\ImageTransferClient\ImageTransferClient.cpp"
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\ImageTransferClient\ImageTransferClientDlg.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP904.tmp" 
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP905.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/ImageTransferClient.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\ImageTransferClient\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP905.tmp" 
+Creating temporary file "C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP906.tmp" with contents
+[
+kfc_ktl.lib kfc_common.lib kfc_networking.lib common.lib ClientCommon.lib ws2_32.lib ssleay32.lib libeay32.lib /nologo /subsystem:windows /incremental:yes /pdb:"ImageTransferClient.pdb" /debug /machine:I386 /nodefaultlib:"MSVCRT" /out:"ImageTransferClient.exe" /pdbtype:sept /libpath:".." 
+".\Debug\ImageTransferClient.obj"
+".\Debug\ImageTransferClientDlg.obj"
+".\Debug\StdAfx.obj"
+".\Debug\ImageTransferClient.res"
+"\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\ClientCommon.lib"
+"\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\common.lib"
+"\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Common.lib"
+"\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_KTL.lib"
+"\Documents and Settings\Richard\Desktop\Furby\ImageTransfer.prj\src\KFC_Networking.lib"
+]
+Creating command line "link.exe @C:\DOCUME~1\Richard\LOCALS~1\Temp\RSP906.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+ImageTransferClient.cpp
+ImageTransferClientDlg.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+ImageTransferClient.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

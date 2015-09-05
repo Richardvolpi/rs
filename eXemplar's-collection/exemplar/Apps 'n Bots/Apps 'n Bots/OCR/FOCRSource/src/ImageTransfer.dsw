@@ -1,0 +1,146 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "ClientCommon"=.\ClientCommon\ClientCommon.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "ImageTransferClient"=.\ImageTransferClient\ImageTransferClient.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ClientCommon
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name common
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name KFC_Common
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name KFC_KTL
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name KFC_Networking
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "ImageTransferServer"=.\ImageTransferServer\ImageTransferServer.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name KFC_Common
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name KFC_KTL
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name KFC_Networking
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name common
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "KFC_Common"=.\KFC_Common\KFC_Common.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "KFC_KTL"=.\KFC_KTL\KFC_KTL.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "KFC_Networking"=.\KFC_Networking\KFC_Networking.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "_Docs"=.\_Docs\_Docs.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ImageTransferServer
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ImageTransferClient
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "common"=.\common\common.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

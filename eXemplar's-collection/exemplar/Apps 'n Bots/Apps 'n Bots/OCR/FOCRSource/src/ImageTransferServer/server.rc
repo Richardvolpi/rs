@@ -1,0 +1,85 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Data
+//
+
+IDR_DATA1 RCDATA DISCARDABLE 
+BEGIN
+    0x0040, 0x0000, 0x8de4, 0x36ea, 0xb6d3, 0x17fc, 0x696a, 0x70e7, 0xec42, 
+    0xf9cb, 0xd8f2, 0x308a, 0x02c6, 0xef32, 0xcfe6, 0x9f97, 0x03bc, 0x4457, 
+    0x6526, 0xbdad, 0xac2c, 0x5aeb, 0x0445, 0xf978, 0xac89, 0x5d11, 0x4fac, 
+    0x578a, 0xc649, 0xb576, 0x42d2, 0x5cea, 0x90bd, 0xa75b, 0x0003, 0x0000, 
+    0x0001, 0x4001, 0x0000, 0x8700, 0x208f, 0xeac6, 0xd325, 0xb439, 0x2235, 
+    0x743f, 0x6c82, 0x50ad, 0x5c7b, 0x76e3, 0x21de, 0x2706, 0x2399, 0x6b2e, 
+    0x73de, 0xea67, 0x0b68, 0xf556, 0xb73a, 0xedd8, 0x8ac3, 0x104a, 0x76be, 
+    0xabc0, 0x49f1, 0x428d, 0x9764, 0x28da, 0x0b9a, 0x06a7, 0xdd50, 0x20d9, 
+    0x0000, 0xf900, 0x5454, 0x4370, 0x940d, 0xd78a, 0x50d0, 0xcfae, 0x5b33, 
+    0x9428, 0xdab0, 0x31ef, 0xafb5, 0x1276, 0x73fc, 0x970f, 0x86c2, 0x2085, 
+    0x0000, 0xea00, 0x4bab, 0x9aac, 0xca0d, 0x595e, 0x7676, 0x20b8, 0x5a58, 
+    0xb51d, 0xad31, 0x7acd, 0x083e, 0x33f0, 0xbf28, 0x15b3, 0x5f90, "\073" 
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

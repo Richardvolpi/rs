@@ -1,0 +1,16 @@
+Networking
+{
+	Port = 34000
+
+	SocketDelay = 60000
+}
+
+Authentication
+{
+	AuthURL = "http://localhost/auth.php?login=[login]&password=[password]&ip=[ip]"
+
+//	PostReplyURL = "http://localhost/post_reply.php?login=[login]&password=[password]&ip=[ip]"
+	PostReplyURL = "http://localhost/cgi-bin/superadmin"
+
+	AuthResultString = "YES"
+}
