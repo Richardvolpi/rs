@@ -1,0 +1,2 @@
+javac mudclient.java
+pause
