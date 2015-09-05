@@ -1,0 +1,2 @@
+Usage: Mine(Integer X, Integer Y)
+Mines a rock by its position.

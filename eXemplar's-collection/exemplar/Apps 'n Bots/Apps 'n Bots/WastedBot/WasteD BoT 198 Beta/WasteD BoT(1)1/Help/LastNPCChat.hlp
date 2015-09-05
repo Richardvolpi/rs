@@ -1,0 +1,6 @@
+Usage: LastNPCChat()
+Returns the NPC Chat Message
+eg.
+Variable = LastNPCChat
+or
+If Left(LastNPCChat,4) = "Bank" Then...

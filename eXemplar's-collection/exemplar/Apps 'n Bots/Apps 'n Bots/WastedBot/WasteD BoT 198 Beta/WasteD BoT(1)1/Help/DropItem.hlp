@@ -1,0 +1,2 @@
+Usage: DropItem(Integer POS)
+Drops an item by its position in your inventory

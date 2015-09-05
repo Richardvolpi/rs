@@ -1,0 +1,55 @@
+Manifest-Version: 1.0
+
+Name: Applet_Sub1.class
+
+Name: Applet_Sub1_Sub1.class
+
+Name: Frame_Sub1.class
+
+Name: InputStream_Sub1.class
+
+Name: Class1.class
+
+Name: Class2.class
+
+Name: Class3.class
+
+Name: Class4.class
+
+Name: Class5.class
+
+Name: Class6.class
+
+Name: Class6_Sub1.class
+
+Name: Class7.class
+
+Name: Class8.class
+
+Name: Class9.class
+
+Name: mudclient.class
+
+Name: Class10.class
+
+Name: Class11.class
+
+Name: Class12.class
+
+Name: Class13.class
+
+Name: Class14.class
+
+Name: Class14_Sub1.class
+
+Name: Class15.class
+
+Name: Class16.class
+
+Name: Class17.class
+
+Name: Class18.class
+
+Name: Class19.class
+
+

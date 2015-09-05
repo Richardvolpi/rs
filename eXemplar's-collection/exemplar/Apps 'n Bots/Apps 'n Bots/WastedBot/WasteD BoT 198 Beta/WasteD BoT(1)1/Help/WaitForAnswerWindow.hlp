@@ -1,0 +1,3 @@
+Usage: WaitForAnswerWindow()
+Waits for the answer menu.
+eg. Waiting for a banker to talk
