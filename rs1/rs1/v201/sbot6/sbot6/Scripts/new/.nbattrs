@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="ARScript.java">
+        <attr name="class_dependency_Script" stringvalue="ARScript"/>
+    </fileobject>
+    <fileobject name="Attacher.java">
+        <attr name="class_dependency_Script" stringvalue="Attacher"/>
+    </fileobject>
+    <fileobject name="BattleStaffBuyer.java">
+        <attr name="class_dependency_Script" stringvalue="BattleStaffBuyer"/>
+    </fileobject>
+    <fileobject name="Cowsuicide.java">
+        <attr name="class_dependency_Script" stringvalue="Cowsuicide"/>
+    </fileobject>
+    <fileobject name="DrayPowerNet.java">
+        <attr name="class_dependency_Script" stringvalue="DrayPowerNet"/>
+    </fileobject>
+    <fileobject name="Herber.java">
+        <attr name="class_dependency_Script" stringvalue="Herber"/>
+    </fileobject>
+    <fileobject name="ID.java">
+        <attr name="class_dependency_Script" stringvalue="ID"/>
+    </fileobject>
+    <fileobject name="Karamjerer.java">
+        <attr name="class_dependency_Script" stringvalue="Karamjerer"/>
+        <attr name="class_dependency_java.awt.event.ActionListener" stringvalue="Karamjerer"/>
+    </fileobject>
+    <fileobject name="Lobbies.java">
+        <attr name="class_dependency_Script" stringvalue="Lobbies"/>
+    </fileobject>
+    <fileobject name="LoveArrow.java">
+        <attr name="class_dependency_Script" stringvalue="LoveArrow"/>
+    </fileobject>
+    <fileobject name="Riot2.java">
+        <attr name="class_dependency_Script" stringvalue="Riot2"/>
+    </fileobject>
+    <fileobject name="SteelMacePicker.java">
+        <attr name="class_dependency_Script" stringvalue="SteelMacePicker"/>
+    </fileobject>
+    <fileobject name="TehCerter.java">
+        <attr name="class_dependency_Script" stringvalue="TehCerter"/>
+        <attr name="class_dependency_java.awt.event.ActionListener" stringvalue="TehCerter"/>
+    </fileobject>
+    <fileobject name="account.java">
+        <attr name="class_dependency_Script" stringvalue="account"/>
+    </fileobject>
+    <fileobject name="ironpicker.java">
+        <attr name="class_dependency_Script" stringvalue="ironpicker"/>
+    </fileobject>
+    <fileobject name="maceSeller.java">
+        <attr name="class_dependency_Script" stringvalue="maceSeller"/>
+    </fileobject>
+    <fileobject name="spam.java">
+        <attr name="class_dependency_Script" stringvalue="spam"/>
+    </fileobject>
+    <fileobject name="tradeSlave.java">
+        <attr name="class_dependency_Script" stringvalue="tradeSlave"/>
+    </fileobject>
+    <fileobject name="tutIsle.java">
+        <attr name="class_dependency_Script" stringvalue="tutIsle"/>
+    </fileobject>
+</attributes>
