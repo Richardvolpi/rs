@@ -1,0 +1,5 @@
+Walk(77,541);
+Walk(78,525);
+Walk(89,509);
+OpenBankDoor(102,509);
+Walk(99,514);

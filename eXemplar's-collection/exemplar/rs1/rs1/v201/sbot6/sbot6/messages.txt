@@ -1,0 +1,6 @@
+@gam@There is currently no ore available in this rock
+@gam@You manage to obtain some
+@gam@You only succeed in scratching the rock
+@gam@A few lumps of uninteresting rock break off
+@gam@You fail to make any real impact on the rock
+@gam@You slip and fail to hit the rock

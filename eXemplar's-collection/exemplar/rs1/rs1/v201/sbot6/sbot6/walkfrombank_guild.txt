@@ -1,0 +1,5 @@
+OpenBankDoor(287,571);
+Walk(288,569);
+Walk(279,562);
+OpenDoor(274,563,0);
+ClimbLadder(274,566);
