@@ -1,0 +1,2 @@
+Usage: DestroyText(Integer TrackingNumber (1-9)
+Destroys an already created text by its tracking number.

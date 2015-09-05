@@ -1,0 +1,6 @@
+Usage: MouseY()
+Returns your MouseY Position
+eg.
+Variable = MouseY
+or
+If MouseY = 50 Then...

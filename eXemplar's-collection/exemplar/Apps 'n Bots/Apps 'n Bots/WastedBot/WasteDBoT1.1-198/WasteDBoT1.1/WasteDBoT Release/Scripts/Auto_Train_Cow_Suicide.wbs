@@ -1,0 +1,161 @@
+Dim Randum
+Dim Mon
+Dim StartEXP
+Dim GainedEXP
+Dim LastEXP
+Dim Count
+Dim Mons
+Dim FightMode
+Dim FightMode2
+Dim Status
+Dim LastStatus
+
+@Sub GetStartStats()
+If FightMode = 0 Then
+StartEXP = GetXP(0, "Current")
+Elseif FightMode = 1 Then
+StartEXP = GetXP(2, "Current")
+Elseif FightMode = 2 Then
+StartEXP = GetXP(0, "Current")
+Elseif FightMode = 3 Then
+StartEXP = GetXP(1, "Current")
+End If
+LastEXP = StartEXP
+@End
+
+@Sub Main()
+Call WBLogo
+BotChat("@blu@AutoFighter@whi@ - by Phate of Wasted Coders Inc")
+BotChat("@blu@AutoFighter@whi@ - Cow Suicidal")
+Mon = 6
+BotChat("@blu@AutoFighter@whi@ - Training on Cows")
+FightMode = GetFightMode()
+If FightMode = 0 then
+FightMode2 = "All"
+ElseIf FightMode = 1 then
+FightMode2 = "Strength"
+ElseIf FightMode = 2 then
+FightMode2 = "Attack"
+ElseIf FightMode = 3 then
+FightMode2 = "Defence"
+End If
+BotChat("@blu@AutoFighter@whi@ - Combat " & FightMode2)
+CurrentEXP = 0
+GainedEXP = 0
+Mons = 0
+Count = 0
+Call GetStartStats
+BotChat("Starting AutoFighter")
+Status = "Starting AutoFighter"
+CreateText 1, 120, 180, "@yel@[@whi@WasteD BoT Auto Fighter@yel@] @yel@- @whi@Phate"
+CreateText 5, 120, 220, "Gained EXP [@whi@" & GainedEXP & "@yel@]"
+CreateText 3, 120, 200, "@yel@Training on [@whi@Cows@yel@]"
+CreateText 2, 120, 190, "@yel@Combat Style [@whi@" & FightMode2 & "@yel@]"
+CreateText 4, 120, 210, "@yel@Attempted Attacks [@whi@" & Mons & "@yel@]"
+Call MainLoop
+@End
+
+@Sub Fight()
+Dim EXPDifference
+If GetInCombat() = 0 then
+If GetNPCNear(Mon) = 1 then
+Sleep(200)
+Status = "Attacking Cows"
+Count = Count + 1
+Mons = Mons + 1
+CreateText 4, 120, 210, "@yel@Attempted Attacks [@whi@" & Mons & "@yel@]"
+If Count > 10 then
+Call CalculateXP
+End If
+AttackNPC(Mon)
+Else
+Status = "Searching for Cows"
+End if
+Else
+Status = "Cow Bashing"
+End If
+@End
+
+@Sub CalculateXP()
+Dim EXPDifference
+Dim CurrentEXP
+Status = "Calculating"
+Count = 0
+CurrentEXP = 0
+If FightMode = 0 Then
+CurrentEXP = GetXP(0, "Current")
+Elseif FightMode = 1 Then
+CurrentEXP = GetXP(2, "Current")
+Elseif FightMode = 2 Then
+CurrentEXP = GetXP(0, "Current")
+Elseif FightMode = 3 Then
+CurrentEXP = GetXP(1, "Current")
+End If
+If Not CurrentEXP = 0 then
+EXPDifference = 0
+EXPDifference = CurrentEXP - LastEXP
+LastEXP = CurrentEXP
+GainedEXP = GainedEXP + EXPDifference
+End If
+CreateText 5, 120, 220, "Gained EXP [@whi@" & GainedEXP & "@yel@]"
+@End
+
+@Sub ChangeWorld()
+Randum = Rand(3)
+If Randum = 1 then
+Status = "Changing to World 51"
+SetServ(51)
+ElseIf Randum = 2 then
+Status = "Changing to World 53"
+SetServ(53)
+ElseIf Randum = 3 then
+Status = "Changing to World 55"
+SetServ(55)
+End If
+BotChat("@blu@AutoFighter@whi@ - Changing Worlds")
+CreateText 6, 120, 230, "@yel@ [@whi@" & Status & "@yel@]"
+Sleep(6000)
+Logout()
+'Login("Username","Password")
+'Use above if not using AutoLogin
+'Also change Username + Password
+@End
+
+@Sub MainLoop()
+Do While ScriptOn()
+Randum = Rand(350)
+If Not Status = LastStatus then
+LastStatus = Status
+CreateText 6, 120, 230, "@yel@ [@whi@" & Status & "@yel@]"
+End If
+If Randum = 10 then
+Call ChangeWorld
+Else
+If MyX < 140 Then
+ If MyY > 630 Then
+WalkTo "90", "600" 
+ End If
+End If
+Status = "Searching for Cows"
+Call Fight
+End If
+Loop
+@End
+
+@Sub WBLogo()
+Dim SN
+SN = "WasteDBoT AutoFighter - @or1@Cow Suicide"
+CreateText 1, 240, 150, "@dre@XXXXXXXXXXXXXXXXXXXXXXXXXX"
+CreateText 2, 240, 160, _
+"@dre@X@whi@                     @red@WasteDBoT                     @dre@X"
+CreateText 3, 241, 170, _
+"@dre@X@whi@              @red@Phate@whi@ @dre@and @red@Lormsby              @dre@X"
+CreateText 4, 240, 180, "@dre@XXXXXXXXXXXXXXXXXXXXXXXXXX"
+CreateText 5, 240, 190, "@lre@Script [@whi@" & SN & "@lre@]"
+Sleep(5000)
+DestroyText 5
+DestroyText 4
+DestroyText 3
+DestroyText 2
+DestroyText 1
+@End

@@ -1,0 +1,2 @@
+Usage: CreateText(Integer TrackingNumber (1-9), Integer PosX, Integer PosY, String Text)
+Creates a text where you want in the java applet.

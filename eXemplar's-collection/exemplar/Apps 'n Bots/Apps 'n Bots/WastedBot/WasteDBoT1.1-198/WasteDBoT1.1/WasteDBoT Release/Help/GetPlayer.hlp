@@ -1,0 +1,5 @@
+Usage: GetPlayer()
+Returns an Player that the user selects in game, you are best to add something like this after
+BotChat("Right click an Player to select it")
+eg.
+Variable = GetPlayer()

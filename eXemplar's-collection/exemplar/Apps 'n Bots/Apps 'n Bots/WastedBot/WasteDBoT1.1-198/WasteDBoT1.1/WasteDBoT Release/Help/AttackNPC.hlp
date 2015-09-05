@@ -1,0 +1,2 @@
+Usage: AttackNPC(Integer ID)
+Attacks an NPC by a selected monster ID

@@ -1,0 +1,6 @@
+Usage: GetPlayerID2Nick(Integer ID)
+Returns the name of a players ID
+eg.
+Variable = GetPlayerID2Nick(Integer ID)
+or
+If GetPlayerID2Nick(Integer ID) = "Phate" Then...

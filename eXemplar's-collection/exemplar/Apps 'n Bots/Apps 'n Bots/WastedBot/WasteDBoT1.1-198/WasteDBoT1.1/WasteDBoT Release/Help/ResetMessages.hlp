@@ -1,0 +1,2 @@
+Usage: ResetMessages()
+Resets  all the messages, LastServerMsg etc.

@@ -1,0 +1,6 @@
+Usage: LastServerMsg()
+Returns the Last server Message
+eg.
+Variable = LastServerMsg
+or
+If LastServerMsg = "I Will ban you!" Then...
