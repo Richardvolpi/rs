@@ -1,0 +1,214 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.mark.rsc.tickable;
+
+import com.mark.rsc.Bot;
+
+/**
+ * <p>Container for a tickable event fields such as when the last run was and also
+ * weather or not it is actually running</p>
+ *
+ * @author Nathan Roys
+ */
+public class Tickable {
+
+    /**
+     * When the event was last run, the field is returned from the System.getCurrentTimeMillis()
+     * method.
+     */
+    private Long lastRun;
+
+    /**
+     * Get the bot that the tickable event is currently running from, this allows
+     * actions to be performed.
+     */
+    private Bot bot;
+
+    /**
+     * How many times the event will tick, 2 ticks means that the event would
+     * execute twice in a 600ms period.
+     */
+    private int recurringTicks;
+
+    /**
+     * The amount of ticks that have already passed, this is used to determine when
+     * the tickable event should be stopped
+     */
+    private int ticksPassed;
+
+    /**
+     * The tickable event itself, this is the interface which will contain our
+     * actions.
+     */
+    private TickableEvent event;
+
+    /**
+     * If the event is actually running or not.
+     */
+    private boolean running;
+
+    /**
+     * The priority of our tickable events
+     */
+    private TickablePriority priority;
+
+    /**
+     * Creates a new <code>Tickable</code> instance
+     * @param bot the bot
+     * @param recurringTicks how many recurring ticks
+     * @param event the event
+     * @param run should it be ran immediately
+     */
+    public Tickable(Bot bot, int recurringTicks, TickableEvent event, boolean run, TickablePriority priority) {
+        this.lastRun = System.currentTimeMillis()-300;
+        this.bot = bot;
+        this.recurringTicks = recurringTicks;
+        this.event = event;
+        this.ticksPassed = 0;
+        this.running = run;
+        this.priority = priority;
+    }
+
+    /**
+     * Creates a new <code>Tickable</code> instance
+     * @param bot the bot
+     * @param event the event
+     * @param run should it be ran immediately
+     */
+    public Tickable(Bot bot, TickableEvent event, boolean run, TickablePriority priority) {
+        this(bot, 0, event, run, priority);
+    }
+
+    /**
+     * If the recurring ticks are 0 then the event is indefinitely recurring
+     * @return if the event is indefinitely recurring
+     */
+    public boolean indefinitelyRecurring() {
+        return recurringTicks == 0;
+    }
+
+    /**
+     * Checks if the event can tick
+     * @return if the event can tick
+     */
+    public boolean canTick() {
+        return (System.currentTimeMillis() - lastRun) >= TickableManager.TICK_TIME;
+    }
+
+    /**
+     * Executes the event
+     */
+    public void execute() {
+        event.execute(this.getBot(), this);
+    }
+
+    /**
+     * Checks if the event has expired and if it has we remove it from the events
+     * list.
+     * @return if the event has expired
+     */
+    public boolean eventExpired() {
+        return ticksPassed == recurringTicks;
+    }
+
+    /**
+     * @return the recurringTicks
+     */
+    public int getRecurringTicks() {
+        return recurringTicks;
+    }
+
+    /**
+     * @param recurringTicks the recurringTicks to set
+     */
+    public void setRecurringTicks(int recurringTicks) {
+        this.recurringTicks = recurringTicks;
+    }
+
+    /**
+     * @return the ticksPassed
+     */
+    public int getTicksPassed() {
+        return ticksPassed;
+    }
+
+    /**
+     * @param ticksPassed the ticksPassed to set
+     */
+    public void setTicksPassed(int ticksPassed) {
+        this.ticksPassed = ticksPassed;
+    }
+
+    /**
+     * @return the event
+     */
+    public TickableEvent getEvent() {
+        return event;
+    }
+
+    /**
+     * @param event the event to set
+     */
+    public void setEvent(TickableEvent event) {
+        this.event = event;
+    }
+
+    /**
+     * @return the running
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * @param running the running to set
+     */
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    /**
+     * @return the bot
+     */
+    public Bot getBot() {
+        return bot;
+    }
+
+    /**
+     * @param bot the bot to set
+     */
+    public void setBot(Bot bot) {
+        this.bot = bot;
+    }
+
+    /**
+     * @return the lastRun
+     */
+    public Long getLastRun() {
+        return lastRun;
+    }
+
+    /**
+     * @param lastRun the lastRun to set
+     */
+    public void setLastRun(Long lastRun) {
+        this.lastRun = lastRun;
+    }
+
+    /**
+     * @return the priority
+     */
+    public TickablePriority getPriority() {
+        return priority;
+    }
+
+    /**
+     * @param priority the priority to set
+     */
+    public void setPriority(TickablePriority priority) {
+        this.priority = priority;
+    }
+}

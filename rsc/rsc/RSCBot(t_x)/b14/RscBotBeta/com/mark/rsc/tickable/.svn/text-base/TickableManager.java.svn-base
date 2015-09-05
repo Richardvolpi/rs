@@ -1,0 +1,110 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mark.rsc.tickable;
+
+import com.mark.rsc.Bot;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.Executors;
+
+/**
+ * <p>Manages tickable events, allows adding of events and also stopping the tickable
+ * events system all together</p>
+ *
+ * @author Nathan Roys
+ */
+public class TickableManager implements Runnable {
+
+    /**
+     * What we define as a tick, in runescape the 'processing time' is 300ms so
+     * this is a tick
+     */
+    public static final int TICK_TIME = 300;
+    /**
+     * Our singleton instance
+     */
+    private static TickableManager singleton;
+    /**
+     * The list of running events
+     */
+    private List<Tickable> events;
+    /**
+     * If the tickable manager is currently running
+     */
+    private boolean running;
+    /**
+     * The list of finished events
+     */
+    private List<Tickable> finishedEvents = new ArrayList<Tickable>();
+
+    /**
+     * Creates an instance of our tickable manager
+     */
+    private TickableManager() {
+        this.running = true;
+        this.events = Collections.synchronizedList(new ArrayList<Tickable>());
+        Executors.newSingleThreadExecutor().execute(this);
+    }
+
+    /**
+     * Returns our singleton instance
+     * @return singleton
+     */
+    public static TickableManager getSingleton() {
+        return singleton == null ? (singleton = new TickableManager()) : singleton;
+    }
+
+    /**
+     * Adds a tickable event
+     * @param tickableEvent the tickable event to add
+     */
+    public void addTickableEvent(Tickable tickableEvent) {
+        events.add(tickableEvent);
+    }
+
+    /**
+     * Executes events by their priority
+     * @param priority the priority to execute
+     * @param events the events list to process
+     */
+    public void executeEvents(TickablePriority priority, List<Tickable> events) {
+        for (Tickable t : events) {
+            if (t.getPriority() == priority) {
+                if (t.isRunning() && !t.eventExpired() || t.isRunning() && t.indefinitelyRecurring()) {
+                    if (t.canTick()) {
+                        t.execute();
+                        t.setTicksPassed(t.getTicksPassed() + 1);
+                        t.setLastRun(System.currentTimeMillis());
+                    }
+                } else {
+                    finishedEvents.add(t);
+                }
+            }
+        }
+    }
+
+    /**
+     * The processing and stuff.
+     */
+    public void run() {
+        while (running) {
+            if (!events.isEmpty()) {
+                executeEvents(TickablePriority.HIGH, events);
+                executeEvents(TickablePriority.NORMAL, events);
+                executeEvents(TickablePriority.LOW, events);
+            }
+            for (Tickable t : finishedEvents) {
+                events.remove(t);
+            }
+            finishedEvents.clear();
+            try {
+                Thread.sleep(30L);
+            } catch (java.lang.InterruptedException e) {
+                System.out.println("Sleep interrupted!");
+            }
+        }
+    }
+}

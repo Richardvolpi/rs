@@ -1,0 +1,23 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.mark.rsc.tickable;
+
+import com.mark.rsc.Bot;
+
+/**
+ * <p>Contains the method which we will call to execute our tickable event</p>
+ *
+ * @author Nathan Roys
+ */
+public interface TickableEvent {
+
+    /**
+     * The tickable event interface which will execute what we want
+     * @param bot the bot that the event has been executed from
+     * @param tickable the tickable event container
+     */
+    public void execute(Bot bot, Tickable tickable);
+}
