@@ -1,0 +1,6 @@
+LIBRARY ocrdll
+EXPORTS
+	loadModel      @1
+	getString      @2
+	loadDictionary @3
+	

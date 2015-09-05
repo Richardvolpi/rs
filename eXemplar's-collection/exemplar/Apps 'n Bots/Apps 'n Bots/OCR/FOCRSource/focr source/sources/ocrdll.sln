@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ocrdll", "ocrdll.vcproj", "{CE225CF0-05E2-4848-9C96-07F9D8D67D5B}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{CE225CF0-05E2-4848-9C96-07F9D8D67D5B}.Debug.ActiveCfg = Debug|Win32
+		{CE225CF0-05E2-4848-9C96-07F9D8D67D5B}.Debug.Build.0 = Debug|Win32
+		{CE225CF0-05E2-4848-9C96-07F9D8D67D5B}.Release.ActiveCfg = Release|Win32
+		{CE225CF0-05E2-4848-9C96-07F9D8D67D5B}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
