@@ -1,0 +1,12 @@
+:start:
+print(@Cya@RandomRune: @whi@Running Script:@ora@GnomeSlayer.txt)
+sleepifover(95)
+fightmode(1)
+goto(:fight:)
+
+:fight:
+sleepifover(95)
+fightmode(1)
+attacknpc(399)
+wait(150)
+goto(:fight:)

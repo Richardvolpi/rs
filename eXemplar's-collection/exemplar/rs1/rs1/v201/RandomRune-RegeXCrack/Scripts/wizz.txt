@@ -1,0 +1,13 @@
+:start:
+print(@gre@AutoFighter Monster:@ora@ DarkWizard @gre@level: @ora@13 @gre@Version: @ora@1.0)
+wait(500)
+print(@gre@By: @ora@On3)
+goto(:fight:)
+
+
+:fight:
+sleepifover(95)
+fightmode(1)
+attacknpc(57)
+wait(100)
+goto(:fight:)

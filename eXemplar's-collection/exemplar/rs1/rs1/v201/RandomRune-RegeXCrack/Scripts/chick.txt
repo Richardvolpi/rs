@@ -1,0 +1,10 @@
+:start:
+fightmode(1)
+print(chickenfiter)
+goto(:fight:)
+:fight:
+sleepifover(95)
+fightmode(1)
+attacknpc(3)
+wait(250)
+goto(:fight:)

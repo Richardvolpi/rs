@@ -1,0 +1,44 @@
+[0]  name=Wind strike; desc=A strength 1 missile attack; lvlReq=1; smb=2; tmb = 2
+[1]  name=Confuse; desc=Reduces your opponents attack by 5%; lvlReq=3; smb=3; tmb = 2
+[2]  name=Water strike; desc=A strength 2 missile attack; lvlReq=5; smb=3; tmb = 2
+[3]  name=Enchant lvl-1 amulet; desc=For use on sapphire amulets; lvlReq=7; smb=2; tmb = 3
+[4]  name=Earth strike; desc=A strength 3 missile attack; lvlReq=9; smb=3; tmb = 2
+[5]  name=Weaken; desc=Reduces your opponents strength by 5%; lvlReq=11; smb=3; tmb = 2
+[6]  name=Fire strike; desc=A strength 4 missile attack; lvlReq=13; smb=3; tmb = 2
+[7]  name=Bones to bananas; desc=Changes all held bones into bananas!; lvlReq=15; smb=3; tmb = 0
+[8]  name=Wind bolt; desc=A strength 5 missile attack; lvlReq=17; smb=2; tmb = 2
+[9]  name=Curse; desc=Reduces your opponents defense by 5%; lvlReq=19; smb=3; tmb = 2
+[10]  name=Low level alchemy; desc=Converts an item into gold; lvlReq=21; smb=2; tmb = 3
+[11]  name=Water bolt; desc=A strength 6 missile attack; lvlReq=23; smb=3; tmb = 2
+[12]  name=Varrock teleport; desc=Teleports you to Varrock; lvlReq=25; smb=3; tmb = 0
+[13]  name=Enchant lvl-2 amulet; desc=For use on emerald amulets; lvlReq=27; smb=2; tmb = 3
+[14]  name=Earth bolt; desc=A strength 7 missile attack; lvlReq=29; smb=3; tmb = 2
+[15]  name=Lumbridge teleport; desc=Teleports you to Lumbridge; lvlReq=31; smb=3; tmb = 0
+[16]  name=Telekinetic grab; desc=Take an item you can see but can't reach; lvlReq=33; smb=2; tmb = 3
+[17]  name=Fire bolt; desc=A strength 8 missile attack; lvlReq=35; smb=3; tmb = 2
+[18]  name=Falador teleport; desc=Teleports you to Falador; lvlReq=37; smb=3; tmb = 0
+[19]  name=Crumble undead; desc=Hits skeleton, ghosts & zombies hard!; lvlReq=39; smb=3; tmb = 2
+[20]  name=Wind blast; desc=A strength 9 missile attack; lvlReq=41; smb=2; tmb = 2
+[21]  name=Superheat item; desc=Smelt 1 ore without a furnace; lvlReq=43; smb=2; tmb = 3
+[22]  name=Camelot teleport; desc=Teleports you to Camelot; lvlReq=45; smb=2; tmb = 0
+[23]  name=Water blast; desc=A strength 10 missile attack; lvlReq=47; smb=3; tmb = 2
+[24]  name=Enchant lvl-3 amulet; desc=For use on ruby amulets; lvlReq=49; smb=2; tmb = 3
+[25]  name=Iban blast; desc=A strength 25 missile attack!; lvlReq=50; smb=2; tmb = 2
+[26]  name=Ardougne teleport; desc=Teleports you to Ardougne; lvlReq=51; smb=2; tmb = 0
+[27]  name=Earth blast; desc=A strength 11 missile attack; lvlReq=53; smb=3; tmb = 2
+[28]  name=High level alchemy; desc=Convert an item into more gold; lvlReq=55; smb=2; tmb = 3
+[29]  name=Charge Water Orb; desc=Needs to be cast on a water obelisk; lvlReq=56; smb=3; tmb = 5
+[30]  name=Enchant lvl-4 amulet; desc=For use on diamond amulets; lvlReq=57; smb=2; tmb = 3
+[31]  name=Fire blast; desc=A strength 12 missile attack; lvlReq=59; smb=3; tmb = 2
+[32]  name=Charge earth Orb; desc=Needs to be cast on an earth obelisk; lvlReq=60; smb=3; tmb = 5
+[33]  name=Wind wave; desc=A strength 13 missile attack; lvlReq=62; smb=2; tmb = 2
+[34]  name=Charge Fire Orb; desc=Needs to be cast on a fire obelisk; lvlReq=63; smb=3; tmb = 5
+[35]  name=Water wave; desc=A strength 14 missile attack; lvlReq=65; smb=3; tmb = 2
+[36]  name=Charge air Orb; desc=Needs to be cast on an air obelisk; lvlReq=66; smb=3; tmb = 5
+[37]  name=Vulnerability; desc=Reduces your opponents defense by 10%; lvlReq=66; smb=3; tmb = 2
+[38]  name=Enchant lvl-5 amulet; desc=For use on dragonstone amulets; lvlReq=68; smb=3; tmb = 3
+[39]  name=Earth wave; desc=A strength 15 missile attack; lvlReq=70; smb=3; tmb = 2
+[40]  name=Enfeeble; desc=Reduces your opponents strength by 10%; lvlReq=73; smb=3; tmb = 2
+[41]  name=Fire wave; desc=A strength 16 missile attack; lvlReq=75; smb=3; tmb = 2
+[42]  name=Stun; desc=Reduces your opponents attack by 10%; lvlReq=80; smb=3; tmb = 2
+

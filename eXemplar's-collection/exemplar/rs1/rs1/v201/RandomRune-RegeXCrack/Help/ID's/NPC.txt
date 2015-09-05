@@ -1,0 +1,739 @@
+[0]  name=Unicorn; desc=It's a unicorn; cmd=; level = 21
+[1]  name=Bob; desc=An axe seller; cmd=; level = 2
+[2]  name=Sheep; desc=A very wooly sheep; cmd=; level = 0
+[3]  name=Chicken; desc=Yep definitely a chicken; cmd=; level = 3
+[4]  name=Goblin; desc=An ugly green creature; cmd=; level = 16
+[5]  name=Hans; desc=A castle servant; cmd=; level = 3
+[6]  name=cow; desc=It's a multi purpose cow; cmd=; level = 9
+[7]  name=cook; desc=The head cook of Lumbridge castle; cmd=; level = 20
+[8]  name=Bear; desc=Eek! A bear!; cmd=; level = 25
+[9]  name=Priest; desc=A priest of Saradomin; cmd=; level = 0
+[10]  name=Urhney; desc=He looks a little grumpy; cmd=; level = 10
+[11]  name=Man; desc=One of runescapes many citizens; cmd=pickpocket; level = 11
+[12]  name=Bartender; desc=I could get a beer off him; cmd=; level = 0
+[13]  name=Camel; desc=Oh its a camel; cmd=; level = 0
+[14]  name=Gypsy; desc=An old gypsy lady; cmd=; level = 0
+[15]  name=Ghost; desc=Ooh spooky; cmd=; level = 15
+[16]  name=Sir Prysin; desc=One of the king's knights; cmd=; level = 30
+[17]  name=Traiborn the wizard; desc=An old wizard; cmd=; level = 20
+[18]  name=Captain Rovin; desc=The head of the palace guard; cmd=; level = 40
+[19]  name=Rat; desc=Overgrown vermin; cmd=; level = 10
+[20]  name=Reldo; desc=I think he's the librarian; cmd=; level = 20
+[21]  name=mugger; desc=He jumps out and attacks people; cmd=; level = 15
+[22]  name=Lesser Demon; desc=Lesser but still pretty big; cmd=; level = 78
+[23]  name=Giant Spider; desc=I think this spider has been genetically modified; cmd=; level = 10
+[24]  name=Man; desc=A shifty looking man; cmd=; level = 30
+[25]  name=Jonny the beard; desc=I can see why he's called the beard; cmd=; level = 10
+[26]  name=Baraek; desc=A fur trader; cmd=; level = 30
+[27]  name=Katrine; desc=She doesn't look to friendly; cmd=; level = 35
+[28]  name=Tramp; desc=A scruffy looking chap; cmd=; level = 9
+[29]  name=Rat; desc=A small muddy rat; cmd=; level = 3
+[30]  name=Romeo; desc=He looks mildly confused; cmd=; level = 20
+[31]  name=Juliet; desc=She looks a little stressed; cmd=; level = 2
+[32]  name=Father Lawrence; desc=A kindly looking priest; cmd=; level = 0
+[33]  name=Apothecary; desc=I wonder if he has any good potions; cmd=; level = 10
+[34]  name=spider; desc=Incey wincey; cmd=; level = 5
+[35]  name=Delrith; desc=A freshly summoned demon; cmd=; level = 42
+[36]  name=Veronica; desc=She doesn't look too happy; cmd=; level = 1
+[37]  name=Weaponsmaster; desc=The phoenix gang quartermaster; cmd=; level = 35
+[38]  name=Professor Oddenstein; desc=A mad scientist if I ever saw one; cmd=; level = 3
+[39]  name=Curator; desc=He looks like he's daydreaming; cmd=; level = 3
+[40]  name=skeleton; desc=It rattles as it walks; cmd=; level = 24
+[41]  name=zombie; desc=The living dead; cmd=; level = 23
+[42]  name=king; desc=King Roald the VIII; cmd=; level = 15
+[43]  name=Giant bat; desc=An angry flying rodent; cmd=; level = 32
+[44]  name=Bartender; desc=A friendly barman; cmd=; level = 0
+[45]  name=skeleton; desc=It rattles as it walks; cmd=; level = 32
+[46]  name=skeleton; desc=It rattles as it walks; cmd=; level = 27
+[47]  name=Rat; desc=overgrown vermin; cmd=; level = 16
+[48]  name=Horvik the Armourer; desc=He looks strong; cmd=; level = 15
+[49]  name=Bear; desc=A  bear; cmd=; level = 0
+[50]  name=skeleton; desc=It rattles when it walks; cmd=; level = 20
+[51]  name=Shopkeeper; desc=Maybe he'd like to buy some of my junk; cmd=; level = 0
+[52]  name=zombie; desc=The living dead; cmd=; level = 18
+[53]  name=Ghost; desc=Ooh spooky; cmd=; level = 23
+[54]  name=Aubury; desc=I think he might be a shop keeper; cmd=; level = 0
+[55]  name=Shopkeeper; desc=I wonder what he's got for sale; cmd=; level = 0
+[56]  name=shopkeeper; desc=I can buy swords off him; cmd=; level = 0
+[57]  name=Darkwizard; desc=He works evil magic; cmd=; level = 15
+[58]  name=lowe; desc=The owner of the archery store; cmd=; level = 0
+[59]  name=Thessalia; desc=A young shop assistant; cmd=; level = 0
+[60]  name=Darkwizard; desc=He works evil magic; cmd=; level = 27
+[61]  name=Giant; desc=A very large foe; cmd=; level = 37
+[62]  name=Goblin; desc=An ugly green creature; cmd=; level = 8
+[63]  name=farmer; desc=He grows the crops in this area; cmd=pickpocket; level = 15
+[64]  name=Thief; desc=He'll take anything that isn't nailed down; cmd=; level = 24
+[65]  name=Guard; desc=He tries to keep order around here; cmd=pickpocket; level = 31
+[66]  name=Black Knight; desc=A sinister looking knight; cmd=; level = 45
+[67]  name=Hobgoblin; desc=A large ugly green creature; cmd=; level = 32
+[68]  name=zombie; desc=The living dead; cmd=; level = 32
+[69]  name=Zaff; desc=He trades in staffs; cmd=; level = 0
+[70]  name=Scorpion; desc=An extremely vicious scorpion; cmd=; level = 21
+[71]  name=silk trader; desc=He sells silk; cmd=; level = 0
+[72]  name=Man; desc=One of Runescapes many citizens; cmd=pickpocket; level = 11
+[73]  name=Guide; desc=He gives hints to new adventurers; cmd=; level = 0
+[74]  name=Giant Spider; desc=I think this spider has been genetically modified; cmd=; level = 30
+[75]  name=Peksa; desc=A helmet salesman; cmd=; level = 11
+[76]  name=Barbarian; desc=Not civilised looking; cmd=; level = 18
+[77]  name=Fred the farmer; desc=An old farmer; cmd=; level = 11
+[78]  name=Gunthor the Brave; desc=The barbarians fearless leader; cmd=; level = 37
+[79]  name=Witch; desc=She's got warts; cmd=; level = 35
+[80]  name=Ghost; desc=Ooh spooky; cmd=; level = 23
+[81]  name=Wizard; desc=An old wizard; cmd=; level = 18
+[82]  name=Shop Assistant; desc=Maybe he'd like to buy some of my junk; cmd=; level = 0
+[83]  name=Shop Assistant; desc=Maybe he'd like to buy some of my junk; cmd=; level = 0
+[84]  name=Zeke; desc=He sells Scimitars; cmd=; level = 0
+[85]  name=Louie Legs; desc=He might want to sell something; cmd=; level = 0
+[86]  name=Warrior; desc=A member of Al Kharid's military; cmd=pickpocket; level = 20
+[87]  name=Shopkeeper; desc=I wonder what he's got for sale; cmd=; level = 0
+[88]  name=Shop Assistant; desc=Maybe she'd like to buy some of my junk; cmd=; level = 0
+[89]  name=Highwayman; desc=He holds up passers by; cmd=; level = 14
+[90]  name=Kebab Seller; desc=A seller of strange food; cmd=; level = 0
+[91]  name=Chicken; desc=Yep definitely a chicken; cmd=; level = 3
+[92]  name=Ernest; desc=A former chicken; cmd=; level = 3
+[93]  name=Monk; desc=A Peaceful monk; cmd=; level = 12
+[94]  name=Dwarf; desc=A short angry guy; cmd=; level = 20
+[95]  name=Banker; desc=He can look after my money; cmd=; level = 11
+[96]  name=Count Draynor; desc=A vicious vampire; cmd=; level = 40
+[97]  name=Morgan; desc=A frigtened villager; cmd=; level = 11
+[98]  name=Dr Harlow; desc=His nose is very red; cmd=; level = 11
+[99]  name=Deadly Red spider; desc=I think this spider has been genetically modified; cmd=; level = 40
+[100]  name=Guard; desc=He's here to guard this fortress; cmd=pickpocket; level = 31
+[101]  name=Cassie; desc=She sells shields; cmd=; level = 35
+[102]  name=White Knight; desc=A chivalrous knight; cmd=; level = 55
+[103]  name=Ranael; desc=A shopkeeper of some sort; cmd=; level = 35
+[104]  name=Moss Giant; desc=his beard seems to have a life of its own; cmd=; level = 62
+[105]  name=Shopkeeper; desc=I wonder what he's got for sale; cmd=; level = 0
+[106]  name=Shop Assistant; desc=Maybe he'd like to buy some of my junk; cmd=; level = 0
+[107]  name=Witch; desc=She's got warts; cmd=; level = 35
+[108]  name=Black Knight; desc=A sinister looking knight; cmd=; level = 45
+[109]  name=Greldo; desc=A small green warty creature; cmd=; level = 8
+[110]  name=Sir Amik Varze; desc=The leader of the white knights; cmd=; level = 55
+[111]  name=Guildmaster; desc=He's in charge of this place; cmd=; level = 40
+[112]  name=Valaine; desc=She runs the champion's store; cmd=; level = 35
+[113]  name=Drogo; desc=He runs a mining store; cmd=; level = 20
+[114]  name=Imp; desc=A cheeky little imp; cmd=; level = 4
+[115]  name=Flynn; desc=The mace salesman; cmd=; level = 15
+[116]  name=Wyson the gardener; desc=An old gardener; cmd=; level = 10
+[117]  name=Wizard Mizgog; desc=An old wizard; cmd=; level = 20
+[118]  name=Prince Ali; desc=A young prince; cmd=; level = 20
+[119]  name=Hassan; desc=the Chancellor to the emir; cmd=; level = 20
+[120]  name=Osman; desc=He looks a little shifty; cmd=; level = 20
+[121]  name=Joe; desc=Lady Keli's head guard; cmd=; level = 40
+[122]  name=Leela; desc=She comes from Al Kharid; cmd=; level = 20
+[123]  name=Lady Keli; desc=An Infamous bandit; cmd=; level = 20
+[124]  name=Ned; desc=An old sailor; cmd=; level = 20
+[125]  name=Aggie; desc=A witch; cmd=; level = 35
+[126]  name=Prince Ali; desc=That is an effective disguise; cmd=; level = 10
+[127]  name=Jailguard; desc=I wonder what he's guarding; cmd=; level = 34
+[128]  name=Redbeard Frank; desc=A pirate; cmd=; level = 35
+[129]  name=Wydin; desc=A grocer; cmd=; level = 0
+[130]  name=shop assistant; desc=I can buy swords off him; cmd=; level = 0
+[131]  name=Brian; desc=An axe seller; cmd=; level = 0
+[132]  name=squire; desc=A young squire; cmd=; level = 0
+[133]  name=Head chef; desc=He looks after the chef's guild; cmd=; level = 20
+[134]  name=Thurgo; desc=A short angry guy; cmd=; level = 20
+[135]  name=Ice Giant; desc=He's got icicles in his beard; cmd=; level = 67
+[136]  name=King Scorpion; desc=Wow scorpions shouldn't grow that big; cmd=; level = 40
+[137]  name=Pirate; desc=A vicious pirate; cmd=; level = 35
+[138]  name=Sir Vyvin; desc=One of the white knights of Falador; cmd=; level = 55
+[139]  name=Monk of Zamorak; desc=An evil cleric; cmd=; level = 28
+[140]  name=Monk of Zamorak; desc=An evil cleric; cmd=; level = 18
+[141]  name=Wayne; desc=An armourer; cmd=; level = 15
+[142]  name=Barmaid; desc=a pretty barmaid; cmd=; level = 35
+[143]  name=Dwarven shopkeeper; desc=I wonder if he wants to buy any of my junk; cmd=; level = 20
+[144]  name=Doric; desc=A dwarven smith; cmd=; level = 20
+[145]  name=Shopkeeper; desc=I wonder what he's got for sale; cmd=; level = 0
+[146]  name=Shop Assistant; desc=Maybe he'd like to buy some of my junk; cmd=; level = 0
+[147]  name=Guide; desc=She gives hints to new adventurers; cmd=; level = 0
+[148]  name=Hetty; desc=A witch; cmd=; level = 35
+[149]  name=Betty; desc=A witch; cmd=; level = 35
+[150]  name=Bartender; desc=I could get a beer off him; cmd=; level = 0
+[151]  name=General wartface; desc=An ugly green creature; cmd=; level = 16
+[152]  name=General Bentnoze; desc=An ugly green creature; cmd=; level = 16
+[153]  name=Goblin; desc=An ugly green creature; cmd=; level = 16
+[154]  name=Goblin; desc=An ugly green creature; cmd=; level = 16
+[155]  name=Herquin; desc=A gem merchant; cmd=; level = 0
+[156]  name=Rommik; desc=The owner of the crafting shop; cmd=; level = 0
+[157]  name=Grum; desc=Grum the goldsmith; cmd=; level = 0
+[158]  name=Ice warrior; desc=A strange inhuman warrior; cmd=; level = 57
+[159]  name=Warrior; desc=A skilled fighter; cmd=pickpocket; level = 35
+[160]  name=Thrander; desc=A smith of some sort; cmd=; level = 15
+[161]  name=Border Guard; desc=a guard from Al Kharid; cmd=; level = 20
+[162]  name=Border Guard; desc=a guard from Al Kharid; cmd=; level = 20
+[163]  name=Customs Officer; desc=She is here to stop smugglers; cmd=; level = 23
+[164]  name=Luthas; desc=The owner of the banana plantation; cmd=; level = 23
+[165]  name=Zambo; desc=He will sell me exotic rum; cmd=; level = 23
+[166]  name=Captain Tobias; desc=An old sailor; cmd=; level = 20
+[167]  name=Gerrant; desc=I wonder what he's got for sale; cmd=; level = 0
+[168]  name=Shopkeeper; desc=I wonder what he's got for sale; cmd=; level = 0
+[169]  name=Shop Assistant; desc=Maybe he'd like to buy some of my junk; cmd=; level = 0
+[170]  name=Seaman Lorris; desc=A young sailor; cmd=; level = 20
+[171]  name=Seaman Thresnor; desc=A young sailor; cmd=; level = 20
+[172]  name=Tanner; desc=He makes leather; cmd=; level = 20
+[173]  name=Dommik; desc=The owner of the crafting shop; cmd=; level = 0
+[174]  name=Abbot Langley; desc=A Peaceful monk; cmd=; level = 12
+[175]  name=Thordur; desc=He runs a a tourist attraction; cmd=; level = 20
+[176]  name=Brother Jered; desc=human; cmd=; level = 12
+[177]  name=Rat; desc=Overgrown vermin; cmd=; level = 16
+[178]  name=Ghost; desc=Ooh spooky; cmd=; level = 23
+[179]  name=skeleton; desc=it rattles when it walks; cmd=; level = 32
+[180]  name=zombie; desc=the living dead; cmd=; level = 32
+[181]  name=Lesser Demon; desc=Lesser but still very big; cmd=; level = 78
+[182]  name=Melzar the mad; desc=He looks totally insane; cmd=; level = 47
+[183]  name=Scavvo; desc=He has lopsided eyes; cmd=; level = 10
+[184]  name=Greater Demon; desc=big red and incredibly evil; cmd=; level = 86
+[185]  name=Shopkeeper; desc=I wonder what he's got for sale; cmd=; level = 0
+[186]  name=Shop Assistant; desc=Maybe he'd like to buy some of my junk; cmd=; level = 0
+[187]  name=Oziach; desc=A strange little man; cmd=; level = 0
+[188]  name=Bear; desc=Eek! A bear!; cmd=; level = 27
+[189]  name=Black Knight; desc=An armoured follower of Zamorak; cmd=; level = 45
+[190]  name=chaos Dwarf; desc=a dwarf gone bad; cmd=; level = 58
+[191]  name=dwarf; desc=A dwarf who looks after the mining guild; cmd=; level = 20
+[192]  name=Wormbrain; desc=Dumb even by goblin standards; cmd=; level = 8
+[193]  name=Klarense; desc=A young sailor; cmd=; level = 20
+[194]  name=Ned; desc=An old sailor; cmd=; level = 20
+[195]  name=skeleton; desc=A Taller than normal skeleton; cmd=; level = 52
+[196]  name=Dragon; desc=A powerful and ancient dragon; cmd=; level = 110
+[197]  name=Oracle; desc=A mystic of unknown race; cmd=; level = 57
+[198]  name=Duke of Lumbridge; desc=Duke Horacio of Lumbridge; cmd=; level = 15
+[199]  name=Dark Warrior; desc=A warrior touched by chaos; cmd=; level = 20
+[200]  name=Druid; desc=A worshipper of Guthix; cmd=; level = 28
+[201]  name=Red Dragon; desc=A big powerful dragon; cmd=; level = 140
+[202]  name=Blue Dragon; desc=A mother dragon; cmd=; level = 105
+[203]  name=Baby Blue Dragon; desc=Young but still dangerous; cmd=; level = 50
+[204]  name=Kaqemeex; desc=A wise druid; cmd=; level = 28
+[205]  name=Sanfew; desc=An old druid; cmd=; level = 28
+[206]  name=Suit of armour; desc=A dusty old suit of armour; cmd=; level = 30
+[207]  name=Adventurer; desc=A cleric; cmd=; level = 12
+[208]  name=Adventurer; desc=A wizard; cmd=; level = 20
+[209]  name=Adventurer; desc=A Warrior; cmd=; level = 55
+[210]  name=Adventurer; desc=An archer; cmd=; level = 35
+[211]  name=Leprechaun; desc=A funny little man who lives in a tree; cmd=; level = 20
+[212]  name=Monk of entrana; desc=A Peaceful monk; cmd=; level = 12
+[213]  name=Monk of entrana; desc=A Peaceful monk; cmd=; level = 12
+[214]  name=zombie; desc=The living dead; cmd=; level = 32
+[215]  name=Monk of entrana; desc=A Peaceful monk; cmd=; level = 12
+[216]  name=tree spirit; desc=Ooh spooky; cmd=; level = 100
+[217]  name=cow; desc=It's a dairy cow; cmd=; level = 9
+[218]  name=Irksol; desc=Is he invisible or just a set of floating clothes?; cmd=; level = 2
+[219]  name=Fairy Lunderwin; desc=A fairy merchant; cmd=; level = 2
+[220]  name=Jakut; desc=An unusual looking merchant; cmd=; level = 2
+[221]  name=Doorman; desc=He guards the entrance to the faerie market; cmd=; level = 55
+[222]  name=Fairy Shopkeeper; desc=I wonder what he's got for sale; cmd=; level = 0
+[223]  name=Fairy Shop Assistant; desc=Maybe he'd like to buy some of my junk; cmd=; level = 0
+[224]  name=Fairy banker; desc=He can look after my money; cmd=; level = 11
+[225]  name=Giles; desc=He runs an ore exchange store; cmd=; level = 30
+[226]  name=Miles; desc=He runs a bar exchange store; cmd=; level = 30
+[227]  name=Niles; desc=He runs a fish exchange store; cmd=; level = 30
+[228]  name=Gaius; desc=he sells very big swords; cmd=; level = 15
+[229]  name=Fairy Ladder attendant; desc=A worker in the faerie market; cmd=; level = 0
+[230]  name=Jatix; desc=A hard working druid; cmd=; level = 28
+[231]  name=Master Crafter; desc=The man in charge of the crafter's guild; cmd=; level = 0
+[232]  name=Bandit; desc=He's ready for a fight; cmd=; level = 32
+[233]  name=Noterazzo; desc=A bandit shopkeeper; cmd=; level = 32
+[234]  name=Bandit; desc=A wilderness outlaw; cmd=; level = 32
+[235]  name=Fat Tony; desc=A Gourmet Pizza chef; cmd=; level = 20
+[236]  name=Donny the lad; desc=A bandit leader; cmd=; level = 42
+[237]  name=Black Heather; desc=A bandit leader; cmd=; level = 42
+[238]  name=Speedy Keith; desc=A bandit leader; cmd=; level = 42
+[239]  name=White wolf sentry; desc=A vicious mountain wolf; cmd=; level = 30
+[240]  name=Boy; desc=He doesn't seem very happy; cmd=; level = 42
+[241]  name=Rat; desc=He seems to live here; cmd=; level = 3
+[242]  name=Nora T Hag; desc=She's got warts; cmd=; level = 35
+[243]  name=Grey wolf; desc=A sinister looking wolf; cmd=; level = 60
+[244]  name=shapeshifter; desc=I've not seen anyone like this before; cmd=; level = 28
+[245]  name=shapeshifter; desc=I think this spider has been genetically modified; cmd=; level = 38
+[246]  name=shapeshifter; desc=Eek! A bear!; cmd=; level = 48
+[247]  name=shapeshifter; desc=A sinister looking wolf; cmd=; level = 58
+[248]  name=White wolf; desc=A vicious mountain wolf; cmd=; level = 40
+[249]  name=Pack leader; desc=A vicious mountain wolf; cmd=; level = 70
+[250]  name=Harry; desc=I wonder what he's got for sale; cmd=; level = 0
+[251]  name=Thug; desc=He likes hitting things; cmd=; level = 19
+[252]  name=Firebird; desc=Probably not a chicken; cmd=; level = 6
+[253]  name=Achetties; desc=One of Asgarnia's greatest heros; cmd=; level = 45
+[254]  name=Ice queen; desc=The leader of the ice warriors; cmd=; level = 105
+[255]  name=Grubor; desc=A rough looking thief; cmd=; level = 15
+[256]  name=Trobert; desc=A well dressed thief; cmd=; level = 14
+[257]  name=Garv; desc=A diligent guard; cmd=; level = 31
+[258]  name=guard; desc=A vicious pirate; cmd=; level = 35
+[259]  name=Grip; desc=Scar face petes head guard; cmd=; level = 31
+[260]  name=Alfonse the waiter; desc=He should get a clean apron; cmd=; level = 11
+[261]  name=Charlie the cook; desc=Head cook of the Shrimp and parrot; cmd=; level = 20
+[262]  name=Guard Dog; desc=He doesn't seem pleased to see me; cmd=; level = 45
+[263]  name=Ice spider; desc=I think this spider has been genetically modified; cmd=; level = 60
+[264]  name=Pirate; desc=A vicious pirate; cmd=; level = 38
+[265]  name=Jailer; desc=Guards prisoners for the black knights; cmd=; level = 50
+[266]  name=Lord Darquarius; desc=A black knight commander; cmd=; level = 75
+[267]  name=Seth; desc=He runs a fish exchange store; cmd=; level = 30
+[268]  name=Banker; desc=He can look after my money; cmd=; level = 11
+[269]  name=Helemos; desc=A retired hero; cmd=; level = 45
+[270]  name=Chaos Druid; desc=A crazy evil druid; cmd=; level = 18
+[271]  name=Poison Scorpion; desc=It has a very vicious looking tail; cmd=; level = 26
+[272]  name=Velrak the explorer; desc=he looks cold and hungry; cmd=; level = 3
+[273]  name=Sir Lancelot; desc=A knight of the round table; cmd=; level = 55
+[274]  name=Sir Gawain; desc=A knight of the round table; cmd=; level = 55
+[275]  name=King Arthur; desc=A wise old king; cmd=; level = 55
+[276]  name=Sir Mordred; desc=An evil knight; cmd=; level = 57
+[277]  name=Renegade knight; desc=He isn't very friendly; cmd=; level = 50
+[278]  name=Davon; desc=An amulet trader; cmd=; level = 35
+[279]  name=Bartender; desc=I could get some grog off him; cmd=; level = 0
+[280]  name=Arhein; desc=A merchant; cmd=; level = 0
+[281]  name=Morgan le faye; desc=An evil sorceress; cmd=; level = 35
+[282]  name=Candlemaker; desc=He makes and sells candles; cmd=; level = 15
+[283]  name=lady; desc=She has a hint of magic about her; cmd=; level = 0
+[284]  name=lady; desc=She has a hint of magic about her; cmd=; level = 0
+[285]  name=lady; desc=She has a hint of magic about her; cmd=; level = 0
+[286]  name=Beggar; desc=A scruffy looking chap; cmd=; level = 9
+[287]  name=Merlin; desc=An old wizard; cmd=; level = 20
+[288]  name=Thrantax; desc=A freshly summoned demon; cmd=; level = 90
+[289]  name=Hickton; desc=The owner of the archery store; cmd=; level = 0
+[290]  name=Black Demon; desc=A big scary jet black demon; cmd=; level = 155
+[291]  name=Black Dragon; desc=A fierce dragon with black scales!; cmd=; level = 210
+[292]  name=Poison Spider; desc=I think this spider has been genetically modified; cmd=; level = 60
+[293]  name=Monk of Zamorak; desc=An evil cleric; cmd=; level = 48
+[294]  name=Hellhound; desc=Hello nice doggy; cmd=; level = 115
+[295]  name=Animated axe; desc=a magic axe with a mind of it's own; cmd=; level = 48
+[296]  name=Black Unicorn; desc=It's a sort of unicorn; cmd=; level = 31
+[297]  name=Frincos; desc=A Peaceful monk; cmd=; level = 12
+[298]  name=Otherworldly being; desc=Is he invisible or just a set of floating clothes?; cmd=; level = 66
+[299]  name=Owen; desc=He runs a fish exchange store; cmd=; level = 30
+[300]  name=Thormac the sorceror; desc=A powerful sorcerrer; cmd=; level = 27
+[301]  name=Seer; desc=An old wizard; cmd=; level = 18
+[302]  name=Kharid Scorpion; desc=a smaller less dangerous scorpion; cmd=; level = 21
+[303]  name=Kharid Scorpion; desc=a smaller less dangerous scorpion; cmd=; level = 21
+[304]  name=Kharid Scorpion; desc=a smaller less dangerous scorpion; cmd=; level = 21
+[305]  name=Barbarian guard; desc=Not very civilised; cmd=; level = 18
+[306]  name=Bartender; desc=I could get a beer off him; cmd=; level = 0
+[307]  name=man; desc=A well dressed nobleman; cmd=; level = 11
+[308]  name=gem trader; desc=He sells gems; cmd=; level = 0
+[309]  name=Dimintheis; desc=A well dressed nobleman; cmd=; level = 11
+[310]  name=chef; desc=A busy looking chef; cmd=; level = 20
+[311]  name=Hobgoblin; desc=An ugly green creature; cmd=; level = 49
+[312]  name=Ogre; desc=A large dim looking humanoid; cmd=; level = 72
+[313]  name=Boot the Dwarf; desc=A short angry guy; cmd=; level = 20
+[314]  name=Wizard; desc=A young wizard; cmd=; level = 18
+[315]  name=Chronozon; desc=Chronozon the blood demon; cmd=; level = 183
+[316]  name=Captain Barnaby; desc=An old sailor; cmd=; level = 20
+[317]  name=Customs Official; desc=She's here to stop smugglers; cmd=; level = 23
+[318]  name=Man; desc=One of Runescape's citizens; cmd=pickpocket; level = 11
+[319]  name=farmer; desc=An humble peasant; cmd=pickpocket; level = 15
+[320]  name=Warrior; desc=A skilled fighter; cmd=pickpocket; level = 35
+[321]  name=Guard; desc=He tries to keep the law and order around here; cmd=pickpocket; level = 31
+[322]  name=Knight; desc=A knight of Ardougne; cmd=pickpocket; level = 55
+[323]  name=Paladin; desc=A paladin of Ardougne; cmd=pickpocket; level = 85
+[324]  name=Hero; desc=A Hero of Ardougne; cmd=pickpocket; level = 85
+[325]  name=Baker; desc=He sells hot baked bread; cmd=; level = 20
+[326]  name=silk merchant; desc=He buys silk; cmd=; level = 0
+[327]  name=Fur trader; desc=A buyer and seller of animal furs; cmd=; level = 0
+[328]  name=silver merchant; desc=He deals in silver; cmd=; level = 0
+[329]  name=spice merchant; desc=He sells exotic spices; cmd=; level = 20
+[330]  name=gem merchant; desc=He sells gems; cmd=; level = 0
+[331]  name=Zenesha; desc=A shopkeeper of some sort; cmd=; level = 35
+[332]  name=Kangai Mau; desc=A tribesman; cmd=; level = 0
+[333]  name=Wizard Cromperty; desc=An old wizard; cmd=; level = 20
+[334]  name=RPDT employee; desc=A delivery man; cmd=; level = 12
+[335]  name=Horacio; desc=An old gardener; cmd=; level = 10
+[336]  name=Aemad; desc=He helps run the adventurers store; cmd=; level = 15
+[337]  name=Kortan; desc=He helps run the adventurers store; cmd=; level = 15
+[338]  name=zoo keeper; desc=He looks after Ardougne city zoo; cmd=; level = 20
+[339]  name=Make over mage; desc=He can change how I look; cmd=; level = 0
+[340]  name=Bartender; desc=I could get a beer off him; cmd=; level = 0
+[341]  name=chuck; desc=A wood merchant; cmd=; level = 0
+[342]  name=Rogue; desc=He needs a shave; cmd=pickpocket; level = 24
+[343]  name=Shadow spider; desc=Is it a spider or is it a shadow; cmd=; level = 54
+[344]  name=Fire Giant; desc=A big guy with red glowing skin; cmd=; level = 110
+[345]  name=Grandpa Jack; desc=A wistful old man; cmd=; level = 20
+[346]  name=Sinister stranger; desc=not your average fisherman; cmd=; level = 40
+[347]  name=Bonzo; desc=Fishing competition organiser; cmd=; level = 30
+[348]  name=Forester; desc=He looks after McGrubor's wood; cmd=; level = 24
+[349]  name=Morris; desc=Fishing competition organiser; cmd=; level = 30
+[350]  name=Brother Omad; desc=A Peaceful monk; cmd=; level = 12
+[351]  name=Thief; desc=A dastardly blanket thief; cmd=; level = 24
+[352]  name=Head Thief; desc=A dastardly blanket thief; cmd=; level = 34
+[353]  name=Big Dave; desc=A well built fisherman; cmd=; level = 15
+[354]  name=Joshua; desc=A grumpy fisherman; cmd=; level = 15
+[355]  name=Mountain Dwarf; desc=A short angry guy; cmd=; level = 20
+[356]  name=Mountain Dwarf; desc=A short angry guy; cmd=; level = 30
+[357]  name=Brother Cedric; desc=A Peaceful monk; cmd=; level = 12
+[358]  name=Necromancer; desc=A crazy evil necromancer; cmd=; level = 28
+[359]  name=zombie; desc=The living dead; cmd=; level = 23
+[360]  name=Lucien; desc=He walks with a slight limp; cmd=; level = 24
+[361]  name=The Fire warrior of lesarkus; desc=A strange red humanoid; cmd=; level = 72
+[362]  name=guardian of Armadyl; desc=A worshipper of Armadyl; cmd=; level = 58
+[363]  name=guardian of Armadyl; desc=A worshipper of Armadyl; cmd=; level = 58
+[364]  name=Lucien; desc=He walks with a limp; cmd=; level = 24
+[365]  name=winelda; desc=A witch; cmd=; level = 35
+[366]  name=Brother Kojo; desc=A Peaceful monk; cmd=; level = 12
+[367]  name=Dungeon Rat; desc=Overgrown vermin; cmd=; level = 20
+[368]  name=Master fisher; desc=The man in charge of the fishing guild; cmd=; level = 15
+[369]  name=Orven; desc=He runs a fish exchange store; cmd=; level = 30
+[370]  name=Padik; desc=He runs a fish exchange store; cmd=; level = 30
+[371]  name=Shopkeeper; desc=He smells of fish; cmd=; level = 0
+[372]  name=Lady servil; desc=She look's wealthy; cmd=; level = 1
+[373]  name=Guard; desc=It's one of General Khazard's guard's; cmd=; level = 31
+[374]  name=Guard; desc=It's one of General Khazard's guard's; cmd=; level = 31
+[375]  name=Guard; desc=It's one of General Khazard's guard's; cmd=; level = 31
+[376]  name=Guard; desc=It's one of General Khazard's guard's; cmd=; level = 31
+[377]  name=Jeremy Servil; desc=A young squire; cmd=; level = 0
+[378]  name=Justin Servil; desc=Jeremy servil's father; cmd=; level = 0
+[379]  name=fightslave joe; desc=He look's mistreated and weak; cmd=; level = 0
+[380]  name=fightslave kelvin; desc=He look's mistreated and weak; cmd=; level = 0
+[381]  name=local; desc=A scruffy looking chap; cmd=; level = 9
+[382]  name=Khazard Bartender; desc=A tough looking barman; cmd=; level = 0
+[383]  name=General Khazard; desc=He look's real nasty; cmd=; level = 75
+[384]  name=Khazard Ogre; desc=Khazard's strongest ogre warrior; cmd=; level = 72
+[385]  name=Guard; desc=It's one of General Khazard's guard's; cmd=; level = 31
+[386]  name=Khazard Scorpion; desc=A large angry scorpion; cmd=; level = 50
+[387]  name=hengrad; desc=He look's mistreated and weak; cmd=; level = 0
+[388]  name=Bouncer; desc=Hello nice doggy; cmd=; level = 130
+[389]  name=Stankers; desc=A cheerful looking fellow; cmd=; level = 0
+[390]  name=Docky; desc=An old sailor; cmd=; level = 20
+[391]  name=Shopkeeper; desc=Maybe he'd like to buy some of my junk; cmd=; level = 0
+[392]  name=Fairy queen; desc=A very little queen; cmd=; level = 2
+[393]  name=Merlin; desc=An old wizard; cmd=; level = 20
+[394]  name=Crone; desc=A strange old lady; cmd=; level = 35
+[395]  name=High priest of entrana; desc=A Peaceful monk; cmd=; level = 12
+[396]  name=elkoy; desc=It's a tree gnome; cmd=; level = 3
+[397]  name=remsai; desc=It's a tree gnome; cmd=; level = 3
+[398]  name=bolkoy; desc=It's a tree gnome; cmd=; level = 3
+[399]  name=local gnome; desc=It's a young tree gnome; cmd=; level = 3
+[400]  name=bolren; desc=It's a gnome he look's important; cmd=; level = 3
+[401]  name=Black Knight titan; desc=He is blocking the way; cmd=; level = 145
+[402]  name=kalron; desc=he look's lost; cmd=; level = 3
+[403]  name=brother Galahad; desc=A Peaceful monk; cmd=; level = 12
+[404]  name=tracker 1; desc=It's a tree gnome; cmd=; level = 3
+[405]  name=tracker 2; desc=It's a tree gnome; cmd=; level = 3
+[406]  name=tracker 3; desc=It's a tree gnome; cmd=; level = 3
+[407]  name=Khazard troop; desc=It's one of General Khazard's warrior's; cmd=; level = 31
+[408]  name=commander montai; desc=It's a tree gnome; cmd=; level = 3
+[409]  name=gnome troop; desc=It's a tree gnome trooper; cmd=; level = 3
+[410]  name=khazard warlord; desc=He look's real nasty; cmd=; level = 75
+[411]  name=Sir Percival; desc=He's covered in pieces of straw; cmd=; level = 55
+[412]  name=Fisher king; desc=an old king; cmd=; level = 15
+[413]  name=maiden; desc=She has a far away look in her eyes; cmd=; level = 2
+[414]  name=Fisherman; desc=an old fisherman; cmd=; level = 15
+[415]  name=King Percival; desc=The new fisher king; cmd=; level = 55
+[416]  name=unhappy peasant; desc=He looks tired and hungry; cmd=; level = 25
+[417]  name=happy peasant; desc=He looks well fed and full of energy; cmd=; level = 25
+[418]  name=ceril; desc=It's Sir ceril carnillean a local noblemen; cmd=; level = 11
+[419]  name=butler; desc=It's the carnillean family butler; cmd=; level = 11
+[420]  name=carnillean guard; desc=It's a carnillean family guard; cmd=; level = 31
+[421]  name=Tribesman; desc=A primative warrior; cmd=; level = 38
+[422]  name=henryeta; desc=It's a wealthy looking woman; cmd=; level = 2
+[423]  name=philipe; desc=It's a young well dressed boy; cmd=; level = 0
+[424]  name=clivet; desc=A strange looking man in black ; cmd=; level = 20
+[425]  name=cult member; desc=An suspicous looking man in black ; cmd=; level = 20
+[426]  name=Lord hazeel; desc=He could do with some sun; cmd=; level = 75
+[427]  name=alomone; desc=A musculer looking man in black ; cmd=; level = 48
+[428]  name=Khazard commander; desc=It's one of General Khazard's commander's; cmd=; level = 50
+[429]  name=claus; desc=the carnillean family cook; cmd=; level = 20
+[430]  name=1st plague sheep; desc=The sheep has the plague; cmd=; level = 0
+[431]  name=2nd plague sheep; desc=The sheep has the plague; cmd=; level = 0
+[432]  name=3rd plague sheep; desc=The sheep has the plague; cmd=; level = 0
+[433]  name=4th plague sheep; desc=The sheep has the plague; cmd=; level = 0
+[434]  name=Farmer brumty; desc=He looks after livestock in this area; cmd=; level = 15
+[435]  name=Doctor orbon; desc=A local doctor; cmd=; level = 20
+[436]  name=Councillor Halgrive; desc=A town counceller; cmd=; level = 20
+[437]  name=Edmond; desc=A local civilian; cmd=; level = 20
+[438]  name=Citizen; desc=He look's tired; cmd=; level = 12
+[439]  name=Citizen; desc=He look's frightened; cmd=; level = 10
+[440]  name=Citizen; desc=She look's frustrated; cmd=; level = 11
+[441]  name=Citizen; desc=He look's angry; cmd=; level = 20
+[442]  name=Citizen; desc=He look's disillusioned; cmd=; level = 18
+[443]  name=Jethick; desc=A cynical old man; cmd=; level = 18
+[444]  name=Mourner; desc=A mourner or plague healer; cmd=; level = 2
+[445]  name=Mourner; desc=A mourner or plague healer; cmd=; level = 2
+[446]  name=Ted Rehnison; desc=The head of the Rehnison family; cmd=; level = 11
+[447]  name=Martha Rehnison; desc=A fairly poor looking woman; cmd=; level = 11
+[448]  name=Billy Rehnison; desc=The Rehnisons eldest son; cmd=; level = 20
+[449]  name=Milli Rehnison; desc=She doesn't seem very happy; cmd=; level = 42
+[450]  name=Alrena; desc=She look's concerned; cmd=; level = 1
+[451]  name=Mourner; desc=A mourner or plague healer; cmd=; level = 2
+[452]  name=Clerk; desc=A bueracratic administrator; cmd=; level = 2
+[453]  name=Carla; desc=She look's upset; cmd=; level = 1
+[454]  name=Bravek; desc=The city warder of West Ardougne; cmd=; level = 15
+[455]  name=Caroline; desc=A well dressed middle aged lady; cmd=; level = 1
+[456]  name=Holgart; desc=An old sailor; cmd=; level = 20
+[457]  name=Holgart; desc=An old sailor; cmd=; level = 20
+[458]  name=Holgart; desc=An old sailor; cmd=; level = 20
+[459]  name=kent; desc=caroline's husband; cmd=; level = 20
+[460]  name=bailey; desc=the fishing platform cook; cmd=; level = 20
+[461]  name=kennith; desc=A young scared looking boy; cmd=; level = 0
+[462]  name=Platform Fisherman; desc=an emotionless fisherman; cmd=; level = 15
+[463]  name=Platform Fisherman; desc=an emotionless fisherman; cmd=; level = 15
+[464]  name=Platform Fisherman; desc=an emotionless fisherman; cmd=; level = 15
+[465]  name=Elena; desc=She doesn't look too happy; cmd=; level = 1
+[466]  name=jinno; desc=He doesn't seem to mind his lack of legs; cmd=; level = 30
+[467]  name=Watto; desc=He doesn't seem to mind his lack of legs; cmd=; level = 30
+[468]  name=Recruiter; desc=A member of the Ardougne royal army; cmd=; level = 40
+[469]  name=Head mourner; desc=In charge of people with silly outfits; cmd=; level = 2
+[470]  name=Almera; desc=A woman of the wilderness; cmd=; level = 1
+[471]  name=hudon; desc=A young boisterous looking lad; cmd=; level = 0
+[472]  name=hadley; desc=A happy looking fellow; cmd=; level = 15
+[473]  name=Rat; desc=Overgrown vermin; cmd=; level = 15
+[474]  name=Combat instructor; desc=He will tell me how to fight; cmd=; level = 40
+[475]  name=golrie; desc=It's a tree gnome; cmd=; level = 3
+[476]  name=Guide; desc=She gives hints to new adventurers; cmd=; level = 0
+[477]  name=King Black Dragon; desc=The biggest meanest dragon around; cmd=; level = 250
+[478]  name=cooking instructor; desc=Talk to him to learn about runescape food; cmd=; level = 20
+[479]  name=fishing instructor; desc=He smells of fish; cmd=; level = 15
+[480]  name=financial advisor; desc=He knows about money; cmd=; level = 0
+[481]  name=gerald; desc=An old fisherman; cmd=; level = 15
+[482]  name=mining instructor; desc=A short angry guy; cmd=; level = 20
+[483]  name=Elena; desc=She looks concerned; cmd=; level = 1
+[484]  name=Omart; desc=A nervous looking fellow; cmd=; level = 15
+[485]  name=Bank assistant; desc=She can look after my stuff; cmd=; level = 11
+[486]  name=Jerico; desc=He looks friendly enough; cmd=; level = 15
+[487]  name=Kilron; desc=He looks shifty; cmd=; level = 15
+[488]  name=Guidor's wife; desc=She looks rather concerned; cmd=; level = 1
+[489]  name=Quest advisor; desc=I wonder what advise he has to impart; cmd=; level = 40
+[490]  name=chemist; desc=human; cmd=; level = 3
+[491]  name=Mourner; desc=A mourner or plague healer; cmd=; level = 2
+[492]  name=Mourner; desc=A mourner or plague healer; cmd=; level = 2
+[493]  name=Wilderness guide; desc=He's ready for a fight; cmd=; level = 32
+[494]  name=Magic Instructor; desc=An old wizard; cmd=; level = 20
+[495]  name=Mourner; desc=A mourner or plague healer; cmd=; level = 20
+[496]  name=Community instructor; desc=This is the last advisor - honest; cmd=; level = 2
+[497]  name=boatman; desc=An old sailor; cmd=; level = 20
+[498]  name=skeleton mage; desc=It rattles as it walks; cmd=; level = 24
+[499]  name=controls guide; desc=He's ready for a fight; cmd=; level = 32
+[500]  name=nurse sarah; desc=She's quite a looker; cmd=; level = 1
+[501]  name=Tailor; desc=He's ready for a party; cmd=; level = 32
+[502]  name=Mourner; desc=A mourner or plague healer; cmd=; level = 30
+[503]  name=Guard; desc=He tries to keep order around here; cmd=; level = 31
+[504]  name=Chemist; desc=He looks clever enough; cmd=; level = 32
+[505]  name=Chancy; desc=He's ready for a bet; cmd=; level = 32
+[506]  name=Hops; desc=He's drunk; cmd=; level = 32
+[507]  name=DeVinci; desc=He has a colourful personality; cmd=; level = 32
+[508]  name=Guidor; desc=He's not that ill; cmd=; level = 32
+[509]  name=Chancy; desc=He's ready for a bet; cmd=; level = 32
+[510]  name=Hops; desc=He's drunk; cmd=; level = 32
+[511]  name=DeVinci; desc=He has a colourful personality; cmd=; level = 32
+[512]  name=king Lanthas; desc=King Lanthas of east ardounge; cmd=; level = 15
+[513]  name=Head wizard; desc=He runs the wizards guild; cmd=; level = 20
+[514]  name=Magic store owner; desc=An old wizard; cmd=; level = 20
+[515]  name=Wizard Frumscone; desc=A confused looking wizard; cmd=; level = 20
+[516]  name=target practice zombie; desc=The living dead; cmd=; level = 23
+[517]  name=Trufitus; desc=A wise old witch doctor; cmd=; level = 10
+[518]  name=Colonel Radick; desc=A soldier of the town of Yanille; cmd=; level = 40
+[519]  name=Soldier; desc=A soldier of the town of Yanille; cmd=; level = 31
+[520]  name=Bartender; desc=I could get a beer off him; cmd=; level = 0
+[521]  name=Jungle Spider; desc=A venomous deadly spider; cmd=; level = 45
+[522]  name=Jiminua; desc=She looks very interested in selling some of her wares.; cmd=; level = 0
+[523]  name=Jogre; desc=An aggressive humanoid; cmd=; level = 72
+[524]  name=Guard; desc=He tries to keep order around here; cmd=; level = 31
+[525]  name=Ogre; desc=Useful for ranged training; cmd=; level = 72
+[526]  name=Guard; desc=He tries to keep order around here; cmd=; level = 31
+[527]  name=Guard; desc=He tries to keep order around here; cmd=; level = 31
+[528]  name=shop keeper; desc=he sells weapons; cmd=; level = 0
+[529]  name=Bartender; desc=I could get a beer off him; cmd=; level = 0
+[530]  name=Frenita; desc=runs a cookery shop; cmd=; level = 0
+[531]  name=Ogre chieftan; desc=A slightly bigger uglier ogre; cmd=; level = 92
+[532]  name=rometti; desc=It's a well dressed tree gnome; cmd=; level = 3
+[533]  name=Rashiliyia; desc=A willowy ethereal being who floats above the ground; cmd=; level = 80
+[534]  name=Blurberry; desc=It's a red faced tree gnome; cmd=; level = 3
+[535]  name=Heckel funch; desc=It's another jolly tree gnome; cmd=; level = 3
+[536]  name=Aluft Gianne; desc=It's a tree gnome chef; cmd=; level = 3
+[537]  name=Hudo glenfad; desc=It's another jolly tree gnome; cmd=; level = 3
+[538]  name=Irena; desc=human; cmd=; level = 0
+[539]  name=Mosol; desc=A jungle warrior; cmd=; level = 0
+[540]  name=Gnome banker; desc=It's tree gnome banker; cmd=; level = 3
+[541]  name=King Narnode Shareen; desc=It's a gnome he look's important; cmd=; level = 3
+[542]  name=UndeadOne; desc=One of Rashaliyas Minions; cmd=; level = 80
+[543]  name=Drucas; desc=engraver; cmd=; level = 20
+[544]  name=tourist; desc=human; cmd=; level = 32
+[545]  name=King Narnode Shareen; desc=It's a gnome he look's important; cmd=; level = 3
+[546]  name=Hazelmere; desc=An ancient looking gnome; cmd=; level = 3
+[547]  name=Glough; desc=An rough looking gnome; cmd=; level = 3
+[548]  name=Shar; desc=Concerned about the economy; cmd=b38c40; level = 0
+[549]  name=Shantay; desc=human; cmd=; level = 0
+[550]  name=charlie; desc=Poor guy?; cmd=; level = 0
+[551]  name=Gnome guard; desc=A tree gnome guard; cmd=; level = 31
+[552]  name=Gnome pilot; desc=He can fly the glider; cmd=; level = 3
+[553]  name=Mehman; desc=local; cmd=805030; level = 32
+[554]  name=Ana; desc=This lady doesn't look as if she belongs here.; cmd=; level = 17
+[555]  name=Chaos Druid warrior; desc=A crazy evil druid; cmd=; level = 48
+[556]  name=Gnome pilot; desc=He can fly the glider; cmd=; level = 3
+[557]  name=Shipyard worker; desc=He look's busy; cmd=; level = 48
+[558]  name=Shipyard worker; desc=He look's busy; cmd=; level = 48
+[559]  name=Shipyard worker; desc=He look's busy; cmd=; level = 48
+[560]  name=Shipyard foreman; desc=He look's busy; cmd=; level = 60
+[561]  name=Shipyard foreman; desc=He look's busy; cmd=; level = 60
+[562]  name=Gnome guard; desc=A tree gnome guard; cmd=; level = 23
+[563]  name=Femi; desc=It's a little tree gnome; cmd=; level = 3
+[564]  name=Femi; desc=It's a little tree gnome; cmd=; level = 3
+[565]  name=Anita; desc=It's a little tree gnome; cmd=; level = 3
+[566]  name=Glough; desc=An rough looking gnome; cmd=; level = 3
+[567]  name=Salarin the twisted; desc=A crazy evil druid; cmd=; level = 68
+[568]  name=Black Demon; desc=A big scary jet black demon; cmd=; level = 195
+[569]  name=Gnome pilot; desc=He can fly the glider; cmd=; level = 3
+[570]  name=Gnome pilot; desc=He can fly the glider; cmd=; level = 3
+[571]  name=Gnome pilot; desc=He can fly the glider; cmd=; level = 3
+[572]  name=Gnome pilot; desc=He can fly the glider; cmd=; level = 3
+[573]  name=Sigbert the Adventurer; desc=A Warrior; cmd=; level = 55
+[574]  name=Yanille Watchman; desc=He watches out for invading ogres; cmd=pickpocket; level = 41
+[575]  name=Tower guard; desc=He stops people going up the tower; cmd=; level = 41
+[576]  name=Gnome Trainer; desc=He can advise on training; cmd=; level = 11
+[577]  name=Gnome Trainer; desc=He can advise on training; cmd=; level = 11
+[578]  name=Gnome Trainer; desc=He can advise on training; cmd=; level = 11
+[579]  name=Gnome Trainer; desc=He can advise on training; cmd=pickpocket; level = 11
+[580]  name=Blurberry barman; desc=He serves cocktails; cmd=pickpocket; level = 3
+[581]  name=Gnome waiter; desc=He can serve you gnome food; cmd=pickpocket; level = 3
+[582]  name=Gnome guard; desc=A tree gnome guard; cmd=pickpocket; level = 31
+[583]  name=Gnome child; desc=that's a little gnome; cmd=pickpocket; level = 3
+[584]  name=Earth warrior; desc=A strange inhuman warrior; cmd=; level = 52
+[585]  name=Gnome child; desc=He's a little fellow; cmd=pickpocket; level = 3
+[586]  name=Gnome child; desc=hello little gnome; cmd=pickpocket; level = 3
+[587]  name=Gulluck; desc=He sells weapons; cmd=; level = 10
+[588]  name=Gunnjorn; desc=Not civilised looking; cmd=; level = 18
+[589]  name=Zadimus; desc=Ghostly Visage of the dead Zadimus; cmd=; level = 0
+[590]  name=Brimstail; desc=An ancient looking gnome; cmd=; level = 3
+[591]  name=Gnome child; desc=He's a little fellow; cmd=pickpocket; level = 3
+[592]  name=Gnome local; desc=A tree gnome villager; cmd=pickpocket; level = 9
+[593]  name=Gnome local; desc=A tree gnome villager; cmd=pickpocket; level = 3
+[594]  name=Moss Giant; desc=his beard seems to have a life of its own; cmd=; level = 62
+[595]  name=Gnome Baller; desc=A tree gnome ball player; cmd=tackle; level = 70
+[596]  name=Goalie; desc=A gnome ball goal catcher; cmd=; level = 70
+[597]  name=Gnome Baller; desc=A tree gnome ball player; cmd=tackle; level = 70
+[598]  name=Gnome Baller; desc=A tree gnome ball player; cmd=tackle; level = 70
+[599]  name=Gnome Baller; desc=A tree gnome ball player; cmd=tackle; level = 70
+[600]  name=Gnome Baller; desc=A tree gnome ball player; cmd=tackle; level = 70
+[601]  name=Referee; desc=He controls the game; cmd=; level = 3
+[602]  name=Gnome Baller; desc=A tree gnome ball player; cmd=tackle; level = 70
+[603]  name=Gnome Baller; desc=A tree gnome ball player; cmd=tackle; level = 70
+[604]  name=Gnome Baller; desc=A tree gnome ball player; cmd=tackle; level = 70
+[605]  name=Gnome Baller; desc=A tree gnome ball player; cmd=tackle; level = 70
+[606]  name=Gnome Baller; desc=A tree gnome ball player; cmd=tackle; level = 70
+[607]  name=Gnome Baller; desc=A tree gnome ball player; cmd=tackle; level = 70
+[608]  name=Gnome Baller; desc=A tree gnome ball player; cmd=tackle; level = 70
+[609]  name=Gnome Baller; desc=He's on your team; cmd=pass to; level = 70
+[610]  name=Gnome Baller; desc=He's on your team; cmd=pass to; level = 70
+[611]  name=Cheerleader; desc=It's a little tree gnome; cmd=; level = 3
+[612]  name=Cheerleader; desc=It's a little tree gnome; cmd=; level = 3
+[613]  name=Nazastarool Zombie; desc=One of Rashaliyas Minions; cmd=; level = 95
+[614]  name=Nazastarool Skeleton; desc=One of Rashaliyas Minions; cmd=; level = 95
+[615]  name=Nazastarool Ghost; desc=One of Rashaliyas Minions; cmd=; level = 95
+[616]  name=Fernahei; desc=An enthusiastic fishing shop owner; cmd=; level = 10
+[617]  name=Jungle Banker; desc=He can look after my money; cmd=; level = 11
+[618]  name=Cart Driver; desc=He drives the cart; cmd=; level = 15
+[619]  name=Cart Driver; desc=He drives the cart; cmd=; level = 15
+[620]  name=Obli; desc=An intelligent looking shop owner; cmd=; level = 0
+[621]  name=Kaleb; desc=This is Kaleb Paramaya - a warm and friendly inn owner; cmd=; level = 0
+[622]  name=Yohnus; desc=This is Yohnus - he runs the local blacksmiths; cmd=; level = 0
+[623]  name=Serevel; desc=This is Serevel - he sells tickets for the 'Lady of the Waves'; cmd=; level = 0
+[624]  name=Yanni; desc=Yanni Salika - He buys and sells antiques.; cmd=; level = 0
+[625]  name=Official; desc=He helps the referee; cmd=; level = 3
+[626]  name=Koftik; desc=The kings top tracker; cmd=; level = 18
+[627]  name=Koftik; desc=The kings top tracker; cmd=; level = 18
+[628]  name=Koftik; desc=The kings top tracker; cmd=; level = 18
+[629]  name=Koftik; desc=The kings top tracker; cmd=; level = 18
+[630]  name=Blessed Vermen; desc=A undead servent of iban; cmd=; level = 15
+[631]  name=Blessed Spider; desc=One of iban's eight legged friends; cmd=; level = 45
+[632]  name=Paladin; desc=A paladin of Ardougne; cmd=; level = 85
+[633]  name=Paladin; desc=A paladin of Ardougne; cmd=; level = 85
+[634]  name=slave; desc=He seems possessed; cmd=; level = 17
+[635]  name=slave; desc=He seems possessed; cmd=; level = 17
+[636]  name=slave; desc=He seems to have been here a while; cmd=; level = 17
+[637]  name=slave; desc=He seems possessed; cmd=; level = 17
+[638]  name=slave; desc=He seems to have been here a while; cmd=; level = 17
+[639]  name=slave; desc=He seems possessed; cmd=; level = 17
+[640]  name=slave; desc=He seems to have been here a while; cmd=; level = 17
+[641]  name=Kalrag; desc=I think this is one of Ibans pets; cmd=; level = 88
+[642]  name=Niloof; desc=A short angry guy; cmd=; level = 20
+[643]  name=Kardia the Witch; desc=She's got warts; cmd=; level = 35
+[644]  name=Souless; desc=He seems an empty shell; cmd=; level = 17
+[645]  name=Othainian; desc=big red and incredibly evil; cmd=; level = 78
+[646]  name=Doomion; desc=A big scary jet black demon; cmd=; level = 98
+[647]  name=Holthion; desc=big red and incredibly evil; cmd=; level = 78
+[648]  name=Klank; desc=A short angry guy; cmd=; level = 20
+[649]  name=Iban; desc=You feel terror just looking at him; cmd=; level = 24
+[650]  name=Koftik; desc=The kings top tracker; cmd=; level = 18
+[651]  name=Goblin guard; desc=An imposing green creature; cmd=; level = 48
+[652]  name=Observatory Professor; desc=He works in the observatory; cmd=; level = 3
+[653]  name=Ugthanki; desc=A dangerous type of spitting camel that can temporarily blind an opponent.; cmd=; level = 45
+[654]  name=Observatory assistant; desc=The Professor's assistant; cmd=; level = 3
+[655]  name=Souless; desc=A servent to zamorak; cmd=; level = 23
+[656]  name=Dungeon spider; desc=A nasty poisonous arachnid; cmd=; level = 25
+[657]  name=Kamen; desc=A short angry guy; cmd=; level = 20
+[658]  name=Iban disciple; desc=An evil follower of Iban; cmd=; level = 18
+[659]  name=Koftik; desc=The kings top tracker; cmd=; level = 18
+[660]  name=Goblin; desc=These goblins have grown strong; cmd=; level = 24
+[661]  name=Chadwell; desc=A sturdy looking gent; cmd=; level = 18
+[662]  name=Professor; desc=The owner of the observatory; cmd=; level = 3
+[663]  name=FREESLOT; desc=FREESLOT PLEASE USE; cmd=; level = 17
+[664]  name=Ghost; desc=A doomed victim of zamorak; cmd=; level = 33
+[665]  name=Spirit of Scorpius; desc=The undead spirit of the follower of Zamorak; cmd=; level = 100
+[666]  name=Scorpion; desc=There are nasty scorpions around this grave; cmd=; level = 21
+[667]  name=Dark Mage; desc=He works in the ways of dark magic; cmd=; level = 0
+[668]  name=Mercenary; desc=He seems to be guarding an area; cmd=; level = 48
+[669]  name=Mercenary Captain; desc=He's in control of the local guards.; cmd=watch; level = 48
+[670]  name=Mercenary; desc=He seems to be guarding an area; cmd=; level = 48
+[671]  name=Mining Slave; desc=A chained slave forced to mine rocks.; cmd=; level = 17
+[672]  name=Watchtower wizard; desc=A learned man; cmd=; level = 20
+[673]  name=Ogre Shaman; desc=An intelligent form of ogre; cmd=; level = 100
+[674]  name=Skavid; desc=Servant race to the ogres; cmd=; level = 3
+[675]  name=Ogre guard; desc=These ogres protect the city; cmd=; level = 92
+[676]  name=Ogre guard; desc=These ogres protect the city; cmd=; level = 92
+[677]  name=Ogre guard; desc=These ogres protect the city; cmd=; level = 92
+[678]  name=Skavid; desc=Servant race to the ogres; cmd=; level = 3
+[679]  name=Skavid; desc=Servant race to the ogres; cmd=; level = 3
+[680]  name=Og; desc=The chieftan of this ogre tribe; cmd=; level = 92
+[681]  name=Grew; desc=The chieftan of this ogre tribe; cmd=; level = 92
+[682]  name=Toban; desc=The chieftan of this ogre tribe; cmd=; level = 92
+[683]  name=Gorad; desc=A high ranking ogre official; cmd=; level = 92
+[684]  name=Ogre guard; desc=this creature looks very tough; cmd=; level = 98
+[685]  name=Yanille Watchman; desc=A captured guard of Yanille; cmd=; level = 41
+[686]  name=Ogre merchant; desc=He sells ogre-inspired items; cmd=; level = 72
+[687]  name=Ogre trader; desc=He trades in metals; cmd=; level = 72
+[688]  name=Ogre trader; desc=He trades in food; cmd=; level = 72
+[689]  name=Ogre trader; desc=He trades in food; cmd=; level = 72
+[690]  name=Mercenary; desc=He seems to be guarding an area; cmd=; level = 48
+[691]  name=City Guard; desc=high ranking ogre guards; cmd=; level = 92
+[692]  name=Mercenary; desc=He seems to be guarding this area; cmd=; level = 48
+[693]  name=Lawgof; desc=He guards the mines; cmd=; level = 20
+[694]  name=Dwarf; desc=A short angry guy; cmd=; level = 20
+[695]  name=lollk; desc=He looks scared; cmd=; level = 20
+[696]  name=Skavid; desc=Servant race to the ogres; cmd=; level = 3
+[697]  name=Ogre guard; desc=These ogres protect the city; cmd=; level = 92
+[698]  name=Nulodion; desc=He's the head of black guard weapon development; cmd=; level = 20
+[699]  name=Dwarf; desc=A short angry guy; cmd=; level = 20
+[700]  name=Al Shabim; desc=The leader of a nomadic Bedabin desert people - sometimes referred to as the 'Tenti's'; cmd=; level = 0
+[701]  name=Bedabin Nomad; desc=A Bedabin nomad - they live in the harshest extremes in the desert; cmd=; level = 0
+[702]  name=Captain Siad; desc=He's in control of the whole mining camp.; cmd=; level = 48
+[703]  name=Bedabin Nomad Guard; desc=A Bedabin nomad guard - he's protecting something important; cmd=; level = 70
+[704]  name=Ogre citizen; desc=A denizen of Gu'Tanoth; cmd=; level = 72
+[705]  name=Rock of ages; desc=A huge boulder; cmd=; level = 150
+[706]  name=Ogre; desc=A large dim looking humanoid; cmd=; level = 72
+[707]  name=Skavid; desc=Servant race to the ogres; cmd=; level = 3
+[708]  name=Skavid; desc=Servant race to the ogres; cmd=; level = 3
+[709]  name=Skavid; desc=Servant race to the ogres; cmd=; level = 3
+[710]  name=Draft Mercenary Guard; desc=He's quickly drafted in to deal with trouble makers; cmd=; level = 48
+[711]  name=Mining Cart Driver; desc=He drives the mining cart; cmd=; level = 15
+[712]  name=Battle mage; desc=He runs the mage arena; cmd=; level = 20
+[713]  name=Battle mage; desc=He runs the mage arena; cmd=; level = 20
+[714]  name=Gertrude; desc=A busy housewife; cmd=; level = 20
+[715]  name=Shilop; desc=A young boisterous looking lad; cmd=; level = 0
+[716]  name=Rowdy Guard; desc=He looks as if he's spoiling for trouble; cmd=; level = 48
+[717]  name=Shantay Pass Guard; desc=He seems to be guarding the Shantay Pass; cmd=; level = 32
+[718]  name=Rowdy Slave; desc=A slave who's looking for trouble.; cmd=; level = 17
+[719]  name=Shantay Pass Guard; desc=He seems to be guarding the Shantay Pass; cmd=; level = 32
+[720]  name=Assistant; desc=He is an assistant to Shantay and helps him to run the pass.; cmd=; level = 0
+[721]  name=Desert Wolf; desc=A vicious Desert wolf; cmd=; level = 30
+[722]  name=Workman; desc=This person is working on the site; cmd=pickpocket; level = 11
+[723]  name=Examiner; desc=As you examine the examiner you examine that she is indeed an examiner!!; cmd=; level = 1
+[724]  name=Student; desc=A student busily digging!; cmd=; level = 0
+[725]  name=Student; desc=A student busily digging!; cmd=; level = 20
+[726]  name=Guide; desc=This person specialises in panning for gold; cmd=; level = 20
+[727]  name=Student; desc=A student busily digging!; cmd=; level = 20
+[728]  name=Archaeological expert; desc=An expert on archaeology!; cmd=; level = 20
+[729]  name=civillian; desc=He looks aggitated!; cmd=; level = 20
+[730]  name=civillian; desc=She looks aggitated!; cmd=; level = 0
+[731]  name=civillian; desc=She looks aggitated!; cmd=; level = 0
+[732]  name=civillian; desc=He looks aggitated!; cmd=pickpocket; level = 15
+[733]  name=Murphy; desc=The man in charge of the fishing trawler; cmd=; level = 15
+[734]  name=Murphy; desc=The man in charge of the fishing trawler; cmd=; level = 15
+[735]  name=Sir Radimus Erkle; desc=A huge muscular man in charge of the Legends Guild; cmd=; level = 10
+[736]  name=Legends Guild Guard; desc=This guard is protecting the entrance to the Legends Guild.; cmd=; level = 0
+[737]  name=Escaping Mining Slave; desc=An emancipated slave with cool Desert Clothes.; cmd=; level = 17
+
