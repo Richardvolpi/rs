@@ -1,0 +1,219 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fswiss\fcharset0 Arial;}}
+\viewkind4\uc1\pard\qc\b\f0\fs44 SBoT Help\par
+\fs20 v0.1a\par
+\b0\fs16 RichyT\b\fs20\par
+\par
+irc.rscheatnet.org #SBoT\par
+irc.autorune.org #SBoT (when its back!)\par
+\par
+\pard\fs28 Okay, lets just go over this. SBoT runs \ul JAVA\ulnone  files. That means, unfortunatly for some, you need a brain. That thing in your head - might have read about them somewhere.\par
+\par
+Scripts are loaded from /SCRIPTS/ so dont go complain about it not finding them.\par
+.JAG and .MEM files are to be loaded from /DATA/ so the first person who says that doesn't work, dies.\par
+Compile your scripts by using compile.bat in the /SCRIPTS/ folder. Beware, it compiles all of the scripts, so you may need to edit this if you have a strangly large number of files in there.\par
+\par
+Why have I made this public?\par
+Because being suspended, (yay...), I had nothing to do today! So in the mid-morning, I decided to make something. 10 hours later, here it is, woop-dee-doo.\par
+\par
+I want to learn some scripting...\par
+It's java, follow the commands, leach of others, whatever\par
+\par
+How do I know what type all the NPC's and Objects are?\par
+Right Click > Examine, and it pops up in the DOS box.\par
+\par
+I've found a bug, what the fuck do I do?\par
+Find me on IRC, leave me a PM. Say it once, not twice, or die :)\par
+\par
+OMFG You stole the HP thing from JewBot!\par
+Correction, he stole it from DBoT <--- mine\par
+(hi2u GrEg)\par
+\par
+Christ, you didnt mention \ul anyone\ulnone  who helped you!\par
+Look at the bottom, dick wad.\par
+\par
+I've got something wrong, so I'm going to PM you on IRC a hundred times begging for help.\par
+Try me, bitch </3\par
+\par
+I suck at scripting, teach me!\par
+No\par
+\par
+Script Commands \b0\i\fs16 (in no particular order)\b\i0\fs28\par
+\fs18\par
+Wait(int time) \b0 Pause's for [time] milliseconds before continuing to the next line.\par
+\par
+\b Rand(int lower, int upper) \b0 Returns a random integer between lower and upper.\par
+\b\par
+DisplayMessage(String message, int type) \b0 Displays a message in RS in the bottom, the type refers to the chat tab it goes in. Server messages are 3, so use these for debugging I guess.\par
+\par
+\b SetFightMode(int style) \b0 Simply sets the fight mode to whatever, 0 = Controlled, 1 = Agressive etc.\par
+\par
+\b GetFightMode() \b0 Returns the fight mode that its currently set to, the same as above - 0 = Controlled, 1 = Agressive etc.\par
+\par
+\b Walk(int x, int y) \b0 Walks to the X and Y co-ordinates, will keep repeating every second until you get there.\par
+\par
+\b Walk(int x, int y, int step) \b0 Walks to the X and Y co-ordinates, will keep repeating every [step] milliseconds until you get there.\par
+\par
+\b WalkNoWait(int x, int y)\b0  Walks to the X and Y co-ordinates, doesn't repeat at all, continues to the next command straight away.\par
+\par
+\b WalkEmpty(int x1, int y1, int x2, int y2)\b0  I think this one's kinda sexy, it choses a random tile within the box (x1, y1 = lowest. x2, y2 = highest) that doesn't have a player or NPC in the way, or an object that you cannot walk upon. (Repeats every second until you arrive)\par
+\par
+\b WalkToEmptyNoWait(int x1, int y1, int x2, int y2) \b0 Same as the above, but doesn't repeat itsself.\par
+\b\par
+EmptyTile(int x, int y)\b0  Returns as true if the tile is empty, false if there is something blocking it.\par
+\par
+\b GetX() \b0 Returns your X co-ordinate.\par
+\par
+\b GetY() \b0 Returns your Y co-ordinate.\par
+\par
+\b MagicPlayer(int player, int spell)\b0  Casts the [spell] on [player]\par
+\par
+\b UseOnPlayer(int player, int item) \b0 Uses the item in slot [item] on [player]\par
+\par
+\b AttackPlayer(int player) \b0 Attacks [player]\par
+\par
+\b DuelPlayer(int player) \b0 Sends a duel request to [player]\par
+\par
+\b TradePlayer(int player) \b0 Sends a trade request to [player]\par
+\par
+\b FollowPlayer(int player) \b0 Follows [player]\par
+\par
+\b MagicItem(int x, int y, int type, int spell) \b0 Casts [spell] on the [type] at X, Y\par
+\par
+\b UseOnItem(int x, int y, int type, int item) \b0 Uses the item in slot [item] on the [type] at X, Y\par
+\par
+\b TakeItem(int x, int y, int type) \b0 Takes the [type] at X, Y\par
+\par
+\b MagicNPC(int id, int spell) \b0 Casts [spell] on [id]\par
+\par
+\b UseOnNPC(int id, int item) \b0 Uses the item in slot [item] on [id]\par
+\par
+\b TalkToNPC(int id) \b0 Talks to [id]\par
+\par
+\b AttackNPC(int id) \b0 Attacks [id]\par
+\par
+\b ThieveNPC(int id) \b0 Attacks [id]\par
+\par
+\b CastOnDoor(int x, int y, int dir, int spell) \b0 Casts [spell] on the door at X, Y facing [dir]\par
+\par
+\b UseOnDoor(int x, int y, int dir, int item) \b0 Uses the item in slot [item] on the door at X, Y facing [dir]\par
+\par
+\b CloseDoor(int x, int y, int dir) \b0 Closes the door at X, Y facing [dir] NB: Use this for picking locks\par
+\par
+\b ObjectAt(int x, int y) \b0 Returns the object type at X, Y\par
+\par
+\b AtObject(int x, int y) \b0 'Uses' the object at X, Y\par
+\par
+\b AtObject2(int x, int y) \b0 'Uses' the alternative option for the object at X, Y\par
+\par
+\b MagicObject(int x, int y, int spell) \b0 Casts [spell] on the object at X, Y\par
+\par
+\b UseOnObject(int x, int y, int item) \b0 Uses the item in slot [item] on the object at X, Y\par
+\par
+\b Magic(int spell) \b0 Casts [spell]\par
+\par
+\b QuestMenu() \b0 Returns true if the quest menu is visible, false if not\par
+\par
+\b Answer(int answer) \b0 Sends a reply for the quest menu, 0 is the first option - not 1\par
+\par
+\b MagicInventory(int slot, int spell) \b0 Casts [spell] on the item in slot [slot]\par
+\par
+\b UseWithInventory(int slot1, int slot2)\b0  Uses the item at [slot1] with the one at [slot2]\par
+\par
+\b Remove(int slot) \b0 Remove's the item in [slot]\par
+\par
+\b Wield(int slot) \b0 Wield's the item in [slot]\par
+\b\par
+Use(int slot) \b0 Uses the item in [slot]\par
+\par
+\b Drop(int slot) \b0 Drops the item in [slot]\par
+\par
+\b Deposit(int type, int amount) \b0 Deposits [amount] of [type] NB: Must be 1, 5, 25, 50, 100, 2500\par
+\par
+\b Withdraw(int type, int amount) \b0 Withdraws [amount] of [type] NB: Must be 1, 5, 25, 50, 100, 2500\par
+\par
+\b InvCount(int type) \b0 Returns the amount of [type] in your inventory\par
+\par
+\b InvCount() \b0 Returns the number of items in your inventory\par
+\par
+\b Logout() \b0 Guess, smartass\par
+\par
+\b int[] GetNearestObject(int type) \b0 Returns the coordinates of the nearest object of [type] in an array.\par
+\par
+\b int[] GetNearestObject(int type[]) \b0 Returns the coordinates of the nearest object of [type[]] in an array. NB: [type] must be an array itsself\par
+\par
+\b GetNearestNPC(int type) \b0 Returns the ID of the nearest NPC of [type]\par
+\par
+\b GetNearestNPC(int type[]) \b0 Returns the ID of the nearest NPC of [type[]] NB@ [type] must be an array itsself\par
+\par
+\b CloseShop() \b0 Closes the shop\par
+\b\par
+CloseBank() \b0 Closes the bank...\par
+\par
+\b Buy(int item) \b0 Buys an [item] from the shop\par
+\par
+\b Sell(int item) \b0 Sells an [item] in the shop\par
+\par
+\b Bank() \b0 Returns true if the bank is visible, false if not\par
+\par
+\b PlayerByName(String name) \b0 Returns the player ID of the player called [name]\par
+\par
+\b GetCurrentStat(int statno) \b0 Returns the current stat of the player, starting at 0 for Attack, 1 for Defence, 2 for Strength, 3 for Hits etc.\par
+\par
+\b GetStat(int statno) \b0 Returns the stat of the player, starting at 0 for Attack, 1 for Defence, 2 for Strength, 3 for Hits etc.\par
+\par
+\b PlayerHP(int id) \b0 Try's to return the player [id]'s max HP, will return -1 if it cannot be found\par
+\par
+\b PlayerDestX(int id) \b0 Guess's the player [id]'s destination X coordinate\par
+\par
+\b PlayerDestY(int id) \b0 Guess's the player [id]'s destination Y coordinate\par
+\par
+\b PlayerX(int id) \b0 Returns the player [id]'s X coordinate\par
+\par
+\b PlayerY(int id)\b0  Returns the player [id]'s Y coordinate\par
+\par
+\b LastServerMessage() \b0 Returns the last server message\par
+\par
+\b ResetLastServerMessage() \b0 Resets the last server message\par
+\par
+\b WaitForServerMessage(int timeout) \b0 Waits for a server message, and timesout after [timeout]\par
+\par
+\b InLastServerMessage(String st) \b0 Returns true if [st] is in the last server message\par
+\par
+\b FindInv(int type) \b0 Returns the position of the first [type]\par
+\par
+\par
+\b\fs32 Shouts:\par
+\fs20 I'd like to say a quick moo to all these people: that helped me in one way or another ;)\b0\fs24\par
+\f1\fs20 saevion: for some reason, very strange decision to the others, he decided that I wasn't actually a nooby moron at the start - back in the old www.richyt.com days. He first got me 'into' java, and let me thieve a near-deobfuscated mudclient18(1?) He also introduced me to Sean, who I'll go onto rape later on.\par
+\par
+Sean: After I bugged saevion for a bit, he decided that I was better to ask Sean, who at first seemed like a nice guy. He didn't know me, but still he trusted me with some of his shiz, and his brains. He let me in on a sucky RS2 bot he made, and unknowingly, by answering the odd question, taught me java ;). Then he quit RS, gave me SITE - which I apparantly copied :D\par
+\par
+eP: eP sent me SITE, thats how I got him on my MSN list. hi2u eP\par
+\par
+The rest dont have long explanations, cos im getting bored. So, meh.\par
+\par
+Oblivion: Always there for some <3\par
+\par
+GBoS: Pure unadulerated <3\par
+\par
+&AutoRune: damn, what a great bot!\par
+\par
+Josh/APD/RaW/*: He scams, he keylogs, he bans for no reason, he's hated by millions, he's rich, he's crazy, but until he scams me, I dont give a shit. <3\par
+\par
+PR4Y: Didnt miss you this time <3\par
+\par
+ahp[away]: He's always [away], but secretly he's there. We all know that. <3\par
+\par
+ScarMeist3r: Loves to help out, has crazy idea's and learn shit quick :P One of the very few that I trusted to have TBoT, even though it wasn't briliant :D\par
+\par
+Sal: <3\par
+\par
+evo: Talked to you about once, telling you something that made me look stupid. Meh, we all know you're uber l33t <3\par
+\par
+Subanark: same as above, but <3\par
+\par
+Kaitnieks: You made AutoRune, which is now in #autorune - which I am pwning on WhatPulse btw, so even though you've blocked me. <3\par
+\par
+To everyone else I missed:\line Shit, sorry :)\par
+}
+ 
