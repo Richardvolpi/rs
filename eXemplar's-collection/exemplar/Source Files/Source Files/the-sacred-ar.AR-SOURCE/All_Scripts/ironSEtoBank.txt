@@ -1,0 +1,49 @@
+--- Automine iron script
+--- Bring iron directly
+--- to bank
+-- Start in Varrock SE mine
+-- 1st rock
+GoToIfBagFull(15)
+ResetLastItemGained()
+Action(27,544)
+AtObject(28,544)
+Wait(30)
+GoToIfLastItem(2,151)
+GoTo(-7)
+-- 2nd rock
+GoToIfBagFull(7)
+ResetLastItemGained()
+Action(27,544)
+AtObject(27,543)
+Wait(30)
+GoToIfLastItem(-14,151)
+GoTo(-7)
+---- Leave iron mine
+MoveTo(25,544)
+MoveTo(25,537,1,-1)
+MoveTo(26,526,6,-6)
+MoveTo(33,519)
+MoveTo(33,512,4,-4)
+MoveToRandomly(54,509,55,509)
+MoveToRandomly(55,510,54,510)
+--- talk to banker
+@bank:
+RepeatNextCommandUntilQuestMenu(50,2)
+Action(55,511)
+TalkToNPC(531,535,530)
+Answer(0)
+WaitForBankWindow(50)
+DepositEverything()
+Wait(10)
+CloseBank()
+GoToIfBagFull(@bank)
+Wait(10)
+--- Exit bank
+MoveToRandomly(55,510,54,510)
+MoveToRandomly(54,509,55,509)
+MoveTo(37,509)
+MoveTo(37,515)
+MoveTo(36,515,-8,8)
+MoveTo(28,535)
+MoveTo(26,537)
+MoveTo(26,544)

@@ -1,0 +1,27 @@
+;===== Variables sample ==
+--- Sample of how to do
+--- the same thing 5 times
+SetVarNum(%a,5)
+@LoopStart:
+Debug("Some text")
+AddVarNum(%a,-1)
+GoToIfVarEqualNum(@EndLoop,%a,0)
+GoTo(@LoopStart)
+@EndLoop:
+
+
+GoToRandom(@Action1,@Action2,@Action3)
+@Action1:
+Debug("Random text 1")
+GoTo(@EndAction)
+@Action2:
+Debug("Random text 2")
+GoTo(@EndAction)
+@Action3:
+Debug("Random text 3")
+GoTo(@EndAction)
+
+@EndAction:
+
+
+Stop()

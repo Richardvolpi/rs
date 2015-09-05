@@ -1,0 +1,95 @@
+-- Fish and Cook Script
+-- Catches tuna and swordie
+-- Starts at karamaja docks
+-- Check the Screenshot
+-- For right iventory
+-- positions
+
+-- Version 1.2
+
+-- By Bl4ck1E
+
+
+-- Fishing till bag full
+@fishing:
+GoToIfBagFull(@movetotree)
+Action(321,684)
+AtObject(320,684)
+Wait(20)
+GoTo(@fishing)
+
+-- bag full, goto tree
+@movetotree:
+MoveTo(323,685)
+MoveTo(323,701)
+MoveTo(323,705)
+MoveTo(318,710)
+MoveTo(302,710)
+-- Drops 1 Fish
+-- (for fire detection)
+Wait(10)
+DropItem(4)
+Wait(20)
+MoveTo(302,717)
+GoTo(@cuttree)
+
+
+-- Cut the poor tree
+@cuttree:
+Action(302,717)
+AtObject(302,718)
+Wait(10)
+GoToIfInInventory(@lightfire,14)
+GoTo(@cuttree)
+
+
+-- light the fire
+-- this may take time
+-- who knows why?
+@lightfire:
+DropItem(29)
+Wait(20)
+SetFireTinderPos(3)
+SetFireAtCoords(302,717,14,3)
+Wait(10)
+GoTo(@firecheck)
+
+-- Check, if u can cook
+@firecheck:
+Action(302,717)
+AtObjectWithItem(302,717,4)
+Wait(20)
+DropItem(4)
+GoToIfLastItem(@cook,368)
+GoToIfLastItem(@cook,367)
+GoToIfLastItem(@cook,370)
+GoToIfLastItem(@cook,371)
+GoTo(@lightfire)
+
+
+-- Cook everything
+@cook:
+Action(302,717)
+AtObjectWithItem(302,717,4)
+Wait(10)
+GoToIfInInventory(@cook,369)
+GoToIfInInventory(@cook,366)
+
+
+-- Let's drop the hole fish
+-- lol
+@Drop:
+DropItem(4)
+Wait(10)
+GoToIfInInventory(@Drop,368)
+GoToIfInInventory(@Drop,367)
+GoToIfInInventory(@Drop,370)
+GoToIfInInventory(@Drop,371)
+
+-- back to docks
+MoveTo(302,717)
+MoveTo(318,710)
+MoveTo(323,705)
+MoveTo(323,692)
+MoveToRandomly(323,686,321,686)
+

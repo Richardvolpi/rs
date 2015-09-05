@@ -1,0 +1,113 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Winsock, madCodeHook,
+  StdCtrls, ClipBrd, ExtCtrls;
+
+type
+  TForm1 = class(TForm)
+    Button1: TButton;
+    txtFileName: TEdit;
+    Memo1: TMemo;
+    Button2: TButton;
+    OpenDialog1: TOpenDialog;
+    Timer1: TTimer;
+    procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+  private
+    { Private declarations }
+
+  public
+    { Public declarations }
+  end;
+
+
+
+var
+  Form1: TForm1;
+
+
+implementation
+
+{$R *.DFM}
+
+
+procedure TForm1.Button1Click(Sender: TObject);
+var si : TStartupInfo;
+    pi : TProcessInformation;
+
+begin
+  ZeroMemory(@si, sizeOf(si));
+//  if(txtFileName.Text='jview')then
+//    CreateProcessEx(nil, 'jview /a C:\RS\justclient176\mud1.html', nil, nil, false, 0, nil, 'C:\RS\justclient176\', si, pi, PChar(ExtractFilePath(Application.ExeName) + 'hookSock.dll'))
+//  else
+    CreateProcessEx(nil, PChar(txtFileName.Text), nil, nil, false, 0, nil, nil, si, pi, PChar(ExtractFilePath(Application.ExeName) + 'hookSock.dll'));
+
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  If(FileExists('c:\redi.txt'))Then Begin
+    Memo1.Lines.LoadFromFile('c:\redi.txt');
+  End Else Begin
+    Memo1.Clear;
+  End;
+  If(ParamCount>0)Then Begin
+    Memo1.Lines.Clear;
+    If(ParamStr(1)='7')Then Begin
+      Memo1.Lines.Add('217 138 31 250');
+    End;
+    If(ParamStr(1)='1')Then Begin
+      Memo1.Lines.Add('209 120 137 226');
+    End;
+    If(ParamStr(1)='2')Then Begin
+      Memo1.Lines.Add('209 120 137 226');
+    End;
+    If(ParamStr(1)='6')Then Begin
+      Memo1.Lines.Add('209 120 137 228');
+    End;
+    If(ParamStr(1)='8')Then Begin
+      Memo1.Lines.Add('217 138 31 250');
+    End;
+    If(ParamStr(1)='9')Then Begin
+      Memo1.Lines.Add('217 138 31 251');
+    End;
+    If(ParamStr(1)='10')Then Begin
+      Memo1.Lines.Add('217 138 31 251');
+    End;
+    If(ParamStr(1)='13')Then Begin
+      Memo1.Lines.Add('217 138 32 219');
+    End;
+    If(ParamStr(1)='3')Then Begin
+      Memo1.Lines.Add('209 120 137 227');
+    End;
+    Memo1.Lines.Add('127 0 0 1');
+    Memo1.Lines.Add('2222');
+    Button2Click(nil);
+  End;
+
+ If(ParamCount>1)Then Begin
+    txtFileName.Text:= ParamStr(2);
+    Button1Click(nil);
+  End;
+  Self.BorderStyle:= bsNone;
+  self.Width:=1;
+  Self.Height:=1;
+  Application.Terminate;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+//  Memo1.Lines.SaveToFile('c:\redi.txt');
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  Close;
+end;
+
+end.

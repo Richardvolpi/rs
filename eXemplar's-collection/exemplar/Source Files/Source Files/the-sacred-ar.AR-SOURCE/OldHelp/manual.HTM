@@ -1,0 +1,676 @@
+<html>
+
+<head>
+<title>AutoRune manual</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+</head>
+
+<body>
+
+<font face="Verdana" size=2>
+Check out a great software site, <a href="http://www.blumentals.net">CLICK HERE!</a>
+
+<h1>Terms</h1>
+
+Use this program at your own risk, it's provided AS IS and with all faults, you
+and only you will be responsible if it does any damage to your computer, RS account,
+internet connection, hardware, furniture or
+global climate. Even if this program contains hostile viruses, trojans or backdoors,
+I do not take any responsibility. This program is in a direct violation with RS rules
+(point 5 and 6) so use of it
+is totally illegal. It's however legal to keep it on your computer.
+You are not allowed to disassemble, modify, hex view or decompile ANY of AutoRune files or
+use them in other projects without permission. You are not allowed to sell this program,
+or give it away to anyone. You are not allowed to use this project if you don't
+know what it does and what it is for. You are not allowed to use or even launch it if you are against bots or
+work in Jagex. You are not allowed to use it if you don't have the authorization
+code. You are not allowed to let anyone else know your code. If we notice that 2 or
+more people will use the same authorization code, you lose it. You are allowed to
+contact me by email but not expect me to answer you or even read your suggestions or
+bug reports. I will however try to do it as often as I can. If you start worshiping me,
+you are not allowed to sacrifice live people or animals.<br>
+<i>There are inherent dangers in the use of any software available for downloading on
+the Internet, and I caution you to make sure that you completely understand the potential
+risks before downloading any of the Software. You are solely responsible for adequate
+protection and backup of any data and equipment used in connection with any of the Software,
+and I will not be liable for any damages that you may suffer in connection with using,
+modifying or distributing any of the Software. <br>
+</i>Not knowing these rules does not take away the responsibility.<br><br>
+
+<h1>AutoRune usage</h1>
+
+When you launch AutoRune you will be asked for username and password. Everyone has his own
+unique username/password, if you don't have one, you should talk to Kaitnieks first. Try
+email or AIM:kaitniex.<br><br>
+<img src="scrshot.gif"><br>
+The main areas of the AutoRune window are Server selection, Script box and Log box.
+To start using AutoRune, make sure you have RS client downloaded. This version
+will not work with RS online client. After selecting the world, click Launch RS button,
+browse for the client and launch it. <u>Select the same server you selected in AutoRune.</u>
+Now when you log in, you should get some activity in the Log box. If you don't, then there is
+some error and make sure you selected the same server as in AutoRune. Also make sure you have
+all files required. If everything is ok and you get activity in the Log box then carry on.
+Try moving around and doing stuff. You will see everything you're doing in the Log box, like:<br>
+&nbsp;MoveTo(48,579)<br>
+&nbsp;MoveTo(46,579,-3,-3)<br>
+
+<h1>Important</h1>
+
+The biggest pain for RS bot makers are the regular updates. After each update you should avoid
+using the bot for a couple of days just to ensure, that THEY haven't set up traps to
+sweep out bot users (everyone remembers what happened to RuneBot users), but if you do use it,
+play a bit manually and check if all commands appear in the Log box as they used to.<br>
+When making scripts try to avoid using simple short loops like only standing on place, mining
+and letting all ores fall on the ground. Be more creative - bring all ores to bank or something,
+choose random paths, don't let it look like autominer.<br>
+The bot can't handle disconnects well. If it stops because of disconnect, don't blame AutoRune,
+blame your connection :)
+
+<h1>AutoRune scripting reference</h1>
+
+This section will teach you how to use pre-made scripts. To load a script, use main menu File &gt;
+Load Script. There are few sample scripts, let's describe each of them. <br><br>
+
+<b>Coins collector script</b><br>
+<font face="Lucida Console"><small>--- Money Collector<br>
+@LookForCoins:<br>
+Wait(5)<br>
+GoToIfNearItem(@GrabItem,<font color="#FF0000">10</font>,3)<br>
+GoTo(@LookForCoins)<br>
+@GrabItem:<br>
+SetVarsItemXY(10,11,<font color="#FF0000">10</font>,3)<br>
+--MoveToVarVar(10,11)<br>
+ActionVarVar(10,11)<br>
+TakeItemVarVar(10,11,<font color="#FF0000">10</font>)<br>
+GoTo(@LookForCoins)<br>
+--- End<br><br></small></font>
+
+All this script does is wait for coins to appear nearby and collect them. The best place to use it
+is in bank vault. If you want, you can transform it in air-rune collector or something else, you just
+have to modify 3 values marked in red. Change them... to what? It's item ID, for money it's 10, for
+other items it's different. When you take item in RS manually, you will get something like:
+TakeItem(65,557,i=20) in your Log box. "i=20" - that's the number you're looking for. Change the red
+10's to your number (20 in my sample which means bones) and you will have a script collecting something
+that is not coins :)<br>If you look at <b>bone collecting script</b>, it's the same script but modified to
+collect bones and instantly dig them. I don't know where is a good place for bone collecting, if you
+do - let me know.<br><br>
+
+<b>Iron miner/smelter/smither script</b><br>
+
+<font face="Lucida Console"><small>
+----- Automine iron script<br>
+-- 1st rock<br>
+GoToIfBagFull(15)<br>
+ResetLastItemGained()<br>
+Action(27,544)<br>
+AtObject(28,544)  <br>
+Wait(20)              <br>
+GoToIfLastItem(2,151)     <br>
+GoTo(-7)                      <br>
+-- 2nd rock                       <br>
+GoToIfBagFull(7)                      <br>
+ResetLastItemGained()                     <br>
+Action(27,544)                                <br>
+AtObject(27,543)                                  <br>
+Wait(20)                                              <br>
+GoToIfLastItem(-14,151)                                   <br>
+GoTo(-7)                                                      <br>
+---- Leave iron mine                                              <br>
+MoveTo(24,544)                                                        <br>
+MoveTo(24,545)                                                            <br>
+MoveTo(19,545)<br>
+MoveTo(19,549)    <br>
+MoveTo(22,552)        <br>
+MoveTo(22,565)            <br>
+MoveTo(29,573)                <br>
+MoveTo(44,573)                    <br>
+MoveTo(44,577)                        <br>
+MoveTo(46,580)                            <br>
+MoveTo(52,580)                                <br>
+MoveTo(58,585)                                    <br>
+MoveTo(58,595)                                        <br>
+MoveTo(65,602)                                            <br>
+MoveTo(65,613)                                                <br>
+MoveTo(63,615)                                                    <br>
+MoveTo(63,619)                                                        <br>
+MoveTo(61,619)                                                            <br>
+MoveTo(61,625)<br>
+MoveTo(73,625)    <br>
+MoveTo(86,625)        <br>
+MoveToRandomly(86,628,87,628)<br>
+-- Walk through door             <br>
+MoveToRandomly(85,628,84,628)        <br>
+-- smelt                                 <br>
+SmeltOre(84,627,82,626,151)                  <br>
+Wait(35)                                         <br>
+GoToIfInInventory(-3,151)                            <br>
+MoveToRandomly(85,628,84,628)                            <br>
+-- Exit                                                      <br>
+MoveToRandomly(86,628,87,628)                                    <br>
+MoveTo(86,625)                                                       <br>
+MoveTo(75,625)<br>
+MoveTo(61,625)    <br>
+MoveTo(61,618)        <br>
+MoveTo(61,616)            <br>
+MoveTo(65,611)                <br>
+MoveTo(65,602)                    <br>
+MoveTo(59,595)                        <br>
+MoveTo(59,585)                            <br>
+MoveTo(53,579)                                <br>
+MoveTo(45,579)                                    <br>
+MoveTo(45,577)                                        <br>
+MoveTo(43,576)                                            <br>
+MoveTo(43,573)                                                <br>
+MoveTo(49,573)                                                    <br>
+MoveToRandomly(53,571,53,572)<br>
+MoveTo(64,571)                   <br>
+MoveTo(67,568)                       <br>
+MoveTo(67,562)                           <br>
+MoveTo(69,560)                               <br>
+MoveTo(78,560)                                   <br>
+MoveTo(78,546)                                       <br>
+MoveTo(83,541)                                           <br>
+MoveTo(83,519)                                               <br>
+MoveToRandomly(83,513,83,512)<br>
+MoveToRandomly(88,508,89,508)    <br>
+MoveToRandomly(98,507,97,507)        <br>
+MoveToRandomly(98,509,98,508)            <br>
+-- Enter blacksmith                          <br>
+MoveToRandomly(98,510,98,511)                    <br>
+@Kal:                                                <br>
+ForgeBar(97,511,97,512,170)                              <br>
+GoToIfCountInInventoryGreater(@MakePlate,4,170)              <br>
+WaitForQuestMenu(50)                                             <br>
+Answer(0)<br>
+WaitForQuestMenu(50)<br>
+Answer(1)               <br>
+WaitForQuestMenu(50)        <br>
+Answer(0)                       <br>
+GoTo(@BeidzKalt)                    <br>
+@MakePlate:                             <br>
+WaitForQuestMenu(50)<br>
+Answer(1)               <br>
+WaitForQuestMenu(50)        <br>
+Answer(2)                       <br>
+WaitForQuestMenu(50)                <br>
+Answer(1)                               <br>
+@BeidzKalt:                                 <br>
+Wait(15)                                        <br>
+GoToIfInInventory(@Kal,170)                         <br>
+MoveToRandomly(98,510,98,511)                           <br>
+-- Exit blacksmith                                          <br>
+MoveToRandomly(98,509,98,508)                                   <br>
+MoveToRandomly(102,507,103,507)<br>
+-- Enter bank                      <br>
+MoveToRandomly(103,506,102,506)        <br>
+--- talk to banker                         <br>
+RepeatNextCommandUntilQuestMenu(50,3)          <br>
+MoveToRandomly(103,506,102,506,99,506)             <br>
+Action(102,505)                                        <br>
+TalkToNPC(556,557,559)                                     <br>
+Answer(0)                                                      <br>
+WaitForBankWindow(50)                                              <br>
+DepositEverything()                                                    <br>
+Wait(10)                                                                   <br>
+CloseBank()                                                                    <br>
+Wait(20)                                                                           <br>
+MoveToRandomly(103,506,102,505,102,506)<br>
+--- Exit bank                              <br>
+MoveToRandomly(103,509,103,508)                <br>
+MoveToRandomly(100,509,100,508)                    <br>
+MoveToRandomly(85,508,85,510,85,509)                   <br>
+MoveTo(64,510)                                             <br>
+MoveTo(61,507)                                                 <br>
+MoveTo(40,507)                                                     <br>
+MoveTo(25,519)                                                         <br>
+MoveTo(25,537)                                                             <br>
+MoveTo(25,544)                                                                 <br>
+<br><br></small></font>
+This script should be started at this place:<br>
+<img src="ironst.gif" width="374" height="210"><br>
+What it does is following:
+<ol>
+  <li>Mines iron until hands are full
+  <li>Goes to Lumbrige and smelts all iron ores
+  <li>Goes to Varrock blacksmith
+  <li>Makes iron plate if there are enough bars
+  <li>Makes iron short swords if there are less than 5 iron bars in hands
+  <li>Goes to bank and deposits everything
+</ol>
+This list gets repeated over and over.
+<br>The <b>Bronze script</b> is very similar. It starts in dwarven mines,
+mines full hands with copper and tin, goes to falador to smelt them and puts
+everything (bronze bars, gems) in the bank then starts over. The exact start position
+can be seen here:<br>
+<img src="bronzest.gif" width="354" height="225">
+<br><br>
+<u>Important</u> - all commands that work with items in your bag only see those items,
+that you have gained while playing RS throuhg AutoRune. If you had a hammer in
+hands before you logged in and you didn't touch it (drop and then take or anything)
+then bot won't see the hammer at all and commands like DepositEverything() will
+leave it in untouched hands. If you dropped it accidentally and you want the bot to
+forget it, you have 2 choices: 1) Close everything and reopen 2) Leave only the things
+you don't want the bot to see in backpack and press in menu Script &gt; Forget Items.<br><br>
+
+
+<h1>Making your own scripts</h1>
+It's very important that you make your own cool scripts, because if everyone starts
+using the same scripts all the time, there is a chance it will be noticed by THEM.
+In this section I will try to explain how to do it, the main techniques.<br><br>
+<b>Moving</b><br>
+Just for training purposes do following: Go to some place where there are no many people
+or obstacles in your way. Clear the list by pressing the button.<br>
+When you have done that click where you want to move in your RS window. You
+will notice that a command MoveTo(some numbers) appear in your AR window's Log box.
+<u>Important:</u> The destination
+has to be reachable by going in straight line - that means NO going around obstacles.
+Why is that so? If another player or NPC will get in your way while you are moving,
+you will stop. After bot notices you have stopped, it will try again to reach the destination
+but it will not take any obstacles into account. So remember - all destinations have to be visble
+by your char! If there are more than 4 numbers as MoveTo parameters, you're going around
+something and that's not good, better go back and try again.<br>
+After your char reaches the coord you clicked, click to next coord, wait for it to
+get there and so few times. At the end you should have something like this in your Log box:<br>
+<font face="Lucida Console" size="-1">
+MoveTo(24,541)<br>
+MoveTo(24,540,5,-5)<br>
+MoveTo(24,535)<br>
+MoveTo(21,535,-1,1)<br></font><br>
+Copy (ctrl+C) and paste (ctrl+V) the commands from your Log box to Script box. Then go with your
+RS char to the place you started this training at and launch the script by pressing Run button.
+If you did everything correctly, you will see your character moving. After executing the last
+MoveTo, AR will return to 1st line and start all over.<br>
+Tips for longer paths:
+<ul>
+  <li>Make sure every next coord can be reached from the previous one without going around obstacles
+  <li>Try to keep as less MoveTo commands as possible. Especially in crowded areas.
+  <li>In very crowded areas use MoveToRandomly and choose 3-4 alternative destinations.
+</ul>
+<br><br>
+<b>Mining</b><br>
+Go to some mining site. Click on all rocks you want to mine from. You will get lines like:<br>
+<font face="Lucida Console" size="-1">
+Action(27,544)<br>
+AtObject(28,544)<br></font><br>
+The AtObject always should come together with Action. In this example 27,544 are coords the character
+will stand at when mining and 28,544 are the coords of the rock. Here is a script that mines
+from one rock all the time and does nothing else:<br>
+<font face="Lucida Console" size="-1">
+Action(27,544)<br>
+AtObject(28,544)<br>
+Wait(20)<br></font><br>
+It swings the pick at the rock, waits 2 seconds, then repeats. All ores fall down, the guy just mines
+and mines, never goes anywhere else, ppl get suspicious... Don't use so simple scripts :)<br>
+Here is a bit more complex:<br>
+
+<font face="Lucida Console" size="-1">
+@Rock1:<br>
+ResetLastItemGained()<br>
+Action(27,544)<br>
+AtObject(28,544)<br>
+Wait(20)<br>
+GoToIfLastItem(@Rock2,<font color="#FF0000">151</font>)<br>
+GoTo(@Rock1)<br>
+@Rock2:<br>
+ResetLastItemGained()<br>
+Action(27,544)<br>
+AtObject(27,543)<br>
+Wait(20)<br>
+GoToIfLastItem(@Rock1,<font color="#FF0000">151</font>)<br>
+GoTo(@Rock2)<br></font><br>
+
+This one mines from 2 rocks. When you look at it really carefully, it's not complex at all.
+You should change the coords for Action and AtObject commands. Alter parameters of Wait()
+commands according to your needs (20 means 2 seconds).
+To make it mine something else than iron, change the red numbers 151 to corresponding ID.
+To find out ID, read how to do it where I explain coin collector script.
+This script just mines from 2 rocks and yet again drops everything on ground.<br>
+To make it leave mine when hands are full, just add few lines:<br>
+<font face="Lucida Console" size="-1">
+@Rock1:<br>
+<font color="#FF0000">GoToIfBagFull(@HandsFull)</font>
+ResetLastItemGained()<br>
+Action(27,544)<br>
+AtObject(28,544)<br>
+Wait(20)<br>
+GoToIfLastItem(@Rock2,151)<br>
+GoTo(@Rock1)<br>
+@Rock2:<br>
+<font color="#FF0000">GoToIfBagFull(@HandsFull)</font>
+ResetLastItemGained()<br>
+Action(27,544)<br>
+AtObject(27,543)<br>
+Wait(20)<br>
+GoToIfLastItem(@Rock1,151)<br>
+GoTo(@Rock2)<br>
+<font color="#FF0000">@HandsFull:<br>
+--- Leave mine<br>
+--- ...<br>
+--- ...</font><br></font><br>
+
+You could make it go to furnace and smelt all ores then or simply put them in bank.
+It's up to you but when hands will be full bot will start executing lines after
+the label @HandsFull:<br><br>
+
+<b>Smelting</b><br>
+Take a look at the sample:<br>
+<font face="Lucida Console" size="-1">
+@Smelt:<br>
+SmeltOre(84,627,82,626,<font color="#FF0000">151</font>)<br>
+Wait(35)<br>
+GoToIfInInventory(@Smelt,<font color="#FF0000">151</font>)<br>
+-- End of smelting<br>
+-- ...<br>
+</font><br>
+
+Change the red 151 to ID of your ore. 84,627 are coordinates of Action command
+(where you will be standing at when smelting), 82,626 are coordinates of the
+furnace.<br> It will execute these lines until there are no ores with ID 151 (iron)
+left in your hands. <u>Important:</u> The bot only knows about those items you have gained
+while it is running. If you had ores before logging in, it won't see them and won't smelt
+them. To make bot see them, drop them all on ground and pick up again.<br><br>
+
+<b>Smithing</b>
+This sample makes short swords from iron bars. It will make the swords until there
+are no iron bars left in hands.<br>
+<font face="Lucida Console" size="-1">
+@Kal:<br>
+ForgeBar(97,511,97,512,170)<br>
+WaitForQuestMenu(50)<br>
+Answer(0)<br>
+WaitForQuestMenu(50)<br>
+Answer(1)<br>
+WaitForQuestMenu(50)<br>
+Answer(0)<br>
+Wait(15)<br>
+GoToIfInInventory(@Kal,170)<br>
+-- End of smithing<br>
+-- ...<br>
+</font><br>
+
+Again: 97,511 = your coords when you're forging, 97,512 = anvils coords, 170 - iron bar ID.<br>
+If you want to make it more advanced, you can make it check if your char has 5 iron bars
+then make plate mail, otherwise short swords or something, you will need variable commands
+for that.<br><br>
+
+<b>Bank</b><br>
+The next script deposits everything in the bank. <u>Important:</u> Only the items that are
+visible by the bot get deposited. The bot won't see items that you already had before logging
+in unless you drop them and take again.<br>
+<font face="Lucida Console" size="-1">
+RepeatNextCommandUntilQuestMenu(50,2)<br>
+Action(55,511)<br>
+TalkToNPC(532,528,527)<br>
+Answer(0)<br>
+WaitForBankWindow(50)<br>
+DepositEverything()<br>
+Wait(10)<br>
+CloseBank()<br>
+Wait(10)<br></font><br>
+
+In this case you should change coords of Action(55,511) to a middle of bank, 523,528,527
+are all banker numbers in that bank (to find out banker numbers just press on them in your
+RS window and TalkToNPC(number) will appear.<br><br>
+
+<b>Auto items collecting</b><br>
+Look at the sample scripts Bone collector and money collector.<br><br>
+
+<b>Variables</b><br>
+Look at Variables sample script.<br><br>
+
+<b></b><br>
+If you make cool, universal scripts, please send them to <a href="mailto:aivars@sos.lv">aivars@sos.lv</a>
+and I might include them with next versions.<br><br>
+
+
+<h1>AutoRune script command reference</h1><br><br>
+
+* All labels and variables are case sensitive<br>
+* Labels are defined by @LabelName: and jumped GoTo(@LabelName). You should make sure there are no dublicate
+labels or jumping to non-existing labels, bot doesn't check it.<br>
+* There are totally 101 variables to use numbered 0..100. Variables are usually addressed through %variablename
+(with percent in front), like this SetVarNum(%a,10).<br>
+* All scripts loop automatically - after last line return to line 0.<br>
+* Every coordinate is represented by 2 parameters - X and Y coordinate.<br>
+* When making loops, make sure there is Moving or Waiting command included. Otherwise in case of infinite loops
+the bot will freeze.<br>
+* When using string parameters, they must be in quotes, like Debug("test")<br>
+<br>
+<b>MoveTo</b>(x1,y1[,x2,y2,...]) - if it has 2 params, then it moves to the coordinate specified by the params,
+otherwise it will take every next pair of params as relative coordinate to move to. For an example
+MoveTo(100,200,0,1) will move to coordinate 100,200 and then go 1 square to south.<br>
+<b>MoveToVarVar</b>(var1,var2) - 2 params, variable numbers. Will go to coords specified by those variables.<br>
+<b>MoveToRandomly</b>(x1,y1[,x2,y2,...]) - at least 1 pair of parameters specifying coords. Works as MoveTo, but it will
+choose destination randomly from the given pairs. For an example MoveToRandomly(100,200,101,200) will
+go to either 100,200 or 101,200 and if one of them is occupied by a player or NPC (non playing character)
+then it will go to the other one.<br>
+<b>Action</b>(x,y) - 2 params, coords. This function is used together with a number of other functions right
+before them, like AtObject, AtObjectWithItem, TalkToNPC, TakeItem.<br>
+<b>ActionVarVar</b>(var1,var2) - 2 params, variable numbers containing coords. Works like Action but with variables.<br>
+<b>AtObject</b>(x,y) - 2 params, coords. Use in pair Action + AtObject. AtObject is called when mining for
+an example.<br>
+<b>AtObject2</b>(x,y) - 2 params, coords. Use in pair Action + AtObject2. AtObject2 is called when caging lobsters for
+an example.<br>
+<b>AtObjectWithItem</b>(x,y,ID) - 3 params, coords and item number in the backpack. Used together with Action.<br>
+<b>TalkToNPC</b>(ID1[,ID2,...]) - at least 1 param representing ID of NPC. Talks to non playing character (NPC). If more
+than 1 parameters are given, it will talk to any of them randomly. Used together with Action.<br>
+<b>Deposit</b>(ID,count) - 2 params, item ID and amount to deposit. Bank window must be open.<br>
+<b>Withdraw</b>(ID,count) - 2 params, item ID and amount to withdraw. Bank window must be open.<br>
+<b>Answer</b>(choice) - 1 param, choice number starting from 0. When talking to NPCs a quest menu sometimes appears
+giving you choices of what to say or do. This command selects one of the choices.<br>
+<b>UseItem</b>(number) - 1 param, item number in backpack. Used to burry bones, eat food etc.<br>
+<b>UseItemByID</b>(ID) - 1 param, item ID. The same as UsedItem but uses item ID instead of number in backpack.<br>
+<b>UseItemWithItem</b>(Pos1,Pos2) - 2 params, first item's position and second item's position in inventory.<br>
+<b>UseItemWithItemByID</b>(ID1,ID2) - 2 params, first item's ID and second item's ID. Both items must be in
+inventory and visible to bot.<br>
+<b>Say</b>(HexText) - use this command exactly as it appears in debug box, for an example Say(01 ). You don't see what you're
+saying yourself, but others will see.<br>
+<b>CloseShop</b>() - no params, closes shop window.<br>
+<b>CloseBank</b>() - no params, closes bank window.<br>
+<b>LogOut</b>() - no params, log out from RS.<br>
+<b>DropItem</b>(number) - 1 param, item number in backpack. Drops the item on ground.<br>
+<b>DropItemByID</b>(ID) - 1 param, item ID, item must be in inventory and visible.<br>
+<b>TakeItem</b>(x,y,ID) - 3 params, coords and item ID. Tries to take item ID at given coordinates. Used together
+with Action.<br>
+<b>TakeItemVarVar</b>(var1,var2,ID) - 3 params, 2 variable numbers containing coords and item ID. Works like TakeItem
+but coords are read from variables.<br>
+<b>SmeltOre</b>, <b>ForgeBar</b>(X,Y,oX,oY,ID) - 5 params, your coordinates while smelting/smithing, object (furnace, anvil)
+coordinates and item ID (ore or bar ID).<br>
+<b>DepositEverything</b>() - deposits every item the bot knows of. It will only see those items you gained
+while playing through AutoRune, everything that you had before logging in won't be deposited.<br>
+<b>SellItem</b>(ID,base,inc,div) - 4 params, item ID, base price, step increaser, step increaser divider. This is a
+complex function, use it only if you are desperate. The bot has to calculate prices and only if
+the prices are calculated correctly, the item will be sold. It calculates the price by formula:
+Price = base price * ( 1 - ( Items in shop * step increaser / step increaser divider) ). All these values
+are different for every item I think, if you find a better formula, let me know. Shop window must
+be open.<br>
+<b>BuyItem</b>(ID,base,inc,div) - 4 params, the same as for SellItem.<br><br>
+<b>MagicOnItemByPos</b>(pos,num) - 2 params, item position in inventory and spell number.<br>
+<b>MagicOnItemByID</b>(ID,num) - 2 params, item ID and spell number. The item must be in inventory and visible to bot.<br>
+<b>SetFire</b>() - tries to lighten fire at characters position. Tinderbox must be in blackbox and visible to bot,
+there must be wooden logs on ground where the character is standing.<br>
+<b>SetFireAtCoords</b>(x,y) - tries to lighten fire at given position. Tinderbox must be in blackbox and visible to bot,
+there must be wooden logs on ground at the given coords.<br>
+<b>SetFireTinderPos</b>(Pos) - tries to lighten fire at characters position. Tinderbox must be in the given position,
+there must be wooden logs on ground where the character is standing.<br>
+<b>Wait</b>(time) - 1 param, pause length in 1/10 seconds. You should use this function for waiting and also
+for avoiding freezing of AutoRune because of infinite loops in script. If yo have an infinite loop,
+insert Wait(1) in it.<br>
+<b>WaitForQuestMenu</b>(time) - 1 param, timeout in 1/10 seconds. Waits until quest menu appears but if it
+doesn't in time specified by param, stop waiting.<br>
+<b>WaitForBankWindow</b>(time) - 1 param, timeout. Waits until bank window appears or time runs out.<br>
+<b>WaitForShopWindow</b>(time) - 1 param, timeout. Waits until shop window appears or time runs out.<br>
+<b>WaitForCoordChange</b>() - no params. Waits until the character changes it's location. You should
+use this when climbing ladders, teleporting etc.<br>
+<b>RepeatNextCommandUntilQuestMenu</b>(time,count) - 2 params, timeout and command count. It will execute
+next commands count specified by 2nd parameter, then wait for quest menu. If waiting times out,
+it repeats the commands again and so on until the quest menu appears.<br>
+<b>GoTo</b>(label) - jump to label. It can also be a number, specifying how many lines to skip. Can be negative.<br>
+<b>GoSub</b>(label) - calls the label as procedure. Ret() will return back to the line it was called from.<br>
+<b>Ret()</b> - return from procedure. Jumps back to the last GoSub() it came from.<br>
+<b>ERet()</b> - use to return from events. If you want to jump instead of return, you should restore events
+with EnableEvents()<br>
+<b>EnableEvents</b>() while event is caled, other events are disabled. Use this to enable them.<br>
+<b>ResetLastItemGained</b>() - forgets the last item the character has gained.<br>
+<b>ResetLastItemLost</b>() - forgets the last item the character has lost.<br>
+<b>GoToIfLastItem</b>(label,ID) - jumps to label if the last item ID gained by character is equal to 2nd parameter.<br>
+<b>GoToIfLastItemLost</b>(label,ID) - jumps to label if the last item ID gained by character is equal to 2nd parameter.
+ID is -2 for invisible items.<br>
+<b>GoToIfItemGained</b>(label) - jumps to label if item gained since the last ResetLastItemGained.<br>
+<b>GoToIfItemLost</b>(label) - jumps to label if item is gained since the last ResetLastItemLost.<br>
+<b>GoToIfBagFull</b>(label) - jumps to label if character's backpack is full.<br>
+<b>GoToIfInInventory</b>(label,ID1[,ID2,...]) - jumps to label if all of IDs given as params can be found in
+the backpack.<br>
+<b>GoToIfCountInInventoryEqual</b>(label,num,ID1[,ID2,...]) - jumps to label if all item numbers with IDs given
+are equal to 2nd parameter in inventory.<br>
+<b>GoToIfCountInInventoryGreater</b>(label,num,ID1[,ID2,...]) - jumps, if all item numbers in backpack with given
+IDs are larger than 2nd parameter.<br>
+<b>GoToIfVarEqual</b>(label,var1,var2) - jump to label if variable1 = variable2.<br>
+<b>GoToIfVarNotEqual</b>(label,var1,var2) - jump to label if variable1 != variable2.<br>
+<b>GoToIfVarAbove</b>(label,var1,var2) - jump if variable1 &gt; variable2.<br>
+<b>GoToIfVarBelow</b>(label,var1,var2) - jump if variable1 &lt; variable2.<br>
+<b>GoToIfVarEqualNum</b>(label,var1,num1) - jump to label if variable1 = number1.<br>
+<b>GoToIfVarNotEqualNum</b>(label,var1,num1) - jump to label if variable1 != number1.<br>
+<b>GoToIfVarAboveNum</b>(label,var1,num1) - jump if variable1 &gt; number1.<br>
+<b>GoToIfVarBelowNum</b>(label,var1,num1) - jump if variable1 &lt; number1.<br>
+<b>ResetLastServerMessage</b>() - forgets last server message.<br>
+<b>GoToIfLastServerMessageIs</b>(label,"String") - jumps to label, if last server message is equal to String.<br>
+<b>GoToIfLastServerMessageIsNot</b>(label,"String") - jumps to label, if last server message is not equal to String.<br>
+<b>SetVarNum</b>(var1,num1) - sets variable1 to constant number. variable1 := number1.<br>
+<b>SetVar</b>(var1,var2) - sets variable1 to variable2. variable1 := variable2.<br>
+<b>SetVarRandom</b>(var1,num1) - sets variable to random value from 0 to num1.<br>
+<b>AddVarNum</b>(var1,num1) - increases variable1 by number1. variable1 := variable1 + number1.<br>
+<b>AddVar</b>(var1,var2) - increases variable1 by variable2. variable1 := variable1 + variable2.<br>
+<b>SetVarItemCount</b>(var1,ID1) - sets variable1 to number of items with ID1 in backpack.<br>
+<b>SetVarMyX</b>(var1) - sets variable1 to your X coordinate.<br>
+<b>SetVarMyY</b>(var1) - sets variable1 to your Y coordinate.<br>
+<b>SetVarMyHP</b>(var1) - sets variable to your hit points value.<br>
+<b>GoToIfNearItem</b>(label,ID1,Distance) - jumps to label if item with ID1 is not further than Distance1.<br>
+<b>SetVarsItemXY</b>(var1,var2,ID1,Distance) - sets variable1 and variable2 to coordinate of item with ID1 if
+such an item is not further than Distance1.<br>
+<b>SetVarTime</b>(var1) - sets variable to timestamp. You can use this to get out of loops if you're in them
+for too long.<br>
+<b>GoToRandom</b>(label1[,label2,...]) - jumps to any of labels given chosen randomly.<br>
+<b>GoSubRandom</b>(label1[,label2,...]) - calls any of given labels as subroutines.<br>
+<b>Debug</b>("String") - Output text in the left Debug box.<br>
+<b>DebugVar</b>(var1[,var2,...]) - Output contents of variables in Debug box.<br>
+<b>MessageBox</b>("String") - Show message box with custom text.<br>
+<b>GoToIfQuestion</b>(label,"Question") - displays yes/no messagebox and jumps, if user answers with "yes".<br>
+<b>Stop</b>() - stops script execution.<br>
+<b>StopAndLogOut</b>() - stops script execution and logs out.<br>
+<b>SetOnPlaceTime</b>(time) - changes the standing on the same place timeout. After character
+stands on the same place for given time, it will move randomly a bit. Default timeout is 2400 which is 4 minutes.<br>
+<br>
+<center><b>Events</b></center><br>
+Events are procedures, that get executed every time when specified event occurs. For an example, OnHPChanged event
+will be executed every time when hitpoints change. If you have set this event, as, for an example,
+OnHPChanged(@HPChanged,%HP), then every time your hit points change, the script will jump to @HPChanged: and
+insert the current value of hit points into %HP. After you finish processing the event, return to the main
+script with ERet(). Look at EventTest sample script for information.<br>
+<b>OnItemLost</b>(label,%ItemID,%ItemPos) - event gets executed every time an item is lost from inventory.
+It will copy item position and ID to the variables specified, if item, that is not visible to bot disappears,
+then %ItemID is set to -2.<br>
+<b>OnItemGained</b>(label,%ItemID,%ItemPos) - event on gaining items.<br>
+<b>OnServerMessage</b>(label) - event gets executed on server messages. You can use commands GoToIfLastServerMessageIs
+and GoToIfLastServerMessageIsNot to find out what message it was here.<br>
+<b>OnPrivateMessage</b>(label) - event gets executed on private messages. If you block private messages and yet
+a private message is being sent, it's a reason for LogOut() and Stop().<br>
+<b>OnCoordsChanged</b>(label,%LastX,%LastY) - gets executed every time the coordinates change. %LastX and %LastY
+contain the coordinates you are coming from. Here you can detect if you possibly get teleported by admins.<br>
+<b>OnDestinationReached</b>(label) - gets executed every time when MoveTo reaches the destination.<br>
+<b>OnIdle</b>(label,time) - gets executed when script sits on the same line for time given and is not moving.
+You can use this to detect if the script is stuck.<br>
+<b>OnHPChanged</b>(label,%HP) - gets executed when hit points change. %HP will contain the amount of hit points.<br>
+<b>OnStatsChanged</b>(label,%StatNumber) - gets executed when stats change. %StatNumber will contain number of
+stat that changes (0 - attack, 1 - defense, 2 - strength, 3 - hits, 4 - range, 5 - prayer, 6 - magic, ...).<br>
+<b>OnChatMessage</b>(label) - gets executed when someone talks in game. If you have chat messages blocked and
+someone still talks - it's admin, beware!!!<br>
+<b>OnShopClosed</b>(label) - Shop window closes.<br>
+
+
+
+<h1>History and story</h1>
+<b>Background story</b><br><br>
+My hobby is bot making for various online games. I personally don't think that it makes from me a hacker,
+although many people think so. I personally dislike hackers, but again it depends on what you call hackers.
+I've always told they are the people who deface webbies, root boxes and love to break in somewhere.
+Others say that it's wrong and all smart computer users are hackers. By their classification I could
+be called hacker, although I have never defaced a site, rooted a box, ok there were some online games
+that I... some systems that I... some softs that I... nevermid :)<br>
+I'm making bots for 2 years already. Here are the main of them with a short description:<br>
+<b>Food Fight bot (FF.exe)</b>. Unfortunately all sources and even executables are lost :( It wasn't really
+a bot, it was more like advisor, which calculated for me who is the best attack target and spy target.
+It let me be quicker than other players but that's all. It was my first try, kind of lame, in VB,
+to adapt it to different user I had to change several files manually, there was no Log in box :) <br>
+<b>???</b>. I have forgot name for this and I can't find the game anymore either. It was a simple clicker, VB.<br>
+<b>Sol</b> for <a href="http://www.knkonline.net/">Sol</a>. Also quite simple, I don't remember what it did,
+I think trained my stats, VB.<br>
+<b>BWBots</b> - bot for Bunkerwars (the game doesn't exist anymore, the bot can be found
+<a href="http://bwbots.yo.lv">here</a>). It was a legal bot because game rules allowed bots.
+Although there were several bots, more than 90% used my bot and other bots (except one) died. It's VB.<br>
+<b>DaExplorer</b> - my ultimate bot for <a href="http://www.droidarena.com">DroidArena</a>. It was very
+universal, it practically played for me, had quite a good AI and it got me into #3. Everyone in top6 had
+used the bot at least for some time :) It's VB.<br>
+<b>CBbot</b> - simple clicker for <a href="http://www.carnageblender.com/">Carnage Blender</a>, Delphi.
+The cool thing about it was that it had human check images and I figured a way to bypass them. Then
+I had a talk with game creator and it's better now. I have no idea what's happening in that game now.<br>
+<b>LostBot</b> for <a href="http://www.lost.no/">LOST</a>. It played automatically, but was very
+simple. A bit more advanced than a clicker. It's made in Delphi.<br>
+<b>AutoRune</b> - bot for <a href="http://www.runescape.com">Runscape</a> - the first bot for non-web game.
+It has a scripting system, I've never used that in bots until now. That way I don't have to build a complex
+AI into bot, every user can write his own scripts for different purposes. It's made in Delfi.<br><br>
+<b>AutoRune history</b><br>
+Version 1.26 (special edition for Bl4ck1E)
+<ul>
+  <li>HP bug fixed
+</ul>
+Version 1.25 new features:
+<ul>
+  <li>Fixed events
+  <li>Added some events
+  <li>Added some commands
+  <li>Fixed some interface bugs
+  <li>Prevent Logouts work again
+</ul>
+Version 1.2 new features:
+<ul>
+  <li>Fixed bug with events
+  <li>Fixed (at least minimized) Win 98/ME lag
+  <li>Added auto-logout
+</ul>
+Version 1.1 new features:
+<ul>
+  <li>Fixed bug, that disallowed to launch RS when folder names contained spaces
+  <li>Fixed minimal item selling price
+  <li>Implemented many new commands
+  <li>Implemented event system
+  <li>Can now write variable names instead of numbers
+  <li>Two members servers are added
+</ul>
+The version 1.0 key features:
+<ul>
+  <li>Supports Worlds 1,2 and 7
+  <li>Has user authorization
+  <li>Has scripting support
+  <li>Has mechanism to bypass inactivity logout
+</ul>
+<br>
+Making AutoRune was fun, although I think I'm experienced bot maker, AutoRune was something completely
+different from previous bots. It took a whole week for me to make it and all I want right now is to sleep
+and slep and sleep.... I'm very tired, I hope you enjoyed this document, I will complete it after
+I have a rest. All I want to say - even if the bot gets discovered and banned already tomorrow,
+even then I would not be disappointed. My goal was to make a bot not to have a bot.<br>
+
+
+
+
+
+<h1>Thanks</h1>
+Thank you <a href="http://www.blumentals.net">Rapids</a> for the very l33t interface.<br>
+Thank you <a href="http://www.evilcowgod.com">evilcowgod</a> for inspiring me to making this. It wasn't
+actually you but your site forums.<br>
+</font>
+</body>
+
+</html>
