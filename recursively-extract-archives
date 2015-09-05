@@ -1,0 +1,54 @@
+#!/bin/bash
+set -eu
+
+find . -iname '*.rar' -or -iname '*.zip' -or -iname '*.7z' -or -iname '*.tar.gz' -or -iname '*.ace' | while read archivePathName; do
+	dirToExtractTo="$(echo "$archivePathName" | rev | cut -d. -f 2- | rev)"
+
+	echo -n "Trying $archivePathName... "
+
+	if [ -d "$dirToExtractTo" ]; then
+		# if the directory already exists, I shouldn't extract to it
+		# I should do something better than just skipping the zipfile,
+		# but that's exactly what I'm going to do, because I'm lazy
+		echo "Directory already exists. Skipping."
+		continue;
+	fi
+
+
+
+	if [[ "$archivePathName" =~ .ace$ ]]; then
+		echo "OK."
+		mkdir -p "$dirToExtractTo"
+		pushd "$dirToExtractTo"
+		# heh
+		unace x "$OLDPWD"/"$archivePathName" > /dev/null
+		popd
+	else
+		if [ ! "" = "$(7z l -p"foo" "$archivePathName" | grep "Wrong password")" ]; then
+			echo "Passworded. Skipping."
+			continue
+		fi
+
+		if [ ! "" = "$(7z l -slt "$archivePathName" | grep "Encrypted = +")" ]; then
+			echo "Encrypted. Skipping."
+			continue
+		fi
+
+		set +e
+		7z t "$archivePathName" 2>&1 > /dev/null
+		if [ $? -ne 0 ]; then
+			# broken repo
+			echo "Broken repo. Skipping."
+			continue
+		fi
+		set -e
+
+		echo "OK"
+		mkdir -p "$dirToExtractTo"
+		7z x -o"$dirToExtractTo" "$archivePathName" 2>&1 > /dev/null
+	fi
+
+	git rm "$archivePathName" > /dev/null
+	git add . > /dev/null
+	git commit -m "Extract $archivePathName" > /dev/null
+done
