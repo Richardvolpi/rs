@@ -1,0 +1,391 @@
+{==================================================] 
+[ killerbz BoxOpener ] 
+[ Modified By Akumara ] 
+[ V1.1 ] 
+[==================================================] 
+| How To Use: | 
+| 1) Place BoxOpenerSetup; in your main loop | 
+| 2) Place FindStrangeBox; when you want it to | 
+| search for the box and solve it | 
+| 3) Decide if you would like this include to take| 
+| screenshots of the box or not. | 
+[==================================================] 
+[ Thanks to killerbz for making such a excellent ] 
+[ include. and Kaitnieks for creating SCAR ] 
+[==================================================] 
+[ Please Post Suggestions, Errors & Compliments at ] 
+[ http://www.AkuLounge.cjb.net/ ] 
+[==================================================} 
+
+
+
+type arraytype = array[1..5] of string; 
+var Qtype,Blue,Red,Yellow,Circle,Halfmoon, 
+Triangle,Star,Square,xbit,ybit,strangebox, 
+inx,iny,foundboxcount:integer; 
+hal,circ,squ,sta,tri,cans:string; 
+stocarray:arraytype; 
+
+const 
+TakeScreenshot=True; // You can turn to false if you wish 
+
+//------load bmps------// 
+procedure ldbmp; 
+begin 
+strangebox := BitmapFromString(11, 12, 
+'8C8B418C8B418C8B418C8B418C8B41746C6C746C6C746C6C746C6C' + 
+'3A3535575151746C6C746C6C746C6C746C6C746C6C746C6C746C6C' + 
+'746C6C363131575151575151746C6C746C6C746C6C746C6C746C6C' + 
+'746C6C2D2B2B5751515751516F67676F67676F6767575151575151' + 
+'5751515751515751515751515751516F67676F67676F67676F6767' + 
+'6F67676F67676F67676F67676F67676F67676F67676F67678F8686' + 
+'8F8686554E4E554E4E554E4E524B4B524B4B6F67676F67676F6767' + 
+'8F86868F86868F86868F86868F86868F86868F86864D47476F6767' + 
+'6F67676F67678F86868F86868F8686575ABC8F86868F86868F8686' + 
+'4D47476F67676F67676F67678F8686BC5E57BC5E57575ABC8F8686' + 
+'8F86868F86864D47476F67676F67676F67678F8686BC5E57BC5E57' + 
+'575ABC8F86868F86868F86864D47476F67676F67676F67678F8686' + 
+'BC5E57BC5E57575ABC575ABC575ABC8F86864D47476F67676F6767' + 
+'6F67678F8686BC5E57BC5E57575ABC8F86868F86868F86864D4747' + 
+'6F67676F67676F67678F8686BC5E57BC5E57'); 
+Square := BitmapFromString(11, 10, 
+'000000000000BBB949BBB949BBB949000000000000000000000000' + 
+'000000000000000000BBB949BBB949000000BBB949BBB949000000' + 
+'000000000000000000000000BBB949BBB949000000000000000000' + 
+'000000000000000000000000000000000000000000BBB949BBB949' + 
+'000000000000000000000000000000000000000000000000000000' + 
+'000000BBB949BBB949000000000000000000000000000000000000' + 
+'BBB949000000000000000000BBB949BBB949000000000000000000' + 
+'000000BBB949BBB949000000000000000000000000BBB949BBB949' + 
+'000000000000BBB949BBB949000000000000000000000000000000' + 
+'BBB949BBB949000000000000BBB949BBB949000000BBB949BBB949' + 
+'000000BBB949BBB949000000000000000000000000BBB949BBB949' + 
+'000000BBB949BBB949BBB949000000000000000000000000000000' + 
+'000000BBB949'); 
+Star := BitmapFromString(12, 10, 
+'000000000000BBB949BBB949BBB949000000000000000000000000' + 
+'000000000000000000000000BBB949BBB949000000BBB949BBB949' + 
+'000000000000BBB949BBB949000000000000BBB949BBB949000000' + 
+'000000000000000000000000000000BBB949BBB949000000000000' + 
+'000000BBB949BBB949000000000000000000000000000000BBB949' + 
+'BBB949000000000000000000000000BBB949BBB949000000000000' + 
+'000000000000BBB949BBB949BBB949BBB949000000000000000000' + 
+'BBB949BBB949000000000000000000BBB949BBB949000000000000' + 
+'000000000000000000000000BBB949BBB949000000000000BBB949' + 
+'BBB949000000000000000000000000000000000000BBB949BBB949' + 
+'000000000000BBB949BBB949000000000000BBB949BBB949000000' + 
+'BBB949BBB949000000000000000000BBB949BBB949000000000000' + 
+'000000BBB949BBB949BBB949000000000000000000000000000000' + 
+'BBB949BBB949BBB949'); 
+Triangle := BitmapFromString(6, 10, 
+'BBB949BBB949BBB949BBB949BBB949BBB949000000000000BBB949' + 
+'BBB949000000000000000000000000BBB949BBB949000000000000' + 
+'000000000000BBB949BBB949000000000000000000000000BBB949' + 
+'BBB949000000000000000000000000BBB949BBB949000000000000' + 
+'000000000000BBB949BBB949000000000000000000000000BBB949' + 
+'BBB949000000000000000000000000BBB949BBB949000000000000' + 
+'000000000000BBB949BBB949000000000000'); 
+Halfmoon := BitmapFromString(6, 10, 
+'BBB949BBB949000000000000BBB949BBB949BBB949BBB949000000' + 
+'000000BBB949BBB949BBB949BBB949000000000000BBB949BBB949' + 
+'BBB949BBB949000000000000BBB949BBB949BBB949BBB949BBB949' + 
+'BBB949BBB949BBB949BBB949BBB949000000000000BBB949BBB949' + 
+'BBB949BBB949000000000000BBB949BBB949BBB949BBB949000000' + 
+'000000BBB949BBB949BBB949BBB949000000000000BBB949BBB949' + 
+'BBB949BBB949000000000000BBB949BBB949'); 
+Circle := BitmapFromString(6, 10, 
+'000000000000BBB949BBB949BBB949000000000000BBB949BBB949' + 
+'000000BBB949BBB949BBB949BBB949000000000000000000000000' + 
+'BBB949BBB949000000000000000000000000BBB949BBB949000000' + 
+'000000000000000000BBB949BBB949000000000000000000000000' + 
+'BBB949BBB949000000000000000000000000BBB949BBB949000000' + 
+'000000000000000000000000BBB949BBB949000000BBB949BBB949' + 
+'000000000000BBB949BBB949BBB949000000'); 
+Blue := BitmapFromString(6, 10, 
+'BBB949BBB949BBB949BBB949BBB949000000BBB949BBB949000000' + 
+'000000BBB949BBB949BBB949BBB949000000000000BBB949BBB949' + 
+'BBB949BBB949000000000000BBB949BBB949BBB949BBB949BBB949' + 
+'BBB949BBB949000000BBB949BBB949000000000000BBB949BBB949' + 
+'BBB949BBB949000000000000BBB949BBB949BBB949BBB949000000' + 
+'000000BBB949BBB949BBB949BBB949000000000000BBB949BBB949' + 
+'BBB949BBB949BBB949BBB949BBB949000000'); 
+Red := BitmapFromString(6, 10, 
+'BBB949BBB949BBB949BBB949BBB949000000BBB949BBB949000000' + 
+'000000BBB949BBB949BBB949BBB949000000000000BBB949BBB949' + 
+'BBB949BBB949000000000000BBB949BBB949BBB949BBB949000000' + 
+'BBB949BBB949000000BBB949BBB949BBB949BBB949000000000000' + 
+'BBB949BBB949BBB949BBB949000000000000BBB949BBB949000000' + 
+'BBB949BBB949000000BBB949BBB949000000000000BBB949BBB949' + 
+'BBB949BBB949000000000000BBB949BBB949'); 
+Yellow := BitmapFromString(6, 10, 
+'BBB949BBB949000000000000BBB949BBB949BBB949BBB949000000' + 
+'000000BBB949BBB949BBB949BBB949000000000000BBB949BBB949' + 
+'000000BBB949BBB949BBB949BBB949000000000000000000BBB949' + 
+'BBB949000000000000000000000000BBB949BBB949000000000000' + 
+'000000000000BBB949BBB949000000000000000000000000BBB949' + 
+'BBB949000000000000000000000000BBB949BBB949000000000000' + 
+'000000000000BBB949BBB949000000000000'); 
+end; 
+//---------------end bmp-------------------// 
+
+procedure ClickMouseRH(xcm,ycm:integer); 
+begin 
+MoveMouseSmoothEx(xcm,ycm,1,3,10,18,10); 
+wait(80+random(100)); 
+xcm:= xcm+random(5); 
+ycm:= ycm+random(5); 
+HoldMouse(xcm,ycm,true); 
+wait(30+random(10)); 
+ReleaseMouse(xcm,ycm,true); 
+wait(100+random(100)); 
+end; 
+
+
+//identify the question there are 8 types 
+function IdQuestion:integer; 
+begin 
+result:= 0; 
+if IsTextAt2(200,260,'Which shape is B',100) then result:= 1; //Blue 
+if IsTextAt2(202,260,'Which shape is R',100) then result:= 2; //Red 
+if IsTextAt2(194,260,'Which shape is Y',100) then result:= 3; //Yellow 
+if IsTextAt2(173,260,'What colour is the H',100) then result:= 4; //Halfmoon 
+if IsTextAt2(185,260,'What colour is the C',100) then result:= 5; //good 
+if IsTextAt2(178,260,'What colour is the T',100) then result:= 6; //good 
+if IsTextAt2(180,260,'What colour is the Sq',100) then result:= 7; //Square 
+if IsTextAt2(189,260,'What colour is the St',100) then result:= 8; //Star 
+end; 
+
+//identify the answers 
+procedure IdAnswers; 
+begin 
+
+end; 
+
+//Identify shape and color 
+procedure IdShapesColors; 
+var c1,c2,c3,c4,c5,c6,c7,c8,coun:integer; 
+//hal,circ,squ,sta,tri:string; 
+begin 
+coun:= 0; 
+hal:= 'NA'; 
+circ:= 'NA'; 
+squ:= 'NA'; 
+sta:= 'NA'; 
+tri:= 'NA'; 
+
+repeat //this is for finding star. 
+wait(1); 
+c1:=GetColor(233,119);//stragiht star 
+c2:=GetColor(263,142); 
+c3:=GetColor(243,125);//tilted star 
+c4:=GetColor(275,82); 
+c5:=GetColor(277,96);//Straight star pointing down 
+c6:=GetColor(263,143); 
+c7:=GetColor(279,131);//Yet another variation 
+c8:=GetColor(274,87); 
+if c3 = c4 then 
+begin 
+c1:= c3; 
+c2:= c4; 
+end; 
+if c5 = c6 then 
+begin 
+c1:= c5; 
+c2:= c6; 
+end; 
+if c7 = c8 then 
+begin 
+c1:= c7; 
+c2:= c8; 
+end; 
+coun:= coun + 1; 
+until(((c1 = c2) and (SimilarColors(c1,4084651,22) or SimilarColors(c1,5613239,22) or SimilarColors(c1,9524307,22))) or (coun = 2000)); 
+if (c1 = c2) and SimilarColors(c1,4084651,22) then sta:= 'R'; 
+if (c1 = c2) and SimilarColors(c1,5613239,22) then sta:= 'Y'; 
+if (c1 = c2) and SimilarColors(c1,9524307,22) then sta:= 'B'; 
+
+coun:= 0; 
+repeat //this is for finding triangle. 
+wait(1); 
+c1:=GetColor(258,72); 
+c2:=GetColor(275,106); 
+coun:= coun + 1; 
+until(((c1 = c2) and (SimilarColors(c1,4084651,22) or SimilarColors(c1,5613239,22) or SimilarColors(c1,9524307,22))) or (coun = 2000)); 
+if (c1 = c2) and SimilarColors(c1,4084651,22) then tri:= 'R'; 
+if (c1 = c2) and SimilarColors(c1,5613239,22) then tri:= 'Y'; 
+if (c1 = c2) and SimilarColors(c1,9524307,22) then tri:= 'B'; 
+
+coun:= 0; 
+repeat //this is for finding Halfmoon. 
+wait(1); 
+c1:=GetColor(312,115); 
+c2:=GetColor(302,120); 
+coun:= coun + 1; 
+until(((c1 = c2) and (SimilarColors(c1,4084651,22) or SimilarColors(c1,5613239,22) or SimilarColors(c1,9524307,22))) or (coun = 2000)); 
+if (c1 = c2) and SimilarColors(c1,4084651,22) then hal:= 'R'; 
+if (c1 = c2) and SimilarColors(c1,5613239,22) then hal:= 'Y'; 
+if (c1 = c2) and SimilarColors(c1,9524307,22) then hal:= 'B'; 
+
+coun:= 0; 
+repeat //this is for finding Circle. 
+wait(1); 
+c1:=GetColor(286,113); 
+c2:=GetColor(228,88); 
+c3:=GetColor(271,132);//Blue circle 
+c4:=GetColor(275,140); 
+c5:=GetColor(258,128);//Red circle 
+c6:=GetColor(294,110); 
+c7:=GetColor(281,134);//Red circle 2 
+c8:=GetColor(262,90); 
+if c3 = c4 then 
+begin 
+c1:= c3; 
+c2:= c4; 
+end; 
+if c5 = c6 then 
+begin 
+c1:= c5; 
+c2:= c6; 
+end; 
+if c7 = c8 then 
+begin 
+c1:= c7; 
+c2:= c8; 
+end; 
+coun:= coun + 1; 
+until(((c1 = c2) and (SimilarColors(c1,4084651,22) or SimilarColors(c1,5613239,22) or SimilarColors(c1,9524307,22))) or (coun = 2000)); 
+if (c1 = c2) and SimilarColors(c1,4084651,22) then circ:= 'R'; 
+if (c1 = c2) and SimilarColors(c1,5613239,22) then circ:= 'Y'; 
+if (c1 = c2) and SimilarColors(c1,9524307,22) then circ:= 'B'; 
+
+coun:= 0; 
+repeat //this is for finding Square. 
+wait(1); 
+c1:=GetColor(215,104); 
+c2:=GetColor(291,103); 
+coun:= coun + 1; 
+c3:=GetColor(304,110);//tilted Square 
+c4:=GetColor(236,112); 
+if c3 = c4 then 
+begin 
+c1:= c3; 
+c2:= c4; 
+end; 
+until(((c1 = c2) and (SimilarColors(c1,4084651,22) or SimilarColors(c1,5613239,22) or SimilarColors(c1,9524307,22))) or (coun = 2000)); 
+if (c1 = c2) and SimilarColors(c1,4084651,22) then squ:= 'R'; 
+if (c1 = c2) and SimilarColors(c1,5613239,22) then squ:= 'Y'; 
+if (c1 = c2) and SimilarColors(c1,9524307,22) then squ:= 'B'; 
+stocarray[1]:= hal; 
+stocarray[2]:= circ; 
+stocarray[3]:= squ; 
+stocarray[4]:= sta; 
+stocarray[5]:= tri; 
+end; 
+
+function LookForCorrectAns:string; 
+begin 
+if QType = 1 then 
+begin 
+if stocarray[5] = 'B' then result:= 'T'; 
+if stocarray[4] = 'B' then result:= 'St'; 
+if stocarray[3] = 'B' then result:= 'Sq'; 
+if stocarray[2] = 'B' then result:= 'C'; 
+if stocarray[1] = 'B' then result:= 'H'; 
+end; 
+
+if QType = 2 then 
+begin 
+if stocarray[5] = 'R' then result:= 'T'; 
+if stocarray[4] = 'R' then result:= 'St'; 
+if stocarray[3] = 'R' then result:= 'Sq'; 
+if stocarray[2] = 'R' then result:= 'C'; 
+if stocarray[1] = 'R' then result:= 'H'; 
+end; 
+
+if QType = 3 then 
+begin 
+if stocarray[5] = 'Y' then result:= 'T'; 
+if stocarray[4] = 'Y' then result:= 'St'; 
+if stocarray[3] = 'Y' then result:= 'Sq'; 
+if stocarray[2] = 'Y' then result:= 'C'; 
+if stocarray[1] = 'Y' then result:= 'H'; 
+end; 
+
+
+if Qtype = 4 then result:= hal; 
+if Qtype = 5 then result:= circ; 
+if Qtype = 6 then result:= tri; 
+if Qtype = 7 then result:= squ; 
+if Qtype = 8 then result:= sta; 
+end; 
+
+procedure ClickAnswer(atxt:string); 
+begin 
+if (atxt = 'B') and FindBitMapIn(Blue,xbit,ybit,110,280,420,320) then ClickMouseRH(xbit,ybit); 
+if (atxt = 'R') and FindBitMapIn(Red,xbit,ybit,110,280,420,320) then ClickMouseRH(xbit,ybit); 
+if (atxt = 'Y') and FindBitMapIn(Yellow,xbit,ybit,110,280,420,320) then ClickMouseRH(xbit,ybit); 
+if (atxt = 'H') and FindBitMapIn(Halfmoon,xbit,ybit,110,280,420,320) then ClickMouseRH(xbit,ybit); 
+if (atxt = 'St') and FindBitMapIn(Star,xbit,ybit,110,280,420,320) then ClickMouseRH(xbit,ybit); 
+if (atxt = 'Sq') and FindBitMapIn(Square,xbit,ybit,110,280,420,320) then ClickMouseRH(xbit,ybit); 
+if (atxt = 'C') and FindBitMapIn(Circle,xbit,ybit,110,280,420,320) then ClickMouseRH(xbit,ybit); 
+if (atxt = 'T') and FindBitMapIn(Triangle,xbit,ybit,110,280,420,320) then ClickMouseRH(xbit,ybit); 
+if ((atxt = '') or (atxt = 'NA')) then ClickMouseRH(270,302); 
+if FindBitMapIn(Blue,xbit,ybit,110,280,420,320) then writeln('Found Blue at ' + inttostr(xbit) + ',' + inttostr(ybit)); 
+if FindBitMapIn(Red,xbit,ybit,110,280,420,320) then writeln('Found Red at ' + inttostr(xbit) + ',' + inttostr(ybit)); 
+if FindBitMapIn(Yellow,xbit,ybit,110,280,420,320) then writeln('Found Yellow at ' + inttostr(xbit) + ',' + inttostr(ybit)); 
+if FindBitMapIn(Star,xbit,ybit,110,280,420,320) then writeln('Found Star at ' + inttostr(xbit) + ',' + inttostr(ybit)); 
+if FindBitMapIn(Square,xbit,ybit,110,280,420,320) then writeln('Found Square at ' + inttostr(xbit) + ',' + inttostr(ybit)); 
+if FindBitMapIn(Circle,xbit,ybit,110,280,420,320) then writeln('Found Circle at ' + inttostr(xbit) + ',' + inttostr(ybit)); 
+if FindBitMapIn(Triangle,xbit,ybit,110,280,420,320) then writeln('Found Triangle at ' + inttostr(xbit) + ',' + inttostr(ybit)); 
+if FindBitMapIn(Halfmoon,xbit,ybit,110,280,420,320) then writeln('Found Halfmoon at ' + inttostr(xbit) + ',' + inttostr(ybit)); 
+end; 
+
+//Open StrangeBox 
+procedure OpenStrangeBox(xx,yy:integer); 
+var cb,ctni:integer; 
+begin 
+ctni:= 0; 
+ClickMouseRH(xx,yy); 
+cb:=GetColor(xx,yy); 
+wait(1000); 
+ClickMouseRH(646,183); 
+if(TakeScreenshot)then 
+savescreenshot('Box'+inttostr(foundboxcount)+'.bmp'); 
+repeat 
+wait(2+random(3)); 
+Qtype:= IdQuestion; 
+until(not (IdQuestion = 0)); 
+writeln(inttostr(Qtype)); 
+IdAnswers; 
+IdShapesColors; 
+writeln('Halfmoon = '+hal); 
+writeln('Circle = '+circ); 
+writeln('Square = ' + squ); 
+writeln('Star = ' + sta); 
+writeln('Triangle = ' + tri); 
+cans:= LookForCorrectAns; 
+writeln('correct answer is ' + cans); 
+ClickAnswer(cans); 
+repeat 
+wait(10); 
+ctni:= ctni + 1; 
+until((IdQuestion = 0) or (ctni = 1000)); 
+wait(1000+random(100)); 
+end; 
+
+//Find Strangebox 
+procedure FindStrangeBox; 
+begin 
+if FindBitMapToleranceIn(StrangeBox,inx,iny,554,205,743,464,45) then foundboxcount:= foundboxcount + 1; 
+repeat 
+if FindBitMapToleranceIn(StrangeBox,inx,iny,554,205,743,464,45) then OpenStrangeBox(inx,iny); 
+until(not (FindBitMapToleranceIn(StrangeBox,inx,iny,554,205,743,464,45))); 
+end; 
+
+procedure BoxOpenerSetup; 
+begin 
+loadchars(''); 
+ldbmp; 
+writeln('Killerbz BoxSolver Started'); 
+foundboxcount:= 0; 
+end;
