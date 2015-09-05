@@ -1,0 +1,313 @@
+0.1a:
+Release
+
+0.2a:
+Added Commands -
+InCombat()
+PlayerInCombat(int id)
+CheckFighters(boolean check)
+
+Fixed Commands -
+SetFightMode
+
+0.2b
+Fixed the minimap
+
+0.3 (196)
+Updated to 196
+Added sleeping and sleeping commands
+
+0.4
+Added world switcher to be buttons on the menu
+Added AutoLogin
+Fixed bug that disabled dropping
+Generally made it sexier
+
+0.5
+Added Disable Graphics mode, saves shit loads of CPU time (F11 toggles)
+FIXED THE LOGOUT PROBLEM <3
+
+0.5a
+Fixed sleeping checker: PAGEUP + PAGEDOWN (while sleeping)
+Its between 0 and 100
+Default is 0
+Normally works at 24 for everyone
+
+0.6
+Fixed AtObject, AtObject2, and any other Object command :D Sry ;)
+
+0.7
+Added uber-new sleepwalker system, now uses bitmaps: see "SLEEPWALKER.txt"
+
+0.7b
+Fixed the bug with the Walk commands when loading
+
+0.8
+Fixed AutoLogin when graphics disabled
+Actually did fix the WaitForLoad command in the code so walking over loads is possible.
+Fixed all the Object commands... The reason they didnt work is that they were looking for doors :)
+Added commands -
+AtObject(coords[])
+AtObject2(coords[])
+TakeItem(coords[])
+ - Makes use for "AtObject(GetNearestObject(100));" etc.
+
+0.8b
+The update on the AutoLogin last time, made it just keep logging in - didn't check if you were logged out.
+Fixed :)
+
+0.9
+You can have as many accounts logged in on the same world as you want :)
+Fixed sleeping while in lagsafe
+
+CHANGED RUN COMMAND:
+/run command param1
+/run command param1@param2
+/run command param1@param2@p a r a m 3
+Changed parameters to arrays, edit your scripts like so:
+
+public void start(String command, String parameter)
+public void start(String command, String parameter[])
+
+if (parameter.equals("test"))
+if (parameter[0].equals("test"))
+
+Added commands -
+PrayerOn(int prayer)
+PrayerOff(int prayer)
+Prayer(int prayer)
+ShopCount(int item)
+
+0.9b
+Added commands -
+SetWorld(int world)
+GetNearestNPC(int type, int lowx, int lowy, int topx, int topy)
+GetNearestNPC(int type[], int lowx, int lowy, int topx, int topy)
+GetNearestObject(int type, int lowx, int lowy, int topx, int topy)
+GetNearestObject(int type[], int lowx, int lowy, int topx, int topy)
+LastPlayerAttacked()
+ResetLastPlayerAttacked()
+LoggedIn()
+Login(String username, String password)
+
+If you create a:
+public void ServerMessage(String message)
+{
+...
+}
+in your script, you can handle server messages that way :)
+Also, the regular server message commands work now
+Fixed the recent paramter update, you wont get an error if you dont specify any parameter at all
+
+0.9c
+Fixed the Object commands, once again. Now you actually DO walk to the object first :)
+
+0.9d
+Fixed CheckFighters
+Added an easter egg, paying homage to PR4Y <3. Find it for Sex
+
+0.9e
+Removed the 2 welcome boxes
+Added commands:
+Shop()
+Sex0rPR4Y()
+
+1.0
+Fixed a few last minor bugs I could find.
+Added autoupdate feature, check it out <3
+
+1.1
+Fixed it for the new servers
+Changed the updating a little bit, even more sexy now.
+No updates yet, wait until I've been back a week :)
+
+1.2
+Finally fixed the GetNearest[something](type,x1,y1,x2,y2) etc.
+Updated the updater for the new host
+Added auto-news-er
+Added the command Quit() - closes the bot when your finished :)
+
+1.3
+Added TickCount(), use instead of System.currentTimeMillis()
+
+2.0
+MUDCLIENT UPDATE to 198
+Fixed it within 30 minutes, without deobfuscated code
+Saevion has said he wont share deobfuscated code any more
+So hopefully, there wont be as many bots around
+Nothing new in this version (i dont think?) Wait, yes
+Added more message handling <3
+
+LastChatMessage()
+ResetLastChatMessage()
+LastNPCMessage()
+ResetLastNPCMessage()
+
+Should make talking to NPC much sexier now.
+
+2.1
+Fixed all the bugs, remade with new deobbed code.
+Much <3 to Kaitnieks - and all those who donated to the OCR fund
+
+2.2
+Fixed HC.BMP bug
+
+2.3
+Removed Welcome + Members Box
+Fixed depositing bug, Deposit(type,amount) now works
+Servers should be fine... they are for me anyway <3
+Server/NPC/Chat message handling is done
+Fixed InvCount()
+Added triggers:
+	NPCMessage(String message)
+	ChatMessage(String message)
+	^ works just like the ServerMessage(String message) thats in now
+
+2.4
+Took off debug mode <3
+You can talk now, yay
+
+2.5
+Fixed the servers, definatly this time. If theyre still a problem, die
+Fixed logout, the reason you were getting logged out is because I hadn't disabled
+the auto-logout... You should be able to leave it alone now without worrying
+
+2.6
+Fixed Fatigue()
+
+2.7
+Fixed SetWorld(int world)
+
+2.8
+Added GetExperience(int statno)
+
+2.9
+Fixed ResetLastNPCMessage(), ResetLastServerMessage(), ResetLastChatMessage() - now they are "" not null.
+
+3.0
+Added: 
+	ForceWalk(int x, int y) - guess
+	ForceWalkNoWait(int x, int y) - ...
+	Println(String message) - a shortcut to System.out.println
+	Print(String message) - a shortcut to System.out.print
+	SexyPrint(String message) - sexy printing
+	DistanceFrom(int x, int y) - returns the absolute value for your distance from x,y
+					does not count objects such as tree's etc...
+	CanReach(int x, int y) - returns true or false, depending on if you can reach x,y
+					through blocks such as doors/objects/water
+	Beep() - beeps
+	TradeStatus() - returns the status of trading. 0 if your not, 1 if your on the
+					first screen, 2 if your on the second.
+	Accepted() - returns true if the other player has accepted the trade
+	AcceptTrade() - accepts on the first screen
+	AcceptTrade2() - accepts the second screen
+	DeclineTrade() - declines the trade
+	TradeArray(int item, int amount) - just the same as the other, but to simplify
+					if you dont fancy making an array for 1 item
+	TradeArray(int item[], int amount[]) - two arrays, one for type, one for ammount
+					set the ammount to 1 if un-stackable. Yes, the
+					item hax works here <3
+	ResetTrade() - resets the trade to no items
+	UpdateTrade() - update the other players screen / send to server
+	GetUnbusyBanker() - returns the banker who's last message was "Certainly sir/madam",
+					i.e. nobody has talked to him since. This will work
+					from the one who said that the shortest time ago
+	GetUnbusyBanker2() - returns the banker who's last message was "Certainly sir/madam",
+					i.e. nobody has talked to him since. This will work
+					from the one who said that the longest time ago
+			^ those 2 are trials, and I dont know which one would work best, try it!
+				Both return -1 if no banker's last message was "Certainly sir/madam"
+Triggers:
+	TradeRequest(int PlayerID) - this is called when someone sends a trade request to you
+	Accepted() - this is called when you are in a trade and the other player accepts
+	TradeOver() - this is called when the server tells you that the trade is over
+
+3.1
+Fixed:
+	SexyPrint(String message) - it was going WAY to slow
+	GetExperience(int statno) - was returning 4 times your experience
+	ForceWalk's - wasn't doing it right
+
+3.1b
+Added:
+	IsAccepted() - boolean, returns true if the other player has accepted or not
+Fixed:
+	CanReach - I left debugging on
+Lied:
+	About adding Accepted() command <3
+
+3.2
+Added:
+	SleepWalker capability, #sleepwalktalk for more info
+	in sleepwalker.ini --->
+		RSAPPTITLE = SBoT 3.2 - RichyT
+
+3.3
+Added:
+	NPCX(int id) - returns the NPC's X...
+	NPCY(int id) - returns the NPC's Y...
+Slightly-Fixed:
+	I have added another check into the walking procedure, you shouldnt get an out of 
+	bounds exception if you try doing something while the game is loading. <3
+
+3.4
+Added:
+	ItemAt(X,Y)
+	Enters sleepword only when at 0%, for OCR <3
+
+3.5
+Added:
+	Triggers:
+		KeyPressed(int id)
+		KeyReleased(int id)
+Fixed:
+	News/Update for new server
+
+3.6
+Added:
+	OpenBank() - Shortcut way to open a bank, talks to any banker - not just 95
+	StrToInt(String st) - returns the int value of a string, for parameters etc.
+	IntToStr(int number) - the opposite, genious
+	BankCount(int item) - returns the number of the item in the bank :)
+
+3.7
+Fixed:
+	All commands that involved using PlayerByName, and the trigger "TradeRequest(int PlayerID)"
+	<3 to GhOsT_ID
+
+3.8
+Fixed:
+	Walking now checks differently, there should be no noticable time between walks
+	Nearly all player commands, DuelPlayer - TradePlayer etc.
+Added:
+	boolean InStr(String str, String locate)
+	String GetAnswer(int pos)
+	int GetDistance(int x1, int y1, int x2, int y2)
+	int GetHP()
+	int GetMaxHP()
+	int GetHPPercent()
+	int Inv(int slot)
+	String GetItemCommand(int type)
+	String GetItemDesc(int type)
+	String GetItemName(int type)
+	String Username()
+	int GetPrayerLevel(int prayer)
+	int GetPrayerDrain(int prayer)
+	String GetNPCCommand(int type)
+	String GetNPCDesc(int type)
+	int GetNPCLevel(int type)
+	int GetNPCMaxHP(int type)
+	String GetNPCName(int type)
+	int GetAnswerCount()
+	int GetItemCount()
+	int GetNPCCount()
+	int GetPlayerCount()
+	int GetObjectCount()
+	String GetObjectCommand1(int type)
+	String GetObjectCommand2(int type)
+	String GetObjectDesc(int type)
+	String GetObjectName(int type)
+	boolean InArea(int x1, int y1, int x2, int y2)
+	boolean Wearable(int type)
+	boolean IsWorn(int slot)
+	boolean IsNPCAttackable(int type)
