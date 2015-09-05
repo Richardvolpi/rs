@@ -1,0 +1,270 @@
+program par2;
+///////////////////////////////////////////////
+//     PAR 2 - PPLSUQBAWLZ's ANTI RANDOM     //
+///////////////////////////////////////////////
+// v 2.0beta (check for newer versions, often)/
+const
+     screens=true; // take screenshots
+     user='username'; // your username
+     refreshrate=2500; // (minimum EFFICIENT update rate)
+                       // less that 500 is dumb and doesnt work any better
+                       // I reccomend 2500.. cuz its the minimum
+
+{.include library.txt}
+
+
+
+
+var par_rub, par_stat, par_lamp, par_pmod, par_smod:integer;
+    par_loaded:boolean;
+
+Procedure LoadParBMPs;
+begin
+writeln('You are using pplsuqbawlz Anti-Random Protection.');
+par_pmod := BitmapFromString(9, 6,
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2' +
+       'A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2' +
+       'E0E0E0A2A2A2000000000000A2A2A2000000000000A2A2A2979797' +
+       'E0E0E0A2A2A2000000A2A2A2000000A2A2A2000000A2A2A2979797' +
+       'E0E0E0A2A2A2000000A2A2A2000000A2A2A2000000A2A2A2979797' +
+       '979797979797979797979797979797979797979797979797979797');
+par_smod := BitmapFromString(9, 5,
+       'F7FF0BF7FF0BF7FF0BF7FF0BF7FF0BF7FF0BF7FF0BF7FF0BF7FF0B' +
+       'FFFE87F7FF0B000000000000F7FF0B000000000000F7FF0BD09D24' +
+       'FFFE87F7FF0B000000F7FF0B000000F7FF0B000000F7FF0BD09D24' +
+       'FFFE87F7FF0B000000F7FF0B000000F7FF0B000000F7FF0BD09D24' +
+       'D09D24D09D24D09D24D09D24D09D24D09D24D09D24D09D24D09D24');
+par_loaded:=true;
+end;
+
+Procedure Check4Plant(scanwidth,scanheight,color,tolerence:integer; name:string);
+var  a,b,c,d,e,f:integer;
+     addx,addy,switch:integer;
+     change,forwardx,forwardy,which:boolean;
+begin
+     change:=false;
+     which:=false
+     forwardx:=true;
+     forwardy:=true;
+     a:=516/scanwidth;
+     b:=338/scanheight;
+     c:=Trunc(a/2);
+     d:=Trunc(b/2);
+     e:=0;
+     f:=0;
+     addx:=1;
+     addy:=1;
+     switch:=1;
+   repeat
+     if(FindColorTolerance(x,y,color,(258+e*scanwidth),(169+f*scanheight),(258+e*scanwidth+scanwidth),(169+f*scanheight+scanheight),tolerence))then
+     begin
+          mmouse(x,y,0,0);
+          if(istextat2(9,9,'Pick',100))then
+          begin
+               writeln('Found a ' + name);
+               Mouse(x,y,0,0,true);
+               if (screens) then SaveScreenshot('AntiPlant');
+          end;
+     end;
+     if(change)then
+     begin
+          switch:=switch*-1;
+          addx:=(addx*-1)+switch;
+          addy:=(addy*-1)+switch;
+          change:=false;
+     end;
+     if(forwardx)and(not which)then e:=e+switch;
+     if(forwardy)and(which)then f:=f+switch;
+     if(e=addx)then
+     begin
+          forwardx:=false;
+          which:=true;
+     end;
+     if(f=addy)then
+     begin
+          forwardy:=false;
+          which:=false;
+     end;
+     if(not forwardy)and(not forwardx) then
+     begin
+          forwardy:=true;
+          forwardx:=true;
+          change:=true;
+     end;
+   until(e>c) or (f>d);
+end;
+
+
+Procedure Scan4Randoms(scanwidth,scanheight,color,tolerence:integer; name:string);
+var  a,b,c,d,e,f:integer;
+     addx,addy,switch:integer;
+     change,forwardx,forwardy,which:boolean;
+begin
+     change:=false;
+     which:=false
+     forwardx:=true;
+     forwardy:=true;
+     a:=516/scanwidth;
+     b:=338/scanheight;
+     c:=Trunc(a/2);
+     d:=Trunc(b/2);
+     e:=0;
+     f:=0;
+     addx:=1;
+     addy:=1;
+     switch:=1;
+   repeat
+     if(FindColorTolerance(x,y,color,(258+e*scanwidth),(169+f*scanheight),(258+e*scanwidth+scanwidth),(169+f*scanheight+scanheight),tolerence))then
+     begin
+          mmouse(x,y,0,0);
+          if(istextat2(9,9,'Talk',100))then
+          begin
+               writeln('[PAR 2.0] Found a ' + name);
+               Mouse(x,y,0,0,true);
+               if (screens) then SaveScreenshot('AntiRandomFor'+user+name+'.bmp');
+               Mouse(231,440,100,8,true);
+          end;
+     end;
+     if(change)then
+     begin
+          switch:=switch*-1;
+          addx:=(addx*-1)+switch;
+          addy:=(addy*-1)+switch;
+          change:=false;
+     end;
+     if(forwardx)and(not which)then e:=e+switch;
+     if(forwardy)and(which)then f:=f+switch;
+     if(e=addx)then
+     begin
+          forwardx:=false;
+          which:=true;
+     end;
+     if(f=addy)then
+     begin
+          forwardy:=false;
+          which:=false;
+     end;
+     if(not forwardy)and(not forwardx) then
+     begin
+          forwardy:=true;
+          forwardx:=true;
+          change:=true;
+     end;
+   until(e>c) or (f>d);
+end;
+
+Procedure Check4Mod;
+begin
+    if (findbitmapin(par_pmod,x,y,18,357,36,430)) or (findbitmapin(par_smod,x,y,18,357,36,430)) then
+    begin
+         writeln('Logged due to admin presence.');
+         if (screens) then SaveScreenshot('ModDetected.bmp');
+         logout;
+         logout;
+         logout;
+         wait((40+random(20))*60000);
+    end;
+end;
+
+procedure Check4Randoms;
+var  a,b,c:integer;
+begin
+     c:=0;
+     if(FindColorTolerance(a,b,1547472,175,95,516,338,25))then Scan4Randoms(30,30,1547472,20,'dwarf.');
+     if(FindColorTolerance(a,b,9376393,175,95,516,338,25))then Scan4Randoms(30,30,9376393,20,'genie.');
+     if(FindColorTolerance(a,b,2432000,175,95,516,338,25))then Scan4Randoms(30,30,2958080,15,'old man.');
+     Check4Mod;
+     SendInterSCARMessage('par','');
+     SendInterSCARMessage('goahead','');
+     writeln('[PAR 2.0] Random handling complete, returning to script.');
+end;
+
+Procedure UseTheLamp(skill:string);
+begin
+     writeln('Clicking on "' + skill + '" skill.');
+     if(skill='attack')then  mouse(152,144,25,25,true);
+     if(skill='strength')then mouse(184,144,25,25,true);
+     if(skill='ranged')then mouse(216,155,25,25,true);
+     if(skill='magic')then mouse(248,144,25,25,true);
+     if(skill='defence')then mouse(280,144,25,25,true);
+     if(skill='hitpoints')then mouse(312,144,25,25,true);
+     if(skill='prayer')then mouse(344,144,25,25,true);
+     if(skill='agility')then mouse(184,180,25,25,true);
+     if(skill='herblaw')then mouse(216,180,25,25,true);
+     if(skill='theiving')then mouse(248,180,25,25,true);
+     if(skill='crafting')then mouse(280,180,25,25,true);
+     if(skill='runecrafting')then mouse(312,180,25,25,true);
+     if(skill='mining')then mouse(152,216,25,25,true);
+     if(skill='smithing')then mouse(184,216,25,25,true);
+     if(skill='fishing')then mouse(216,216,25,25,true);
+     if(skill='cooking')then mouse(248,216,25,25,true);
+     if(skill='firemaking')then mouse(280,216,25,25,true);
+     if(skill='woodcutting')then mouse(312,216,25,25,true);
+     if(skill='fletching')then mouse(344,216,25,25,true);
+     if (screens) then SaveScreenshot('UsedLamp');
+     mouse(237,250,42,10,true);
+end;
+
+procedure Check4Lamp(usage:string);
+begin
+     if(not par_loaded)then LoadParBMPs;
+     if (not FindColor(x,y,2829182,630,170,660,200)) then Mouse(640,180,5,5,true);
+     while(FindBitmapToleranceIn(par_lamp,x,y,560,210,740,465,40))do
+     begin
+          mouse(x+2,y,5,5,false);
+          if(FindBitmapToleranceIn(par_rub,x,y,520,190,760,490,40))then
+          begin
+               mouse(x+2,y,5,2,true);
+               if(FindBitmapToleranceIn(par_stat,x,y,4,4,516,338,40))then
+               begin
+                    writeln('Found a Lamp');
+                    UseTheLamp(usage);
+               end;
+          end;
+     end;
+end;
+
+
+procedure check4dead;
+begin
+     if(searchfortext(15,355,200,435,'Oh dear your dead!',1))then begin
+         logout;
+         logout;
+         logout;
+         writeln('We Died!');
+         repeat
+               wait(100);
+         until(false);
+     end;
+end;
+
+begin
+LoadLibrary('Steam');
+SendInterSCARMessage('par','');
+SendInterSCARMessage('goahead','');
+
+// Start Loop
+Repeat
+wait(refreshrate/4);
+check4dead;
+wait(refreshrate/4);
+if(FindColorTolerance(x,y,65535,4,25,516,338,5))then
+begin
+     if(searchfortext(4,20,516,338,user,2))then
+     begin
+          writeln('[PAR 2.0] We found a random for "' + user + '".');
+          SendInterSCARMessage('par','random');
+          writeln('[PAR 2.0] Sending script the message, waiting for the go ahead.');
+     end;
+Check4Mod;
+end;
+wait(refreshrate/4);
+if(ReadInterSCARMessage('par')='random')then
+if(ReadInterSCARMessage('goahead')='true')then begin
+writeln('[PAR 2.0] We got the go ahead, scanning for randoms...');
+Check4Randoms;
+//Check4Plant(30,30,7421785,20,'plant.');
+end;
+wait(refreshrate/4);
+Until(false);
+end.
