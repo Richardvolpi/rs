@@ -1,0 +1,13 @@
+-- Changing Worlds:
+
+1.) Open "run.bat" with notepad,
+2.) Edit the number at the end of the first line, example:
+	"java -classpath yab.jar mudclient 29" = World 29
+	"java -classpath yab.jar mudclient 31" = World 31
+	"java -classpath yab.jar mudclient xx" = World xx.. [ replace "xx" with the number of the world you wan't to login to"
+3.) File > Save,
+4.) Run "run.bat" and that will now be the selected world.
+
+--- For more help please read "readme.txt"
+
+~RaW
