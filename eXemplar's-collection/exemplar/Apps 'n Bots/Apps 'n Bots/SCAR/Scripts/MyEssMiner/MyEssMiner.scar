@@ -1,0 +1,440 @@
+//Start in East Varrock Bank.
+program MyEssMiner;
+Var
+ x,y,c,Flag,Inventory:Integer;
+ Room:String;
+ RFound:boolean;
+{.include Jgsi-Gvb.txt}
+{.include Boxbreaker2.txt}
+Const
+LampSkil='RuneCrafting';//Skill to gain with genie lamp.
+Bank=4441045;//Color of bank Symbol.
+BankPeople=1310462;//Color of Bank People in minimap.
+Road=7040116;//Color of road in minimap.
+RuneShop=1348842;//Color Of RuneShop symbol on minimap.
+Portal=12712186;//Color Of Portal.
+Aubury=2320789;//Color of Auburys Shirt.
+
+Procedure MapAdjust;
+var anglettt,tttt,Gttt,adjustttt:integer;
+jttt:boolean;
+Begin
+Gttt:=0;
+REPEAT
+ anglettt:=trunc((180/pi)*DetectRS2MinimapAngle(jttt));
+ IF ( anglettt < 8 )OR (anglettt >353)THEN
+ BEGIN
+  Gttt:= 1
+ END ELSE
+ begin
+   if( anglettt > 180)then
+  begin
+    tttt:= 1
+    Adjustttt:= (360-anglettt-random(10))*10
+  end else
+  begin
+    tttt:= 3
+    Adjustttt:=(anglettt+random(10))*10
+  end;
+ if(adjustttt<7000)and(adjustttt>0)then
+ begin
+ SendArrowSilentwait(tttt,Adjustttt);
+ end;
+ wait (500+random(125))
+ end;
+UNTIL (Gttt=1)
+end;
+
+procedure FindPortal(x1,x2:integer);
+Var Found:Boolean;
+begin
+Found:=False;
+Repeat
+x:=x1;
+y:=340;
+If(FindColorSpiralTolerance(x,y,Portal,x1,5,x1+7,340,5))Then
+begin
+MoveMouseSmooth(x+5+random(10),y+5+random(6));
+wait(200+random(150));
+If(Istextat2(9,9,'Use',120))Then
+begin
+x1:=x2+1;
+Found:=True;
+end;
+end;
+If(Not(Found))then
+Begin
+x1:=x1+7;
+wait(5+random(10));
+end;
+Until(x1>x2);
+end;
+
+procedure FindAubury(x1,x2:integer);
+Var Found:Boolean;
+begin
+Found:=False;
+Repeat
+x:=x1;
+y:=340;
+If(FindColorSpiralTolerance(x,y,Aubury,x1,5,x1+7,340,5))Then
+begin
+MoveMouseSmooth(x,y+5+random(6));
+wait(200+random(150));
+If(Istextat2(9,9,'Talk',120))Then
+begin
+x1:=x2+1;
+Found:=True;
+end;
+end;
+If(Not(Found))then
+Begin
+x1:=x1+7;
+wait(5+random(10));
+end;
+Until(x1>x2);
+end;
+
+Procedure TalkToAubury;
+Var Te,Te2:Integer;
+Begin
+Repeat
+MapAdjust;
+FindAubury(5,514);
+until(Istextat2(9,9,'Ta',100))or(Not(FindColorTolerance(x,y,Runeshop,572,6,724,160,12)))
+If(Istextat2(9,9,'Ta',100))Then
+Begin
+GetMousepos(x,y);
+ClickMouse(x,y,False);
+wait(200+random(300));
+  Te := BitmapFromString(13, 10, 'z78DA7373230C4C5D4C4D4CCC89' +
+       '270DC000D904030C40AA9998A6916AC2C09A467CD8E2370D57A8E' +
+       '2329354D330C5C9330D13106F3B7E9FE24A4594C40204000038EF' +
+       'B5E7');
+  Te2 := BitmapFromString(13, 10, 'z78DA73737373333070C34B9AB' +
+       'A989A9898134F1A8001B20998805433314D23D58481358DF8B0C5' +
+       '6F1AAE50C56526A9A6618A93671A2649BCEDF87D8A2B1551120B1' +
+       '01200413AADA7');
+If(FindBitmapSpiralTolerance(Te,x,y,5,5,514,340,100))or
+(FindBitmapSpiralTolerance(Te,x,y,5,5,514,340,100))Then
+Begin
+MoveMouseSmoothex(x+random(10),y+random(5),1,6,15,15,20);
+Wait(150+random(75));
+GetMousePos(x,y);
+ClickMouse(x,y,True);
+FlagPause;
+Wait(7150+random(3000));
+end;
+FreeBitmap(Te);
+FreeBitmap(Te2);
+end;
+end;
+
+procedure Bankstuff;
+begin
+CheckLamp;
+FindStrangeBox;
+OpenBank;
+DepositAll;
+end;
+
+Procedure GotoMines;
+begin
+MapAdjust;
+If(FindColorTolerance(x,y,Bank,613,35,691,124,12))Then
+begin
+MoveMouseSmoothEx(664+random(10),124+random(6),1,6,15,15,20);
+Wait(150+random(75));
+GetmousePos(x,y);
+ClickMouse(x,y,True);
+Wait(6000);
+Repeat
+Wait(2000);
+until(FindColorTolerance(x,y,Runeshop,572,76,724,160,12))
+FlagPause;
+If(FindColorTolerance(x,y,Runeshop,572,76,724,160,12))Then
+begin
+Flag:= BitmapFromString(2, 2,'FF00005D3311C656045D3311');
+repeat
+FindColorTolerance(x,y,Runeshop,572,76,724,160,12);
+MoveMouseSmoothEx(x+2+random(3),y+2+random(6),1,6,15,15,20);
+Wait(150+random(75));
+GetmousePos(x,y);
+ClickMouse(x,y,True);
+wait(2000+random(300));
+until(FindBitmapIn(Flag,x,y,572,9,720,160))
+FreeBitmap(Flag);
+FlagPause;
+end;
+If(FindColorTolerance(x,y,Runeshop,572,6,724,160,12))Then
+begin
+repeat
+TalkToAubury;
+Until Not(FindColorTolerance(x,y,Runeshop,572,6,724,160,12))
+Wait(3000);
+end;
+end;
+end;
+
+Procedure DetermineRoom;
+Var Count:integer;
+Begin
+If (Not(GetColor(595,31)=0))or(Not(GetColor(614,18)=0))or(Not(GetColor(634,10)=0))Then
+begin
+Room:='SE';
+Count:=Count+1;
+end;
+If (Not(GetColor(593,120)=0))or(Not(GetColor(610,131)=0))or(Not(GetColor(620,138)=0))Then
+begin
+Room:='NE';
+Count:=Count+1;
+end;
+If (Not(GetColor(711,109)=0))or(Not(GetColor(694,123)=0))or(Not(GetColor(682,132)=0))Then
+Begin
+Room:='NW';
+Count:=Count+1;
+End;
+If (Not(GetColor(705,38)=0))or(Not(GetColor(680,17)=0))or(Not(GetColor(688,24)=0))Then
+Begin
+Room:='SW';
+Count:=Count+1;
+End;
+If(Count>2)Then
+Begin
+Room:='Md'
+End;
+Writeln(Room);
+end;
+
+Procedure GotoPortal;
+Var Color:integer;
+Begin
+If(Room='SW')Then
+Begin
+x:=615;
+y:=128;
+Repeat
+Color:=GetColor(x,y);
+If(Color=0)Then
+Begin
+x:=x+1;
+y:=y-2;
+end;
+until Not(Color=0);
+MoveMouseSmooth(x+random(5),y-5-random(10));
+GetmousePos(x,y);
+ClickMouse(x,y,true);
+FlagPause;
+end;
+If(Room='NW')Then
+Begin
+x:=602;
+y:=26;
+Repeat
+Color:=GetColor(x,y);
+If(Color=0)Then
+Begin
+x:=x+1;
+y:=y+2;
+end;
+until Not(Color=0);
+MoveMouseSmooth(x+random(5),y+5+random(5));
+GetmousePos(x,y);
+ClickMouse(x,y,true);
+FlagPause;
+end;
+If(Room='NE')Then
+Begin
+x:=693;
+y:=26;
+Repeat
+Color:=GetColor(x,y);
+If(Color=0)Then
+Begin
+x:=x-1;
+y:=y+2;
+end;
+until Not(Color=0);
+MoveMouseSmooth(x-random(5),y+5+random(5));
+GetmousePos(x,y);
+ClickMouse(x,y,true);
+FlagPause;
+end;
+If(Room='SE')Then
+Begin
+x:=693;
+y:=119;
+Repeat
+Color:=GetColor(x,y);
+If(Color=0)Then
+Begin
+x:=x-1;
+y:=y-2;
+end;
+until Not(Color=0);
+MoveMouseSmooth(x-random(5),y-5-random(5));
+GetmousePos(x,y);
+ClickMouse(x,y,true);
+FlagPause;
+end;
+end;
+
+Procedure GotoBank;
+var y1:integer;
+Begin
+If Not((FindColorTolerance(x,y,Portal,5,5,514,340,10)))Then
+begin
+GoToPortal;
+repeat
+Wait(150+random(200));
+Until(FindColorTolerance(x,y,Portal,5,5,514,340,10))
+end;
+repeat
+repeat
+FindPortal(5,514);
+until(Istextat2(9,9,'Use',120))
+If(Istextat2(9,9,'Use',120))Then
+Begin
+Wait(150+random(200));
+GetMousePos(x,y);
+ClickMouse(x,y,true);
+FlagPause;
+wait(7000+random(3000));
+end;
+until(FindColorTolerance(x,y,Runeshop,572,6,724,160,12))
+If(FindColorTolerance(x,y,Runeshop,572,6,724,160,12))Then
+Begin
+MoveMouseSmoothex(670+random(10),46+random(5),1,6,15,15,20);
+Wait(150+random(50));
+GetmousePos(x,y)
+ClickMouse(x,y,True);
+FlagPause;
+Repeat
+wait(100);
+until(FindColorTolerance(x,y,Bank,572,6,724,160,12))
+FlagPause;
+end;
+If(FindColorTolerance(x,y1,Bank,572,6,724,160,12))Then
+Begin
+y:=160;
+FindColorSpiralTolerance(x,y,BankPeople,x-20,y1-15,x+20,y1+30,12)
+MoveMouseSmoothex(x+random(4),y-6-random(5),1,6,15,15,20);
+Wait(150+random(50));
+GetmousePos(x,y)
+ClickMouse(x,y,True);
+FlagPause;
+end;
+end;
+
+Procedure FightDetect;
+Begin
+If(FindColortolerance(x,y,65280,220,105,300,244,4))Then
+begin
+GotoBank;
+Bankstuff;
+GoToMines;
+DetermineRoom;
+If(Room='Md')Then
+begin
+Repeat
+Room:='SW';
+GoToPortal;
+DetermineRoom;
+until(not(Room='Md'))
+end;
+end;
+End;
+
+procedure DropRandomItem;
+begin
+DropBeer; wait(400+random(100));
+DropKebab; wait(400+random(100));
+end;
+
+function CheckRandom:boolean;
+begin
+ RFound:=False;
+ FightDetect;
+ FindYelText;
+ CheckLamp;
+ FindStrangeBox;
+ Openinv;
+  if(TalkedTo)or(foundboxcount>0)or(FightFoundd)then
+ begin
+  RFound:=true;
+  TalkedTo:=false;
+  DropRandomItem;
+  foundboxcount:=0;
+ end;
+ if(FightFoundd)or(TalkedTo)then
+  result:=true;
+end;
+
+Procedure MineWait;
+Begin
+Repeat
+wait(100);
+CheckRandom;
+Until Not(GetColor(710,445)=Inventory)or(RFound)
+end;
+
+Procedure Mine;
+begin
+If(Room='Md')Then
+begin
+Repeat
+Room:='SW';
+GoToPortal;
+DetermineRoom;
+until(not(Room='Md'))
+end;
+Repeat
+If(not(Room='Md'))Then
+begin
+Repeat
+MoveMouseSmooth(90+random(420),25+random(305));
+Wait(100+random(140));
+until(IsTextat2(9,9,'Mine',100))
+If(IsTextat2(9,9,'Mine',100))Then
+Begin
+Wait(200+random(140));
+GetMousePos(x,y);
+ClickMouse(x,y,True);
+FlagPause;
+MineWait;
+end;
+end;
+Until Not(GetColor(710,445)=Inventory)or(FightFoundd)
+end;
+
+procedure SetupJgsi;
+begin
+ LoadChars('');
+ SetMouseMode(false);
+ LoadBMP;
+ LoadBmpsNow;
+ StartTime:=GetSystemTime;
+ OpenInv;
+ LampSkill:=LampSkil;
+end;
+
+procedure BoxSetup;
+begin
+ldbmp;
+foundboxcount:= 0;
+end;
+
+begin
+SetupJgsi;
+BoxSetup;
+FixChat;
+Openinv;
+Inventory:=GetColor(710,445);
+repeat
+GoToMines;
+DetermineRoom;
+Mine;
+GotoBank;
+Bankstuff;
+until(x=100000000)
+end.
