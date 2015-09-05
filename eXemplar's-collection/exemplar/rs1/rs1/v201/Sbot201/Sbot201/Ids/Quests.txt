@@ -1,0 +1,50 @@
+0: Black knight's fortress
+1: Cook's assistant
+2: Demon slayer
+3: Doric's quest
+4: The restless ghost
+5: Goblin diplomacy
+6: Ernest the chicken
+7: Imp catcher
+8: Pirate's treasure
+9: Prince Ali rescue
+10: Romeo & Juliet
+11: Sheep shearer
+12: Shield of Arrav
+13: The knight's sword
+14: Vampire slayer
+15: Witch's potion
+16: Dragon slayer
+17: Witch's house
+18: Lost city
+19: Hero's quest
+20: Druidic ritual
+21: Merlin's crystal
+22: Scorpion catcher
+23: Family crest
+24: Tribal totem
+25: Fishing contest
+26: Monk's friend
+27: Temple of Ikov
+28: Clock tower
+29: The Holy Grail
+30: Fight Arena
+31: Tree Gnome Village
+32: The Hazeel Cult
+33: Sheep Herder
+34: Plague City
+35: Sea Slug
+36: Waterfall quest
+37: Biohazard
+38: Jungle potion
+39: Grand tree
+40: Shilo village
+41: Underground pass
+42: Observatory quest
+43: Tourist trap
+44: Watchtower
+45: Dwarf Cannon
+46: Murder Mystery
+47: Digsite
+48: Gertrude's Cat
+49: Legend's Quest

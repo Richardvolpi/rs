@@ -1,0 +1,15 @@
+*start*
+IfInvIsEmptyGoto(*empty*)
+IfInvIsFullGoto(*fullinv*)
+DisplayMessage(Inv is neither full nor emptys)
+goto(*start*)
+
+
+*fullinv*
+DisplayMessage(fullinv)
+goto(*fullinv*)
+
+
+*empty*
+DisplayMessage(empty)
+goto(*empty*)
